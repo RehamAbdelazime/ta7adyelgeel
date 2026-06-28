@@ -1,5 +1,6 @@
 import type { CitizenRuntime } from '../citizens/citizen-types';
 import { DEFAULT_RUNTIME_GAME_CONFIG, MINI_GAME_IDS, type RuntimeGameConfig } from '../config/runtime-game-config';
+import { MINI_GAME_REGISTRY, MINI_GAME_BY_ID } from '../minigames/minigame-registry';
 import { EMPTY_TOUR_AWARDS, type TourAward, type TourAwardsSnapshot, type TourAwardWinner, type TourPlayerStats, type TourScoreboardRow } from '../awards/tour-awards';
 import { CHAOS_EVENTS, ChaosEventService } from '../chaos/chaos-event-service';
 import type { ChaosEventDefinition } from '../chaos/chaos-types';
@@ -1630,19 +1631,15 @@ export class GameStore {
   }
 
   private getMiniGameTranslationKey(action: 'started' | 'answerWindowOpen' | 'answerWindowLocked' | 'resultFeed' | 'noAnswers' | 'scoringApplied'): TranslationKey {
-    const prefixByGame: Record<MiniGameId, string> = {
-      'true-fake': 'minigame.trueFake',
-      'shape-count': 'minigame.shapeCount',
-      'memory-count': 'minigame.memoryCount',
-      'food-origin': 'minigame.foodOrigin',
-      'couple-or-siblings': 'minigame.coupleOrSiblings',
-      'guess-logo': 'minigame.guessLogo',
-      'maze-gates': 'minigame.mazeGates',
-      'hangman': 'minigame.hangman',
-      'count-the-beat': 'minigame.countTheBeat',
-      'lucky-cup': 'minigame.luckyCup',
-      'before-after': 'minigame.beforeAfter',
-    };
+    // Derive prefix from titleKey in the registry (e.g. 'minigame.foodOrigin.title' → 'minigame.foodOrigin')
+    const entry = MINI_GAME_BY_ID[this.activeMiniGameId];
+    const prefixByGame: Partial<Record<MiniGameId, string>> = entry
+      ? { [entry.id]: entry.titleKey.replace(/\.title$/, '') }
+      : {};
+    // Fallback: build full map from registry for any game
+    for (const g of MINI_GAME_REGISTRY) {
+      prefixByGame[g.id] = g.titleKey.replace(/\.title$/, '');
+    }
 
     return `${prefixByGame[this.activeMiniGameId]}.${action}` as TranslationKey;
   }

@@ -1,4 +1,5 @@
 import type { MiniGameId, MiniGameScoreAward } from '../minigames/minigame-types';
+import { MINI_GAME_IDS, PICKER_MINI_GAME_IDS } from '../minigames/minigame-registry';
 import type { TourPhase } from '../tours/tour-types';
 
 export type RuntimeGameConfig = {
@@ -27,15 +28,8 @@ export type RuntimeGameConfig = {
   };
 };
 
-export const MINI_GAME_IDS: MiniGameId[] = [
-  'food-origin',
-  'shape-count',
-  'maze-gates',
-  'before-after',
-  'guess-logo',
-  'count-the-beat',
-  'lucky-cup',
-];
+// MINI_GAME_IDS and PICKER_MINI_GAME_IDS are imported from minigame-registry.ts
+export { MINI_GAME_IDS, PICKER_MINI_GAME_IDS };
 
 export const DEFAULT_RUNTIME_GAME_CONFIG: RuntimeGameConfig = {
   version: 1,
@@ -43,8 +37,8 @@ export const DEFAULT_RUNTIME_GAME_CONFIG: RuntimeGameConfig = {
     defaultRoundCount: 3,
     minRoundCount: 1,
     maxRoundCount: 12,
-    miniGameRotation: MINI_GAME_IDS,
-    enabledMiniGames: MINI_GAME_IDS,
+    miniGameRotation: PICKER_MINI_GAME_IDS,
+    enabledMiniGames: PICKER_MINI_GAME_IDS,
     singleMiniGameRoundCounts: {
       'food-origin': 3,
       'shape-count': 3,

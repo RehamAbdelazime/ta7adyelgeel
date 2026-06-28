@@ -117,19 +117,9 @@ export function getShapeIcon(shape: ShapeCountShapeId): string {
 
 export function getMiniGameTitle(miniGameId: MiniGameId | null, locale: 'en' | 'ar'): string | null {
   if (!miniGameId) return null;
-  const keys: Partial<Record<MiniGameId, TranslationKey>> = {
-    'true-fake': 'minigame.trueFake.title',
-    'shape-count': 'minigame.shapeCount.title',
-    'memory-count': 'minigame.memoryCount.title',
-    'food-origin': 'minigame.foodOrigin.title',
-    'guess-logo': 'minigame.guessLogo.title',
-    'maze-gates': 'minigame.mazeGates.title',
-    hangman: 'minigame.hangman.title',
-    'couple-or-siblings': 'minigame.coupleOrSiblings.title',
-  };
-  const key = keys[miniGameId];
-  if (!key) return miniGameId;
-  return translationsForLookup[locale]?.[key] ?? translationsForLookup.en[key] ?? miniGameId;
+  const entry = MINI_GAME_BY_ID[miniGameId];
+  if (!entry) return miniGameId;
+  return translationsForLookup[locale]?.[entry.titleKey] ?? translationsForLookup.en[entry.titleKey] ?? miniGameId;
 }
 
 export function getCorrectAnswerText(miniGame: MiniGameSnapshot, t?: TranslateFn): string {
@@ -158,4 +148,5 @@ export function getPhaseHelper(phase: TourPhase, t: TranslateFn): string {
   if (phase === 'tour_starting') return t('gameplay.helper.phase.tourStarting');
   if (phase === 'scoring') return t('gameplay.helper.phase.scoring');
   return t('gameplay.helper.phase.wait');
-}
+}import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-registry';
+

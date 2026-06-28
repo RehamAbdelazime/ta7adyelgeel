@@ -1,27 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
+import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
 
 type PlayPickerStep = 'mode' | 'mini-game-grid' | 'tour-grid';
 
-type MiniGamePickerDefinition = {
-  id: MiniGameId;
-  titleKey: TranslationKey;
-  noteKey: TranslationKey;
-};
-
-// All playable mini-games — add new games here when created
-const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = [
-  { id: 'food-origin',    titleKey: 'minigame.foodOrigin.title',    noteKey: 'minigame.foodOrigin.note' },
-  { id: 'shape-count',    titleKey: 'minigame.shapeCount.title',    noteKey: 'minigame.shapeCount.note' },
-  { id: 'maze-gates',     titleKey: 'minigame.mazeGates.title',     noteKey: 'minigame.mazeGates.note' },
-  { id: 'before-after',   titleKey: 'minigame.beforeAfter.title',   noteKey: 'minigame.beforeAfter.note' },
-  { id: 'guess-logo',     titleKey: 'minigame.guessLogo.title',     noteKey: 'minigame.guessLogo.note' },
-  { id: 'count-the-beat', titleKey: 'minigame.countTheBeat.title',  noteKey: 'minigame.countTheBeat.note' },
-  { id: 'lucky-cup',      titleKey: 'minigame.luckyCup.title',      noteKey: 'minigame.luckyCup.note' },
-];
+// Derived from MINI_GAME_REGISTRY — never hardcoded here
+const MINI_GAME_PICKER_DEFINITIONS = MINI_GAME_REGISTRY.filter((g) => g.visibleInPicker);
 
 function uniqueMiniGames(miniGames: MiniGamePickerDefinition[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
@@ -107,7 +94,7 @@ export function PlayLauncher() {
     });
   };
 
-  const getMiniGameText = (miniGame: MiniGamePickerDefinition) => {
+  const getMiniGameText = (miniGame: typeof MINI_GAME_PICKER_DEFINITIONS[number]) => {
     return { title: t(miniGame.titleKey), note: t(miniGame.noteKey) };
   };
 

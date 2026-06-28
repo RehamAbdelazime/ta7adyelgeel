@@ -94,20 +94,11 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
 function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
   const { actions } = useGame();
   const t = useTranslation();
-  const stepsByGame: Record<MiniGameSnapshot['id'], TranslationKey[]> = {
-    'shape-count': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
-    'true-fake': ['gameplay.intro.trueFake.step1', 'gameplay.intro.trueFake.step2', 'gameplay.intro.trueFake.step3'],
-    'memory-count': ['gameplay.intro.memory.step1', 'gameplay.intro.memory.step2', 'gameplay.intro.memory.step3'],
-    'food-origin': ['gameplay.intro.food.step1', 'gameplay.intro.food.step2', 'gameplay.intro.food.step3'],
-    'couple-or-siblings': ['gameplay.intro.pair.step1', 'gameplay.intro.pair.step2', 'gameplay.intro.pair.step3'],
-    'guess-logo': ['gameplay.intro.logo.step1', 'gameplay.intro.logo.step2', 'gameplay.intro.logo.step3'],
-    'maze-gates': ['gameplay.intro.maze.step1', 'gameplay.intro.maze.step2', 'gameplay.intro.maze.step3'],
-    hangman: ['gameplay.intro.hangman.step1', 'gameplay.intro.hangman.step2', 'gameplay.intro.hangman.step3'],
-    'count-the-beat': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
-    'lucky-cup': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
-    'before-after': ['gameplay.intro.beforeAfter.step1', 'gameplay.intro.beforeAfter.step2', 'gameplay.intro.beforeAfter.step3'],
-  };
-  const steps = stepsByGame[miniGame.id];
+  const steps = MINI_GAME_BY_ID[miniGame.id]?.introSteps ?? [
+    'gameplay.intro.shape.step1' as TranslationKey,
+    'gameplay.intro.shape.step2' as TranslationKey,
+    'gameplay.intro.shape.step3' as TranslationKey,
+  ];
 
   return (
     <div className="gameplay-intro-card">
@@ -153,26 +144,9 @@ function AnswersLockedScreen({ miniGame }: { miniGame: MiniGameSnapshot }) {
 }
 
 function MiniGamePlayScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
-  switch (miniGame.id) {
-    case 'lucky-cup':
-      return <LuckyCupScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'shape-count':
-      return <ShapeCountScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'memory-count':
-      return <MemoryCountScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'food-origin':
-      return <FoodOriginScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'couple-or-siblings':
-      return <CoupleOrSiblingsScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'guess-logo':
-      return <GuessLogoScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'maze-gates':
-      return <MazeGatesScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    case 'before-after':
-      return <BeforeOrAfterScreen miniGame={miniGame} tourPhase={tourPhase} />;
-    default:
-      return null;
-  }
+  const Screen = MINI_GAME_SCREENS[miniGame.id];
+  if (!Screen) return null;
+  return <Screen miniGame={miniGame} tourPhase={tourPhase} />;
 }
 
 function MainScreenGameplayOverlay({

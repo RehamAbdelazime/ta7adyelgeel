@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { HostChaosMode } from '../../../game-core/app/game-snapshot';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
-import { MINI_GAME_IDS } from '../../../game-core/config/runtime-game-config';
+import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import { getTourPhaseTitleKey } from '../../../game-core';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
@@ -9,11 +9,7 @@ import { DeveloperQaPanel } from './DeveloperQaPanel';
 
 type HostTab = 'tour' | 'minigames' | 'chaos' | 'players' | 'qa';
 
-const MINI_GAMES: { id: MiniGameId; label: string; note: string }[] = MINI_GAME_IDS.map((id) => ({
-  id,
-  label: id.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-  note: '',
-}));
+const MINI_GAMES = MINI_GAME_REGISTRY;
 
 const CHAOS_MODES: { id: HostChaosMode; label: string; note: string }[] = [
   { id: 'off', label: 'Off', note: 'No random modifiers' },

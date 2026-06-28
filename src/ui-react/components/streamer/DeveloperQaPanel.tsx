@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
-import { MINI_GAME_IDS } from '../../../game-core/config/runtime-game-config';
+import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import type { TwitchChatMessage } from '../../../game-core/twitch/twitch-message-types';
 import { useGame } from '../../context/GameContext';
 import { useMotionTuning } from '../../context/MotionTuningContext';
@@ -68,10 +68,7 @@ const CHARACTER_OPTIONS: { id: QaCharacterSelection; label: string }[] = [
   { id: 'stage_chef', label: 'Chef' },
 ];
 
-const MINI_GAME_QUICK_FORCE: { id: MiniGameId; label: string }[] = MINI_GAME_IDS.map((id) => ({
-  id,
-  label: id.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
-}));
+const MINI_GAME_QUICK_FORCE = MINI_GAME_REGISTRY;
 
 export function DeveloperQaPanel() {
   const { actions, snapshot } = useGame();

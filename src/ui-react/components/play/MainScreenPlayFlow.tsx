@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
+import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import type { TwitchChatMessage } from '../../../game-core/twitch/twitch-message-types';
 import { useGame } from '../../context/GameContext';
