@@ -31,12 +31,13 @@ function getMiniGameCardBackground(miniGameId: MiniGameId): string {
 }
 
 const MINI_GAME_CARDS: MiniGameCardDefinition[] = [
-  { id: 'food-origin', icon: '🍔', titleKey: 'minigame.foodOrigin.title', noteKey: 'minigame.foodOrigin.note', speed: 'Fast', rounds: 3 },
-  { id: 'shape-count', icon: '🎬', titleKey: 'minigame.shapeCount.title', noteKey: 'minigame.shapeCount.note', speed: 'Normal', rounds: 3 },
-  { id: 'maze-gates', icon: '🧠', titleKey: 'minigame.mazeGates.title', noteKey: 'minigame.mazeGates.note', speed: 'Normal', rounds: 3 },
-  { id: 'guess-logo', icon: '✨', titleKey: 'minigame.guessLogo.title', noteKey: 'minigame.guessLogo.note', speed: 'Fast', rounds: 3 },
-  { id: 'count-the-beat', icon: '🎵', titleKey: 'minigame.countTheBeat.title', noteKey: 'minigame.countTheBeat.note', speed: 'Fast', rounds: 3 },
-  { id: 'lucky-cup', icon: '🥤', titleKey: 'minigame.luckyCup.title', noteKey: 'minigame.luckyCup.note', speed: 'Fast', rounds: 3 },
+  { id: 'food-origin',    icon: '🍔', titleKey: 'minigame.foodOrigin.title',    noteKey: 'minigame.foodOrigin.note',    speed: 'Fast',   rounds: 3 },
+  { id: 'shape-count',    icon: '🎬', titleKey: 'minigame.shapeCount.title',    noteKey: 'minigame.shapeCount.note',    speed: 'Normal', rounds: 3 },
+  { id: 'maze-gates',     icon: '🧠', titleKey: 'minigame.mazeGates.title',     noteKey: 'minigame.mazeGates.note',     speed: 'Normal', rounds: 3 },
+  { id: 'before-after',   icon: '⏳', titleKey: 'minigame.beforeAfter.title',   noteKey: 'minigame.beforeAfter.note',   speed: 'Normal', rounds: 3 },
+  { id: 'guess-logo',     icon: '✨', titleKey: 'minigame.guessLogo.title',     noteKey: 'minigame.guessLogo.note',     speed: 'Fast',   rounds: 3 },
+  { id: 'count-the-beat', icon: '🎵', titleKey: 'minigame.countTheBeat.title',  noteKey: 'minigame.countTheBeat.note',  speed: 'Fast',   rounds: 3 },
+  { id: 'lucky-cup',      icon: '🥤', titleKey: 'minigame.luckyCup.title',      noteKey: 'minigame.luckyCup.note',      speed: 'Fast',   rounds: 3 },
 ];
 
 function uniqueMiniGames(miniGames: MiniGameCardDefinition[]): MiniGameId[] {
@@ -47,11 +48,7 @@ export function MainScreenPlayFlow() {
   const { actions, snapshot } = useGame();
   const t = useTranslation();
   const [step, setStep] = useState<ScreenStep>('home');
-  const availableMiniGames = useMemo(() => {
-    const enabled = new Set(snapshot.hostSettings.enabledMiniGameIds);
-    const filtered = MINI_GAME_CARDS.filter((miniGame) => enabled.has(miniGame.id));
-    return filtered.length > 0 ? filtered : MINI_GAME_CARDS;
-  }, [snapshot.hostSettings.enabledMiniGameIds]);
+  const availableMiniGames = MINI_GAME_CARDS;
   const [selectedTourMiniGames, setSelectedTourMiniGames] = useState<MiniGameId[]>([]);
   const canStart = snapshot.tour.canStartTour && snapshot.citizens.some((citizen) => citizen.role === 'official');
 
