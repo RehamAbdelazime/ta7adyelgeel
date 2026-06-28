@@ -648,7 +648,6 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     "gameplay.intro.beforeAfter.step1": "حاجتين هيظهروا قدامك",
     "gameplay.intro.beforeAfter.step2": "اختار اللي ظهر أو اتعمل الأول",
     "gameplay.intro.beforeAfter.step3": "اكتب !1 أو !2 في الشات",
-    "gameplay.intro.trueFake.step3": "جاوب بـ !1 أو !2",
     "gameplay.liveAnswers": "إجابات لايف",
     "gameplay.liveShow": "لايف شو",
     "gameplay.logo.correctLogo": "اللوجو الصح: {{answer}}",
