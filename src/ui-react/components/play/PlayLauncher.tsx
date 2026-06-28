@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
-import { MINI_GAME_IDS } from '../../../game-core/config/runtime-game-config';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
@@ -13,41 +12,16 @@ type MiniGamePickerDefinition = {
   noteKey: TranslationKey;
 };
 
-const MINI_GAME_TITLE_KEYS: Partial<Record<MiniGameId, TranslationKey>> = {
-  'food-origin':    'minigame.foodOrigin.title',
-  'shape-count':    'minigame.shapeCount.title',
-  'maze-gates':     'minigame.mazeGates.title',
-  'before-after':   'minigame.beforeAfter.title',
-  'guess-logo':     'minigame.guessLogo.title',
-  'count-the-beat': 'minigame.countTheBeat.title',
-  'lucky-cup':      'minigame.luckyCup.title',
-  'true-fake':      'minigame.trueFake.title',
-  'memory-count':   'minigame.memoryCount.title',
-  'hangman':        'minigame.hangman.title',
-  'couple-or-siblings': 'minigame.coupleOrSiblings.title',
-};
-
-const MINI_GAME_NOTE_KEYS: Partial<Record<MiniGameId, TranslationKey>> = {
-  'food-origin':    'minigame.foodOrigin.note',
-  'shape-count':    'minigame.shapeCount.note',
-  'maze-gates':     'minigame.mazeGates.note',
-  'before-after':   'minigame.beforeAfter.note',
-  'guess-logo':     'minigame.guessLogo.note',
-  'count-the-beat': 'minigame.countTheBeat.note',
-  'lucky-cup':      'minigame.luckyCup.note',
-  'true-fake':      'minigame.trueFake.note',
-  'memory-count':   'minigame.memoryCount.note',
-  'hangman':        'minigame.hangman.note',
-  'couple-or-siblings': 'minigame.coupleOrSiblings.note',
-};
-
-const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = MINI_GAME_IDS
-  .filter((id) => MINI_GAME_TITLE_KEYS[id] !== undefined)
-  .map((id) => ({
-    id,
-    titleKey: MINI_GAME_TITLE_KEYS[id]!,
-    noteKey: MINI_GAME_NOTE_KEYS[id] ?? 'minigame.foodOrigin.note',
-  }));
+// All playable mini-games — add new games here when created
+const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = [
+  { id: 'food-origin',    titleKey: 'minigame.foodOrigin.title',    noteKey: 'minigame.foodOrigin.note' },
+  { id: 'shape-count',    titleKey: 'minigame.shapeCount.title',    noteKey: 'minigame.shapeCount.note' },
+  { id: 'maze-gates',     titleKey: 'minigame.mazeGates.title',     noteKey: 'minigame.mazeGates.note' },
+  { id: 'before-after',   titleKey: 'minigame.beforeAfter.title',   noteKey: 'minigame.beforeAfter.note' },
+  { id: 'guess-logo',     titleKey: 'minigame.guessLogo.title',     noteKey: 'minigame.guessLogo.note' },
+  { id: 'count-the-beat', titleKey: 'minigame.countTheBeat.title',  noteKey: 'minigame.countTheBeat.note' },
+  { id: 'lucky-cup',      titleKey: 'minigame.luckyCup.title',      noteKey: 'minigame.luckyCup.note' },
+];
 
 function uniqueMiniGames(miniGames: MiniGamePickerDefinition[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
@@ -59,11 +33,7 @@ export function PlayLauncher() {
   const [isOpen, setIsOpen] = useState(false);
   const [isBursting, setIsBursting] = useState(false);
   const [pickerStep, setPickerStep] = useState<PlayPickerStep>('mode');
-  const availableMiniGames = useMemo(() => {
-    const enabled = new Set(snapshot.hostSettings.enabledMiniGameIds);
-    const filtered = MINI_GAME_PICKER_DEFINITIONS.filter((miniGame) => enabled.has(miniGame.id));
-    return filtered.length > 0 ? filtered : MINI_GAME_PICKER_DEFINITIONS;
-  }, [snapshot.hostSettings.enabledMiniGameIds]);
+  const availableMiniGames = MINI_GAME_PICKER_DEFINITIONS;
   const [selectedTourMiniGames, setSelectedTourMiniGames] = useState<MiniGameId[]>([]);
   const canStart = snapshot.tour.canStartTour && snapshot.citizens.some((citizen) => citizen.role === 'official');
   const shouldShow = !snapshot.tour.isTourActive && !snapshot.tour.isCleanupActive;
