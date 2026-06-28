@@ -23,6 +23,7 @@ import { FoodOriginScreen } from './minigames/FoodOriginScreen';
 import { CoupleOrSiblingsScreen } from './minigames/CoupleOrSiblingsScreen';
 import { GuessLogoScreen } from './minigames/GuessLogoScreen';
 import { MazeGatesScreen } from './minigames/MazeGatesScreen';
+import { BeforeOrAfterScreen } from './minigames/BeforeOrAfterScreen';
 import { HangmanScreen } from './minigames/HangmanScreen';
 
 export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | 'minigame' } = {}) {
@@ -104,7 +105,7 @@ function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
     hangman: ['gameplay.intro.hangman.step1', 'gameplay.intro.hangman.step2', 'gameplay.intro.hangman.step3'],
     'count-the-beat': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
     'lucky-cup': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
-    'before-after': ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
+    'before-after': ['gameplay.intro.beforeAfter.step1', 'gameplay.intro.beforeAfter.step2', 'gameplay.intro.beforeAfter.step3'],
   };
   const steps = stepsByGame[miniGame.id];
 
@@ -167,6 +168,8 @@ function MiniGamePlayScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapsho
       return <GuessLogoScreen miniGame={miniGame} tourPhase={tourPhase} />;
     case 'maze-gates':
       return <MazeGatesScreen miniGame={miniGame} tourPhase={tourPhase} />;
+    case 'before-after':
+      return <BeforeOrAfterScreen miniGame={miniGame} tourPhase={tourPhase} />;
     default:
       return null;
   }

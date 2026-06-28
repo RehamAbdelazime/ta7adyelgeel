@@ -27,6 +27,7 @@ import {
 import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, GuessLogoAnswer, HangmanAnswer, MazeGateAnswer, MemoryCountAnswer, MiniGameId, MiniGameScoreAward, ShapeCountAnswer, ShapeCountShapeId, TrueFakeAnswer } from '../minigames/minigame-types';
 import { CountTheBeatMiniGameService } from '../minigames/count-the-beat/count-the-beat-service';
 import { LuckyCupMiniGameService } from '../minigames/lucky-cup/lucky-cup-service';
+import { BeforeOrAfterMiniGameService } from '../minigames/before-or-after/before-or-after-service';
 import { ProfileService } from '../profiles/profile-service';
 import { ProgressionService } from '../progression/progression-service';
 import type { CommandUnlockDefinition } from '../progression/progression-types';
@@ -90,6 +91,7 @@ export class GameStore {
   private readonly guessLogoMiniGame = new GuessLogoMiniGameService();
   private readonly mazeGatesMiniGame = new MazeGatesMiniGameService();
   private readonly hangmanMiniGame = new HangmanMiniGameService();
+  private readonly beforeOrAfterMiniGame = new BeforeOrAfterMiniGameService();
   private runtimeConfig: RuntimeGameConfig;
   private activeMiniGameId: MiniGameId = 'food-origin';
   private activeSessionMode: ActiveSessionMode = null;
@@ -423,6 +425,7 @@ export class GameStore {
     this.guessLogoMiniGame.beginTour();
     this.mazeGatesMiniGame.beginTour();
     this.hangmanMiniGame.beginTour();
+    this.beforeOrAfterMiniGame.beginTour();
 
     this.activeSessionMode = sessionMode;
     const result = this.tourStateMachine.startTour(plannedRoundCount);
@@ -1443,7 +1446,7 @@ export class GameStore {
     return queue.slice(0, roundCount);
   }
 
-  private getActiveMiniGameService(): TrueFakeMiniGameService | ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | CoupleOrSiblingsMiniGameService | GuessLogoMiniGameService | MazeGatesMiniGameService | HangmanMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService {
+  private getActiveMiniGameService(): TrueFakeMiniGameService | ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | BeforeOrAfterMiniGameService | CoupleOrSiblingsMiniGameService | GuessLogoMiniGameService | MazeGatesMiniGameService | HangmanMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService {
     switch (this.activeMiniGameId) {
       case 'shape-count':
         return this.shapeCountMiniGame;
@@ -1463,6 +1466,8 @@ export class GameStore {
         return this.mazeGatesMiniGame;
       case 'hangman':
         return this.hangmanMiniGame;
+      case 'before-after':
+        return this.beforeOrAfterMiniGame;
       case 'true-fake':
       default:
         return this.trueFakeMiniGame;

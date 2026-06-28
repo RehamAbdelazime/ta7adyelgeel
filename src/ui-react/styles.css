@@ -23301,3 +23301,161 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
   font-weight: bold !important;
 }
 
+
+
+/* ================================================================
+   BEFORE OR AFTER MINI-GAME
+   Two large side-by-side cards — player picks which came first
+   ================================================================ */
+
+.gameplay-before-after-shell {
+  width: 100% !important;
+  height: 100% !important;
+  display: grid !important;
+  grid-template-rows: auto 1fr !important;
+  grid-template-columns: 1fr !important;
+  padding: clamp(12px, 1.2vh, 20px) clamp(16px, 1.5vw, 28px) !important;
+  gap: clamp(12px, 1.2vh, 20px) !important;
+  position: relative !important;
+  direction: inherit !important;
+}
+
+.gameplay-before-after-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+}
+
+.gameplay-before-after-question {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(20px, 1.8vw, 36px) !important;
+  color: #fff !important;
+  text-align: center !important;
+  text-shadow: 0 4px 0 rgba(0,0,0,.5), 0 0 18px rgba(255,255,255,.25) !important;
+  letter-spacing: .04em !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.gameplay-before-after-helper {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(14px, 1.1vw, 22px) !important;
+  color: rgba(180, 240, 255, 0.8) !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* Two cards container */
+.gameplay-before-after-cards {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: clamp(16px, 2vw, 36px) !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  position: relative !important;
+}
+
+/* VS badge — absolute in the middle */
+.gameplay-before-after-vs {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(4, 12, 34, 0.95) !important;
+  border: 2px solid rgba(45, 244, 255, 0.55) !important;
+  border-radius: 50% !important;
+  width: clamp(40px, 4vw, 64px) !important;
+  height: clamp(40px, 4vw, 64px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(14px, 1.3vw, 24px) !important;
+  color: #9ff8ff !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  text-shadow: 0 0 12px rgba(45, 244, 255, 0.6) !important;
+  box-shadow: 0 0 18px rgba(45, 244, 255, 0.25) !important;
+}
+
+/* Individual card */
+.gameplay-before-after-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(12px, 1.2vh, 20px) !important;
+  padding: clamp(16px, 1.5vw, 28px) !important;
+  border-radius: clamp(16px, 1.3vw, 26px) !important;
+  background: linear-gradient(160deg, rgba(4, 14, 40, 0.92), rgba(0, 6, 22, 0.88)) !important;
+  border: 2px solid rgba(45, 244, 255, 0.35) !important;
+  box-shadow:
+    0 0 32px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(45, 244, 255, 0.08),
+    inset 0 0 22px rgba(0, 0, 0, 0.42) !important;
+  cursor: default !important;
+  transition: border-color 0.25s, box-shadow 0.25s !important;
+  min-height: 0 !important;
+  position: relative !important;
+}
+
+/* Command badge */
+.gameplay-before-after-cmd {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(22px, 2vw, 40px) !important;
+  color: rgba(45, 244, 255, 0.9) !important;
+  background: rgba(45, 244, 255, 0.1) !important;
+  border: 1.5px solid rgba(45, 244, 255, 0.35) !important;
+  border-radius: 10px !important;
+  padding: 4px 16px !important;
+  letter-spacing: .06em !important;
+  text-shadow: 0 0 12px rgba(45, 244, 255, 0.5) !important;
+}
+
+/* Choice label */
+.gameplay-before-after-label {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(24px, 2.4vw, 52px) !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  text-shadow: 0 3px 0 rgba(0,0,0,.55), 0 0 16px rgba(255,255,255,.2) !important;
+  letter-spacing: .03em !important;
+  line-height: 1.15 !important;
+  word-break: break-word !important;
+}
+
+/* Correct card */
+.gameplay-before-after-card--correct {
+  border-color: rgba(102, 255, 153, 0.85) !important;
+  background: linear-gradient(160deg, rgba(4, 40, 18, 0.92), rgba(0, 22, 8, 0.88)) !important;
+  box-shadow:
+    0 0 40px rgba(102, 255, 153, 0.3),
+    0 0 18px rgba(102, 255, 153, 0.15),
+    inset 0 0 22px rgba(0, 0, 0, 0.42) !important;
+}
+
+.gameplay-before-after-card--correct .gameplay-before-after-label {
+  color: #afffcb !important;
+  text-shadow: 0 3px 0 rgba(0,0,0,.55), 0 0 20px rgba(102, 255, 153, 0.5) !important;
+}
+
+/* Wrong card (dimmed) */
+.gameplay-before-after-card--wrong {
+  border-color: rgba(255, 80, 80, 0.35) !important;
+  opacity: 0.6 !important;
+}
+
+/* Correct badge shown on winner */
+.gameplay-before-after-badge {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif !important;
+  font-size: clamp(14px, 1.1vw, 22px) !important;
+  color: #afffcb !important;
+  background: rgba(102, 255, 153, 0.15) !important;
+  border: 1.5px solid rgba(102, 255, 153, 0.55) !important;
+  border-radius: 999px !important;
+  padding: 4px 14px !important;
+  text-shadow: 0 0 10px rgba(102, 255, 153, 0.5) !important;
+}
+
