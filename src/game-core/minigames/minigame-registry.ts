@@ -28,8 +28,8 @@ export type MiniGameRegistryEntry = {
   readonly titleKey: TranslationKey;
   /** Translation key for the short picker description */
   readonly noteKey: TranslationKey;
-  /** Translation key for the longer description */
-  readonly descriptionKey: TranslationKey;
+  /** Description string (free text, not in TranslationKey union) */
+  readonly descriptionKey: string;
   /** Three intro instruction steps shown before the round starts */
   readonly introSteps: readonly [TranslationKey, TranslationKey, TranslationKey];
   /** Pace shown in the picker */

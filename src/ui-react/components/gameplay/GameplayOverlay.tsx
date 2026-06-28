@@ -25,6 +25,8 @@ import { GuessLogoScreen } from './minigames/GuessLogoScreen';
 import { MazeGatesScreen } from './minigames/MazeGatesScreen';
 import { BeforeOrAfterScreen } from './minigames/BeforeOrAfterScreen';
 import { HangmanScreen } from './minigames/HangmanScreen';
+import { MINI_GAME_BY_ID } from '../../../game-core/minigames/minigame-registry';
+import { MINI_GAME_SCREENS } from './minigames/minigame-screen-registry';
 
 export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | 'minigame' } = {}) {
   const { snapshot } = useGame();
@@ -94,11 +96,12 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
 function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
   const { actions } = useGame();
   const t = useTranslation();
-  const steps = MINI_GAME_BY_ID[miniGame.id]?.introSteps ?? [
-    'gameplay.intro.shape.step1' as TranslationKey,
-    'gameplay.intro.shape.step2' as TranslationKey,
-    'gameplay.intro.shape.step3' as TranslationKey,
+  const fallbackSteps: TranslationKey[] = [
+    'gameplay.intro.shape.step1',
+    'gameplay.intro.shape.step2',
+    'gameplay.intro.shape.step3',
   ];
+  const steps: TranslationKey[] = [...(MINI_GAME_BY_ID[miniGame.id]?.introSteps ?? fallbackSteps)];
 
   return (
     <div className="gameplay-intro-card">

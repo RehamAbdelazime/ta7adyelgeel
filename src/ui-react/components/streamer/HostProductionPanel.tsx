@@ -47,7 +47,7 @@ export function HostProductionPanel() {
   const hostStats = useMemo(() => [
     ['Tour', snapshot.tour.isTourActive ? `R${snapshot.tour.roundNumber}/${snapshot.tour.totalRounds}` : 'Lobby'],
     ['Phase', `${phaseLabel} Â· ${phaseSeconds}s`],
-    ['Game', currentMiniGame?.label ?? snapshot.miniGame.title],
+    ['Game', currentMiniGame ? t(currentMiniGame.titleKey) : snapshot.miniGame.title],
     ['Players', playerStatsLabel],
   ], [currentMiniGame, phaseLabel, phaseSeconds, playerStatsLabel, snapshot]);
 
@@ -169,8 +169,8 @@ function MiniGamesTab() {
                 onChange={(event) => actions.setMiniGameEnabled(miniGame.id, event.target.checked)}
               />
               <span>
-                <strong>{miniGame.label}</strong>
-                <small>{miniGame.note}</small>
+                <strong>{t(miniGame.titleKey)}</strong>
+                <small>{t(miniGame.noteKey)}</small>
               </span>
             </label>
             <button type="button" onClick={() => actions.setForcedNextMiniGame(miniGame.id)}>Force Next</button>

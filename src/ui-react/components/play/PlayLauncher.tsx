@@ -10,7 +10,7 @@ type PlayPickerStep = 'mode' | 'mini-game-grid' | 'tour-grid';
 // Derived from MINI_GAME_REGISTRY — never hardcoded here
 const MINI_GAME_PICKER_DEFINITIONS = MINI_GAME_REGISTRY.filter((g) => g.visibleInPicker);
 
-function uniqueMiniGames(miniGames: MiniGamePickerDefinition[]): MiniGameId[] {
+function uniqueMiniGames(miniGames: { id: MiniGameId }[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
 }
 
@@ -94,7 +94,7 @@ export function PlayLauncher() {
     });
   };
 
-  const getMiniGameText = (miniGame: typeof MINI_GAME_PICKER_DEFINITIONS[number]) => {
+  const getMiniGameText = (miniGame: { titleKey: TranslationKey; noteKey: TranslationKey }) => {
     return { title: t(miniGame.titleKey), note: t(miniGame.noteKey) };
   };
 

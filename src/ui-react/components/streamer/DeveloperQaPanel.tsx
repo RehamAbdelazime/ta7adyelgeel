@@ -320,7 +320,7 @@ export function DeveloperQaPanel() {
         <div className="developer-qa-force-grid">
           {MINI_GAME_QUICK_FORCE.map((miniGame) => (
             <button key={miniGame.id} type="button" onClick={() => forceNextMiniGame(miniGame.id)}>
-              Force {miniGame.label}
+              Force {miniGame.id}
             </button>
           ))}
         </div>
