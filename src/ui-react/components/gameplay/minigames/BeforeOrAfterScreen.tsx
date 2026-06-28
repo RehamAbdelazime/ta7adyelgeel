@@ -1,4 +1,4 @@
-import type { MiniGameSnapshot, BeforeOrAfterChoice } from '../../../../game-core/minigames/minigame-types';
+import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { getPhaseHelper } from '../shared/overlay-types';
