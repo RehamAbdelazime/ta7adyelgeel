@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import type { HostChaosMode } from '../../../game-core/app/game-snapshot';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
+import { MINI_GAME_IDS } from '../../../game-core/config/runtime-game-config';
 import { getTourPhaseTitleKey } from '../../../game-core';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
@@ -8,12 +9,11 @@ import { DeveloperQaPanel } from './DeveloperQaPanel';
 
 type HostTab = 'tour' | 'minigames' | 'chaos' | 'players' | 'qa';
 
-const MINI_GAMES: { id: MiniGameId; label: string; note: string }[] = [
-  { id: 'food-origin', label: 'Food Origin', note: 'Guess the country' },
-  { id: 'shape-count', label: 'Shape Count', note: 'Most repeated shape' },
-  { id: 'maze-gates', label: 'Maze Gates', note: 'Pick the right entrance' },
-  { id: 'guess-logo', label: 'Guess The Logo', note: 'Guess the brand clue' },
-];
+const MINI_GAMES: { id: MiniGameId; label: string; note: string }[] = MINI_GAME_IDS.map((id) => ({
+  id,
+  label: id.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' '),
+  note: '',
+}));
 
 const CHAOS_MODES: { id: HostChaosMode; label: string; note: string }[] = [
   { id: 'off', label: 'Off', note: 'No random modifiers' },

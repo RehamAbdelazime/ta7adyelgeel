@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
+import { MINI_GAME_IDS } from '../../../game-core/config/runtime-game-config';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
@@ -8,20 +9,45 @@ type PlayPickerStep = 'mode' | 'mini-game-grid' | 'tour-grid';
 
 type MiniGamePickerDefinition = {
   id: MiniGameId;
-  icon: string;
   titleKey: TranslationKey;
   noteKey: TranslationKey;
 };
 
-const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = [
-  { id: 'food-origin',   icon: '\u{1F35C}', titleKey: 'minigame.foodOrigin.title',   noteKey: 'minigame.foodOrigin.note' },
-  { id: 'shape-count',   icon: '\u{1F537}', titleKey: 'minigame.shapeCount.title',   noteKey: 'minigame.shapeCount.note' },
-  { id: 'maze-gates',    icon: '\u{1F300}', titleKey: 'minigame.mazeGates.title',    noteKey: 'minigame.mazeGates.note' },
-  { id: 'before-after',  icon: '\u{23F3}',  titleKey: 'minigame.beforeAfter.title',  noteKey: 'minigame.beforeAfter.note' },
-  { id: 'guess-logo',    icon: '\u{2728}',  titleKey: 'minigame.guessLogo.title',    noteKey: 'minigame.guessLogo.note' },
-  { id: 'count-the-beat',icon: '\u{1F3B5}', titleKey: 'minigame.countTheBeat.title', noteKey: 'minigame.countTheBeat.note' },
-  { id: 'lucky-cup',     icon: '\u{1F3B2}', titleKey: 'minigame.luckyCup.title',     noteKey: 'minigame.luckyCup.note' },
-];
+const MINI_GAME_TITLE_KEYS: Partial<Record<MiniGameId, TranslationKey>> = {
+  'food-origin':    'minigame.foodOrigin.title',
+  'shape-count':    'minigame.shapeCount.title',
+  'maze-gates':     'minigame.mazeGates.title',
+  'before-after':   'minigame.beforeAfter.title',
+  'guess-logo':     'minigame.guessLogo.title',
+  'count-the-beat': 'minigame.countTheBeat.title',
+  'lucky-cup':      'minigame.luckyCup.title',
+  'true-fake':      'minigame.trueFake.title',
+  'memory-count':   'minigame.memoryCount.title',
+  'hangman':        'minigame.hangman.title',
+  'couple-or-siblings': 'minigame.coupleOrSiblings.title',
+};
+
+const MINI_GAME_NOTE_KEYS: Partial<Record<MiniGameId, TranslationKey>> = {
+  'food-origin':    'minigame.foodOrigin.note',
+  'shape-count':    'minigame.shapeCount.note',
+  'maze-gates':     'minigame.mazeGates.note',
+  'before-after':   'minigame.beforeAfter.note',
+  'guess-logo':     'minigame.guessLogo.note',
+  'count-the-beat': 'minigame.countTheBeat.note',
+  'lucky-cup':      'minigame.luckyCup.note',
+  'true-fake':      'minigame.trueFake.note',
+  'memory-count':   'minigame.memoryCount.note',
+  'hangman':        'minigame.hangman.note',
+  'couple-or-siblings': 'minigame.coupleOrSiblings.note',
+};
+
+const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = MINI_GAME_IDS
+  .filter((id) => MINI_GAME_TITLE_KEYS[id] !== undefined)
+  .map((id) => ({
+    id,
+    titleKey: MINI_GAME_TITLE_KEYS[id]!,
+    noteKey: MINI_GAME_NOTE_KEYS[id] ?? 'minigame.foodOrigin.note',
+  }));
 
 function uniqueMiniGames(miniGames: MiniGamePickerDefinition[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
@@ -170,7 +196,6 @@ export function PlayLauncher() {
                   const text = getMiniGameText(miniGame);
                   return (
                     <button key={miniGame.id} className="play-mini-game-tile play-mini-game-tile-launch" type="button" onClick={() => launchMiniGame(miniGame.id)} disabled={!canStart}>
-                      <span className="play-mini-game-icon">{miniGame.icon}</span>
                       <strong>{text.title}</strong>
                       <small>{text.note}</small>
                       <em>START</em>
@@ -203,7 +228,6 @@ export function PlayLauncher() {
                       aria-pressed={selected}
                     >
                       {selected ? <span className="play-mini-game-order-badge" aria-hidden="true">{selectedOrder}</span> : null}
-                      <span className="play-mini-game-icon">{miniGame.icon}</span>
                       <strong>{text.title}</strong>
                       <small>{text.note}</small>
                       <em>{selected ? 'SELECTED' : 'SELECT'}</em>
