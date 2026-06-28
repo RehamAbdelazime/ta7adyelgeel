@@ -14,10 +14,13 @@ type MiniGamePickerDefinition = {
 };
 
 const MINI_GAME_PICKER_DEFINITIONS: MiniGamePickerDefinition[] = [
-  { id: 'food-origin', icon: '\u{1F35C}', titleKey: 'minigame.foodOrigin.title', noteKey: 'minigame.foodOrigin.note' },
-  { id: 'shape-count', icon: '\u{1F537}', titleKey: 'minigame.shapeCount.title', noteKey: 'minigame.shapeCount.note' },
-  { id: 'maze-gates', icon: '\u{1F300}', titleKey: 'minigame.mazeGates.title', noteKey: 'minigame.mazeGates.note' },
-  { id: 'guess-logo', icon: '\u{2728}', titleKey: 'minigame.guessLogo.title', noteKey: 'minigame.guessLogo.note' },
+  { id: 'food-origin',   icon: '\u{1F35C}', titleKey: 'minigame.foodOrigin.title',   noteKey: 'minigame.foodOrigin.note' },
+  { id: 'shape-count',   icon: '\u{1F537}', titleKey: 'minigame.shapeCount.title',   noteKey: 'minigame.shapeCount.note' },
+  { id: 'maze-gates',    icon: '\u{1F300}', titleKey: 'minigame.mazeGates.title',    noteKey: 'minigame.mazeGates.note' },
+  { id: 'before-after',  icon: '\u{23F3}',  titleKey: 'minigame.beforeAfter.title',  noteKey: 'minigame.beforeAfter.note' },
+  { id: 'guess-logo',    icon: '\u{2728}',  titleKey: 'minigame.guessLogo.title',    noteKey: 'minigame.guessLogo.note' },
+  { id: 'count-the-beat',icon: '\u{1F3B5}', titleKey: 'minigame.countTheBeat.title', noteKey: 'minigame.countTheBeat.note' },
+  { id: 'lucky-cup',     icon: '\u{1F3B2}', titleKey: 'minigame.luckyCup.title',     noteKey: 'minigame.luckyCup.note' },
 ];
 
 function uniqueMiniGames(miniGames: MiniGamePickerDefinition[]): MiniGameId[] {
