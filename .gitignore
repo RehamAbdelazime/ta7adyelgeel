@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Build/cache outputs
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+.cache/
+.temp/
+tmp/
+
+# Local portable runtime state
+live-content/
+update-cache/
+rollback/
+user-data/
+*.local.json
+.env
+.env.*
+!.env.example
+
+# Large generated release archives
+*.zip
+*.7z
+*.rar
+*.exe
+*.msi
+*.blockmap
+release/
+dist-release/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+package-lock.json

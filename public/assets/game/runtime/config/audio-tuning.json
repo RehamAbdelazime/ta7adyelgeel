@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "enabled": true,
+  "globalVolume": 1,
+  "tracks": {
+    "mainScreen": {
+      "src": "./assets/game/runtime/audio/main_screen_loop.mp3",
+      "volume": 0.32
+    },
+    "miniGame": {
+      "src": "./assets/game/runtime/audio/mini_game_loop.mp4",
+      "volume": 0.34
+    },
+    "curtain": {
+      "src": "./assets/game/runtime/audio/curtain_transition.mp3",
+      "volume": 0.78
+    }
+  },
+  "transitions": {
+    "backgroundFadeOutMs": 280,
+    "silenceBeforeCurtainMs": 140,
+    "curtainFadeInMs": 120,
+    "curtainFadeOutMs": 260,
+    "silenceAfterCurtainMs": 360,
+    "backgroundFadeInMs": 900,
+    "backgroundSceneSwapFadeMs": 650
+  }
+}

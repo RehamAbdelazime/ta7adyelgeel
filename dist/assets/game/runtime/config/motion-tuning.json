@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "curtain": {
+    "closeMs": 4700,
+    "openMs": 1150,
+    "audioDurationFallbackMs": 5850,
+    "openBeforeAudioEndMs": 1050,
+    "closedHoldAfterCloseMs": 160,
+    "blackoutFadeMs": 420,
+    "volume": 0.78
+  },
+  "citizens": {
+    "joinEnterMs": 620,
+    "walkPreTranslateMs": 320,
+    "sideToChoiceMs": 2600,
+    "defaultMoveMs": 1750,
+    "championWalkMs": 2700,
+    "championVictoryDelayMs": 3300,
+    "championVictoryLoopMs": 760,
+    "walkEasing": "cubic-bezier(.32,0,.18,1)",
+    "defaultEasing": "cubic-bezier(.24,.08,.22,1)"
+  }
+}

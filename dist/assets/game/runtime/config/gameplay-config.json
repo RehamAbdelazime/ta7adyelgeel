@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "tour": {
+    "defaultRoundCount": 3,
+    "minRoundCount": 1,
+    "maxRoundCount": 12,
+    "miniGameRotation": [
+      "food-origin",
+      "shape-count",
+      "maze-gates",
+      "guess-logo"
+    ],
+    "enabledMiniGames": [
+      "food-origin",
+      "shape-count",
+      "maze-gates",
+      "guess-logo",
+      "count-the-beat",
+      "before-or-after",
+      "lucky-cup"
+    ],
+    "phaseDurationsMs": {
+      "mini_game_intro": 0,
+      "tour_starting": 3000,
+      "answer_window_open": 20000,
+      "scoring": 0,
+      "tour_complete": 0,
+      "cleanup": 0
+    },
+    "miniGamePhaseOverridesMs": {},
+    "singleMiniGameRoundCounts": {
+      "food-origin": 3,
+      "shape-count": 3,
+      "maze-gates": 3,
+      "guess-logo": 3
+    }
+  },
+  "scoring": {
+    "officialParticipationXp": 20,
+    "officialParticipationCoins": 2,
+    "officialCorrectRewardByDifficulty": {
+      "easy": {
+        "xp": 40,
+        "coins": 6
+      },
+      "medium": {
+        "xp": 60,
+        "coins": 10
+      },
+      "hard": {
+        "xp": 90,
+        "coins": 16
+      }
+    }
+  },
+  "persistence": {
+    "saveDebounceMs": 250,
+    "maxTourHistoryEntries": 50
+  },
+  "qa": {
+    "maxTestPlayers": 72
+  }
+}
