@@ -8,15 +8,18 @@
       "food-origin",
       "shape-count",
       "maze-gates",
-      "guess-logo"
+      "before-after",
+      "guess-logo",
+      "count-the-beat",
+      "lucky-cup"
     ],
     "enabledMiniGames": [
       "food-origin",
       "shape-count",
       "maze-gates",
+      "before-after",
       "guess-logo",
       "count-the-beat",
-      "before-or-after",
       "lucky-cup"
     ],
     "phaseDurationsMs": {
@@ -32,7 +35,10 @@
       "food-origin": 3,
       "shape-count": 3,
       "maze-gates": 3,
-      "guess-logo": 3
+      "before-after": 3,
+      "guess-logo": 3,
+      "count-the-beat": 3,
+      "lucky-cup": 3
     }
   },
   "scoring": {
