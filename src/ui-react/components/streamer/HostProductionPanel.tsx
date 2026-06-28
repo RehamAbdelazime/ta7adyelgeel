@@ -149,6 +149,7 @@ function TourControlTab() {
 }
 
 function MiniGamesTab() {
+  const t = useTranslation();
   const { actions, snapshot } = useGame();
   const enabled = new Set(snapshot.hostSettings.enabledMiniGameIds);
 
