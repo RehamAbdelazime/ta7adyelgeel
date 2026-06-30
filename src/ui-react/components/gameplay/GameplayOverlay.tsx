@@ -15,16 +15,6 @@ import { QuestionScreenShell, ChoiceCard, ShapeMark, type QuestionChoiceItem } f
 import { ChoiceSpotlights } from './citizens/ChoiceSpotlights';
 import { CitizenPlazaOverlay } from './citizens/CitizenPlaza';
 import { RoundResult, RoundScoreBoard, RoundIntermissionScreen, TourCompleteSummary } from './scoreboard/Scoreboard';
-import { TrueFakeScreen } from './minigames/TrueFakeScreen';
-import { LuckyCupScreen } from './minigames/LuckyCupScreen';
-import { ShapeCountScreen } from './minigames/ShapeCountScreen';
-import { MemoryCountScreen } from './minigames/MemoryCountScreen';
-import { FoodOriginScreen } from './minigames/FoodOriginScreen';
-import { CoupleOrSiblingsScreen } from './minigames/CoupleOrSiblingsScreen';
-import { GuessLogoScreen } from './minigames/GuessLogoScreen';
-import { MazeGatesScreen } from './minigames/MazeGatesScreen';
-import { BeforeOrAfterScreen } from './minigames/BeforeOrAfterScreen';
-import { HangmanScreen } from './minigames/HangmanScreen';
 import { MINI_GAME_BY_ID } from '../../../game-core/minigames/minigame-registry';
 import { MINI_GAME_SCREENS } from './minigames/minigame-screen-registry';
 

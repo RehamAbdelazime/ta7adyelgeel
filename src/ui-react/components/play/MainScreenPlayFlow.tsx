@@ -9,14 +9,10 @@ import { useTranslation } from '../../i18n/useTranslation';
 
 type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 
-type MiniGameCardDefinition = {
-  id: MiniGameId;
-  icon: string;
-  titleKey: TranslationKey;
-  noteKey: TranslationKey;
-  speed: 'Fast' | 'Normal';
-  rounds: number;
-};
+// Derived from MINI_GAME_REGISTRY — never hardcoded here.
+// Adding/removing a game only requires editing minigame-registry.ts.
+const MINI_GAME_CARDS = MINI_GAME_REGISTRY.filter((g) => g.visibleInPicker);
+type MiniGameCardDefinition = typeof MINI_GAME_CARDS[number];
 
 type LiveChatItem = TwitchChatMessage & {
   id: string;
@@ -30,16 +26,6 @@ const LANDING_LOGO_EN = `${MODE_ASSET_ROOT}/ta7ady_landing_logo_en.png`;
 function getMiniGameCardBackground(miniGameId: MiniGameId): string {
   return miniGameId === 'shape-count' ? `${MODE_ASSET_ROOT}/shape_count_card_background.png` : FOOD_ORIGIN_CARD_BACKGROUND;
 }
-
-const MINI_GAME_CARDS: MiniGameCardDefinition[] = [
-  { id: 'food-origin',    icon: '🍔', titleKey: 'minigame.foodOrigin.title',    noteKey: 'minigame.foodOrigin.note',    speed: 'Fast',   rounds: 3 },
-  { id: 'shape-count',    icon: '🎬', titleKey: 'minigame.shapeCount.title',    noteKey: 'minigame.shapeCount.note',    speed: 'Normal', rounds: 3 },
-  { id: 'maze-gates',     icon: '🧠', titleKey: 'minigame.mazeGates.title',     noteKey: 'minigame.mazeGates.note',     speed: 'Normal', rounds: 3 },
-  { id: 'before-after',   icon: '⏳', titleKey: 'minigame.beforeAfter.title',   noteKey: 'minigame.beforeAfter.note',   speed: 'Normal', rounds: 3 },
-  { id: 'guess-logo',     icon: '✨', titleKey: 'minigame.guessLogo.title',     noteKey: 'minigame.guessLogo.note',     speed: 'Fast',   rounds: 3 },
-  { id: 'count-the-beat', icon: '🎵', titleKey: 'minigame.countTheBeat.title',  noteKey: 'minigame.countTheBeat.note',  speed: 'Fast',   rounds: 3 },
-  { id: 'lucky-cup',      icon: '🥤', titleKey: 'minigame.luckyCup.title',      noteKey: 'minigame.luckyCup.note',      speed: 'Fast',   rounds: 3 },
-];
 
 function uniqueMiniGames(miniGames: MiniGameCardDefinition[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];

@@ -3,6 +3,7 @@ import type { QuestionDifficulty } from '../../../../game-core/questions/questio
 import type { TranslationKey } from '../../../../game-core/localization/locale-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { translations as translationsForLookup } from '../../../../game-core/localization/translations';
+import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-registry';
 
 export const CHARACTER_IDS = ['cat', 'dog', 'cute_girl', 'flat_boy', 'female_person', 'male_person', 'red_hat', 'temple_runner', 'robot', 'stage_office', 'stage_chef'] as const;
 export const CHARACTER_FRAME_COUNT = 10;
@@ -148,5 +149,5 @@ export function getPhaseHelper(phase: TourPhase, t: TranslateFn): string {
   if (phase === 'tour_starting') return t('gameplay.helper.phase.tourStarting');
   if (phase === 'scoring') return t('gameplay.helper.phase.scoring');
   return t('gameplay.helper.phase.wait');
-}import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-registry';
+}
 
