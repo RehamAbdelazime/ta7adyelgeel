@@ -4,6 +4,7 @@ import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { normalizeRuntimeAssetUrl, getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell, MediaCard } from '../shared/question-shell';
+import { seededShuffle } from '../../../../game-core/utils/seeded-shuffle';
 
 export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
@@ -11,16 +12,12 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
   const imageUrl = normalizeRuntimeAssetUrl(food?.dishImageUrl);
   const [hintLabelNow, setHintLabelNow] = useState(() => Date.now());
 
-  // Shuffle choices dynamically with Math.random() for true randomization
+  // Seeded shuffle: deterministic per round+dish, different each round.
+  // Mulberry32 PRNG — faster and more consistent than Math.random().
   const [shuffledChoices] = useState(() => {
     if (!food?.choices) return [];
-    const arr = [...food.choices];
-    // Fisher-Yates shuffle with Math.random() for non-deterministic ordering
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+    const seed = `${miniGame.roundNumber}:${food.dishName ?? food.dishImageUrl ?? ''}`;
+    return seededShuffle(food.choices, seed);
   });
 
   useEffect(() => {
