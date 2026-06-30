@@ -100,7 +100,7 @@ export class GameStore {
   private enabledMiniGameIds = new Set<MiniGameId>(DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames);
   private activeTourMiniGameQueue: MiniGameId[] = [];
   private forcedNextMiniGameId: MiniGameId | null = null;
-  private chaosMode: HostChaosMode = 'normal';
+  private chaosMode: HostChaosMode = 'off';
   private forcedNextChaosEventId: string | null = null;
   private readonly twitchCommandRouter: TwitchCommandRouter;
   private readonly profileService = new ProfileService();

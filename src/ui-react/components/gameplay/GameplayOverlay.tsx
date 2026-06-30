@@ -205,7 +205,7 @@ function MainScreenGameplayOverlay({
 
   return (
     <section className={`gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-${tour.phase}`}>
-      {false && chaosEvent.active ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
+      {chaosEvent.active ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
 
       <div className="gameplay-round-header">
         <span>{roundLabel ? `${roundLabel} · ${phaseLabel}` : phaseLabel}</span>
