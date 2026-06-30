@@ -248,20 +248,12 @@ export class GameStore {
     }
 
     const privateCitizen = this.ensureStreamerCitizen({ twitchUserId: params.twitchUserId, displayName, announce: false });
+
+    // Build a parsed command from the normalised string.
+    // We skip the kind !== 'answer' check here: the host submits via UI,
+    // not Twitch chat, so kind is always 'unknown' from parseCommandForResult
+    // — that check would incorrectly reject every valid host answer.
     const command = this.parseCommandForResult(normalizedCommand);
-
-    if (command.kind !== 'answer') {
-      const feedback = this.createCommandFeedback({
-        ok: false,
-        displayName: privateCitizen.displayName,
-        command: 'private-answer',
-        message: this.locale === 'ar' ? 'الإجابة الخاصة غير صالحة للراوند الحالي.' : 'Private answer is not valid for this round.',
-      });
-
-      this.lastCommandFeedback = feedback;
-      this.notifyChanged();
-      return feedback;
-    }
 
     const result = this.handleMiniGameAnswerCommand({
       twitchUserId: privateCitizen.twitchUserId,
@@ -304,20 +296,28 @@ export class GameStore {
 
   private normalizePrivateStreamerAnswer(rawAnswer: string): string | null {
     const trimmed = rawAnswer.trim();
-
-    if (!trimmed) {
-      return null;
-    }
+    if (!trimmed) return null;
 
     const withoutBang = trimmed.startsWith('!') ? trimmed.slice(1).trim() : trimmed;
 
-    if (/^[1-9]$/.test(withoutBang)) {
-      return `!${withoutBang}`;
+    // CountTheBeat: numeric answer 1–99 (e.g. "!15" or "15")
+    if (this.activeMiniGameId === 'count-the-beat') {
+      const n = parseInt(withoutBang, 10);
+      if (Number.isInteger(n) && n >= 1 && n <= 99 && String(n) === withoutBang.trim()) {
+        return `!${n}`;
+      }
+      return null;
     }
 
+    // Hangman: free-text answer
     if (this.activeMiniGameId === 'hangman') {
       const cleanAnswer = withoutBang.replace(/\s+/g, ' ').slice(0, 30);
       return cleanAnswer ? `!${cleanAnswer}` : null;
+    }
+
+    // All other games: single-digit choice 1–9
+    if (/^[1-9]$/.test(withoutBang)) {
+      return `!${withoutBang}`;
     }
 
     return null;
