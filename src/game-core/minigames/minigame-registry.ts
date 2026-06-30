@@ -126,7 +126,17 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     defaultRounds: 3,
     visibleInPicker: true,
   },
-  // ── Games that exist but are not yet shown in the public picker ─────────────
+  // ══════════════════════════════════════════════════════════════════════════
+  // TODO: Enable these games by setting visibleInPicker: true when ready.
+  //
+  //  true-fake          — fully implemented, backend + UI complete
+  //  memory-count       — fully implemented, backend + UI complete
+  //  hangman            — fully implemented, backend + UI complete
+  //  couple-or-siblings — fully implemented, backend + UI complete
+  //
+  //  To enable any of them: change visibleInPicker to true and
+  //  add proper introSteps translation keys if the defaults are wrong.
+  // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'true-fake',
     icon: '✅',

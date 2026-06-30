@@ -23,9 +23,7 @@ import { MemoryCountScreen } from './MemoryCountScreen';
 import { TrueFakeScreen } from './TrueFakeScreen';
 import { HangmanScreen } from './HangmanScreen';
 import { CoupleOrSiblingsScreen } from './CoupleOrSiblingsScreen';
-// ⚠️  MISSING: CountTheBeatScreen — no UI component exists yet.
-//    The game has a backend service but no React screen.
-//    Needs to be built before 'count-the-beat' can be played.
+import { CountTheBeatScreen } from './CountTheBeatScreen';
 
 export type MiniGameScreenProps = {
   miniGame: MiniGameSnapshot;
@@ -47,5 +45,5 @@ export const MINI_GAME_SCREENS: Partial<Record<MiniGameId, ComponentType<MiniGam
   'true-fake':          TrueFakeScreen,
   hangman:              HangmanScreen,
   'couple-or-siblings': CoupleOrSiblingsScreen,
-  // 'count-the-beat': CountTheBeatScreen, ← MISSING SCREEN
+  'count-the-beat':       CountTheBeatScreen,
 };

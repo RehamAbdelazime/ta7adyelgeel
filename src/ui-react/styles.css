@@ -23459,3 +23459,187 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
   text-shadow: 0 0 10px rgba(102, 255, 153, 0.5) !important;
 }
 
+
+
+/* ================================================================
+   COUNT THE BEAT MINI-GAME
+   ================================================================ */
+
+/* ── Pop animation for flying icons ─────────────────────────────── */
+@keyframes ctb-pop {
+  0%   { opacity: 0; transform: scale(0.4) rotate(var(--r, 0deg)); }
+  12%  { opacity: 1; transform: scale(1.15) rotate(var(--r, 0deg)); }
+  75%  { opacity: 1; transform: scale(1)    rotate(var(--r, 0deg)); }
+  100% { opacity: 0; transform: scale(0.7)  rotate(var(--r, 0deg)); }
+}
+
+/* ── Shell layout ────────────────────────────────────────────────── */
+.ctb-shell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(8px, 0.8vh, 14px);
+  padding: clamp(10px, 1vh, 16px) clamp(14px, 1.2vw, 22px);
+  min-height: 0;
+  direction: inherit;
+}
+
+/* ── Target bar ──────────────────────────────────────────────────── */
+.ctb-target-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 0.7vw, 14px);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ctb-target-label {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(14px, 1.1vw, 22px);
+  color: rgba(200, 240, 255, 0.75);
+  letter-spacing: .04em;
+}
+
+.ctb-target-glyph {
+  font-size: clamp(28px, 3vw, 54px);
+  color: #22e7ff;
+  filter: drop-shadow(0 0 12px #22e7ff) drop-shadow(0 0 22px #22e7ff88);
+  line-height: 1;
+  animation: ctb-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ctb-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.14); }
+}
+
+.ctb-target-name {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(18px, 1.6vw, 32px);
+  color: #22e7ff;
+  text-shadow: 0 0 14px #22e7ff88;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.ctb-answer-reveal {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(18px, 1.6vw, 32px);
+  color: #afffcb;
+  text-shadow: 0 0 16px rgba(102,255,153,.6);
+  margin-inline-start: clamp(8px, 0.6vw, 12px);
+}
+
+.ctb-answer-reveal strong {
+  font-size: clamp(24px, 2.4vw, 48px);
+}
+
+/* ── Stage: the icon play area ───────────────────────────────────── */
+.ctb-stage {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  border-radius: clamp(14px, 1.1vw, 22px);
+  background: rgba(0, 5, 18, 0.82);
+  border: 1px solid rgba(34, 231, 255, 0.22);
+  box-shadow: 0 0 32px rgba(0,0,0,.60), inset 0 0 22px rgba(0,0,0,.42);
+  overflow: hidden;
+}
+
+/* Reveal overlay dims stage and shows big answer */
+.ctb-reveal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 5, 18, 0.72);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1vh, 18px);
+  animation: ctb-fade-in 0.35s ease-out both;
+}
+
+@keyframes ctb-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ctb-reveal-glyph {
+  font-size: clamp(48px, 7vw, 110px);
+  color: #22e7ff;
+  filter: drop-shadow(0 0 20px #22e7ff) drop-shadow(0 0 40px #22e7ff88);
+  line-height: 1;
+}
+
+.ctb-reveal-count {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(56px, 8vw, 130px);
+  color: #afffcb;
+  text-shadow: 0 0 28px rgba(102,255,153,.7), 0 4px 0 rgba(0,0,0,.55);
+  line-height: 1;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.ctb-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(10px, 1vw, 18px);
+  flex-shrink: 0;
+}
+
+.ctb-instruction {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(13px, 1vw, 20px);
+  color: rgba(200, 240, 255, 0.7);
+  letter-spacing: .04em;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+/* ── Scoring guide ────────────────────────────────────────────────  */
+.ctb-scoring {
+  display: flex;
+  gap: clamp(6px, 0.5vw, 10px);
+  flex-shrink: 0;
+}
+
+.ctb-scoring-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(4, 12, 34, 0.88);
+  border: 1px solid rgba(45, 244, 255, 0.25);
+  border-radius: 8px;
+  padding: 5px 10px;
+  min-width: clamp(44px, 3.6vw, 66px);
+}
+
+.ctb-scoring-row span {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(10px, 0.75vw, 14px);
+  color: rgba(180, 230, 255, 0.6);
+  letter-spacing: .03em;
+}
+
+.ctb-scoring-row strong {
+  font-family: 'Luckiest Guy', Impact, 'Arial Black', sans-serif;
+  font-size: clamp(12px, 0.9vw, 18px);
+  color: #ffe246;
+  text-shadow: 0 0 8px rgba(255, 226, 70, .4);
+  letter-spacing: .04em;
+}
+
+.ctb-scoring-exact {
+  border-color: rgba(102, 255, 153, 0.4);
+}
+
+.ctb-scoring-exact strong {
+  color: #afffcb;
+  text-shadow: 0 0 8px rgba(102, 255, 153, .5);
+}
+
