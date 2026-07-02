@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
@@ -26,6 +26,7 @@ const LANDING_LOGO_EN = `${MODE_ASSET_ROOT}/ta7ady_landing_logo_en.png`;
 function getMiniGameCardBackground(miniGameId: MiniGameId): string {
   return miniGameId === 'shape-count' ? `${MODE_ASSET_ROOT}/shape_count_card_background.png` : FOOD_ORIGIN_CARD_BACKGROUND;
 }
+
 
 function uniqueMiniGames(miniGames: MiniGameCardDefinition[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
@@ -197,6 +198,31 @@ function MiniGameGridScreen({
   onStartTour?: () => void;
   translate: (key: TranslationKey) => string;
 }) {
+  // Carousel state
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const maxIndex = Math.max(0, Math.ceil(miniGames.length / 2) - 1);
+
+  const handlePrev = () => {
+    setCarouselIndex(i => Math.max(i - 1, 0));
+  };
+
+  const handleNext = () => {
+    setCarouselIndex(i => Math.min(i + 1, maxIndex));
+  };
+
+  // Keyboard navigation for carousel
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        handleNext();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [miniGames.length, maxIndex]);
+
   return (
     <div className={`main-screen-game-grid-layout main-screen-game-grid-layout-${mode}`}>
       <ScreenBackButton onBack={onBack} />
@@ -205,29 +231,42 @@ function MiniGameGridScreen({
         <p>{subtitle}</p>
         {mode === 'tour' ? <strong>{selectedMiniGames.length}/{miniGames.length}</strong> : <span aria-hidden="true">✦</span>}
       </header>
-      <div className="main-screen-mini-card-grid">
-        {miniGames.slice(0, 6).map((miniGame) => {
-          const selectedOrder = selectedMiniGames.indexOf(miniGame.id) + 1;
-          const selected = selectedOrder > 0;
-          return (
-            <button
-              key={miniGame.id}
-              className={`main-screen-mini-card main-screen-mini-card-${miniGame.id} ${selected ? 'main-screen-mini-card-selected' : ''}`}
-              type="button"
-              onClick={() => onLaunch(miniGame.id)}
-              disabled={!canStart}
-              aria-pressed={mode === 'tour' ? selected : undefined}
-              aria-label={translate(miniGame.titleKey)}
-            >
-              {mode === 'tour' && selected ? <span className="main-screen-mini-card-order" aria-hidden="true">{selectedOrder}</span> : null}
-              <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
-              <span className="main-screen-mini-card-copy">
-                <strong>{translate(miniGame.titleKey)}</strong>
-                <small>{translate(miniGame.noteKey)}</small>
-              </span>
-            </button>
-          );
-        })}
+
+      {/* Carousel wrapper (keyboard-navigated, no arrows on screen) */}
+      <div className="main-screen-carousel-container">
+        <div className="main-screen-carousel-viewport" role="region" aria-label={translate('ui.play.miniGameCarousel')}>
+          <div className="carousel-inner" style={{ transform: `translateX(-${carouselIndex * 100}%)` }}>
+            {Array.from({ length: Math.ceil(miniGames.length / 2) }, (_, slideIdx) => {
+              const pair = miniGames.slice(slideIdx * 2, slideIdx * 2 + 2);
+              return (
+                <div className="carousel-item" key={slideIdx}>
+                  {pair.map((miniGame) => (
+                    <button
+                      key={miniGame.id}
+                      className={`main-screen-mini-card main-screen-mini-card-${miniGame.id}${selectedMiniGames.includes(miniGame.id) ? ' main-screen-mini-card-selected' : ''}`}
+                      type="button"
+                      onClick={() => onLaunch(miniGame.id)}
+                      disabled={!canStart}
+                      aria-pressed={mode === 'tour' ? selectedMiniGames.includes(miniGame.id) : undefined}
+                      aria-label={translate(miniGame.titleKey)}
+                    >
+                      {mode === 'tour' && selectedMiniGames.includes(miniGame.id) && (
+                        <span className="main-screen-mini-card-order" aria-hidden="true">
+                          {selectedMiniGames.indexOf(miniGame.id) + 1}
+                        </span>
+                      )}
+                      <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
+                      <span className="main-screen-mini-card-copy">
+                        <strong>{translate(miniGame.titleKey)}</strong>
+                        <small>{translate(miniGame.noteKey)}</small>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
       {mode === 'tour' ? (
         <footer className="main-screen-tour-footer">
