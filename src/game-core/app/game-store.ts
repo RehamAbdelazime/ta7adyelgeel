@@ -253,7 +253,8 @@ export class GameStore {
     // We skip the kind !== 'answer' check here: the host submits via UI,
     // not Twitch chat, so kind is always 'unknown' from parseCommandForResult
     // — that check would incorrectly reject every valid host answer.
-    const command = this.parseCommandForResult(normalizedCommand);
+    // const command = this.parseCommandForResult(normalizedCommand);
+    const command: ParsedTwitchCommand = {...this.parseCommandForResult(normalizedCommand),kind: 'answer',};
 
     const result = this.handleMiniGameAnswerCommand({
       twitchUserId: privateCitizen.twitchUserId,
