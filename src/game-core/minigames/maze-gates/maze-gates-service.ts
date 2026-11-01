@@ -29,6 +29,66 @@ type MazeGateRound = {
   category: QuestionCategory;
   signature: string;
   seed: number;
+  fullMaze: GeneratedFullMaze;
+};
+
+/**
+ * Difficulty is expressed through observable puzzle mechanics, not score alone:
+ * - easy: fewer entrances, shorter route, fewer turns and smaller dead-end regions;
+ * - medium: one additional entrance and a longer, more winding route;
+ * - hard: the same four entrances, but the correct route and decoys are deliberately
+ *   more involved while preserving the same readable cell size.
+ */
+type MazeDifficultyProfile = {
+  gateCount: 3 | 4;
+  columns: number;
+  rows: number;
+  cellSize: number;
+  wrongIslandMinSize: number;
+  wrongIslandMaxSize: number;
+  targetSolutionEdges: number;
+  targetSolutionTurns: number;
+  minSolutionEdges: number;
+  minSolutionTurns: number;
+};
+
+const MAZE_DIFFICULTY_PROFILES: Record<QuestionDifficulty, MazeDifficultyProfile> = {
+  easy: {
+    gateCount: 3,
+    columns: 11,
+    rows: 7,
+    cellSize: 44,
+    wrongIslandMinSize: 4,
+    wrongIslandMaxSize: 6,
+    targetSolutionEdges: 15,
+    targetSolutionTurns: 7,
+    minSolutionEdges: 10,
+    minSolutionTurns: 4,
+  },
+  medium: {
+    gateCount: 4,
+    columns: 13,
+    rows: 8,
+    cellSize: 40,
+    wrongIslandMinSize: 7,
+    wrongIslandMaxSize: 9,
+    targetSolutionEdges: 28,
+    targetSolutionTurns: 13,
+    minSolutionEdges: 21,
+    minSolutionTurns: 9,
+  },
+  hard: {
+    gateCount: 4,
+    columns: 15,
+    rows: 9,
+    cellSize: 36,
+    wrongIslandMinSize: 10,
+    wrongIslandMaxSize: 13,
+    targetSolutionEdges: 43,
+    targetSolutionTurns: 19,
+    minSolutionEdges: 34,
+    minSolutionTurns: 15,
+  },
 };
 
 const GATE_LABELS: Record<LocaleCode, string[]> = {
@@ -210,13 +270,21 @@ export class MazeGatesMiniGameService {
 
   private buildFullMaze(locale: LocaleCode, reveal: boolean): MazeGateFullMaze | null {
     if (!this.round) return null;
-    return buildFullMazeBoard({
-      locale,
-      gateCount: this.round.gateCount,
-      correctOptionNumber: this.round.correctOptionNumber,
-      seed: this.round.seed + this.roundNumber * 7193 + 883,
-      reveal,
-    });
+
+    // The maze is generated once when the round starts. getSnapshot can be called
+    // frequently by the UI, so rebuilding dozens of candidate mazes on every render
+    // would waste CPU and could make the timer/answer phase feel less responsive.
+    return convertFullMazeToSnapshot(
+      {
+        locale,
+        gateCount: this.round.gateCount,
+        correctOptionNumber: this.round.correctOptionNumber,
+        reveal,
+      },
+      MAZE_DIFFICULTY_PROFILES[this.round.difficulty],
+      this.round.fullMaze.generated,
+      this.round.fullMaze.solutionCells,
+    );
   }
 
   private buildPathSummaries(locale: LocaleCode, reveal: boolean): MazeGatePathSummary[] {
@@ -284,9 +352,17 @@ export class MazeGatesMiniGameService {
   private generateRound(roundNumber: number, salt: number): MazeGateRound {
     const seed = roundNumber * 4219 + salt * 104_729 + this.sessionSignatures.size * 313 + Date.now();
     const random = createSeededRandom(seed);
-    const difficulty = this.pickDifficulty(roundNumber, random());
-    const gateCount: 3 | 4 = difficulty === 'easy' && random() < 0.58 ? 3 : 4;
+    const difficulty = this.pickDifficulty(roundNumber);
+    const profile = MAZE_DIFFICULTY_PROFILES[difficulty];
+    const gateCount = profile.gateCount;
     const correctOptionNumber = Math.floor(random() * gateCount) + 1;
+    const mazeSeed = seed + roundNumber * 7193 + 883;
+    const fullMaze = buildFullMazeBoard({
+      difficulty,
+      gateCount,
+      correctOptionNumber,
+      seed: mazeSeed,
+    });
     const signature = `maze-gates:${difficulty}:${gateCount}:${correctOptionNumber}:${Math.floor(random() * 9999)}`;
 
     return {
@@ -297,22 +373,15 @@ export class MazeGatesMiniGameService {
       category: 'games',
       signature,
       seed,
+      fullMaze,
     };
   }
 
-  private pickDifficulty(roundNumber: number, roll: number): QuestionDifficulty {
-    // Progressive difficulty: Easy → Medium → Hard → Repeat
-    const cyclePosition = ((roundNumber - 1) % 3);
-    
-    if (cyclePosition === 0) {
-      // First round of cycle: always easy
-      return 'easy';
-    }
-    if (cyclePosition === 1) {
-      // Second round of cycle: always medium
-      return 'medium';
-    }
-    // Third round of cycle and beyond: always hard
+  private pickDifficulty(roundNumber: number): QuestionDifficulty {
+    // A standard three-question run always progresses Easy → Medium → Hard.
+    const cyclePosition = (roundNumber - 1) % 3;
+    if (cyclePosition === 0) return 'easy';
+    if (cyclePosition === 1) return 'medium';
     return 'hard';
   }
 }
@@ -612,64 +681,152 @@ function cellsEqual(a: MazeCell, b: MazeCell): boolean {
 
 
 type FullMazeBuildOptions = {
-  locale: LocaleCode;
+  difficulty: QuestionDifficulty;
   gateCount: 3 | 4;
   correctOptionNumber: number;
   seed: number;
+};
+
+type FullMazeSnapshotOptions = {
+  locale: LocaleCode;
+  gateCount: 3 | 4;
+  correctOptionNumber: number;
   reveal: boolean;
 };
 
 type FullMazeDirection = 'top' | 'right' | 'bottom' | 'left';
 
 type FullMazeCellWalls = Record<FullMazeDirection, boolean>;
-
 type FullMazeGrid = FullMazeCellWalls[][];
 
-const FULL_MAZE_COLUMNS = 21;
-const FULL_MAZE_ROWS = 15;
-const FULL_MAZE_CELL_SIZE = 20;
-const FULL_MAZE_BOARD_X = 150;
-const FULL_MAZE_BOARD_Y = 56;
+type GeneratedFullMaze = {
+  generated: { grid: FullMazeGrid; gateCells: MazeCell[]; exitCell: MazeCell };
+  solutionCells: MazeCell[];
+};
+
+type MazePathComplexity = {
+  edges: number;
+  turns: number;
+};
+
+// The outer SVG viewport stays fixed, but the logical maze density progresses:
+// easy has fewer, larger cells; medium is in between; hard uses the full 15x9 grid.
+// This makes the difficulty visible at a glance without shrinking the readable area.
 const FULL_MAZE_VIEW_WIDTH = 720;
-const FULL_MAZE_VIEW_HEIGHT = 420;
+const FULL_MAZE_VIEW_HEIGHT = 440;
 
-function buildFullMazeBoard(options: FullMazeBuildOptions): MazeGateFullMaze {
-  for (let attempt = 0; attempt < 18; attempt += 1) {
+type FullMazeGeometry = {
+  boardX: number;
+  boardY: number;
+  boardWidth: number;
+  boardHeight: number;
+};
+
+function getFullMazeGeometry(profile: MazeDifficultyProfile): FullMazeGeometry {
+  const boardWidth = profile.columns * profile.cellSize;
+  const boardHeight = profile.rows * profile.cellSize;
+  return {
+    boardX: Math.round((FULL_MAZE_VIEW_WIDTH - boardWidth) / 2),
+    boardY: Math.round((FULL_MAZE_VIEW_HEIGHT - boardHeight) / 2),
+    boardWidth,
+    boardHeight,
+  };
+}
+
+function buildFullMazeBoard(options: FullMazeBuildOptions): GeneratedFullMaze {
+  const profile = MAZE_DIFFICULTY_PROFILES[options.difficulty];
+  let bestCandidate: GeneratedFullMaze | null = null;
+  let bestScore = Number.POSITIVE_INFINITY;
+
+  // Generate a pool and select the maze that best fits the intended difficulty.
+  // Grid density, route length, turns, entrance count and decoy-region size all rise
+  // across the three profiles while cell sizes remain large enough for stream viewing.
+  for (let attempt = 0; attempt < 64; attempt += 1) {
     const random = createSeededRandom(options.seed + attempt * 100_003);
-    const generated = generateFullMazeAttempt(options, random);
-    const solutionCells = findOpenMazePath(generated.grid, generated.gateCells[options.correctOptionNumber - 1], generated.exitCell);
+    const generated = generateFullMazeAttempt(options, profile, random);
+    const solutionCells = findOpenMazePath(
+      generated.grid,
+      generated.gateCells[options.correctOptionNumber - 1],
+      generated.exitCell,
+      profile,
+    );
+    if (solutionCells.length <= 1) continue;
 
-    if (solutionCells.length > 1) {
-      return convertFullMazeToSnapshot(options, generated, solutionCells);
+    const candidate = { generated, solutionCells };
+    const score = scoreMazeCandidate(measureMazePathComplexity(solutionCells), profile);
+    if (score < bestScore) {
+      bestCandidate = candidate;
+      bestScore = score;
     }
   }
 
+  if (bestCandidate) return bestCandidate;
+
+  // Defensive fallback: create a connected, solvable board even if candidate
+  // generation is unexpectedly constrained.
   const fallbackRandom = createSeededRandom(options.seed + 9_999_991);
-  const fallback = generateFullMazeAttempt({ ...options, gateCount: options.gateCount }, fallbackRandom, true);
-  const solutionCells = findOpenMazePath(fallback.grid, fallback.gateCells[options.correctOptionNumber - 1], fallback.exitCell);
-  return convertFullMazeToSnapshot(options, fallback, solutionCells);
+  const fallback = generateFullMazeAttempt(options, profile, fallbackRandom, true);
+  const solutionCells = findOpenMazePath(
+    fallback.grid,
+    fallback.gateCells[options.correctOptionNumber - 1],
+    fallback.exitCell,
+    profile,
+  );
+  return { generated: fallback, solutionCells };
 }
 
-function generateFullMazeAttempt(options: FullMazeBuildOptions, random: () => number, skipWrongIslands = false): {
+function measureMazePathComplexity(cells: MazeCell[]): MazePathComplexity {
+  let turns = 0;
+  let previousDirection: 'horizontal' | 'vertical' | null = null;
+
+  for (let index = 1; index < cells.length; index += 1) {
+    const previous = cells[index - 1];
+    const current = cells[index];
+    const direction = previous.col === current.col ? 'vertical' : 'horizontal';
+    if (previousDirection && direction !== previousDirection) turns += 1;
+    previousDirection = direction;
+  }
+
+  return { edges: Math.max(0, cells.length - 1), turns };
+}
+
+function scoreMazeCandidate(complexity: MazePathComplexity, profile: MazeDifficultyProfile): number {
+  const edgeDistance = Math.abs(complexity.edges - profile.targetSolutionEdges);
+  const turnDistance = Math.abs(complexity.turns - profile.targetSolutionTurns);
+  const belowMinimumEdges = Math.max(0, profile.minSolutionEdges - complexity.edges);
+  const belowMinimumTurns = Math.max(0, profile.minSolutionTurns - complexity.turns);
+
+  // Missing the minimum difficulty floor is penalized more heavily than being
+  // slightly above the target, so an easy board is not accidentally selected
+  // for a hard round just because it happens to have a tidy route.
+  return edgeDistance + turnDistance * 1.7 + belowMinimumEdges * 5 + belowMinimumTurns * 4;
+}
+
+function generateFullMazeAttempt(
+  options: FullMazeBuildOptions,
+  profile: MazeDifficultyProfile,
+  random: () => number,
+  skipWrongIslands = false,
+): {
   grid: FullMazeGrid;
   gateCells: MazeCell[];
   exitCell: MazeCell;
 } {
-  const gateColumns = options.gateCount === 3 ? [3, 10, 17] : [2, 8, 13, 18];
-  const gateCells = gateColumns.map((col) => ({ col, row: FULL_MAZE_ROWS - 1 }));
-  const exitCell = { col: Math.floor(FULL_MAZE_COLUMNS / 2), row: 0 };
+  const gateColumns = getFullMazeGateColumns(profile.columns, options.gateCount);
+  const gateCells = gateColumns.map((col) => ({ col, row: profile.rows - 1 }));
+  const exitCell = { col: Math.floor(profile.columns / 2), row: 0 };
   const correctStart = gateCells[options.correctOptionNumber - 1];
-  const grid = createClosedFullMazeGrid(FULL_MAZE_COLUMNS, FULL_MAZE_ROWS);
+  const grid = createClosedFullMazeGrid(profile.columns, profile.rows);
   const reservedCells = new Set<string>([cellKey(correctStart), cellKey(exitCell)]);
   const wrongIslands: Set<string>[] = [];
 
   if (!skipWrongIslands) {
     for (const gateCell of gateCells) {
       if (cellsEqual(gateCell, correctStart)) continue;
-      const island = growWrongGateIsland(gateCell, reservedCells, random);
+      const island = growWrongGateIsland(gateCell, reservedCells, random, profile);
       for (const key of island) reservedCells.add(key);
       wrongIslands.push(island);
-      carvePerfectMazeInsideSubset(grid, island, gateCell, random);
+      carvePerfectMazeInsideSubset(grid, island, gateCell, random, profile);
     }
   }
 
@@ -679,14 +836,14 @@ function generateFullMazeAttempt(options: FullMazeBuildOptions, random: () => nu
   }
 
   const mainCells = new Set<string>();
-  for (let row = 0; row < FULL_MAZE_ROWS; row += 1) {
-    for (let col = 0; col < FULL_MAZE_COLUMNS; col += 1) {
+  for (let row = 0; row < profile.rows; row += 1) {
+    for (let col = 0; col < profile.columns; col += 1) {
       const key = cellKey({ col, row });
       if (!blockedCells.has(key)) mainCells.add(key);
     }
   }
 
-  carvePerfectMazeInsideSubset(grid, mainCells, correctStart, random);
+  carvePerfectMazeInsideSubset(grid, mainCells, correctStart, random, profile);
 
   for (const gateCell of gateCells) {
     grid[gateCell.row][gateCell.col].bottom = false;
@@ -696,22 +853,48 @@ function generateFullMazeAttempt(options: FullMazeBuildOptions, random: () => nu
   return { grid, gateCells, exitCell };
 }
 
+function getFullMazeGateColumns(columns: number, gateCount: 3 | 4): number[] {
+  const lastColumn = columns - 1;
+  if (gateCount === 3) {
+    return [
+      Math.round(lastColumn * 0.15),
+      Math.round(lastColumn * 0.5),
+      Math.round(lastColumn * 0.85),
+    ];
+  }
+
+  return [
+    1,
+    Math.round(lastColumn * 0.35),
+    Math.round(lastColumn * 0.65),
+    lastColumn - 1,
+  ];
+}
+
 function createClosedFullMazeGrid(columns: number, rows: number): FullMazeGrid {
   return Array.from({ length: rows }, () =>
     Array.from({ length: columns }, () => ({ top: true, right: true, bottom: true, left: true })),
   );
 }
 
-function growWrongGateIsland(start: MazeCell, reserved: Set<string>, random: () => number): Set<string> {
+function growWrongGateIsland(
+  start: MazeCell,
+  reserved: Set<string>,
+  random: () => number,
+  profile: MazeDifficultyProfile,
+): Set<string> {
   const island = new Set<string>([cellKey(start)]);
-  const targetSize = 18 + Math.floor(random() * 12);
-  const maxTopRow = 4;
+  // Larger decoy regions introduce more plausible wrong routes on harder rounds.
+  // The target remains bounded so the board does not become visually cluttered.
+  const targetSize = profile.wrongIslandMinSize
+    + Math.floor(random() * (profile.wrongIslandMaxSize - profile.wrongIslandMinSize + 1));
+  const maxTopRow = Math.max(2, Math.floor(profile.rows * 0.25));
 
   for (let guard = 0; guard < 280 && island.size < targetSize; guard += 1) {
     const current = randomCellFromSet(island, random);
-    const candidates = shuffled(fullMazeNeighborCells(current), random)
-      .filter((cell) => cell.col >= 1 && cell.col < FULL_MAZE_COLUMNS - 1)
-      .filter((cell) => cell.row >= maxTopRow && cell.row < FULL_MAZE_ROWS)
+    const candidates = shuffled(fullMazeNeighborCells(current, profile), random)
+      .filter((cell) => cell.col >= 1 && cell.col < profile.columns - 1)
+      .filter((cell) => cell.row >= maxTopRow && cell.row < profile.rows)
       .filter((cell) => !reserved.has(cellKey(cell)))
       .filter((cell) => !island.has(cellKey(cell)));
 
@@ -722,7 +905,13 @@ function growWrongGateIsland(start: MazeCell, reserved: Set<string>, random: () 
   return island;
 }
 
-function carvePerfectMazeInsideSubset(grid: FullMazeGrid, subset: Set<string>, preferredStart: MazeCell, random: () => number): void {
+function carvePerfectMazeInsideSubset(
+  grid: FullMazeGrid,
+  subset: Set<string>,
+  preferredStart: MazeCell,
+  random: () => number,
+  profile: MazeDifficultyProfile,
+): void {
   const visited = new Set<string>();
   const starts = [preferredStart, ...[...subset].map(parseCellKey).filter((cell) => !cellsEqual(cell, preferredStart))];
 
@@ -735,7 +924,7 @@ function carvePerfectMazeInsideSubset(grid: FullMazeGrid, subset: Set<string>, p
 
     while (stack.length > 0) {
       const current = stack[stack.length - 1];
-      const neighborsToVisit = shuffled(fullMazeNeighborCells(current), random)
+      const neighborsToVisit = shuffled(fullMazeNeighborCells(current, profile), random)
         .filter((neighborCell) => subset.has(cellKey(neighborCell)) && !visited.has(cellKey(neighborCell)));
 
       const next = neighborsToVisit[0];
@@ -751,13 +940,13 @@ function carvePerfectMazeInsideSubset(grid: FullMazeGrid, subset: Set<string>, p
   }
 }
 
-function fullMazeNeighborCells(cell: MazeCell): MazeCell[] {
+function fullMazeNeighborCells(cell: MazeCell, profile: MazeDifficultyProfile): MazeCell[] {
   return [
     { col: cell.col, row: cell.row - 1 },
     { col: cell.col + 1, row: cell.row },
     { col: cell.col, row: cell.row + 1 },
     { col: cell.col - 1, row: cell.row },
-  ].filter((candidate) => candidate.col >= 0 && candidate.col < FULL_MAZE_COLUMNS && candidate.row >= 0 && candidate.row < FULL_MAZE_ROWS);
+  ].filter((candidate) => candidate.col >= 0 && candidate.col < profile.columns && candidate.row >= 0 && candidate.row < profile.rows);
 }
 
 function carveWallBetween(grid: FullMazeGrid, from: MazeCell, to: MazeCell): void {
@@ -779,7 +968,7 @@ function carveWallBetween(grid: FullMazeGrid, from: MazeCell, to: MazeCell): voi
   }
 }
 
-function findOpenMazePath(grid: FullMazeGrid, start: MazeCell, target: MazeCell): MazeCell[] {
+function findOpenMazePath(grid: FullMazeGrid, start: MazeCell, target: MazeCell, profile: MazeDifficultyProfile): MazeCell[] {
   const queue: MazeCell[] = [start];
   const previous = new Map<string, MazeCell>();
   const visited = new Set<string>([cellKey(start)]);
@@ -788,7 +977,7 @@ function findOpenMazePath(grid: FullMazeGrid, start: MazeCell, target: MazeCell)
     const current = queue[index];
     if (cellsEqual(current, target)) return reconstructPath(start, target, previous);
 
-    for (const next of openFullMazeNeighbors(grid, current)) {
+    for (const next of openFullMazeNeighbors(grid, current, profile)) {
       const key = cellKey(next);
       if (visited.has(key)) continue;
       visited.add(key);
@@ -800,24 +989,24 @@ function findOpenMazePath(grid: FullMazeGrid, start: MazeCell, target: MazeCell)
   return [];
 }
 
-function openFullMazeNeighbors(grid: FullMazeGrid, cell: MazeCell): MazeCell[] {
+function openFullMazeNeighbors(grid: FullMazeGrid, cell: MazeCell, profile: MazeDifficultyProfile): MazeCell[] {
   const walls = grid[cell.row][cell.col];
   const candidates: MazeCell[] = [];
   if (!walls.top && cell.row > 0) candidates.push({ col: cell.col, row: cell.row - 1 });
-  if (!walls.right && cell.col < FULL_MAZE_COLUMNS - 1) candidates.push({ col: cell.col + 1, row: cell.row });
-  if (!walls.bottom && cell.row < FULL_MAZE_ROWS - 1) candidates.push({ col: cell.col, row: cell.row + 1 });
+  if (!walls.right && cell.col < profile.columns - 1) candidates.push({ col: cell.col + 1, row: cell.row });
+  if (!walls.bottom && cell.row < profile.rows - 1) candidates.push({ col: cell.col, row: cell.row + 1 });
   if (!walls.left && cell.col > 0) candidates.push({ col: cell.col - 1, row: cell.row });
   return candidates;
 }
 
 function convertFullMazeToSnapshot(
-  options: FullMazeBuildOptions,
+  options: FullMazeSnapshotOptions,
+  profile: MazeDifficultyProfile,
   generated: { grid: FullMazeGrid; gateCells: MazeCell[]; exitCell: MazeCell },
   solutionCells: MazeCell[],
 ): MazeGateFullMaze {
-  const boardWidth = FULL_MAZE_COLUMNS * FULL_MAZE_CELL_SIZE;
-  const boardHeight = FULL_MAZE_ROWS * FULL_MAZE_CELL_SIZE;
-  const wallSegments = buildFullMazeWallSegments(generated.grid);
+  const geometry = getFullMazeGeometry(profile);
+  const wallSegments = buildFullMazeWallSegments(generated.grid, profile, geometry);
   const choices = Array.from({ length: options.gateCount }, (_, index) => ({
     optionNumber: index + 1,
     command: `!${index + 1}`,
@@ -827,47 +1016,51 @@ function convertFullMazeToSnapshot(
   return {
     viewBoxWidth: FULL_MAZE_VIEW_WIDTH,
     viewBoxHeight: FULL_MAZE_VIEW_HEIGHT,
-    boardX: FULL_MAZE_BOARD_X,
-    boardY: FULL_MAZE_BOARD_Y,
-    boardWidth,
-    boardHeight,
-    columns: FULL_MAZE_COLUMNS,
-    rows: FULL_MAZE_ROWS,
+    boardX: geometry.boardX,
+    boardY: geometry.boardY,
+    boardWidth: geometry.boardWidth,
+    boardHeight: geometry.boardHeight,
+    columns: profile.columns,
+    rows: profile.rows,
     wallSegments,
-    solutionPath: options.reveal ? buildFullMazeSolutionPolyline(solutionCells) : [],
+    solutionPath: options.reveal ? buildFullMazeSolutionPolyline(solutionCells, profile, geometry) : [],
     gates: choices.map((choice, index) => {
       const cell = generated.gateCells[index];
-      const point = fullMazeCellCenter(cell);
+      const point = fullMazeCellCenter(cell, profile, geometry);
       return {
         ...choice,
         x: point.x,
-        y: FULL_MAZE_BOARD_Y + boardHeight + 24,
+        y: geometry.boardY + geometry.boardHeight + 24,
         isCorrect: options.reveal && choice.optionNumber === options.correctOptionNumber,
         isDeadEnd: options.reveal && choice.optionNumber !== options.correctOptionNumber,
       };
     }),
     exit: {
-      x: fullMazeCellCenter(generated.exitCell).x,
-      y: FULL_MAZE_BOARD_Y - 24,
+      x: fullMazeCellCenter(generated.exitCell, profile, geometry).x,
+      y: geometry.boardY - 24,
       label: 'EXIT',
     },
   };
 }
 
-function buildFullMazeWallSegments(grid: FullMazeGrid): MazeGateFullMaze['wallSegments'] {
+function buildFullMazeWallSegments(
+  grid: FullMazeGrid,
+  profile: MazeDifficultyProfile,
+  geometry: FullMazeGeometry,
+): MazeGateFullMaze['wallSegments'] {
   const segments: MazeGateFullMaze['wallSegments'] = [];
 
-  for (let row = 0; row < FULL_MAZE_ROWS; row += 1) {
-    for (let col = 0; col < FULL_MAZE_COLUMNS; col += 1) {
+  for (let row = 0; row < profile.rows; row += 1) {
+    for (let col = 0; col < profile.columns; col += 1) {
       const walls = grid[row][col];
-      const x = FULL_MAZE_BOARD_X + col * FULL_MAZE_CELL_SIZE;
-      const y = FULL_MAZE_BOARD_Y + row * FULL_MAZE_CELL_SIZE;
-      const size = FULL_MAZE_CELL_SIZE;
+      const x = geometry.boardX + col * profile.cellSize;
+      const y = geometry.boardY + row * profile.cellSize;
+      const size = profile.cellSize;
 
       if (walls.top) segments.push({ x1: x, y1: y, x2: x + size, y2: y });
       if (walls.left) segments.push({ x1: x, y1: y, x2: x, y2: y + size });
-      if (col === FULL_MAZE_COLUMNS - 1 && walls.right) segments.push({ x1: x + size, y1: y, x2: x + size, y2: y + size });
-      if (row === FULL_MAZE_ROWS - 1 && walls.bottom) segments.push({ x1: x, y1: y + size, x2: x + size, y2: y + size });
+      if (col === profile.columns - 1 && walls.right) segments.push({ x1: x + size, y1: y, x2: x + size, y2: y + size });
+      if (row === profile.rows - 1 && walls.bottom) segments.push({ x1: x, y1: y + size, x2: x + size, y2: y + size });
     }
   }
 
@@ -927,23 +1120,31 @@ function mergeMazeWallSegments(segments: MazeGateFullMaze['wallSegments']): Maze
   return merged;
 }
 
-function buildFullMazeSolutionPolyline(cells: MazeCell[]): MazeGatePathSummary['path'] {
+function buildFullMazeSolutionPolyline(
+  cells: MazeCell[],
+  profile: MazeDifficultyProfile,
+  geometry: FullMazeGeometry,
+): MazeGatePathSummary['path'] {
   if (cells.length === 0) return [];
-  const points = cells.map(fullMazeCellCenter);
+  const points = cells.map((cell) => fullMazeCellCenter(cell, profile, geometry));
   const first = points[0];
   const last = points[points.length - 1];
   return compressCollinearPoints([
-    { x: first.x, y: FULL_MAZE_BOARD_Y + FULL_MAZE_ROWS * FULL_MAZE_CELL_SIZE + 24 },
+    { x: first.x, y: geometry.boardY + geometry.boardHeight + 24 },
     first,
     ...points.slice(1),
-    { x: last.x, y: FULL_MAZE_BOARD_Y - 24 },
+    { x: last.x, y: geometry.boardY - 24 },
   ]);
 }
 
-function fullMazeCellCenter(cell: MazeCell): MazeGatePathSummary['path'][number] {
+function fullMazeCellCenter(
+  cell: MazeCell,
+  profile: MazeDifficultyProfile,
+  geometry: FullMazeGeometry,
+): MazeGatePathSummary['path'][number] {
   return {
-    x: FULL_MAZE_BOARD_X + cell.col * FULL_MAZE_CELL_SIZE + FULL_MAZE_CELL_SIZE / 2,
-    y: FULL_MAZE_BOARD_Y + cell.row * FULL_MAZE_CELL_SIZE + FULL_MAZE_CELL_SIZE / 2,
+    x: geometry.boardX + cell.col * profile.cellSize + profile.cellSize / 2,
+    y: geometry.boardY + cell.row * profile.cellSize + profile.cellSize / 2,
   };
 }
 

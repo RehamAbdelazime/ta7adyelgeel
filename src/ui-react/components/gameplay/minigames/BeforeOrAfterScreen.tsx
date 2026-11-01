@@ -2,6 +2,7 @@ import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { getPhaseHelper } from '../shared/overlay-types';
+import { QuestionScreenShell } from '../shared/question-shell';
 
 export function BeforeOrAfterScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
@@ -11,52 +12,54 @@ export function BeforeOrAfterScreen({ miniGame, tourPhase }: { miniGame: MiniGam
     return <p className="gameplay-empty-round">{t('gameplay.empty.beforeAfter')}</p>;
   }
 
-  const correctNum = data.correctOptionNumber;
-  const isRevealed = correctNum !== null;
-
+  const correctOptionNumber = data.correctOptionNumber;
+  const isRevealed = tourPhase === 'scoring' && correctOptionNumber !== null;
   const helperText = miniGame.acceptsAnswers
     ? t('gameplay.helper.beforeAfter.answerNow')
     : isRevealed
-      ? (miniGame.id === 'before-after' && data.correctLabel ? data.correctLabel : '')
+      ? (data.correctLabel ?? getPhaseHelper(tourPhase, t))
       : getPhaseHelper(tourPhase, t);
 
   return (
-    <div className="gameplay-question-shell gameplay-before-after-shell">
-      {/* Header */}
-      <div className="gameplay-before-after-header">
-        <div className="gameplay-question-meta">
-          <span>{data.categoryLabel}</span>
+    <QuestionScreenShell
+      miniGame={miniGame}
+      tourPhase={tourPhase}
+      helperText={helperText}
+      choices={[]}
+      eyebrow={data.categoryLabel}
+      showHeaderHelperText
+      isAnswerReveal={isRevealed}
+      correctAnswerText={data.correctLabel ?? (correctOptionNumber ? `!${correctOptionNumber}` : '-')}
+      bodyClassName="gameplay-question-body-before-after"
+    >
+      <div className="gameplay-before-after-stage">
+        <div className="gameplay-before-after-cards">
+          {data.choices.map((choice) => {
+            const isCorrect = isRevealed && choice.optionNumber === correctOptionNumber;
+            const isWrong = isRevealed && choice.optionNumber !== correctOptionNumber;
+
+            return (
+              <div
+                key={choice.optionNumber}
+                className={[
+                  'gameplay-before-after-card',
+                  isCorrect ? 'gameplay-before-after-card--correct' : '',
+                  isWrong ? 'gameplay-before-after-card--wrong' : '',
+                ].filter(Boolean).join(' ')}
+              >
+                <span className="gameplay-before-after-cmd">{choice.command}</span>
+                <span className="gameplay-before-after-label">{choice.label}</span>
+                {isCorrect ? (
+                  <span className="gameplay-before-after-badge" aria-label={t('gameplay.answer.correct')}>
+                    ✓
+                  </span>
+                ) : null}
+              </div>
+            );
+          })}
         </div>
-        <h2 className="gameplay-before-after-question">{miniGame.statement}</h2>
-        {helperText ? <p className="gameplay-before-after-helper">{helperText}</p> : null}
+        <div className="gameplay-before-after-vs" aria-hidden="true">VS</div>
       </div>
-
-      {/* Two cards side by side */}
-      <div className="gameplay-before-after-cards">
-        {data.choices.map((choice) => {
-          const isCorrect = isRevealed && choice.optionNumber === correctNum;
-          const isWrong = isRevealed && choice.optionNumber !== correctNum;
-          return (
-            <div
-              key={choice.optionNumber}
-              className={[
-                'gameplay-before-after-card',
-                isCorrect ? 'gameplay-before-after-card--correct' : '',
-                isWrong ? 'gameplay-before-after-card--wrong' : '',
-              ].join(' ')}
-            >
-              <span className="gameplay-before-after-cmd">{choice.command}</span>
-              <span className="gameplay-before-after-label">{choice.label}</span>
-              {isCorrect && (
-                <span className="gameplay-before-after-badge">✓ قبل</span>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* VS divider */}
-      <div className="gameplay-before-after-vs" aria-hidden="true">VS</div>
-    </div>
+    </QuestionScreenShell>
   );
 }

@@ -31,10 +31,10 @@ export type MiniGameScreenProps = {
 };
 
 /**
- * All screens that currently have implementations.
- * Games NOT in this map will show nothing when played.
+ * Every registered game must have a screen. Record (not Partial<Record>)
+ * deliberately makes an un-wired game a TypeScript error.
  */
-export const MINI_GAME_SCREENS: Partial<Record<MiniGameId, ComponentType<MiniGameScreenProps>>> = {
+export const MINI_GAME_SCREENS: Record<MiniGameId, ComponentType<MiniGameScreenProps>> = {
   'food-origin':        FoodOriginScreen,
   'shape-count':        ShapeCountScreen,
   'maze-gates':         MazeGatesScreen,

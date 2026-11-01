@@ -42,6 +42,13 @@ export function getOptionNumberForAnswer(
     return null;
   }
 
+  if (miniGame.id === 'lucky-cup') {
+    const optionNumber = Number(answer);
+    return Number.isInteger(optionNumber) && optionNumber >= 1 && optionNumber <= 3
+      ? optionNumber
+      : null;
+  }
+
   if (miniGame.id === 'shape-count') {
     return miniGame.shapeGrid?.choices.find((c) => c.shape === (answer as ShapeCountShapeId))?.optionNumber ?? null;
   }
@@ -65,7 +72,7 @@ export function getAnswerCountsByOption(miniGame: MiniGameSnapshot): Map<number,
 }
 
 export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | null {
-  if (!miniGame.correctAnswer) return null;
+  if (miniGame.correctAnswer === null) return null;
 
   if (miniGame.id === 'true-fake') {
     return miniGame.correctAnswer === 'true' ? 1 : miniGame.correctAnswer === 'fake' ? 2 : null;
@@ -88,6 +95,12 @@ export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | nul
   if (miniGame.id === 'maze-gates') {
     return miniGame.mazeGates?.correctOptionNumber ?? null;
   }
+  if (miniGame.id === 'before-after') {
+    return miniGame.beforeOrAfter?.correctOptionNumber ?? null;
+  }
+  if (miniGame.id === 'lucky-cup') {
+    return miniGame.luckyCup?.correctCupNumber ?? null;
+  }
   return null;
 }
 
@@ -96,7 +109,7 @@ export function getCitizenChoiceResultState(
   answerOption: number | null,
 ): 'pending' | 'correct' | 'wrong' {
   const correctOption = getCorrectOptionNumber(miniGame);
-  if (!answerOption || correctOption === null || !miniGame.correctAnswer) return 'pending';
+  if (answerOption === null || correctOption === null || miniGame.correctAnswer === null) return 'pending';
   return answerOption === correctOption ? 'correct' : 'wrong';
 }
 
@@ -149,6 +162,24 @@ export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlig
     return miniGame.mazeGates.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
       tone: (['cyan', 'purple', 'green', 'orange'] as ChoiceTone[])[i] ?? 'cyan', icon: '→',
+    }));
+  }
+  if (miniGame.id === 'before-after' && miniGame.beforeOrAfter) {
+    return miniGame.beforeOrAfter.choices.map((choice, index) => ({
+      optionNumber: choice.optionNumber,
+      command: choice.command,
+      label: choice.label,
+      tone: (index === 0 ? 'cyan' : 'pink') as ChoiceTone,
+      icon: index === 0 ? '◀' : '▶',
+    }));
+  }
+  if (miniGame.id === 'lucky-cup' && miniGame.luckyCup) {
+    return miniGame.luckyCup.cups.map((cup, index) => ({
+      optionNumber: cup.cupId + 1,
+      command: `!${cup.cupId + 1}`,
+      label: cup.label,
+      tone: (['cyan', 'pink', 'purple'] as ChoiceTone[])[index] ?? 'cyan',
+      icon: '🥤',
     }));
   }
   return [];

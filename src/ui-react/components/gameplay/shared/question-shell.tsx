@@ -1,4 +1,4 @@
-import { useState, useEffect, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import type { MiniGameSnapshot, ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useGame } from '../../../context/GameContext';
@@ -21,12 +21,85 @@ export type QuestionChoiceItem = {
 // Visual styling (colours, borders, shadows) still comes from CSS classes;
 // structural layout (flex/grid, height distribution) is controlled here.
 
+type QuestionPhaseTimerProps = {
+  isRunning: boolean;
+  phaseStartedAt: number | null;
+  phaseDurationMs: number;
+  phaseRemainingMs: number;
+  readyLabel: string;
+};
+
+/**
+ * Keeps the 10fps countdown repaint isolated from the question body.
+ * The previous implementation updated QuestionScreenShell itself on every
+ * animation frame (up to 60 renders/second), which also rerendered animated
+ * game content such as the maze, icons, and media cards.
+ */
+function QuestionPhaseTimer({
+  isRunning,
+  phaseStartedAt,
+  phaseDurationMs,
+  phaseRemainingMs,
+  readyLabel,
+}: QuestionPhaseTimerProps) {
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (!isRunning || phaseStartedAt === null || phaseDurationMs <= 0) {
+      setNow(Date.now());
+      return undefined;
+    }
+
+    const update = () => setNow(Date.now());
+    update();
+    const intervalId = window.setInterval(update, 100);
+    return () => window.clearInterval(intervalId);
+  }, [isRunning, phaseStartedAt, phaseDurationMs]);
+
+  const elapsedMs = isRunning && phaseStartedAt !== null
+    ? Math.max(0, now - phaseStartedAt)
+    : Math.max(0, phaseDurationMs - phaseRemainingMs);
+  const remainingMs = phaseDurationMs > 0
+    ? Math.max(0, phaseDurationMs - elapsedMs)
+    : Math.max(0, phaseRemainingMs);
+  const remainingSeconds = Math.ceil(remainingMs / 1000);
+  const progress = isRunning && phaseDurationMs > 0
+    ? Math.max(0, Math.min(1, remainingMs / phaseDurationMs))
+    : 1;
+
+  return (
+    <div
+      className="gameplay-question-timer"
+      role="timer"
+      aria-label={isRunning ? `${remainingSeconds} seconds remaining` : readyLabel}
+      aria-live="off"
+      style={{ flex: '1 1 auto', minWidth: 0, maxWidth: 'clamp(200px, 28vw, 420px)', display: 'flex', alignItems: 'center', gap: 'clamp(8px,.7vw,12px)', background: 'transparent', border: 0, padding: 0, boxShadow: 'none' }}
+    >
+      <i className="gameplay-question-timer-icon" aria-hidden="true" />
+      <div className="gameplay-question-timer-track" style={{ flex: '1 1 auto', minWidth: 0 }}>
+        <span
+          className="gameplay-question-timer-fill"
+          style={{ '--timer-progress': `${progress * 100}%`, '--timer-scale': String(progress) } as CSSProperties}
+        />
+      </div>
+      <strong style={{ minWidth: '3.5ch', color: '#9ff8ff', fontSize: 'clamp(15px,1.1vw,22px)', lineHeight: 1, whiteSpace: 'nowrap' }}>
+        {isRunning ? `${remainingSeconds}s` : readyLabel}
+      </strong>
+    </div>
+  );
+}
+
 export function QuestionScreenShell({
   miniGame,
   tourPhase,
   helperText,
   choices = [],
   bodyClassName = '',
+  shellClassName = '',
+  eyebrow,
+  showHeaderHelperText = false,
+  isAnswerReveal: isAnswerRevealOverride,
+  correctAnswerText,
   children,
 }: {
   miniGame: MiniGameSnapshot;
@@ -34,33 +107,18 @@ export function QuestionScreenShell({
   helperText: string;
   choices?: QuestionChoiceItem[];
   bodyClassName?: string;
+  shellClassName?: string;
+  eyebrow?: ReactNode;
+  /** Render helper instructions directly below the question heading. */
+  showHeaderHelperText?: boolean;
+  /** Override for games whose answer is not represented by an option number. */
+  isAnswerReveal?: boolean;
+  /** Optional localized/custom answer text for the reveal banner. */
+  correctAnswerText?: ReactNode;
   children: ReactNode;
 }) {
   const { actions, snapshot } = useGame();
   const t = useTranslation();
-  const [timerNow, setTimerNow] = useState(() => Date.now());
-
-  useEffect(() => {
-    if (tourPhase !== 'answer_window_open' || snapshot.tour.phaseDurationMs <= 0 || !snapshot.tour.phaseStartedAt) {
-      setTimerNow(Date.now());
-      return undefined;
-    }
-    let frameId = 0;
-    const tick = () => { setTimerNow(Date.now()); frameId = window.requestAnimationFrame(tick); };
-    frameId = window.requestAnimationFrame(tick);
-    return () => window.cancelAnimationFrame(frameId);
-  }, [tourPhase, snapshot.tour.phaseStartedAt, snapshot.tour.phaseDurationMs]);
-
-  const smoothElapsedMs = tourPhase === 'answer_window_open' && snapshot.tour.phaseStartedAt
-    ? Math.max(0, timerNow - snapshot.tour.phaseStartedAt)
-    : Math.max(0, snapshot.tour.phaseDurationMs - snapshot.tour.phaseRemainingMs);
-  const smoothRemainingMs = snapshot.tour.phaseDurationMs > 0
-    ? Math.max(0, snapshot.tour.phaseDurationMs - smoothElapsedMs)
-    : snapshot.tour.phaseRemainingMs;
-  const remainingSeconds = Math.max(0, Math.ceil(smoothRemainingMs / 1000));
-  const remainingProgress = tourPhase === 'answer_window_open' && snapshot.tour.phaseDurationMs > 0
-    ? Math.max(0, Math.min(1, smoothRemainingMs / snapshot.tour.phaseDurationMs))
-    : 1;
 
   const isTourMode = snapshot.activeSessionMode === 'tour';
   const roundLabel = isTourMode && snapshot.tour.totalRounds > 0
@@ -71,7 +129,9 @@ export function QuestionScreenShell({
     : t('gameplay.question.label');
 
   const correctOptionNumber = getCorrectOptionNumber(miniGame);
-  const isAnswerReveal = tourPhase === 'scoring' && correctOptionNumber !== null;
+  const isAnswerReveal = isAnswerRevealOverride
+    ?? (tourPhase === 'scoring' && miniGame.correctAnswer !== null);
+  const revealText = correctAnswerText ?? getCorrectAnswerText(miniGame, t);
   const choiceCount = Math.min(choices.length, 4);
   const hasChoices = choiceCount > 0;
 
@@ -133,7 +193,7 @@ export function QuestionScreenShell({
 
   return (
     <div
-      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`}
+      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${shellClassName} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`.trim()}
       style={shellStyle}
     >
       {/* NEXT button — absolute in shell, styled via CSS */}
@@ -159,31 +219,31 @@ export function QuestionScreenShell({
             {roundLabel ? <b>{roundLabel}</b> : null}
           </div>
 
-          <div className="gameplay-question-timer" aria-label={`${remainingSeconds} seconds remaining`}
-               style={{ flex: '1 1 auto', minWidth: 0, maxWidth: 'clamp(200px, 28vw, 420px)', display: 'flex', alignItems: 'center', gap: 'clamp(8px,.7vw,12px)', background: 'transparent', border: 0, padding: 0, boxShadow: 'none' }}>
-            <i className="gameplay-question-timer-icon" aria-hidden="true" />
-            <div className="gameplay-question-timer-track" style={{ flex: '1 1 auto', minWidth: 0 }}>
-              <span
-                className="gameplay-question-timer-fill"
-                style={{ '--timer-progress': `${remainingProgress * 100}%`, '--timer-scale': String(remainingProgress) } as CSSProperties}
-              />
-            </div>
-            <strong style={{ minWidth: '3.5ch', color: '#9ff8ff', fontSize: 'clamp(15px,1.1vw,22px)', lineHeight: 1, whiteSpace: 'nowrap' }}>
-              {tourPhase === 'answer_window_open' ? `${remainingSeconds}s` : t('gameplay.timer.ready')}
-            </strong>
-          </div>
+          <QuestionPhaseTimer
+            isRunning={tourPhase === 'answer_window_open'}
+            phaseStartedAt={snapshot.tour.phaseStartedAt}
+            phaseDurationMs={snapshot.tour.phaseDurationMs}
+            phaseRemainingMs={snapshot.tour.phaseRemainingMs}
+            readyLabel={t('gameplay.timer.ready')}
+          />
 
         </div>
+
+        {eyebrow ? <div className="gameplay-question-eyebrow">{eyebrow}</div> : null}
 
         {/* Question text — full width below */}
         <h2 style={{ margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: "'Luckiest Guy', Impact, 'Arial Black', sans-serif", textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
           {miniGame.statement}
         </h2>
 
+        {showHeaderHelperText && helperText ? (
+          <p className="gameplay-question-header-helper">{helperText}</p>
+        ) : null}
+
         {isAnswerReveal ? (
           <div className="gameplay-answer-reveal-banner" role="status">
             <span>{t('gameplay.answer.correct')}</span>
-            <strong>{getCorrectAnswerText(miniGame, t)}</strong>
+            <strong>{revealText}</strong>
           </div>
         ) : null}
       </div>
@@ -207,15 +267,16 @@ export function QuestionScreenShell({
           >
             {choices.map((choice) => {
               const optionNumber = getCommandOptionNumber(choice.command);
-              const resultState = isAnswerReveal
+              const defaultResultState = isAnswerReveal && correctOptionNumber !== null
                 ? optionNumber === correctOptionNumber ? 'correct' : 'disabled'
                 : 'pending';
+              const resultState = choice.resultState ?? defaultResultState;
               return (
                 <ChoiceCard
                   key={`${choice.command}-${choice.label}-${choice.shape ?? 'text'}`}
                   command={choice.command}
                   label={choice.label}
-                  tone={isAnswerReveal && resultState === 'correct' ? 'green' : choice.tone}
+                  tone={resultState === 'correct' ? 'green' : choice.tone}
                   shape={choice.shape}
                   isOpen={miniGame.acceptsAnswers && !isAnswerReveal}
                   resultState={resultState}

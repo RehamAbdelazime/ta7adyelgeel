@@ -138,7 +138,6 @@ function AnswersLockedScreen({ miniGame }: { miniGame: MiniGameSnapshot }) {
 
 function MiniGamePlayScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const Screen = MINI_GAME_SCREENS[miniGame.id];
-  if (!Screen) return null;
   return <Screen miniGame={miniGame} tourPhase={tourPhase} />;
 }
 

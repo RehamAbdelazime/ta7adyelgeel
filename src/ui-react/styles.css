@@ -29461,3 +29461,165 @@ html body .main-screen-game-grid-layout .main-screen-carousel-page {
     overflow-y: auto !important;
   }
 }
+
+/* Shared mini-game shell follow-up: semantic category label and consistent
+   body sizing for screens migrated onto QuestionScreenShell. */
+.gameplay-question-eyebrow {
+  max-width: 100%;
+  color: rgba(159, 248, 255, 0.88);
+  font-size: clamp(12px, 0.95vw, 18px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+html body .qshell-body.gameplay-question-body-before-after,
+html body .qshell-body.gameplay-question-body-count-the-beat {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.gameplay-before-after-stage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.gameplay-question-header-helper {
+  margin: 0;
+  color: rgba(180, 240, 255, 0.88);
+  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-size: clamp(13px, 1vw, 20px);
+  line-height: 1.2;
+  text-align: center;
+}
+
+
+/* ================================================================
+   MAZE GATES — READABILITY PASS
+   Larger, simpler maze cells; thinner high-contrast walls; less glow.
+   Keep these rules last so they win over legacy maze sizing overrides.
+   ================================================================ */
+html body .gameplay-question-shell .qshell-body .gameplay-maze-full-stage {
+  width: min(100%, 920px) !important;
+  max-width: 920px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: clamp(6px, 0.8vw, 12px) !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html body .gameplay-question-shell .qshell-body .gameplay-maze-full-svg {
+  width: min(100%, 860px) !important;
+  max-width: 860px !important;
+  height: auto !important;
+  max-height: min(52vh, 520px) !important;
+  transform: none !important;
+  transform-origin: center center !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-board {
+  fill: rgba(7, 15, 37, 0.98) !important;
+  stroke: rgba(78, 220, 255, 0.78) !important;
+  stroke-width: 2.5 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-grid path {
+  stroke: rgba(115, 190, 220, 0.075) !important;
+  stroke-width: 1 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-walls-shadow line {
+  stroke: rgba(0, 0, 0, 0.82) !important;
+  stroke-width: 7px !important;
+  stroke-linecap: round !important;
+  opacity: 0.58 !important;
+  filter: none !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-walls line {
+  stroke: #f3f8ff !important;
+  stroke-width: 4.5px !important;
+  stroke-linecap: round !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 1.5px rgba(225, 245, 255, 0.34)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate circle {
+  r: 22px !important;
+  fill: rgba(5, 20, 43, 0.98) !important;
+  stroke: #42e9ff !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 4px rgba(45, 244, 255, 0.3)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate text {
+  fill: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  paint-order: stroke !important;
+  stroke: rgba(0, 0, 0, 0.5) !important;
+  stroke-width: 1.5px !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-correct circle {
+  fill: rgba(25, 125, 78, 0.98) !important;
+  stroke: #76ffb5 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-correct text {
+  fill: #ffffff !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-dead circle {
+  fill: rgba(132, 35, 56, 0.96) !important;
+  stroke: #ff8196 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-dead text {
+  fill: #ffffff !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-exit rect {
+  fill: rgba(30, 115, 78, 0.95) !important;
+  stroke: #8dffc4 !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 0 5px rgba(92, 255, 177, 0.28)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-exit text {
+  fill: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.08em !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-solution {
+  stroke: #65ffad !important;
+  stroke-width: 8px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 0 4px rgba(92, 255, 177, 0.7)) !important;
+}
+
+@media (max-height: 760px) {
+  html body .gameplay-question-shell .qshell-body .gameplay-maze-full-svg {
+    max-height: 46vh !important;
+  }
+}

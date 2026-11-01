@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
@@ -14,11 +14,11 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
 
   // Seeded shuffle: deterministic per round+dish, different each round.
   // Mulberry32 PRNG — faster and more consistent than Math.random().
-  const [shuffledChoices] = useState(() => {
+  const shuffledChoices = useMemo(() => {
     if (!food?.choices) return [];
     const seed = `${miniGame.roundNumber}:${food.dishName ?? food.dishImageUrl ?? ''}`;
     return seededShuffle(food.choices, seed);
-  });
+  }, [food?.choices, food?.dishName, food?.dishImageUrl, miniGame.roundNumber]);
 
   useEffect(() => {
     if (!miniGame.hint?.isEnabled || miniGame.hint.isRevealed || !miniGame.hint.revealAt) return undefined;

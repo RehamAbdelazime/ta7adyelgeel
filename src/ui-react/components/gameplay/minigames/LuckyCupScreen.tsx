@@ -1,30 +1,22 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
-import { useState, useEffect } from 'react';
-import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
-import {
-  SHAPE_COLORS, MEMORY_ITEM_EMOJI, normalizeRuntimeAssetUrl,
-  getShapeLabel, getShapeIcon, getChoiceTone, getPairChoiceTone,
-  getPhaseHelper, type TranslateFn, type ChoiceTone,
-} from '../shared/overlay-types';
-import { type ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
-import { QuestionScreenShell, type QuestionChoiceItem, ShapeMark } from '../shared/question-shell';
+import { getPhaseHelper } from '../shared/overlay-types';
+import { QuestionScreenShell } from '../shared/question-shell';
 
 export function LuckyCupScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
-  const luckyCup = (miniGame as MiniGameSnapshot & { luckyCup?: any }).luckyCup;
+  const luckyCup = miniGame.luckyCup;
 
   if (!luckyCup) {
     return <p className="gameplay-empty-round">Preparing Kobaya w Shakawa...</p>;
   }
 
   const isReveal = tourPhase === 'scoring';
+  // The shared shell owns answer reveal text; keep the helper focused on phase guidance.
   const helper = miniGame.acceptsAnswers
     ? miniGame.instruction
-    : luckyCup.correctCupNumber !== null
-      ? 'Correct cup: !' + luckyCup.correctCupNumber
-      : getPhaseHelper(tourPhase, t);
+    : getPhaseHelper(tourPhase, t);
 
   return (
     <QuestionScreenShell

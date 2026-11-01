@@ -1,15 +1,8 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
-import { useState, useEffect } from 'react';
-import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
-import {
-  SHAPE_COLORS, MEMORY_ITEM_EMOJI, normalizeRuntimeAssetUrl,
-  getShapeLabel, getShapeIcon, getChoiceTone, getPairChoiceTone,
-  getPhaseHelper, type TranslateFn, type ChoiceTone,
-} from '../shared/overlay-types';
-import { type ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
-import { QuestionScreenShell, type QuestionChoiceItem, ShapeMark } from '../shared/question-shell';
+import { getPhaseHelper, type ChoiceTone } from '../shared/overlay-types';
+import { QuestionScreenShell } from '../shared/question-shell';
 
 export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
@@ -44,8 +37,8 @@ export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
         {fullMaze.solutionPath.length > 0 ? <polyline points={pathLine(fullMaze.solutionPath)} className="gameplay-maze-full-solution" /> : null}
         <g className="gameplay-maze-full-walls-shadow" aria-hidden="true">{fullMaze.wallSegments.map((segment, index) => <line key={`shadow-${index}`} x1={segment.x1} y1={segment.y1} x2={segment.x2} y2={segment.y2} />)}</g>
         <g className="gameplay-maze-full-walls">{fullMaze.wallSegments.map((segment, index) => <line key={`wall-${index}`} x1={segment.x1} y1={segment.y1} x2={segment.x2} y2={segment.y2} />)}</g>
-        <g className="gameplay-maze-full-exit" transform={`translate(${fullMaze.exit.x} ${fullMaze.exit.y})`}><rect x="-38" y="-15" width="76" height="30" rx="15" /><text y="5" textAnchor="middle">{fullMaze.exit.label}</text></g>
-        {fullMaze.gates.map((gate) => <g key={gate.optionNumber} className={`gameplay-maze-full-gate ${gate.isCorrect ? 'gameplay-maze-full-gate-correct' : ''} ${gate.isDeadEnd ? 'gameplay-maze-full-gate-dead' : ''}`} transform={`translate(${gate.x} ${gate.y})`}><circle r="19" /><text y="6" textAnchor="middle">{gate.command}</text></g>)}
+        <g className="gameplay-maze-full-exit" transform={`translate(${fullMaze.exit.x} ${fullMaze.exit.y})`}><rect x="-46" y="-18" width="92" height="36" rx="18" /><text y="6" textAnchor="middle">{fullMaze.exit.label}</text></g>
+        {fullMaze.gates.map((gate) => <g key={gate.optionNumber} className={`gameplay-maze-full-gate ${gate.isCorrect ? 'gameplay-maze-full-gate-correct' : ''} ${gate.isDeadEnd ? 'gameplay-maze-full-gate-dead' : ''}`} transform={`translate(${gate.x} ${gate.y})`}><circle r="22" /><text y="6" textAnchor="middle">{gate.command}</text></g>)}
       </svg>
     </div>
   ) : (
