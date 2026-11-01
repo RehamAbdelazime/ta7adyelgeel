@@ -27,7 +27,8 @@ export type LuckyCupAnswer = number;
 
 export type MiniGameAnswer = TrueFakeAnswer | ShapeCountAnswer | MemoryCountAnswer | FoodOriginAnswer | BeforeOrAfterAnswer | GuessLogoAnswer | MazeGateAnswer | HangmanAnswer | CoupleOrSiblingsAnswer | CountTheBeatAnswer | LuckyCupAnswer;
 
-export type MiniGameId = 'true-fake' | 'shape-count' | 'memory-count' | 'food-origin' | 'before-after' | 'guess-logo' | 'maze-gates' | 'hangman' | 'couple-or-siblings' | 'count-the-beat' | 'lucky-cup';
+export type { MiniGameId } from './minigame-registry';
+import type { MiniGameId } from './minigame-registry';
 
 export type MiniGameStatus =
   | 'idle'

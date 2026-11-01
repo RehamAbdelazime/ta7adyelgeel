@@ -1,5 +1,6 @@
 import type { MiniGameId, MiniGameScoreAward } from '../minigames/minigame-types';
-import { MINI_GAME_IDS, PICKER_MINI_GAME_IDS } from '../minigames/minigame-registry';
+import { MINI_GAME_IDS, PUBLIC_MINI_GAME_IDS } from '../minigames/minigame-registry';
+import { DEFAULT_RUNTIME_GAME_CONFIG_DATA } from './runtime-game-config.defaults.generated';
 import type { TourPhase } from '../tours/tour-types';
 
 export type RuntimeGameConfig = {
@@ -28,54 +29,11 @@ export type RuntimeGameConfig = {
   };
 };
 
-// MINI_GAME_IDS and PICKER_MINI_GAME_IDS are imported from minigame-registry.ts
-export { MINI_GAME_IDS, PICKER_MINI_GAME_IDS };
+// Game IDs come from the registry; runtime defaults come from the public JSON config.
+export { MINI_GAME_IDS, PUBLIC_MINI_GAME_IDS };
 
-export const DEFAULT_RUNTIME_GAME_CONFIG: RuntimeGameConfig = {
-  version: 1,
-  tour: {
-    defaultRoundCount: 3,
-    minRoundCount: 1,
-    maxRoundCount: 12,
-    miniGameRotation: PICKER_MINI_GAME_IDS,
-    enabledMiniGames: PICKER_MINI_GAME_IDS,
-    singleMiniGameRoundCounts: {
-      'food-origin': 3,
-      'shape-count': 3,
-      'maze-gates': 3,
-      'before-after': 3,
-      'guess-logo': 3,
-      'count-the-beat': 3,
-      'lucky-cup': 3,
-    },
-    phaseDurationsMs: {
-      lobby_open: 0,
-      mini_game_intro: 0,
-      tour_starting: 3_000,
-      answer_window_open: 20_000,
-      scoring: 0,
-      tour_complete: 0,
-      cleanup: 0,
-    },
-    miniGamePhaseOverridesMs: {},
-  },
-  scoring: {
-    officialParticipationXp: 20,
-    officialParticipationCoins: 2,
-    officialCorrectRewardByDifficulty: {
-      easy: { xp: 40, coins: 6 },
-      medium: { xp: 60, coins: 10 },
-      hard: { xp: 90, coins: 16 },
-    },
-  },
-  persistence: {
-    saveDebounceMs: 250,
-    maxTourHistoryEntries: 50,
-  },
-  qa: {
-    maxTestPlayers: 72,
-  },
-};
+export const DEFAULT_RUNTIME_GAME_CONFIG =
+  DEFAULT_RUNTIME_GAME_CONFIG_DATA as unknown as RuntimeGameConfig;
 
 export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfig {
   const input = isRecord(rawConfig) ? rawConfig : {};
@@ -87,6 +45,17 @@ export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfi
   const overrides = isRecord(tour.miniGamePhaseOverridesMs) ? tour.miniGamePhaseOverridesMs : {};
   const correctRewards = isRecord(scoring.officialCorrectRewardByDifficulty) ? scoring.officialCorrectRewardByDifficulty : {};
 
+  const enabledMiniGames = readPublicMiniGameIdArray(
+    tour.enabledMiniGames,
+    DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames,
+  );
+  const enabledMiniGameSet = new Set(enabledMiniGames);
+  const configuredRotation = readPublicMiniGameIdArray(
+    tour.miniGameRotation,
+    enabledMiniGames,
+  ).filter((miniGameId) => enabledMiniGameSet.has(miniGameId));
+  const miniGameRotation = configuredRotation.length > 0 ? configuredRotation : [...enabledMiniGames];
+
   const minRoundCount = readInteger(tour.minRoundCount, DEFAULT_RUNTIME_GAME_CONFIG.tour.minRoundCount, 1, 50);
   const maxRoundCount = Math.max(minRoundCount, readInteger(tour.maxRoundCount, DEFAULT_RUNTIME_GAME_CONFIG.tour.maxRoundCount, minRoundCount, 99));
 
@@ -96,8 +65,8 @@ export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfi
       defaultRoundCount: readInteger(tour.defaultRoundCount, DEFAULT_RUNTIME_GAME_CONFIG.tour.defaultRoundCount, minRoundCount, maxRoundCount),
       minRoundCount,
       maxRoundCount,
-      miniGameRotation: readMiniGameIdArray(tour.miniGameRotation, DEFAULT_RUNTIME_GAME_CONFIG.tour.miniGameRotation),
-      enabledMiniGames: readMiniGameIdArray(tour.enabledMiniGames, DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames),
+      miniGameRotation,
+      enabledMiniGames,
       phaseDurationsMs: {
         lobby_open: readDuration(phaseDurations.lobby_open, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.lobby_open ?? 0, 0, 60_000),
         mini_game_intro: readDuration(phaseDurations.mini_game_intro, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.mini_game_intro ?? 0, 0, 60_000),
@@ -170,7 +139,7 @@ function normalizeMiniGamePhaseOverrides(overrides: Record<string, unknown>): Ru
     normalized[miniGameId] = phaseOverrides;
   }
 
-  if (!normalized.hangman?.answer_window_open) {
+  if (normalized.hangman?.answer_window_open === undefined) {
     normalized.hangman = {
       ...normalized.hangman,
       answer_window_open: DEFAULT_RUNTIME_GAME_CONFIG.tour.miniGamePhaseOverridesMs.hangman?.answer_window_open ?? 20_000,
@@ -189,13 +158,17 @@ function readReward(value: unknown, fallback: { xp: number; coins: number }): { 
   };
 }
 
-function readMiniGameIdArray(value: unknown, fallback: MiniGameId[]): MiniGameId[] {
+function readPublicMiniGameIdArray(value: unknown, fallback: readonly MiniGameId[]): MiniGameId[] {
   if (!Array.isArray(value)) {
-    return fallback;
+    return [...fallback];
   }
 
-  const ids = value.filter(isMiniGameId);
-  return ids.length > 0 ? [...new Set(ids)] : fallback;
+  const publicIds = new Set(PUBLIC_MINI_GAME_IDS);
+  const ids = [...new Set(value.filter(
+    (id): id is MiniGameId => isMiniGameId(id) && publicIds.has(id),
+  ))];
+
+  return ids.length > 0 ? ids : [...fallback];
 }
 
 function readDuration(value: unknown, fallback: number, min: number, max: number): number {

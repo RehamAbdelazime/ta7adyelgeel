@@ -1,6 +1,6 @@
 import type { CitizenRuntime } from '../citizens/citizen-types';
-import { DEFAULT_RUNTIME_GAME_CONFIG, MINI_GAME_IDS, type RuntimeGameConfig } from '../config/runtime-game-config';
-import { MINI_GAME_REGISTRY, MINI_GAME_BY_ID } from '../minigames/minigame-registry';
+import { DEFAULT_RUNTIME_GAME_CONFIG, type RuntimeGameConfig } from '../config/runtime-game-config';
+import { MINI_GAME_REGISTRY, MINI_GAME_BY_ID, PUBLIC_MINI_GAME_IDS } from '../minigames/minigame-registry';
 import { EMPTY_TOUR_AWARDS, type TourAward, type TourAwardsSnapshot, type TourAwardWinner, type TourPlayerStats, type TourScoreboardRow } from '../awards/tour-awards';
 import { CHAOS_EVENTS, ChaosEventService } from '../chaos/chaos-event-service';
 import type { ChaosEventDefinition } from '../chaos/chaos-types';
@@ -176,7 +176,7 @@ export class GameStore {
   applyRuntimeConfig(runtimeConfig: RuntimeGameConfig): void {
     this.runtimeConfig = runtimeConfig;
     this.tourRoundCount = this.clampTourRoundCount(this.tourRoundCount || runtimeConfig.tour.defaultRoundCount);
-    this.enabledMiniGameIds = new Set(runtimeConfig.tour.enabledMiniGames.length > 0 ? runtimeConfig.tour.enabledMiniGames : MINI_GAME_IDS);
+    this.enabledMiniGameIds = new Set(runtimeConfig.tour.enabledMiniGames.length > 0 ? runtimeConfig.tour.enabledMiniGames : PUBLIC_MINI_GAME_IDS);
 
     if (!this.enabledMiniGameIds.has(this.activeMiniGameId)) {
       this.activeMiniGameId = this.selectMiniGameForRound(this.tourStateMachine.getSnapshot().roundNumber || 1, this.tourStateMachine.getSnapshot().tourNumber || 1);
@@ -254,7 +254,10 @@ export class GameStore {
     // not Twitch chat, so kind is always 'unknown' from parseCommandForResult
     // — that check would incorrectly reject every valid host answer.
     // const command = this.parseCommandForResult(normalizedCommand);
-    const command: ParsedTwitchCommand = {...this.parseCommandForResult(normalizedCommand),kind: 'answer',};
+    const command: ParsedTwitchCommand = {
+      ...this.parseCommandForResult(normalizedCommand),
+      kind: 'answer',
+    };
 
     const result = this.handleMiniGameAnswerCommand({
       twitchUserId: privateCitizen.twitchUserId,
@@ -585,13 +588,18 @@ export class GameStore {
   setMiniGameEnabled(miniGameId: MiniGameId, enabled: boolean): void {
     if (enabled) {
       this.enabledMiniGameIds.add(miniGameId);
-    } else if (this.enabledMiniGameIds.size > 1) {
-      this.enabledMiniGameIds.delete(miniGameId);
-      if (this.forcedNextMiniGameId === miniGameId) {
-        this.forcedNextMiniGameId = null;
-      }
     } else {
-      this.addFeed(this.locale === 'ar' ? 'لازم تسيب ميني جيم واحدة مفعلة على الأقل.' : 'Keep at least one mini-game enabled.');
+      const isPublicMiniGame = PUBLIC_MINI_GAME_IDS.includes(miniGameId);
+      const enabledPublicCount = PUBLIC_MINI_GAME_IDS.filter((id) => this.enabledMiniGameIds.has(id)).length;
+
+      if (!isPublicMiniGame || enabledPublicCount > 1) {
+        this.enabledMiniGameIds.delete(miniGameId);
+        if (this.forcedNextMiniGameId === miniGameId) {
+          this.forcedNextMiniGameId = null;
+        }
+      } else {
+        this.addFeed(this.locale === 'ar' ? 'لازم تسيب ميني جيم عامة واحدة مفعلة على الأقل.' : 'Keep at least one public mini-game enabled.');
+      }
     }
 
     this.notifyChanged();
@@ -1418,11 +1426,18 @@ export class GameStore {
       return queuedMiniGame;
     }
 
-    const configuredRotation = this.runtimeConfig.tour.miniGameRotation.length > 0 ? this.runtimeConfig.tour.miniGameRotation : MINI_GAME_IDS;
-    const cycle = configuredRotation.filter((miniGameId) => this.enabledMiniGameIds.has(miniGameId));
-    const safeCycle = cycle.length > 0 ? cycle : MINI_GAME_IDS;
+    const configuredRotation = this.runtimeConfig.tour.miniGameRotation.length > 0
+      ? this.runtimeConfig.tour.miniGameRotation
+      : PUBLIC_MINI_GAME_IDS;
+    const cycle = configuredRotation.filter((miniGameId) =>
+      PUBLIC_MINI_GAME_IDS.includes(miniGameId) && this.enabledMiniGameIds.has(miniGameId),
+    );
+    const safeCycle = cycle.length > 0
+      ? cycle
+      : PUBLIC_MINI_GAME_IDS.filter((miniGameId) => this.enabledMiniGameIds.has(miniGameId));
+    const finalCycle = safeCycle.length > 0 ? safeCycle : [...PUBLIC_MINI_GAME_IDS];
     const rotationOffset = Math.max(0, tourNumber - 1);
-    return safeCycle[(rotationOffset + roundNumber - 1) % safeCycle.length];
+    return finalCycle[(rotationOffset + roundNumber - 1) % finalCycle.length];
   }
 
   private normalizeSelectedMiniGames(selectedMiniGameIds?: MiniGameId[] | null): MiniGameId[] {
@@ -1431,14 +1446,27 @@ export class GameStore {
     }
 
     const uniqueSelected = [...new Set(selectedMiniGameIds)];
-    const enabledSelected = uniqueSelected.filter((miniGameId) => MINI_GAME_IDS.includes(miniGameId) && this.enabledMiniGameIds.has(miniGameId));
+    const enabledSelected = uniqueSelected.filter((miniGameId) =>
+      PUBLIC_MINI_GAME_IDS.includes(miniGameId) && this.enabledMiniGameIds.has(miniGameId),
+    );
     return enabledSelected.length > 0 ? enabledSelected : [];
   }
 
   private buildTourMiniGameQueue(roundCount: number, selectedMiniGameIds: MiniGameId[] | null): MiniGameId[] {
-    const configuredRotation = this.runtimeConfig.tour.miniGameRotation.length > 0 ? this.runtimeConfig.tour.miniGameRotation : MINI_GAME_IDS;
-    const configuredPool = configuredRotation.filter((miniGameId) => this.enabledMiniGameIds.has(miniGameId));
-    const basePool = selectedMiniGameIds?.length ? selectedMiniGameIds : configuredPool.length > 0 ? configuredPool : MINI_GAME_IDS;
+    const configuredRotation = this.runtimeConfig.tour.miniGameRotation.length > 0
+      ? this.runtimeConfig.tour.miniGameRotation
+      : PUBLIC_MINI_GAME_IDS;
+    const configuredPool = configuredRotation.filter((miniGameId) =>
+      PUBLIC_MINI_GAME_IDS.includes(miniGameId) && this.enabledMiniGameIds.has(miniGameId),
+    );
+    const enabledPublicFallback = PUBLIC_MINI_GAME_IDS.filter((miniGameId) => this.enabledMiniGameIds.has(miniGameId));
+    const basePool = selectedMiniGameIds?.length
+      ? selectedMiniGameIds
+      : configuredPool.length > 0
+        ? configuredPool
+        : enabledPublicFallback.length > 0
+          ? enabledPublicFallback
+          : [...PUBLIC_MINI_GAME_IDS];
     const queue: MiniGameId[] = [];
 
     while (queue.length < roundCount) {

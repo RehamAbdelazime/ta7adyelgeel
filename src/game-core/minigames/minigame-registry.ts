@@ -1,9 +1,9 @@
 /**
- * MINI-GAME REGISTRY — Single Source of Truth
+ * MINI-GAME REGISTRY — Canonical game catalog
  *
- * This is the ONE place to define a mini-game.
- * Adding a new mini-game means adding ONE entry here.
- * Everything else (picker UI, game-store, config) derives from this.
+ * This is the canonical catalog of mini-games.
+ * It owns game identity, UI metadata, and release eligibility.
+ * Runtime enablement and tour rotation are owned by gameplay-config.json.
  *
  * SOLID adherence:
  *  - S: This file's only job is to describe what mini-games exist.
@@ -14,14 +14,13 @@
  *  - D: Consumers depend on MiniGameRegistryEntry[], not on concrete games.
  */
 
-import type { MiniGameId } from './minigame-types';
 import type { TranslationKey } from '../localization/locale-types';
 
 export type MiniGameSpeed = 'Fast' | 'Normal';
 
 export type MiniGameRegistryEntry = {
-  /** Unique identifier — must match MiniGameId */
-  readonly id: MiniGameId;
+  /** Unique identifier. MiniGameId is inferred from the registry entries below. */
+  readonly id: string;
   /** Emoji icon shown in the picker */
   readonly icon: string;
   /** Translation key for the game title */
@@ -34,21 +33,15 @@ export type MiniGameRegistryEntry = {
   readonly introSteps: readonly [TranslationKey, TranslationKey, TranslationKey];
   /** Pace shown in the picker */
   readonly speed: MiniGameSpeed;
-  /** Default number of rounds in a single-game session */
-  readonly defaultRounds: number;
-  /**
-   * Whether this game appears in the public-facing picker.
-   * Set to false for games that are implemented but not yet
-   * ready for production (they can still be force-started via QA panel).
-   */
-  readonly visibleInPicker: boolean;
+  /** Release eligibility. Runtime enablement is configured separately. */
+  readonly availability: 'public' | 'qa-only';
 };
 
 /**
  * THE registry. One entry per mini-game.
  * Order here = order in the picker UI.
  */
-export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
+export const MINI_GAME_REGISTRY = [
   {
     id: 'food-origin',
     icon: '🍔',
@@ -57,8 +50,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.foodOrigin.description',
     introSteps: ['gameplay.intro.food.step1', 'gameplay.intro.food.step2', 'gameplay.intro.food.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'shape-count',
@@ -68,8 +60,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.shapeCount.description',
     introSteps: ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
     speed: 'Normal',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'maze-gates',
@@ -79,8 +70,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.mazeGates.description',
     introSteps: ['gameplay.intro.maze.step1', 'gameplay.intro.maze.step2', 'gameplay.intro.maze.step3'],
     speed: 'Normal',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'before-after',
@@ -90,8 +80,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.beforeAfter.note',
     introSteps: ['gameplay.intro.beforeAfter.step1', 'gameplay.intro.beforeAfter.step2', 'gameplay.intro.beforeAfter.step3'],
     speed: 'Normal',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'guess-logo',
@@ -101,8 +90,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.guessLogo.description',
     introSteps: ['gameplay.intro.logo.step1', 'gameplay.intro.logo.step2', 'gameplay.intro.logo.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'count-the-beat',
@@ -112,8 +100,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.countTheBeat.description',
     introSteps: ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   {
     id: 'lucky-cup',
@@ -123,19 +110,11 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.luckyCup.description',
     introSteps: ['gameplay.intro.shape.step1', 'gameplay.intro.shape.step2', 'gameplay.intro.shape.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: true,
+    availability: 'public',
   },
   // ══════════════════════════════════════════════════════════════════════════
-  // TODO: Enable these games by setting visibleInPicker: true when ready.
-  //
-  //  true-fake          — fully implemented, backend + UI complete
-  //  memory-count       — fully implemented, backend + UI complete
-  //  hangman            — fully implemented, backend + UI complete
-  //  couple-or-siblings — fully implemented, backend + UI complete
-  //
-  //  To enable any of them: change visibleInPicker to true and
-  //  add proper introSteps translation keys if the defaults are wrong.
+  // Implemented but unreleased games remain QA-only until explicitly promoted.
+  // True or Fake is public; the remaining three are reserved for QA.
   // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'true-fake',
@@ -145,8 +124,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.trueFake.description',
     introSteps: ['gameplay.intro.trueFake.step1', 'gameplay.intro.trueFake.step2', 'gameplay.intro.trueFake.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: false,
+    availability: 'public',
   },
   {
     id: 'memory-count',
@@ -156,8 +134,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.memoryCount.description',
     introSteps: ['gameplay.intro.memory.step1', 'gameplay.intro.memory.step2', 'gameplay.intro.memory.step3'],
     speed: 'Normal',
-    defaultRounds: 3,
-    visibleInPicker: false,
+    availability: 'qa-only',
   },
   {
     id: 'hangman',
@@ -167,8 +144,7 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.hangman.description',
     introSteps: ['gameplay.intro.hangman.step1', 'gameplay.intro.hangman.step2', 'gameplay.intro.hangman.step3'],
     speed: 'Normal',
-    defaultRounds: 3,
-    visibleInPicker: false,
+    availability: 'qa-only',
   },
   {
     id: 'couple-or-siblings',
@@ -178,18 +154,29 @@ export const MINI_GAME_REGISTRY: readonly MiniGameRegistryEntry[] = [
     descriptionKey: 'minigame.coupleOrSiblings.description',
     introSteps: ['gameplay.intro.pair.step1', 'gameplay.intro.pair.step2', 'gameplay.intro.pair.step3'],
     speed: 'Fast',
-    defaultRounds: 3,
-    visibleInPicker: false,
+    availability: 'qa-only',
   },
-] as const;
+] as const satisfies readonly MiniGameRegistryEntry[];
 
-/** All registered game IDs — derived, never manually listed elsewhere */
-export const MINI_GAME_IDS = MINI_GAME_REGISTRY.map((g) => g.id) as MiniGameId[];
+/** The MiniGameId union is derived from the catalog, never maintained separately. */
+export type MiniGameId = (typeof MINI_GAME_REGISTRY)[number]['id'];
 
-/** Games shown in the public picker — derived from visibleInPicker flag */
-export const PICKER_MINI_GAME_IDS = MINI_GAME_REGISTRY
-  .filter((g) => g.visibleInPicker)
-  .map((g) => g.id) as MiniGameId[];
+/** All registered game IDs, including QA-only games. */
+export const MINI_GAME_IDS = MINI_GAME_REGISTRY.map((game) => game.id) as MiniGameId[];
+
+/** Games eligible for public-facing play. Runtime enablement is applied by consumers. */
+export const PUBLIC_MINI_GAME_IDS = MINI_GAME_REGISTRY
+  .filter((game) => game.availability === 'public')
+  .map((game) => game.id) as MiniGameId[];
+
+/** Public games optionally narrowed by the current runtime-enabled list. */
+export function getPublicMiniGames(enabledMiniGameIds?: readonly MiniGameId[]) {
+  const enabled = enabledMiniGameIds ? new Set(enabledMiniGameIds) : null;
+
+  return MINI_GAME_REGISTRY.filter((game) =>
+    game.availability === 'public' && (!enabled || enabled.has(game.id)),
+  );
+}
 
 /** Fast lookup by ID */
 export const MINI_GAME_BY_ID: Readonly<Record<MiniGameId, MiniGameRegistryEntry>> =

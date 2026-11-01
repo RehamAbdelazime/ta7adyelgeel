@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
-import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
-import type { TranslationKey } from '../../../game-core/localization/locale-types';
+import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
+import type { TextDirection, TranslationKey } from '../../../game-core/localization/locale-types';
 import type { TwitchChatMessage } from '../../../game-core/twitch/twitch-message-types';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
@@ -9,10 +9,8 @@ import { useTranslation } from '../../i18n/useTranslation';
 
 type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 
-// Derived from MINI_GAME_REGISTRY — never hardcoded here.
-// Adding/removing a game only requires editing minigame-registry.ts.
-const MINI_GAME_CARDS = MINI_GAME_REGISTRY.filter((g) => g.visibleInPicker);
-type MiniGameCardDefinition = typeof MINI_GAME_CARDS[number];
+// Public catalog eligibility comes from the registry; runtime enablement comes from GameStore.
+type MiniGameCardDefinition = ReturnType<typeof getPublicMiniGames>[number];
 
 type LiveChatItem = TwitchChatMessage & {
   id: string;
@@ -36,7 +34,11 @@ export function MainScreenPlayFlow() {
   const { actions, snapshot } = useGame();
   const t = useTranslation();
   const [step, setStep] = useState<ScreenStep>('home');
-  const availableMiniGames = MINI_GAME_CARDS;
+  const enabledMiniGameKey = [...snapshot.hostSettings.enabledMiniGameIds].sort().join('|');
+  const availableMiniGames = useMemo(
+    () => getPublicMiniGames(enabledMiniGameKey ? enabledMiniGameKey.split('|') as MiniGameId[] : []),
+    [enabledMiniGameKey],
+  );
   const [selectedTourMiniGames, setSelectedTourMiniGames] = useState<MiniGameId[]>([]);
   const canStart = snapshot.tour.canStartTour && snapshot.citizens.some((citizen) => citizen.role === 'official');
 
@@ -44,7 +46,9 @@ export function MainScreenPlayFlow() {
     const availableIds = uniqueMiniGames(availableMiniGames);
     setSelectedTourMiniGames((currentSelected) => {
       const stillAvailable = currentSelected.filter((miniGameId) => availableIds.includes(miniGameId));
-      return stillAvailable;
+      const unchanged = stillAvailable.length === currentSelected.length
+        && stillAvailable.every((id, index) => id === currentSelected[index]);
+      return unchanged ? currentSelected : stillAvailable;
     });
   }, [availableMiniGames]);
 
@@ -90,6 +94,7 @@ export function MainScreenPlayFlow() {
           title={t('ui.play.chooseMiniGame')}
           subtitle={t('ui.play.chooseMiniGameHint')}
           miniGames={availableMiniGames}
+          direction={snapshot.direction}
           selectedMiniGames={[]}
           canStart={canStart}
           mode="single"
@@ -103,6 +108,7 @@ export function MainScreenPlayFlow() {
           title={t('ui.play.chooseTourGames')}
           subtitle={t('ui.play.chooseTourGamesHint')}
           miniGames={availableMiniGames}
+          direction={snapshot.direction}
           selectedMiniGames={selectedTourMiniGames}
           canStart={canStart}
           mode="tour"
@@ -179,6 +185,7 @@ function MiniGameGridScreen({
   title,
   subtitle,
   miniGames,
+  direction,
   selectedMiniGames,
   canStart,
   mode,
@@ -190,6 +197,7 @@ function MiniGameGridScreen({
   title: string;
   subtitle: string;
   miniGames: MiniGameCardDefinition[];
+  direction: TextDirection;
   selectedMiniGames: MiniGameId[];
   canStart: boolean;
   mode: 'single' | 'tour';
@@ -198,31 +206,6 @@ function MiniGameGridScreen({
   onStartTour?: () => void;
   translate: (key: TranslationKey) => string;
 }) {
-  // Carousel state
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const maxIndex = Math.max(0, Math.ceil(miniGames.length / 2) - 1);
-
-  const handlePrev = () => {
-    setCarouselIndex(i => Math.max(i - 1, 0));
-  };
-
-  const handleNext = () => {
-    setCarouselIndex(i => Math.min(i + 1, maxIndex));
-  };
-
-  // Keyboard navigation for carousel
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        handlePrev();
-      } else if (e.key === 'ArrowRight') {
-        handleNext();
-      }
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [miniGames.length, maxIndex]);
-
   return (
     <div className={`main-screen-game-grid-layout main-screen-game-grid-layout-${mode}`}>
       <ScreenBackButton onBack={onBack} />
@@ -232,41 +215,30 @@ function MiniGameGridScreen({
         {mode === 'tour' ? <strong>{selectedMiniGames.length}/{miniGames.length}</strong> : <span aria-hidden="true">✦</span>}
       </header>
 
-      {/* Carousel wrapper (keyboard-navigated, no arrows on screen) */}
-      <div className="main-screen-carousel-container">
-        <div className="main-screen-carousel-viewport" role="region" aria-label={translate('ui.play.miniGameCarousel')}>
-          <div className="carousel-inner" style={{ transform: `translateX(-${carouselIndex * 100}%)` }}>
-            {Array.from({ length: Math.ceil(miniGames.length / 2) }, (_, slideIdx) => {
-              const pair = miniGames.slice(slideIdx * 2, slideIdx * 2 + 2);
-              return (
-                <div className="carousel-item" key={slideIdx}>
-                  {pair.map((miniGame) => (
-                    <button
-                      key={miniGame.id}
-                      className={`main-screen-mini-card main-screen-mini-card-${miniGame.id}${selectedMiniGames.includes(miniGame.id) ? ' main-screen-mini-card-selected' : ''}`}
-                      type="button"
-                      onClick={() => onLaunch(miniGame.id)}
-                      disabled={!canStart}
-                      aria-pressed={mode === 'tour' ? selectedMiniGames.includes(miniGame.id) : undefined}
-                      aria-label={translate(miniGame.titleKey)}
-                    >
-                      {mode === 'tour' && selectedMiniGames.includes(miniGame.id) && (
-                        <span className="main-screen-mini-card-order" aria-hidden="true">
-                          {selectedMiniGames.indexOf(miniGame.id) + 1}
-                        </span>
-                      )}
-                      <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
-                      <span className="main-screen-mini-card-copy">
-                        <strong>{translate(miniGame.titleKey)}</strong>
-                        <small>{translate(miniGame.noteKey)}</small>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      {/* Show every runtime-enabled public game together in a two-row grid. */}
+      <div className="main-screen-mini-card-grid" dir={direction} role="group" aria-label="Mini-game choices">
+        {miniGames.map((miniGame) => (
+          <button
+            key={miniGame.id}
+            className={`main-screen-mini-card main-screen-mini-card-${miniGame.id}${selectedMiniGames.includes(miniGame.id) ? ' main-screen-mini-card-selected' : ''}`}
+            type="button"
+            onClick={() => onLaunch(miniGame.id)}
+            disabled={!canStart}
+            aria-pressed={mode === 'tour' ? selectedMiniGames.includes(miniGame.id) : undefined}
+            aria-label={translate(miniGame.titleKey)}
+          >
+            {mode === 'tour' && selectedMiniGames.includes(miniGame.id) && (
+              <span className="main-screen-mini-card-order" aria-hidden="true">
+                {selectedMiniGames.indexOf(miniGame.id) + 1}
+              </span>
+            )}
+            <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
+            <span className="main-screen-mini-card-copy">
+              <strong>{translate(miniGame.titleKey)}</strong>
+              <small>{translate(miniGame.noteKey)}</small>
+            </span>
+          </button>
+        ))}
       </div>
       {mode === 'tour' ? (
         <footer className="main-screen-tour-footer">

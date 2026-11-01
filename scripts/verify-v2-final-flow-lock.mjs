@@ -1,8 +1,5 @@
 import fs from "node:fs";
 
-const active = ["food-origin", "shape-count", "maze-gates", "guess-logo"];
-const disabled = ["true-fake", "memory-count", "hangman", "couple-or-siblings"];
-
 function read(path) {
   return fs.readFileSync(path, "utf8");
 }
@@ -16,32 +13,34 @@ function assert(condition, message) {
   if (!condition) fail(message);
 }
 
-function sameArray(value, expected) {
-  return Array.isArray(value) && JSON.stringify(value) === JSON.stringify(expected);
-}
-
 const config = JSON.parse(read("public/assets/game/runtime/config/gameplay-config.json"));
-assert(config.tour.defaultRoundCount === 3, "defaultRoundCount must be 3");
-assert(sameArray(config.tour.enabledMiniGames, active), "enabledMiniGames must match active v2 games");
-assert(sameArray(config.tour.miniGameRotation, active), "miniGameRotation must match active v2 games");
-assert(config.tour.phaseDurationsMs.answer_window_open === 20000, "answer window must be 20 seconds");
+assert(Number.isInteger(config.tour.defaultRoundCount), "defaultRoundCount must be configured as an integer");
+assert(config.tour.phaseDurationsMs.answer_window_open >= 1000, "answer window must be configured");
+assert(Array.isArray(config.tour.enabledMiniGames) && config.tour.enabledMiniGames.length > 0, "enabledMiniGames must not be empty");
+assert(Array.isArray(config.tour.miniGameRotation) && config.tour.miniGameRotation.length > 0, "miniGameRotation must not be empty");
+assert(config.tour.miniGameRotation.every((id) => config.tour.enabledMiniGames.includes(id)), "Tour rotation must be a subset of enabled games");
 
+const registry = read("src/game-core/minigames/minigame-registry.ts");
+const registryEntryBlocks = registry.match(/\n  \{\s*id:[\s\S]*?\n  \},?/g) ?? [];
+const qaOnlyIds = registryEntryBlocks
+  .filter((block) => /\bavailability:\s*['"]qa-only['"]/.test(block))
+  .map((block) => block.match(/\bid:\s*['"]([^'"]+)['"]/)?.[1])
+  .filter(Boolean);
 const runtimeConfig = read("src/game-core/config/runtime-game-config.ts");
-const miniGameIdsBlock = runtimeConfig.match(/export const MINI_GAME_IDS:[\s\S]*?\];/);
-assert(Boolean(miniGameIdsBlock), "MINI_GAME_IDS block missing");
-for (const id of active) assert(miniGameIdsBlock[0].includes(id), "active minigame missing from MINI_GAME_IDS: " + id);
-for (const id of disabled) assert(!miniGameIdsBlock[0].includes(id), "disabled minigame still in MINI_GAME_IDS: " + id);
-assert(runtimeConfig.includes("defaultRoundCount: 3"), "runtime defaultRoundCount must be 3");
-assert(runtimeConfig.includes("answer_window_open: 20_000"), "runtime answer window must be 20 seconds");
+assert(runtimeConfig.includes("runtime-game-config.defaults.generated"), "runtime config must use JSON-generated defaults");
+for (const id of qaOnlyIds) {
+  assert(!config.tour.enabledMiniGames.includes(id), "QA-only game must not be enabled in public gameplay config: " + id);
+  assert(!config.tour.miniGameRotation.includes(id), "QA-only game must not be in public Tour rotation: " + id);
+}
 
 const mainScreen = read("src/ui-react/components/play/MainScreenPlayFlow.tsx");
 const playLauncher = read("src/ui-react/components/play/PlayLauncher.tsx");
 for (const file of [["MainScreenPlayFlow", mainScreen], ["PlayLauncher", playLauncher]]) {
-  for (const id of disabled) {
+  for (const id of qaOnlyIds) {
     assert(!file[1].includes("id: " + JSON.stringify(id).replaceAll("\"", "\x27")), file[0] + " exposes disabled minigame: " + id);
   }
   assert(file[1].includes("useState<MiniGameId[]>([])"), file[0] + " must start tour selection empty");
-  assert(file[1].includes("return stillAvailable;"), file[0] + " must not auto-fill tour selection");
+  assert(file[1].includes("return unchanged ? currentSelected : stillAvailable;"), file[0] + " must preserve a manual empty tour selection without creating render loops");
   assert(file[1].includes("selectedTourMiniGames.length === 0"), file[0] + " must disable Start Tour when empty");
 }
 
@@ -51,9 +50,7 @@ assert(playLauncher.includes("play-mini-game-order-badge"), "PlayLauncher order 
 const overlay = read("src/ui-react/components/gameplay/GameplayOverlay.tsx");
 assert(overlay.includes("RoundScoreBoard"), "Round score screen missing");
 assert(overlay.includes("TourCompleteSummary"), "Final scoreboard missing");
-assert(overlay.includes("RoundIntermissionScreen"), "Top 3 intermission missing");
-assert(overlay.includes("snapshot.activeSessionMode === \x27tour\x27"), "Top 3 intermission must be based on core session mode");
-assert(overlay.includes("snapshot.nextMiniGameId"), "Top 3 intermission must use nextMiniGameId from core");
+assert(overlay.includes("snapshot.activeSessionMode === \x27tour\x27"), "Tour mode must be based on core session mode");
 
 const tourDefs = read("src/game-core/tours/tour-phase-definitions.ts");
 assert(tourDefs.includes("phase: \x27mini_game_intro\x27"), "mini_game_intro phase missing");

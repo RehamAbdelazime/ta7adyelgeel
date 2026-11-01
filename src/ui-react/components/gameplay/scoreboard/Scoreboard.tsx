@@ -7,6 +7,13 @@ import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { getCorrectAnswerText, getMiniGameTitle, type TranslateFn } from '../shared/overlay-types';
 import { formatCorrectParticipation } from '../shared/answer-helpers';
+import {
+  clampScoreboardPage,
+  getScoreboardPageCount,
+  getScoreboardPageRows,
+  getScoreboardParticipantSignature,
+  SCOREBOARD_PAGE_SIZE,
+} from './scoreboard-pagination';
 
 export type ReusableScoreboardRow = {
   twitchUserId: string;
@@ -269,23 +276,27 @@ export function ReusableScoreboard({
   loadingSubtitle?: string;
   isFinal?: boolean;
 }) {
+  const { snapshot } = useGame();
   const t = useTranslation();
   const visibleRoundCount = Math.max(1, Math.min(5, totalRounds || currentRound || 1));
-  const pageSize = 8;
-  const pageCount = Math.max(1, Math.ceil(rows.length / pageSize));
+  const pageCount = getScoreboardPageCount(rows.length, SCOREBOARD_PAGE_SIZE);
   const [page, setPage] = useState(0);
-  const rowsSignature = rows.map((row) => `${row.twitchUserId}:${row.total}:${row.roundPoints.join(',')}`).join('|');
+  // Score totals and row ordering change while a round is scored. Those changes
+  // must not send viewers back to page 1. Reset only when the participant set
+  // itself changes (join/leave), regardless of ranking order.
+  const participantSignature = getScoreboardParticipantSignature(rows);
+  const safePage = clampScoreboardPage(page, pageCount);
 
   useEffect(() => {
     setPage(0);
-  }, [rowsSignature, visibleRoundCount]);
+  }, [participantSignature, visibleRoundCount]);
 
   useEffect(() => {
-    setPage((currentPage: number) => Math.min(currentPage, pageCount - 1));
+    setPage((currentPage: number) => clampScoreboardPage(currentPage, pageCount));
   }, [pageCount]);
 
-  const pageStart = page * pageSize;
-  const visibleRows = rows.slice(pageStart, pageStart + pageSize);
+  const pageStart = safePage * SCOREBOARD_PAGE_SIZE;
+  const visibleRows = getScoreboardPageRows(rows, safePage, SCOREBOARD_PAGE_SIZE);
   const roundIndexes = Array.from({ length: visibleRoundCount }, (_, index) => index);
 
   return (
@@ -340,11 +351,31 @@ export function ReusableScoreboard({
 
       <div className="gameplay-scoreboard-bottom-bar">
         {pageCount > 1 ? (
-          <div className="gameplay-scoreboard-pagination" aria-label="Scoreboard pages">
-            <button type="button" onClick={() => setPage((currentPage: number) => Math.max(0, currentPage - 1))} disabled={page === 0}>‹</button>
-            <strong>{page + 1}/{pageCount}</strong>
-            <button type="button" onClick={() => setPage((currentPage: number) => Math.min(pageCount - 1, currentPage + 1))} disabled={page === pageCount - 1}>›</button>
-          </div>
+          <nav
+            className="gameplay-scoreboard-pagination"
+            dir={snapshot.direction}
+            aria-label={snapshot.locale === 'ar' ? 'صفحات لوحة النتائج' : 'Scoreboard pages'}
+          >
+            <button
+              type="button"
+              onClick={() => setPage((currentPage: number) => clampScoreboardPage(currentPage - 1, pageCount))}
+              disabled={safePage === 0}
+              aria-label={snapshot.locale === 'ar' ? 'الصفحة السابقة' : 'Previous page'}
+              title={snapshot.locale === 'ar' ? 'الصفحة السابقة' : 'Previous page'}
+            >
+              {snapshot.direction === 'rtl' ? '›' : '‹'}
+            </button>
+            <strong aria-live="polite">{safePage + 1}/{pageCount}</strong>
+            <button
+              type="button"
+              onClick={() => setPage((currentPage: number) => clampScoreboardPage(currentPage + 1, pageCount))}
+              disabled={safePage === pageCount - 1}
+              aria-label={snapshot.locale === 'ar' ? 'الصفحة التالية' : 'Next page'}
+              title={snapshot.locale === 'ar' ? 'الصفحة التالية' : 'Next page'}
+            >
+              {snapshot.direction === 'rtl' ? '‹' : '›'}
+            </button>
+          </nav>
         ) : <div className="gameplay-scoreboard-pagination-placeholder" />}
 
         {spectatorCount >= 1 ? <small className="gameplay-scoreboard-spectator-note">{t('gameplay.score.spectators', { count: String(spectatorCount) })}</small> : null}

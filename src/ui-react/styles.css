@@ -26889,7 +26889,6 @@ html body .main-screen-game-grid-layout .main-screen-mini-card-copy {
   backdrop-filter: blur(7px) !important;
 }
 html body .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
-  display: block !important;
   width: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -29370,127 +29369,95 @@ html body .main-screen-mode-layout .main-screen-mode-cards {
   width: min(620px, 88%) !important;
 }
 
-/* ── MINI GAME CAROUSEL (KEYBOARD ONLY, NO ARROWS) ─────────── */
-/* Container positioned exactly where the original grid was */
-html body .main-screen-game-grid-layout .main-screen-carousel-container {
+/* ── MINI GAME PICKER: ALL GAMES IN TWO ROWS ─────────────────────────────── */
+html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
   position: absolute !important;
   left: 50% !important;
-  top: calc(
-    var(--v2-select-grid-top) - 30px
-  ) !important; /* shifted 30px upward total */
+  top: clamp(142px, 16.5vh, 178px) !important;
+  right: auto !important;
   bottom: auto !important;
   transform: translateX(-50%) !important;
-  width: var(--v2-select-panel-w) !important;
-  max-width: var(--v2-select-panel-w) !important;
-  height: clamp(165px, 20vh, 210px) !important; /* +5px larger */
-  z-index: 40 !important;
-  box-sizing: border-box !important;
-}
-
-/* Viewport taking full width since no arrows are rendered on screen */
-html body .main-screen-game-grid-layout .main-screen-carousel-viewport {
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  position: relative !important;
-  padding: 10px 0 !important;
-  margin: -10px 0 !important;
-}
-
-/* Inner track that slides */
-html body .main-screen-game-grid-layout .carousel-inner {
-  display: flex !important;
-  height: 100% !important;
-  transition: transform 300ms ease-in-out !important;
-  will-change: transform !important;
-}
-
-/* Each slide containing 2 cards, centered */
-html body .main-screen-game-grid-layout .carousel-item {
-  flex: 0 0 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  gap: clamp(15px, 2.5vw, 35px) !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-}
-
-/* Card shape is slightly wider than square (1.05/1) to give title more horizontal space */
-html
-  body
-  .main-screen-game-grid-layout
-  .carousel-item
-  > .main-screen-mini-card {
-  aspect-ratio: 1.05 / 1 !important;
-  height: 100% !important;
-  width: auto !important;
-  flex: 0 0 auto !important;
-  position: relative !important;
-  box-sizing: border-box !important;
-}
-
-/* Card background fills the square card */
-html body .main-screen-game-grid-layout .main-screen-mini-card-bg {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  opacity: 1 !important;
-  filter: brightness(0.9) contrast(1.05) saturate(1.1) !important;
-}
-
-/* Shrunk copy bar to show card illustration top, right, left, bottom */
-html body .main-screen-game-grid-layout .main-screen-mini-card-copy {
-  position: absolute !important;
-  left: 50% !important;
-  bottom: 8px !important;
-  transform: translateX(-50%) !important;
-  width: 86% !important; /* increased slightly to use the extra width */
+  width: min(1120px, 84vw) !important;
+  max-width: min(1120px, 84vw) !important;
+  height: clamp(236px, 33vh, 350px) !important;
+  max-height: calc(100vh - 205px) !important;
   min-height: 0 !important;
-  height: clamp(26px, 3.2vh, 36px) !important;
-  padding: 2px 4px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  grid-auto-rows: unset !important;
+  gap: clamp(10px, 1.15vw, 18px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 40 !important;
+  overflow: visible !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
+  justify-items: stretch !important;
+  justify-content: stretch !important;
   box-sizing: border-box !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-mini-card {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  overflow: hidden !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 18px !important;
+  box-sizing: border-box !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-mini-card-copy {
+  left: 50% !important;
+  right: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  width: 88% !important;
+  min-height: clamp(34px, 4vh, 46px) !important;
+  height: auto !important;
+  padding: 6px 8px !important;
+  transform: translate(-50%, -50%) !important;
   display: grid !important;
   place-items: center !important;
   align-content: center !important;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 7, 24, 0.8),
-    rgba(25, 6, 38, 0.82)
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.11) !important;
-  border-radius: 8px !important;
-  box-shadow:
-    0 0 14px rgba(0, 0, 0, 0.25),
-    inset 0 0 18px rgba(255, 255, 255, 0.03) !important;
-  backdrop-filter: blur(7px) !important;
-  -webkit-backdrop-filter: blur(7px) !important;
 }
 
-/* Hide the subtitle to make the copy container very clean and small */
-html body .main-screen-game-grid-layout .main-screen-mini-card-copy small {
+html body .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
+  width: 100% !important;
+  text-align: center !important;
+  font-size: clamp(11px, 1vw, 15px) !important;
+  line-height: 1.12 !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-carousel-container,
+html body .main-screen-game-grid-layout .main-screen-carousel-nav,
+html body .main-screen-game-grid-layout .main-screen-carousel-page {
   display: none !important;
 }
 
-/* Game Title text size and font style */
-html body .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
-  display: block !important;
-  width: 100% !important;
-  text-align: center !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  font-size: clamp(10px, 1.05vw, 14px) !important;
-  line-height: 1.1 !important;
-  color: #fff !important;
-  font-family:
-    "Luckiest Guy", Impact, "Arial Black", Tahoma, sans-serif !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  -webkit-text-fill-color: #fff !important;
-  text-shadow:
-    0 2px 0 #02051b,
-    0 0 12px rgba(255, 255, 255, 0.28) !important;
+/* Keep the two-row layout usable on smaller desktop windows. */
+@media (max-width: 1100px) {
+  html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
+    width: min(920px, 86vw) !important;
+    max-width: min(920px, 86vw) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(4, minmax(88px, 1fr)) !important;
+    height: auto !important;
+    max-height: calc(100vh - 190px) !important;
+    overflow-y: auto !important;
+  }
 }

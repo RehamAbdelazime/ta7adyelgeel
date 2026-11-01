@@ -1,15 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
-import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
+import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
 import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
 
 type PlayPickerStep = 'mode' | 'mini-game-grid' | 'tour-grid';
 
-// Derived from MINI_GAME_REGISTRY — never hardcoded here
-const MINI_GAME_PICKER_DEFINITIONS = MINI_GAME_REGISTRY.filter((g) => g.visibleInPicker);
-
+// The registry controls public eligibility; GameStore controls runtime enablement.
 function uniqueMiniGames(miniGames: { id: MiniGameId }[]): MiniGameId[] {
   return [...new Set(miniGames.map((miniGame) => miniGame.id))];
 }
@@ -20,7 +18,11 @@ export function PlayLauncher() {
   const [isOpen, setIsOpen] = useState(false);
   const [isBursting, setIsBursting] = useState(false);
   const [pickerStep, setPickerStep] = useState<PlayPickerStep>('mode');
-  const availableMiniGames = MINI_GAME_PICKER_DEFINITIONS;
+  const enabledMiniGameKey = [...snapshot.hostSettings.enabledMiniGameIds].sort().join('|');
+  const availableMiniGames = useMemo(
+    () => getPublicMiniGames(enabledMiniGameKey ? enabledMiniGameKey.split('|') as MiniGameId[] : []),
+    [enabledMiniGameKey],
+  );
   const [selectedTourMiniGames, setSelectedTourMiniGames] = useState<MiniGameId[]>([]);
   const canStart = snapshot.tour.canStartTour && snapshot.citizens.some((citizen) => citizen.role === 'official');
   const shouldShow = !snapshot.tour.isTourActive && !snapshot.tour.isCleanupActive;
@@ -46,7 +48,9 @@ export function PlayLauncher() {
     const availableIds = uniqueMiniGames(availableMiniGames);
     setSelectedTourMiniGames((currentSelected) => {
       const stillAvailable = currentSelected.filter((miniGameId) => availableIds.includes(miniGameId));
-      return stillAvailable;
+      const unchanged = stillAvailable.length === currentSelected.length
+        && stillAvailable.every((id, index) => id === currentSelected[index]);
+      return unchanged ? currentSelected : stillAvailable;
     });
   }, [availableMiniGames]);
 

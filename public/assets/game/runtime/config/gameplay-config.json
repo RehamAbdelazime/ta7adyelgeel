@@ -11,7 +11,8 @@
       "before-after",
       "guess-logo",
       "count-the-beat",
-      "lucky-cup"
+      "lucky-cup",
+      "true-fake"
     ],
     "enabledMiniGames": [
       "food-origin",
@@ -20,7 +21,8 @@
       "before-after",
       "guess-logo",
       "count-the-beat",
-      "lucky-cup"
+      "lucky-cup",
+      "true-fake"
     ],
     "phaseDurationsMs": {
       "mini_game_intro": 0,
@@ -28,9 +30,14 @@
       "answer_window_open": 20000,
       "scoring": 0,
       "tour_complete": 0,
-      "cleanup": 0
+      "cleanup": 0,
+      "lobby_open": 0
     },
-    "miniGamePhaseOverridesMs": {},
+    "miniGamePhaseOverridesMs": {
+      "hangman": {
+        "answer_window_open": 20000
+      }
+    },
     "singleMiniGameRoundCounts": {
       "food-origin": 3,
       "shape-count": 3,
@@ -38,7 +45,8 @@
       "before-after": 3,
       "guess-logo": 3,
       "count-the-beat": 3,
-      "lucky-cup": 3
+      "lucky-cup": 3,
+      "true-fake": 3
     }
   },
   "scoring": {
