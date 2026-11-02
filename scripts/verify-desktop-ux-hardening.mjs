@@ -1,3 +1,4 @@
+import { readOrderedCss } from './lib/ordered-css-source.mjs';
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
@@ -7,7 +8,7 @@ const flow = read('src/ui-react/components/play/MainScreenPlayFlow.tsx');
 const settings = read('src/ui-react/components/settings/AppSettingsButton.tsx');
 const answerDock = read('src/ui-react/components/streamer/PrivateStreamerAnswerDock.tsx');
 const scoreboard = read('src/ui-react/components/gameplay/scoreboard/Scoreboard.tsx');
-const css = read('src/ui-react/styles.css');
+const css = readOrderedCss();
 const translations = read('src/game-core/localization/translations.ts');
 const localeTypes = read('src/game-core/localization/locale-types.ts');
 

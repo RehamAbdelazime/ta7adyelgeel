@@ -1,0 +1,2953 @@
+/* Phase 12W final visual pass */
+.center-play-button,
+.play-choice-card,
+.host-action-grid button,
+.host-force-grid button,
+.host-inline-field button,
+.host-minigame-row button,
+.host-current-force button,
+.host-confirm-box button,
+.host-chaos-mode-list button,
+.host-panel-tabs button,
+.settings-segmented-row button,
+.settings-choice-button,
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.settings-close-button,
+.app-settings-gear,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button,
+.gameplay-choice-card {
+  --btn-a: #2df4ff;
+  --btn-b: #ff4be7;
+  --btn-c: #9a5cff;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%),
+    radial-gradient(
+      circle at 14% 26%,
+      color-mix(in srgb, var(--btn-a) 18%, transparent),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 90% 18%,
+      color-mix(in srgb, var(--btn-b) 16%, transparent),
+      transparent 38%
+    ),
+    linear-gradient(
+      110deg,
+      rgba(6, 11, 36, 0.98),
+      rgba(13, 12, 54, 0.96) 54%,
+      rgba(8, 10, 38, 0.98)
+    ) !important;
+  color: #f7fdff !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 15px color-mix(in srgb, var(--btn-a) 20%, transparent),
+    0 0 24px color-mix(in srgb, var(--btn-b) 14%, transparent),
+    0 10px 18px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.26) !important;
+  text-shadow:
+    0 2px 0 rgba(1, 4, 22, 0.88),
+    0 0 10px color-mix(in srgb, var(--btn-a) 36%, transparent),
+    0 0 14px color-mix(in srgb, var(--btn-b) 25%, transparent) !important;
+  transition:
+    transform 150ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    filter 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease !important;
+}
+
+.center-play-button::before,
+.play-choice-card::before,
+.host-action-grid button::before,
+.host-force-grid button::before,
+.host-inline-field button::before,
+.host-minigame-row button::before,
+.host-current-force button::before,
+.host-confirm-box button::before,
+.host-chaos-mode-list button::before,
+.host-panel-tabs button::before,
+.settings-segmented-row button::before,
+.settings-choice-button::before,
+.settings-secondary-button::before,
+.settings-apply-button::before,
+.settings-danger-button::before,
+.settings-close-button::before,
+.app-settings-gear::before,
+.auth-primary-button::before,
+.auth-secondary-button::before,
+.auth-language-button::before,
+.twitch-button-row button::before,
+.gameplay-scoreboard-back-button::before,
+.gameplay-intro-continue-button::before,
+.gameplay-choice-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 4px !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  border: 1.8px solid color-mix(in srgb, var(--btn-a) 76%, #ffffff 18%) !important;
+  border-bottom-color: color-mix(
+    in srgb,
+    var(--btn-b) 74%,
+    #ffffff 14%
+  ) !important;
+  background: transparent !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  mask-composite: initial !important;
+  -webkit-mask-composite: initial !important;
+  box-shadow:
+    0 0 8px color-mix(in srgb, var(--btn-a) 38%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--btn-b) 14%, transparent) !important;
+  opacity: 0.98 !important;
+  transform: none !important;
+}
+
+.center-play-button::after,
+.play-choice-card::after,
+.host-action-grid button::after,
+.host-force-grid button::after,
+.host-inline-field button::after,
+.host-minigame-row button::after,
+.host-current-force button::after,
+.host-confirm-box button::after,
+.host-chaos-mode-list button::after,
+.host-panel-tabs button::after,
+.settings-segmented-row button::after,
+.settings-choice-button::after,
+.settings-secondary-button::after,
+.settings-apply-button::after,
+.settings-danger-button::after,
+.settings-close-button::after,
+.app-settings-gear::after,
+.auth-primary-button::after,
+.auth-secondary-button::after,
+.auth-language-button::after,
+.twitch-button-row button::after,
+.gameplay-scoreboard-back-button::after,
+.gameplay-intro-continue-button::after,
+.gameplay-choice-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background:
+    linear-gradient(
+        90deg,
+        var(--btn-a) 0 25%,
+        transparent 25.5% 67%,
+        var(--btn-b) 67.5% 100%
+      )
+      top left / 100% 2px no-repeat,
+    linear-gradient(
+        90deg,
+        transparent 0 14%,
+        var(--btn-a) 14.5% 46%,
+        transparent 46.5% 72%,
+        var(--btn-b) 72.5% 92%,
+        transparent 92.5% 100%
+      )
+      bottom left / 100% 2px no-repeat,
+    linear-gradient(
+        180deg,
+        transparent 0 13%,
+        var(--btn-a) 13.5% 56%,
+        transparent 56.5% 100%
+      )
+      left top / 2px 100% no-repeat,
+    linear-gradient(
+        180deg,
+        transparent 0 34%,
+        var(--btn-b) 34.5% 86%,
+        transparent 86.5% 100%
+      )
+      right top / 2px 100% no-repeat !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  mask-composite: initial !important;
+  -webkit-mask-composite: initial !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--btn-a) 52%, transparent))
+    drop-shadow(0 0 10px color-mix(in srgb, var(--btn-b) 42%, transparent)) !important;
+  opacity: 0.84 !important;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    filter 160ms ease !important;
+}
+
+.center-play-button > *,
+.play-choice-card > *,
+.host-action-grid button > *,
+.host-force-grid button > *,
+.host-inline-field button > *,
+.host-minigame-row button > *,
+.host-current-force button > *,
+.host-confirm-box button > *,
+.host-chaos-mode-list button > *,
+.host-panel-tabs button > *,
+.settings-segmented-row button > *,
+.settings-choice-button > *,
+.settings-secondary-button > *,
+.settings-apply-button > *,
+.settings-danger-button > *,
+.settings-close-button > *,
+.app-settings-gear > *,
+.auth-primary-button > *,
+.auth-secondary-button > *,
+.auth-language-button > *,
+.twitch-button-row button > *,
+.gameplay-scoreboard-back-button > *,
+.gameplay-intro-continue-button > *,
+.gameplay-choice-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.center-play-button:hover:not(:disabled),
+.play-choice-card:hover:not(:disabled),
+.host-action-grid button:hover:not(:disabled),
+.host-force-grid button:hover:not(:disabled),
+.host-inline-field button:hover:not(:disabled),
+.host-minigame-row button:hover:not(:disabled),
+.host-current-force button:hover:not(:disabled),
+.host-confirm-box button:hover:not(:disabled),
+.host-chaos-mode-list button:hover:not(:disabled),
+.host-panel-tabs button:hover:not(:disabled),
+.settings-segmented-row button:hover:not(:disabled),
+.settings-choice-button:hover:not(:disabled),
+.settings-secondary-button:hover:not(:disabled),
+.settings-apply-button:hover:not(:disabled),
+.settings-danger-button:hover:not(:disabled),
+.settings-close-button:hover:not(:disabled),
+.app-settings-gear:hover:not(:disabled),
+.auth-primary-button:hover:not(:disabled),
+.auth-secondary-button:hover:not(:disabled),
+.auth-language-button:hover:not(:disabled),
+.twitch-button-row button:hover:not(:disabled),
+.gameplay-scoreboard-back-button:hover:not(:disabled),
+.gameplay-intro-continue-button:hover:not(:disabled),
+.gameplay-choice-card:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.018) !important;
+  filter: brightness(1.12) saturate(1.15) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 24px color-mix(in srgb, var(--btn-a) 34%, transparent),
+    0 0 42px color-mix(in srgb, var(--btn-b) 24%, transparent),
+    0 12px 22px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.2) !important;
+}
+
+.center-play-button:hover:not(:disabled)::after,
+.play-choice-card:hover:not(:disabled)::after,
+.host-action-grid button:hover:not(:disabled)::after,
+.host-force-grid button:hover:not(:disabled)::after,
+.host-inline-field button:hover:not(:disabled)::after,
+.host-minigame-row button:hover:not(:disabled)::after,
+.host-current-force button:hover:not(:disabled)::after,
+.host-confirm-box button:hover:not(:disabled)::after,
+.host-chaos-mode-list button:hover:not(:disabled)::after,
+.host-panel-tabs button:hover:not(:disabled)::after,
+.settings-segmented-row button:hover:not(:disabled)::after,
+.settings-choice-button:hover:not(:disabled)::after,
+.settings-secondary-button:hover:not(:disabled)::after,
+.settings-apply-button:hover:not(:disabled)::after,
+.settings-danger-button:hover:not(:disabled)::after,
+.settings-close-button:hover:not(:disabled)::after,
+.app-settings-gear:hover:not(:disabled)::after,
+.auth-primary-button:hover:not(:disabled)::after,
+.auth-secondary-button:hover:not(:disabled)::after,
+.auth-language-button:hover:not(:disabled)::after,
+.twitch-button-row button:hover:not(:disabled)::after,
+.gameplay-scoreboard-back-button:hover:not(:disabled)::after,
+.gameplay-intro-continue-button:hover:not(:disabled)::after,
+.gameplay-choice-card:hover:not(:disabled)::after {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+}
+
+.center-play-button:active:not(:disabled),
+.play-choice-card:active:not(:disabled),
+.host-action-grid button:active:not(:disabled),
+.host-force-grid button:active:not(:disabled),
+.host-inline-field button:active:not(:disabled),
+.host-minigame-row button:active:not(:disabled),
+.host-current-force button:active:not(:disabled),
+.host-confirm-box button:active:not(:disabled),
+.host-chaos-mode-list button:active:not(:disabled),
+.host-panel-tabs button:active:not(:disabled),
+.settings-segmented-row button:active:not(:disabled),
+.settings-choice-button:active:not(:disabled),
+.settings-secondary-button:active:not(:disabled),
+.settings-apply-button:active:not(:disabled),
+.settings-danger-button:active:not(:disabled),
+.settings-close-button:active:not(:disabled),
+.app-settings-gear:active:not(:disabled),
+.auth-primary-button:active:not(:disabled),
+.auth-secondary-button:active:not(:disabled),
+.auth-language-button:active:not(:disabled),
+.twitch-button-row button:active:not(:disabled),
+.gameplay-scoreboard-back-button:active:not(:disabled),
+.gameplay-intro-continue-button:active:not(:disabled),
+.gameplay-choice-card:active:not(:disabled) {
+  transform: translateY(2px) scale(0.99) !important;
+  filter: brightness(0.96) saturate(1.04) !important;
+}
+
+.center-play-button:disabled,
+.play-choice-card:disabled,
+.host-action-grid button:disabled,
+.host-force-grid button:disabled,
+.host-inline-field button:disabled,
+.host-minigame-row button:disabled,
+.host-current-force button:disabled,
+.host-confirm-box button:disabled,
+.host-chaos-mode-list button:disabled,
+.host-panel-tabs button:disabled,
+.settings-segmented-row button:disabled,
+.settings-choice-button:disabled,
+.settings-secondary-button:disabled,
+.settings-apply-button:disabled,
+.settings-danger-button:disabled,
+.settings-close-button:disabled,
+.auth-primary-button:disabled,
+.auth-secondary-button:disabled,
+.twitch-button-row button:disabled,
+.gameplay-scoreboard-back-button:disabled,
+.gameplay-intro-continue-button:disabled,
+.gameplay-choice-card:disabled {
+  opacity: 0.42 !important;
+  filter: grayscale(0.2) saturate(0.65) !important;
+  cursor: not-allowed !important;
+}
+
+.center-play-button-ready,
+.host-action-grid .host-primary,
+.settings-apply-button,
+.auth-primary-button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button {
+  --btn-a: #2df4ff;
+  --btn-b: #5b8cff;
+  --btn-c: #ff4be7;
+}
+
+.play-choice-card-mini,
+.gameplay-choice-pink {
+  --btn-a: #ff4be7;
+  --btn-b: #9a5cff;
+  --btn-c: #2df4ff;
+}
+
+.play-choice-card-tour,
+.host-panel-tabs .host-tab-active,
+.settings-choice-button.active,
+.settings-segmented-row button.active {
+  --btn-a: #ff4be7;
+  --btn-b: #2df4ff;
+  --btn-c: #9a5cff;
+}
+
+
+
+.gameplay-choice-cyan {
+  --btn-a: #2df4ff;
+  --btn-b: #5b8cff;
+  --btn-c: #9a5cff;
+}
+.gameplay-choice-yellow,
+.gameplay-choice-orange {
+  --btn-a: #ffe66d;
+  --btn-b: #ff9f3d;
+  --btn-c: #ff4be7;
+}
+.gameplay-choice-green {
+  --btn-a: #5cffb1;
+  --btn-b: #2df4ff;
+  --btn-c: #9a5cff;
+}
+.gameplay-choice-purple {
+  --btn-a: #9a5cff;
+  --btn-b: #ff4be7;
+  --btn-c: #2df4ff;
+}
+
+.center-play-button {
+  top: 63.2% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(16px, 1.45vw, 26px) !important;
+  width: clamp(360px, 30vw, 520px) !important;
+  height: clamp(78px, 6.2vw, 108px) !important;
+  min-height: 0 !important;
+  padding: 0 clamp(30px, 2.1vw, 46px) !important;
+  border-radius: 999px !important;
+  transform: translate(-50%, -50%) !important;
+  animation: premiumButtonPulse 2.15s ease-in-out infinite !important;
+}
+
+.center-play-button::before {
+  inset: 7px !important;
+  border-width: 2px !important;
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--btn-a) 48%, transparent),
+    inset 0 0 18px rgba(255, 255, 255, 0.04) !important;
+}
+
+.center-play-button::after {
+  inset: -9px !important;
+  border-radius: 999px !important;
+  opacity: 0.92 !important;
+  filter: drop-shadow(
+      0 0 12px color-mix(in srgb, var(--btn-a) 70%, transparent)
+    )
+    drop-shadow(0 0 16px color-mix(in srgb, var(--btn-b) 56%, transparent)) !important;
+}
+
+.center-play-button:hover:not(:disabled) {
+  transform: translate(-50%, -50%) translateY(-3px) scale(1.025) !important;
+}
+
+.center-play-button:active:not(:disabled) {
+  transform: translate(-50%, -50%) translateY(3px) scale(0.985) !important;
+}
+
+.center-play-icon {
+  position: relative !important;
+  display: grid !important;
+  flex: 0 0 clamp(58px, 4.6vw, 78px) !important;
+  width: clamp(58px, 4.6vw, 78px) !important;
+  height: clamp(58px, 4.6vw, 78px) !important;
+  place-items: center !important;
+  border-radius: 999px !important;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(8, 11, 34, 0.98) 0 49%,
+      transparent 50%
+    ),
+    conic-gradient(
+      from 215deg,
+      transparent 0 24deg,
+      var(--btn-a) 28deg 154deg,
+      transparent 158deg 210deg,
+      var(--btn-b) 214deg 338deg,
+      transparent 342deg 360deg
+    ) !important;
+  color: #eafbff !important;
+  font-size: clamp(24px, 1.75vw, 34px) !important;
+  line-height: 1 !important;
+  text-indent: 0.12em !important;
+  text-shadow:
+    0 0 8px var(--btn-a),
+    0 0 15px var(--btn-b) !important;
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--btn-a) 64%, transparent),
+    0 0 30px color-mix(in srgb, var(--btn-b) 45%, transparent),
+    inset 0 0 18px rgba(0, 0, 0, 0.42) !important;
+}
+
+.center-play-core {
+  position: relative !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  margin: 0 !important;
+  transform: translateY(2px) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(34px, 3.05vw, 58px) !important;
+  line-height: 0.9 !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+  color: #f8fdff !important;
+  -webkit-text-stroke: 1.4px rgba(6, 10, 54, 0.72) !important;
+  text-shadow:
+    0 3px 0 rgba(2, 4, 24, 0.86),
+    0 0 14px rgba(255, 255, 255, 0.7),
+    0 0 22px var(--btn-a),
+    0 0 34px var(--btn-b) !important;
+}
+
+.center-play-spark-a {
+  right: 8% !important;
+  top: -18% !important;
+}
+.center-play-spark-b {
+  right: -1% !important;
+  top: 30% !important;
+}
+
+[dir="rtl"] .center-play-button {
+  flex-direction: row-reverse !important;
+}
+
+[dir="rtl"] .center-play-core,
+[dir="rtl"] .play-choice-card strong,
+[dir="rtl"] .host-action-grid .host-primary,
+[dir="rtl"] .gameplay-intro-continue-button,
+[dir="rtl"] .gameplay-scoreboard-back-button {
+  letter-spacing: 0.02em !important;
+}
+
+.play-choice-card {
+  border-radius: 26px !important;
+  min-height: clamp(106px, 9vw, 142px) !important;
+  padding: clamp(16px, 1.35vw, 26px) !important;
+}
+
+.play-choice-icon {
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(8, 11, 34, 0.98) 0 49%,
+      transparent 50%
+    ),
+    conic-gradient(
+      from 215deg,
+      transparent 0 24deg,
+      var(--btn-a) 28deg 154deg,
+      transparent 158deg 210deg,
+      var(--btn-b) 214deg 338deg,
+      transparent 342deg 360deg
+    ) !important;
+  border: 0 !important;
+}
+
+.host-action-grid button,
+.host-force-grid button,
+.host-inline-field button,
+.host-minigame-row button,
+.host-current-force button,
+.host-confirm-box button,
+.host-chaos-mode-list button,
+.settings-segmented-row button,
+.settings-choice-button,
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button,
+.gameplay-choice-card {
+  border-radius: 15px !important;
+}
+
+.host-panel-tabs button,
+.settings-close-button,
+.app-settings-gear {
+  border-radius: 999px !important;
+}
+
+.gameplay-choice-spotlights,
+.gameplay-choice-spotlights-2,
+.gameplay-choice-spotlights-3,
+.gameplay-choice-spotlights-4 {
+  left: 25.75% !important;
+  top: 72.25% !important;
+  width: 48.5% !important;
+  height: 20.6% !important;
+  display: grid !important;
+  gap: 0 !important;
+  justify-content: space-between !important;
+  align-items: start !important;
+  z-index: 9 !important;
+  pointer-events: none !important;
+}
+
+.gameplay-choice-spotlights-2 {
+  grid-template-columns: repeat(2, 190px) !important;
+}
+.gameplay-choice-spotlights-3 {
+  grid-template-columns: repeat(3, 190px) !important;
+}
+.gameplay-choice-spotlights-4 {
+  grid-template-columns: repeat(4, 190px) !important;
+}
+
+.gameplay-choice-spotlight {
+  width: 190px !important;
+  display: grid !important;
+  justify-items: center !important;
+  align-content: start !important;
+  min-width: 0 !important;
+  animation: choiceSpotlightPop 0.42s cubic-bezier(0.2, 0.9, 0.18, 1) both !important;
+}
+
+.gameplay-choice-spotlight-beam {
+  position: absolute !important;
+  left: 50% !important;
+  top: -42% !important;
+  width: 128px !important;
+  height: 172% !important;
+  transform: translateX(-50%) !important;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--spot-color) 24%, transparent),
+    transparent 73%
+  ) !important;
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%) !important;
+  filter: blur(8px) !important;
+  opacity: 0.22 !important;
+  mix-blend-mode: screen !important;
+}
+
+.gameplay-choice-spotlight-floor {
+  display: none !important;
+}
+
+.gameplay-choice-spotlight-asset-wrap {
+  position: relative !important;
+  display: grid !important;
+  width: 190px !important;
+  height: 116px !important;
+  place-items: center !important;
+  transform: translateY(-2px) !important;
+  filter: drop-shadow(
+      0 0 10px color-mix(in srgb, var(--spot-color) 38%, transparent)
+    )
+    drop-shadow(0 0 18px color-mix(in srgb, var(--spot-color) 24%, transparent)) !important;
+  animation: choiceAssetPulse 1.55s ease-in-out infinite !important;
+}
+
+.gameplay-choice-spotlight-asset {
+  display: block !important;
+  width: 216px !important;
+  max-width: none !important;
+  height: auto !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+
+.gameplay-choice-spotlight-count {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: -6px !important;
+  display: grid !important;
+  min-width: 28px !important;
+  height: 24px !important;
+  place-items: center !important;
+  transform: translateX(-50%) !important;
+  border: 1px solid color-mix(in srgb, var(--spot-color) 70%, #ffffff 12%) !important;
+  border-radius: 999px !important;
+  background: rgba(4, 7, 26, 0.86) !important;
+  color: #fff7b8 !important;
+  font-size: 12px !important;
+  font-weight: 1000 !important;
+  line-height: 1 !important;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--spot-color) 36%, transparent) !important;
+}
+
+.gameplay-choice-spotlight strong,
+.gameplay-choice-spotlight span {
+  position: relative !important;
+  z-index: 2 !important;
+  transform: translateY(-6px) !important;
+  max-width: 178px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.gameplay-choice-spotlight strong {
+  margin-top: 0 !important;
+  color: #f8fdff !important;
+  font-size: 14px !important;
+  letter-spacing: 0.08em !important;
+  text-shadow:
+    0 0 12px var(--spot-color),
+    0 3px 0 rgba(4, 8, 31, 0.78) !important;
+}
+
+.gameplay-choice-spotlight span {
+  color: rgba(242, 251, 255, 0.88) !important;
+  font-size: 10.5px !important;
+  font-weight: 850 !important;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.78) !important;
+}
+
+@keyframes choiceAssetPulse {
+  0%,
+  100% {
+    transform: translateY(-2px) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.035);
+    filter: brightness(1.13) saturate(1.16);
+  }
+}
+
+@media (max-width: 1400px) {
+  .center-play-button {
+    width: clamp(305px, 34vw, 440px) !important;
+    height: clamp(66px, 7vw, 88px) !important;
+    gap: 14px !important;
+    padding: 0 28px !important;
+  }
+
+  .center-play-icon {
+    flex-basis: 56px !important;
+    width: 56px !important;
+    height: 56px !important;
+    font-size: 25px !important;
+  }
+
+  .center-play-core {
+    font-size: clamp(28px, 3.8vw, 44px) !important;
+  }
+
+  .gameplay-choice-spotlights,
+  .gameplay-choice-spotlights-2,
+  .gameplay-choice-spotlights-3,
+  .gameplay-choice-spotlights-4 {
+    left: 25.75% !important;
+    top: 72.45% !important;
+    width: 48.5% !important;
+  }
+
+  .gameplay-choice-spotlights-2 {
+    grid-template-columns: repeat(2, 162px) !important;
+  }
+  .gameplay-choice-spotlights-3 {
+    grid-template-columns: repeat(3, 162px) !important;
+  }
+  .gameplay-choice-spotlights-4 {
+    grid-template-columns: repeat(4, 162px) !important;
+  }
+
+  .gameplay-choice-spotlight,
+  .gameplay-choice-spotlight-asset-wrap {
+    width: 162px !important;
+  }
+
+  .gameplay-choice-spotlight-asset-wrap {
+    height: 98px !important;
+  }
+
+  .gameplay-choice-spotlight-asset {
+    width: 184px !important;
+  }
+
+  .gameplay-choice-spotlight strong {
+    font-size: 12px !important;
+  }
+
+  .gameplay-choice-spotlight span {
+    font-size: 9px !important;
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-choice-spotlights,
+.gameplay-choice-spotlights-2,
+.gameplay-choice-spotlights-3,
+.gameplay-choice-spotlights-4 {
+  left: 25.2% !important;
+  top: 77.15% !important;
+  width: 49.65% !important;
+  height: 15.75% !important;
+  display: grid !important;
+  gap: 0 !important;
+  justify-content: space-between !important;
+  align-items: start !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  perspective: 900px !important;
+}
+
+.gameplay-choice-spotlights-2 {
+  grid-template-columns: repeat(2, 184px) !important;
+}
+.gameplay-choice-spotlights-3 {
+  grid-template-columns: repeat(3, 184px) !important;
+}
+.gameplay-choice-spotlights-4 {
+  grid-template-columns: repeat(4, 184px) !important;
+}
+
+.gameplay-choice-spotlight {
+  width: 184px !important;
+  height: 132px !important;
+  display: grid !important;
+  grid-template-rows: 106px auto auto !important;
+  justify-items: center !important;
+  align-content: start !important;
+  overflow: visible !important;
+  transform-origin: 50% 100% !important;
+}
+
+.gameplay-choice-spotlight::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 78px !important;
+  width: 136px !important;
+  height: 22px !important;
+  transform: translateX(-50%) rotateX(64deg) !important;
+  border-radius: 999px !important;
+  background: radial-gradient(
+    ellipse,
+    color-mix(in srgb, var(--spot-color) 42%, transparent) 0 18%,
+    rgba(0, 0, 0, 0.3) 42%,
+    transparent 74%
+  ) !important;
+  filter: blur(5px) !important;
+  opacity: 0.58 !important;
+  z-index: 0 !important;
+}
+
+.gameplay-choice-spotlight-beam {
+  left: 50% !important;
+  top: -74px !important;
+  width: 104px !important;
+  height: 182px !important;
+  transform: translateX(-50%) !important;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--spot-color) 22%, transparent),
+    transparent 76%
+  ) !important;
+  clip-path: polygon(43% 0, 57% 0, 100% 100%, 0 100%) !important;
+  filter: blur(9px) !important;
+  opacity: 0.18 !important;
+  mix-blend-mode: screen !important;
+}
+
+.gameplay-choice-spotlight-asset-wrap {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 184px !important;
+  height: 106px !important;
+  display: grid !important;
+  place-items: center !important;
+  transform: translateY(4px) !important;
+  transform-origin: 50% 92% !important;
+  filter: drop-shadow(0 7px 8px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 0 11px color-mix(in srgb, var(--spot-color) 34%, transparent))
+    drop-shadow(0 0 22px color-mix(in srgb, var(--spot-color) 22%, transparent)) !important;
+  animation: choiceAssetGroundPulse 1.9s ease-in-out infinite !important;
+}
+
+.gameplay-choice-spotlight-asset {
+  width: 204px !important;
+  max-width: none !important;
+  height: auto !important;
+  display: block !important;
+  transform: translateY(-8px) !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+
+.gameplay-choice-spotlight-count {
+  left: 50% !important;
+  bottom: 3px !important;
+  z-index: 3 !important;
+  min-width: 24px !important;
+  height: 20px !important;
+  padding: 0 7px !important;
+  transform: translateX(-50%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(3, 6, 24, 0.88) !important;
+  color: #fff8bf !important;
+  font-size: 10.5px !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--spot-color) 28%, transparent) !important;
+}
+
+.gameplay-choice-spotlight strong,
+.gameplay-choice-spotlight span {
+  z-index: 3 !important;
+  max-width: 150px !important;
+  transform: none !important;
+  text-align: center !important;
+  text-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.82),
+    0 0 8px var(--spot-color) !important;
+}
+
+.gameplay-choice-spotlight strong {
+  margin-top: -2px !important;
+  font-size: 11px !important;
+  line-height: 1 !important;
+  opacity: 0.96 !important;
+}
+
+.gameplay-choice-spotlight span {
+  margin-top: 2px !important;
+  font-size: 9px !important;
+  line-height: 1.05 !important;
+  opacity: 0.76 !important;
+}
+
+@keyframes choiceAssetGroundPulse {
+  0%,
+  100% {
+    transform: translateY(4px) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    transform: translateY(3px) scale(1.018);
+    filter: brightness(1.08) saturate(1.1);
+  }
+}
+
+@media (max-width: 1400px) {
+  .gameplay-choice-spotlights,
+  .gameplay-choice-spotlights-2,
+  .gameplay-choice-spotlights-3,
+  .gameplay-choice-spotlights-4 {
+    left: 25.2% !important;
+    top: 77.55% !important;
+    width: 49.65% !important;
+  }
+
+  .gameplay-choice-spotlights-2 {
+    grid-template-columns: repeat(2, 158px) !important;
+  }
+  .gameplay-choice-spotlights-3 {
+    grid-template-columns: repeat(3, 158px) !important;
+  }
+  .gameplay-choice-spotlights-4 {
+    grid-template-columns: repeat(4, 158px) !important;
+  }
+
+  .gameplay-choice-spotlight {
+    width: 158px !important;
+    height: 118px !important;
+    grid-template-rows: 94px auto auto !important;
+  }
+
+  .gameplay-choice-spotlight::after {
+    top: 70px !important;
+    width: 118px !important;
+  }
+
+  .gameplay-choice-spotlight-beam {
+    top: -66px !important;
+    width: 92px !important;
+    height: 162px !important;
+  }
+
+  .gameplay-choice-spotlight-asset-wrap {
+    width: 158px !important;
+    height: 94px !important;
+  }
+
+  .gameplay-choice-spotlight-asset {
+    width: 176px !important;
+  }
+
+  .gameplay-choice-spotlight strong {
+    font-size: 10px !important;
+  }
+  .gameplay-choice-spotlight span {
+    font-size: 8px !important;
+  }
+}
+
+/* cleaned legacy comment */
+.center-play-button,
+.play-choice-card,
+.host-action-grid button,
+.host-force-grid button,
+.host-inline-field button,
+.host-minigame-row button,
+.host-current-force button,
+.host-confirm-box button,
+.host-chaos-mode-list button,
+.host-panel-tabs button,
+.settings-segmented-row button,
+.settings-choice-button,
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.settings-close-button,
+.app-settings-gear,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button,
+.gameplay-choice-card {
+  --btn-a: #2df4ff;
+  --btn-b: #8e5cff;
+  --btn-c: #ff4be7;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border: 4px solid color-mix(in srgb, var(--btn-a) 68%, #ffffff 32%) !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18) 0 16%,
+      rgba(255, 255, 255, 0.04) 17% 36%,
+      transparent 37% 100%
+    ),
+    radial-gradient(
+      circle at 18% 0%,
+      color-mix(in srgb, var(--btn-a) 26%, transparent),
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 88% 100%,
+      color-mix(in srgb, var(--btn-c) 24%, transparent),
+      transparent 48%
+    ),
+    linear-gradient(180deg, rgba(20, 18, 74, 0.98), rgba(5, 7, 34, 0.96)) !important;
+  color: #f8fdff !important;
+  text-shadow:
+    0 2px 0 rgba(2, 4, 24, 0.92),
+    0 0 10px rgba(255, 255, 255, 0.58),
+    0 0 18px color-mix(in srgb, var(--btn-a) 58%, transparent) !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.28),
+    0 0 0 6px color-mix(in srgb, var(--btn-b) 42%, transparent),
+    0 0 22px color-mix(in srgb, var(--btn-a) 62%, transparent),
+    0 0 40px color-mix(in srgb, var(--btn-c) 32%, transparent),
+    0 10px 0 rgba(2, 3, 22, 0.72),
+    0 18px 26px rgba(0, 0, 0, 0.38),
+    inset 0 3px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -9px 0 rgba(0, 0, 0, 0.3) !important;
+  transition:
+    transform 150ms ease,
+    filter 150ms ease,
+    box-shadow 150ms ease,
+    border-color 150ms ease,
+    opacity 150ms ease !important;
+}
+
+.center-play-button-ready,
+.host-action-grid .host-primary,
+.settings-apply-button,
+.auth-primary-button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button {
+  --btn-a: #2df4ff !important;
+  --btn-b: #5b8cff !important;
+  --btn-c: #ff4be7 !important;
+}
+
+.play-choice-card-mini,
+.gameplay-choice-pink {
+  --btn-a: #ff4be7 !important;
+  --btn-b: #9a5cff !important;
+  --btn-c: #2df4ff !important;
+}
+
+.play-choice-card-tour,
+.host-panel-tabs .host-tab-active,
+.settings-choice-button.active,
+.settings-segmented-row button.active {
+  --btn-a: #ff4be7 !important;
+  --btn-b: #2df4ff !important;
+  --btn-c: #9a5cff !important;
+}
+
+.host-danger,
+.settings-danger-button,
+.auth-danger-button {
+  --btn-a: #ff4d7d !important;
+  --btn-b: #ff9f3d !important;
+  --btn-c: #ff4be7 !important;
+}
+
+.gameplay-choice-cyan {
+  --btn-a: #2df4ff !important;
+  --btn-b: #5b8cff !important;
+  --btn-c: #9a5cff !important;
+}
+.gameplay-choice-yellow,
+.gameplay-choice-orange {
+  --btn-a: #ffe66d !important;
+  --btn-b: #ff9f3d !important;
+  --btn-c: #ff4be7 !important;
+}
+.gameplay-choice-green {
+  --btn-a: #5cffb1 !important;
+  --btn-b: #2df4ff !important;
+  --btn-c: #9a5cff !important;
+}
+.gameplay-choice-purple {
+  --btn-a: #9a5cff !important;
+  --btn-b: #ff4be7 !important;
+  --btn-c: #2df4ff !important;
+}
+
+.center-play-button::before,
+.play-choice-card::before,
+.host-action-grid button::before,
+.host-force-grid button::before,
+.host-inline-field button::before,
+.host-minigame-row button::before,
+.host-current-force button::before,
+.host-confirm-box button::before,
+.host-chaos-mode-list button::before,
+.host-panel-tabs button::before,
+.settings-segmented-row button::before,
+.settings-choice-button::before,
+.settings-secondary-button::before,
+.settings-apply-button::before,
+.settings-danger-button::before,
+.settings-close-button::before,
+.app-settings-gear::before,
+.auth-primary-button::before,
+.auth-secondary-button::before,
+.auth-language-button::before,
+.twitch-button-row button::before,
+.gameplay-scoreboard-back-button::before,
+.gameplay-intro-continue-button::before,
+.gameplay-choice-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 6px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border: 2px solid rgba(255, 255, 255, 0.46) !important;
+  border-radius: inherit !important;
+  background: linear-gradient(
+    105deg,
+    transparent 0 34%,
+    rgba(255, 255, 255, 0.26) 48%,
+    transparent 62% 100%
+  ) !important;
+  opacity: 0.92 !important;
+  transform: translateX(-112%) skewX(-12deg) !important;
+  transition:
+    transform 420ms ease,
+    opacity 180ms ease !important;
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.06),
+    0 0 14px color-mix(in srgb, var(--btn-a) 36%, transparent) !important;
+}
+
+.center-play-button::after,
+.play-choice-card::after,
+.host-action-grid button::after,
+.host-force-grid button::after,
+.host-inline-field button::after,
+.host-minigame-row button::after,
+.host-current-force button::after,
+.host-confirm-box button::after,
+.host-chaos-mode-list button::after,
+.host-panel-tabs button::after,
+.settings-segmented-row button::after,
+.settings-choice-button::after,
+.settings-secondary-button::after,
+.settings-apply-button::after,
+.settings-danger-button::after,
+.settings-close-button::after,
+.app-settings-gear::after,
+.auth-primary-button::after,
+.auth-secondary-button::after,
+.auth-language-button::after,
+.twitch-button-row button::after,
+.gameplay-scoreboard-back-button::after,
+.gameplay-intro-continue-button::after,
+.gameplay-choice-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -9px !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  background: linear-gradient(
+    90deg,
+    var(--btn-a),
+    var(--btn-b),
+    var(--btn-c)
+  ) !important;
+  opacity: 0.34 !important;
+  filter: blur(13px) !important;
+  transform: none !important;
+}
+
+.center-play-button > *,
+.play-choice-card > *,
+.host-action-grid button > *,
+.host-force-grid button > *,
+.host-inline-field button > *,
+.host-minigame-row button > *,
+.host-current-force button > *,
+.host-confirm-box button > *,
+.host-chaos-mode-list button > *,
+.host-panel-tabs button > *,
+.settings-segmented-row button > *,
+.settings-choice-button > *,
+.settings-secondary-button > *,
+.settings-apply-button > *,
+.settings-danger-button > *,
+.settings-close-button > *,
+.app-settings-gear > *,
+.auth-primary-button > *,
+.auth-secondary-button > *,
+.auth-language-button > *,
+.twitch-button-row button > *,
+.gameplay-scoreboard-back-button > *,
+.gameplay-intro-continue-button > *,
+.gameplay-choice-card > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.center-play-button:hover:not(:disabled),
+.play-choice-card:hover:not(:disabled),
+.host-action-grid button:hover:not(:disabled),
+.host-force-grid button:hover:not(:disabled),
+.host-inline-field button:hover:not(:disabled),
+.host-minigame-row button:hover:not(:disabled),
+.host-current-force button:hover:not(:disabled),
+.host-confirm-box button:hover:not(:disabled),
+.host-chaos-mode-list button:hover:not(:disabled),
+.host-panel-tabs button:hover:not(:disabled),
+.settings-segmented-row button:hover:not(:disabled),
+.settings-choice-button:hover:not(:disabled),
+.settings-secondary-button:hover:not(:disabled),
+.settings-apply-button:hover:not(:disabled),
+.settings-danger-button:hover:not(:disabled),
+.settings-close-button:hover:not(:disabled),
+.app-settings-gear:hover:not(:disabled),
+.auth-primary-button:hover:not(:disabled),
+.auth-secondary-button:hover:not(:disabled),
+.auth-language-button:hover:not(:disabled),
+.twitch-button-row button:hover:not(:disabled),
+.gameplay-scoreboard-back-button:hover:not(:disabled),
+.gameplay-intro-continue-button:hover:not(:disabled),
+.gameplay-choice-card:hover:not(:disabled) {
+  filter: brightness(1.1) saturate(1.16) !important;
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.34),
+    0 0 0 7px color-mix(in srgb, var(--btn-b) 52%, transparent),
+    0 0 28px color-mix(in srgb, var(--btn-a) 72%, transparent),
+    0 0 54px color-mix(in srgb, var(--btn-c) 42%, transparent),
+    0 10px 0 rgba(2, 3, 22, 0.7),
+    0 18px 26px rgba(0, 0, 0, 0.38),
+    inset 0 3px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -9px 0 rgba(0, 0, 0, 0.28) !important;
+}
+
+.center-play-button:hover:not(:disabled)::before,
+.play-choice-card:hover:not(:disabled)::before,
+.host-action-grid button:hover:not(:disabled)::before,
+.host-force-grid button:hover:not(:disabled)::before,
+.host-inline-field button:hover:not(:disabled)::before,
+.host-minigame-row button:hover:not(:disabled)::before,
+.host-current-force button:hover:not(:disabled)::before,
+.host-confirm-box button:hover:not(:disabled)::before,
+.host-chaos-mode-list button:hover:not(:disabled)::before,
+.host-panel-tabs button:hover:not(:disabled)::before,
+.settings-segmented-row button:hover:not(:disabled)::before,
+.settings-choice-button:hover:not(:disabled)::before,
+.settings-secondary-button:hover:not(:disabled)::before,
+.settings-apply-button:hover:not(:disabled)::before,
+.settings-danger-button:hover:not(:disabled)::before,
+.settings-close-button:hover:not(:disabled)::before,
+.app-settings-gear:hover:not(:disabled)::before,
+.auth-primary-button:hover:not(:disabled)::before,
+.auth-secondary-button:hover:not(:disabled)::before,
+.auth-language-button:hover:not(:disabled)::before,
+.twitch-button-row button:hover:not(:disabled)::before,
+.gameplay-scoreboard-back-button:hover:not(:disabled)::before,
+.gameplay-intro-continue-button:hover:not(:disabled)::before,
+.gameplay-choice-card:hover:not(:disabled)::before {
+  transform: translateX(112%) skewX(-12deg) !important;
+}
+
+.center-play-button:active:not(:disabled),
+.play-choice-card:active:not(:disabled),
+.host-action-grid button:active:not(:disabled),
+.host-force-grid button:active:not(:disabled),
+.host-inline-field button:active:not(:disabled),
+.host-minigame-row button:active:not(:disabled),
+.host-current-force button:active:not(:disabled),
+.host-confirm-box button:active:not(:disabled),
+.host-chaos-mode-list button:active:not(:disabled),
+.host-panel-tabs button:active:not(:disabled),
+.settings-segmented-row button:active:not(:disabled),
+.settings-choice-button:active:not(:disabled),
+.settings-secondary-button:active:not(:disabled),
+.settings-apply-button:active:not(:disabled),
+.settings-danger-button:active:not(:disabled),
+.settings-close-button:active:not(:disabled),
+.app-settings-gear:active:not(:disabled),
+.auth-primary-button:active:not(:disabled),
+.auth-secondary-button:active:not(:disabled),
+.auth-language-button:active:not(:disabled),
+.twitch-button-row button:active:not(:disabled),
+.gameplay-scoreboard-back-button:active:not(:disabled),
+.gameplay-intro-continue-button:active:not(:disabled),
+.gameplay-choice-card:active:not(:disabled) {
+  filter: brightness(0.92) saturate(1.05) !important;
+}
+
+.center-play-button {
+  top: 64.2% !important;
+  width: clamp(350px, 28vw, 500px) !important;
+  height: clamp(74px, 5.55vw, 96px) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(14px, 1.2vw, 22px) !important;
+  padding: 0 clamp(26px, 2vw, 44px) !important;
+  border-radius: 999px !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+.center-play-button:hover:not(:disabled) {
+  transform: translate(-50%, -50%) translateY(-3px) scale(1.018) !important;
+}
+
+.center-play-button:active:not(:disabled) {
+  transform: translate(-50%, -50%) translateY(3px) scale(0.986) !important;
+}
+
+.center-play-glow {
+  display: none !important;
+}
+
+.center-play-icon {
+  flex: 0 0 clamp(52px, 4.1vw, 70px) !important;
+  width: clamp(52px, 4.1vw, 70px) !important;
+  height: clamp(52px, 4.1vw, 70px) !important;
+  display: grid !important;
+  place-items: center !important;
+  border: 4px solid color-mix(in srgb, var(--btn-a) 72%, #ffffff 28%) !important;
+  border-radius: 999px !important;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(7, 12, 42, 0.96) 0 55%,
+    rgba(255, 255, 255, 0.1) 56% 100%
+  ) !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.22),
+    0 0 20px color-mix(in srgb, var(--btn-a) 74%, transparent),
+    0 0 32px color-mix(in srgb, var(--btn-c) 44%, transparent),
+    inset 0 0 18px rgba(255, 255, 255, 0.08) !important;
+  font-size: clamp(22px, 1.55vw, 31px) !important;
+  text-indent: 0.12em !important;
+}
+
+.center-play-core {
+  display: block !important;
+  margin: 0 !important;
+  transform: translateY(2px) !important;
+  font-size: clamp(31px, 2.75vw, 52px) !important;
+  line-height: 0.94 !important;
+}
+
+.gameplay-choice-spotlights,
+.gameplay-choice-spotlights-2,
+.gameplay-choice-spotlights-3,
+.gameplay-choice-spotlights-4 {
+  top: 79.45% !important;
+  height: 17.2% !important;
+  display: grid !important;
+  gap: 0 !important;
+  justify-content: space-between !important;
+  align-items: end !important;
+  overflow: visible !important;
+  z-index: 11 !important;
+  perspective: none !important;
+}
+
+.gameplay-choice-spotlights-2 {
+  left: 27.5% !important;
+  width: 45% !important;
+  grid-template-columns: repeat(2, 350px) !important;
+}
+
+.gameplay-choice-spotlights-3 {
+  left: 14% !important;
+  width: 72% !important;
+  grid-template-columns: repeat(3, 340px) !important;
+}
+
+.gameplay-choice-spotlights-4 {
+  left: 11.3% !important;
+  width: 77.4% !important;
+  grid-template-columns: repeat(4, 310px) !important;
+}
+
+.gameplay-choice-spotlight {
+  height: 150px !important;
+  display: grid !important;
+  grid-template-rows: 138px 0 0 !important;
+  justify-items: center !important;
+  align-content: end !important;
+  transform-origin: 50% 100% !important;
+  overflow: visible !important;
+}
+
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight {
+  width: 350px !important;
+}
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight {
+  width: 340px !important;
+}
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight {
+  width: 310px !important;
+}
+
+.gameplay-choice-spotlight-beam {
+  display: none !important;
+}
+
+.gameplay-choice-spotlight::after {
+  left: 50% !important;
+  top: 86px !important;
+  width: 82% !important;
+  height: 34px !important;
+  transform: translateX(-50%) !important;
+  border-radius: 999px !important;
+  background: radial-gradient(
+    ellipse,
+    color-mix(in srgb, var(--spot-color) 36%, transparent) 0 22%,
+    rgba(0, 0, 0, 0.36) 48%,
+    transparent 78%
+  ) !important;
+  filter: blur(7px) !important;
+  opacity: 0.78 !important;
+  z-index: 0 !important;
+}
+
+.gameplay-choice-spotlight-asset-wrap {
+  z-index: 2 !important;
+  display: grid !important;
+  place-items: center !important;
+  height: 138px !important;
+  transform: translateY(18px) !important;
+  transform-origin: 50% 96% !important;
+  animation: choiceAssetEmbeddedBreath 2.35s ease-in-out infinite !important;
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.42))
+    drop-shadow(0 0 15px color-mix(in srgb, var(--spot-color) 48%, transparent))
+    drop-shadow(0 0 30px color-mix(in srgb, var(--spot-color) 28%, transparent)) !important;
+}
+
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap {
+  width: 350px !important;
+}
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap {
+  width: 340px !important;
+}
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+  width: 310px !important;
+}
+
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset {
+  width: 390px !important;
+}
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset {
+  width: 370px !important;
+}
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+  width: 338px !important;
+}
+
+.gameplay-choice-spotlight-asset {
+  display: block !important;
+  max-width: none !important;
+  height: auto !important;
+  transform: none !important;
+  user-select: none !important;
+  pointer-events: none !important;
+}
+
+.gameplay-choice-spotlight-count {
+  left: 50% !important;
+  bottom: -4px !important;
+  z-index: 4 !important;
+  min-width: 30px !important;
+  height: 24px !important;
+  padding: 0 8px !important;
+  transform: translateX(-50%) !important;
+  border: 2px solid color-mix(in srgb, var(--spot-color) 64%, #ffffff 24%) !important;
+  border-radius: 999px !important;
+  background: rgba(2, 5, 23, 0.88) !important;
+  color: #fff8bf !important;
+  font-size: 12px !important;
+  font-weight: 1000 !important;
+  box-shadow:
+    0 0 12px color-mix(in srgb, var(--spot-color) 46%, transparent),
+    inset 0 0 8px rgba(255, 255, 255, 0.06) !important;
+}
+
+.gameplay-choice-spotlight strong,
+.gameplay-choice-spotlight span {
+  display: none !important;
+}
+
+@keyframes choiceAssetEmbeddedBreath {
+  0%,
+  100% {
+    transform: translateY(18px) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    transform: translateY(17px) scale(1.012);
+    filter: brightness(1.08) saturate(1.09);
+  }
+}
+
+.gameplay-citizen-answer-moving:not(.gameplay-citizen-entering) {
+  transition:
+    left 720ms cubic-bezier(0.17, 0.84, 0.25, 1),
+    top 720ms cubic-bezier(0.17, 0.84, 0.25, 1),
+    transform 720ms cubic-bezier(0.17, 0.84, 0.25, 1),
+    filter 220ms ease !important;
+}
+
+@media (max-width: 1400px) {
+  .gameplay-choice-spotlights,
+  .gameplay-choice-spotlights-2,
+  .gameplay-choice-spotlights-3,
+  .gameplay-choice-spotlights-4 {
+    top: 79.8% !important;
+  }
+
+  .gameplay-choice-spotlights-2 {
+    left: 28.5% !important;
+    width: 43% !important;
+    grid-template-columns: repeat(2, 284px) !important;
+  }
+
+  .gameplay-choice-spotlights-3 {
+    left: 15.2% !important;
+    width: 69.6% !important;
+    grid-template-columns: repeat(3, 276px) !important;
+  }
+
+  .gameplay-choice-spotlights-4 {
+    left: 12.7% !important;
+    width: 74.6% !important;
+    grid-template-columns: repeat(4, 250px) !important;
+  }
+
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap {
+    width: 284px !important;
+  }
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap {
+    width: 276px !important;
+  }
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+    width: 250px !important;
+  }
+
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset {
+    width: 320px !important;
+  }
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset {
+    width: 305px !important;
+  }
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+    width: 276px !important;
+  }
+}
+
+/* cleaned legacy comment */
+.app-settings-gear {
+  top: clamp(24px, 1.8vw, 34px) !important;
+  right: clamp(24px, 1.8vw, 34px) !important;
+  left: auto !important;
+  width: clamp(46px, 3.15vw, 56px) !important;
+  height: clamp(46px, 3.15vw, 56px) !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+
+[dir="rtl"] .app-settings-gear {
+  left: clamp(24px, 1.8vw, 34px) !important;
+  right: auto !important;
+}
+
+.app-settings-gear:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04) rotate(8deg) !important;
+}
+
+.settings-modal {
+  width: min(820px, calc(100vw - 64px)) !important;
+  max-height: calc(100vh - 72px) !important;
+  padding: clamp(22px, 2vw, 34px) !important;
+  overflow: auto !important;
+}
+
+.settings-modal .settings-segmented-row button,
+.settings-modal .settings-choice-button,
+.settings-modal .settings-secondary-button,
+.settings-modal .settings-apply-button,
+.settings-modal .settings-danger-button,
+.settings-modal .settings-close-button,
+.settings-modal .twitch-button-row button {
+  border: 1.5px solid rgba(142, 244, 255, 0.38) !important;
+  border-radius: 16px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    linear-gradient(135deg, rgba(13, 23, 58, 0.94), rgba(37, 16, 72, 0.88)) !important;
+  color: #effcff !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 14px rgba(45, 244, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    inset 0 -10px 16px rgba(0, 0, 0, 0.2) !important;
+  text-shadow:
+    0 2px 0 rgba(1, 4, 22, 0.82),
+    0 0 8px rgba(45, 244, 255, 0.22) !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.settings-modal .settings-segmented-row button::before,
+.settings-modal .settings-choice-button::before,
+.settings-modal .settings-secondary-button::before,
+.settings-modal .settings-apply-button::before,
+.settings-modal .settings-danger-button::before,
+.settings-modal .settings-close-button::before,
+.settings-modal .twitch-button-row button::before,
+.settings-modal .settings-segmented-row button::after,
+.settings-modal .settings-choice-button::after,
+.settings-modal .settings-secondary-button::after,
+.settings-modal .settings-apply-button::after,
+.settings-modal .settings-danger-button::after,
+.settings-modal .settings-close-button::after,
+.settings-modal .twitch-button-row button::after {
+  display: none !important;
+}
+
+.settings-modal .settings-segmented-row button:hover:not(:disabled),
+.settings-modal .settings-choice-button:hover:not(:disabled),
+.settings-modal .settings-secondary-button:hover:not(:disabled),
+.settings-modal .settings-apply-button:hover:not(:disabled),
+.settings-modal .settings-danger-button:hover:not(:disabled),
+.settings-modal .settings-close-button:hover:not(:disabled),
+.settings-modal .twitch-button-row button:hover:not(:disabled) {
+  border-color: rgba(45, 244, 255, 0.68) !important;
+  transform: translateY(-1px) !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 18px rgba(45, 244, 255, 0.2),
+    0 0 24px rgba(255, 75, 231, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    inset 0 -10px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+.settings-modal .settings-segmented-row button.active,
+.settings-modal .settings-choice-button.active {
+  border-color: rgba(45, 244, 255, 0.86) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 38%),
+    linear-gradient(135deg, rgba(14, 98, 132, 0.62), rgba(83, 49, 158, 0.72)) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 18px rgba(45, 244, 255, 0.34),
+    inset 0 0 18px rgba(45, 244, 255, 0.12) !important;
+}
+
+.settings-modal .settings-danger-button {
+  border-color: rgba(255, 113, 139, 0.52) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    linear-gradient(135deg, rgba(77, 12, 40, 0.9), rgba(55, 12, 50, 0.86)) !important;
+  color: #ffe7ec !important;
+}
+
+.settings-modal .settings-apply-button {
+  border-color: rgba(92, 255, 177, 0.6) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 42%),
+    linear-gradient(135deg, rgba(13, 76, 81, 0.9), rgba(46, 24, 91, 0.9)) !important;
+}
+
+.settings-modal .settings-choice-grid-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+}
+
+.settings-modal .settings-segmented-row,
+.settings-modal .settings-actions-row {
+  gap: 12px !important;
+}
+
+.gameplay-choice-spotlights,
+.gameplay-choice-spotlights-2,
+.gameplay-choice-spotlights-3,
+.gameplay-choice-spotlights-4 {
+  top: 79.85% !important;
+  height: 17.75% !important;
+  align-items: end !important;
+  overflow: visible !important;
+}
+
+.gameplay-choice-spotlights-2 {
+  left: 20.5% !important;
+  width: 59% !important;
+  grid-template-columns: repeat(2, 430px) !important;
+}
+
+.gameplay-choice-spotlights-3 {
+  left: 10.2% !important;
+  width: 79.6% !important;
+  grid-template-columns: repeat(3, 390px) !important;
+}
+
+.gameplay-choice-spotlights-4 {
+  left: 7.6% !important;
+  width: 84.8% !important;
+  grid-template-columns: repeat(4, 350px) !important;
+}
+
+.gameplay-choice-spotlight {
+  height: 190px !important;
+  grid-template-rows: 184px 0 0 !important;
+  align-content: end !important;
+}
+
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight,
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap {
+  width: 430px !important;
+}
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight,
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap {
+  width: 390px !important;
+}
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight,
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+  width: 350px !important;
+}
+
+.gameplay-choice-spotlight-asset-wrap {
+  height: 184px !important;
+  transform: translateY(4px) !important;
+  align-items: end !important;
+  animation: choiceAssetGroundedPulse 2.45s ease-in-out infinite !important;
+}
+
+.gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset {
+  width: 430px !important;
+}
+.gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset {
+  width: 390px !important;
+}
+.gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+  width: 350px !important;
+}
+
+.gameplay-choice-spotlight::after {
+  top: 134px !important;
+  width: 72% !important;
+  height: 30px !important;
+  opacity: 0.56 !important;
+  filter: blur(8px) !important;
+}
+
+.gameplay-choice-spotlight-count {
+  bottom: 16px !important;
+}
+
+@keyframes choiceAssetGroundedPulse {
+  0%,
+  100% {
+    transform: translateY(4px) scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    transform: translateY(4px) scale(1.008);
+    filter: brightness(1.06) saturate(1.07);
+  }
+}
+
+@media (max-width: 1400px) {
+  .gameplay-choice-spotlights-2 {
+    left: 21.5% !important;
+    width: 57% !important;
+    grid-template-columns: repeat(2, 350px) !important;
+  }
+
+  .gameplay-choice-spotlights-3 {
+    left: 11.7% !important;
+    width: 76.6% !important;
+    grid-template-columns: repeat(3, 318px) !important;
+  }
+
+  .gameplay-choice-spotlights-4 {
+    left: 9.4% !important;
+    width: 81.2% !important;
+    grid-template-columns: repeat(4, 286px) !important;
+  }
+
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap {
+    width: 350px !important;
+  }
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap {
+    width: 318px !important;
+  }
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight,
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+    width: 286px !important;
+  }
+
+  .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset {
+    width: 350px !important;
+  }
+  .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset {
+    width: 318px !important;
+  }
+  .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+    width: 286px !important;
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-choice-spotlight-correct .gameplay-choice-spotlight-asset-wrap {
+  animation: choiceAssetCorrectWin 820ms ease-in-out infinite alternate !important;
+  filter: drop-shadow(0 0 16px rgba(92, 255, 177, 0.82))
+    drop-shadow(0 0 34px rgba(92, 255, 177, 0.44)) brightness(1.18)
+    saturate(1.25) !important;
+}
+
+.gameplay-choice-spotlight-wrong .gameplay-choice-spotlight-asset-wrap {
+  animation: choiceAssetWrongDim 420ms ease-out both !important;
+  opacity: 0.38 !important;
+  filter: grayscale(0.55) brightness(0.66) saturate(0.82) !important;
+}
+
+.gameplay-choice-spotlight-correct::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  width: 74%;
+  height: 38px;
+  transform: translateX(-50%) perspective(180px) rotateX(62deg);
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse,
+    rgba(92, 255, 177, 0.44),
+    rgba(54, 232, 255, 0.18) 48%,
+    transparent 72%
+  );
+  filter: blur(4px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: choiceCorrectGroundFlash 740ms ease-in-out infinite alternate;
+}
+
+.gameplay-choice-spotlight-wrong {
+  filter: saturate(0.76) brightness(0.76) !important;
+}
+
+.gameplay-choice-spotlight-wrong .gameplay-choice-spotlight-count {
+  opacity: 0.62 !important;
+}
+
+.gameplay-citizen-answer-moving:not(.gameplay-citizen-entering) {
+  transition:
+    left 980ms cubic-bezier(0.16, 0.92, 0.18, 1),
+    top 980ms cubic-bezier(0.16, 0.92, 0.18, 1),
+    transform 980ms cubic-bezier(0.16, 0.92, 0.18, 1),
+    filter 260ms ease !important;
+  animation: citizenChoiceArrive 980ms cubic-bezier(0.16, 0.92, 0.18, 1) both !important;
+}
+
+.gameplay-citizen-answer-moving::before {
+  bottom: 24px !important;
+  height: 34px !important;
+  border-width: 2px !important;
+  opacity: 0.98 !important;
+  transform: perspective(165px) rotateX(60deg) !important;
+}
+
+.gameplay-citizen-answer-moving strong {
+  max-width: 138px !important;
+  border-color: color-mix(
+    in srgb,
+    var(--citizen-choice-color, #36e8ff) 72%,
+    rgba(255, 255, 255, 0.25)
+  ) !important;
+  box-shadow: 0 0 14px
+    color-mix(in srgb, var(--citizen-choice-color, #36e8ff) 28%, transparent) !important;
+}
+
+.gameplay-citizen-answer-pending:not(.gameplay-citizen-entering) img {
+  animation: citizenChoiceReadyBounce 1.15s ease-in-out infinite !important;
+}
+
+.gameplay-citizen-answer-correct:not(.gameplay-citizen-entering)::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 2px;
+  z-index: 5;
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 2px solid rgba(92, 255, 177, 0.9);
+  border-radius: 999px;
+  background: rgba(2, 18, 20, 0.92);
+  color: #5cffb1;
+  font-size: 18px;
+  font-weight: 1000;
+  box-shadow: 0 0 16px rgba(92, 255, 177, 0.52);
+  text-shadow: 0 0 12px rgba(92, 255, 177, 0.64);
+  animation: citizenCorrectBadgePop 680ms cubic-bezier(0.17, 0.9, 0.18, 1.2)
+    both;
+}
+
+.gameplay-citizen-answer-correct:not(.gameplay-citizen-entering) img {
+  animation: citizenCorrectCelebrate 820ms ease-in-out infinite !important;
+  filter: drop-shadow(0 0 16px rgba(92, 255, 177, 0.58))
+    drop-shadow(0 10px 10px rgba(0, 0, 0, 0.42)) !important;
+}
+
+.gameplay-citizen-answer-wrong:not(.gameplay-citizen-entering) {
+  opacity: 0.62 !important;
+  filter: saturate(0.72) brightness(0.78) !important;
+}
+
+.gameplay-citizen-answer-wrong:not(.gameplay-citizen-entering) img {
+  animation: citizenWrongShake 520ms ease-in-out both !important;
+}
+
+.gameplay-citizens-answering
+  .gameplay-citizen-answer-moving:not(.gameplay-citizen-entering)::before {
+  animation: citizenChoicePadPulse 980ms ease-in-out infinite !important;
+}
+
+@keyframes choiceAssetCorrectWin {
+  from {
+    transform: translateY(4px) scale(1.018);
+  }
+  to {
+    transform: translateY(2px) scale(1.055);
+  }
+}
+
+@keyframes choiceAssetWrongDim {
+  0% {
+    transform: translateY(4px) translateX(0);
+  }
+  28% {
+    transform: translateY(4px) translateX(-5px);
+  }
+  56% {
+    transform: translateY(4px) translateX(5px);
+  }
+  100% {
+    transform: translateY(4px) translateX(0);
+  }
+}
+
+@keyframes choiceCorrectGroundFlash {
+  from {
+    opacity: 0.46;
+    transform: translateX(-50%) perspective(180px) rotateX(62deg) scale(0.92);
+  }
+  to {
+    opacity: 0.96;
+    transform: translateX(-50%) perspective(180px) rotateX(62deg) scale(1.08);
+  }
+}
+
+@keyframes citizenChoiceArrive {
+  0% {
+    filter: drop-shadow(0 8px 7px rgba(0, 0, 0, 0.36));
+  }
+  68% {
+    filter: drop-shadow(
+      0 12px 12px
+        color-mix(
+          in srgb,
+          var(--citizen-choice-color, #36e8ff) 26%,
+          rgba(0, 0, 0, 0.38)
+        )
+    );
+  }
+  82% {
+    transform: translate(-50%, -56%) scale(calc(var(--citizen-scale, 1) * 1.04));
+  }
+  100% {
+    filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.42));
+    transform: translate(-50%, -50%) scale(var(--citizen-scale, 1));
+  }
+}
+
+@keyframes citizenChoiceReadyBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes citizenChoicePadPulse {
+  0%,
+  100% {
+    opacity: 0.78;
+    box-shadow: 0 0 15px
+      color-mix(in srgb, var(--citizen-choice-color, #36e8ff) 50%, transparent);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 24px
+        color-mix(
+          in srgb,
+          var(--citizen-choice-color, #36e8ff) 74%,
+          transparent
+        ),
+      0 0 42px
+        color-mix(
+          in srgb,
+          var(--citizen-choice-color, #36e8ff) 30%,
+          transparent
+        );
+  }
+}
+
+@keyframes citizenCorrectBadgePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.35) rotate(-18deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.18) rotate(8deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes citizenCorrectCelebrate {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(-8px) scale(1.045);
+  }
+}
+
+@keyframes citizenWrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  22% {
+    transform: translateX(-5px);
+  }
+  48% {
+    transform: translateX(5px);
+  }
+  72% {
+    transform: translateX(-2px);
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-citizen-card:not(.gameplay-citizen-entering),
+.gameplay-citizen-card:not(.gameplay-citizen-entering)
+  img.gameplay-citizen-sprite,
+.gameplay-citizen-card:not(.gameplay-citizen-entering) img {
+  animation: none !important;
+}
+
+.gameplay-citizen-card::before,
+.gameplay-citizen-card.gameplay-citizen-answer-moving::before {
+  display: none !important;
+  opacity: 0 !important;
+  content: none !important;
+}
+
+.gameplay-citizen-answer-correct:not(.gameplay-citizen-entering),
+.gameplay-citizen-answer-wrong:not(.gameplay-citizen-entering),
+.gameplay-citizens-result
+  .gameplay-citizen-card:not(.gameplay-citizen-entering),
+.gameplay-citizens-result
+  .gameplay-citizen-card:not(.gameplay-citizen-entering)
+  img,
+.gameplay-citizens-answering
+  .gameplay-citizen-card:not(.gameplay-citizen-entering)
+  img {
+  animation: none !important;
+}
+
+.gameplay-phase-tour_complete {
+  overflow: hidden !important;
+}
+
+.gameplay-simple-scoreboard {
+  width: min(780px, 88%) !important;
+  max-width: 88% !important;
+  max-height: calc(100% - 18px) !important;
+  display: grid !important;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto auto !important;
+  gap: clamp(7px, 0.72vw, 12px) !important;
+  align-content: stretch !important;
+  justify-content: stretch !important;
+  padding: clamp(12px, 1.05vw, 18px) clamp(14px, 1.25vw, 22px) !important;
+  overflow: hidden !important;
+  text-align: center !important;
+}
+
+.gameplay-simple-scoreboard > span {
+  font-size: clamp(10px, 0.72vw, 14px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-scoreboard-champion {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 1px solid rgba(255, 230, 109, 0.46);
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      rgba(255, 230, 109, 0.16),
+      transparent 54%
+    ),
+    linear-gradient(180deg, rgba(18, 17, 45, 0.72), rgba(7, 4, 26, 0.78));
+  box-shadow:
+    0 0 22px rgba(255, 230, 109, 0.13),
+    inset 0 0 22px rgba(255, 255, 255, 0.04);
+  padding: clamp(8px, 0.78vw, 12px) clamp(12px, 1.1vw, 18px);
+}
+
+.gameplay-scoreboard-champion small {
+  color: #ffe66d;
+  font-family: var(--display-font);
+  font-size: clamp(14px, 1.05vw, 20px);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 14px rgba(255, 230, 109, 0.42);
+}
+
+.gameplay-scoreboard-champion h2 {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+  color: #f9fcff;
+  font-size: clamp(28px, 2.7vw, 50px) !important;
+  line-height: 0.92;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.86),
+    0 0 20px rgba(255, 94, 219, 0.32),
+    0 0 34px rgba(54, 232, 255, 0.18);
+}
+
+.gameplay-scoreboard-champion strong {
+  color: #8ffbff;
+  font-size: clamp(10px, 0.75vw, 13px);
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  line-height: 1.05;
+}
+
+.gameplay-scoreboard-list {
+  display: grid;
+  min-height: 0;
+  gap: clamp(5px, 0.46vw, 8px);
+  overflow: hidden;
+}
+
+.gameplay-scoreboard-row {
+  display: grid;
+  grid-template-columns: clamp(42px, 3.2vw, 58px) minmax(0, 1fr) clamp(
+      48px,
+      3.6vw,
+      66px
+    );
+  align-items: center;
+  min-height: clamp(30px, 2.45vw, 44px);
+  gap: 8px;
+  border: 1px solid rgba(54, 232, 255, 0.22);
+  border-radius: 13px;
+  background:
+    linear-gradient(90deg, rgba(54, 232, 255, 0.1), rgba(155, 92, 255, 0.1)),
+    rgba(0, 12, 20, 0.58);
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.035);
+  padding: 0 clamp(8px, 0.7vw, 12px);
+}
+
+.gameplay-scoreboard-row b {
+  color: #ffe66d;
+  font-family: var(--display-font);
+  font-size: clamp(16px, 1.15vw, 23px);
+  line-height: 1;
+  text-shadow: 0 0 12px rgba(255, 230, 109, 0.28);
+}
+
+.gameplay-scoreboard-row span {
+  min-width: 0;
+  overflow: hidden;
+  color: #f3fbff;
+  font-size: clamp(12px, 0.92vw, 17px);
+  font-weight: 1000;
+  line-height: 1;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gameplay-scoreboard-row strong {
+  color: #36e8ff;
+  font-size: clamp(11px, 0.82vw, 15px);
+  font-weight: 1000;
+  line-height: 1;
+  text-align: right;
+}
+
+.gameplay-scoreboard-empty {
+  align-self: center;
+  margin: 0;
+  color: rgba(234, 251, 255, 0.72);
+  font-size: clamp(12px, 0.9vw, 16px);
+  font-weight: 900;
+}
+
+.gameplay-scoreboard-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 28px;
+}
+
+.gameplay-scoreboard-pagination button {
+  display: grid;
+  width: clamp(30px, 2.2vw, 40px);
+  height: clamp(26px, 1.9vw, 34px);
+  place-items: center;
+  border: 1px solid rgba(54, 232, 255, 0.5);
+  border-radius: 999px;
+  background: rgba(4, 12, 32, 0.76);
+  color: #eafbff;
+  cursor: pointer;
+  font-size: clamp(18px, 1.25vw, 24px);
+  font-weight: 1000;
+  line-height: 1;
+  box-shadow:
+    0 0 14px rgba(54, 232, 255, 0.12),
+    inset 0 0 12px rgba(255, 255, 255, 0.05);
+}
+
+.gameplay-scoreboard-pagination button:disabled {
+  cursor: default;
+  opacity: 0.32;
+}
+
+.gameplay-scoreboard-pagination strong,
+.gameplay-scoreboard-spectator-note {
+  color: rgba(234, 251, 255, 0.72);
+  font-size: clamp(10px, 0.72vw, 13px);
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+}
+
+
+
+.gameplay-simple-scoreboard .gameplay-scoreboard-back-button {
+  min-height: clamp(38px, 3vw, 50px) !important;
+  min-width: clamp(180px, 15vw, 260px) !important;
+  font-size: clamp(15px, 1.15vw, 22px) !important;
+}
+
+@media (max-width: 1400px) {
+  .gameplay-simple-scoreboard {
+    width: min(700px, 88%) !important;
+    gap: 6px !important;
+    padding: 10px 14px !important;
+  }
+
+  .gameplay-scoreboard-row {
+    min-height: 29px;
+  }
+
+  .gameplay-scoreboard-champion h2 {
+    font-size: clamp(24px, 2.4vw, 40px) !important;
+  }
+}
+
+/* cleaned legacy comment */
+/* Keep the settings button fully inside the clickable safe zone in every language. */
+.app-settings-gear,
+[dir="rtl"] .app-settings-gear {
+  position: fixed !important;
+  top: 28px !important;
+  right: 28px !important;
+  left: auto !important;
+  z-index: 520 !important;
+  width: 52px !important;
+  height: 52px !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  overflow: visible !important;
+}
+
+.app-settings-gear:hover:not(:disabled),
+[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04) rotate(8deg) !important;
+}
+
+/* Re-align CSS light beams with the lamps baked into both stage images. They start from the
+   actual truss light row and reach the wooden floor without drifting over the black screen. */
+.concert-beam {
+  top: 18.7% !important;
+  width: 6.8% !important;
+  height: 66.5% !important;
+  opacity: 0.18 !important;
+  filter: blur(5.8px) !important;
+  transform-origin: 50% 0% !important;
+  animation: none !important;
+  clip-path: polygon(46% 0%, 54% 0%, 100% 100%, 0% 100%) !important;
+}
+
+.visual-world-layer-minigame-active .concert-beam,
+.visual-world-layer-lobby-active .concert-beam {
+  top: 18.7% !important;
+  height: 66.5% !important;
+  opacity: 0.17 !important;
+}
+
+.concert-beam-cyan {
+  background: linear-gradient(
+    180deg,
+    rgba(66, 209, 255, 0.82) 0%,
+    rgba(66, 209, 255, 0.28) 54%,
+    rgba(66, 209, 255, 0) 100%
+  ) !important;
+}
+.concert-beam-pink {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 75, 197, 0.8) 0%,
+    rgba(255, 75, 197, 0.27) 54%,
+    rgba(255, 75, 197, 0) 100%
+  ) !important;
+}
+.concert-beam-purple {
+  background: linear-gradient(
+    180deg,
+    rgba(147, 91, 255, 0.74) 0%,
+    rgba(147, 91, 255, 0.25) 54%,
+    rgba(147, 91, 255, 0) 100%
+  ) !important;
+}
+.concert-beam-yellow {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 224, 105, 0.62) 0%,
+    rgba(255, 224, 105, 0.22) 54%,
+    rgba(255, 224, 105, 0) 100%
+  ) !important;
+}
+
+.concert-beam-1 {
+  left: 20.4% !important;
+  transform: rotate(-8deg) !important;
+}
+.concert-beam-2 {
+  left: 25.9% !important;
+  transform: rotate(-4deg) !important;
+}
+.concert-beam-3 {
+  left: 31.8% !important;
+  transform: rotate(3deg) !important;
+}
+.concert-beam-4 {
+  left: 38.2% !important;
+  transform: rotate(-3deg) !important;
+}
+.concert-beam-5 {
+  left: 45.1% !important;
+  transform: rotate(2deg) !important;
+}
+.concert-beam-6 {
+  left: 52.2% !important;
+  transform: rotate(-2deg) !important;
+}
+.concert-beam-7 {
+  left: 59.3% !important;
+  transform: rotate(2deg) !important;
+}
+.concert-beam-8 {
+  left: 66.2% !important;
+  transform: rotate(-3deg) !important;
+}
+.concert-beam-9 {
+  left: 72.6% !important;
+  transform: rotate(4deg) !important;
+}
+.concert-beam-10 {
+  left: 78.2% !important;
+  transform: rotate(7deg) !important;
+}
+.concert-beam-11 {
+  left: 83% !important;
+  transform: rotate(10deg) !important;
+}
+.concert-beam-12 {
+  left: 15.7% !important;
+  transform: rotate(-12deg) !important;
+}
+
+.concert-screen-glow,
+.visual-world-layer-minigame-active .concert-screen-glow {
+  left: 23.15% !important;
+  top: 25.95% !important;
+  width: 53.65% !important;
+  height: 48.35% !important;
+  border-radius: 10px !important;
+  opacity: 0.28 !important;
+}
+
+.concert-screen-scanline,
+.visual-world-layer-minigame-active .concert-screen-scanline {
+  left: 23.15% !important;
+  top: 25.95% !important;
+  width: 53.65% !important;
+  height: 48.35% !important;
+  border-radius: 10px !important;
+  opacity: 0.15 !important;
+}
+
+/* Main black screen alignment for both scenes. */
+.gameplay-overlay-lobby-scene .gameplay-main-screen-overlay,
+.gameplay-overlay-minigame-scene .gameplay-main-screen-overlay,
+.gameplay-main-screen-active {
+  left: 23.15% !important;
+  top: 25.95% !important;
+  width: 53.65% !important;
+  height: 48.35% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+/* Lobby screen: centered text, calmer premium background, smaller clean play button. */
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(10px, 1.1vw, 20px) !important;
+  padding: clamp(38px, 4vw, 76px) clamp(42px, 4.6vw, 88px) !important;
+  text-align: center !important;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(51, 213, 255, 0.16),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 78% 70%,
+      rgba(255, 78, 217, 0.1),
+      transparent 38%
+    ),
+    linear-gradient(180deg, rgba(0, 8, 28, 0.5), rgba(4, 0, 19, 0.34)) !important;
+}
+
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 3.5% !important;
+  border: 1px solid rgba(80, 232, 255, 0.12) !important;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(90deg, transparent, rgba(54, 232, 255, 0.055), transparent),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.035) 0 1px,
+      transparent 1px 7px
+    ) !important;
+  opacity: 0.55 !important;
+  pointer-events: none !important;
+}
+
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby .gameplay-kicker,
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby h1,
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby strong {
+  transform: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby h1 {
+  font-size: clamp(48px, 5.05vw, 88px) !important;
+  line-height: 0.92 !important;
+}
+
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby strong {
+  font-size: clamp(24px, 2.55vw, 44px) !important;
+}
+
+.center-play-button {
+  top: 66.2% !important;
+  width: clamp(285px, 22.5vw, 405px) !important;
+  height: clamp(58px, 4.45vw, 76px) !important;
+  gap: clamp(10px, 0.85vw, 16px) !important;
+  padding: 0 clamp(20px, 1.55vw, 32px) !important;
+  border-width: 3px !important;
+}
+
+.center-play-icon {
+  flex-basis: clamp(42px, 3.25vw, 56px) !important;
+  width: clamp(42px, 3.25vw, 56px) !important;
+  height: clamp(42px, 3.25vw, 56px) !important;
+  border-width: 3px !important;
+  font-size: clamp(18px, 1.25vw, 25px) !important;
+}
+
+.center-play-core {
+  font-size: clamp(25px, 2.2vw, 40px) !important;
+  transform: translateY(1px) !important;
+}
+
+/* Remove the left-to-right shine sweep from Play hover only; keep the stars and particles. */
+.center-play-button::before {
+  inset: 7px !important;
+  border: 2px solid rgba(255, 255, 255, 0.42) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12),
+    transparent 45%
+  ) !important;
+  opacity: 0.84 !important;
+  transform: none !important;
+  transition:
+    opacity 160ms ease,
+    border-color 160ms ease !important;
+}
+
+.center-play-button:hover:not(:disabled)::before {
+  transform: none !important;
+  opacity: 0.94 !important;
+}
+
+/* After rounds/tours, citizens return to the normal side-floor crowd positions; floor-choice
+   placement is now handled in TS only during active answer/result phases. This keeps the final
+   scoreboard clean. */
+.gameplay-citizens-result
+  .gameplay-citizen-card:not(.gameplay-citizen-answer-moving) {
+  filter: none !important;
+}
+
+/* Cleaner simple settings controls: the modal itself is premium, but its inner buttons should not
+   use the heavy stage-action button treatment. */
+.settings-modal .settings-segmented-row button,
+.settings-modal .settings-choice-button,
+.settings-modal .settings-secondary-button,
+.settings-modal .settings-apply-button,
+.settings-modal .settings-danger-button,
+.settings-modal .settings-close-button,
+.settings-modal .twitch-button-row button {
+  min-height: 48px !important;
+  border: 1px solid rgba(136, 243, 255, 0.36) !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(15, 17, 48, 0.88) !important;
+  color: #f2fdff !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 12px rgba(45, 244, 255, 0.1) !important;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.72) !important;
+}
+
+.settings-modal .settings-segmented-row button.active,
+.settings-modal .settings-choice-button.active {
+  border-color: rgba(87, 235, 255, 0.72) !important;
+  background:
+    linear-gradient(180deg, rgba(87, 235, 255, 0.16), rgba(255, 75, 231, 0.1)),
+    rgba(24, 23, 68, 0.92) !important;
+  box-shadow:
+    inset 0 0 18px rgba(87, 235, 255, 0.1),
+    0 0 16px rgba(87, 235, 255, 0.2) !important;
+}
+
+.settings-modal .settings-danger-button {
+  border-color: rgba(255, 115, 145, 0.44) !important;
+  background: rgba(62, 17, 46, 0.88) !important;
+}
+
+.settings-modal .settings-apply-button {
+  border-color: rgba(92, 255, 177, 0.46) !important;
+  background: rgba(16, 58, 66, 0.9) !important;
+}
+
+@media (max-width: 1400px) {
+  .app-settings-gear,
+  [dir="rtl"] .app-settings-gear {
+    top: 20px !important;
+    right: 20px !important;
+    left: auto !important;
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .center-play-button {
+    width: clamp(245px, 26vw, 345px) !important;
+    height: clamp(52px, 5vw, 66px) !important;
+  }
+
+  .center-play-icon {
+    flex-basis: 42px !important;
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .center-play-core {
+    font-size: clamp(22px, 2.6vw, 34px) !important;
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-citizen-card {
+  width: clamp(92px, 6.9vw, 142px) !important;
+  min-height: clamp(128px, 10.8vw, 190px) !important;
+  display: grid !important;
+  justify-items: center !important;
+  align-content: start !important;
+  gap: 0 !important;
+  padding-top: clamp(24px, 2.1vw, 36px) !important;
+}
+
+
+
+.gameplay-citizen-card img,
+.gameplay-citizens-answering .gameplay-citizen-card img,
+.gameplay-citizens-result .gameplay-citizen-card img {
+  width: clamp(80px, 5.9vw, 126px) !important;
+  height: clamp(108px, 7.9vw, 168px) !important;
+  object-fit: contain !important;
+  object-position: center bottom !important;
+  filter: drop-shadow(0 10px 9px rgba(0, 0, 0, 0.42)) !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.gameplay-citizen-entering img {
+  animation: none !important;
+}
+
+.gameplay-citizen-nameplate {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: clamp(22px, 1.6vw, 32px) minmax(0, 1fr);
+  align-items: center;
+  min-width: clamp(88px, 6.2vw, 138px);
+  max-width: clamp(96px, 7.2vw, 156px);
+  height: clamp(20px, 1.65vw, 30px);
+  overflow: hidden;
+  transform: translateX(-50%);
+  border: 1.5px solid rgba(54, 232, 255, 0.72);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.11),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(2, 5, 23, 0.94);
+  box-shadow:
+    0 0 12px rgba(54, 232, 255, 0.22),
+    inset 0 0 14px rgba(255, 94, 219, 0.08);
+  color: #f2fbff;
+  pointer-events: none;
+}
+
+.gameplay-citizen-nameplate b {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  border-inline-end: 1px solid rgba(54, 232, 255, 0.42);
+  color: #ffe66d;
+  font-family: var(--display-font);
+  font-size: clamp(11px, 0.82vw, 17px);
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(255, 230, 109, 0.38);
+}
+
+.gameplay-citizen-nameplate span {
+  min-width: 0;
+  overflow: hidden;
+  padding: 0 clamp(6px, 0.52vw, 10px);
+  color: #72f6ff;
+  font-size: clamp(8px, 0.62vw, 12px);
+  font-weight: 1000;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow: 0 0 9px rgba(54, 232, 255, 0.4);
+}
+
+.gameplay-citizen-spectator .gameplay-citizen-nameplate {
+  border-color: rgba(174, 117, 255, 0.78);
+  box-shadow:
+    0 0 12px rgba(155, 92, 255, 0.26),
+    inset 0 0 14px rgba(255, 94, 219, 0.08);
+}
+
+.gameplay-citizen-spectator .gameplay-citizen-nameplate span {
+  color: #c9adff;
+}
+
+.gameplay-citizen-card > strong,
+.gameplay-citizen-card > small,
+.gameplay-citizen-role {
+  display: none !important;
+}
+
+.gameplay-citizen-answer-correct img {
+  filter: drop-shadow(0 10px 9px rgba(0, 0, 0, 0.42))
+    drop-shadow(0 0 16px rgba(92, 255, 177, 0.42)) !important;
+}
+
+.gameplay-citizen-answer-wrong img {
+  opacity: 0.72 !important;
+  filter: grayscale(0.25) drop-shadow(0 10px 9px rgba(0, 0, 0, 0.42)) !important;
+}
+
+.gameplay-action-warmup-card span,
+.gameplay-answers-locked-card span {
+  max-width: 88%;
+  color: rgba(242, 251, 255, 0.82) !important;
+  font-size: clamp(13px, 1.05vw, 18px) !important;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.gameplay-answers-locked-card h2 {
+  color: #5cffb1 !important;
+  font-size: clamp(64px, 5.6vw, 116px) !important;
+  text-shadow: 0 0 26px rgba(92, 255, 177, 0.48) !important;
+}
+
+/* cleaned legacy comment */
+.app-settings-gear,
+[dir="rtl"] .app-settings-gear,
+main[dir="rtl"] .app-settings-gear {
+  position: absolute !important;
+  top: clamp(20px, 1.55vw, 30px) !important;
+  right: clamp(20px, 1.55vw, 30px) !important;
+  left: auto !important;
+  z-index: 620 !important;
+  width: clamp(46px, 3vw, 54px) !important;
+  height: clamp(46px, 3vw, 54px) !important;
+  transform: none !important;
+  pointer-events: auto !important;
+}
+
+.app-settings-gear:hover:not(:disabled),
+[dir="rtl"] .app-settings-gear:hover:not(:disabled),
+main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.04) rotate(8deg) !important;
+}
+
+.center-play-button {
+  width: auto !important;
+  min-width: clamp(196px, 14.6vw, 278px) !important;
+  max-width: clamp(216px, 16vw, 304px) !important;
+  height: clamp(50px, 3.7vw, 66px) !important;
+  padding: 0 clamp(12px, 1.05vw, 20px) !important;
+  gap: clamp(8px, 0.65vw, 12px) !important;
+  border-radius: 999px !important;
+}
+
+.center-play-button::before {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+.center-play-button::after {
+  inset: 4px !important;
+  border-radius: 999px !important;
+  opacity: 0.58 !important;
+}
+
+.center-play-icon {
+  flex-basis: clamp(36px, 2.55vw, 48px) !important;
+  width: clamp(36px, 2.55vw, 48px) !important;
+  height: clamp(36px, 2.55vw, 48px) !important;
+  font-size: clamp(15px, 1vw, 21px) !important;
+}
+
+.center-play-core {
+  font-size: clamp(22px, 1.82vw, 34px) !important;
+  letter-spacing: 0.04em !important;
+  white-space: nowrap !important;
+}
+
+.center-play-spark-a {
+  right: 24% !important;
+  top: 24% !important;
+}
+.center-play-spark-b {
+  right: 11% !important;
+  bottom: 22% !important;
+}
+
+/* Beams are anchored by their top center at the baked lamp centers in the stage artwork. */
+.concert-beam,
+.visual-world-layer-minigame-active .concert-beam,
+.visual-world-layer-lobby-active .concert-beam {
+  top: 20.45% !important;
+  width: 7.8% !important;
+  height: 66.4% !important;
+  opacity: 0.16 !important;
+  filter: blur(5.6px) !important;
+  transform-origin: 50% 0% !important;
+  clip-path: polygon(49% 0%, 51% 0%, 100% 100%, 0% 100%) !important;
+  animation: none !important;
+}
+
+.concert-beam-1 {
+  left: 14.95% !important;
+  transform: rotate(-8deg) !important;
+}
+.concert-beam-2 {
+  left: 19.25% !important;
+  transform: rotate(-5deg) !important;
+}
+.concert-beam-3 {
+  left: 23.45% !important;
+  transform: rotate(3deg) !important;
+}
+.concert-beam-4 {
+  left: 29.12% !important;
+  transform: rotate(-3deg) !important;
+}
+.concert-beam-5 {
+  left: 34.45% !important;
+  transform: rotate(2deg) !important;
+}
+.concert-beam-6 {
+  left: 40.86% !important;
+  transform: rotate(-2deg) !important;
+}
+.concert-beam-7 {
+  left: 51.2% !important;
+  transform: rotate(2deg) !important;
+}
+.concert-beam-8 {
+  left: 57.56% !important;
+  transform: rotate(-3deg) !important;
+}
+.concert-beam-9 {
+  left: 62.92% !important;
+  transform: rotate(3deg) !important;
+}
+.concert-beam-10 {
+  left: 68.82% !important;
+  transform: rotate(5deg) !important;
+}
+.concert-beam-11 {
+  left: 72.61% !important;
+  transform: rotate(7deg) !important;
+}
+.concert-beam-12 {
+  left: 76.88% !important;
+  transform: rotate(9deg) !important;
+}
+
+.gameplay-show-final-card {
+  width: min(680px, 78%) !important;
+  min-height: clamp(240px, 23vw, 360px) !important;
+  display: grid !important;
+  align-content: center !important;
+  justify-items: center !important;
+  gap: clamp(18px, 1.55vw, 28px) !important;
+  padding: clamp(28px, 2.5vw, 46px) !important;
+  text-align: center !important;
+}
+
+.gameplay-show-final-card span {
+  color: #5cffb1 !important;
+  font-size: clamp(12px, 0.95vw, 17px) !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.12em !important;
+  text-shadow: 0 0 16px rgba(92, 255, 177, 0.36) !important;
+}
+
+.gameplay-show-final-card h2 {
+  margin: 0 !important;
+  color: #ffe66d !important;
+  font-size: clamp(34px, 3.25vw, 62px) !important;
+  line-height: 0.95 !important;
+  text-shadow:
+    0 0 24px rgba(255, 230, 109, 0.38),
+    0 4px 0 rgba(0, 0, 0, 0.78) !important;
+}
+
+.gameplay-show-final-button {
+  min-width: clamp(230px, 18vw, 340px) !important;
+}
+
+.gameplay-scoreboard-champion strong {
+  display: none !important;
+}
+
+.gameplay-top-three-board h2 {
+  font-size: clamp(19px, 1.65vw, 30px) !important;
+}
+
+@media (max-width: 1400px) {
+  .center-play-button {
+    min-width: clamp(176px, 18vw, 244px) !important;
+    max-width: clamp(190px, 20vw, 268px) !important;
+    height: clamp(46px, 4.4vw, 58px) !important;
+  }
+
+  .center-play-icon {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .center-play-core {
+    font-size: clamp(20px, 2.15vw, 30px) !important;
+  }
+}
+

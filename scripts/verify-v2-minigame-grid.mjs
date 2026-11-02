@@ -1,3 +1,4 @@
+import { readOrderedCss } from './lib/ordered-css-source.mjs';
 import fs from 'node:fs';
 
 function read(path) {
@@ -12,7 +13,7 @@ function assert(condition, message) {
 }
 
 const component = read('src/ui-react/components/play/MainScreenPlayFlow.tsx');
-const styles = read('src/ui-react/styles.css');
+const styles = readOrderedCss();
 const gameplay = JSON.parse(read('public/assets/game/runtime/config/gameplay-config.json'));
 const enabledMiniGames = gameplay?.tour?.enabledMiniGames;
 

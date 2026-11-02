@@ -5,6 +5,8 @@ import { GameProvider } from './context/GameContext';
 import { TwitchConnectionProvider } from './context/TwitchConnectionContext';
 import { LocalizationProvider } from './context/LocalizationContext';
 import './styles.css';
+import './styles/premium-lobby.css';
+import './styles/premium-stage-mode.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

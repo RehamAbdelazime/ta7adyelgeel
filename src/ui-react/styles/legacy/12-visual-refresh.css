@@ -1,0 +1,315 @@
+/* ==========================================================================
+   TA7ADY ELGEEL VISUAL REFRESH
+   Local display typography, grounded host placement, consistent audience scale,
+   and a lightweight neon Play interaction.
+   ========================================================================== */
+@font-face {
+  font-family: "Labo Display";
+  src: url("../../assets/fonts/LaboDisplay.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  font-family: var(--display-font);
+}
+
+html body,
+html body #root,
+html body #root * {
+  font-family: var(--display-font) !important;
+}
+
+/* Keep the current bilingual logo contained within the LED screen without cropping. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(7px, 0.8vh, 14px) !important;
+  padding: clamp(8px, 1.15vw, 22px) !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-logo {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: min(100%, clamp(210px, 18.5vw, 350px)) !important;
+  max-height: min(30vh, 330px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.42)) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  position: relative !important;
+  z-index: 2 !important;
+  margin: 0 !important;
+  color: rgba(236, 247, 255, 0.82) !important;
+  font-size: clamp(12px, 0.82vw, 16px) !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Clean text-first Play action: no glossy pill, no heavy frame. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  min-width: clamp(120px, 10vw, 190px) !important;
+  min-height: clamp(46px, 4.2vw, 68px) !important;
+  margin: 2px 0 0 !important;
+  padding: 8px 20px 15px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f7fbff !important;
+  cursor: pointer !important;
+  isolation: isolate !important;
+  transform: none !important;
+  transition: color 180ms ease, opacity 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  color: currentColor !important;
+  font-size: clamp(24px, 2.05vw, 38px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.48) !important;
+  transition: text-shadow 180ms ease, transform 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-underline {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 3px !important;
+  width: 0 !important;
+  height: 2px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #43edff 0%, #b967ff 55%, #ff61dc 100%) !important;
+  box-shadow: 0 0 8px rgba(67, 237, 255, 0.3) !important;
+  opacity: 0 !important;
+  transform: translateX(-50%) scaleX(0.82) !important;
+  transform-origin: center !important;
+  transition: width 220ms ease, opacity 220ms ease, box-shadow 220ms ease, transform 220ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  width: 76% !important;
+  height: 20px !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  transform: translateX(-50%) !important;
+  transition: opacity 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i {
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 3px !important;
+  height: 3px !important;
+  border-radius: 50% !important;
+  background: #b9fbff !important;
+  box-shadow: 0 0 7px 2px rgba(67, 237, 255, 0.72) !important;
+  opacity: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(1) { left: 17% !important; }
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(2) { left: 51% !important; background: #ffd6fa !important; box-shadow: 0 0 7px 2px rgba(255, 97, 220, 0.72) !important; }
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(3) { right: 14% !important; }
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) {
+  color: #ffffff !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-label,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-label {
+  transform: translateY(-2px) !important;
+  text-shadow: 0 0 12px rgba(67, 237, 255, 0.32), 0 0 18px rgba(255, 97, 220, 0.2) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-underline,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-underline {
+  width: 78% !important;
+  opacity: 1 !important;
+  transform: translateX(-50%) scaleX(1) !important;
+  box-shadow: 0 0 7px rgba(67, 237, 255, 0.86), 0 0 16px rgba(255, 97, 220, 0.54) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles {
+  opacity: 1 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i {
+  animation: mainScreenPlayParticle 720ms ease-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i:nth-child(2),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i:nth-child(2) {
+  animation-delay: 160ms !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i:nth-child(3),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i:nth-child(3) {
+  animation-delay: 310ms !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:disabled {
+  color: rgba(225, 236, 249, 0.48) !important;
+  cursor: not-allowed !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:disabled .main-screen-play-cta-underline {
+  opacity: 0.24 !important;
+}
+
+@keyframes mainScreenPlayParticle {
+  0% { opacity: 0; transform: translateY(1px) scale(0.65); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-12px) scale(1.15); }
+}
+
+/* Host scale and stage marks: lobby host stands beside the LED screen; game host
+   stays on the left wing and points inward, with feet anchored to the floor line. */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 79.6% !important;
+  right: auto !important;
+  bottom: 31.2% !important;
+  width: clamp(280px, 15.2vw, 316px) !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 79.6% !important;
+  right: auto !important;
+  top: 68.8% !important;
+  width: 14.4% !important;
+  height: 3.8% !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+html body .concert-host-question-mascot,
+html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+html body .concert-host-result-mascot,
+html body .concert-host-result-layer-winner .concert-host-result-mascot,
+html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+  left: 5.5% !important;
+  right: auto !important;
+  bottom: 11.5% !important;
+  width: clamp(250px, 14.2vw, 286px) !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+}
+
+html body .concert-host-presenter-floor-pool,
+html body .concert-host-question-floor-pool,
+html body .concert-host-question-layer-urgent .concert-host-question-floor-pool,
+html body .concert-host-result-floor-pool,
+html body .concert-host-result-layer-winner .concert-host-result-floor-pool,
+html body .concert-host-result-layer-runnerup .concert-host-result-floor-pool {
+  left: 5.5% !important;
+  right: auto !important;
+  top: 84.2% !important;
+  width: 10% !important;
+  height: 3.6% !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-pose,
+html body .concert-host-question-pose,
+html body .concert-host-result-pose,
+html body .concert-host-mascot-pose {
+  object-fit: contain !important;
+  object-position: center bottom !important;
+}
+
+/* Audience sprites: enlarge the bodies while keeping a narrow calibration range. */
+html body .gameplay-citizen-card {
+  width: clamp(98px, 5.9vw, 120px) !important;
+  min-height: clamp(140px, 8.8vw, 168px) !important;
+}
+
+html body .gameplay-citizen-card .gameplay-citizen-body-shell {
+  width: calc(clamp(88px, 5.6vw, 112px) * var(--citizen-visual-scale, 1)) !important;
+  height: calc(clamp(126px, 8vw, 156px) * var(--citizen-visual-scale, 1)) !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card,
+html body .game-scene-stage-lobby .gameplay-citizen-card {
+  width: clamp(98px, 5.9vw, 120px) !important;
+  min-height: clamp(140px, 8.8vw, 168px) !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card .gameplay-citizen-body-shell,
+html body .game-scene-stage-lobby .gameplay-citizen-card .gameplay-citizen-body-shell {
+  width: calc(clamp(88px, 5.6vw, 112px) * var(--citizen-visual-scale, 1)) !important;
+  height: calc(clamp(126px, 8vw, 156px) * var(--citizen-visual-scale, 1)) !important;
+}
+
+html body .gameplay-citizen-nameplate {
+  min-width: clamp(104px, 6.3vw, 138px) !important;
+  max-width: clamp(116px, 7.15vw, 156px) !important;
+  height: clamp(22px, 1.72vw, 32px) !important;
+}
+
+html body .gameplay-citizen-ground-shadow {
+  width: clamp(52px, 3.8vw, 76px) !important;
+  height: clamp(8px, 0.68vw, 13px) !important;
+  opacity: 0.7 !important;
+}
+
+@media (max-width: 1400px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-logo {
+    width: min(100%, clamp(190px, 22vw, 290px)) !important;
+    max-height: min(29vh, 260px) !important;
+  }
+
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    left: 79.4% !important;
+    width: clamp(248px, 16vw, 284px) !important;
+  }
+
+  html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+  html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+  html body .concert-host-question-mascot,
+  html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+  html body .concert-host-result-mascot,
+  html body .concert-host-result-layer-winner .concert-host-result-mascot,
+  html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+    left: 5.5% !important;
+    width: clamp(230px, 15.5vw, 260px) !important;
+  }
+
+  html body .gameplay-citizen-card .gameplay-citizen-body-shell {
+    width: calc(clamp(82px, 5.5vw, 102px) * var(--citizen-visual-scale, 1)) !important;
+    height: calc(clamp(116px, 7.7vw, 142px) * var(--citizen-visual-scale, 1)) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta,
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+

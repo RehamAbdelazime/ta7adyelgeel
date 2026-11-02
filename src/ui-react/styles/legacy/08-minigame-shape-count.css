@@ -1,0 +1,500 @@
+/* V2 SHAPE COUNT RESET FINAL START
+   Shape Count final reset.
+   This overrides all inherited broad svg/shape rules for the answer choices.
+*/
+
+/* Use free space, but keep content inside the stage. */
+html body .gameplay-question-body-shapes {
+  width: min(1280px, 86vw) !important;
+  max-width: 1280px !important;
+  grid-template-columns: minmax(610px, 1.05fr) minmax(500px, 0.95fr) !important;
+  gap: clamp(38px, 3vw, 60px) !important;
+  overflow: visible !important;
+  align-items: center !important;
+}
+
+/* Board is a little larger, no glow. */
+html body .gameplay-question-body-shapes .gameplay-shape-stage {
+  width: min(100%, 820px) !important;
+  max-width: 820px !important;
+  min-height: clamp(430px, 45vh, 590px) !important;
+  padding: clamp(28px, 2vw, 42px) clamp(38px, 2.8vw, 58px) !important;
+  overflow: visible !important;
+}
+
+html body .gameplay-question-body-shapes .gameplay-shape-grid {
+  width: min(90%, 700px) !important;
+  max-width: 700px !important;
+  gap: clamp(15px, 1vw, 22px) !important;
+  transform: scale(1.04) !important;
+  transform-origin: center center !important;
+}
+
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-shape-stage
+  .gameplay-shape-mark,
+html body .gameplay-question-body-shapes .gameplay-shape-stage svg,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-shape-stage
+  [class*="shape"] {
+  filter: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Answer column/card sizes. */
+html body .gameplay-question-body-shapes .gameplay-question-choices,
+html body .gameplay-question-body-shapes .gameplay-question-choices-3,
+html body .gameplay-question-body-shapes .gameplay-question-choices-4 {
+  width: min(100%, 540px) !important;
+  max-width: 540px !important;
+  gap: clamp(14px, 1vw, 20px) !important;
+  overflow: visible !important;
+  align-self: center !important;
+  justify-self: center !important;
+  transform: none !important;
+}
+
+html body .gameplay-question-body-shapes .gameplay-choice-card-shape {
+  width: 100% !important;
+  height: clamp(94px, 5.65vw, 116px) !important;
+  min-height: clamp(94px, 5.65vw, 116px) !important;
+  max-height: clamp(94px, 5.65vw, 116px) !important;
+  padding: clamp(12px, 0.9vw, 18px) clamp(22px, 1.7vw, 34px) !important;
+  display: grid !important;
+  grid-template-columns: clamp(112px, 7vw, 140px) minmax(0, 1fr) clamp(
+      68px,
+      4.7vw,
+      84px
+    ) !important;
+  grid-template-areas: "shape spacer number" !important;
+  align-items: center !important;
+  justify-items: center !important;
+  column-gap: clamp(16px, 1.2vw, 24px) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Exact safe answer icon container. */
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-answer {
+  grid-area: shape !important;
+  width: 100px !important;
+  height: 76px !important;
+  min-width: 100px !important;
+  min-height: 76px !important;
+  max-width: 100px !important;
+  max-height: 76px !important;
+  display: grid !important;
+  place-items: center !important;
+  position: relative !important;
+  inset: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: visible !important;
+  filter: none !important;
+  animation: none !important;
+}
+
+/* Exact safe SVG. This beats the old broad selectors. */
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-answer
+  svg.gameplay-choice-shape-svg,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  svg.gameplay-choice-shape-svg {
+  display: block !important;
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+  min-height: 54px !important;
+  max-width: 54px !important;
+  max-height: 54px !important;
+  overflow: visible !important;
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+}
+
+/* Do not let older broad shape rules touch this SVG. */
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-svg
+  *,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-svg
+  circle,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-svg
+  rect,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-svg
+  polygon {
+  transform: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Hide all old leftovers in the answer icon. */
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-answer
+  > .gameplay-shape-mark,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-answer
+  > b,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-symbol,
+html
+  body
+  .gameplay-question-body-shapes
+  .gameplay-choice-card-shape
+  .gameplay-choice-shape-glyph {
+  display: none !important;
+}
+
+/* Number badge right. */
+html body .gameplay-question-body-shapes .gameplay-choice-card-shape > strong {
+  grid-area: number !important;
+  justify-self: center !important;
+  align-self: center !important;
+  position: relative !important;
+  inset: auto !important;
+  margin: 0 !important;
+  transform: none !important;
+  z-index: 3 !important;
+}
+
+/* Kill old pseudo icon attempts. */
+html body .gameplay-question-body-shapes .gameplay-choice-card-shape::before,
+html body .gameplay-question-body-shapes .gameplay-choice-card-shape::after,
+html body .gameplay-question-body-shapes .gameplay-choice-shape-answer::before,
+html body .gameplay-question-body-shapes .gameplay-choice-shape-answer::after {
+  content: none !important;
+  display: none !important;
+}
+
+@media (max-width: 1500px) {
+  html body .gameplay-question-body-shapes {
+    width: min(1200px, 86vw) !important;
+    grid-template-columns: minmax(560px, 1.04fr) minmax(460px, 0.96fr) !important;
+    gap: 34px !important;
+  }
+
+  html body .gameplay-question-body-shapes .gameplay-question-choices,
+  html body .gameplay-question-body-shapes .gameplay-question-choices-3,
+  html body .gameplay-question-body-shapes .gameplay-question-choices-4 {
+    width: min(100%, 500px) !important;
+    max-width: 500px !important;
+  }
+
+  html body .gameplay-question-body-shapes .gameplay-choice-card-shape {
+    height: 96px !important;
+    min-height: 96px !important;
+    max-height: 96px !important;
+    grid-template-columns: 120px minmax(0, 1fr) 76px !important;
+    padding-left: 26px !important;
+    padding-right: 26px !important;
+  }
+
+  html
+    body
+    .gameplay-question-body-shapes
+    .gameplay-choice-card-shape
+    .gameplay-choice-shape-answer {
+    width: 94px !important;
+    height: 70px !important;
+    min-width: 94px !important;
+    min-height: 70px !important;
+    max-width: 94px !important;
+    max-height: 70px !important;
+  }
+
+  html
+    body
+    .gameplay-question-body-shapes
+    .gameplay-choice-card-shape
+    svg.gameplay-choice-shape-svg {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    max-width: 48px !important;
+    max-height: 48px !important;
+  }
+}
+
+/* V2 SHAPE COUNT RESET FINAL END */
+
+/* V2 LUCKY CUP MINIGAME START */
+
+html body .gameplay-question-lucky-cup .gameplay-question-side-hints {
+  display: none !important;
+}
+
+html body .gameplay-question-body-lucky-cup {
+  width: min(1180px, 82vw) !important;
+  max-width: 1180px !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+html body .gameplay-lucky-cup-stage {
+  position: relative !important;
+  width: 100% !important;
+  height: min(54vh, 560px) !important;
+  min-height: 430px !important;
+  border: 1px solid rgba(45, 244, 255, 0.38) !important;
+  border-radius: 30px !important;
+  background:
+    radial-gradient(
+      circle at 50% 86%,
+      rgba(45, 244, 255, 0.2),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 72% 20%,
+      rgba(255, 75, 231, 0.14),
+      transparent 36%
+    ),
+    rgba(0, 8, 26, 0.7) !important;
+  box-shadow:
+    inset 0 0 28px rgba(45, 244, 255, 0.08),
+    0 0 24px rgba(45, 244, 255, 0.14) !important;
+  overflow: hidden !important;
+}
+
+html body .gameplay-lucky-cup-message {
+  position: absolute !important;
+  top: clamp(18px, 1.4vw, 28px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 7 !important;
+  text-align: center !important;
+  width: min(620px, 70%) !important;
+  padding: 10px 16px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 75, 231, 0.38) !important;
+  background: rgba(6, 11, 35, 0.72) !important;
+  box-shadow: 0 0 18px rgba(45, 244, 255, 0.16) !important;
+}
+
+html body .gameplay-lucky-cup-message strong {
+  display: block !important;
+  color: #31f4ff !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.08em !important;
+  font-size: clamp(15px, 1.1vw, 22px) !important;
+}
+
+html body .gameplay-lucky-cup-message span {
+  display: block !important;
+  color: rgba(255, 255, 255, 0.82) !important;
+  font-weight: 800 !important;
+  font-size: clamp(12px, 0.9vw, 16px) !important;
+}
+
+html body .gameplay-lucky-cup-playfield {
+  position: absolute !important;
+  inset: 18% 5% 10% !important;
+  border-radius: 32px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 10, 32, 0.42),
+    rgba(5, 8, 23, 0.1)
+  ) !important;
+  overflow: hidden !important;
+}
+
+html body .gameplay-lucky-cup-playfield::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 7% !important;
+  right: 7% !important;
+  bottom: 18% !important;
+  height: 3px !important;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(45, 244, 255, 0.55),
+    rgba(255, 75, 231, 0.55),
+    transparent
+  ) !important;
+  box-shadow: 0 0 18px rgba(45, 244, 255, 0.6) !important;
+}
+
+html body .gameplay-lucky-cup-ball {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 20% !important;
+  width: clamp(34px, 3vw, 58px) !important;
+  height: clamp(34px, 3vw, 58px) !important;
+  border-radius: 999px !important;
+  background: radial-gradient(
+    circle at 32% 28%,
+    #fff,
+    #ffe879 28%,
+    #ff4bd8 74%
+  ) !important;
+  box-shadow:
+    0 0 22px rgba(255, 232, 121, 0.74),
+    0 0 34px rgba(255, 75, 216, 0.42) !important;
+  z-index: 1 !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .gameplay-lucky-cup-cups {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+}
+
+html body .gameplay-lucky-cup-cup {
+  position: absolute !important;
+  bottom: 16% !important;
+  width: clamp(120px, 10vw, 180px) !important;
+  height: clamp(150px, 13vw, 230px) !important;
+  transform-origin: 50% 88% !important;
+  animation: luckyCupJiggle 2.3s ease-in-out infinite !important;
+}
+
+html body .gameplay-lucky-cup-cup-1 {
+  left: 18% !important;
+  animation-delay: 0s !important;
+}
+html body .gameplay-lucky-cup-cup-2 {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  animation-delay: 0.16s !important;
+}
+html body .gameplay-lucky-cup-cup-3 {
+  right: 18% !important;
+  animation-delay: 0.32s !important;
+}
+
+html body .gameplay-lucky-cup-cup svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  filter: drop-shadow(0 0 18px rgba(45, 244, 255, 0.26)) !important;
+}
+
+html body .gameplay-lucky-cup-rim {
+  fill: rgba(12, 24, 58, 0.88) !important;
+  stroke: rgba(45, 244, 255, 0.75) !important;
+  stroke-width: 3 !important;
+}
+
+html body .gameplay-lucky-cup-body {
+  fill: url(#cupGradient) !important;
+  stroke: rgba(255, 75, 216, 0.72) !important;
+  stroke-width: 2.6 !important;
+}
+
+html body .gameplay-lucky-cup-shine {
+  fill: rgba(255, 255, 255, 0.28) !important;
+}
+
+html body .gameplay-lucky-cup-base {
+  fill: rgba(255, 255, 255, 0.2) !important;
+}
+
+html body .gameplay-lucky-cup-cup-number {
+  position: absolute !important;
+  left: 50% !important;
+  top: -46px !important;
+  transform: translateX(-50%) !important;
+  width: 58px !important;
+  height: 58px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(255, 255, 255, 0.26) !important;
+  background: rgba(6, 11, 35, 0.78) !important;
+  color: #fff !important;
+  font-size: 26px !important;
+  font-weight: 1000 !important;
+  box-shadow: 0 0 18px rgba(255, 75, 216, 0.24) !important;
+  z-index: 5 !important;
+}
+
+html body .gameplay-lucky-cup-answer-rings {
+  position: absolute !important;
+  left: 7% !important;
+  right: 7% !important;
+  bottom: 4% !important;
+  display: flex !important;
+  justify-content: space-around !important;
+  z-index: 6 !important;
+}
+
+html body .gameplay-lucky-cup-answer-rings span {
+  width: clamp(76px, 6vw, 112px) !important;
+  height: clamp(44px, 3vw, 60px) !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(45, 244, 255, 0.82) !important;
+  color: #31f4ff !important;
+  font-size: clamp(20px, 1.6vw, 31px) !important;
+  font-weight: 1000 !important;
+  box-shadow: 0 0 18px rgba(45, 244, 255, 0.45) !important;
+  background: rgba(6, 11, 35, 0.72) !important;
+}
+
+html body .gameplay-lucky-cup-stage-reveal .gameplay-lucky-cup-cup {
+  animation: none !important;
+  opacity: 0.45 !important;
+}
+
+html body .gameplay-lucky-cup-stage-reveal .gameplay-lucky-cup-cup-correct {
+  opacity: 1 !important;
+  transform: translateY(-34px) scale(1.06) !important;
+  filter: drop-shadow(0 0 24px rgba(119, 255, 157, 0.66)) !important;
+}
+
+@keyframes luckyCupJiggle {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+/* V2 LUCKY CUP MINIGAME END */
+

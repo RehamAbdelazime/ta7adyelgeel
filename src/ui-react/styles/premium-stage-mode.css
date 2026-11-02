@@ -1,0 +1,346 @@
+/* Ta7ady ElGeel — premium stage detail & mode-picker pass (2026-11-02).
+   Layout and motion are scoped to lobby, not the minigame scene.
+   Relative sizing is based on the 16:9 stage container (cqw/cqh). */
+
+/* The logo deserves a single lightweight engraved frame, not a second heavy card. */
+html body .gameplay-overlay-lobby-scene .premium-brand-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  width: fit-content;
+  max-width: 95%;
+  min-width: 0;
+  padding: clamp(12px, 1.12cqh, 17px) clamp(20px, 2.1cqw, 36px);
+  border: 1px solid rgba(123, 218, 255, .24);
+  border-radius: clamp(10px, .76cqw, 15px);
+  background: linear-gradient(125deg, rgba(24, 114, 183, .075), rgba(115, 65, 158, .065) 67%, rgba(255, 86, 211, .045));
+  box-shadow: inset 0 0 18px rgba(88, 176, 255, .045), 0 0 20px rgba(51, 139, 209, .045);
+}
+html body .gameplay-overlay-lobby-scene .premium-brand-frame::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(188, 226, 255, .045);
+  border-radius: inherit;
+  pointer-events: none;
+}
+html body .gameplay-overlay-lobby-scene .premium-brand-frame .main-screen-brand-mark {
+  display: block !important;
+  width: min(96%, clamp(230px, 21cqw, 380px)) !important;
+  max-width: 96% !important;
+  height: auto !important;
+  aspect-ratio: 491/118 !important;
+  margin: 0 auto !important;
+}
+.premium-brand-frame-corner {
+  position: absolute;
+  width: clamp(14px, 1.45cqw, 24px);
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg,#5ceaff,#e978dd);
+  box-shadow: 0 0 9px rgba(71,221,255,.4);
+  opacity: .78;
+}
+.premium-brand-frame-corner-start { top: -1px; left: 13px; }
+.premium-brand-frame-corner-end { bottom: -1px; right: 13px; }
+
+/* The lights sweep across the ground in front of the stage, not across the LED display. */
+.premium-plaza-spotlights {
+  position: absolute;
+  left: 12%;
+  top: 78%;
+  width: 76%;
+  height: 20%;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+}
+.premium-plaza-spot {
+  position: absolute;
+  top: 16%;
+  width: 28%;
+  height: 53%;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  filter: blur(8px);
+  opacity: .32;
+  will-change: transform;
+}
+.premium-plaza-spot-cyan {
+  left: 4%;
+  background: radial-gradient(ellipse, rgba(70, 228, 255, .45) 0%, rgba(65, 183, 255, .19) 44%, transparent 75%);
+  animation: premiumPlazaDriftCyan 18s ease-in-out infinite alternate;
+}
+.premium-plaza-spot-pink {
+  right: 6%;
+  background: radial-gradient(ellipse, rgba(255, 132, 221, .33) 0%, rgba(202, 105, 252, .13) 47%, transparent 77%);
+  animation: premiumPlazaDriftPink 21s ease-in-out infinite alternate;
+}
+@keyframes premiumPlazaDriftCyan {
+  from { transform: translate3d(0, 3%, 0) scale(1); opacity: .24; }
+  to { transform: translate3d(115%, -6%, 0) scale(1.18); opacity: .36; }
+}
+@keyframes premiumPlazaDriftPink {
+  from { transform: translate3d(0, -5%, 0) scale(.95); opacity: .22; }
+  to { transform: translate3d(-115%, 4%, 0) scale(1.14); opacity: .33; }
+}
+
+/* Four stage-side floor LEDs: the middle stairs remain unobstructed. */
+.premium-stage-footlights {
+  position: absolute;
+  left: 15%;
+  top: 74.15%;
+  width: 70%;
+  height: 3.2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  pointer-events: none;
+  opacity: .69;
+}
+.premium-stage-footlight {
+  position: relative;
+  width: clamp(13px, 1.25cqw, 22px);
+  height: clamp(4px, .43cqh, 8px);
+  border-radius: 50%;
+  background: linear-gradient(180deg,rgba(192,241,255,.52),rgba(23,89,159,.36));
+  border: 1px solid rgba(105, 208, 255, .32);
+  box-shadow: 0 0 8px rgba(67, 212, 255, .3), 0 0 14px rgba(128, 80, 249, .16);
+}
+.premium-stage-footlight:nth-child(2) { margin-right: 11%; }
+.premium-stage-footlight:nth-child(3) { margin-left: 11%; }
+.premium-stage-footlight:nth-child(even) {
+  border-color: rgba(255,143,232,.3);
+  background: linear-gradient(180deg,rgba(255,205,244,.45),rgba(154,43,172,.25));
+  box-shadow: 0 0 8px rgba(255,118,230,.27);
+}
+
+/* A pool of light remains under each player as the existing card walks around.
+   No positional JS, timers or per-frame render required. */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card .premium-citizen-footlight {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1px, .4cqh, 5px);
+  z-index: 0;
+  width: clamp(56px, 5.2cqw, 94px);
+  height: clamp(15px, 1.9cqh, 24px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(104, 234, 255, .38), rgba(76, 162, 255, .17) 45%, transparent 73%);
+  filter: blur(3px);
+  opacity: .54;
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: premiumCitizenPoolPulse 6s ease-in-out infinite alternate;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card:nth-child(even) .premium-citizen-footlight {
+  background: radial-gradient(ellipse, rgba(252, 148, 231, .36), rgba(174, 105, 247, .17) 45%, transparent 73%);
+  animation-delay: -2s;
+}
+@keyframes premiumCitizenPoolPulse {
+  from { opacity: .4; scale: .95; }
+  to { opacity: .65; scale: 1.12; }
+}
+
+/* MODE SELECT — the next screen has its own hierarchy, independent of legacy
+   tiny-card rules. The whole layout lives inside the physical LED screen. */
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  align-content: stretch !important;
+  justify-items: center !important;
+  gap: clamp(8px, 1.15cqh, 15px) !important;
+  padding: clamp(34px, 4.1cqh, 49px) clamp(13px, 1.6cqw, 25px) clamp(9px, 1.6cqh, 18px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  background: radial-gradient(ellipse at 50% 17%, rgba(46, 133, 198, .11), transparent 56%),rgba(3,6,24,.10) !important;
+  box-shadow: none !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  flex-wrap: nowrap !important;
+  gap: clamp(5px, .58cqh, 9px) !important;
+  margin: 0 !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header h2 {
+  display: block !important;
+  max-width: 96% !important;
+  margin: 0 !important;
+  color: #f6faff !important;
+  -webkit-text-fill-color: #f6faff !important;
+  background: transparent !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(22px, 1.85cqw, 35px) !important;
+  line-height: 1.1 !important;
+  letter-spacing: .026em !important;
+  white-space: normal !important;
+  text-wrap: balance;
+  text-align: center !important;
+  text-shadow: 0 0 14px rgba(139, 214, 255, .27),0 2px 3px rgba(0,0,0,.65) !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-subtitle {
+  display: block !important;
+  grid-column: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  color: #aaccdc !important;
+  background: transparent !important;
+  font-family: 'Segoe UI',Tahoma,Arial,sans-serif !important;
+  font-size: clamp(11px, .87cqw, 15px) !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .045em !important;
+  text-align: center !important;
+  text-wrap: balance;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .main-screen-start-notice {
+  display: block !important;
+  position: static !important;
+  max-width: 94% !important;
+  margin: 0 !important;
+  padding: clamp(4px, .55cqh, 7px) clamp(9px, 1cqw, 16px) !important;
+  font-family: 'Segoe UI',Tahoma,Arial,sans-serif !important;
+  font-size: clamp(10px, .73cqw, 13px) !important;
+  line-height: 1.18 !important;
+  letter-spacing: 0 !important;
+  white-space: normal !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-rows: minmax(0,1fr) !important;
+  align-items: stretch !important;
+  justify-items: stretch !important;
+  width: min(94%, 700px) !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  gap: clamp(12px, 1.5cqw, 24px) !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: clamp(9px,1.15cqh,15px) clamp(8px,1cqw,16px) clamp(8px,1.05cqh,14px) !important;
+  gap: clamp(3px, .5cqh,6px) !important;
+  border-width: 1.5px !important;
+  border-radius: clamp(12px,.92cqw,17px) !important;
+  border-color: rgba(72,220,255,.48) !important;
+  background: radial-gradient(ellipse at 50% 5%,rgba(65,172,232,.16),transparent 65%),linear-gradient(150deg,rgba(5,27,51,.94),rgba(8,12,38,.9)) !important;
+  box-shadow: inset 0 1px 0 rgba(170,236,255,.07),0 0 17px rgba(23,159,212,.13) !important;
+  text-align: center !important;
+  transition: transform .2s ease,box-shadow .2s ease,border-color .2s ease !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card.main-screen-mode-card-tour {
+  border-color: rgba(252,127,229,.45) !important;
+  background: radial-gradient(ellipse at 50% 5%,rgba(215,100,210,.15),transparent 64%),linear-gradient(150deg,rgba(32,13,49,.91),rgba(12,11,37,.93)) !important;
+  box-shadow: inset 0 1px 0 rgba(251,191,238,.065),0 0 17px rgba(234,80,178,.10) !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:hover:not(:disabled),
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:focus-visible {
+  transform: translateY(-3px) !important;
+  border-color: var(--mode-color) !important;
+  box-shadow: 0 0 22px color-mix(in srgb,var(--mode-color),transparent 70%) !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art {
+  display: grid !important;
+  flex: 1 1 auto !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  min-height: 30px !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+  display: block !important;
+  width: auto !important;
+  height: 100% !important;
+  max-height: clamp(54px, 8.1cqh, 90px) !important;
+  max-width: 86% !important;
+  object-fit: contain !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  display: block !important;
+  flex: 0 0 auto !important;
+  max-width: 100% !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(22px, 1.55cqw, 29px) !important;
+  line-height: 1.1 !important;
+  letter-spacing: .055em !important;
+  white-space: normal !important;
+  text-wrap: balance;
+  color: #f9fdff !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  display: block !important;
+  flex: 0 0 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  max-width: 28ch !important;
+  font-family: 'Segoe UI',Tahoma,Arial,sans-serif !important;
+  font-size: clamp(11px, .85cqw, 14px) !important;
+  font-weight: 600 !important;
+  line-height: 1.26 !important;
+  letter-spacing: .01em !important;
+  color: #d2e1ed !important;
+  text-align: center !important;
+  overflow-wrap: break-word !important;
+}
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  display: grid !important;
+  flex: 0 0 auto !important;
+  place-items: center !important;
+  width: min(91%, 240px) !important;
+  min-height: clamp(32px,3.6cqh,42px) !important;
+  padding: 4px 8px !important;
+  border-radius: clamp(7px,.55cqw,10px) !important;
+  background: linear-gradient(90deg,var(--mode-color),color-mix(in srgb,var(--mode-color),white 17%)) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(13px,.95cqw,18px) !important;
+  line-height: 1 !important;
+  letter-spacing: .03em !important;
+  color: #06102b !important;
+  text-align: center !important;
+  white-space: normal !important;
+  box-shadow: 0 0 13px color-mix(in srgb,var(--mode-color),transparent 74%) !important;
+}
+/* The back button remains a lightweight secondary control, with a clear keyboard target. */
+html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .main-screen-back-button {
+  padding: clamp(5px,.58cqh,9px) clamp(9px,.88cqw,14px) !important;
+  border-color: rgba(116,194,227,.31) !important;
+  background: rgba(8,19,45,.74) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(12px,.82cqw,16px) !important;
+}
+@container (max-width: 1200px) {
+  html body .gameplay-overlay-lobby-scene .premium-brand-frame { padding: 9px 12px; }
+  html body .gameplay-overlay-lobby-scene .premium-brand-frame .main-screen-brand-mark { width:min(93%,clamp(190px,22cqw,300px)) !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout { padding-top: clamp(29px,4cqh,40px) !important; gap: 6px !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards { width: 96% !important; gap: 10px !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card { padding: 7px 7px 8px !important; gap: 3px !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img { max-height: 50px !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small { font-size: 11px !important; }
+  html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b { min-height: 29px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-plaza-spot, .premium-citizen-footlight { animation: none !important; will-change: auto !important; }
+  html body .gameplay-overlay-lobby-scene .premium-mode-card { transition: none !important; }
+}

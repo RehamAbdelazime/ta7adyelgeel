@@ -1,0 +1,391 @@
+/* ==========================================================================\n   LANDING EXPERIENCE POLISH — BRAND MARK, JOIN FLOW, LIVE IDENTITY, STAGE\n   Responsive dimensions are relative to the fixed 16:9 game-stage container.\n   ========================================================================== */
+.game-scene-stage {
+  container-type: size;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr) !important;
+  gap: clamp(8px, 1.05cqw, 22px) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(5px, 0.62cqh, 11px) !important;
+  padding: clamp(7px, 0.78cqw, 16px) !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+.main-screen-brand-lockup {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(1px, 0.2cqh, 4px);
+  isolation: isolate;
+}
+
+.main-screen-brand-name {
+  margin: 0 !important;
+  color: #f8fcff !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(22px, 2.35cqw, 46px) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.045em !important;
+  text-shadow:
+    0 3px 0 rgba(3, 7, 28, 0.88),
+    0 0 18px rgba(54, 232, 255, 0.2),
+    0 0 22px rgba(255, 79, 216, 0.16) !important;
+  text-transform: uppercase;
+}
+
+.main-screen-brand-mark {
+  display: block;
+  width: min(82%, clamp(150px, 15.4cqw, 300px));
+  max-height: 6.6cqh;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter:
+    drop-shadow(0 0 5px rgba(54, 232, 255, 0.38))
+    drop-shadow(0 0 8px rgba(255, 79, 216, 0.3));
+  animation: landingBrandDrift 6.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.main-screen-brand-slogan {
+  margin: 0 !important;
+  color: rgba(234, 245, 255, 0.76) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(10px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.18);
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  position: relative !important;
+  z-index: 2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 94% !important;
+  margin: 0 !important;
+  padding: clamp(4px, 0.36cqh, 7px) clamp(9px, 0.7cqw, 14px) !important;
+  border: 1px solid rgba(54, 232, 255, 0.22) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.075), rgba(255, 79, 216, 0.065)) !important;
+  color: rgba(240, 248, 255, 0.88) !important;
+  font-size: clamp(10px, 0.72cqw, 14px) !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.015em !important;
+  text-align: center !important;
+  box-shadow: 0 0 16px rgba(54, 232, 255, 0.08), inset 0 0 12px rgba(255, 255, 255, 0.025) !important;
+  animation: landingJoinHintGlow 4.8s ease-in-out infinite;
+}
+
+.main-screen-home-actions {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(0px, 0.16cqh, 3px);
+  width: 100%;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link {
+  position: relative !important;
+  display: inline-flex !important;
+  min-width: 92px !important;
+  min-height: clamp(26px, 2.8cqh, 36px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  margin: 0 !important;
+  padding: 4px 12px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: rgba(234, 245, 255, 0.66) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(11px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.045em !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link > span {
+  color: #55e9ff !important;
+  font-size: 1.12em !important;
+  transition: transform 260ms ease, filter 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  color: #ffffff !important;
+  outline: none !important;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover > span,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible > span {
+  filter: drop-shadow(0 0 6px rgba(54, 232, 255, 0.8)) !important;
+  transform: rotate(32deg) !important;
+}
+
+.main-screen-streamer-name {
+  justify-self: end;
+  min-width: 0;
+  max-width: 48%;
+  overflow: hidden;
+  color: rgba(246, 251, 255, 0.9);
+  font-family: var(--display-font);
+  font-size: clamp(10px, 0.82cqw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.18);
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat {
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  border-color: rgba(54, 232, 255, 0.28) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(54, 232, 255, 0.105), transparent 52%),
+    linear-gradient(180deg, rgba(4, 8, 32, 0.72), rgba(5, 4, 24, 0.58)) !important;
+  box-shadow:
+    0 0 22px rgba(54, 232, 255, 0.08),
+    inset 0 0 28px rgba(255, 255, 255, 0.025) !important;
+  animation: landingChatPanelBreath 8s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, auto) !important;
+  gap: clamp(6px, 0.55cqw, 11px) !important;
+  min-width: 0 !important;
+  padding: clamp(7px, 0.64cqw, 13px) clamp(8px, 0.75cqw, 15px) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+  min-width: 0 !important;
+  font-size: clamp(11px, 0.95cqw, 18px) !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+  display: block !important;
+  max-width: 100% !important;
+  padding: 3px 0 !important;
+  color: #f7fbff !important;
+  font-size: clamp(10px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  text-align: end !important;
+}
+
+/* The stage is a fixed 16:9 canvas; these anchors scale with it, not the desktop viewport. */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 80.4cqw !important;
+  right: auto !important;
+  bottom: 30.8cqh !important;
+  width: clamp(218px, 17.8cqw, 372px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  translate: 0 0;
+  animation: hostStageIdle 5.2s ease-in-out infinite;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 80.4cqw !important;
+  right: auto !important;
+  top: 69.2cqh !important;
+  width: 14.5cqw !important;
+  height: 3.8cqh !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+html body .concert-host-question-mascot,
+html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+html body .concert-host-result-mascot,
+html body .concert-host-result-layer-winner .concert-host-result-mascot,
+html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+  left: 6.2cqw !important;
+  right: auto !important;
+  bottom: 9.5cqh !important;
+  width: clamp(205px, 17.4cqw, 360px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  translate: 0 0;
+  animation: hostStageIdle 5.6s ease-in-out infinite;
+}
+
+html body .concert-host-presenter-floor-pool,
+html body .concert-host-question-floor-pool,
+html body .concert-host-question-layer-urgent .concert-host-question-floor-pool,
+html body .concert-host-result-floor-pool,
+html body .concert-host-result-layer-winner .concert-host-result-floor-pool,
+html body .concert-host-result-layer-runnerup .concert-host-result-floor-pool {
+  left: 6.2cqw !important;
+  right: auto !important;
+  top: 89.2cqh !important;
+  width: 10.5cqw !important;
+  height: 3.6cqh !important;
+  transform: translateX(-50%) !important;
+}
+
+.visual-world-layer-lobby-active::after {
+  content: "";
+  position: absolute;
+  inset: -8% -18%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  background: linear-gradient(112deg,
+    transparent 0 34%,
+    rgba(54, 232, 255, 0.025) 40%,
+    rgba(54, 232, 255, 0.16) 47%,
+    rgba(255, 79, 216, 0.09) 51%,
+    transparent 58% 100%);
+  transform: translateX(-28%);
+  animation: lobbyStageLightSweep 17s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-welcome-card::before {
+  animation: lobbyWelcomeGlow 8s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  min-height: clamp(40px, 4.5cqh, 64px) !important;
+  padding-block: 7px 12px !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  font-size: clamp(22px, 2.05cqw, 40px) !important;
+}
+
+@keyframes landingBrandDrift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes landingJoinHintGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(54, 232, 255, 0.055), inset 0 0 10px rgba(255, 255, 255, 0.02); }
+  50% { box-shadow: 0 0 18px rgba(54, 232, 255, 0.13), 0 0 14px rgba(255, 79, 216, 0.07), inset 0 0 12px rgba(255, 255, 255, 0.035); }
+}
+
+@keyframes landingChatPanelBreath {
+  0%, 100% { border-color: rgba(54, 232, 255, 0.22); }
+  50% { border-color: rgba(255, 79, 216, 0.25); }
+}
+
+@keyframes landingChatWave {
+  0%, 100% { transform: scaleY(0.32); opacity: 0.5; }
+  50% { transform: scaleY(1); opacity: 0.96; }
+}
+
+@keyframes lobbyStageLightSweep {
+  0%, 15% { transform: translateX(-28%); opacity: 0.06; }
+  45% { opacity: 0.2; }
+  82%, 100% { transform: translateX(28%); opacity: 0.06; }
+}
+
+@keyframes lobbyWelcomeGlow {
+  0%, 100% { opacity: 0.23; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes hostStageIdle {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+
+@container (max-width: 1160px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr) !important;
+    gap: 5px !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(19px, 2.25cqw, 27px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    width: min(76%, 15cqw) !important;
+    max-height: 6.2cqh !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+    font-size: clamp(8px, 0.82cqw, 10px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    max-width: 98% !important;
+    font-size: clamp(9px, 0.78cqw, 11px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+    font-size: clamp(9px, 0.86cqw, 12px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+    font-size: clamp(8px, 0.75cqw, 11px) !important;
+  }
+
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    width: clamp(208px, 17.8cqw, 290px) !important;
+  }
+
+  html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+  html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+  html body .concert-host-question-mascot,
+  html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+  html body .concert-host-result-mascot,
+  html body .concert-host-result-layer-winner .concert-host-result-mascot,
+  html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+    width: clamp(198px, 17.4cqw, 278px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active::after,
+  .main-screen-brand-mark,
+  .main-screen-join-hint,
+  .main-screen-live-chat,
+  .concert-host-mascot-front,
+  .concert-host-presenter-mascot,
+  .concert-host-question-mascot,
+  .concert-host-result-mascot {
+    animation: none !important;
+    translate: none !important;
+  }
+}
+
+/* The thinking/hurry artwork has more transparent side padding than result poses.
+   Scale only the artwork (not its placement box) so the host reads consistently. */
+html body .concert-host-question-pose {
+  transform: scale(1.22) !important;
+  transform-origin: 50% 96% !important;
+}
+

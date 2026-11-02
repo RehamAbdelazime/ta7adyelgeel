@@ -1,0 +1,890 @@
+/* ================================================================
+   MAZE GATES: IMPROVED VISIBILITY + SIZING
+   ================================================================ */
+
+/* MAZE BOARD: Light background for visibility */
+html body .gameplay-question-body-maze .gameplay-maze-full-board {
+  fill: rgba(30, 50, 80, 0.4) !important;
+  stroke: rgba(45, 244, 255, 0.6) !important;
+  stroke-width: 2 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-board {
+  fill: rgba(40, 60, 100, 0.35) !important;
+  stroke: rgba(45, 244, 255, 0.5) !important;
+  stroke-width: 2 !important;
+}
+
+/* Brighten maze grid lines */
+html body .gameplay-question-body-maze .gameplay-maze-full-grid path {
+  stroke: rgba(54, 232, 255, 0.25) !important;
+  stroke-width: 1.5 !important;
+}
+
+/* Brighten maze paths for better visibility */
+html body .gameplay-question-body-maze .gameplay-maze-path,
+html body .gameplay-question-body-maze .gameplay-maze-full-solution {
+  stroke: rgba(45, 244, 255, 0.8) !important;
+  stroke-width: 6 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 0 8px rgba(45, 244, 255, 0.6)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-path-dead {
+  stroke: rgba(255, 100, 100, 0.7) !important;
+  filter: drop-shadow(0 0 6px rgba(255, 100, 100, 0.5)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-path-correct {
+  stroke: rgba(102, 255, 153, 0.85) !important;
+  filter: drop-shadow(0 0 8px rgba(102, 255, 153, 0.7)) !important;
+}
+
+/* Brighten maze gates/entrances */
+html body .gameplay-question-body-maze .gameplay-maze-entrance circle {
+  fill: rgba(45, 244, 255, 0.15) !important;
+  stroke: rgba(45, 244, 255, 0.8) !important;
+  stroke-width: 2.5 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-entrance text {
+  fill: rgba(255, 255, 255, 0.95) !important;
+  font-weight: bold !important;
+  font-size: larger !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate circle {
+  fill: rgba(45, 244, 255, 0.12) !important;
+  stroke: rgba(45, 244, 255, 0.75) !important;
+  stroke-width: 2 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate text {
+  fill: rgba(255, 255, 255, 0.92) !important;
+  font-size: larger !important;
+  font-weight: bold !important;
+}
+
+/* Exit label brightness */
+html body .gameplay-question-body-maze .gameplay-maze-exit-svg rect {
+  fill: rgba(102, 255, 153, 0.18) !important;
+  stroke: rgba(102, 255, 153, 0.8) !important;
+  stroke-width: 2 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
+  fill: rgba(102, 255, 153, 0.95) !important;
+  font-weight: bold !important;
+}
+
+/* ================================================================
+   BEFORE OR AFTER MINI-GAME
+   Two large side-by-side cards — player picks which came first
+   ================================================================ */
+
+.gameplay-before-after-shell {
+  width: 100% !important;
+  height: 100% !important;
+  display: grid !important;
+  grid-template-rows: auto 1fr !important;
+  grid-template-columns: 1fr !important;
+  padding: clamp(12px, 1.2vh, 20px) clamp(16px, 1.5vw, 28px) !important;
+  gap: clamp(12px, 1.2vh, 20px) !important;
+  position: relative !important;
+  direction: inherit !important;
+}
+
+.gameplay-before-after-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+}
+
+.gameplay-before-after-question {
+  font-family: var(--display-font) !important;
+  font-size: clamp(20px, 1.8vw, 36px) !important;
+  color: #fff !important;
+  text-align: center !important;
+  text-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(255, 255, 255, 0.25) !important;
+  letter-spacing: 0.04em !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.gameplay-before-after-helper {
+  font-family: var(--display-font) !important;
+  font-size: clamp(14px, 1.1vw, 22px) !important;
+  color: rgba(180, 240, 255, 0.8) !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* Two cards container */
+.gameplay-before-after-cards {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: clamp(16px, 2vw, 36px) !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  position: relative !important;
+}
+
+/* VS badge — absolute in the middle */
+.gameplay-before-after-vs {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  background: rgba(4, 12, 34, 0.95) !important;
+  border: 2px solid rgba(45, 244, 255, 0.55) !important;
+  border-radius: 50% !important;
+  width: clamp(40px, 4vw, 64px) !important;
+  height: clamp(40px, 4vw, 64px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(14px, 1.3vw, 24px) !important;
+  color: #9ff8ff !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
+  text-shadow: 0 0 12px rgba(45, 244, 255, 0.6) !important;
+  box-shadow: 0 0 18px rgba(45, 244, 255, 0.25) !important;
+}
+
+/* Individual card */
+.gameplay-before-after-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(12px, 1.2vh, 20px) !important;
+  padding: clamp(16px, 1.5vw, 28px) !important;
+  border-radius: clamp(16px, 1.3vw, 26px) !important;
+  background: linear-gradient(
+    160deg,
+    rgba(4, 14, 40, 0.92),
+    rgba(0, 6, 22, 0.88)
+  ) !important;
+  border: 2px solid rgba(45, 244, 255, 0.35) !important;
+  box-shadow:
+    0 0 32px rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(45, 244, 255, 0.08),
+    inset 0 0 22px rgba(0, 0, 0, 0.42) !important;
+  cursor: default !important;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s !important;
+  min-height: 0 !important;
+  position: relative !important;
+}
+
+/* Command badge */
+.gameplay-before-after-cmd {
+  font-family: var(--display-font) !important;
+  font-size: clamp(22px, 2vw, 40px) !important;
+  color: rgba(45, 244, 255, 0.9) !important;
+  background: rgba(45, 244, 255, 0.1) !important;
+  border: 1.5px solid rgba(45, 244, 255, 0.35) !important;
+  border-radius: 10px !important;
+  padding: 4px 16px !important;
+  letter-spacing: 0.06em !important;
+  text-shadow: 0 0 12px rgba(45, 244, 255, 0.5) !important;
+}
+
+/* Choice label */
+.gameplay-before-after-label {
+  font-family: var(--display-font) !important;
+  font-size: clamp(24px, 2.4vw, 52px) !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 0 16px rgba(255, 255, 255, 0.2) !important;
+  letter-spacing: 0.03em !important;
+  line-height: 1.15 !important;
+  word-break: break-word !important;
+}
+
+/* Correct card */
+.gameplay-before-after-card--correct {
+  border-color: rgba(102, 255, 153, 0.85) !important;
+  background: linear-gradient(
+    160deg,
+    rgba(4, 40, 18, 0.92),
+    rgba(0, 22, 8, 0.88)
+  ) !important;
+  box-shadow:
+    0 0 40px rgba(102, 255, 153, 0.3),
+    0 0 18px rgba(102, 255, 153, 0.15),
+    inset 0 0 22px rgba(0, 0, 0, 0.42) !important;
+}
+
+.gameplay-before-after-card--correct .gameplay-before-after-label {
+  color: #afffcb !important;
+  text-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.55),
+    0 0 20px rgba(102, 255, 153, 0.5) !important;
+}
+
+/* Wrong card (dimmed) */
+.gameplay-before-after-card--wrong {
+  border-color: rgba(255, 80, 80, 0.35) !important;
+  opacity: 0.6 !important;
+}
+
+/* Correct badge shown on winner */
+.gameplay-before-after-badge {
+  font-family: var(--display-font) !important;
+  font-size: clamp(14px, 1.1vw, 22px) !important;
+  color: #afffcb !important;
+  background: rgba(102, 255, 153, 0.15) !important;
+  border: 1.5px solid rgba(102, 255, 153, 0.55) !important;
+  border-radius: 999px !important;
+  padding: 4px 14px !important;
+  text-shadow: 0 0 10px rgba(102, 255, 153, 0.5) !important;
+}
+
+/* ================================================================
+   COUNT THE BEAT MINI-GAME
+   ================================================================ */
+
+/* ── Pop animation for flying icons ─────────────────────────────── */
+/* @keyframes ctb-pop {
+  0%   { opacity: 0; transform: scale(0.4) rotate(var(--r, 0deg)); }
+  12%  { opacity: 1; transform: scale(1.15) rotate(var(--r, 0deg)); }
+  75%  { opacity: 1; transform: scale(1)    rotate(var(--r, 0deg)); }
+  100% { opacity: 0; transform: scale(0.7)  rotate(var(--r, 0deg)); }
+} */
+
+/* ── Shell layout ────────────────────────────────────────────────── */
+.ctb-shell {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(8px, 0.8vh, 14px);
+  padding: clamp(10px, 1vh, 16px) clamp(14px, 1.2vw, 22px);
+  min-height: 0;
+  direction: inherit;
+}
+
+/* ── Target bar ──────────────────────────────────────────────────── */
+.ctb-target-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 0.7vw, 14px);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.ctb-target-label {
+  font-family: var(--display-font);
+  font-size: clamp(14px, 1.1vw, 22px);
+  color: rgba(200, 240, 255, 0.75);
+  letter-spacing: 0.04em;
+}
+
+.ctb-target-glyph {
+  font-size: clamp(28px, 3vw, 54px);
+  color: #22e7ff;
+  filter: drop-shadow(0 0 12px #22e7ff) drop-shadow(0 0 22px #22e7ff88);
+  line-height: 1;
+  animation: ctb-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes ctb-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.14);
+  }
+}
+
+.ctb-target-name {
+  font-family: var(--display-font);
+  font-size: clamp(18px, 1.6vw, 32px);
+  color: #22e7ff;
+  text-shadow: 0 0 14px #22e7ff88;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ctb-answer-reveal {
+  font-family: var(--display-font);
+  font-size: clamp(18px, 1.6vw, 32px);
+  color: #afffcb;
+  text-shadow: 0 0 16px rgba(102, 255, 153, 0.6);
+  margin-inline-start: clamp(8px, 0.6vw, 12px);
+}
+
+.ctb-answer-reveal strong {
+  font-size: clamp(24px, 2.4vw, 48px);
+}
+
+/* ── Stage: the icon play area ───────────────────────────────────── */
+.ctb-stage {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  border-radius: clamp(14px, 1.1vw, 22px);
+  background: rgba(0, 5, 18, 0.82);
+  border: 1px solid rgba(34, 231, 255, 0.22);
+  box-shadow:
+    0 0 32px rgba(0, 0, 0, 0.6),
+    inset 0 0 22px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+/* Reveal overlay dims stage and shows big answer */
+.ctb-reveal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 5, 18, 0.72);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1vh, 18px);
+  animation: ctb-fade-in 0.35s ease-out both;
+}
+
+@keyframes ctb-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ctb-reveal-glyph {
+  font-size: clamp(48px, 7vw, 110px);
+  color: #22e7ff;
+  filter: drop-shadow(0 0 20px #22e7ff) drop-shadow(0 0 40px #22e7ff88);
+  line-height: 1;
+}
+
+.ctb-reveal-count {
+  font-family: var(--display-font);
+  font-size: clamp(56px, 8vw, 130px);
+  color: #afffcb;
+  text-shadow:
+    0 0 28px rgba(102, 255, 153, 0.7),
+    0 4px 0 rgba(0, 0, 0, 0.55);
+  line-height: 1;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.ctb-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(10px, 1vw, 18px);
+  flex-shrink: 0;
+}
+
+.ctb-instruction {
+  font-family: var(--display-font);
+  font-size: clamp(13px, 1vw, 20px);
+  color: rgba(200, 240, 255, 0.7);
+  letter-spacing: 0.04em;
+  margin: 0;
+  text-align: center;
+  flex: 1;
+}
+
+/* ── Scoring guide ────────────────────────────────────────────────  */
+.ctb-scoring {
+  display: flex;
+  gap: clamp(6px, 0.5vw, 10px);
+  flex-shrink: 0;
+}
+
+.ctb-scoring-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(4, 12, 34, 0.88);
+  border: 1px solid rgba(45, 244, 255, 0.25);
+  border-radius: 8px;
+  padding: 5px 10px;
+  min-width: clamp(44px, 3.6vw, 66px);
+}
+
+.ctb-scoring-row span {
+  font-family: var(--display-font);
+  font-size: clamp(10px, 0.75vw, 14px);
+  color: rgba(180, 230, 255, 0.6);
+  letter-spacing: 0.03em;
+}
+
+.ctb-scoring-row strong {
+  font-family: var(--display-font);
+  font-size: clamp(12px, 0.9vw, 18px);
+  color: #ffe246;
+  text-shadow: 0 0 8px rgba(255, 226, 70, 0.4);
+  letter-spacing: 0.04em;
+}
+
+.ctb-scoring-exact {
+  border-color: rgba(102, 255, 153, 0.4);
+}
+
+.ctb-scoring-exact strong {
+  color: #afffcb;
+  text-shadow: 0 0 8px rgba(102, 255, 153, 0.5);
+}
+
+/* ── MODE-PICKER UI TWEAKS ──────────────────────────────────────────────────
+   1. Shrink "What are we playing?" title
+   2. Shrink mode cards (Mini Game + Tour)
+   3. Shrink card CTA buttons width but bump their font
+   4. Move Back button to the left on mode-picker screen
+*/
+
+/* 1) Smaller title on the mode-picker ("What are we playing?") */
+html body .main-screen-mode-layout .main-screen-section-header h2 {
+  font-size: clamp(16px, 1.5vw, 30px) !important;
+}
+
+/* 2) Shrink mode cards — less height, smaller image, tighter padding */
+html body .main-screen-mode-layout .main-screen-mode-card {
+  min-height: clamp(90px, 9vw, 180px) !important;
+  padding: clamp(8px, 0.6vw, 14px) !important;
+}
+
+html body .main-screen-mode-layout .main-screen-mode-card img {
+  max-height: clamp(42px, 4.2vw, 86px) !important;
+}
+
+html body .main-screen-mode-layout .main-screen-mode-card strong {
+  font-size: clamp(13px, 1.1vw, 24px) !important;
+}
+
+html body .main-screen-mode-layout .main-screen-mode-card small {
+  font-size: clamp(6px, 0.52vw, 11px) !important;
+}
+
+/* 3) Shrink CTA button width but increase its font */
+html body .main-screen-mode-layout .main-screen-mode-card b {
+  width: min(160px, 72%) !important;
+  min-height: 32px !important;
+  font-size: clamp(10px, 0.78vw, 14px) !important;
+}
+
+/* 4) Mode-picker back button — force to the left, not centered in the grid */
+html body .main-screen-mode-layout .main-screen-back-button {
+  position: absolute !important;
+  left: clamp(10px, 1vw, 20px) !important;
+  top: clamp(8px, 0.9vw, 16px) !important;
+  right: auto !important;
+  justify-self: start !important;
+  z-index: 3 !important;
+}
+
+/* RTL: keep it on the visual left (which is "right" in RTL) */
+html[dir="rtl"] body .main-screen-mode-layout .main-screen-back-button {
+  left: auto !important;
+  right: clamp(10px, 1vw, 20px) !important;
+}
+
+/* Also shrink the mode cards container width slightly so cards don't stretch too wide */
+html body .main-screen-mode-layout .main-screen-mode-cards {
+  width: min(620px, 88%) !important;
+}
+
+/* ── MINI GAME PICKER: ALL GAMES IN TWO ROWS ─────────────────────────────── */
+html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
+  position: absolute !important;
+  left: 50% !important;
+  top: clamp(142px, 16.5vh, 178px) !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(1120px, 84vw) !important;
+  max-width: min(1120px, 84vw) !important;
+  height: clamp(236px, 33vh, 350px) !important;
+  max-height: calc(100vh - 205px) !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  grid-auto-rows: unset !important;
+  gap: clamp(10px, 1.15vw, 18px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 40 !important;
+  overflow: visible !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
+  justify-items: stretch !important;
+  justify-content: stretch !important;
+  box-sizing: border-box !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-mini-card {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  aspect-ratio: auto !important;
+  overflow: hidden !important;
+  display: block !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 18px !important;
+  box-sizing: border-box !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-mini-card-copy {
+  left: 50% !important;
+  right: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  width: 88% !important;
+  min-height: clamp(34px, 4vh, 46px) !important;
+  height: auto !important;
+  padding: 6px 8px !important;
+  transform: translate(-50%, -50%) !important;
+  display: grid !important;
+  place-items: center !important;
+  align-content: center !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
+  width: 100% !important;
+  text-align: center !important;
+  font-size: clamp(11px, 1vw, 15px) !important;
+  line-height: 1.12 !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .main-screen-game-grid-layout .main-screen-carousel-container,
+html body .main-screen-game-grid-layout .main-screen-carousel-nav,
+html body .main-screen-game-grid-layout .main-screen-carousel-page {
+  display: none !important;
+}
+
+/* Keep the two-row layout usable on smaller desktop windows. */
+@media (max-width: 1100px) {
+  html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
+    width: min(920px, 86vw) !important;
+    max-width: min(920px, 86vw) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body .main-screen-game-grid-layout .main-screen-mini-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(4, minmax(88px, 1fr)) !important;
+    height: auto !important;
+    max-height: calc(100vh - 190px) !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* Shared mini-game shell follow-up: semantic category label and consistent
+   body sizing for screens migrated onto QuestionScreenShell. */
+.gameplay-question-eyebrow {
+  max-width: 100%;
+  color: rgba(159, 248, 255, 0.88);
+  font-size: clamp(12px, 0.95vw, 18px);
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+html body .qshell-body.gameplay-question-body-before-after,
+html body .qshell-body.gameplay-question-body-count-the-beat {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+.gameplay-before-after-stage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.gameplay-question-header-helper {
+  margin: 0;
+  color: rgba(180, 240, 255, 0.88);
+  font-family: var(--display-font);
+  font-size: clamp(13px, 1vw, 20px);
+  line-height: 1.2;
+  text-align: center;
+}
+
+
+/* ================================================================
+   MAZE GATES — READABILITY PASS
+   Larger, simpler maze cells; thinner high-contrast walls; less glow.
+   Keep these rules last so they win over legacy maze sizing overrides.
+   ================================================================ */
+html body .gameplay-question-shell .qshell-body .gameplay-maze-full-stage {
+  width: min(100%, 920px) !important;
+  max-width: 920px !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: clamp(6px, 0.8vw, 12px) !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+html body .gameplay-question-shell .qshell-body .gameplay-maze-full-svg {
+  width: min(100%, 860px) !important;
+  max-width: 860px !important;
+  height: auto !important;
+  max-height: min(52vh, 520px) !important;
+  transform: none !important;
+  transform-origin: center center !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-board {
+  fill: rgba(7, 15, 37, 0.98) !important;
+  stroke: rgba(78, 220, 255, 0.78) !important;
+  stroke-width: 2.5 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-grid path {
+  stroke: rgba(115, 190, 220, 0.075) !important;
+  stroke-width: 1 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-walls-shadow line {
+  stroke: rgba(0, 0, 0, 0.82) !important;
+  stroke-width: 7px !important;
+  stroke-linecap: round !important;
+  opacity: 0.58 !important;
+  filter: none !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-walls line {
+  stroke: #f3f8ff !important;
+  stroke-width: 4.5px !important;
+  stroke-linecap: round !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 1.5px rgba(225, 245, 255, 0.34)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate circle {
+  r: 22px !important;
+  fill: rgba(5, 20, 43, 0.98) !important;
+  stroke: #42e9ff !important;
+  stroke-width: 3 !important;
+  filter: drop-shadow(0 0 4px rgba(45, 244, 255, 0.3)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate text {
+  fill: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  paint-order: stroke !important;
+  stroke: rgba(0, 0, 0, 0.5) !important;
+  stroke-width: 1.5px !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-correct circle {
+  fill: rgba(25, 125, 78, 0.98) !important;
+  stroke: #76ffb5 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-correct text {
+  fill: #ffffff !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-dead circle {
+  fill: rgba(132, 35, 56, 0.96) !important;
+  stroke: #ff8196 !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-gate-dead text {
+  fill: #ffffff !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-exit rect {
+  fill: rgba(30, 115, 78, 0.95) !important;
+  stroke: #8dffc4 !important;
+  stroke-width: 2.5 !important;
+  filter: drop-shadow(0 0 5px rgba(92, 255, 177, 0.28)) !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-exit text {
+  fill: #ffffff !important;
+  font-size: 16px !important;
+  font-weight: 1000 !important;
+  letter-spacing: 0.08em !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-full-solution {
+  stroke: #65ffad !important;
+  stroke-width: 8px !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  filter: drop-shadow(0 0 4px rgba(92, 255, 177, 0.7)) !important;
+}
+
+@media (max-height: 760px) {
+  html body .gameplay-question-shell .qshell-body .gameplay-maze-full-svg {
+    max-height: 46vh !important;
+  }
+}
+
+
+
+/* The plaza overlay spans the stage, so percentage positions from citizen helpers
+   and percentage positions from answer markers share the same coordinate space. */
+.gameplay-overlay-minigame-scene .gameplay-citizen-plaza-overlay {
+  position: absolute !important;
+  left: 0 !important;
+  top: 73.9% !important;
+  width: 100% !important;
+  height: 26.1% !important;
+  min-height: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+/* Minigame-scene overrides need the scene prefix because older art calibration
+   rules use greater specificity. The marker centres now match citizen-helper.ts. */
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 {
+  left: 20% !important;
+  top: 84.2% !important;
+  width: 60% !important;
+  height: 13.4% !important;
+  display: grid !important;
+  gap: 0 !important;
+  justify-content: stretch !important;
+  align-items: start !important;
+  overflow: visible !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight {
+  width: 100% !important;
+  height: auto !important;
+  grid-template-rows: auto auto auto !important;
+  align-content: start !important;
+  justify-self: stretch !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+  width: min(190px, 100%) !important;
+  height: clamp(76px, 10vh, 118px) !important;
+  max-width: 100% !important;
+  transform: none !important;
+  align-items: center !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Shared scoring guide for numeric count / estimate mini-games. */
+.ctb-scoring-partial {
+  border-color: rgba(255, 210, 75, 0.48);
+  background: rgba(42, 30, 8, 0.82);
+}
+
+.ctb-scoring-partial strong {
+  color: #ffd66b;
+  text-shadow: 0 0 8px rgba(255, 214, 107, 0.38);
+}
+
+.ctb-scoring-wrong {
+  border-color: rgba(255, 100, 120, 0.3);
+}
+
+.gameplay-memory-scoring {
+  width: min(760px, 92%);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 4px auto 0;
+}
+
+
+/* Numeric near-misses earn quarter credit and should not look fully wrong. */
+.gameplay-choice-spotlight-partial .gameplay-choice-spotlight-asset-wrap {
+  filter: drop-shadow(0 0 14px rgba(255, 198, 82, 0.72)) saturate(1.12) !important;
+  animation: choiceAssetPartialPulse 980ms ease-in-out infinite alternate !important;
+}
+
+.gameplay-choice-spotlight-partial .gameplay-choice-spotlight-count {
+  color: #ffe09a !important;
+  opacity: 1 !important;
+}
+
+.gameplay-citizen-answer-partial:not(.gameplay-citizen-entering) {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 11px rgba(255, 198, 82, 0.5)) !important;
+}
+
+.gameplay-citizen-answer-partial:not(.gameplay-citizen-entering) img.gameplay-citizen-sprite {
+  animation: citizenPartialCreditNod 940ms ease-in-out infinite !important;
+  filter: drop-shadow(0 0 13px rgba(255, 198, 82, 0.48))
+    drop-shadow(0 9px 9px rgba(0, 0, 0, 0.4)) !important;
+}
+
+.gameplay-citizen-answer-partial .gameplay-citizen-ground-shadow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 198, 82, 0.36) 0%,
+    rgba(0, 0, 0, 0.28) 48%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  opacity: 0.7;
+}
+
+@keyframes choiceAssetPartialPulse {
+  from { filter: drop-shadow(0 0 8px rgba(255, 198, 82, 0.42)); }
+  to { filter: drop-shadow(0 0 18px rgba(255, 198, 82, 0.78)); }
+}
+
+@keyframes citizenPartialCreditNod {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  45% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+

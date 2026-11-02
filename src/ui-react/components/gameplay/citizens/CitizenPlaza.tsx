@@ -1,3 +1,4 @@
+import { SPRITE_FRAME_ALIASES } from './sprite-frame-aliases.generated';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import type { CitizenRuntime } from '../../../../game-core/citizens/citizen-types';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
@@ -49,6 +50,8 @@ export function CitizenPlazaOverlay({
       .filter((citizen) => citizen.role === 'official')
       .sort((a, b) => b.score - a.score || a.displayName.localeCompare(b.displayName))[0]?.twitchUserId ?? null
     : null;
+  // Footlights are purely decorative, limited to smaller lobbies for visual calm and GPU cost.
+  const showLobbyFootlights = !isMiniGameSceneActive && visibleCitizens.length <= 12;
   const optionGroupCounters = new Map<number, number>();
 
   if (visibleCitizens.length === 0) {
@@ -56,7 +59,7 @@ export function CitizenPlazaOverlay({
   }
 
   return (
-    <section className={`gameplay-citizen-plaza-overlay ${reactionClass}`}>
+    <section className={`gameplay-citizen-plaza-overlay ${reactionClass} ${visibleCitizens.length <= 5 ? 'gameplay-citizen-plaza-sparse' : ''}`}>
       {visibleCitizens.map((citizen, index) => {
         const answerOption = answerOptionByUserId.get(citizen.twitchUserId) ?? null;
         const choice = answerOption ? choiceSpotlights.find((item: { optionNumber: number }) => item.optionNumber === answerOption) : null;
@@ -94,6 +97,7 @@ export function CitizenPlazaOverlay({
             index={index}
             placement={placement}
             championCelebration={championCelebration}
+            showLobbyFootlight={showLobbyFootlights}
           />
         );
       })}
@@ -106,11 +110,13 @@ export function CitizenCard({
   index,
   placement,
   championCelebration,
+  showLobbyFootlight = false,
 }: {
   citizen: CitizenRuntime;
   index: number;
   placement: CitizenPlacement | null;
   championCelebration: ChampionCelebrationSnapshot;
+  showLobbyFootlight?: boolean;
 }) {
   const { tuning } = useMotionTuning();
   const characterId = getCharacterId(citizen.twitchUserId, index);
@@ -313,6 +319,8 @@ export function CitizenCard({
 
   const resolvedFrameIndex = getCharacterFrameIndex(characterId, animationName, frameIndex);
   const frameName = `${animationName}_${String(shouldAnimateSprite ? resolvedFrameIndex : 0).padStart(2, '0')}`;
+  const spriteFramePath = `${characterId}/${animationName}/${frameName}.png`;
+  const spriteAssetPath = SPRITE_FRAME_ALIASES[spriteFramePath] ?? spriteFramePath;
   return (
     <article
       className={`gameplay-citizen-card gameplay-citizen-${roleClass} ${citizen.twitchUserId.startsWith('qa_') ? 'gameplay-citizen-qa-bot' : ''} gameplay-citizen-character-${characterId} gameplay-citizen-idle-life-${idleLifePhase} ${isLivingIdle ? 'gameplay-citizen-living-idle' : ''} ${shouldAnimateSprite && !isEntering ? 'gameplay-citizen-body-animated' : ''} ${renderedPlacement?.kind === 'choice' ? `gameplay-citizen-answer-moving gameplay-citizen-choice-${renderedPlacement.tone} gameplay-citizen-answer-${renderedPlacement.resultState}` : ''} ${renderedPlacement?.kind === 'side' ? `gameplay-citizen-stage-side gameplay-citizen-stage-side-${renderedPlacement.side}` : ''} ${renderedPlacement?.kind === 'champion' ? 'gameplay-citizen-final-champion' : ''} ${animationName === 'dead' ? 'gameplay-citizen-dead-hold' : ''} ${isWalkingToPlacement ? 'gameplay-citizen-walk-translate' : ''} ${isFinalChampionVictoryLooping ? 'gameplay-citizen-final-victory-loop' : ''} ${isEntering ? 'gameplay-citizen-entering' : ''} ${isChampionCelebrating && !isEntering ? `gameplay-citizen-level10-champion gameplay-champion-stage-${celebrationStage}` : ''}`}
@@ -323,11 +331,12 @@ export function CitizenCard({
         <span>{citizen.displayName}</span>
       </div>
       {(isChampionCelebrating || isFinalChampionVictoryLooping) && !isEntering ? <span className="gameplay-citizen-champion-burst" aria-hidden="true">✦</span> : null}
+      {showLobbyFootlight ? <span className="premium-citizen-footlight" aria-hidden="true" /> : null}
       <span className="gameplay-citizen-ground-shadow" aria-hidden="true" />
       <div className="gameplay-citizen-body-shell" aria-hidden="true">
         <img
           className="gameplay-citizen-sprite"
-          src={`./assets/game/runtime/characters/stage-ready/${characterId}/${animationName}/${frameName}.png`}
+          src={`./assets/game/runtime/characters/stage-ready/${spriteAssetPath}`}
           alt=""
           draggable={false}
         />

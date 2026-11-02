@@ -1,0 +1,413 @@
+/* ===== CLEAN QUESTION SCREEN LAYOUT FINAL START =====
+   One clean reusable layout layer. No stacked hotfixes.
+   Rules:
+   - answers stay fixed on the right
+   - visual/media uses the full available left area
+   - fixed gap between media and answers
+   - header stays centered at the top
+   - next button stays top-left
+   - no extra reveal/helper text under the choices
+   - food hint is below the image when GameplayOverlay uses gameplay-food-origin-panel
+*/
+
+html body .gameplay-question-shell {
+  --q-top: clamp(128px, 13.4vh, 154px);
+  --q-bottom: clamp(24px, 2.3vh, 38px);
+  --q-left: clamp(38px, 3.4vw, 68px);
+  --q-right: clamp(70px, 5.3vw, 104px);
+  --q-choice-width: clamp(470px, 31vw, 545px);
+  --q-gap: clamp(38px, 2.8vw, 58px);
+  --q-caption-height: clamp(48px, 4.8vh, 62px);
+  --q-caption-gap: clamp(12px, 1.2vh, 18px);
+
+  position: relative !important;
+  display: block !important;
+  direction: ltr !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Header */
+html body .gameplay-question-shell .gameplay-question-meta {
+  position: absolute !important;
+  top: clamp(18px, 2vh, 28px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 80 !important;
+  width: auto !important;
+  min-width: clamp(250px, 17vw, 390px) !important;
+  height: clamp(34px, 3.1vh, 44px) !important;
+  margin: 0 !important;
+  direction: rtl !important;
+  white-space: nowrap !important;
+}
+
+html body .gameplay-question-shell .gameplay-question-timer {
+  position: absolute !important;
+  top: clamp(66px, 6.8vh, 88px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 78 !important;
+  width: min(560px, 40vw) !important;
+  min-width: min(440px, 40vw) !important;
+  height: clamp(30px, 3.1vh, 42px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(10px, 0.9vw, 16px) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  direction: ltr !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+html body .gameplay-question-shell .gameplay-question-timer-track {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  height: clamp(10px, 0.72vw, 14px) !important;
+}
+
+html body .gameplay-question-shell .gameplay-question-timer strong {
+  min-width: 4ch !important;
+  color: #9ff8ff !important;
+  font-size: clamp(18px, 1.18vw, 25px) !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+html body .gameplay-question-shell > h2 {
+  position: absolute !important;
+  top: clamp(104px, 10.7vh, 126px) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  z-index: 60 !important;
+  width: min(1160px, 92%) !important;
+  max-width: min(1160px, 92%) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  direction: rtl !important;
+  color: #ffffff !important;
+  font-size: clamp(28px, 2.05vw, 44px) !important;
+  line-height: 1.14 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  text-wrap: balance !important;
+  text-shadow:
+    0 4px 0 rgba(0, 0, 0, 0.52),
+    0 0 18px rgba(255, 255, 255, 0.28) !important;
+}
+
+/* Fixed right answers column */
+html body .gameplay-question-shell > .gameplay-question-choices {
+  position: absolute !important;
+  top: var(--q-top) !important;
+  right: var(--q-right) !important;
+  bottom: var(--q-bottom) !important;
+  left: auto !important;
+  z-index: 20 !important;
+
+  width: var(--q-choice-width) !important;
+  max-width: var(--q-choice-width) !important;
+  min-width: var(--q-choice-width) !important;
+  height: auto !important;
+  min-height: 0 !important;
+
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+  gap: clamp(14px, 1.45vh, 22px) !important;
+
+  direction: rtl !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+html body .gameplay-question-shell > .gameplay-question-choices-2 {
+  grid-template-rows: repeat(2, minmax(120px, 1fr)) !important;
+  align-content: center !important;
+}
+
+html body .gameplay-question-shell > .gameplay-question-choices-3 {
+  grid-template-rows: repeat(3, minmax(110px, 1fr)) !important;
+  align-content: center !important;
+}
+
+html body .gameplay-question-shell .gameplay-choice-card {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  grid-template-columns: clamp(68px, 5vw, 92px) minmax(0, 1fr) !important;
+  gap: clamp(16px, 1.4vw, 28px) !important;
+  padding: clamp(14px, 1.15vw, 24px) clamp(18px, 1.5vw, 30px) !important;
+  border-radius: clamp(18px, 1.35vw, 26px) !important;
+  direction: rtl !important;
+}
+
+html body .gameplay-question-shell .gameplay-choice-card strong {
+  min-width: clamp(60px, 4.6vw, 86px) !important;
+  min-height: clamp(56px, 4.3vw, 78px) !important;
+  font-size: clamp(25px, 1.8vw, 38px) !important;
+  line-height: 1 !important;
+}
+/* Ensure consistent font across all UI text */
+html body .gameplay-question-shell .gameplay-question-meta {
+  font-family: var(--display-font) !important;
+}
+
+html body .gameplay-question-shell .gameplay-question-meta span,
+html body .gameplay-question-shell .gameplay-question-meta b {
+  font-family: var(--display-font) !important;
+}
+
+html body .gameplay-question-shell .gameplay-question-timer strong {
+  font-family: var(--display-font) !important;
+}
+
+html body .gameplay-question-shell .qshell-header h2 {
+  font-family: var(--display-font) !important;
+}
+
+html body .gameplay-question-shell .gameplay-choice-card span {
+  font-size: clamp(25px, 1.85vw, 40px) !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Left media/body zone:
+   starts at the left margin and ends before the fixed answers column. */
+html body .gameplay-question-shell > .gameplay-question-body {
+  position: absolute !important;
+  top: var(--q-top) !important;
+  left: var(--q-left) !important;
+  right: calc(var(--q-right) + var(--q-choice-width) + var(--q-gap)) !important;
+  bottom: var(--q-bottom) !important;
+  z-index: 10 !important;
+
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+
+  display: block !important;
+  direction: rtl !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+
+/* Shared visual content fills ONLY the left zone. */
+html body .gameplay-question-body .gameplay-food-card,
+html body .gameplay-question-body .gameplay-food-card-with-photo,
+html body .gameplay-question-body .gameplay-pairguess-card,
+html body .gameplay-question-body .gameplay-shape-stage,
+html body .gameplay-question-body .gameplay-memory-stage,
+html body .gameplay-question-body .gameplay-maze-stage,
+html body .gameplay-question-body .gameplay-maze-full-stage,
+html body .gameplay-question-body .gameplay-logo-guess-card,
+html body .gameplay-question-body .gameplay-hangman-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  border-radius: clamp(18px, 1.35vw, 26px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+html body .gameplay-question-body .gameplay-food-photo,
+html body .gameplay-question-body .gameplay-pairguess-photo {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* Food Origin: image plus caption under it. */
+html body .gameplay-question-body-food .gameplay-media-with-caption,
+html body .gameplay-question-body-food .gameplay-food-origin-panel {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) var(--q-caption-height) !important;
+  gap: var(--q-caption-gap) !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+
+html body .gameplay-question-body-food .gameplay-food-card,
+html body .gameplay-question-body-food .gameplay-food-card-with-photo {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+
+html body .gameplay-question-body-food .gameplay-food-hint-slot,
+html body .gameplay-question-body-food .gameplay-media-caption {
+  height: var(--q-caption-height) !important;
+  min-height: var(--q-caption-height) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+html body .gameplay-question-body-food .gameplay-food-hint-slot > strong,
+html body .gameplay-question-body-food .gameplay-media-caption > strong,
+html body .gameplay-question-body-food .gameplay-dish-hint-countdown,
+html body .gameplay-question-body-food .gameplay-dish-hint-revealed {
+  position: static !important;
+  inset: auto !important;
+  transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  max-width: 100% !important;
+  min-height: clamp(40px, 4vh, 54px) !important;
+  margin: 0 !important;
+  padding: clamp(8px, 0.75vw, 12px) clamp(20px, 1.5vw, 30px) !important;
+  border-radius: 999px !important;
+  border: 2px solid rgba(255, 230, 109, 0.88) !important;
+  background: rgba(8, 5, 24, 0.94) !important;
+  color: #ffe66d !important;
+  font-size: clamp(19px, 1.35vw, 28px) !important;
+  line-height: 1.1 !important;
+  font-weight: 1000 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center !important;
+  box-shadow:
+    0 0 18px rgba(255, 230, 109, 0.22),
+    inset 0 0 12px rgba(255, 230, 109, 0.07) !important;
+  text-shadow:
+    0 0 12px rgba(255, 230, 109, 0.44),
+    0 2px 0 rgba(0, 0, 0, 0.75) !important;
+}
+
+html body .gameplay-question-body-food .gameplay-food-card > strong {
+  display: none !important;
+}
+
+/* Non-image minigames inside the same left media zone. */
+html body .gameplay-question-body-shapes .gameplay-shape-stage,
+html body .gameplay-question-body-memory .gameplay-memory-stage,
+html body .gameplay-question-body-logo .gameplay-logo-guess-card {
+  display: grid !important;
+  place-items: center !important;
+}
+
+html body .gameplay-question-body-shapes .gameplay-shape-grid {
+  width: min(88%, 620px) !important;
+  height: min(78%, 410px) !important;
+  max-height: 410px !important;
+  align-content: center !important;
+  justify-content: center !important;
+}
+
+html body .gameplay-question-body-memory .gameplay-memory-grid {
+  width: min(90%, 640px) !important;
+  align-content: center !important;
+  justify-content: center !important;
+}
+
+html body .gameplay-question-body-maze .gameplay-maze-svg,
+html body .gameplay-question-body-maze .gameplay-maze-full-svg {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  display: block !important;
+  transform: none !important;
+}
+
+/* Lucky Cup has no side choices, so it uses the full content area. */
+html body .gameplay-question-lucky-cup > .gameplay-question-body-lucky-cup {
+  left: var(--q-left) !important;
+  right: var(--q-right) !important;
+  width: auto !important;
+}
+
+html body .gameplay-question-lucky-cup .gameplay-lucky-cup-stage {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100% !important;
+}
+
+/* Remove extra lines/cards that were not requested. */
+html body .gameplay-answer-reveal-banner,
+html body .gameplay-correct-answer-banner,
+html body .gameplay-reveal-answer-card,
+html body .gameplay-question-side-hints {
+  display: none !important;
+}
+
+/* Keep Next top-left. */
+html body .gameplay-global-next-button,
+html body .gameplay-question-next-button {
+  position: absolute !important;
+  top: clamp(18px, 2vh, 30px) !important;
+  left: clamp(34px, 2.6vw, 58px) !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 170 !important;
+  width: auto !important;
+  min-width: clamp(150px, 10vw, 220px) !important;
+  min-height: clamp(48px, 4.8vh, 68px) !important;
+}
+
+html body .gameplay-question-shell-reveal .gameplay-question-timer {
+  display: none !important;
+}
+
+@media (max-width: 1500px), (max-height: 820px) {
+  html body .gameplay-question-shell {
+    --q-left: clamp(34px, 3vw, 56px);
+    --q-right: clamp(58px, 4.6vw, 88px);
+    --q-choice-width: clamp(440px, 30vw, 520px);
+    --q-gap: clamp(32px, 2.4vw, 48px);
+    --q-top: clamp(118px, 12.6vh, 144px);
+    --q-bottom: clamp(20px, 2vh, 32px);
+  }
+
+  html body .gameplay-question-shell > h2 {
+    font-size: clamp(25px, 1.85vw, 38px) !important;
+  }
+
+  html body .gameplay-question-shell .gameplay-choice-card span {
+    font-size: clamp(22px, 1.7vw, 34px) !important;
+  }
+}
+
+/* ===== CLEAN QUESTION SCREEN LAYOUT FINAL END ===== */
+

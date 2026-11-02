@@ -1,3 +1,4 @@
+import { readOrderedCss } from './lib/ordered-css-source.mjs';
 import fs from 'node:fs';
 
 function read(path) {
@@ -16,13 +17,13 @@ function assert(condition, message) {
 const mainScreen = read('src/ui-react/components/play/MainScreenPlayFlow.tsx');
 const translations = read('src/game-core/localization/translations.ts');
 const localeTypes = read('src/game-core/localization/locale-types.ts');
-const styles = read('src/ui-react/styles.css');
+const styles = readOrderedCss();
 
 assert(mainScreen.includes('ta7ady_brand_mark.png'), 'New simple landing brand mark is not wired');
-assert(mainScreen.includes('main-screen-brand-name'), 'Localized landing wordmark is missing');
-assert(mainScreen.includes('main-screen-brand-slogan'), 'Landing slogan element is missing');
+assert(!mainScreen.includes('<h1 className="main-screen-brand-name"'), 'Redundant text wordmark must not duplicate the logo');
+assert(!mainScreen.includes('<p className="main-screen-brand-slogan"'), 'Redundant brand slogan must not duplicate the logo');
 assert(mainScreen.includes('ui.landing.brand'), 'Landing brand translation key missing in UI');
-assert(mainScreen.includes('ui.landing.slogan'), 'Landing slogan translation key missing in UI');
+assert(mainScreen.includes('premium-visually-hidden'), 'Landing must retain an accessible brand heading');
 assert(mainScreen.includes('main-screen-settings-link'), 'Lobby Settings link missing');
 assert(localeTypes.includes("'ui.landing.brand'"), 'ui.landing.brand type key missing');
 assert(translations.includes('"ui.landing.brand": "Ta7ady ElGeel"'), 'English landing brand missing');

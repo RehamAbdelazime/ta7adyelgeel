@@ -38,4 +38,12 @@ dist-release/
 !.vscode/extensions.json
 !.vscode/settings.json
 .idea/
-package-lock.json
+
+# Generated app / Electron build directories
+dist/
+dist-electron/
+release-v2/
+*.tsbuildinfo
+
+# Generated reports
+SECURITY_AUDIT.json

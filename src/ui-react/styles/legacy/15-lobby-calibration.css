@@ -1,0 +1,470 @@
+/* ========================================================================
+   LOBBY FINAL CALIBRATION
+   Tuned against the actual 1920x1080 stage and the user's simplified mark.
+   ======================================================================== */
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr) !important;
+  gap: clamp(8px, 0.82cqw, 16px) !important;
+  align-items: stretch !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  gap: clamp(8px, 1.1cqh, 15px) !important;
+  padding: clamp(7px, 0.82cqw, 16px) clamp(8px, 1.1cqw, 20px) !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(ellipse at 50% 8%, rgba(54, 232, 255, 0.075), transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 79, 216, 0.065), transparent 56%),
+    linear-gradient(180deg, rgba(3, 11, 34, 0.22), rgba(3, 6, 26, 0.12)) !important;
+  border: 1px solid rgba(91, 218, 255, 0.12) !important;
+  border-radius: clamp(9px, 0.82cqw, 15px) !important;
+}
+
+.main-screen-brand-lockup {
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: clamp(2px, 0.38cqh, 6px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+  width: clamp(145px, 12.8cqw, 280px) !important;
+  max-width: 72% !important;
+  max-height: clamp(29px, 5.0cqh, 54px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 !important;
+  filter:
+    drop-shadow(0 0 6px rgba(54, 232, 255, 0.44))
+    drop-shadow(0 0 11px rgba(255, 79, 216, 0.28)) !important;
+  animation: landingBrandDrift 7.5s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  color: #f7fbff !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(20px, 1.4cqw, 34px) !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0.035em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-shadow: 0 2px 0 rgba(2, 6, 24, 0.9), 0 0 15px rgba(54, 232, 255, 0.14) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+  margin: 0 !important;
+  color: rgba(221, 235, 249, 0.88) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.74cqw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.095em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 10px rgba(54, 232, 255, 0.16) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.3em !important;
+  width: fit-content !important;
+  max-width: 96% !important;
+  min-height: clamp(28px, 3.25cqh, 38px) !important;
+  margin: 0 !important;
+  padding: 5px clamp(8px, 0.75cqw, 14px) !important;
+  border: 1px solid rgba(73, 222, 255, 0.26) !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.075), rgba(119, 83, 255, 0.07), rgba(255, 79, 216, 0.065)) !important;
+  color: rgba(223, 237, 250, 0.92) !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.72cqw, 14px) !important;
+  font-weight: 600 !important;
+  line-height: 1.28 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  box-shadow: 0 0 13px rgba(54, 232, 255, 0.075), inset 0 0 9px rgba(255, 255, 255, 0.025) !important;
+  animation: landingJoinHintGlow 6s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint code {
+  display: inline-block !important;
+  direction: ltr !important;
+  margin-inline: 2px !important;
+  padding: 1px 5px 2px !important;
+  border: 1px solid rgba(255, 79, 216, 0.3) !important;
+  border-radius: 5px !important;
+  background: rgba(255, 79, 216, 0.1) !important;
+  color: #7df1ff !important;
+  font-family: "Labo Display", "Segoe UI", Arial, sans-serif !important;
+  font-size: 1.04em !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.035em !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  min-width: clamp(126px, 10.5cqw, 194px) !important;
+  min-height: clamp(42px, 5.5cqh, 61px) !important;
+  padding: 5px 18px 11px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(26px, 2.1cqw, 42px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.075em !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-underline {
+  bottom: 2px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #36e8ff, #9b5cff 52%, #ff4fd8) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+  min-height: 29px !important;
+  margin: 0 !important;
+  padding: 4px 9px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(207, 224, 241, 0.76) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(11px, 0.78cqw, 15px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.065em !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::before,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link svg {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  fill: none !important;
+  stroke: #65eaff !important;
+  stroke-width: 1.45 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  transition: transform 220ms ease, filter 220ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  text-shadow: 0 0 11px rgba(54, 232, 255, 0.36) !important;
+  outline: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover svg,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible svg {
+  transform: translateX(1px) !important;
+  filter: drop-shadow(0 0 5px rgba(54, 232, 255, 0.66)) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat {
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(91, 218, 255, 0.25) !important;
+  border-radius: clamp(10px, 0.82cqw, 15px) !important;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(57, 108, 255, 0.13), transparent 66%),
+    linear-gradient(160deg, rgba(4, 13, 40, 0.86), rgba(7, 5, 31, 0.82)) !important;
+  box-shadow: 0 0 20px rgba(54, 232, 255, 0.075), inset 0 0 22px rgba(255, 255, 255, 0.025) !important;
+  animation: landingChatPanelBreath 9s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: clamp(58px, 7.1cqh, 78px) !important;
+  padding: clamp(8px, 0.8cqh, 13px) clamp(11px, 0.92cqw, 17px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.055), rgba(255, 79, 216, 0.035)) !important;
+}
+
+.main-screen-live-chat-heading {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+  display: block !important;
+  min-width: 0 !important;
+  color: rgba(225, 240, 252, 0.86) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(12px, 0.92cqw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+.main-screen-live-dot {
+  flex: 0 0 auto !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #ff55a5 !important;
+  box-shadow: 0 0 9px rgba(255, 85, 165, 0.82) !important;
+  animation: lobbyLiveDotPulse 1.9s ease-in-out infinite !important;
+}
+
+.main-screen-streamer-name {
+  display: block !important;
+  align-self: flex-start !important;
+  justify-self: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  color: #f4f9ff !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.78cqw, 15px) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+  text-align: left !important;
+  text-overflow: ellipsis !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 10px rgba(54, 232, 255, 0.18) !important;
+}
+
+.main-screen-chat-orbit {
+  position: absolute !important;
+  left: 50% !important;
+  top: 43% !important;
+  display: block !important;
+  border: 1px solid rgba(77, 225, 255, 0.22) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+}
+
+.main-screen-chat-orbit-outer {
+  width: clamp(108px, 11cqw, 190px) !important;
+  aspect-ratio: 1 !important;
+  box-shadow: 0 0 19px rgba(54, 232, 255, 0.055), inset 0 0 16px rgba(54, 232, 255, 0.025) !important;
+  animation: lobbyChatOrbit 26s linear infinite !important;
+}
+
+.main-screen-chat-orbit-inner {
+  width: clamp(72px, 7.4cqw, 128px) !important;
+  aspect-ratio: 1 !important;
+  border-style: dashed !important;
+  border-color: rgba(255, 79, 216, 0.27) !important;
+  animation: lobbyChatOrbitReverse 34s linear infinite !important;
+}
+
+.main-screen-chat-core {
+  position: absolute !important;
+  left: 50% !important;
+  top: 43% !important;
+  width: clamp(12px, 1.25cqw, 20px) !important;
+  aspect-ratio: 1 !important;
+  border: 1px solid rgba(233, 252, 255, 0.72) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #48eaff 42%, #8a5dff 76%, #ff4fd8) !important;
+  box-shadow: 0 0 14px rgba(54, 232, 255, 0.72), 0 0 26px rgba(255, 79, 216, 0.24) !important;
+  transform: translate(-50%, -50%) !important;
+  animation: lobbyChatCorePulse 3.2s ease-in-out infinite !important;
+}
+
+.main-screen-chat-equalizer {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 18% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(3px, 0.3cqw, 6px) !important;
+  width: min(76%, 230px) !important;
+  height: clamp(26px, 4.2cqh, 44px) !important;
+  transform: translateX(-50%) !important;
+}
+
+.main-screen-chat-equalizer i {
+  display: block !important;
+  width: clamp(3px, 0.28cqw, 5px) !important;
+  height: 20% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #76f5ff, #9b5cff 58%, #ff70dc) !important;
+  box-shadow: 0 0 8px rgba(54, 232, 255, 0.38) !important;
+  opacity: 0.72 !important;
+  transform-origin: center !important;
+  animation: lobbyChatEqualizer 1.65s ease-in-out infinite !important;
+}
+
+.main-screen-chat-equalizer i:nth-child(4n + 1) { height: 78% !important; animation-delay: -0.23s !important; }
+.main-screen-chat-equalizer i:nth-child(4n + 2) { height: 48% !important; animation-delay: -0.74s !important; }
+.main-screen-chat-equalizer i:nth-child(4n + 3) { height: 92% !important; animation-delay: -1.12s !important; }
+.main-screen-chat-equalizer i:nth-child(4n) { height: 34% !important; animation-delay: -0.48s !important; }
+
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 82.2cqw !important;
+  right: auto !important;
+  bottom: 30cqh !important;
+  width: clamp(220px, 15.4cqw, 300px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  animation: hostStageIdle 5.8s ease-in-out infinite !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 82.2cqw !important;
+  right: auto !important;
+  top: 67.6cqh !important;
+  width: 13.4cqw !important;
+  height: 4cqh !important;
+  transform: translateX(-50%) !important;
+  opacity: 0.74 !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-mascot-shadow {
+  bottom: 0.4% !important;
+  width: 78% !important;
+  height: 7.5% !important;
+  opacity: 0.8 !important;
+}
+
+/* A modest lobby-only audience scale lift; gameplay choice-position geometry is unchanged. */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-body-shell {
+  scale: 1.13 !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  transform: translateX(-50%) scale(1.04) !important;
+  transform-origin: center bottom !important;
+}
+
+.concert-lobby-sparkles i {
+  width: 4px !important;
+  height: 4px !important;
+  box-shadow: 0 0 9px 2px rgba(54, 232, 255, 0.48) !important;
+}
+
+@keyframes lobbyLiveDotPulse {
+  0%, 100% { opacity: 0.66; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@container (max-width: 1160px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(15px, 1.55cqw, 20px) !important;
+    letter-spacing: 0.018em !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    width: clamp(112px, 13cqw, 160px) !important;
+    max-height: 4.3cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+    font-size: clamp(8px, 0.78cqw, 11px) !important;
+    letter-spacing: 0.055em !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    min-height: 25px !important;
+    padding: 3px 7px !important;
+    font-size: clamp(8px, 0.72cqw, 10px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+    font-size: clamp(21px, 2.05cqw, 29px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+    min-height: 50px !important;
+    gap: 3px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+    font-size: clamp(9px, 0.86cqw, 13px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+    font-size: clamp(8px, 0.72cqw, 10px) !important;
+  }
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    width: clamp(185px, 15.4cqw, 235px) !important;
+  }
+}
+
+@container (max-height: 760px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+    gap: clamp(5px, 0.8cqh, 9px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    max-height: 4.2cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    min-height: 25px !important;
+    padding-block: 3px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+    min-height: 39px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active::before,
+  .visual-world-layer-lobby-active::after,
+  .visual-world-stage-lobby::after,
+  .concert-lobby-sparkles i,
+  .main-screen-brand-mark,
+  .main-screen-live-chat,
+  .main-screen-live-dot,
+  .main-screen-chat-orbit,
+  .main-screen-chat-core,
+  .main-screen-chat-equalizer i,
+  .main-screen-chat-glint,
+  .concert-host-mascot-front {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

@@ -1,0 +1,3164 @@
+/* Premium stage UI pass: clean beveled buttons, responsive host panel, stronger feedback. */
+.play-launcher-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  pointer-events: none;
+  font-family: var(--display-font);
+}
+
+.center-play-button {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  display: grid;
+  width: clamp(168px, 12vw, 230px);
+  height: clamp(54px, 4vw, 72px);
+  place-items: center;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: visible;
+  border: 3px solid rgba(238, 247, 255, 0.96);
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.12) 24%,
+      transparent 25%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 94, 219, 0.96) 0%,
+      rgba(155, 92, 255, 0.98) 48%,
+      rgba(54, 232, 255, 0.92) 100%
+    );
+  color: #ffffff;
+  outline: none;
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.88),
+    0 0 20px rgba(54, 232, 255, 0.55),
+    0 0 38px rgba(255, 94, 219, 0.4),
+    0 12px 0 rgba(2, 4, 26, 0.56),
+    0 21px 30px rgba(0, 0, 0, 0.46),
+    inset 0 4px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -10px 0 rgba(33, 11, 78, 0.48);
+  text-transform: uppercase;
+  transition:
+    transform 140ms ease,
+    filter 140ms ease,
+    box-shadow 140ms ease;
+  animation: premiumButtonPulse 2.15s ease-in-out infinite;
+}
+
+.center-play-button::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  top: 6px;
+  height: 42%;
+  border-radius: 7px 7px 16px 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.42),
+    rgba(255, 255, 255, 0.08)
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.center-play-button::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  border: 2px solid rgba(92, 255, 244, 0.55);
+  border-radius: 15px;
+  box-shadow:
+    0 0 24px rgba(54, 232, 255, 0.36),
+    0 0 30px rgba(255, 94, 219, 0.22);
+  pointer-events: none;
+}
+
+.center-play-button:hover {
+  transform: translate(-50%, -50%) translateY(-3px) scale(1.045);
+  filter: brightness(1.1) saturate(1.12);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.88),
+    0 0 30px rgba(54, 232, 255, 0.74),
+    0 0 58px rgba(255, 94, 219, 0.52),
+    0 13px 0 rgba(2, 4, 26, 0.52),
+    0 24px 34px rgba(0, 0, 0, 0.44),
+    inset 0 4px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -10px 0 rgba(33, 11, 78, 0.48);
+}
+
+.center-play-button:active {
+  transform: translate(-50%, -50%) translateY(5px) scale(0.985);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.88),
+    0 0 22px rgba(54, 232, 255, 0.58),
+    0 0 42px rgba(255, 94, 219, 0.36),
+    0 5px 0 rgba(2, 4, 26, 0.54),
+    0 12px 22px rgba(0, 0, 0, 0.38),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -6px 0 rgba(33, 11, 78, 0.42);
+}
+
+.center-play-button-waiting {
+  filter: saturate(0.86);
+}
+
+.center-play-button-burst {
+  animation: premiumButtonShake 0.48s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.center-play-glow {
+  position: absolute;
+  inset: -32px;
+  z-index: -2;
+  border-radius: 22px;
+  background: radial-gradient(
+    circle,
+    rgba(54, 232, 255, 0.28),
+    rgba(255, 94, 219, 0.2) 42%,
+    transparent 72%
+  );
+  opacity: 0.9;
+  filter: blur(11px);
+  animation: playGlowPulse 1.7s ease-in-out infinite;
+}
+
+.center-play-core {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  font-size: clamp(30px, 2.45vw, 48px);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.86),
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 18px rgba(54, 232, 255, 0.56),
+    0 0 30px rgba(255, 94, 219, 0.42);
+  -webkit-text-stroke: 1px rgba(15, 10, 55, 0.62);
+}
+
+.center-play-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #ffe66d;
+  box-shadow: 0 0 18px rgba(255, 230, 109, 0.9);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+.center-play-button-burst .center-play-particle {
+  animation: playParticleBurst 0.72s ease-out forwards;
+}
+
+.center-play-particle-1 {
+  --px: -118px;
+  --py: -72px;
+  background: #ffe66d;
+}
+.center-play-particle-2 {
+  --px: 126px;
+  --py: -60px;
+  background: #36e8ff;
+}
+.center-play-particle-3 {
+  --px: -138px;
+  --py: 34px;
+  background: #ff5edb;
+}
+.center-play-particle-4 {
+  --px: 134px;
+  --py: 46px;
+  background: #5cffb1;
+}
+.center-play-particle-5 {
+  --px: 0px;
+  --py: -118px;
+  background: #ffffff;
+}
+.center-play-particle-6 {
+  --px: 0px;
+  --py: 106px;
+  background: #9b5cff;
+}
+
+.play-choice-modal {
+  position: absolute;
+  left: 50%;
+  top: 66%;
+  width: min(620px, 76%);
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  border: 2px solid rgba(238, 247, 255, 0.86);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.01)
+    ),
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(255, 94, 219, 0.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 82% 20%,
+      rgba(54, 232, 255, 0.16),
+      transparent 38%
+    ),
+    linear-gradient(145deg, rgba(7, 5, 29, 0.98), rgba(22, 10, 61, 0.96));
+  box-shadow:
+    0 0 0 5px rgba(5, 4, 24, 0.72),
+    0 0 38px rgba(54, 232, 255, 0.34),
+    0 0 72px rgba(255, 94, 219, 0.22),
+    inset 0 5px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -12px 0 rgba(0, 0, 0, 0.24);
+  padding: clamp(18px, 2vw, 30px);
+  animation: playModalPop 0.28s ease-out both;
+}
+
+.play-choice-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #f2fbff;
+  font-size: 23px;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.play-choice-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+}
+
+.play-choice-card {
+  position: relative;
+  display: grid;
+  min-height: clamp(142px, 14vw, 190px);
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  color: #f2fbff;
+  cursor: pointer;
+  text-align: center;
+  box-shadow:
+    inset 0 6px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -12px 0 rgba(0, 0, 0, 0.26),
+    0 0 26px rgba(0, 0, 0, 0.28);
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    filter 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.play-choice-card::before {
+  content: "";
+  position: absolute;
+  inset: -60% -25%;
+  background: linear-gradient(
+    100deg,
+    transparent 28%,
+    rgba(255, 255, 255, 0.24) 50%,
+    transparent 72%
+  );
+  transform: translateX(-65%) rotate(10deg);
+  transition: transform 360ms ease;
+}
+
+.play-choice-card:hover::before {
+  transform: translateX(65%) rotate(10deg);
+}
+
+.play-choice-card:hover:not(:disabled) {
+  transform: translateY(-5px) scale(1.02);
+  filter: brightness(1.08) saturate(1.08);
+  box-shadow:
+    inset 0 6px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -12px 0 rgba(0, 0, 0, 0.26),
+    0 0 28px rgba(54, 232, 255, 0.22),
+    0 0 38px rgba(255, 94, 219, 0.18);
+}
+
+.play-choice-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  filter: grayscale(0.35);
+}
+
+.play-choice-card-mini {
+  background: linear-gradient(
+    145deg,
+    rgba(54, 232, 255, 0.3),
+    rgba(10, 18, 60, 0.96)
+  );
+  border-color: rgba(54, 232, 255, 0.55);
+}
+
+.play-choice-card-tour {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 94, 219, 0.32),
+    rgba(32, 10, 72, 0.96)
+  );
+  border-color: rgba(255, 94, 219, 0.55);
+}
+
+.play-choice-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 34px;
+  box-shadow:
+    inset 0 0 18px rgba(255, 255, 255, 0.09),
+    0 0 22px rgba(54, 232, 255, 0.12);
+}
+
+.play-choice-card strong,
+.play-choice-card small {
+  position: relative;
+  z-index: 1;
+}
+
+.play-choice-card strong {
+  color: #fff7b8;
+  font-size: clamp(23px, 2vw, 32px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.86),
+    0 0 16px rgba(255, 230, 109, 0.38),
+    0 0 24px rgba(54, 232, 255, 0.34);
+}
+
+.play-choice-card small {
+  max-width: 18ch;
+  color: rgba(242, 251, 255, 0.8);
+  font-family: var(--display-font);
+  font-size: clamp(11px, 0.85vw, 14px);
+  font-weight: 900;
+}
+
+.play-choice-warning {
+  margin: 0 0 18px;
+  color: #ffe66d;
+  font-family: var(--display-font);
+  font-size: 14px;
+  font-weight: 950;
+  text-align: center;
+  text-shadow: 0 0 14px rgba(255, 230, 109, 0.3);
+}
+
+.gameplay-citizen-empty {
+  display: none !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.gameplay-main-screen-overlay {
+  overflow: hidden;
+}
+
+.gameplay-main-screen-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      115deg,
+      transparent 0 42%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 58% 100%
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.018) 0 2px,
+      transparent 2px 7px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.34;
+  animation: premiumScreenShimmer 4.2s ease-in-out infinite;
+}
+
+.gameplay-round-header strong {
+  animation: premiumTimerBeat 1s ease-in-out infinite;
+}
+
+.gameplay-choice-open {
+  animation: premiumAnswerOpen 1s ease-in-out infinite;
+}
+
+.gameplay-top-row,
+.gameplay-award-card,
+.gameplay-champion-card {
+  animation: premiumResultPop 0.42s ease both;
+}
+
+.gameplay-top-1 {
+  box-shadow:
+    0 0 22px rgba(255, 230, 109, 0.28),
+    inset 0 0 16px rgba(255, 230, 109, 0.05);
+}
+
+.gameplay-scoreboard-actions {
+  display: grid;
+  justify-items: center;
+  margin-top: 8px;
+  pointer-events: auto;
+}
+
+.gameplay-scoreboard-back-button,
+.host-action-grid .host-primary {
+  min-width: 220px;
+  min-height: 54px;
+  border: 2px solid rgba(238, 247, 255, 0.92);
+  border-radius: 10px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.24) 0%,
+      rgba(255, 255, 255, 0.08) 26%,
+      transparent 27%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 94, 219, 0.94),
+      rgba(155, 92, 255, 0.98) 48%,
+      rgba(54, 232, 255, 0.92)
+    );
+  color: #ffffff;
+  cursor: pointer;
+  font-family: var(--display-font);
+  font-size: 22px;
+  font-weight: 1000;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.78),
+    0 0 16px rgba(54, 232, 255, 0.44);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.72),
+    0 0 24px rgba(54, 232, 255, 0.36),
+    0 0 40px rgba(255, 94, 219, 0.22),
+    0 8px 0 rgba(2, 4, 26, 0.52),
+    0 16px 24px rgba(0, 0, 0, 0.36),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(33, 11, 78, 0.42);
+  transition:
+    transform 150ms ease,
+    filter 150ms ease,
+    box-shadow 150ms ease;
+  pointer-events: auto;
+}
+
+.gameplay-scoreboard-back-button:hover,
+.host-action-grid .host-primary:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.035);
+  filter: brightness(1.09) saturate(1.12);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.72),
+    0 0 34px rgba(54, 232, 255, 0.52),
+    0 0 56px rgba(255, 94, 219, 0.3),
+    0 9px 0 rgba(2, 4, 26, 0.5),
+    0 18px 26px rgba(0, 0, 0, 0.34),
+    inset 0 3px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -8px 0 rgba(33, 11, 78, 0.42);
+}
+
+.gameplay-scoreboard-back-button:active,
+.host-action-grid .host-primary:active:not(:disabled) {
+  transform: translateY(4px) scale(0.99);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.72),
+    0 0 24px rgba(54, 232, 255, 0.4),
+    0 5px 0 rgba(2, 4, 26, 0.5),
+    0 10px 18px rgba(0, 0, 0, 0.3),
+    inset 0 2px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -5px 0 rgba(33, 11, 78, 0.38);
+}
+
+.host-panel-tabs {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.right-streamer-stack {
+  right: clamp(10px, 1.45vw, 24px);
+  top: clamp(76px, 7.2vw, 118px);
+  width: clamp(228px, 18vw, 292px);
+  max-height: calc(100vh - clamp(96px, 8vw, 140px));
+}
+
+.host-production-panel {
+  max-height: inherit;
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+@media (max-width: 1180px) {
+  .right-streamer-stack {
+    width: clamp(210px, 23vw, 260px);
+    transform-origin: top right;
+  }
+
+  .host-panel-tabs button {
+    min-height: 42px;
+    font-size: 8px;
+  }
+
+  .host-panel-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-aspect-ratio: 4 / 3) {
+  .right-streamer-stack {
+    top: auto;
+    right: 10px;
+    bottom: 10px;
+    width: min(360px, calc(100vw - 20px));
+    max-height: 38vh;
+  }
+
+  .host-panel-header,
+  .host-panel-stats,
+  .host-field,
+  .host-help-text {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .play-choice-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .play-choice-modal {
+    top: 64%;
+    width: min(360px, 82%);
+  }
+}
+
+[dir="rtl"] .center-play-core,
+[dir="rtl"] .play-choice-card strong,
+[dir="rtl"] .gameplay-scoreboard-back-button,
+[dir="rtl"] .host-action-grid .host-primary {
+  letter-spacing: 0.01em;
+}
+
+[dir="rtl"] .center-play-core {
+  font-size: clamp(28px, 2.25vw, 42px);
+}
+
+@keyframes premiumButtonPulse {
+  0%,
+  100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.06) saturate(1.08);
+  }
+}
+
+@keyframes premiumButtonShake {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  12% {
+    transform: translate(calc(-50% - 7px), calc(-50% + 1px)) rotate(-2deg)
+      scale(1.03);
+  }
+  24% {
+    transform: translate(calc(-50% + 8px), calc(-50% - 2px)) rotate(2.4deg)
+      scale(1.04);
+  }
+  36% {
+    transform: translate(calc(-50% - 6px), calc(-50% + 3px)) rotate(-1.6deg)
+      scale(1.02);
+  }
+  48% {
+    transform: translate(calc(-50% + 5px), calc(-50% - 1px)) rotate(1.6deg)
+      scale(1.03);
+  }
+  62% {
+    transform: translate(calc(-50% - 3px), -50%) rotate(-0.9deg) scale(1.01);
+  }
+  76% {
+    transform: translate(calc(-50% + 2px), -50%) rotate(0.7deg) scale(1.01);
+  }
+}
+
+@keyframes playGlowPulse {
+  0%,
+  100% {
+    opacity: 0.52;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes playParticleBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.15);
+  }
+  18% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--px)), calc(-50% + var(--py)))
+      scale(1.15);
+  }
+}
+
+@keyframes playModalPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 26px)) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes premiumScreenShimmer {
+  0%,
+  100% {
+    opacity: 0.24;
+    transform: translateX(-8%);
+  }
+  50% {
+    opacity: 0.38;
+    transform: translateX(8%);
+  }
+}
+
+@keyframes premiumTimerBeat {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.06);
+    filter: brightness(1.18);
+  }
+}
+
+@keyframes premiumAnswerOpen {
+  0%,
+  100% {
+    box-shadow: 0 0 14px rgba(54, 232, 255, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(92, 255, 177, 0.42);
+  }
+}
+
+@keyframes premiumResultPop {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* cleaned legacy comment */
+.visual-world-stage-lobby,
+.visual-world-stage-minigame {
+  inset: 0;
+  opacity: 0;
+  transition:
+    opacity 320ms ease,
+    filter 320ms ease;
+}
+
+.visual-world-layer-lobby-active .visual-world-stage-lobby,
+.visual-world-layer-minigame-active .visual-world-stage-minigame {
+  opacity: 1 !important;
+}
+
+.visual-world-layer-lobby-active .visual-world-stage-minigame,
+.visual-world-layer-minigame-active .visual-world-stage-lobby {
+  opacity: 0 !important;
+}
+
+.visual-world-layer-minigame-active .concert-star-twinkle-layer {
+  opacity: 0.78;
+}
+
+.visual-world-layer-minigame-active .concert-beam {
+  top: 18.5%;
+  height: 47%;
+  opacity: 0.12;
+  filter: blur(8px);
+}
+
+.visual-world-layer-minigame-active .concert-strobe {
+  opacity: 0.18;
+}
+
+.visual-world-layer-minigame-active .concert-screen-glow {
+  left: 22.6%;
+  top: 24.4%;
+  width: 54.8%;
+  height: 44.4%;
+  opacity: 0.38;
+  border-radius: 10px;
+}
+
+.visual-world-layer-minigame-active .concert-screen-scanline {
+  left: 22.5%;
+  top: 24.1%;
+  width: 55%;
+  height: 44.7%;
+  opacity: 0.18;
+  border-radius: 10px;
+}
+
+.visual-world-layer-minigame-active .concert-floor-glow {
+  top: 83%;
+  opacity: 0.25;
+}
+
+.visual-world-layer-minigame-active .concert-crowd-pulse {
+  top: 80%;
+  opacity: 0.18;
+}
+
+.gameplay-main-screen-active {
+  left: 23.15% !important;
+  top: 24.5% !important;
+  width: 53.75% !important;
+  min-height: 42.8% !important;
+  max-height: 44.8% !important;
+  border: 1px solid rgba(80, 232, 255, 0.18) !important;
+  border-radius: 10px !important;
+  background:
+    radial-gradient(
+      circle at 50% 12%,
+      rgba(54, 232, 255, 0.09),
+      transparent 42%
+    ),
+    linear-gradient(180deg, rgba(0, 3, 14, 0.44), rgba(0, 0, 0, 0.18)) !important;
+  box-shadow:
+    inset 0 0 48px rgba(0, 0, 0, 0.42),
+    0 0 18px rgba(54, 232, 255, 0.08) !important;
+  padding: clamp(16px, 1.45vw, 28px) clamp(22px, 2vw, 38px) !important;
+}
+
+.gameplay-main-screen-active::before {
+  opacity: 0.11 !important;
+}
+
+.gameplay-tour-starting-card h1 {
+  margin: 0;
+  color: #f9fcff;
+  font-family: var(--display-font);
+  font-size: clamp(48px, 5.4vw, 112px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 0.9;
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.9),
+    0 0 22px rgba(54, 232, 255, 0.56),
+    0 0 42px rgba(255, 94, 219, 0.34);
+}
+
+.gameplay-tour-starting-card strong {
+  color: #ffe66d;
+  font-size: clamp(28px, 3vw, 62px);
+  text-shadow: 0 0 18px rgba(255, 230, 109, 0.58);
+}
+
+.gameplay-answer-status {
+  justify-self: center;
+  width: fit-content;
+  max-width: 92%;
+  border: 1px solid rgba(238, 247, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow:
+    0 0 18px rgba(54, 232, 255, 0.1),
+    inset 0 0 18px rgba(255, 255, 255, 0.035);
+  padding: 8px 16px;
+}
+
+.gameplay-phase-answer_window_open .gameplay-answer-status {
+  border-color: rgba(92, 255, 177, 0.52);
+  background: rgba(92, 255, 177, 0.09);
+  box-shadow: 0 0 24px rgba(92, 255, 177, 0.22);
+  animation: answerStatusPulse 0.95s ease-in-out infinite;
+}
+
+@keyframes answerStatusPulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@media (max-width: 1180px), (max-height: 760px) {
+  .gameplay-main-screen-active {
+    left: 22.8% !important;
+    top: 24.2% !important;
+    width: 54.4% !important;
+    min-height: 43% !important;
+    padding: 14px 20px !important;
+  }
+
+  .right-streamer-stack {
+    right: 12px;
+    top: 82px;
+    width: min(282px, 24vw);
+    max-height: calc(100vh - 112px);
+  }
+}
+
+@media (max-aspect-ratio: 16 / 9) {
+  .gameplay-main-screen-active {
+    top: 24.25% !important;
+  }
+}
+
+/* cleaned legacy comment */
+
+/* Main launcher: long action button with icon capsule, like the new reference. */
+.center-play-button {
+  top: 64%;
+  grid-template-columns: clamp(58px, 4.6vw, 82px) minmax(0, 1fr);
+  gap: clamp(14px, 1.1vw, 22px);
+  width: clamp(330px, 27vw, 520px);
+  height: clamp(74px, 6.2vw, 112px);
+  padding: 0 clamp(20px, 1.8vw, 34px) 0 clamp(12px, 1.1vw, 18px);
+  border-width: 3px;
+  border-radius: 25px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.3) 0 16%,
+      transparent 17% 100%
+    ),
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(255, 255, 255, 0.26),
+      transparent 20%
+    ),
+    linear-gradient(
+      100deg,
+      rgba(20, 58, 190, 0.98) 0%,
+      rgba(15, 111, 255, 0.98) 38%,
+      rgba(142, 63, 255, 0.96) 73%,
+      rgba(255, 70, 216, 0.9) 100%
+    );
+  box-shadow:
+    0 0 0 4px rgba(13, 9, 57, 0.95),
+    0 0 0 7px rgba(54, 232, 255, 0.12),
+    0 0 34px rgba(54, 232, 255, 0.68),
+    0 0 68px rgba(155, 92, 255, 0.38),
+    0 15px 0 rgba(3, 7, 33, 0.62),
+    0 26px 34px rgba(0, 0, 0, 0.54),
+    inset 0 5px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -13px 0 rgba(9, 9, 42, 0.56);
+}
+
+.center-play-button::before {
+  inset: 7px 14px auto 14px;
+  height: 34%;
+  border-radius: 20px 20px 28px 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.46),
+    rgba(255, 255, 255, 0.07)
+  );
+}
+
+.center-play-button::after {
+  inset: -11px;
+  border: 2px solid rgba(54, 232, 255, 0.64);
+  border-radius: 32px;
+  background: linear-gradient(
+    90deg,
+    transparent 0 12%,
+    rgba(54, 232, 255, 0.48) 12.5% 13.8%,
+    transparent 14.4% 78%,
+    rgba(255, 79, 216, 0.42) 78.5% 80%,
+    transparent 80.8% 100%
+  );
+  box-shadow:
+    0 0 28px rgba(54, 232, 255, 0.44),
+    0 0 46px rgba(255, 79, 216, 0.34);
+}
+
+.center-play-button:hover {
+  transform: translate(-50%, -50%) translateY(-5px) scale(1.035);
+  box-shadow:
+    0 0 0 4px rgba(13, 9, 57, 0.95),
+    0 0 0 8px rgba(255, 79, 216, 0.11),
+    0 0 46px rgba(54, 232, 255, 0.86),
+    0 0 86px rgba(255, 79, 216, 0.48),
+    0 17px 0 rgba(3, 7, 33, 0.58),
+    0 30px 38px rgba(0, 0, 0, 0.54),
+    inset 0 5px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -13px 0 rgba(9, 9, 42, 0.56);
+}
+
+.center-play-button:active {
+  transform: translate(-50%, -50%) translateY(7px) scale(0.985);
+  box-shadow:
+    0 0 0 4px rgba(13, 9, 57, 0.95),
+    0 0 32px rgba(54, 232, 255, 0.56),
+    0 0 54px rgba(255, 79, 216, 0.34),
+    0 6px 0 rgba(3, 7, 33, 0.62),
+    0 13px 22px rgba(0, 0, 0, 0.46),
+    inset 0 3px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -7px 0 rgba(9, 9, 42, 0.5);
+}
+
+.center-play-icon {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: clamp(52px, 4.1vw, 74px);
+  height: clamp(52px, 4.1vw, 74px);
+  place-items: center;
+  border: 3px solid rgba(238, 249, 255, 0.88);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      rgba(255, 255, 255, 0.5),
+      transparent 24%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(91, 246, 255, 0.95),
+      rgba(38, 119, 255, 0.92) 58%,
+      rgba(155, 92, 255, 0.94)
+    );
+  color: white;
+  font-size: clamp(22px, 1.75vw, 33px);
+  text-indent: 0.1em;
+  text-shadow:
+    0 2px 0 rgba(4, 8, 31, 0.72),
+    0 0 14px rgba(255, 255, 255, 0.65);
+  box-shadow:
+    0 0 18px rgba(54, 232, 255, 0.78),
+    inset 0 4px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -8px 0 rgba(13, 25, 91, 0.42);
+}
+
+.center-play-core {
+  justify-self: start;
+  font-size: clamp(36px, 3.3vw, 66px);
+  letter-spacing: 0.055em;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px rgba(9, 14, 67, 0.64);
+}
+
+.center-play-spark {
+  position: absolute;
+  z-index: 3;
+  color: var(--egc-yellow);
+  font-size: clamp(18px, 1.5vw, 30px);
+  text-shadow:
+    0 0 14px rgba(255, 230, 109, 0.8),
+    0 0 24px rgba(255, 79, 216, 0.45);
+  animation: egcSparkTwinkle 1.35s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.center-play-spark-a {
+  right: 9%;
+  top: -16%;
+}
+.center-play-spark-b {
+  right: -4%;
+  top: 24%;
+  animation-delay: 0.45s;
+}
+
+/* Mode choices use the same beveled arcade language. */
+.play-choice-modal {
+  top: 66.5%;
+  width: min(720px, 78%);
+  border-radius: 28px;
+  border-color: rgba(246, 251, 255, 0.9);
+  background:
+    radial-gradient(
+      circle at 18% 8%,
+      rgba(54, 232, 255, 0.18),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 84% 12%,
+      rgba(255, 79, 216, 0.18),
+      transparent 38%
+    ),
+    linear-gradient(145deg, rgba(7, 7, 33, 0.98), rgba(18, 10, 55, 0.98));
+  box-shadow:
+    0 0 0 5px rgba(5, 5, 27, 0.82),
+    0 0 40px rgba(54, 232, 255, 0.36),
+    0 0 74px rgba(255, 79, 216, 0.24),
+    inset 0 5px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -16px 0 rgba(0, 0, 0, 0.24);
+}
+
+.play-choice-card {
+  min-height: clamp(108px, 10vw, 148px);
+  grid-template-columns: 72px minmax(0, 1fr);
+  justify-items: start;
+  place-items: center start;
+  text-align: start;
+  padding: 18px 24px;
+  border-radius: 24px;
+  border-color: rgba(246, 251, 255, 0.76);
+  box-shadow:
+    0 0 0 4px rgba(8, 6, 38, 0.68),
+    0 10px 0 rgba(3, 7, 31, 0.58),
+    0 20px 28px rgba(0, 0, 0, 0.42),
+    inset 0 4px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -11px 0 rgba(3, 5, 26, 0.42);
+}
+
+.play-choice-card-mini {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0 20%,
+      transparent 21% 100%
+    ),
+    linear-gradient(110deg, rgba(255, 79, 216, 0.88), rgba(104, 47, 185, 0.94));
+}
+
+.play-choice-card-tour {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0 20%,
+      transparent 21% 100%
+    ),
+    linear-gradient(110deg, rgba(126, 59, 255, 0.93), rgba(54, 87, 255, 0.82));
+}
+
+.play-choice-icon {
+  width: 58px;
+  height: 58px;
+  border: 2px solid rgba(246, 251, 255, 0.72);
+  border-radius: 19px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 30px;
+  text-shadow:
+    0 2px 0 rgba(3, 7, 31, 0.72),
+    0 0 16px rgba(255, 255, 255, 0.46);
+}
+
+.play-choice-card strong {
+  align-self: end;
+  color: white;
+  font-size: clamp(25px, 2.2vw, 38px);
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.86),
+    0 0 16px rgba(255, 255, 255, 0.55),
+    0 0 24px rgba(54, 232, 255, 0.34);
+}
+
+.play-choice-card small {
+  grid-column: 2;
+  align-self: start;
+  max-width: 30ch;
+  color: rgba(246, 251, 255, 0.78);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+/* A reusable visual pass for host, settings, auth and Twitch action buttons. */
+.host-action-grid button,
+.host-force-grid button,
+.host-inline-field button,
+.host-minigame-row button,
+.host-current-force button,
+.host-confirm-box button,
+.host-chaos-mode-list button,
+.host-panel-tabs button,
+.settings-segmented-row button,
+.settings-choice-button,
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.settings-close-button,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button,
+.gameplay-scoreboard-back-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 2px solid rgba(246, 251, 255, 0.66);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(105deg, rgba(39, 42, 130, 0.92), rgba(130, 55, 255, 0.82));
+  color: var(--egc-white);
+  text-shadow:
+    0 2px 0 rgba(4, 8, 31, 0.78),
+    0 0 12px rgba(255, 255, 255, 0.34);
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.74),
+    0 7px 0 rgba(3, 5, 27, 0.54),
+    0 14px 22px rgba(0, 0, 0, 0.34),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.34);
+  transition:
+    transform 140ms ease,
+    filter 140ms ease,
+    box-shadow 140ms ease,
+    border-color 140ms ease,
+    opacity 140ms ease;
+}
+
+.host-action-grid button::before,
+.host-force-grid button::before,
+.host-inline-field button::before,
+.host-minigame-row button::before,
+.host-current-force button::before,
+.host-confirm-box button::before,
+.host-chaos-mode-list button::before,
+.host-panel-tabs button::before,
+.settings-segmented-row button::before,
+.settings-choice-button::before,
+.settings-secondary-button::before,
+.settings-apply-button::before,
+.settings-danger-button::before,
+.auth-primary-button::before,
+.auth-secondary-button::before,
+.auth-language-button::before,
+.twitch-button-row button::before,
+.gameplay-scoreboard-back-button::before {
+  content: "";
+  position: absolute;
+  inset: -42% -38%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 68%
+  );
+  transform: translateX(-74%) rotate(8deg);
+  transition: transform 380ms ease;
+}
+
+.host-action-grid button:hover:not(:disabled)::before,
+.host-force-grid button:hover:not(:disabled)::before,
+.host-inline-field button:hover:not(:disabled)::before,
+.host-minigame-row button:hover:not(:disabled)::before,
+.host-current-force button:hover:not(:disabled)::before,
+.host-confirm-box button:hover:not(:disabled)::before,
+.host-chaos-mode-list button:hover:not(:disabled)::before,
+.host-panel-tabs button:hover:not(:disabled)::before,
+.settings-segmented-row button:hover:not(:disabled)::before,
+.settings-choice-button:hover:not(:disabled)::before,
+.settings-secondary-button:hover:not(:disabled)::before,
+.settings-apply-button:hover:not(:disabled)::before,
+.settings-danger-button:hover:not(:disabled)::before,
+.auth-primary-button:hover:not(:disabled)::before,
+.auth-secondary-button:hover:not(:disabled)::before,
+.auth-language-button:hover:not(:disabled)::before,
+.twitch-button-row button:hover:not(:disabled)::before,
+.gameplay-scoreboard-back-button:hover:not(:disabled)::before {
+  transform: translateX(74%) rotate(8deg);
+}
+
+.host-action-grid button:hover:not(:disabled),
+.host-force-grid button:hover:not(:disabled),
+.host-inline-field button:hover:not(:disabled),
+.host-minigame-row button:hover:not(:disabled),
+.host-current-force button:hover:not(:disabled),
+.host-confirm-box button:hover:not(:disabled),
+.host-chaos-mode-list button:hover:not(:disabled),
+.host-panel-tabs button:hover:not(:disabled),
+.settings-segmented-row button:hover:not(:disabled),
+.settings-choice-button:hover:not(:disabled),
+.settings-secondary-button:hover:not(:disabled),
+.settings-apply-button:hover:not(:disabled),
+.settings-danger-button:hover:not(:disabled),
+.auth-primary-button:hover:not(:disabled),
+.auth-secondary-button:hover:not(:disabled),
+.auth-language-button:hover:not(:disabled),
+.twitch-button-row button:hover:not(:disabled),
+.gameplay-scoreboard-back-button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.025);
+  filter: brightness(1.08) saturate(1.12);
+  border-color: rgba(246, 251, 255, 0.88);
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.74),
+    0 0 24px rgba(54, 232, 255, 0.32),
+    0 0 36px rgba(255, 79, 216, 0.2),
+    0 8px 0 rgba(3, 5, 27, 0.52),
+    0 16px 24px rgba(0, 0, 0, 0.32),
+    inset 0 3px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.34);
+}
+
+.host-action-grid button:active:not(:disabled),
+.host-force-grid button:active:not(:disabled),
+.host-inline-field button:active:not(:disabled),
+.host-minigame-row button:active:not(:disabled),
+.host-current-force button:active:not(:disabled),
+.host-confirm-box button:active:not(:disabled),
+.host-chaos-mode-list button:active:not(:disabled),
+.host-panel-tabs button:active:not(:disabled),
+.settings-segmented-row button:active:not(:disabled),
+.settings-choice-button:active:not(:disabled),
+.settings-secondary-button:active:not(:disabled),
+.settings-apply-button:active:not(:disabled),
+.settings-danger-button:active:not(:disabled),
+.auth-primary-button:active:not(:disabled),
+.auth-secondary-button:active:not(:disabled),
+.auth-language-button:active:not(:disabled),
+.twitch-button-row button:active:not(:disabled),
+.gameplay-scoreboard-back-button:active:not(:disabled) {
+  transform: translateY(4px) scale(0.99);
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.74),
+    0 0 16px rgba(54, 232, 255, 0.24),
+    0 3px 0 rgba(3, 5, 27, 0.52),
+    0 8px 14px rgba(0, 0, 0, 0.28),
+    inset 0 2px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -4px 0 rgba(3, 4, 25, 0.28);
+}
+
+.host-action-grid button:disabled,
+.host-force-grid button:disabled,
+.host-inline-field button:disabled,
+.host-minigame-row button:disabled,
+.host-current-force button:disabled,
+.host-confirm-box button:disabled,
+.host-chaos-mode-list button:disabled,
+.host-panel-tabs button:disabled,
+.settings-segmented-row button:disabled,
+.settings-choice-button:disabled,
+.settings-secondary-button:disabled,
+.settings-apply-button:disabled,
+.settings-danger-button:disabled,
+.auth-primary-button:disabled,
+.auth-secondary-button:disabled,
+.auth-language-button:disabled,
+.twitch-button-row button:disabled,
+.gameplay-scoreboard-back-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+  filter: grayscale(0.34) saturate(0.72);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.12) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(105deg, rgba(56, 53, 88, 0.78), rgba(38, 35, 68, 0.84));
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.62),
+    0 5px 0 rgba(3, 5, 27, 0.36),
+    inset 0 2px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -6px 0 rgba(3, 4, 25, 0.2);
+  transform: none;
+}
+
+.host-action-grid .host-primary,
+.settings-apply-button,
+.auth-primary-button,
+.twitch-button-row button:first-child,
+.gameplay-scoreboard-back-button {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.24) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(
+      105deg,
+      rgba(21, 115, 255, 0.96),
+      rgba(30, 64, 210, 0.96) 48%,
+      rgba(154, 80, 255, 0.92)
+    );
+  border-color: rgba(206, 245, 255, 0.92);
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.82),
+    0 0 22px rgba(54, 232, 255, 0.42),
+    0 7px 0 rgba(3, 5, 27, 0.56),
+    0 15px 22px rgba(0, 0, 0, 0.36),
+    inset 0 3px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.36);
+}
+
+.host-danger,
+.settings-danger-button,
+.auth-danger-button,
+.twitch-button-row button:last-child {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(105deg, rgba(255, 78, 124, 0.92), rgba(140, 35, 120, 0.88)) !important;
+  border-color: rgba(255, 190, 211, 0.82) !important;
+  color: #fff3f7 !important;
+}
+
+.host-panel-tabs button,
+.settings-close-button {
+  border-radius: 999px;
+}
+
+.host-panel-tabs button {
+  min-height: 54px;
+  padding: 8px 5px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.14) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(29, 33, 108, 0.92), rgba(94, 32, 165, 0.84));
+}
+
+.host-panel-tabs button span {
+  color: white;
+  font-size: 18px;
+  filter: drop-shadow(0 0 8px rgba(54, 232, 255, 0.5));
+}
+
+.host-panel-tabs .host-tab-active,
+.host-chaos-mode-list .host-choice-active,
+.settings-segmented-row button.active,
+.settings-choice-button.active {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.22) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(105deg, rgba(255, 79, 216, 0.88), rgba(102, 54, 255, 0.92)) !important;
+  border-color: rgba(255, 217, 250, 0.9) !important;
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.72),
+    0 0 20px rgba(255, 79, 216, 0.42),
+    0 0 30px rgba(155, 92, 255, 0.25),
+    0 7px 0 rgba(3, 5, 27, 0.5),
+    inset 0 3px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.32) !important;
+}
+
+.host-minigame-row,
+.host-current-force,
+.host-chaos-meter-note,
+.host-confirm-box,
+.settings-section,
+.settings-confirm-card,
+.twitch-account-card,
+.twitch-device-card,
+.auth-status-card,
+.auth-device-box {
+  border: 1px solid rgba(246, 251, 255, 0.15);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(54, 232, 255, 0.1), transparent 32%),
+    radial-gradient(
+      circle at 90% 12%,
+      rgba(255, 79, 216, 0.08),
+      transparent 34%
+    ),
+    linear-gradient(145deg, rgba(9, 9, 38, 0.76), rgba(23, 14, 62, 0.62));
+  box-shadow:
+    inset 0 0 22px rgba(54, 232, 255, 0.04),
+    0 0 18px rgba(0, 0, 0, 0.22);
+}
+
+.host-minigame-row {
+  padding: 11px;
+}
+
+.host-minigame-row input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--egc-pink);
+  filter: drop-shadow(0 0 8px rgba(255, 79, 216, 0.42));
+}
+
+.host-inline-field select,
+.settings-select {
+  min-height: 42px;
+  border: 2px solid rgba(246, 251, 255, 0.46);
+  border-radius: 15px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.02)
+    ),
+    rgba(8, 9, 38, 0.84);
+  color: var(--egc-white);
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.58),
+    inset 0 0 16px rgba(54, 232, 255, 0.06);
+}
+
+/* Settings modal: premium button-sheet, not default form UI. */
+.app-settings-gear {
+  width: 46px;
+  height: 46px;
+  border: 2px solid rgba(220, 247, 255, 0.8);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      rgba(255, 255, 255, 0.34),
+      transparent 22%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(17, 96, 255, 0.94),
+      rgba(114, 53, 255, 0.92) 58%,
+      rgba(255, 79, 216, 0.82)
+    );
+  color: #fff;
+  font-size: 20px;
+  text-shadow:
+    0 2px 0 rgba(4, 8, 31, 0.78),
+    0 0 14px rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 0 4px rgba(5, 6, 28, 0.72),
+    0 0 22px rgba(54, 232, 255, 0.42),
+    0 7px 0 rgba(3, 5, 27, 0.56),
+    inset 0 3px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -7px 0 rgba(3, 4, 25, 0.34);
+}
+
+.app-settings-gear:hover {
+  transform: translateY(-2px) scale(1.05) rotate(12deg);
+  filter: brightness(1.12) saturate(1.12);
+  box-shadow:
+    0 0 0 4px rgba(5, 6, 28, 0.72),
+    0 0 30px rgba(54, 232, 255, 0.58),
+    0 0 44px rgba(255, 79, 216, 0.28),
+    0 8px 0 rgba(3, 5, 27, 0.52),
+    inset 0 3px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -7px 0 rgba(3, 4, 25, 0.34);
+}
+
+.settings-modal-backdrop {
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(54, 232, 255, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 84% 14%,
+      rgba(255, 79, 216, 0.12),
+      transparent 34%
+    ),
+    rgba(2, 3, 18, 0.72);
+}
+
+.settings-modal {
+  width: min(820px, calc(100vw - 40px));
+  border: 2px solid rgba(246, 251, 255, 0.74);
+  border-radius: 30px;
+  background:
+    radial-gradient(
+      circle at 12% 2%,
+      rgba(54, 232, 255, 0.14),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 88% 5%,
+      rgba(255, 79, 216, 0.14),
+      transparent 36%
+    ),
+    linear-gradient(145deg, rgba(7, 8, 34, 0.98), rgba(20, 12, 58, 0.98));
+  box-shadow:
+    0 0 0 5px rgba(4, 4, 26, 0.8),
+    0 0 44px rgba(54, 232, 255, 0.28),
+    0 0 78px rgba(255, 79, 216, 0.16),
+    inset 0 5px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -16px 0 rgba(0, 0, 0, 0.22);
+}
+
+.settings-modal-header span,
+.settings-section h3 {
+  color: #d9ccff;
+  text-shadow: 0 0 12px rgba(155, 92, 255, 0.42);
+}
+
+.settings-modal-header h2 {
+  font-family: var(--display-font);
+  color: white;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.86),
+    0 0 18px rgba(54, 232, 255, 0.44);
+}
+
+.settings-system-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.settings-system-grid .settings-section:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.settings-segmented-row,
+.settings-choice-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.settings-segmented-row {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.settings-choice-grid-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.settings-choice-grid-resolution {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.settings-segmented-row button,
+.settings-choice-button {
+  display: grid;
+  min-height: 62px;
+  place-items: center;
+  gap: 4px;
+  padding: 9px 8px;
+  font-size: 12px;
+  font-weight: 1000;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.settings-choice-button span,
+.settings-segmented-row button .settings-language-flag,
+.settings-secondary-button span,
+.settings-apply-button span,
+.settings-danger-button span,
+.auth-primary-button span,
+.auth-secondary-button span,
+.twitch-button-row button span {
+  color: var(--egc-yellow);
+  font-weight: 1000;
+  text-shadow: 0 0 12px rgba(255, 230, 109, 0.55);
+}
+
+.settings-choice-button span {
+  font-size: 22px;
+}
+
+.settings-choice-button strong {
+  color: white;
+  font-size: 11px;
+  line-height: 1.1;
+}
+
+.settings-actions-row,
+.settings-confirm-actions,
+.auth-action-row,
+.twitch-button-row {
+  gap: 12px;
+}
+
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button {
+  display: inline-grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 1000;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Gameplay answer option cards echo the reference answer buttons. */
+.gameplay-choice-card {
+  min-width: clamp(132px, 10vw, 190px);
+  min-height: clamp(58px, 5vw, 86px);
+  border: 2px solid rgba(246, 251, 255, 0.7);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(21, 38, 102, 0.94), rgba(79, 42, 149, 0.9));
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.72),
+    0 8px 0 rgba(3, 5, 27, 0.48),
+    0 15px 22px rgba(0, 0, 0, 0.28),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.3);
+}
+
+.gameplay-choice-card strong {
+  color: white;
+  text-shadow:
+    0 2px 0 rgba(4, 8, 31, 0.82),
+    0 0 14px rgba(255, 255, 255, 0.38);
+}
+
+.gameplay-choice-card span {
+  color: rgba(242, 251, 255, 0.88);
+}
+
+.gameplay-choice-cyan {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(16, 126, 225, 0.94), rgba(15, 58, 143, 0.9));
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.72),
+    0 0 20px rgba(54, 232, 255, 0.34),
+    0 8px 0 rgba(3, 5, 27, 0.48),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.3);
+}
+
+.gameplay-choice-pink {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(255, 79, 216, 0.9), rgba(133, 36, 148, 0.9));
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.72),
+    0 0 20px rgba(255, 79, 216, 0.32),
+    0 8px 0 rgba(3, 5, 27, 0.48),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.3);
+}
+
+.gameplay-choice-yellow,
+.gameplay-choice-orange {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(255, 177, 42, 0.94), rgba(128, 63, 17, 0.92));
+  box-shadow:
+    0 0 0 3px rgba(6, 5, 28, 0.72),
+    0 0 20px rgba(255, 177, 42, 0.32),
+    0 8px 0 rgba(3, 5, 27, 0.48),
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -8px 0 rgba(3, 4, 25, 0.3);
+}
+
+.gameplay-choice-green {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(45, 215, 149, 0.94), rgba(22, 91, 90, 0.92));
+}
+
+.gameplay-choice-purple {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0 18%,
+      transparent 19% 100%
+    ),
+    linear-gradient(145deg, rgba(155, 92, 255, 0.94), rgba(68, 37, 145, 0.92));
+}
+
+/* Responsive polish for small preview windows. */
+@media (max-width: 1180px) {
+  .center-play-button {
+    width: clamp(260px, 32vw, 380px);
+    height: clamp(62px, 7vw, 86px);
+    border-radius: 20px;
+  }
+
+  .center-play-core {
+    font-size: clamp(28px, 3.2vw, 46px);
+  }
+
+  .settings-choice-grid-three,
+  .settings-choice-grid-resolution {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .center-play-button {
+    width: min(330px, 78vw);
+    grid-template-columns: 54px minmax(0, 1fr);
+  }
+
+  .play-choice-card {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .settings-system-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+[dir="rtl"] .center-play-button,
+[dir="rtl"] .play-choice-card,
+[dir="rtl"] .settings-secondary-button,
+[dir="rtl"] .settings-apply-button,
+[dir="rtl"] .settings-danger-button,
+[dir="rtl"] .auth-primary-button,
+[dir="rtl"] .auth-secondary-button,
+[dir="rtl"] .twitch-button-row button {
+  direction: rtl;
+}
+
+[dir="rtl"] .center-play-icon {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .center-play-core {
+  justify-self: start;
+  font-size: clamp(32px, 2.9vw, 54px);
+}
+
+@keyframes egcSparkTwinkle {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.88) rotate(-8deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.16) rotate(8deg);
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-overlay-minigame-scene .gameplay-main-screen-overlay {
+  left: 23.15% !important;
+  top: 25.95% !important;
+  width: 53.65% !important;
+  height: 48.35% !important;
+  min-height: 0 !important;
+  padding: clamp(12px, 1.25vw, 22px) clamp(18px, 1.8vw, 34px) !important;
+  border-radius: 8px !important;
+  background: rgba(0, 2, 10, 0.5) !important;
+  box-shadow:
+    inset 0 0 44px rgba(0, 0, 0, 0.46),
+    inset 0 0 1px rgba(54, 232, 255, 0.28) !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-main-screen-overlay::after {
+  opacity: 0.22 !important;
+}
+
+.gameplay-intro-card {
+  pointer-events: auto;
+}
+
+.gameplay-intro-continue-button {
+  pointer-events: auto;
+  min-width: clamp(190px, 14vw, 270px);
+  min-height: clamp(50px, 3.6vw, 68px);
+  margin-top: 8px;
+  border: 2px solid rgba(238, 247, 255, 0.95);
+  border-radius: 12px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0.08) 27%,
+      transparent 28%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255, 94, 219, 0.94),
+      rgba(155, 92, 255, 0.98) 48%,
+      rgba(54, 232, 255, 0.94)
+    );
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--display-font);
+  font-size: clamp(20px, 1.55vw, 32px);
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  text-shadow:
+    0 3px 0 rgba(4, 8, 31, 0.78),
+    0 0 18px rgba(54, 232, 255, 0.48);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.7),
+    0 0 26px rgba(54, 232, 255, 0.42),
+    0 0 44px rgba(255, 94, 219, 0.26),
+    0 8px 0 rgba(2, 4, 26, 0.52),
+    inset 0 4px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -8px 0 rgba(33, 11, 78, 0.4);
+  transition:
+    transform 150ms ease,
+    filter 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.gameplay-intro-continue-button:hover {
+  transform: translateY(-3px) scale(1.035);
+  filter: brightness(1.1) saturate(1.12);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.7),
+    0 0 36px rgba(54, 232, 255, 0.56),
+    0 0 58px rgba(255, 94, 219, 0.34),
+    0 9px 0 rgba(2, 4, 26, 0.5),
+    inset 0 4px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -8px 0 rgba(33, 11, 78, 0.4);
+}
+
+.gameplay-intro-continue-button:active {
+  transform: translateY(5px) scale(0.99);
+  box-shadow:
+    0 0 0 4px rgba(12, 5, 40, 0.7),
+    0 0 24px rgba(54, 232, 255, 0.42),
+    0 5px 0 rgba(2, 4, 26, 0.5),
+    inset 0 2px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -5px 0 rgba(33, 11, 78, 0.36);
+}
+
+[dir="rtl"] .gameplay-intro-continue-button {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.gameplay-result-card {
+  width: min(790px, 86%);
+  min-height: clamp(220px, 26vh, 360px);
+  align-content: center;
+  gap: clamp(12px, 1.3vw, 24px);
+  border: 2px solid rgba(92, 255, 177, 0.48);
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(92, 255, 177, 0.18),
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(54, 232, 255, 0.13),
+      transparent 42%
+    ),
+    linear-gradient(180deg, rgba(2, 14, 24, 0.92), rgba(7, 4, 28, 0.94));
+  box-shadow:
+    0 0 0 4px rgba(3, 10, 24, 0.7),
+    0 0 30px rgba(92, 255, 177, 0.18),
+    inset 0 0 42px rgba(92, 255, 177, 0.07);
+  padding: clamp(22px, 2vw, 38px);
+}
+
+.gameplay-result-card span {
+  color: #5cffb1;
+  font-size: clamp(17px, 1.3vw, 26px);
+  letter-spacing: 0.16em;
+  text-shadow: 0 0 16px rgba(92, 255, 177, 0.46);
+}
+
+.gameplay-result-card strong {
+  color: #ffe66d;
+  font-size: clamp(48px, 5.2vw, 106px);
+  line-height: 0.95;
+  letter-spacing: 0.055em;
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.86),
+    0 0 22px rgba(255, 230, 109, 0.62),
+    0 0 42px rgba(255, 94, 219, 0.2);
+}
+
+.gameplay-result-card small {
+  border: 1px solid rgba(92, 255, 177, 0.22);
+  border-radius: 999px;
+  background: rgba(0, 12, 20, 0.58);
+  color: rgba(242, 251, 255, 0.88);
+  padding: 8px 16px;
+  font-size: clamp(11px, 0.8vw, 15px);
+  letter-spacing: 0.08em;
+}
+
+.gameplay-choice-spotlights {
+  position: absolute;
+  left: 22.5%;
+  top: 73.1%;
+  width: 55%;
+  height: 19.5%;
+  z-index: 12;
+  display: grid;
+  gap: clamp(16px, 2vw, 42px);
+  align-items: start;
+  pointer-events: none;
+  perspective: 900px;
+}
+
+.gameplay-choice-spotlights-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  left: 30%;
+  width: 38%;
+}
+.gameplay-choice-spotlights-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  left: 25.5%;
+  width: 48%;
+}
+.gameplay-choice-spotlights-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.gameplay-choice-spotlight {
+  --spot-color: #36e8ff;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-width: 0;
+  color: #fff;
+  text-align: center;
+  animation: choiceSpotlightPop 0.42s cubic-bezier(0.2, 0.9, 0.18, 1) both;
+}
+
+.gameplay-choice-spotlight-cyan {
+  --spot-color: #36e8ff;
+}
+.gameplay-choice-spotlight-pink {
+  --spot-color: #ff5edb;
+}
+.gameplay-choice-spotlight-yellow {
+  --spot-color: #ffe66d;
+}
+.gameplay-choice-spotlight-green {
+  --spot-color: #5cffb1;
+}
+.gameplay-choice-spotlight-purple {
+  --spot-color: #9b5cff;
+}
+.gameplay-choice-spotlight-orange {
+  --spot-color: #ff9f3d;
+}
+
+.gameplay-choice-spotlight-beam {
+  position: absolute;
+  left: 50%;
+  top: -64%;
+  width: 150%;
+  height: 190%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--spot-color) 30%, transparent),
+    transparent 72%
+  );
+  clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
+  filter: blur(8px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+.gameplay-choice-spotlight-floor {
+  position: relative;
+  display: grid;
+  width: clamp(98px, 8.4vw, 164px);
+  height: clamp(42px, 3.85vw, 76px);
+  place-items: center;
+  border: 3px solid color-mix(in srgb, var(--spot-color) 82%, #ffffff 18%);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--spot-color) 72%, transparent) 0 12%,
+      transparent 54%
+    ),
+    radial-gradient(
+      ellipse,
+      color-mix(in srgb, var(--spot-color) 38%, transparent),
+      rgba(0, 0, 0, 0.04) 68%
+    );
+  box-shadow:
+    0 0 26px color-mix(in srgb, var(--spot-color) 52%, transparent),
+    0 0 58px color-mix(in srgb, var(--spot-color) 32%, transparent),
+    inset 0 0 24px color-mix(in srgb, var(--spot-color) 24%, transparent);
+  transform: rotateX(58deg);
+  transform-origin: 50% 50%;
+  animation: choiceSpotlightPulse 1.5s ease-in-out infinite;
+}
+
+.gameplay-choice-spotlight-floor b {
+  transform: rotateX(-58deg) translateY(-6px);
+  color: #ffffff;
+  font-size: clamp(24px, 2.4vw, 44px);
+  line-height: 1;
+  text-shadow:
+    0 0 14px var(--spot-color),
+    0 3px 0 rgba(0, 0, 0, 0.56);
+}
+
+.gameplay-choice-spotlight strong,
+.gameplay-choice-spotlight span,
+.gameplay-choice-spotlight small {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-8px);
+}
+
+.gameplay-choice-spotlight strong {
+  color: #ffffff;
+  font-size: clamp(13px, 1vw, 19px);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 12px var(--spot-color),
+    0 3px 0 rgba(4, 8, 31, 0.72);
+}
+
+.gameplay-choice-spotlight span {
+  max-width: 14ch;
+  overflow: hidden;
+  color: rgba(242, 251, 255, 0.88);
+  font-size: clamp(9px, 0.72vw, 13px);
+  text-overflow: ellipsis;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.75);
+  white-space: nowrap;
+}
+
+.gameplay-choice-spotlight small {
+  display: grid;
+  min-width: 28px;
+  min-height: 22px;
+  margin-top: 2px;
+  place-items: center;
+  border: 1px solid
+    color-mix(in srgb, var(--spot-color) 55%, rgba(255, 255, 255, 0.24));
+  border-radius: 999px;
+  background: rgba(5, 6, 25, 0.76);
+  color: #fff7b8;
+  font-size: clamp(9px, 0.75vw, 13px);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--spot-color) 24%, transparent);
+}
+
+
+
+.gameplay-citizen-choice-cyan {
+  --citizen-choice-color: #36e8ff;
+}
+.gameplay-citizen-choice-pink {
+  --citizen-choice-color: #ff5edb;
+}
+.gameplay-citizen-choice-yellow {
+  --citizen-choice-color: #ffe66d;
+}
+.gameplay-citizen-choice-green {
+  --citizen-choice-color: #5cffb1;
+}
+.gameplay-citizen-choice-purple {
+  --citizen-choice-color: #9b5cff;
+}
+.gameplay-citizen-choice-orange {
+  --citizen-choice-color: #ff9f3d;
+}
+
+.gameplay-citizen-answer-moving::before {
+  box-shadow:
+    0 0 16px
+      color-mix(in srgb, var(--citizen-choice-color, #36e8ff) 62%, transparent),
+    0 0 34px
+      color-mix(in srgb, var(--citizen-choice-color, #36e8ff) 28%, transparent) !important;
+}
+
+.gameplay-citizen-answer-moving img.gameplay-citizen-sprite,
+.gameplay-citizen-answer-moving img {
+  filter: drop-shadow(
+    0 0 14px
+      color-mix(in srgb, var(--citizen-choice-color, #36e8ff) 44%, transparent)
+  );
+}
+
+@keyframes choiceSpotlightPop {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes choiceSpotlightPulse {
+  0%,
+  100% {
+    filter: brightness(1) saturate(1);
+    transform: rotateX(58deg) scale(1);
+  }
+  50% {
+    filter: brightness(1.18) saturate(1.22);
+    transform: rotateX(58deg) scale(1.055);
+  }
+}
+
+@media (max-width: 1400px) {
+  .gameplay-overlay-minigame-scene .gameplay-main-screen-overlay {
+    left: 23.1% !important;
+    top: 25.6% !important;
+    width: 53.8% !important;
+    height: 48.6% !important;
+  }
+
+  .gameplay-choice-spotlights {
+    left: 22.2%;
+    top: 73.5%;
+    width: 55.5%;
+    gap: 14px;
+  }
+
+  .gameplay-choice-spotlights-2 {
+    left: 30%;
+    width: 38%;
+  }
+  .gameplay-choice-spotlights-3 {
+    left: 25%;
+    width: 49%;
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-overlay-lobby-scene .gameplay-main-screen-lobby {
+  left: 25.45% !important;
+  top: 29.15% !important;
+  width: 48.7% !important;
+  height: 43.95% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: clamp(16px, 1.45vw, 28px) clamp(22px, 1.9vw, 36px) !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-main-screen-overlay,
+.gameplay-overlay-minigame-scene .gameplay-main-screen-active {
+  left: 23.35% !important;
+  top: 25.75% !important;
+  width: 52.75% !important;
+  height: 48.7% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: clamp(12px, 1.15vw, 22px) clamp(18px, 1.65vw, 32px) !important;
+}
+
+.visual-world-layer-lobby-active .concert-screen-glow,
+.visual-world-layer-lobby-active .concert-screen-scanline {
+  left: 25.45% !important;
+  top: 29.15% !important;
+  width: 48.7% !important;
+  height: 43.95% !important;
+  border-radius: 7px !important;
+}
+
+.visual-world-layer-minigame-active .concert-screen-glow,
+.visual-world-layer-minigame-active .concert-screen-scanline {
+  left: 23.35% !important;
+  top: 25.75% !important;
+  width: 52.75% !important;
+  height: 48.7% !important;
+  border-radius: 7px !important;
+}
+
+.gameplay-choice-spotlights,
+.gameplay-choice-spotlights-2,
+.gameplay-choice-spotlights-3,
+.gameplay-choice-spotlights-4 {
+  left: 25.75% !important;
+  top: 73.55% !important;
+  width: 48.5% !important;
+  height: 18.75% !important;
+  gap: 0 !important;
+  justify-content: space-between !important;
+  align-items: start !important;
+}
+
+.gameplay-choice-spotlights-2 {
+  grid-template-columns: repeat(2, 150px) !important;
+}
+.gameplay-choice-spotlights-3 {
+  grid-template-columns: repeat(3, 150px) !important;
+}
+.gameplay-choice-spotlights-4 {
+  grid-template-columns: repeat(4, 150px) !important;
+}
+
+.gameplay-choice-spotlight {
+  width: 150px !important;
+  justify-self: center !important;
+}
+
+.gameplay-choice-spotlight-beam {
+  width: 150px !important;
+  height: 205% !important;
+  top: -74% !important;
+  filter: blur(7px) !important;
+  opacity: 0.28 !important;
+}
+
+.gameplay-choice-spotlight-floor {
+  width: 142px !important;
+  height: 64px !important;
+}
+
+.gameplay-choice-spotlight-floor b {
+  font-size: 36px !important;
+}
+
+
+
+.gameplay-choice-spotlight span {
+  max-width: 130px !important;
+  font-size: 11px !important;
+}
+
+.gameplay-choice-spotlight small {
+  min-width: 28px !important;
+  min-height: 22px !important;
+  font-size: 11px !important;
+}
+
+@media (max-width: 1400px) {
+  .gameplay-overlay-lobby-scene .gameplay-main-screen-lobby {
+    left: 25.45% !important;
+    top: 29.15% !important;
+    width: 48.7% !important;
+    height: 43.95% !important;
+  }
+
+  .gameplay-overlay-minigame-scene .gameplay-main-screen-overlay,
+  .gameplay-overlay-minigame-scene .gameplay-main-screen-active {
+    left: 23.35% !important;
+    top: 25.75% !important;
+    width: 52.75% !important;
+    height: 48.7% !important;
+  }
+
+  .gameplay-choice-spotlights,
+  .gameplay-choice-spotlights-2,
+  .gameplay-choice-spotlights-3,
+  .gameplay-choice-spotlights-4 {
+    left: 25.75% !important;
+    top: 73.55% !important;
+    width: 48.5% !important;
+    gap: 0 !important;
+  }
+
+  .gameplay-choice-spotlights-2 {
+    grid-template-columns: repeat(2, 132px) !important;
+  }
+  .gameplay-choice-spotlights-3 {
+    grid-template-columns: repeat(3, 132px) !important;
+  }
+  .gameplay-choice-spotlights-4 {
+    grid-template-columns: repeat(4, 132px) !important;
+  }
+
+  .gameplay-choice-spotlight {
+    width: 132px !important;
+  }
+  .gameplay-choice-spotlight-beam {
+    width: 132px !important;
+  }
+  .gameplay-choice-spotlight-floor {
+    width: 126px !important;
+    height: 57px !important;
+  }
+  .gameplay-choice-spotlight-floor b {
+    font-size: 31px !important;
+  }
+}
+
+/* cleaned legacy comment */
+.gameplay-phase-tour_complete {
+  align-content: center !important;
+  justify-items: center !important;
+  gap: 0 !important;
+  overflow: hidden !important;
+}
+
+.gameplay-phase-tour_complete .gameplay-round-header {
+  display: none !important;
+}
+
+.gameplay-tour-complete-board,
+.gameplay-tour-complete-awards-board,
+.gameplay-top-three-board,
+.gameplay-intro-card,
+.gameplay-prepare-card {
+  border: 2px solid rgba(92, 255, 177, 0.48) !important;
+  border-radius: 24px !important;
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(92, 255, 177, 0.16),
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(54, 232, 255, 0.12),
+      transparent 42%
+    ),
+    linear-gradient(180deg, rgba(2, 14, 24, 0.92), rgba(7, 4, 28, 0.94)) !important;
+  box-shadow:
+    0 0 0 4px rgba(3, 10, 24, 0.7),
+    0 0 30px rgba(92, 255, 177, 0.18),
+    inset 0 0 42px rgba(92, 255, 177, 0.07) !important;
+}
+
+.gameplay-tour-complete-awards-board {
+  width: min(760px, 86%) !important;
+  max-width: 86% !important;
+  max-height: calc(100% - 18px) !important;
+  min-height: 0 !important;
+  align-self: center !important;
+  justify-self: center !important;
+  align-content: start !important;
+  gap: clamp(6px, 0.62vw, 10px) !important;
+  overflow: hidden !important;
+  padding: clamp(10px, 0.95vw, 16px) clamp(12px, 1.15vw, 20px) !important;
+  text-align: center !important;
+}
+
+.gameplay-tour-complete-board > span,
+.gameplay-section-label,
+.gameplay-result-card span {
+  color: #5cffb1 !important;
+  letter-spacing: 0.16em !important;
+  text-shadow: 0 0 16px rgba(92, 255, 177, 0.46) !important;
+}
+
+.gameplay-tour-complete-board > span {
+  font-size: clamp(10px, 0.7vw, 14px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-champion-card {
+  gap: 3px !important;
+  border: 1px solid rgba(255, 230, 109, 0.42) !important;
+  border-radius: 18px !important;
+  background:
+    radial-gradient(
+      circle at 50% 12%,
+      rgba(255, 230, 109, 0.15),
+      transparent 48%
+    ),
+    linear-gradient(180deg, rgba(18, 17, 45, 0.72), rgba(7, 4, 26, 0.78)) !important;
+  padding: clamp(8px, 0.8vw, 12px) clamp(10px, 1vw, 16px) !important;
+}
+
+.gameplay-champion-card small {
+  color: #ffe66d !important;
+  font-size: clamp(9px, 0.62vw, 12px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-champion-card h2 {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  color: #f9fcff !important;
+  font-size: clamp(28px, 2.65vw, 48px) !important;
+  line-height: 0.9 !important;
+  text-overflow: ellipsis !important;
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.86),
+    0 0 20px rgba(255, 94, 219, 0.32),
+    0 0 34px rgba(54, 232, 255, 0.18) !important;
+  white-space: nowrap !important;
+}
+
+.gameplay-champion-card strong {
+  color: #8ffbff !important;
+  font-size: clamp(9px, 0.68vw, 12px) !important;
+  line-height: 1.1 !important;
+}
+
+.gameplay-award-strip {
+  gap: 6px !important;
+}
+
+.gameplay-award-strip strong,
+.gameplay-award-card,
+.gameplay-top-row {
+  border: 1px solid rgba(54, 232, 255, 0.24) !important;
+  border-radius: 12px !important;
+  background: rgba(0, 12, 20, 0.58) !important;
+  box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.035) !important;
+}
+
+.gameplay-award-strip strong {
+  min-height: 28px !important;
+  padding: 7px 8px !important;
+  font-size: clamp(9px, 0.68vw, 12px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-tour-complete-grid {
+  min-height: 0 !important;
+  gap: clamp(7px, 0.75vw, 12px) !important;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr) !important;
+}
+
+.gameplay-tour-winners,
+.gameplay-awards-list {
+  min-height: 0 !important;
+  gap: clamp(5px, 0.48vw, 8px) !important;
+}
+
+.gameplay-section-label {
+  margin-bottom: 2px !important;
+  font-size: clamp(9px, 0.62vw, 11px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-tour-complete-board .gameplay-top-row {
+  min-height: 42px !important;
+  margin-bottom: 0 !important;
+  padding: 7px 10px !important;
+  grid-template-columns: 44px minmax(0, 1fr) 54px !important;
+}
+
+.gameplay-tour-complete-board .gameplay-top-row b {
+  color: #ffe66d !important;
+  font-size: clamp(18px, 1.35vw, 28px) !important;
+  line-height: 1 !important;
+}
+
+.gameplay-tour-complete-board .gameplay-top-row span {
+  min-width: 0 !important;
+  font-size: clamp(13px, 0.95vw, 18px) !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+}
+
+.gameplay-tour-complete-board .gameplay-top-row strong {
+  color: #36e8ff !important;
+  font-size: clamp(12px, 0.92vw, 18px) !important;
+}
+
+.gameplay-awards-list .gameplay-award-card {
+  min-height: 34px !important;
+  padding: 6px 8px !important;
+}
+
+.gameplay-award-card b {
+  color: #c792ff !important;
+  font-size: clamp(8px, 0.56vw, 10px) !important;
+  line-height: 1 !important;
+  text-transform: uppercase !important;
+}
+
+.gameplay-award-card span,
+.gameplay-awards-list p,
+.gameplay-tour-winners p {
+  font-size: clamp(9px, 0.62vw, 11px) !important;
+  line-height: 1.05 !important;
+}
+
+.gameplay-award-card strong {
+  color: #ffe66d !important;
+  font-size: clamp(9px, 0.62vw, 11px) !important;
+}
+
+.gameplay-scoreboard-actions {
+  margin-top: clamp(3px, 0.4vw, 7px) !important;
+}
+
+.gameplay-tour-complete-board .gameplay-scoreboard-back-button {
+  min-width: clamp(170px, 13vw, 240px) !important;
+  min-height: clamp(42px, 3.1vw, 54px) !important;
+  border-radius: 10px !important;
+  font-size: clamp(16px, 1.22vw, 24px) !important;
+}
+
+.gameplay-top-three-board {
+  width: min(720px, 86%) !important;
+  min-height: clamp(220px, 28vh, 360px) !important;
+  align-content: center !important;
+  gap: clamp(10px, 1vw, 16px) !important;
+  padding: clamp(18px, 1.8vw, 30px) !important;
+}
+
+.gameplay-top-three-board h2,
+.gameplay-intro-card h2,
+.gameplay-prepare-card strong {
+  color: #ffe66d !important;
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.86),
+    0 0 22px rgba(255, 230, 109, 0.54),
+    0 0 42px rgba(255, 94, 219, 0.18) !important;
+}
+
+.gameplay-intro-card,
+.gameplay-prepare-card {
+  width: min(790px, 86%) !important;
+  min-height: clamp(220px, 26vh, 360px) !important;
+  align-content: center !important;
+  justify-self: center !important;
+  padding: clamp(20px, 1.9vw, 36px) !important;
+}
+
+.gameplay-intro-steps span {
+  border-color: rgba(92, 255, 177, 0.28) !important;
+  background: rgba(0, 12, 20, 0.58) !important;
+}
+
+.gameplay-prepare-card h2 {
+  text-shadow:
+    0 4px 0 rgba(4, 8, 31, 0.86),
+    0 0 22px rgba(255, 230, 109, 0.62),
+    0 0 42px rgba(255, 94, 219, 0.2) !important;
+}
+
+@media (max-width: 1400px) {
+  .gameplay-tour-complete-awards-board {
+    width: min(690px, 86%) !important;
+    max-height: calc(100% - 14px) !important;
+    gap: 5px !important;
+    padding: 9px 12px !important;
+  }
+
+  .gameplay-champion-card h2 {
+    font-size: clamp(24px, 2.35vw, 40px) !important;
+  }
+
+  .gameplay-award-strip strong {
+    min-height: 24px !important;
+    padding: 5px 6px !important;
+  }
+
+  .gameplay-tour-complete-board .gameplay-top-row {
+    min-height: 34px !important;
+    padding: 5px 8px !important;
+    grid-template-columns: 36px minmax(0, 1fr) 44px !important;
+  }
+
+  .gameplay-awards-list .gameplay-award-card {
+    min-height: 30px !important;
+    padding: 5px 7px !important;
+  }
+
+  .gameplay-tour-complete-board .gameplay-scoreboard-back-button {
+    min-height: 38px !important;
+    font-size: clamp(14px, 1.05vw, 20px) !important;
+  }
+}
+
+/* cleaned legacy comment */
+
+.center-play-button,
+.play-choice-card,
+.host-action-grid button,
+.host-force-grid button,
+.host-inline-field button,
+.host-minigame-row button,
+.host-current-force button,
+.host-confirm-box button,
+.host-chaos-mode-list button,
+.host-panel-tabs button,
+.settings-segmented-row button,
+.settings-choice-button,
+.settings-secondary-button,
+.settings-apply-button,
+.settings-danger-button,
+.settings-close-button,
+.auth-primary-button,
+.auth-secondary-button,
+.auth-language-button,
+.twitch-button-row button,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button,
+.gameplay-choice-card {
+  --line-a: var(--egc-thread-cyan);
+  --line-b: var(--egc-thread-pink);
+  --line-c: var(--egc-thread-purple);
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background:
+    radial-gradient(
+      circle at 18% 18%,
+      color-mix(in srgb, var(--line-a) 20%, transparent),
+      transparent 33%
+    ),
+    radial-gradient(
+      circle at 88% 18%,
+      color-mix(in srgb, var(--line-b) 18%, transparent),
+      transparent 36%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 34%),
+    linear-gradient(
+      105deg,
+      rgba(5, 8, 31, 0.96),
+      rgba(13, 9, 45, 0.94) 54%,
+      rgba(7, 8, 34, 0.96)
+    ) !important;
+  color: #f8fdff !important;
+  text-shadow:
+    0 2px 0 rgba(2, 4, 20, 0.92),
+    0 0 11px color-mix(in srgb, var(--line-a) 38%, transparent),
+    0 0 16px color-mix(in srgb, var(--line-b) 24%, transparent) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 18px color-mix(in srgb, var(--line-a) 26%, transparent),
+    0 0 28px color-mix(in srgb, var(--line-b) 18%, transparent),
+    0 10px 18px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    inset 0 -16px 22px rgba(0, 0, 0, 0.22) !important;
+  filter: saturate(1.03);
+  transition:
+    transform 150ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    filter 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease !important;
+}
+
+.center-play-button::before,
+.play-choice-card::before,
+.host-action-grid button::before,
+.host-force-grid button::before,
+.host-inline-field button::before,
+.host-minigame-row button::before,
+.host-current-force button::before,
+.host-confirm-box button::before,
+.host-chaos-mode-list button::before,
+.host-panel-tabs button::before,
+.settings-segmented-row button::before,
+.settings-choice-button::before,
+.settings-secondary-button::before,
+.settings-apply-button::before,
+.settings-danger-button::before,
+.settings-close-button::before,
+.auth-primary-button::before,
+.auth-secondary-button::before,
+.auth-language-button::before,
+.twitch-button-row button::before,
+.gameplay-scoreboard-back-button::before,
+.gameplay-intro-continue-button::before,
+.gameplay-choice-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 3px !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  padding: 2px !important;
+  background: linear-gradient(
+    90deg,
+    var(--line-a) 0%,
+    var(--line-a) 16%,
+    var(--line-c) 34%,
+    var(--line-b) 56%,
+    var(--line-b) 73%,
+    var(--line-a) 100%
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--line-a) 46%, transparent),
+    0 0 14px color-mix(in srgb, var(--line-b) 34%, transparent) !important;
+  opacity: 0.98 !important;
+  transform: none !important;
+}
+
+.center-play-button::after,
+.play-choice-card::after,
+.host-action-grid button::after,
+.host-force-grid button::after,
+.host-inline-field button::after,
+.host-minigame-row button::after,
+.host-current-force button::after,
+.host-confirm-box button::after,
+.host-chaos-mode-list button::after,
+.host-panel-tabs button::after,
+.settings-segmented-row button::after,
+.settings-choice-button::after,
+.settings-secondary-button::after,
+.settings-apply-button::after,
+.settings-danger-button::after,
+.settings-close-button::after,
+.auth-primary-button::after,
+.auth-secondary-button::after,
+.auth-language-button::after,
+.twitch-button-row button::after,
+.gameplay-scoreboard-back-button::after,
+.gameplay-intro-continue-button::after,
+.gameplay-choice-card::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -5px !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: inherit !important;
+  padding: 2px !important;
+  background: conic-gradient(
+    from 214deg,
+    transparent 0deg 18deg,
+    var(--line-a) 22deg 68deg,
+    transparent 72deg 125deg,
+    color-mix(in srgb, var(--line-c) 86%, transparent) 130deg 156deg,
+    transparent 160deg 230deg,
+    var(--line-b) 235deg 305deg,
+    transparent 310deg 360deg
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  opacity: 0.84 !important;
+  filter: drop-shadow(
+      0 0 9px color-mix(in srgb, var(--line-a) 56%, transparent)
+    )
+    drop-shadow(0 0 11px color-mix(in srgb, var(--line-b) 46%, transparent)) !important;
+  transition:
+    transform 170ms ease,
+    opacity 170ms ease,
+    filter 170ms ease !important;
+}
+
+.center-play-button > *,
+.play-choice-card > *,
+.host-action-grid button > *,
+.host-force-grid button > *,
+.host-inline-field button > *,
+.host-minigame-row button > *,
+.host-current-force button > *,
+.host-confirm-box button > *,
+.host-chaos-mode-list button > *,
+.host-panel-tabs button > *,
+.settings-segmented-row button > *,
+.settings-choice-button > *,
+.settings-secondary-button > *,
+.settings-apply-button > *,
+.settings-danger-button > *,
+.settings-close-button > *,
+.auth-primary-button > *,
+.auth-secondary-button > *,
+.auth-language-button > *,
+.twitch-button-row button > *,
+.gameplay-scoreboard-back-button > *,
+.gameplay-intro-continue-button > *,
+.gameplay-choice-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.center-play-button:hover:not(:disabled),
+.play-choice-card:hover:not(:disabled),
+.host-action-grid button:hover:not(:disabled),
+.host-force-grid button:hover:not(:disabled),
+.host-inline-field button:hover:not(:disabled),
+.host-minigame-row button:hover:not(:disabled),
+.host-current-force button:hover:not(:disabled),
+.host-confirm-box button:hover:not(:disabled),
+.host-chaos-mode-list button:hover:not(:disabled),
+.host-panel-tabs button:hover:not(:disabled),
+.settings-segmented-row button:hover:not(:disabled),
+.settings-choice-button:hover:not(:disabled),
+.settings-secondary-button:hover:not(:disabled),
+.settings-apply-button:hover:not(:disabled),
+.settings-danger-button:hover:not(:disabled),
+.settings-close-button:hover:not(:disabled),
+.auth-primary-button:hover:not(:disabled),
+.auth-secondary-button:hover:not(:disabled),
+.auth-language-button:hover:not(:disabled),
+.twitch-button-row button:hover:not(:disabled),
+.gameplay-scoreboard-back-button:hover:not(:disabled),
+.gameplay-intro-continue-button:hover:not(:disabled),
+.gameplay-choice-card:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.018) !important;
+  filter: brightness(1.13) saturate(1.14) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 0 24px color-mix(in srgb, var(--line-a) 44%, transparent),
+    0 0 42px color-mix(in srgb, var(--line-b) 30%, transparent),
+    0 12px 22px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.17),
+    inset 0 -16px 22px rgba(0, 0, 0, 0.18) !important;
+}
+
+.center-play-button:hover:not(:disabled)::after,
+.play-choice-card:hover:not(:disabled)::after,
+.host-action-grid button:hover:not(:disabled)::after,
+.host-force-grid button:hover:not(:disabled)::after,
+.host-inline-field button:hover:not(:disabled)::after,
+.host-minigame-row button:hover:not(:disabled)::after,
+.host-current-force button:hover:not(:disabled)::after,
+.host-confirm-box button:hover:not(:disabled)::after,
+.host-chaos-mode-list button:hover:not(:disabled)::after,
+.host-panel-tabs button:hover:not(:disabled)::after,
+.settings-segmented-row button:hover:not(:disabled)::after,
+.settings-choice-button:hover:not(:disabled)::after,
+.settings-secondary-button:hover:not(:disabled)::after,
+.settings-apply-button:hover:not(:disabled)::after,
+.settings-danger-button:hover:not(:disabled)::after,
+.settings-close-button:hover:not(:disabled)::after,
+.auth-primary-button:hover:not(:disabled)::after,
+.auth-secondary-button:hover:not(:disabled)::after,
+.auth-language-button:hover:not(:disabled)::after,
+.twitch-button-row button:hover:not(:disabled)::after,
+.gameplay-scoreboard-back-button:hover:not(:disabled)::after,
+.gameplay-intro-continue-button:hover:not(:disabled)::after,
+.gameplay-choice-card:hover:not(:disabled)::after {
+  opacity: 1 !important;
+  transform: scale(1.018) !important;
+}
+
+.center-play-button:active:not(:disabled),
+.play-choice-card:active:not(:disabled),
+.host-action-grid button:active:not(:disabled),
+.host-force-grid button:active:not(:disabled),
+.host-inline-field button:active:not(:disabled),
+.host-minigame-row button:active:not(:disabled),
+.host-current-force button:active:not(:disabled),
+.host-confirm-box button:active:not(:disabled),
+.host-chaos-mode-list button:active:not(:disabled),
+.host-panel-tabs button:active:not(:disabled),
+.settings-segmented-row button:active:not(:disabled),
+.settings-choice-button:active:not(:disabled),
+.settings-secondary-button:active:not(:disabled),
+.settings-apply-button:active:not(:disabled),
+.settings-danger-button:active:not(:disabled),
+.settings-close-button:active:not(:disabled),
+.auth-primary-button:active:not(:disabled),
+.auth-secondary-button:active:not(:disabled),
+.auth-language-button:active:not(:disabled),
+.twitch-button-row button:active:not(:disabled),
+.gameplay-scoreboard-back-button:active:not(:disabled),
+.gameplay-intro-continue-button:active:not(:disabled),
+.gameplay-choice-card:active:not(:disabled) {
+  transform: translateY(2px) scale(0.988) !important;
+  filter: brightness(0.96) saturate(1.08) !important;
+}
+
+.center-play-button:disabled,
+.play-choice-card:disabled,
+.host-action-grid button:disabled,
+.host-force-grid button:disabled,
+.host-inline-field button:disabled,
+.host-minigame-row button:disabled,
+.host-current-force button:disabled,
+.host-confirm-box button:disabled,
+.host-chaos-mode-list button:disabled,
+.host-panel-tabs button:disabled,
+.settings-segmented-row button:disabled,
+.settings-choice-button:disabled,
+.settings-secondary-button:disabled,
+.settings-apply-button:disabled,
+.settings-danger-button:disabled,
+.settings-close-button:disabled,
+.auth-primary-button:disabled,
+.auth-secondary-button:disabled,
+.auth-language-button:disabled,
+.twitch-button-row button:disabled,
+.gameplay-scoreboard-back-button:disabled,
+.gameplay-intro-continue-button:disabled,
+.gameplay-choice-card:disabled {
+  opacity: 0.42 !important;
+  filter: grayscale(0.36) saturate(0.62) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 6px 12px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07) !important;
+}
+
+.center-play-button:disabled::after,
+.play-choice-card:disabled::after,
+.host-action-grid button:disabled::after,
+.host-force-grid button:disabled::after,
+.host-inline-field button:disabled::after,
+.host-minigame-row button:disabled::after,
+.host-current-force button:disabled::after,
+.host-confirm-box button:disabled::after,
+.host-chaos-mode-list button:disabled::after,
+.host-panel-tabs button:disabled::after,
+.settings-segmented-row button:disabled::after,
+.settings-choice-button:disabled::after,
+.settings-secondary-button:disabled::after,
+.settings-apply-button:disabled::after,
+.settings-danger-button:disabled::after,
+.settings-close-button:disabled::after,
+.auth-primary-button:disabled::after,
+.auth-secondary-button:disabled::after,
+.auth-language-button:disabled::after,
+.twitch-button-row button:disabled::after,
+.gameplay-scoreboard-back-button:disabled::after,
+.gameplay-intro-continue-button:disabled::after,
+.gameplay-choice-card:disabled::after {
+  opacity: 0.3 !important;
+}
+
+.host-action-grid .host-primary,
+.settings-apply-button,
+.auth-primary-button,
+.twitch-button-row button:first-child,
+.gameplay-scoreboard-back-button,
+.center-play-button-ready {
+  --line-a: var(--egc-thread-cyan);
+  --line-b: var(--egc-thread-blue);
+  --line-c: var(--egc-thread-purple);
+}
+
+.host-danger,
+.settings-danger-button,
+.auth-danger-button,
+.twitch-button-row button:last-child {
+  --line-a: var(--egc-thread-pink);
+  --line-b: var(--egc-thread-red);
+  --line-c: #ff94c7;
+}
+
+.settings-segmented-row button.active,
+.settings-choice-button.active,
+.host-panel-tabs .host-tab-active,
+.host-chaos-mode-list .host-choice-active,
+.play-choice-card-mini {
+  --line-a: var(--egc-thread-pink);
+  --line-b: var(--egc-thread-purple);
+  --line-c: var(--egc-thread-cyan);
+}
+
+.play-choice-card-tour,
+.host-action-grid button:not(.host-danger):not(.host-primary),
+.settings-secondary-button,
+.settings-close-button,
+.host-panel-tabs button {
+  --line-a: var(--egc-thread-purple);
+  --line-b: var(--egc-thread-cyan);
+  --line-c: var(--egc-thread-pink);
+}
+
+.gameplay-choice-cyan {
+  --line-a: #27edff;
+  --line-b: #2878ff;
+  --line-c: #a45bff;
+}
+.gameplay-choice-pink {
+  --line-a: #ff43df;
+  --line-b: #ff6bd6;
+  --line-c: #8d5bff;
+}
+.gameplay-choice-yellow,
+.gameplay-choice-orange {
+  --line-a: #ffe66d;
+  --line-b: #ff9f27;
+  --line-c: #ff43df;
+}
+.gameplay-choice-green {
+  --line-a: #5cffb1;
+  --line-b: #27edff;
+  --line-c: #a45bff;
+}
+.gameplay-choice-purple {
+  --line-a: #a45bff;
+  --line-b: #ff43df;
+  --line-c: #27edff;
+}
+
+/* Main PLAY keeps the reference circle/triangle but with the new twin-line strokes. */
+.center-play-button {
+  grid-template-columns: clamp(62px, 5vw, 90px) minmax(0, 1fr) !important;
+  height: clamp(76px, 6vw, 108px) !important;
+  width: clamp(340px, 29vw, 540px) !important;
+  border-radius: 999px !important;
+  padding: 0 clamp(20px, 1.9vw, 36px) 0 clamp(12px, 1.1vw, 18px) !important;
+}
+
+.center-play-icon {
+  border: 0 !important;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(12, 16, 44, 0.98) 0 46%,
+      transparent 47%
+    ),
+    conic-gradient(
+      from 215deg,
+      transparent 0deg 24deg,
+      var(--line-a) 28deg 146deg,
+      transparent 150deg 212deg,
+      var(--line-b) 218deg 336deg,
+      transparent 340deg 360deg
+    ) !important;
+  color: #eafbff !important;
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--line-a) 60%, transparent),
+    0 0 28px color-mix(in srgb, var(--line-b) 40%, transparent),
+    inset 0 0 18px rgba(0, 0, 0, 0.38) !important;
+  text-shadow:
+    0 0 8px var(--line-a),
+    0 0 14px var(--line-b) !important;
+}
+
+.center-play-core,
+.play-choice-card strong,
+.gameplay-scoreboard-back-button,
+.gameplay-intro-continue-button,
+.host-action-grid .host-primary,
+.settings-apply-button {
+  font-family: var(--display-font) !important;
+  letter-spacing: 0.08em !important;
+}
+
+.play-choice-card {
+  border-radius: 24px !important;
+  min-height: clamp(100px, 9vw, 138px) !important;
+}
+
+.play-choice-icon {
+  border: 0 !important;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(8, 11, 37, 0.96) 0 47%,
+      transparent 48%
+    ),
+    conic-gradient(
+      from 220deg,
+      transparent 0 28deg,
+      var(--line-a) 32deg 145deg,
+      transparent 148deg 218deg,
+      var(--line-b) 222deg 333deg,
+      transparent 337deg 360deg
+    ) !important;
+  color: white !important;
+  box-shadow:
+    0 0 15px color-mix(in srgb, var(--line-a) 55%, transparent),
+    0 0 24px color-mix(in srgb, var(--line-b) 38%, transparent) !important;
+}
+
+
+
+.app-settings-gear {
+  --line-a: var(--egc-thread-cyan);
+  --line-b: var(--egc-thread-pink);
+  --line-c: var(--egc-thread-purple);
+  overflow: visible !important;
+  border: 0 !important;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(9, 13, 44, 0.96) 0 50%,
+      transparent 51%
+    ),
+    conic-gradient(
+      from 214deg,
+      transparent 0 22deg,
+      var(--line-a) 27deg 150deg,
+      transparent 154deg 214deg,
+      var(--line-b) 220deg 336deg,
+      transparent 340deg 360deg
+    ) !important;
+  box-shadow:
+    0 0 16px color-mix(in srgb, var(--line-a) 52%, transparent),
+    0 0 28px color-mix(in srgb, var(--line-b) 34%, transparent),
+    inset 0 0 20px rgba(0, 0, 0, 0.38) !important;
+}
+
+.app-settings-gear:hover {
+  transform: translateY(-2px) scale(1.05) rotate(12deg) !important;
+  filter: brightness(1.15) saturate(1.16) !important;
+}
+
+.gameplay-choice-card {
+  border-radius: 18px !important;
+  background:
+    radial-gradient(
+      circle at 18% 20%,
+      color-mix(in srgb, var(--line-a) 22%, transparent),
+      transparent 36%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 34%),
+    rgba(7, 10, 38, 0.86) !important;
+}
+
+[dir="rtl"] .center-play-core,
+[dir="rtl"] .play-choice-card strong,
+[dir="rtl"] .gameplay-scoreboard-back-button,
+[dir="rtl"] .gameplay-intro-continue-button,
+[dir="rtl"] .host-action-grid .host-primary,
+[dir="rtl"] .settings-apply-button {
+  letter-spacing: 0.02em !important;
+}
+

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
 import type { TextDirection, TranslationKey } from '../../../game-core/localization/locale-types';
@@ -11,10 +11,6 @@ type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 
 // Public catalog eligibility comes from the registry; runtime enablement comes from GameStore.
 type MiniGameCardDefinition = ReturnType<typeof getPublicMiniGames>[number];
-
-// type LiveChatItem = TwitchChatMessage & {
-//   id: string;
-// };
 
 const MODE_ASSET_ROOT = './assets/game/runtime/ui/main';
 const FOOD_ORIGIN_CARD_BACKGROUND = `${MODE_ASSET_ROOT}/food_origin_card_background.png`;
@@ -144,9 +140,12 @@ function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
     <div className="main-screen-home-layout main-screen-home-layout-logo">
       <section className="main-screen-welcome-card main-screen-logo-card">
         <div className="main-screen-brand-lockup">
-          <img className="main-screen-brand-mark" src={LANDING_BRAND_MARK} alt="" draggable={false} />
-          <h1 className="main-screen-brand-name">{t('ui.landing.brand')}</h1>
-          <p className="main-screen-brand-slogan">{t('ui.landing.slogan')}</p>
+          <h1 className="premium-visually-hidden">{t('ui.landing.brand')}</h1>
+          <div className="premium-brand-frame">
+            <span className="premium-brand-frame-corner premium-brand-frame-corner-start" aria-hidden="true" />
+            <img className="main-screen-brand-mark" src={LANDING_BRAND_MARK} alt="" draggable={false} />
+            <span className="premium-brand-frame-corner premium-brand-frame-corner-end" aria-hidden="true" />
+          </div>
         </div>
         <JoinInstruction text={t('ui.landing.joinHint')} />
         <div className="main-screen-home-actions">
@@ -164,13 +163,10 @@ function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
             </span>
           </button>
 
-          <button className="main-screen-settings-link" type="button" onClick={openSettings}>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4 7h16M4 17h16M8 4v6M16 14v6" />
-              <circle cx="8" cy="7" r="2" />
-              <circle cx="16" cy="17" r="2" />
-            </svg>
-            <span>{t('settings.title')}</span>
+          <button className="main-screen-play-cta main-screen-settings-link" type="button" onClick={openSettings}>
+            <span className="main-screen-play-cta-label">{t('settings.title')}</span>
+            <span className="main-screen-play-cta-underline" aria-hidden="true" />
+            <span className="main-screen-play-cta-particles" aria-hidden="true"><i /><i /><i /></span>
           </button>
 
         </div>
@@ -196,22 +192,24 @@ function ModePickerScreen({
   return (
     <div className="main-screen-mode-layout">
       <ScreenBackButton onBack={onBack} />
-      <header className="main-screen-section-header">
-        <span>{'\u2726'}</span>
+      <header className="main-screen-section-header premium-mode-header">
         <h2>{t('main.mode.title')}</h2>
-        <span>{'\u2726'}</span>
-        <p>{t('main.mode.subtitle')}</p>
+        <p className="premium-mode-subtitle">{t('main.mode.subtitle')}</p>
         {!canStart ? <p className="main-screen-start-notice" role="status">{t('ui.needJoinPlayer')}</p> : null}
       </header>
-      <div className="main-screen-mode-cards">
-        <button className="main-screen-mode-card main-screen-mode-card-mini" type="button" onClick={onMiniGame}>
-          <img src={MODE_ASSET_ROOT + '/mini_game_mode_controller.png'} alt="" draggable={false} />
+      <div className="main-screen-mode-cards premium-mode-cards" role="group" aria-label={t('main.mode.title')}>
+        <button className="main-screen-mode-card main-screen-mode-card-mini premium-mode-card" type="button" onClick={onMiniGame}>
+          <span className="premium-mode-card-art" aria-hidden="true">
+            <img src={MODE_ASSET_ROOT + '/mini_game_mode_controller.png'} alt="" draggable={false} />
+          </span>
           <strong>{t('main.mode.miniGame')}</strong>
           <small>{t('main.mode.miniGameNote')}</small>
           <b>{t('main.mode.chooseMiniGame')}</b>
         </button>
-        <button className="main-screen-mode-card main-screen-mode-card-tour" type="button" onClick={onTour}>
-          <img src={MODE_ASSET_ROOT + '/tour_mode_trophy.png'} alt="" draggable={false} />
+        <button className="main-screen-mode-card main-screen-mode-card-tour premium-mode-card" type="button" onClick={onTour}>
+          <span className="premium-mode-card-art" aria-hidden="true">
+            <img src={MODE_ASSET_ROOT + '/tour_mode_trophy.png'} alt="" draggable={false} />
+          </span>
           <strong>{t('main.mode.tour')}</strong>
           <small>{t('main.mode.tourNote')}</small>
           <b>{t('main.mode.buildTour')}</b>
@@ -316,23 +314,76 @@ function JoinInstruction({ text }: { text: string }) {
 }
 
 function LiveChatPanel() {
-  const { status, isConnected } = useTwitchConnection();
+  const { status, isConnected, recentMessages } = useTwitchConnection();
   const t = useTranslation();
+  const { snapshot } = useGame();
+  const feedRef = useRef<HTMLDivElement | null>(null);
+  const shouldFollowRef = useRef(true);
+  const channelName = status.channelName?.replace(/^#/, '').trim() ?? '';
+  const isArabic = snapshot.direction === 'rtl';
 
-  const rawChannelName = status.channelName ? status.channelName.replace(/^#/, '').trim() : '';
-  const channelName = rawChannelName;
+  // Preserve the reader's position when they scroll up to review a message.
+  // Follow new messages only if they were already at the bottom.
+  useEffect(() => {
+    const feed = feedRef.current;
+    if (feed && shouldFollowRef.current) feed.scrollTop = feed.scrollHeight;
+  }, [recentMessages]);
 
   return (
-    <aside className={`main-screen-live-chat ${isConnected ? 'main-screen-live-chat-connected' : ''}`} aria-label={t('ui.landing.liveChat')}>
+    <aside className={`main-screen-live-chat premium-live-chat ${isConnected ? 'main-screen-live-chat-connected' : ''}`} aria-label={t('ui.landing.liveChat')}>
       <header className="main-screen-live-chat-header">
         <div className="main-screen-live-chat-heading">
-          <span className={isConnected ? 'main-screen-live-dot main-screen-live-dot-on' : 'main-screen-live-dot'} />
+          <span className={isConnected ? 'main-screen-live-dot main-screen-live-dot-on' : 'main-screen-live-dot main-screen-live-dot-off'} />
           <strong>{t('ui.landing.liveChat')}</strong>
+          <span className="premium-chat-connection" aria-label={isConnected ? 'Connected' : 'Offline'}>
+            {isConnected ? (isArabic ? 'متصل' : 'ONLINE') : (isArabic ? 'غير متصل' : 'OFFLINE')}
+          </span>
         </div>
         {channelName ? (
-          <b className="main-screen-streamer-name" dir="ltr" title={channelName}>{channelName}</b>
+          <b className="main-screen-streamer-name" dir="ltr" title={channelName}>#{channelName}</b>
         ) : null}
       </header>
+
+      <div
+        ref={feedRef}
+        className="premium-chat-feed"
+        role="log"
+        aria-label={isArabic ? 'رسائل شات تويتش' : 'Twitch chat messages'}
+        aria-live="polite"
+        aria-relevant="additions"
+        onScroll={(event) => {
+          const element = event.currentTarget;
+          shouldFollowRef.current = element.scrollHeight - element.scrollTop - element.clientHeight < 44;
+        }}
+      >
+        {recentMessages.length === 0 ? (
+          <div className="premium-chat-empty">
+            <span className="premium-chat-empty-light" aria-hidden="true" />
+            <strong>{isConnected ? (isArabic ? 'جاهزين للشات!' : 'CHAT IS READY') : (isArabic ? 'الشات مش متصل' : 'CHAT OFFLINE')}</strong>
+            <p>{isConnected
+              ? (isArabic ? 'أي رسالة جديدة على تويتش هتظهر هنا.' : 'New Twitch messages will appear here.')
+              : (isArabic ? 'وصّلي تويتش من الإعدادات علشان تعرضي الرسائل هنا.' : 'Connect Twitch in Settings to show live messages.')}</p>
+          </div>
+        ) : (
+          <div className="premium-chat-messages">
+            {recentMessages.map(({ key, message }) => (
+              <div className="premium-chat-message" key={key}>
+                <div className="premium-chat-message-meta">
+                  <span className={`premium-chat-username ${message.isBroadcaster ? 'premium-chat-broadcaster' : message.isMod ? 'premium-chat-mod' : ''}`} dir="auto" title={message.displayName}>
+                    {message.displayName || 'Viewer'}
+                  </span>
+                  {message.isBroadcaster ? <span className="premium-chat-badge" title="Broadcaster">HOST</span> : null}
+                  {message.isMod && !message.isBroadcaster ? <span className="premium-chat-badge" title="Moderator">MOD</span> : null}
+                  <time className="premium-chat-timestamp" dateTime={new Date(message.timestamp || Date.now()).toISOString()}>
+                    {new Date(message.timestamp || Date.now()).toLocaleTimeString(isArabic ? 'ar-EG' : 'en-GB', { hour: '2-digit', minute: '2-digit' })}
+                  </time>
+                </div>
+                <p className="premium-chat-message-text" dir="auto">{message.message}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </aside>
   );
 }

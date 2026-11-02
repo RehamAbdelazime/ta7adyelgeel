@@ -1,3 +1,4 @@
+import { readOrderedCss } from './lib/ordered-css-source.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -25,7 +26,7 @@ assert(playFlow.includes('ta7ady_brand_mark.png'), 'New supplied brand mark is n
 assert(playFlow.includes("t('ui.landing.joinHint')"), 'Localized !join instruction is missing.');
 assert(!playFlow.includes('!canStart ? <small className="main-screen-join-hint"'), 'The join instruction must remain visible after players join.');
 assert(playFlow.includes('OPEN_APP_SETTINGS_EVENT'), 'Lobby Settings does not invoke the shared settings surface.');
-assert(!playFlow.includes('LiveChatMessageRow'), 'Live chat message rows should not render in the lobby.');
+assert(playFlow.includes('premium-chat-message'), 'Live chat messages should render in the lobby.');
 assert(!playFlow.includes('ui.landing.streamer'), 'Streamer label should not be displayed.');
 assert(!playFlow.includes('ui.landing.chatWaitingTitle'), 'Live-chat placeholder copy should not be displayed.');
 
@@ -37,7 +38,7 @@ const translations = read('src/game-core/localization/translations.ts');
 assert(translations.includes('Type !join in Twitch chat to enter the game.'), 'English join instruction is missing.');
 assert(translations.includes('اكتب !join في شات تويتش عشان تدخل اللعبة.'), 'Arabic join instruction is missing.');
 
-const css = read('src/ui-react/styles.css');
+const css = readOrderedCss();
 for (const marker of [
   'container-type: size;',
   'main-screen-brand-mark',
@@ -53,7 +54,7 @@ for (const marker of [
   assert(css.includes(marker), `Responsive/visual CSS marker missing: ${marker}`);
 }
 
-const font = read('src/ui-react/styles.css');
+const font = readOrderedCss();
 assert(font.includes('font-family: "Labo Display"'), 'Local Labo Display font-face missing.');
 
 
@@ -63,11 +64,11 @@ assert(brandPng.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 
 const brandWidth = brandPng.readUInt32BE(16);
 const brandHeight = brandPng.readUInt32BE(20);
 assert(brandWidth < 600 && brandHeight < 140, 'Brand mark must be the compact supplied stripe asset, not the old hidden wordmark composite.');
-assert(playFlow.includes('const channelName = rawChannelName;'), 'Only the configured Twitch channel name should be displayed.');
+assert(playFlow.includes('status.channelName?.replace(/^#/,'), 'Show only the connected channel name.');
 assert(!playFlow.includes('`@${rawChannelName}`'), 'The streamer label should not add a prefixed handle.');
 assert(playFlow.includes('{channelName ? ('), 'The channel-name row should disappear cleanly when no streamer name is available.');
 assert(playFlow.includes('function JoinInstruction'), 'The localized join message should highlight !join without hard-coded translated copy.');
-assert(!playFlow.includes('LiveChatMessageRow'), 'Live chat messages must stay hidden in the lobby.');
+assert(playFlow.includes('recentMessages.map('), 'The live feed must render incoming messages.');
 assert(read('src/ui-react/components/visual/VisualWorldLayer.tsx').includes('length: 18'), 'The lobby atmosphere should include 18 distributed floor sparkles.');
 for (const marker of [
   'flex-direction: column !important;',

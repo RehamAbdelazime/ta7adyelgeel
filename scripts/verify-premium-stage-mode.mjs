@@ -1,0 +1,26 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const source = (p) => fs.readFileSync(p, 'utf8');
+const mode = source('src/ui-react/components/play/MainScreenPlayFlow.tsx');
+const citizens = source('src/ui-react/components/gameplay/citizens/CitizenPlaza.tsx');
+const world = source('src/ui-react/components/visual/VisualWorldLayer.tsx');
+const css = source('src/ui-react/styles/premium-stage-mode.css');
+const entry = source('src/ui-react/main.tsx');
+assert.match(mode, /premium-brand-frame/);
+assert.match(mode, /premium-mode-header/);
+assert.match(mode, /premium-mode-card-art/);
+assert.match(mode, /main\.mode\.subtitle/);
+assert.match(mode, /main-screen-start-notice/);
+assert.match(world, /premium-plaza-spot-cyan/);
+assert.match(world, /premium-plaza-spot-pink/);
+assert.match(world, /premium-stage-footlight/);
+assert.match(world, /!isMiniGameScene/);
+assert.match(citizens, /visibleCitizens\.length <= 12/);
+assert.match(citizens, /showLobbyFootlight/);
+assert.match(citizens, /premium-citizen-footlight/);
+assert.match(css, /prefers-reduced-motion/);
+assert.match(css, /\.gameplay-overlay-lobby-scene \.main-screen-mode-layout/);
+assert.match(entry, /premium-stage-mode\.css/);
+// Lights must be purely visual, never attached to the scoring or chat pipeline.
+assert.doesNotMatch(world, /setInterval|requestAnimationFrame/);
+console.log('Premium stage + mode structural checks passed (not a running Electron screenshot).');

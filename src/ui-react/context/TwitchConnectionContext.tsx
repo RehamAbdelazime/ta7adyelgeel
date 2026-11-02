@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useGame } from './GameContext';
 import type { ElGeelTwitchApi } from '../../desktop-electron/preload';
+import type { TwitchChatMessage } from '../../game-core/twitch/twitch-message-types';
 
 type DesktopTwitchApi = ElGeelTwitchApi;
 type TwitchStatus = Awaited<ReturnType<DesktopTwitchApi['getStatus']>>;
@@ -24,7 +25,12 @@ function getDesktopTwitchApi(): DesktopTwitchApi | null {
     ?? null;
 }
 
+export type RecentChatItem = { key: number; message: TwitchChatMessage };
+
+const MAX_RECENT_CHAT_ITEMS = 80;
+
 type TwitchConnectionContextValue = {
+  recentMessages: RecentChatItem[];
   status: TwitchStatus;
   error: string | null;
   isBootstrapping: boolean;
@@ -56,9 +62,11 @@ const fallbackStatus: TwitchStatus = {
 const TwitchConnectionContext = createContext<TwitchConnectionContextValue | null>(null);
 
 export function TwitchConnectionProvider({ children }: { children: ReactNode }) {
-  const { actions } = useGame();
+  const { actions, runtime } = useGame();
   const actionsRef = useRef(actions);
   const [status, setStatus] = useState<TwitchStatus>(fallbackStatus);
+  const [recentMessages, setRecentMessages] = useState<RecentChatItem[]>([]);
+  const nextChatKeyRef = useRef(0);
   const [error, setError] = useState<string | null>(null);
   const [isBootstrapping, setIsBootstrapping] = useState(true);
   const registeredStreamerUserIdRef = useRef<string | null>(null);
@@ -83,6 +91,15 @@ export function TwitchConnectionProvider({ children }: { children: ReactNode }) 
       displayName,
     });
   }, []);
+
+  // Subscribe to the game event bus (not only the Electron callback): normal
+  // Twitch chat AND QA-injected chat use the same feed. The provider stays
+  // mounted while navigating through the mode picker, so history is retained.
+  useEffect(() => runtime.eventBus.subscribe((event) => {
+    if (event.type !== 'twitch.chat.message' || !event.message.message.trim()) return;
+    const item = { key: ++nextChatKeyRef.current, message: event.message };
+    setRecentMessages((items) => [...items.slice(-(MAX_RECENT_CHAT_ITEMS - 1)), item]);
+  }), [runtime]);
 
   const refreshStatus = useCallback(async () => {
     const api = getDesktopTwitchApi();
@@ -154,6 +171,7 @@ export function TwitchConnectionProvider({ children }: { children: ReactNode }) 
       setStatus(nextStatus);
       setError(nextStatus.lastError);
       registeredStreamerUserIdRef.current = null;
+      setRecentMessages([]);
     } catch (err) {
       setError(getErrorMessage(err));
     }
@@ -236,6 +254,7 @@ export function TwitchConnectionProvider({ children }: { children: ReactNode }) 
 
     return {
       status,
+      recentMessages,
       error,
       isBootstrapping,
       isConnected,
@@ -246,7 +265,7 @@ export function TwitchConnectionProvider({ children }: { children: ReactNode }) 
       disconnect,
       refreshStatus,
     };
-  }, [connect, disconnect, error, isBootstrapping, reconnect, refreshStatus, status]);
+  }, [connect, disconnect, error, isBootstrapping, reconnect, refreshStatus, status, recentMessages]);
 
   return <TwitchConnectionContext.Provider value={value}>{children}</TwitchConnectionContext.Provider>;
 }

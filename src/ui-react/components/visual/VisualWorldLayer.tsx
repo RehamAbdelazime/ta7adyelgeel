@@ -95,6 +95,25 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
       ) : null}
 
       <div className="concert-effect-layer concert-effect-layer-back">
+        {!isMiniGameScene ? (
+          <div className="premium-stage-ambience" aria-hidden="true">
+            <span className="premium-stage-beam premium-stage-beam-cyan" />
+            <span className="premium-stage-beam premium-stage-beam-pink" />
+            <span className="premium-stage-floor-glow" />
+            {/* Soft sweeps over the audience plaza; these do not cover UI or player labels. */}
+            <div className="premium-plaza-spotlights">
+              <span className="premium-plaza-spot premium-plaza-spot-cyan" />
+              <span className="premium-plaza-spot premium-plaza-spot-pink" />
+            </div>
+            {/* Low front-of-stage LED floor markers, leaving the stairway clear. */}
+            <div className="premium-stage-footlights">
+              <span className="premium-stage-footlight" />
+              <span className="premium-stage-footlight" />
+              <span className="premium-stage-footlight" />
+              <span className="premium-stage-footlight" />
+            </div>
+          </div>
+        ) : null}
         <span className="concert-host-spotlight" />
         <span className="concert-host-floor-pool" />
         <span className="concert-floor-sweep-beam" />

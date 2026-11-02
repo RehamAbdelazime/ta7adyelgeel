@@ -1,3 +1,4 @@
+import { readOrderedCss } from './lib/ordered-css-source.mjs';
 import fs from "node:fs";
 import path from "node:path";
 
@@ -45,11 +46,11 @@ for (const characterId of ["cat", "dog", "robot", "stage_office", "stage_chef"])
 }
 if (!helpers.includes("66 - row * 9.2")) fail("Audience side formation has not been recalibrated for the larger sprites.");
 
-const css = fs.readFileSync(path.join(root, requiredFiles[3]), "utf8");
+const css = readOrderedCss();
 for (const marker of [
   '@font-face',
   'font-family: "Labo Display"',
-  'url("./assets/fonts/LaboDisplay.ttf")',
+  'url("../../assets/fonts/LaboDisplay.ttf")',
   "html body #root *",
   "main-screen-play-cta-underline",
   "concert-host-presenter-layer-intro .concert-host-presenter-mascot",
