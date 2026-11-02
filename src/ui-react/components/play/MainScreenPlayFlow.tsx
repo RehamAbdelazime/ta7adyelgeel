@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
 import type { TextDirection, TranslationKey } from '../../../game-core/localization/locale-types';
@@ -6,6 +7,7 @@ import { useGame } from '../../context/GameContext';
 import { OPEN_APP_SETTINGS_EVENT } from '../../events/app-ui-events';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { useTranslation } from '../../i18n/useTranslation';
+import { getVisibleAudience } from '../gameplay/shared/visible-audience';
 
 type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 
@@ -59,7 +61,10 @@ export function MainScreenPlayFlow() {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [step]);
 
-  const openModePicker = () => setStep('mode');
+  const openModePicker = () => {
+    window.dispatchEvent(new Event('ta7ady:lobby-play-selected'));
+    setStep('mode');
+  };
   const backHome = () => setStep('home');
   const startMiniGame = (miniGameId: MiniGameId) => {
     if (!canStart) {
@@ -131,6 +136,9 @@ export function MainScreenPlayFlow() {
 
 function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
   const t = useTranslation();
+  const { snapshot } = useGame();
+  const { status } = useTwitchConnection();
+  const joinedCount = getVisibleAudience(snapshot.citizens, status.accountUserId).length;
 
   const openSettings = () => {
     window.dispatchEvent(new Event(OPEN_APP_SETTINGS_EVENT));
@@ -138,6 +146,7 @@ function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
 
   return (
     <div className="main-screen-home-layout main-screen-home-layout-logo">
+      <span className="premium-led-screen-grain" aria-hidden="true" style={{ backgroundImage: `url(./assets/game/runtime/ui/scene-polish/led-microdots.png)` }} />
       <section className="main-screen-welcome-card main-screen-logo-card">
         <div className="main-screen-brand-lockup">
           <h1 className="premium-visually-hidden">{t('ui.landing.brand')}</h1>
@@ -148,6 +157,11 @@ function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
           </div>
         </div>
         <JoinInstruction text={t('ui.landing.joinHint')} />
+        <div className="premium-lobby-status" role="status" aria-live="polite" aria-atomic="true">
+          <span className="premium-lobby-status-light" aria-hidden="true" />
+          <span className="premium-lobby-status-label">{t('ui.landing.playersJoined')}</span>
+          <strong key={joinedCount} className="premium-lobby-status-count" dir="ltr">{String(joinedCount).padStart(2, '0')}</strong>
+        </div>
         <div className="main-screen-home-actions">
           <button
             className="main-screen-play-cta"
@@ -189,6 +203,20 @@ function ModePickerScreen({
 }) {
   const t = useTranslation();
 
+  // Native buttons keep Tab, Enter and Space accessible. Horizontal arrows
+  // are an optional desktop convenience and respect RTL visual ordering.
+  const onCardKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    const cards = Array.from(event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('.premium-mode-card') ?? []);
+    const index = cards.indexOf(event.currentTarget);
+    const isRtl = getComputedStyle(event.currentTarget).direction === 'rtl';
+    const delta = event.key === 'ArrowRight' ? (isRtl ? -1 : 1) : (isRtl ? 1 : -1);
+    const next = cards[index + delta];
+    if (!next) return;
+    event.preventDefault();
+    next.focus();
+  };
+
   return (
     <div className="main-screen-mode-layout">
       <ScreenBackButton onBack={onBack} />
@@ -198,20 +226,24 @@ function ModePickerScreen({
         {!canStart ? <p className="main-screen-start-notice" role="status">{t('ui.needJoinPlayer')}</p> : null}
       </header>
       <div className="main-screen-mode-cards premium-mode-cards" role="group" aria-label={t('main.mode.title')}>
-        <button className="main-screen-mode-card main-screen-mode-card-mini premium-mode-card" type="button" onClick={onMiniGame}>
+        <button className="main-screen-mode-card main-screen-mode-card-mini premium-mode-card" type="button" onClick={onMiniGame} onKeyDown={onCardKeyDown}>
           <span className="premium-mode-card-art" aria-hidden="true">
-            <img src={MODE_ASSET_ROOT + '/mini_game_mode_controller.png'} alt="" draggable={false} />
+            <img src={MODE_ASSET_ROOT + '/mode_one_game_v13.svg'} alt="" draggable={false} />
           </span>
-          <strong>{t('main.mode.miniGame')}</strong>
-          <small>{t('main.mode.miniGameNote')}</small>
+          <span className="premium-mode-card-copy">
+            <strong>{t('main.mode.miniGame')}</strong>
+            <small>{t('main.mode.miniGameNote')}</small>
+          </span>
           <b>{t('main.mode.chooseMiniGame')}</b>
         </button>
-        <button className="main-screen-mode-card main-screen-mode-card-tour premium-mode-card" type="button" onClick={onTour}>
+        <button className="main-screen-mode-card main-screen-mode-card-tour premium-mode-card" type="button" onClick={onTour} onKeyDown={onCardKeyDown}>
           <span className="premium-mode-card-art" aria-hidden="true">
-            <img src={MODE_ASSET_ROOT + '/tour_mode_trophy.png'} alt="" draggable={false} />
+            <img src={MODE_ASSET_ROOT + '/mode_full_show_v13.svg'} alt="" draggable={false} />
           </span>
-          <strong>{t('main.mode.tour')}</strong>
-          <small>{t('main.mode.tourNote')}</small>
+          <span className="premium-mode-card-copy">
+            <strong>{t('main.mode.tour')}</strong>
+            <small>{t('main.mode.tourNote')}</small>
+          </span>
           <b>{t('main.mode.buildTour')}</b>
         </button>
       </div>

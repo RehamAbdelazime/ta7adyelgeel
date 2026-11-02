@@ -27,17 +27,25 @@
     "verify:desktop-ux": "node scripts/verify-desktop-ux-hardening.mjs",
     "verify:assets": "node scripts/verify-sprite-frame-aliases.mjs",
     "verify:css": "node scripts/verify-css-modules.mjs",
-    "verify:cleanup": "npm run verify:css && npm run verify:assets && npm run verify:desktop-ux && node scripts/verify-premium-stage-mode.mjs && node scripts/verify-v2-mode-picker-target-layout.mjs",
+    "verify:cleanup": "npm run verify:css && npm run verify:assets && npm run verify:desktop-ux && node scripts/verify-premium-stage-mode.mjs && node scripts/verify-v2-mode-picker-target-layout.mjs && npm run verify:premium-experience",
     "audit:security": "node scripts/security-audit.mjs",
-    "clean": "node scripts/clean-artifacts.mjs"
+    "clean": "node scripts/clean-artifacts.mjs",
+    "verify:premium-experience": "node scripts/verify-premium-experience.mjs",
+    "verify:lobby-final-polish": "node scripts/verify-lobby-final-polish.mjs",
+    "verify:lighting": "node scripts/verify-concert-lighting.mjs",
+    "verify:premium-settings": "node scripts/verify-premium-settings.mjs",
+    "verify:typography": "node scripts/verify-typography-system.mjs",
+    "verify:mode-picker": "node scripts/verify-mode-picker-v13.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/alexandria": "5.3.0",
+    "@fontsource-variable/fredoka": "5.3.0",
     "@vitejs/plugin-react": "6.0.2",
-    "vite": "8.0.14",
-    "typescript": "6.0.3",
+    "electron": "42.3.3",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "electron": "42.3.3"
+    "typescript": "6.0.3",
+    "vite": "8.0.14"
   },
   "devDependencies": {
     "@types/node": "25.9.1",

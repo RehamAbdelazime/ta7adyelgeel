@@ -1,0 +1,95 @@
+/* v5: quiet final polish of the *lobby only*, designed for 16:9 desktop/OBS. */
+/* Decorative assets are self-contained PNGs bundled with the application. */
+.visual-world-layer-lobby-active .premium-floor-light-cookie {
+  position: absolute;
+  top: 76.8%;
+  width: 17%;
+  height: 5.4%;
+  object-fit: fill;
+  opacity: .24;
+  filter: drop-shadow(0 0 9px rgba(100, 204, 255, .12));
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.visual-world-layer-lobby-active .premium-floor-light-cookie-left { left: 14.8%; }
+.visual-world-layer-lobby-active .premium-floor-light-cookie-right {
+  right: 13.8%;
+  filter: sepia(.55) hue-rotate(215deg) saturate(1.7);
+  opacity: .18;
+}
+.visual-world-layer-lobby-active .premium-scene-glint {
+  position: absolute;
+  top: 73.4%;
+  width: 2%;
+  height: 3.5%;
+  object-fit: contain;
+  opacity: .30;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: premiumHardwareBreathe 7s ease-in-out infinite alternate;
+}
+.visual-world-layer-lobby-active .premium-scene-glint-left { left: 14.1%; }
+.visual-world-layer-lobby-active .premium-scene-glint-right { right: 13.2%; animation-delay: -3s; }
+@keyframes premiumHardwareBreathe {
+  from { opacity: .20; transform: scale(.89); }
+  to { opacity: .38; transform: scale(1.06); }
+}
+.visual-world-layer-lobby-active .premium-audience-join-flash {
+  position: absolute;
+  left: var(--join-x);
+  top: var(--join-y);
+  width: 12%;
+  height: 5%;
+  object-fit: fill;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%) scale(.45);
+  transform-origin: center;
+  animation: premiumAudienceArrival 1150ms ease-out both;
+}
+@keyframes premiumAudienceArrival {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(.45); }
+  35%  { opacity: .68; transform: translate(-50%, -50%) scale(1.22); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.55); }
+}
+/* The microdot PNG is a tiled surface effect, not an additional pane or heading. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo { isolation: isolate; }
+html body .gameplay-main-screen-lobby-interactive .premium-led-screen-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: .28;
+  background-repeat: repeat;
+  background-size: 24px 24px;
+  border-radius: inherit;
+  mix-blend-mode: screen;
+}
+/* Slight edge highlighting is enough: avoid double borders / uncontained glow. */
+html body .gameplay-main-screen-lobby-interactive .premium-live-chat {
+  border-color: rgba(93, 203, 245, .31) !important;
+  box-shadow: inset 0 1px rgba(179, 233, 255, .05), inset 0 0 35px rgba(45, 117, 203, .03) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  border-color: rgba(109, 216, 255, .22) !important;
+}
+/* Reflow only when a crowd-density band changes; no unexpected snapping.
+   Gameplay walk animations and join entrances are deliberately excluded. */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card:not(.gameplay-citizen-entering):not(.gameplay-citizen-walk-translate) {
+  transition: left 420ms ease-out, top 420ms ease-out, transform 420ms ease-out !important;
+}
+/* At heavy crowd density, reduce expensive nameplate bloom. Names are still preserved. */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-packed .gameplay-citizen-nameplate {
+  text-shadow: none !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,.5) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active .premium-scene-glint,
+  .visual-world-layer-lobby-active .premium-audience-join-flash {
+    animation: none !important;
+  }
+  .visual-world-layer-lobby-active .premium-audience-join-flash { display: none !important; }
+  html body .gameplay-overlay-lobby-scene .gameplay-citizen-card:not(.gameplay-citizen-entering) {
+    transition: none !important;
+  }
+}

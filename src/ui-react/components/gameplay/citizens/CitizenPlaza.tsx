@@ -15,12 +15,13 @@ import {
   hashString, getCitizenAnimationName, getCharacterFrameIndex, getCitizenVisualScale,
   getCharacterId, getCitizenPlacementSignature, getCitizenPlacementMotionSignature,
   getCitizenWalkFacing, getCitizenFloorStyle, getCitizenReactionClass, getCitizenFrameDurationMs,
-  getCitizenStageSidePlacement,
+  getCitizenStageSidePlacement, getAdaptiveCitizenLobbyStyle,
   shouldUseCitizenAnswerPlacement,
   getChampionCelebrationAnimationName, getChampionCelebrationStage,
   getAnswerOptionByUserId, getCitizenChoiceResultState,
 } from '../shared/citizen-helpers';
 import { buildChoiceSpotlights } from '../shared/answer-helpers';
+import { getVisibleAudience } from '../shared/visible-audience';
 
 export function CitizenPlazaOverlay({
   citizens,
@@ -42,9 +43,7 @@ export function CitizenPlazaOverlay({
   const shouldUseAnswerPlacement = miniGame.hasRound && shouldUseCitizenAnswerPlacement(phase);
   const answerOptionByUserId = shouldUseAnswerPlacement ? getAnswerOptionByUserId(miniGame) : new Map<string, number>();
   const isMiniGameSceneActive = phase !== 'lobby_open' && phase !== 'cleanup';
-  const visibleCitizens = citizens
-    .filter((citizen) => !streamerUserId || citizen.twitchUserId !== streamerUserId)
-    .slice(0, 72);
+  const visibleCitizens = getVisibleAudience(citizens, streamerUserId);
   const finalChampionId = phase === 'tour_complete'
     ? [...citizens]
       .filter((citizen) => citizen.role === 'official')
@@ -52,6 +51,7 @@ export function CitizenPlazaOverlay({
     : null;
   // Footlights are purely decorative, limited to smaller lobbies for visual calm and GPU cost.
   const showLobbyFootlights = !isMiniGameSceneActive && visibleCitizens.length <= 12;
+  const crowdDensityClass = visibleCitizens.length > 24 ? 'gameplay-citizen-plaza-packed' : visibleCitizens.length > 8 ? 'gameplay-citizen-plaza-busy' : '';
   const optionGroupCounters = new Map<number, number>();
 
   if (visibleCitizens.length === 0) {
@@ -59,7 +59,7 @@ export function CitizenPlazaOverlay({
   }
 
   return (
-    <section className={`gameplay-citizen-plaza-overlay ${reactionClass} ${visibleCitizens.length <= 5 ? 'gameplay-citizen-plaza-sparse' : ''}`}>
+    <section className={`gameplay-citizen-plaza-overlay ${reactionClass} ${visibleCitizens.length <= 5 ? 'gameplay-citizen-plaza-sparse' : ''} ${crowdDensityClass}`}>
       {visibleCitizens.map((citizen, index) => {
         const answerOption = answerOptionByUserId.get(citizen.twitchUserId) ?? null;
         const choice = answerOption ? choiceSpotlights.find((item: { optionNumber: number }) => item.optionNumber === answerOption) : null;
@@ -98,6 +98,7 @@ export function CitizenPlazaOverlay({
             placement={placement}
             championCelebration={championCelebration}
             showLobbyFootlight={showLobbyFootlights}
+            audienceCount={visibleCitizens.length}
           />
         );
       })}
@@ -111,12 +112,14 @@ export function CitizenCard({
   placement,
   championCelebration,
   showLobbyFootlight = false,
+  audienceCount = 0,
 }: {
   citizen: CitizenRuntime;
   index: number;
   placement: CitizenPlacement | null;
   championCelebration: ChampionCelebrationSnapshot;
   showLobbyFootlight?: boolean;
+  audienceCount?: number;
 }) {
   const { tuning } = useMotionTuning();
   const characterId = getCharacterId(citizen.twitchUserId, index);
@@ -267,7 +270,9 @@ export function CitizenCard({
     };
   }, [isChampionCelebrating, championCelebration.startedAt]);
 
-  const floorStyle = getCitizenFloorStyle(index, renderedPlacement);
+  const floorStyle = !renderedPlacement && audienceCount > 8
+    ? getAdaptiveCitizenLobbyStyle(index, audienceCount)
+    : getCitizenFloorStyle(index, renderedPlacement);
   const animationName = isChampionCelebrating && !isEntering
     ? getChampionCelebrationAnimationName(celebrationElapsedMs)
     : isFinalChampionVictoryLooping

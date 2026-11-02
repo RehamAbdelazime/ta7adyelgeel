@@ -44,6 +44,21 @@ describe('citizen placement', () => {
     expect(side['--citizen-y']).toBeDefined();
   });
 
+
+  it('keeps all 72 lobby slots inside the desktop audience safe area without overlaps at identical coordinates', () => {
+    const positions = Array.from({ length: 72 }, (_, index) => getCitizenFloorStyle(index, null) as Record<string, unknown>);
+    const coordinates = positions.map((position) => `${position['--citizen-x']}/${position['--citizen-y']}`);
+    expect(new Set(coordinates).size).toBe(72);
+    for (const position of positions) {
+      const x = Number.parseFloat(String(position['--citizen-x']));
+      const y = Number.parseFloat(String(position['--citizen-y']));
+      expect(x).toBeGreaterThanOrEqual(10);
+      expect(x).toBeLessThanOrEqual(90);
+      expect(y).toBeGreaterThanOrEqual(10);
+      expect(y).toBeLessThanOrEqual(50);
+    }
+  });
+
   it('assigns deterministic side positions so the crowd does not reshuffle when someone answers', () => {
     expect(getCitizenStageSidePlacement(0)).toEqual({ kind: 'side', side: 'left', groupIndex: 0 });
     expect(getCitizenStageSidePlacement(1)).toEqual({ kind: 'side', side: 'right', groupIndex: 0 });

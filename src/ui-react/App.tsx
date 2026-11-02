@@ -23,7 +23,7 @@ export function App() {
     <GameConfigProvider>
       <MotionTuningProvider>
         <AudioTuningProvider>
-          <main className="app-desktop-shell" dir={snapshot.direction}>
+          <main className="app-desktop-shell" dir={snapshot.direction} lang={snapshot.locale}>
             <GameSceneStage />
             <div className="app-desktop-overlay-layer">
               <AppSettingsButton />

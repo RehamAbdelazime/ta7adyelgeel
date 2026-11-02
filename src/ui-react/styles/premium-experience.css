@@ -1,0 +1,233 @@
+/* Ta7ady ElGeel | Desktop premium experience v4.
+ * Intentional post-legacy, lobby-scoped design tokens and motion.
+ * Does not touch gameplay HUD, scoring, Twitch transport, or host asset selection.
+ */
+
+/* 1 — The two inner displays belong to the *physical* LED wall.
+ * An understated shared bezel ties them together; content remains readable.
+ */
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  position: relative !important;
+  isolation: isolate;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  pointer-events: none;
+  border: 1px solid rgba(132, 211, 247, .18);
+  border-radius: clamp(10px, .78cqw, 15px);
+  background: linear-gradient(180deg, rgba(69, 213, 255, .04), transparent 15%, transparent 88%, rgba(242, 98, 222, .045));
+  box-shadow: inset 0 1px rgba(187, 233, 255, .08), 0 0 13px rgba(46, 120, 217, .055);
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo::after {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  left: 1.4%;
+  right: 1.4%;
+  top: 0;
+  height: 2px;
+  opacity: .58;
+  background: linear-gradient(90deg, transparent 0 10%, rgba(70, 221, 255, .62) 24%, rgba(176, 147, 255, .18) 50%, rgba(251, 96, 218, .5) 77%, transparent 92%);
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo .main-screen-logo-card {
+  position: relative !important;
+  background: radial-gradient(ellipse at 50% 36%, rgba(42, 155, 214, .09), transparent 64%),
+    linear-gradient(135deg, rgba(5, 21, 48, .81), rgba(10, 12, 35, .68)) !important;
+  border: 1px solid rgba(108, 204, 241, .17) !important;
+  box-shadow: inset 0 0 24px rgba(52, 137, 215, .038), 0 0 12px rgba(0, 0, 0, .1) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo .main-screen-logo-card::after {
+  content: '';
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(111, 235, 255, .33), transparent);
+  pointer-events: none;
+}
+html body .gameplay-main-screen-lobby-interactive .premium-brand-frame {
+  background: radial-gradient(ellipse at 50% 50%, rgba(61, 201, 250, .09), transparent 82%),
+    linear-gradient(120deg, rgba(33, 101, 163, .075), rgba(169, 66, 171, .065)) !important;
+  border-color: rgba(110, 220, 255, .26) !important;
+  box-shadow: inset 0 1px 0 rgba(158, 231, 255, .06), 0 0 14px rgba(76, 199, 255, .075) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .premium-brand-frame .main-screen-brand-mark {
+  filter: drop-shadow(0 0 10px rgba(77, 214, 255, .21)) !important;
+}
+
+/* A gameplay acknowledgement, not a second headline. Compact enough for 720p. */
+html body .gameplay-main-screen-lobby-interactive .premium-lobby-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, .56cqw, 10px);
+  padding: clamp(5px, .5cqh, 8px) clamp(10px, 1cqw, 17px);
+  max-width: 94%;
+  min-height: clamp(22px, 2.6cqh, 31px);
+  border: 1px solid rgba(89, 191, 228, .16);
+  border-radius: 100px;
+  background: rgba(6, 22, 43, .56);
+  color: #b9d9e9;
+  box-shadow: inset 0 1px rgba(163, 227, 255, .045);
+}
+html body #root .premium-lobby-status-label {
+  font: 700 clamp(10px, .68cqw, 13px)/1.1 'Segoe UI', Tahoma, Arial, sans-serif !important;
+  letter-spacing: .075em !important;
+  color: #bdd7e7 !important;
+}
+html body #root .premium-lobby-status-count {
+  font: 800 clamp(12px, .85cqw, 16px)/1.1 'Segoe UI', Tahoma, Arial, sans-serif !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .025em !important;
+  color: #8bf4ff !important;
+  text-shadow: 0 0 8px rgba(76, 219, 255, .2);
+  animation: premiumCountArrival 260ms ease-out both;
+}
+.premium-lobby-status-light {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #65e3ee;
+  box-shadow: 0 0 8px rgba(85, 229, 255, .28);
+}
+@keyframes premiumCountArrival {
+  0% { opacity: .38; translate: 0 3px; }
+  100% { opacity: 1; translate: 0 0; }
+}
+
+/* 2 — Play always reads first; Settings belongs to the same design family. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions {
+  gap: clamp(2px, .42cqh, 6px) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:not(.main-screen-settings-link) .main-screen-play-cta-label {
+  color: #f8fdff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .6), 0 0 12px rgba(139, 226, 255, .12) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:not(.main-screen-settings-link):hover .main-screen-play-cta-label,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:not(.main-screen-settings-link):focus-visible .main-screen-play-cta-label {
+  color: #fff !important;
+  text-shadow: 0 0 14px rgba(76, 230, 255, .5), 0 0 21px rgba(163, 129, 255, .25) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link .main-screen-play-cta-label {
+  color: #c8dae6 !important;
+  font-size: clamp(19px, 1.22cqw, 24px) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible,
+html body .gameplay-overlay-lobby-scene .main-screen-back-button:focus-visible {
+  outline: 2px solid #7beeff !important;
+  outline-offset: 3px !important;
+}
+
+/* 3 — Chat is a live broadcast feed, not another decorative panel. */
+html body .gameplay-main-screen-lobby-interactive .premium-live-chat {
+  background: linear-gradient(155deg, rgba(6, 20, 46, .96), rgba(5, 9, 28, .95)) !important;
+  border-color: rgba(102, 202, 249, .2) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .premium-live-chat > header {
+  border-bottom: 1px solid rgba(130, 205, 240, .12);
+  box-shadow: inset 0 -1px rgba(16, 68, 102, .16);
+}
+html body .gameplay-main-screen-lobby-interactive .premium-chat-message {
+  background: linear-gradient(90deg, rgba(20, 44, 85, .42), rgba(17, 32, 67, .28));
+  border-color: rgba(120, 190, 235, .11);
+}
+html body .gameplay-main-screen-lobby-interactive .premium-chat-message:nth-child(even) {
+  background: linear-gradient(90deg, rgba(44, 29, 77, .33), rgba(17, 32, 67, .23));
+}
+
+/* 4 — Audience: safe geometry is computed in citizen-helpers.ts. The style
+ * here enhances presence without altering gameplay answer/side placements.
+ */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  top: 4px !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-sparse .gameplay-citizen-body-shell {
+  scale: 1.18 !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-sparse .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  min-width: clamp(145px, 10.5cqw, 190px) !important;
+  max-width: clamp(165px, 13.3cqw, 242px) !important;
+  top: 10px !important;
+  border-color: rgba(101, 217, 245, .37) !important;
+  background: linear-gradient(95deg, rgba(6, 27, 55, .97), rgba(4, 20, 40, .94)) !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-busy .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  min-width: 0 !important;
+  width: clamp(88px, 7cqw, 133px) !important;
+  max-width: clamp(88px, 7cqw, 133px) !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-busy .gameplay-citizen-nameplate span {
+  font-size: clamp(10px, .71cqw, 13px) !important;
+  padding-inline: 4px !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-packed .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  min-width: 0 !important;
+  width: clamp(76px, 5.8cqw, 111px) !important;
+  max-width: clamp(76px, 5.8cqw, 111px) !important;
+  grid-template-columns: 22px minmax(0, 1fr) !important;
+  height: clamp(22px, 1.75cqh, 27px) !important;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .32) !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-packed .gameplay-citizen-nameplate span {
+  font-size: clamp(9px, .6cqw, 11px) !important;
+  padding-inline: 3px !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-plaza-packed .gameplay-citizen-body-shell {
+  scale: 1.02 !important;
+}
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card.gameplay-citizen-entering .premium-citizen-footlight {
+  animation: premiumJoinSpot 880ms ease-out both !important;
+}
+@keyframes premiumJoinSpot {
+  0% { opacity: 0; scale: .5; }
+  35% { opacity: .75; scale: 1.24; }
+  100% { opacity: .5; scale: 1; }
+}
+
+/* 5 — Motion language: small, single-event responses. The host silhouette
+ * images stay unchanged and do not cross-fade into mismatched poses.
+ */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front.premium-host-reacting {
+  animation: premiumHostRespond 850ms ease-out 1 both !important;
+}
+@keyframes premiumHostRespond {
+  0%, 100% { translate: 0 0; }
+  30% { translate: 0 -7px; }
+  56% { translate: 0 -2px; }
+  76% { translate: 0 -4px; }
+}
+html body .gameplay-overlay-lobby-scene .main-screen-play-flow-mode > .main-screen-mode-layout,
+html body .gameplay-overlay-lobby-scene .main-screen-play-flow-mini-game-grid > .main-screen-game-grid-layout,
+html body .gameplay-overlay-lobby-scene .main-screen-play-flow-tour-grid > .main-screen-game-grid-layout,
+html body .gameplay-overlay-lobby-scene .main-screen-play-flow-home > .main-screen-home-layout-logo {
+  animation: premiumDisplayArrive 250ms ease-out both !important;
+}
+@keyframes premiumDisplayArrive {
+  from { opacity: .60; filter: brightness(.86); }
+  to { opacity: 1; filter: brightness(1); }
+}
+
+@container (max-height: 740px) {
+  html body .gameplay-main-screen-lobby-interactive .premium-lobby-status {
+    padding-block: 3px;
+    min-height: 21px;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+    gap: clamp(5px, .55cqh, 9px) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .premium-lobby-status-count,
+  html body .gameplay-overlay-lobby-scene .main-screen-play-flow > *,
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front.premium-host-reacting,
+  html body .gameplay-overlay-lobby-scene .gameplay-citizen-card.gameplay-citizen-entering .premium-citizen-footlight {
+    animation: none !important;
+    transition: none !important;
+  }
+}

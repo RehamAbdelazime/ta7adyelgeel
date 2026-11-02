@@ -1,0 +1,286 @@
+/* Ta7ady ElGeel — MODE PICKER v12 · Casual Party Game
+ * Keep all changes on the choice screen. The stage, host, Twitch and gameplay
+ * retain their existing styling/behavior. This file loads AFTER typography v11
+ * to resolve the high-specificity legacy !important declarations without edits
+ * to unrelated screens.
+ */
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout {
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  align-content: stretch !important;
+  justify-items: center !important;
+  gap: clamp(8px, 1.15cqh, 13px) !important;
+  padding: clamp(34px, 4cqh, 47px) clamp(12px, 1.55cqw, 24px) clamp(10px, 1.25cqh, 16px) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: clamp(2px, .38cqh, 5px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header h2 {
+  font-family: var(--font-game-title) !important;
+  font-size: clamp(22px, 1.8cqw, 33px) !important;
+  font-weight: 700 !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0 !important;
+  max-width: 97% !important;
+  text-wrap: balance;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-subtitle {
+  font-family: var(--font-game-ui) !important;
+  font-size: clamp(12px, .86cqw, 15px) !important;
+  font-weight: 550 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.35 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  align-self: center !important;
+  justify-self: center !important;
+  width: min(96%, 556px) !important;
+  height: min(100%, clamp(200px, 27.5cqh, 263px)) !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  gap: clamp(12px, 1.4cqw, 22px) !important;
+  margin: 0 auto !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card {
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) auto auto !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  justify-items: center !important;
+  align-content: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  padding: clamp(8px, 1.08cqh, 13px) clamp(10px, 1cqw, 15px) clamp(10px, 1.1cqh, 14px) !important;
+  gap: clamp(5px, .65cqh, 9px) !important;
+  border-width: 1.5px !important;
+  border-radius: clamp(12px, .95cqw, 17px) !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transform: translateY(0) !important;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease !important;
+}
+/* A single restrained accent halo reads as playfulness, not a dashboard. */
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:hover:not(:disabled),
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:focus-visible {
+  transform: translateY(-3px) !important;
+  border-color: var(--mode-color) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1),
+              0 8px 22px color-mix(in srgb, var(--mode-color), transparent 78%) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:focus-visible {
+  outline: 2px solid #f5fdff !important;
+  outline-offset: 3px !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: stretch !important;
+  flex: none !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+  display: block !important;
+  width: auto !important;
+  height: min(100%, clamp(84px, 12.5cqh, 121px)) !important;
+  max-width: 87% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.27)) !important;
+  transform: scale(1) !important;
+  transition: transform 180ms ease !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:hover:not(:disabled) .premium-mode-card-art img,
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:focus-visible .premium-mode-card-art img {
+  transform: scale(1.045) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-copy {
+  display: grid !important;
+  align-content: center !important;
+  justify-items: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: clamp(2px, .32cqh, 4px) !important;
+  padding: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  font-family: var(--font-game-title) !important;
+  font-size: clamp(20px, 1.53cqw, 27px) !important;
+  font-weight: 700 !important;
+  line-height: 1.16 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  text-wrap: balance;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  display: block !important;
+  width: 100% !important;
+  max-width: 30ch !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  font-family: var(--font-game-ui) !important;
+  font-size: clamp(12px, .87cqw, 15px) !important;
+  font-weight: 550 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  color: #d6e7f0 !important;
+  text-align: center !important;
+  overflow-wrap: normal !important;
+  text-wrap: balance;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  display: grid !important;
+  place-items: center !important;
+  width: min(100%, 218px) !important;
+  min-height: clamp(34px, 4.0cqh, 43px) !important;
+  padding: 5px 9px !important;
+  font-family: var(--font-game-ui) !important;
+  font-size: clamp(12px, .9cqw, 15px) !important;
+  font-weight: 700 !important;
+  line-height: 1.24 !important;
+  letter-spacing: 0 !important;
+  text-wrap: balance;
+  white-space: normal !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+}
+/* More line height for Alexandria; keep physical left/right meaning consistent
+   with native RTL grid ordering and the Back button's inherited placement. */
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header h2 {
+  font-size: clamp(21px, 1.65cqw, 31px) !important;
+  line-height: 1.38 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  font-size: clamp(19px, 1.4cqw, 26px) !important;
+  line-height: 1.38 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  line-height: 1.46 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  line-height: 1.4 !important;
+}
+/* The stage LED wall can be short in a 1280×720 game window. Conserve vertical
+   space before reducing readability; do not shrink the English/Arabic text to 8px. */
+@container (max-height: 720px) {
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout {
+    gap: 6px !important;
+    padding-top: clamp(28px, 3.8cqh, 38px) !important;
+    padding-bottom: 8px !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards {
+    height: min(100%, 205px) !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card {
+    padding: 7px 9px 8px !important;
+    gap: 4px !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+    font-size: clamp(17px, 1.55cqw, 23px) !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+    height: min(100%, 87px) !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+    min-height: 34px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card,
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+    transition: none !important;
+    animation: none !important;
+  }
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:hover:not(:disabled),
+  html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card:focus-visible {
+    transform: none !important;
+  }
+}
+
+/* v13 editorial pass: playful, semantic artwork and concise copy.
+   The design stays inside the existing stage and never changes routing / gameplay.
+   Keep this small last-in-file override until legacy styles are fully untangled. */
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards {
+  width: min(97%, 580px) !important;
+  height: min(100%, clamp(220px, 29cqh, 282px)) !important;
+  gap: clamp(12px, 1.3cqw, 20px) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card {
+  grid-template-rows: minmax(0, 1fr) auto auto !important;
+  gap: clamp(5px, .68cqh, 8px) !important;
+  padding: clamp(10px, 1cqh, 12px) clamp(11px, 1cqw, 14px) clamp(11px, 1.2cqh, 15px) !important;
+  border-radius: 16px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.09), 0 6px 22px rgba(0,0,0,.12) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art {
+  overflow: visible !important;
+  min-height: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+  width: min(100%, 205px) !important;
+  max-width: 100% !important;
+  height: min(100%, 154px) !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.10)) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-copy {
+  gap: clamp(4px, .50cqh, 6px) !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  font-size: clamp(21px, 1.60cqw, 29px) !important;
+  line-height: 1.16 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  max-width: 32ch !important;
+  font-size: clamp(12px, .91cqw, 15px) !important;
+  line-height: 1.25 !important;
+  color: #E0EBFA !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  width: min(100%, 225px) !important;
+  min-height: clamp(36px, 4.4cqh, 44px) !important;
+  font-size: clamp(13px, .95cqw, 15.5px) !important;
+  font-weight: 700 !important;
+  border-radius: 11px !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  font-size: clamp(21px, 1.56cqw, 28px) !important;
+  line-height: 1.33 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  font-size: clamp(12px, .91cqw, 14.5px) !important;
+  line-height: 1.46 !important;
+}
+/* Shallow 720p windows: art compresses before type. */
+@container (max-height: 720px) {
+ html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-cards {
+   height: min(100%, 235px) !important;
+ }
+ html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card-art img {
+   height: min(100%, 116px) !important;
+ }
+ html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+   font-size: 12px !important;
+ }
+}

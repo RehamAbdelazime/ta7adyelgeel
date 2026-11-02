@@ -45,48 +45,6 @@ html body .gameplay-overlay-lobby-scene .premium-brand-frame .main-screen-brand-
 .premium-brand-frame-corner-start { top: -1px; left: 13px; }
 .premium-brand-frame-corner-end { bottom: -1px; right: 13px; }
 
-/* The lights sweep across the ground in front of the stage, not across the LED display. */
-.premium-plaza-spotlights {
-  position: absolute;
-  left: 12%;
-  top: 78%;
-  width: 76%;
-  height: 20%;
-  overflow: hidden;
-  pointer-events: none;
-  contain: layout paint;
-}
-.premium-plaza-spot {
-  position: absolute;
-  top: 16%;
-  width: 28%;
-  height: 53%;
-  border-radius: 50%;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  filter: blur(8px);
-  opacity: .32;
-  will-change: transform;
-}
-.premium-plaza-spot-cyan {
-  left: 4%;
-  background: radial-gradient(ellipse, rgba(70, 228, 255, .45) 0%, rgba(65, 183, 255, .19) 44%, transparent 75%);
-  animation: premiumPlazaDriftCyan 18s ease-in-out infinite alternate;
-}
-.premium-plaza-spot-pink {
-  right: 6%;
-  background: radial-gradient(ellipse, rgba(255, 132, 221, .33) 0%, rgba(202, 105, 252, .13) 47%, transparent 77%);
-  animation: premiumPlazaDriftPink 21s ease-in-out infinite alternate;
-}
-@keyframes premiumPlazaDriftCyan {
-  from { transform: translate3d(0, 3%, 0) scale(1); opacity: .24; }
-  to { transform: translate3d(115%, -6%, 0) scale(1.18); opacity: .36; }
-}
-@keyframes premiumPlazaDriftPink {
-  from { transform: translate3d(0, -5%, 0) scale(.95); opacity: .22; }
-  to { transform: translate3d(-115%, 4%, 0) scale(1.14); opacity: .33; }
-}
-
 /* Four stage-side floor LEDs: the middle stairs remain unobstructed. */
 .premium-stage-footlights {
   position: absolute;
@@ -341,6 +299,6 @@ html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .main-screen-ba
   html body .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b { min-height: 29px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .premium-plaza-spot, .premium-citizen-footlight { animation: none !important; will-change: auto !important; }
+  .premium-citizen-footlight { animation: none !important; will-change: auto !important; }
   html body .gameplay-overlay-lobby-scene .premium-mode-card { transition: none !important; }
 }

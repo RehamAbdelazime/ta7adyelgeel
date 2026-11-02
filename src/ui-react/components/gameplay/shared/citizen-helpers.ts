@@ -106,15 +106,53 @@ function getChoiceSpotlightCenterX(placement: CitizenSpotlightPlacement): number
     + CHOICE_SPOTLIGHT_LAYOUT.widthPercent * ((index + 0.5) / count);
 }
 
-function getLobbyCrowdCoordinates(index: number): { x: number; y: number; scale: number } {
-  const columns = 12;
+/**
+ * Stable audience slots for the 16:9 desktop stage.
+ *
+ * Cards are centered on these points. The old front row was at 78% of the
+ * audience overlay, which put the feet of a 168px card below the viewport.
+ * Reserve the lower portion as a visual safe area (including OBS/taskbar crop).
+ * The column order fills the middle of the crowd first, without repositioning
+ * existing viewers each time someone joins.
+ */
+export function getLobbyCrowdCoordinates(index: number): { x: number; y: number; scale: number } {
+  const columns = 8;
+  const row = Math.floor(index / columns);
+  const columnOrder = [2, 5, 0, 7, 3, 4, 1, 6];
+  const column = columnOrder[index % columns];
+  return {
+    x: 10 + (80 / (columns - 1)) * column,
+    y: Math.max(10, 50 - row * 5),
+    scale: Math.max(0.62, 1.02 - row * 0.065),
+  };
+}
+
+/** Compact show-floor arrangement for larger lobbies.
+ * A limited small crowd keeps the original cinematic spacing. When attendance
+ * increases, we deliberately switch to a denser grid so back-row nameplates
+ * do not sit directly on top of the front row's nameplates. This never changes
+ * answer marker or minigame side placement.
+ */
+export function getAdaptiveLobbyCrowdCoordinates(index: number, count: number): {x: number; y: number; scale: number} {
+  if (count <= 8) return getLobbyCrowdCoordinates(index);
+  const columns = count <= 24 ? 8 : count <= 48 ? 10 : 12;
+  const rows = Math.ceil(count / columns);
   const row = Math.floor(index / columns);
   const column = index % columns;
-  return {
-    x: 5 + (90 / (columns - 1)) * column,
-    y: Math.max(24, 78 - row * 10),
-    scale: Math.max(0.58, 0.92 - row * 0.055),
-  };
+  // A modest alternating offset gives a concert-crowd formation without overlap
+  // between adjacent name badges in a single row.
+  const stagger = row % 2 === 1 ? 0.28 : 0;
+  const x = 6 + 88 * (column + .5 + stagger) / columns;
+  const startY = count <= 24 ? 22 : 16;
+  const endY = count <= 24 ? 57 : 67;
+  const y = rows === 1 ? endY : startY + (endY - startY) * row / (rows - 1);
+  const scale = count <= 24 ? .69 : count <= 48 ? .52 : .40;
+  return { x, y, scale };
+}
+
+export function getAdaptiveCitizenLobbyStyle(index: number, count: number): CSSProperties {
+  const position = getAdaptiveLobbyCrowdCoordinates(index, count);
+  return citizenPositionStyle({ ...position, z: Math.round(position.y) + 10, index });
 }
 
 function getPlacementXPercent(placement: CitizenPlacement | null, index: number): number {

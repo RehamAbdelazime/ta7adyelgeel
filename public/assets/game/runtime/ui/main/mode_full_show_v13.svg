@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 250" role="img" aria-label="Three colorful game cards building a show">
+<defs>
+ <radialGradient id="halo"><stop stop-color="#FD68E4" stop-opacity=".22"/><stop offset="1" stop-color="#FD68E4" stop-opacity="0"/></radialGradient>
+ <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FF8DEB"/><stop offset=".55" stop-color="#FD4DC1"/><stop offset="1" stop-color="#BA4FDF"/></linearGradient>
+ <linearGradient id="aqua" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7BEFFA"/><stop offset="1" stop-color="#219EE2"/></linearGradient>
+ <linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#BC9AFF"/><stop offset="1" stop-color="#7D56D9"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#FFF6B2"/><stop offset=".47" stop-color="#FFD86A"/><stop offset="1" stop-color="#F5A74F"/></linearGradient>
+ <filter id="shadow" x="-45%" y="-45%" width="190%" height="190%"><feGaussianBlur stdDeviation="8"/></filter>
+</defs>
+<ellipse cx="180" cy="122" rx="151" ry="104" fill="url(#halo)"/>
+<ellipse cx="184" cy="220" rx="110" ry="14" fill="#010924" opacity=".35" filter="url(#shadow)"/>
+<!-- Three clearly separated game rounds / cards -->
+<g transform="rotate(-18 119 128)"><rect x="68" y="55" width="106" height="144" rx="19" fill="#06112C" opacity=".5" transform="translate(5 8)"/><rect x="68" y="55" width="106" height="144" rx="19" fill="url(#aqua)" stroke="#B8FFFF" stroke-width="3"/><rect x="77" y="65" width="88" height="123" rx="13" fill="#0E3268"/><circle cx="121" cy="122" r="28" fill="#39DDF3"/><path d="M117 104l27 18-27 18z" fill="#FFE98A"/><path d="M97 173h49" stroke="#6BE7FE" stroke-width="5" stroke-linecap="round"/></g>
+<g transform="rotate(17 236 128)"><rect x="188" y="55" width="106" height="144" rx="19" fill="#06112C" opacity=".5" transform="translate(5 8)"/><rect x="188" y="55" width="106" height="144" rx="19" fill="url(#violet)" stroke="#DBCFFF" stroke-width="3"/><rect x="197" y="65" width="88" height="123" rx="13" fill="#352169"/><path d="M241 88l9 22 23 2-18 16 6 22-20-12-21 12 6-22-18-16 23-2z" fill="#FDB6E8" stroke="#FFDDF4" stroke-width="3"/><path d="M217 173h49" stroke="#D1A5FF" stroke-width="5" stroke-linecap="round"/></g>
+<g><rect x="129" y="25" width="112" height="178" rx="23" fill="#06112C" opacity=".55" transform="translate(5 10)"/><rect x="125" y="25" width="112" height="178" rx="23" fill="url(#pink)" stroke="#FFD1F7" stroke-width="3.5"/><rect x="135" y="36" width="92" height="155" rx="16" fill="#581F67"/><path d="M146 44h68" stroke="#FFD6F6" stroke-linecap="round" stroke-width="4" opacity=".72"/>
+ <!-- Center trophy reads as a show reward -->
+ <path d="M160 91h-18q-2 25 27 28m49-28h18q2 25-27 28" stroke="#FFDC88" stroke-width="8" stroke-linejoin="round" fill="none"/>
+ <path d="M163 79h36v37c0 16-10 26-18 26s-18-10-18-26Z" fill="url(#gold)" stroke="#FFF1B5" stroke-width="3"/>
+ <path d="M181 143v18m-17 2h34" stroke="#FFD883" stroke-width="8" stroke-linecap="round"/>
+ <path d="M181 92l5 10 11 1-8 8 2 11-10-5-10 5 2-11-8-8 11-1z" fill="#FFF8D7"/>
+ <path d="M152 178h58" stroke="#F5B0E5" stroke-width="5" stroke-linecap="round"/>
+</g>
+<path d="M53 91l6-2 3-9 3 9 7 2-7 3-3 8-3-8Z" fill="#FFE18B"/>
+<path d="M304 70l7-2 3-9 3 9 7 2-7 3-3 8-3-8Z" fill="#6FEFFF"/>
+<path d="M55 155l8-9" stroke="#FB86D8" stroke-width="5" stroke-linecap="round"/><path d="M301 160l8 11" stroke="#FFF0A8" stroke-width="5" stroke-linecap="round"/><circle cx="72" cy="59" r="4" fill="#86EDFE"/><circle cx="289" cy="119" r="5" fill="#FFB2EC"/>
+</svg>

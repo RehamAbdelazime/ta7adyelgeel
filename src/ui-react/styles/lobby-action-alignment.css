@@ -1,0 +1,53 @@
+/* Lobby action alignment fix (v6.1): one shared centre axis, not two
+   independently sized text buttons. Keep the existing minimalist CTA family. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  justify-items: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: clamp(2px, .44cqh, 6px) !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-play-cta {
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  place-items: center !important;
+  justify-self: center !important;
+  width: clamp(160px, 16cqw, 228px) !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  min-height: clamp(40px, 5.2cqh, 54px) !important;
+  margin: 0 auto !important;
+  padding: 5px 12px 9px !important;
+  text-align: center !important;
+}
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-play-cta > .main-screen-play-cta-label {
+  box-sizing: border-box !important;
+  display: block !important;
+  grid-column: 1 !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--display-font) !important;
+  font-weight: 400 !important;
+  line-height: 1.12 !important;
+  letter-spacing: .06em !important;
+  text-align: center !important;
+  text-indent: .03em !important; /* offset half the last tracking gap */
+  white-space: nowrap !important;
+}
+/* Prevent older 'settings > span' hover transforms from disturbing its axis. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-settings-link:hover > .main-screen-play-cta-label,
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-settings-link:focus-visible > .main-screen-play-cta-label {
+  transform: translateY(-2px) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-home-actions .main-screen-play-cta-label {
+    transition: none !important;
+  }
+}

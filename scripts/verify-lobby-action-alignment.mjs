@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const entry = readFileSync('src/ui-react/main.tsx', 'utf8');
+const sheet = readFileSync('src/ui-react/styles/lobby-action-alignment.css', 'utf8');
+const component = readFileSync('src/ui-react/components/play/MainScreenPlayFlow.tsx', 'utf8');
+assert(entry.indexOf("'./styles/lobby-action-alignment.css'") > entry.indexOf("'./styles/ambient-accents.css'"));
+assert(sheet.includes('.main-screen-home-actions > .main-screen-play-cta'));
+assert(sheet.includes('justify-self: center'));
+assert(sheet.includes('text-align: center'));
+assert(sheet.includes('width: 100%'));
+assert(sheet.includes('prefers-reduced-motion'));
+assert((component.match(/main-screen-play-cta-label/g) || []).length >= 2);
+assert.match(component, /main-screen-settings-link/);
+console.log('Lobby CTA alignment structural checks passed.');

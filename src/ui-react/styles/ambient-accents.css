@@ -1,0 +1,33 @@
+/* One subtle light-mote PNG used twice next to the stage rigging.
+   Avoids the central LED screens and gameplay/audience overlays. */
+.visual-world-layer-lobby-active .premium-rig-motes {
+  position: absolute;
+  width: 19%;
+  height: 43%;
+  top: 23%;
+  object-fit: fill;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  opacity: .35;
+  transform: translate3d(0, 0, 0);
+  animation: premiumRigDustDrift 14s ease-in-out infinite alternate;
+}
+.visual-world-layer-lobby-active .premium-rig-motes-left { left: 10.5%; }
+.visual-world-layer-lobby-active .premium-rig-motes-right {
+  right: 10.5%;
+  transform: scaleX(-1);
+  filter: hue-rotate(48deg);
+  opacity: .29;
+  animation: premiumRigDustDriftRight 17s ease-in-out infinite alternate;
+}
+@keyframes premiumRigDustDrift {
+  from { opacity:.22; transform:translate3d(0, 6px, 0) scale(.97); }
+  to { opacity:.39; transform:translate3d(8px, -5px, 0) scale(1.04); }
+}
+@keyframes premiumRigDustDriftRight {
+  from { opacity:.16; transform:translate3d(0, -4px, 0) scaleX(-1); }
+  to { opacity:.34; transform:translate3d(-7px, 7px, 0) scaleX(-1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active .premium-rig-motes { animation: none !important; opacity:.28; }
+}

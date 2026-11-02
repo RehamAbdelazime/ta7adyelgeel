@@ -1,0 +1,16 @@
+import { readFileSync, statSync } from 'node:fs';
+import assert from 'node:assert/strict';
+const file='public/assets/game/runtime/ui/scene-polish/ambient-light-motes.png';
+const png=readFileSync(file);
+assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+assert.equal(png.readUInt32BE(16),768);
+assert.equal(png.readUInt32BE(20),768);
+const view=readFileSync('src/ui-react/components/visual/VisualWorldLayer.tsx','utf8');
+const css=readFileSync('src/ui-react/styles/ambient-accents.css','utf8');
+const entry=readFileSync('src/ui-react/main.tsx','utf8');
+assert.match(view,/premium-rig-motes-left/);
+assert.match(view,/premium-rig-motes-right/);
+assert.match(css,/prefers-reduced-motion/);
+assert.match(entry,/ambient-accents\.css/);
+assert.ok(statSync(file).size<400_000);
+console.log('PASS: PNG RGBA asset, hooks, and accessibility present');

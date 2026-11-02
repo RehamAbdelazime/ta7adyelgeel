@@ -379,6 +379,7 @@ export type TranslationKey =
   | 'ui.landing.slogan'
   | 'ui.landing.joinHint'
   | 'ui.landing.liveChat'
+  | 'ui.landing.playersJoined'
   | 'ui.landing.notConnected'
   | 'ui.landing.play'
   | 'ui.landing.stage'

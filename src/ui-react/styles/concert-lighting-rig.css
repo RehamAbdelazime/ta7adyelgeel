@@ -1,0 +1,61 @@
+/* Ta7ady ElGeel — live concert illumination v7.
+ * Design geometry: 1920x1080 world-space SVG, scaled with the stage.
+ * Decorative only, drawn BEHIND all overlay UI, spectator sprites and host.
+ * Respect OS reduced-motion and keep the number of animated nodes constant.
+ */
+.visual-world-layer-lobby-active .concert-lighting-rig {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: .98;
+}
+.visual-world-layer-lobby-active .concert-top-wash {
+  transform-box: view-box;
+  will-change: transform, opacity;
+  animation: concertRoofBreathe 8.5s ease-in-out infinite alternate;
+}
+.visual-world-layer-lobby-active .concert-top-wash-1 { transform-origin: 680px 229px; animation-duration: 8.6s; }
+.visual-world-layer-lobby-active .concert-top-wash-2 { transform-origin: 917px 229px; animation-duration: 10.4s; animation-delay: -4.4s; opacity: .73; }
+.visual-world-layer-lobby-active .concert-top-wash-3 { transform-origin: 1250px 229px; animation-duration: 9.7s; animation-delay: -5s; }
+@keyframes concertRoofBreathe {
+  from { transform: rotate(-2.1deg); opacity: .66; }
+  to { transform: rotate(2.1deg); opacity: .98; }
+}
+/* Physical pivots at the side-rig lamp centres.  The ellipse lives in the
+ * same group as its cone: every movement keeps the pool under the beam. */
+.visual-world-layer-lobby-active .concert-audience-moving-light {
+  transform-box: view-box;
+  will-change: transform;
+}
+.visual-world-layer-lobby-active .concert-audience-moving-light-left {
+  transform-origin: 493px 426px;
+  animation: concertAudienceSweepLeft 11.8s cubic-bezier(.42, 0, .58, 1) infinite alternate;
+}
+.visual-world-layer-lobby-active .concert-audience-moving-light-right {
+  transform-origin: 1422px 426px;
+  animation: concertAudienceSweepRight 13.2s cubic-bezier(.42, 0, .58, 1) infinite alternate;
+  animation-delay: -6.2s;
+}
+@keyframes concertAudienceSweepLeft {
+  0%   { transform: rotate(-10deg); opacity: .7; }
+  50%  { opacity: 1; }
+  100% { transform: rotate(10deg); opacity: .8; }
+}
+@keyframes concertAudienceSweepRight {
+  0%   { transform: rotate(9deg); opacity: .76; }
+  50%  { opacity: 1; }
+  100% { transform: rotate(-10deg); opacity: .8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active .concert-top-wash,
+  .visual-world-layer-lobby-active .concert-audience-moving-light {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto !important;
+  }
+}

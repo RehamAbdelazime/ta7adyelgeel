@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties } from 'react';
 import type { LocaleCode } from '../../../game-core/localization/locale-types';
 import type { DisplayMode, DisplaySettings, ResolutionPreset } from '../../../desktop-electron/preload';
 import { useGame } from '../../context/GameContext';
@@ -12,17 +12,17 @@ const DEFAULT_DISPLAY_SETTINGS: DisplaySettings = {
   resolution: '1920x1080',
 };
 
-const RESOLUTIONS: Array<{ value: ResolutionPreset; label: string; icon: string }> = [
-  { value: '1920x1080', label: '1920 × 1080', icon: '▣' },
-  { value: '1600x900', label: '1600 × 900', icon: '▤' },
-  { value: '1366x768', label: '1366 × 768', icon: '▥' },
-  { value: '1280x720', label: '1280 × 720', icon: '▦' },
+const RESOLUTIONS: Array<{ value: ResolutionPreset; label: string }> = [
+  { value: '1920x1080', label: '1920 × 1080' },
+  { value: '1600x900', label: '1600 × 900' },
+  { value: '1366x768', label: '1366 × 768' },
+  { value: '1280x720', label: '1280 × 720' },
 ];
 
-const DISPLAY_MODES: Array<{ value: DisplayMode; labelKey: 'settings.display.fullscreen' | 'settings.display.windowed' | 'settings.display.borderless'; icon: string }> = [
-  { value: 'fullscreen', labelKey: 'settings.display.fullscreen', icon: '⛶' },
-  { value: 'borderless', labelKey: 'settings.display.borderless', icon: '▣' },
-  { value: 'windowed', labelKey: 'settings.display.windowed', icon: '▢' },
+const DISPLAY_MODES: Array<{ value: DisplayMode }> = [
+  { value: 'fullscreen' },
+  { value: 'borderless' },
+  { value: 'windowed' },
 ];
 
 export function AppSettingsButton() {
@@ -38,10 +38,14 @@ export function AppSettingsButton() {
   const [error, setError] = useState<string | null>(null);
   const [isDisconnectConfirmOpen, setIsDisconnectConfirmOpen] = useState(false);
   const [draftMusicVolume, setDraftMusicVolume] = useState(() => Math.round(audioTuning.globalVolume * 100));
+  const lastAudibleVolumeRef = useRef(Math.max(1, Math.round(audioTuning.globalVolume * 100)));
   const dialogRef = useRef<HTMLElement | null>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const isApplyingRef = useRef(isApplying);
   isApplyingRef.current = isApplying;
+
+  const isOpenRef = useRef(isOpen);
+  isOpenRef.current = isOpen;
 
   useEffect(() => {
     const api = window.elGeel?.display;
@@ -56,7 +60,7 @@ export function AppSettingsButton() {
       .then((settings) => {
         if (!disposed) {
           setSavedDisplaySettings(settings);
-          setDraftDisplaySettings(settings);
+          if (!isOpenRef.current) setDraftDisplaySettings(settings);
         }
       })
       .catch((err: unknown) => {
@@ -67,7 +71,7 @@ export function AppSettingsButton() {
 
     const removeListener = api.onSettingsChanged((settings) => {
       setSavedDisplaySettings(settings);
-      if (!isOpen) {
+      if (!isOpenRef.current) {
         setDraftDisplaySettings(settings);
       }
     });
@@ -76,17 +80,7 @@ export function AppSettingsButton() {
       disposed = true;
       removeListener();
     };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen) {
-      setDraftLocale(snapshot.locale);
-      setDraftDisplaySettings(savedDisplaySettings);
-      setDraftMusicVolume(Math.round(audioTuning.globalVolume * 100));
-      setError(null);
-      setIsDisconnectConfirmOpen(false);
-    }
-  }, [isOpen, savedDisplaySettings, snapshot.locale, audioTuning.globalVolume]);
+  }, []);
 
   const accountLabel = useMemo(() => {
     return status.accountDisplayName ?? status.accountLogin ?? status.channelName ?? 'Twitch';
@@ -99,7 +93,26 @@ export function AppSettingsButton() {
   const hasAnyChanges = hasDisplayChanges || hasLanguageChanges || hasAudioChanges;
   const isWindowedMode = draftDisplaySettings.displayMode === 'windowed';
   const isActiveSession = snapshot.tour.isTourActive && snapshot.tour.phase !== 'lobby_open';
-  const endSessionLabel = snapshot.activeSessionMode === 'mini-game' ? 'End Mini Game' : 'End Tour';
+  const isArabic = snapshot.locale === 'ar';
+  const copy = isArabic ? {
+    online: 'متصل', offline: 'غير متصل', disconnect: 'فصل الحساب',
+    music: 'مستوى صوت الموسيقى', musicHint: 'التحكم في صوت موسيقى اللعبة',
+    mute: 'كتم', unmute: 'إلغاء الكتم',
+    displayFull: 'شاشة كاملة', displayBorderless: 'بلا حدود', displayWindow: 'نافذة',
+    session: 'الجلسة الحالية', pending: 'تغييرات غير محفوظة', saved: 'كل الإعدادات محفوظة',
+    discard: 'إلغاء', keyHint: 'ESC للإغلاق',
+  } : {
+    online: 'Connected', offline: 'Offline', disconnect: 'Disconnect',
+    music: 'Music volume', musicHint: 'Game music volume',
+    mute: 'Mute', unmute: 'Unmute',
+    displayFull: 'Fullscreen', displayBorderless: 'Borderless', displayWindow: 'Windowed',
+    session: 'Active session', pending: 'Unsaved changes', saved: 'All changes saved',
+    discard: 'Cancel', keyHint: 'ESC to close',
+  };
+  const endSessionLabel = snapshot.activeSessionMode === 'mini-game'
+    ? (isArabic ? 'إنهاء اللعبة' : 'End mini game')
+    : (isArabic ? 'إنهاء البطولة' : 'End tour');
+  const volumeStyle = { '--settings-volume': `${draftMusicVolume}%` } as CSSProperties;
 
   const openSettings = useCallback(() => {
     if (!isOpen) restoreFocusRef.current = document.activeElement as HTMLElement | null;
@@ -138,8 +151,8 @@ export function AppSettingsButton() {
     const getFocusable = () => Array.from(dialog.querySelectorAll<HTMLElement>(
       'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
     )).filter((element) => element.getClientRects().length > 0);
-    const [first] = getFocusable();
-    (first ?? dialog).focus();
+    const first = dialog.querySelector<HTMLElement>('[data-settings-initial-focus="true"]');
+    (first ?? getFocusable()[0] ?? dialog).focus();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && !isApplyingRef.current) {
@@ -235,151 +248,157 @@ export function AppSettingsButton() {
   return (
     <>
       {snapshot.tour.isTourActive ? (
-        <button className="app-settings-gear" type="button" aria-label={t('settings.open')} onClick={openSettings}>
-          ⚙
-        </button>
+        <button className="app-settings-gear" type="button" aria-label={t('settings.open')} onClick={openSettings}>⚙</button>
       ) : null}
-
       {isOpen ? (
-        <div className="settings-modal-backdrop" role="presentation">
-          <section ref={dialogRef} tabIndex={-1} className="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-dialog-title">
-            <header className="settings-modal-header">
-              <div>
-                <span>{t('settings.kicker')}</span>
+        <div className="settings-modal-backdrop casual-settings-backdrop" role="presentation">
+          <section
+            ref={dialogRef}
+            tabIndex={-1}
+            className="settings-modal casual-settings"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="settings-dialog-title"
+            aria-describedby="settings-dialog-description"
+            dir={snapshot.direction}
+          >
+            <header className="casual-settings-header">
+              <div className="casual-settings-heading">
+                <div className="casual-settings-accent" aria-hidden="true"><span /><span /></div>
                 <h2 id="settings-dialog-title">{t('settings.title')}</h2>
+                <p id="settings-dialog-description">{isArabic ? 'ظبّطي اللعبة على مزاجك' : 'Make the game yours'}</p>
               </div>
-              <button type="button" className="settings-close-button" onClick={closeSettings} aria-label={t('settings.close')}>
-                ×
-              </button>
+              <button
+                type="button"
+                className="casual-settings-close"
+                onClick={closeSettings} disabled={isApplying}
+                aria-label={t('settings.close')} title={copy.keyHint}
+              >×</button>
             </header>
 
-            <div className="settings-section settings-danger-section settings-account-section">
-              <h3>{t('settings.twitch')}</h3>
-              <p className="settings-help-text">
-                {isConnected ? t('settings.connectedAs', { name: accountLabel }) : t('settings.notConnected')}
-              </p>
-              <button type="button" className="settings-danger-button" onClick={requestDisconnectTwitch} disabled={!isConnected}>
-                <span aria-hidden="true">■</span>
-                {t('settings.disconnectTwitch')}
-              </button>
-
-              {isDisconnectConfirmOpen ? (
-                <div className="settings-confirm-card" role="alertdialog" aria-modal="false" aria-label={t('settings.disconnectConfirmTitle')}>
-                  <strong>{t('settings.disconnectConfirmTitle')}</strong>
-                  <p>{t('settings.disconnectConfirmMessage')}</p>
-                  <div className="settings-confirm-actions">
-                    <button type="button" className="settings-secondary-button" onClick={cancelDisconnectTwitch}>
-                      <span aria-hidden="true">←</span>
-                      {t('settings.cancel')}
-                    </button>
-                    <button type="button" className="settings-danger-button" onClick={() => void confirmDisconnectTwitch()}>
-                      <span aria-hidden="true">■</span>
-                      {t('settings.confirmDisconnect')}
-                    </button>
-                  </div>
+            <div className="casual-settings-content">
+              <div className="casual-settings-row casual-settings-audio">
+                <div className="casual-settings-label">
+                  <span>{isArabic ? 'الموسيقى' : 'Music'}</span>
+                  <small>{copy.musicHint}</small>
                 </div>
-              ) : null}
-            </div>
-
-            <div className="settings-section settings-audio-section">
-              <h3>Music Volume</h3>
-              <div className="settings-volume-control">
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  step="1"
-                  value={draftMusicVolume}
-                  onChange={changeMusicVolume}
-                  aria-label="Music volume"
-                />
-                <strong>{draftMusicVolume}%</strong>
-              </div>
-            </div>
-
-            {isActiveSession ? (
-              <div className="settings-section settings-end-session-section">
-                <h3>Live Session</h3>
-                <button type="button" className="settings-danger-button settings-end-session-button" onClick={endActiveSession}>
-                  <span aria-hidden="true">■</span>
-                  {endSessionLabel}
-                </button>
-              </div>
-            ) : null}
-
-            <div className="settings-system-grid">
-              <div className="settings-section">
-                <h3>{t('settings.language')}</h3>
-                <div className="settings-segmented-row">
-                  <button type="button" className={draftLocale === 'en' ? 'active' : ''} onClick={() => changeLanguage('en')}>
-                    <span className="settings-language-flag" aria-hidden="true">🇬🇧</span>
-                    <span>English</span>
+                <div className="casual-settings-volume-controls">
+                  <button type="button" className="casual-settings-mute" disabled={isApplying}
+                    onClick={() => {
+                      if (draftMusicVolume > 0) {
+                        lastAudibleVolumeRef.current = draftMusicVolume;
+                        setDraftMusicVolume(0);
+                      } else {
+                        setDraftMusicVolume(lastAudibleVolumeRef.current);
+                      }
+                    }} aria-label={draftMusicVolume === 0 ? copy.unmute : copy.mute}
+                    title={draftMusicVolume === 0 ? copy.unmute : copy.mute}>
+                    <span aria-hidden="true">{draftMusicVolume === 0 ? '♪̸' : '♫'}</span>
                   </button>
-                  <button type="button" className={draftLocale === 'ar' ? 'active' : ''} onClick={() => changeLanguage('ar')}>
-                    <span className="settings-language-flag" aria-hidden="true">🇪🇬</span>
-                    <span>العربية</span>
-                  </button>
+                  <input id="casual-settings-volume" type="range" min="0" max="100" step="1"
+                    value={draftMusicVolume} style={volumeStyle} data-settings-initial-focus="true"
+                    onChange={changeMusicVolume} disabled={isApplying}
+                    aria-label={copy.music} aria-valuetext={`${draftMusicVolume}%`} />
+                  <output htmlFor="casual-settings-volume" dir="ltr">{draftMusicVolume}%</output>
                 </div>
               </div>
 
-              <div className="settings-section">
-                <h3>{t('settings.displayMode')}</h3>
-                <div className="settings-choice-grid settings-choice-grid-three" role="group" aria-label={t('settings.displayMode')}>
+              <div className="casual-settings-row">
+                <div className="casual-settings-label"><span>{t('settings.language')}</span></div>
+                <div className="casual-settings-segmented casual-settings-language" role="group" aria-label={t('settings.language')}>
+                  <button type="button" onClick={() => changeLanguage('en')}
+                    className={draftLocale === 'en' ? 'is-active' : ''}
+                    aria-pressed={draftLocale === 'en'} disabled={isApplying}>English</button>
+                  <button type="button" onClick={() => changeLanguage('ar')}
+                    className={draftLocale === 'ar' ? 'is-active' : ''}
+                    aria-pressed={draftLocale === 'ar'} disabled={isApplying}>العربية</button>
+                </div>
+              </div>
+
+              <div className="casual-settings-row casual-settings-display-row">
+                <div className="casual-settings-label"><span>{t('settings.displayMode')}</span></div>
+                <div className="casual-settings-segmented casual-settings-display" role="group" aria-label={t('settings.displayMode')}>
                   {DISPLAY_MODES.map((mode) => (
-                    <button
-                      type="button"
-                      key={mode.value}
-                      className={draftDisplaySettings.displayMode === mode.value ? 'settings-choice-button active' : 'settings-choice-button'}
-                      onClick={() => changeDisplayMode(mode.value)}
-                      disabled={isApplying}
-                      aria-pressed={draftDisplaySettings.displayMode === mode.value}
-                    >
-                      <span aria-hidden="true">{mode.icon}</span>
-                      <strong>{t(mode.labelKey)}</strong>
+                    <button type="button" key={mode.value} onClick={() => changeDisplayMode(mode.value)}
+                      className={draftDisplaySettings.displayMode === mode.value ? 'is-active' : ''}
+                      aria-pressed={draftDisplaySettings.displayMode === mode.value} disabled={isApplying}>
+                      {mode.value === 'fullscreen' ? copy.displayFull : mode.value === 'borderless' ? copy.displayBorderless : copy.displayWindow}
                     </button>
                   ))}
                 </div>
               </div>
 
               {isWindowedMode ? (
-                <div className="settings-section">
-                  <h3>{t('settings.resolution')}</h3>
-                  <div className="settings-choice-grid settings-choice-grid-resolution" role="group" aria-label={t('settings.resolution')}>
-                    {RESOLUTIONS.map((resolution) => (
-                      <button
-                        type="button"
-                        key={resolution.value}
-                        className={draftDisplaySettings.resolution === resolution.value ? 'settings-choice-button active' : 'settings-choice-button'}
-                        onClick={() => changeResolution(resolution.value)}
-                        disabled={isApplying}
-                        aria-pressed={draftDisplaySettings.resolution === resolution.value}
-                      >
-                        <span aria-hidden="true">{resolution.icon}</span>
-                        <strong>{resolution.label}</strong>
-                      </button>
-                    ))}
+                <div className="casual-settings-row casual-settings-resolution-row">
+                  <label className="casual-settings-label" htmlFor="casual-settings-resolution">
+                    <span>{t('settings.resolution')}</span>
+                  </label>
+                  <select id="casual-settings-resolution" value={draftDisplaySettings.resolution}
+                    disabled={isApplying}
+                    onChange={(event) => changeResolution(event.target.value as ResolutionPreset)}>
+                    {RESOLUTIONS.map(({ value, label }) => <option key={value} value={value}>{label}</option>)}
+                  </select>
+                </div>
+              ) : null}
+
+              <div className="casual-settings-row casual-settings-stream">
+                <div className="casual-settings-label">
+                  <span>Twitch</span>
+                  <small className="casual-settings-account" title={accountLabel} dir="auto">
+                    {isConnected ? accountLabel : copy.offline}
+                  </small>
+                </div>
+                <div className="casual-settings-stream-actions">
+                  <span className={`casual-settings-connection ${isConnected ? 'is-online' : ''}`}>
+                    <i aria-hidden="true" />{isConnected ? copy.online : copy.offline}
+                  </span>
+                  {isConnected ? (
+                    <button type="button" className="casual-settings-link"
+                      disabled={isApplying || isDisconnectConfirmOpen} onClick={requestDisconnectTwitch}>
+                      {copy.disconnect}
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+              {isDisconnectConfirmOpen ? (
+                <div className="casual-settings-confirm" role="group" aria-label={t('settings.disconnectConfirmTitle')}>
+                  <strong>{t('settings.disconnectConfirmTitle')}</strong>
+                  <p>{t('settings.disconnectConfirmMessage')}</p>
+                  <div>
+                    <button type="button" onClick={cancelDisconnectTwitch}>{t('settings.cancel')}</button>
+                    <button type="button" className="is-danger" onClick={() => void confirmDisconnectTwitch()}>
+                      {t('settings.confirmDisconnect')}
+                    </button>
                   </div>
+                </div>
+              ) : null}
+
+              {isActiveSession ? (
+                <div className="casual-settings-session">
+                  <span>{copy.session}</span>
+                  <button type="button" onClick={endActiveSession} disabled={isApplying}>{endSessionLabel}</button>
                 </div>
               ) : null}
             </div>
 
-            <div className="settings-actions-row">
-              <button type="button" className="settings-secondary-button" onClick={closeSettings} disabled={isApplying}>
-                <span aria-hidden="true">←</span>
-                {t('settings.cancel')}
-              </button>
-              <button type="button" className="settings-apply-button" onClick={() => void applySettings()} disabled={isApplying || !hasAnyChanges}>
-                <span aria-hidden="true">✓</span>
-                {isApplying ? t('settings.applying') : t('settings.apply')}
-              </button>
-            </div>
-
-            {error ? <p className="settings-error-text" role="alert">{error}</p> : null}
+            {error ? <p className="casual-settings-error" role="alert">{error}</p> : null}
+            <footer className="casual-settings-footer">
+              <span className={`casual-settings-status ${hasAnyChanges ? 'is-dirty' : ''}`} role="status" aria-live="polite">
+                {hasAnyChanges ? copy.pending : copy.saved}
+              </span>
+              <div className="casual-settings-footer-buttons">
+                <button className="casual-settings-cancel" type="button" onClick={closeSettings} disabled={isApplying}>{copy.discard}</button>
+                <button className="casual-settings-save" type="button" disabled={!hasAnyChanges || isApplying} onClick={() => void applySettings()}>
+                  {isApplying ? t('settings.applying') : t('settings.apply')}
+                </button>
+              </div>
+            </footer>
           </section>
         </div>
       ) : null}
     </>
   );
+
 }
 
 function getErrorMessage(error: unknown): string {

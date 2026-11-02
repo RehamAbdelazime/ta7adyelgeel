@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 
@@ -34,6 +35,36 @@ export function HostMascotLayer({ scene }: { scene: 'lobby' | 'minigame' }) {
   const { snapshot } = useGame();
   const { status } = useTwitchConnection();
   const isLobbyHostActive = scene === 'lobby';
+  const [isAcknowledging, setIsAcknowledging] = useState(false);
+  const previousJoinCount = useRef(snapshot.citizens.length);
+  const reactionTimerRef = useRef<number | null>(null);
+
+  // React to new joins / Play without swapping silhouette frames (no flicker).
+  // A pre-existing crowd on first mount must not trigger a welcome burst.
+  useEffect(() => {
+    const count = snapshot.citizens.length;
+    if (count > previousJoinCount.current && scene === 'lobby') {
+      setIsAcknowledging(true);
+      if (reactionTimerRef.current !== null) window.clearTimeout(reactionTimerRef.current);
+      reactionTimerRef.current = window.setTimeout(() => setIsAcknowledging(false), 880);
+    }
+    previousJoinCount.current = count;
+  }, [snapshot.citizens.length, scene]);
+
+  useEffect(() => {
+    const acknowledgePlay = () => {
+      if (scene !== 'lobby') return;
+      setIsAcknowledging(true);
+      if (reactionTimerRef.current !== null) window.clearTimeout(reactionTimerRef.current);
+      reactionTimerRef.current = window.setTimeout(() => setIsAcknowledging(false), 880);
+    };
+    window.addEventListener('ta7ady:lobby-play-selected', acknowledgePlay);
+    return () => window.removeEventListener('ta7ady:lobby-play-selected', acknowledgePlay);
+  }, [scene]);
+
+  useEffect(() => () => {
+    if (reactionTimerRef.current !== null) window.clearTimeout(reactionTimerRef.current);
+  }, []);
   const isMiniGameScene = scene === 'minigame';
   const isIntroHostActive = isMiniGameScene && snapshot.tour.phase === 'mini_game_intro';
   const isQuestionHostActive = isMiniGameScene && snapshot.tour.phase === 'answer_window_open';
@@ -65,7 +96,7 @@ export function HostMascotLayer({ scene }: { scene: 'lobby' | 'minigame' }) {
           <span className="concert-host-stage-beam concert-host-stage-beam-left" />
           <span className="concert-host-stage-beam concert-host-stage-beam-right" />
           <span className="concert-host-floor-pool concert-host-floor-pool-front" />
-          <div className="concert-host-mascot concert-host-mascot-front">
+          <div className={`concert-host-mascot concert-host-mascot-front ${isAcknowledging ? 'premium-host-reacting' : ''}`}>
             <span className="concert-host-mascot-shadow" />
             <img className="concert-host-mascot-pose concert-host-mascot-open" src={hostWelcomeOpenAsset} alt="" draggable={false} />
             <img className="concert-host-mascot-pose concert-host-mascot-blink" src={hostWelcomeBlinkAsset} alt="" draggable={false} />

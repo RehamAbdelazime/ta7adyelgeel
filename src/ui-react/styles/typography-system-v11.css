@@ -1,0 +1,225 @@
+/* ============================================================================
+   TA7ADY ELGEEL — BILINGUAL CASUAL GAME TYPE SYSTEM / v11
+
+   Fredoka Variable (English UI) + Alexandria Variable (Arabic glyphs).
+   Both served from @fontsource-variable packages by Vite, never Google CDN.
+   The existing image-based logo is untouched. Labo is preserved as a
+   legacy asset but no longer forced across the entire interface.
+
+   This MUST be the final CSS import in src/ui-react/main.tsx because the
+   original stylesheet includes extremely high-specificity !important rules.
+   ============================================================================ */
+:root {
+  --font-en: "Fredoka Variable", "Trebuchet MS", Arial, sans-serif;
+  --font-ar: "Alexandria Variable", Tahoma, Arial, sans-serif;
+  /* Glyph fallback: Fredoka has Latin; Arabic flows to Alexandria. */
+  --font-game-ui: "Fredoka Variable", "Alexandria Variable", "Trebuchet MS", Tahoma, sans-serif;
+  --font-game-title: var(--font-game-ui);
+  --font-legacy-brand: "Labo Display", "Fredoka Variable", sans-serif;
+  --display-font: var(--font-game-title);
+}
+
+/* Undo the previous `html body #root * { font-family: Labo !important; }`
+   without changing the hierarchy of image sprites or existing stage art. */
+html body #root,
+html body #root * {
+  font-family: var(--font-game-ui) !important;
+}
+
+/* Language is bound to actual game state on the application root, not to
+   OS/browser language. Mixed Twitch usernames remain LTR via dir="auto". */
+html body #root main[lang="ar"] {
+  --font-game-title: "Alexandria Variable", Tahoma, Arial, sans-serif;
+  /* Keep Latin Twitch names and the English language button in Fredoka.
+     Arabic glyphs automatically fall through to Alexandria. */
+  --font-game-ui: "Fredoka Variable", "Alexandria Variable", "Trebuchet MS", Tahoma, sans-serif;
+}
+html body #root main[lang="ar"] :is(h1, h2, h3, h4, button, strong, b, small, label, p, span) {
+  letter-spacing: 0 !important;
+}
+html body #root main[lang="ar"] :is(h1, h2, h3, h4) {
+  text-transform: none !important;
+}
+html body #root :is(button, input, select, textarea) {
+  font-family: inherit !important;
+}
+
+/* Primary stage, lobby and mode picker: a friendly game feel rather than
+   Labo's sharp sci-fi look, and Arabic weights that feel equally intentional. */
+html body #root .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-play-cta,
+html body #root .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-settings-link {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  justify-self: center !important;
+  place-items: center !important;
+  width: clamp(160px, 16cqw, 228px) !important;
+  margin-inline: auto !important;
+}
+html body #root .gameplay-main-screen-lobby-interactive .main-screen-home-actions > button > .main-screen-play-cta-label {
+  font-family: var(--font-game-title) !important;
+  font-weight: 700 !important;
+  font-size: clamp(27px, 2.1cqw, 40px) !important;
+  letter-spacing: .012em !important;
+  line-height: 1.16 !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  white-space: nowrap !important;
+  width: 100% !important;
+}
+html body #root .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-settings-link > .main-screen-play-cta-label {
+  font-size: clamp(19px, 1.45cqw, 27px) !important;
+  font-weight: 600 !important;
+  opacity: .91;
+}
+html body #root main[lang="ar"] .gameplay-main-screen-lobby-interactive .main-screen-home-actions > button > .main-screen-play-cta-label {
+  font-weight: 750 !important;
+  font-size: clamp(24px, 1.82cqw, 34px) !important;
+  letter-spacing: 0 !important;
+  line-height: 1.36 !important;
+}
+html body #root main[lang="ar"] .gameplay-main-screen-lobby-interactive .main-screen-home-actions > .main-screen-settings-link > .main-screen-play-cta-label {
+  font-size: clamp(17px, 1.27cqw, 24px) !important;
+  font-weight: 650 !important;
+}
+html body #root .main-screen-join-hint,
+html body #root .premium-lobby-status,
+html body #root .main-screen-live-chat-header,
+html body #root .premium-live-chat :is(.premium-chat-message, .premium-chat-empty, .main-screen-live-chat-message) {
+  font-weight: 600 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.45 !important;
+}
+html body #root .gameplay-main-screen-lobby-interactive .premium-live-chat .main-screen-live-chat-heading strong {
+  font-size: clamp(15px,1.05cqw,20px) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .gameplay-main-screen-lobby-interactive .premium-live-chat .main-screen-streamer-name {
+  font-size: clamp(12px,.87cqw,17px) !important;
+  font-weight: 650 !important;
+}
+html body #root .gameplay-citizen-nameplate,
+html body #root .gameplay-citizen-nameplate * {
+  font-family: var(--font-game-ui) !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Mode selection: clean, proportional, with enough line height for Arabic.
+   The action on a mode card is a two-line-capable label, never a clipped pill. */
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header h2,
+html body #root .main-screen-game-grid-layout .main-screen-grid-header h2 {
+  font-family: var(--font-game-title) !important;
+  font-size: clamp(24px, 1.85cqw, 35px) !important;
+  font-weight: 700 !important;
+  letter-spacing: .012em !important;
+  line-height: 1.23 !important;
+  text-wrap: balance;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-subtitle,
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .main-screen-start-notice {
+  font-size: clamp(12px, .88cqw, 16px) !important;
+  font-weight: 550 !important;
+  line-height: 1.42 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  font-size: clamp(22px, 1.55cqw, 29px) !important;
+  font-weight: 700 !important;
+  line-height: 1.23 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card small {
+  font-size: clamp(12px, .87cqw, 15px) !important;
+  font-weight: 550 !important;
+  line-height: 1.43 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  display: grid !important;
+  place-items: center !important;
+  min-height: clamp(38px, 4.35cqh, 53px) !important;
+  padding: 5px 12px !important;
+  font-size: clamp(12px, .9cqw, 16px) !important;
+  font-weight: 700 !important;
+  line-height: 1.22 !important;
+  letter-spacing: 0 !important;
+  overflow-wrap: normal !important;
+  text-wrap: balance;
+}
+html body #root .gameplay-overlay-lobby-scene .main-screen-mode-layout .main-screen-back-button,
+html body #root .main-screen-game-grid-layout .main-screen-back-button {
+  font-family: var(--font-game-title) !important;
+  font-weight: 650 !important;
+  letter-spacing: 0 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-header h2,
+html body #root main[lang="ar"] .main-screen-game-grid-layout .main-screen-grid-header h2 {
+  font-size: clamp(23px, 1.77cqw, 34px) !important;
+  line-height: 1.42 !important;
+  font-weight: 750 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card strong {
+  font-size: clamp(20px, 1.4cqw, 27px) !important;
+  line-height: 1.44 !important;
+  font-weight: 720 !important;
+}
+html body #root main[lang="ar"] .gameplay-overlay-lobby-scene .main-screen-mode-layout .premium-mode-card b {
+  font-size: clamp(12px, .87cqw, 16px) !important;
+  line-height: 1.45 !important;
+  font-weight: 720 !important;
+}
+
+/* Settings v10 stays a single, lightweight modal. The typography is improved,
+   not redesigned into a heavyweight dashboard. */
+html body #root .settings-modal.casual-settings h2 {
+  font-family: var(--font-game-title) !important;
+  font-size: clamp(26px, 2.35vw, 34px) !important;
+  font-weight: 700 !important;
+  line-height: 1.28 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .casual-settings-heading p {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+}
+html body #root .casual-settings-label > span {
+  font-size: 15px !important;
+  font-weight: 650 !important;
+  line-height: 1.45 !important;
+}
+html body #root .casual-settings-label small,
+html body #root .casual-settings-account {
+  font-size: 12px !important;
+  font-weight: 450 !important;
+  line-height: 1.45 !important;
+}
+html body #root .casual-settings :is(.casual-settings-segmented, .casual-settings-footer-buttons, .casual-settings-link) button,
+html body #root .casual-settings :is(.casual-settings-save, .casual-settings-cancel, .casual-settings-link) {
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0 !important;
+}
+html body #root main[lang="ar"] .settings-modal.casual-settings h2 {
+  font-size: clamp(25px, 2.1vw, 32px) !important;
+  font-weight: 760 !important;
+  line-height: 1.46 !important;
+}
+html body #root main[lang="ar"] .casual-settings-label > span {
+  line-height: 1.55 !important;
+}
+html body #root main[lang="ar"] .casual-settings :is(.casual-settings-segmented, .casual-settings-footer-buttons, .casual-settings-link) button,
+html body #root main[lang="ar"] .casual-settings :is(.casual-settings-save, .casual-settings-cancel, .casual-settings-link) {
+  line-height: 1.5 !important;
+}
+
+/* Question screens and scoreboards share one face. Do not blindly increase
+   font sizes there: many question types rely on their own compact grids. */
+html body #root :is(.main-screen-game-grid-layout, .gameplay-overlay-gameplay, .gameplay-scoreboard, .scoreboard-screen, .gameplay-minigame-layout) :is(h1, h2, h3, h4) {
+  font-family: var(--font-game-title) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0 !important;
+}
+

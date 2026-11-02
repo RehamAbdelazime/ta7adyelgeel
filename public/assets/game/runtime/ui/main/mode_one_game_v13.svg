@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 250" role="img" aria-label="One colorful game card with a play symbol">
+<defs>
+ <radialGradient id="halo"><stop stop-color="#23F6FA" stop-opacity=".26"/><stop offset="1" stop-color="#23F6FA" stop-opacity="0"/></radialGradient>
+ <linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6CF6FE"/><stop offset=".48" stop-color="#21D4F3"/><stop offset="1" stop-color="#318DF9"/></linearGradient>
+ <linearGradient id="tile" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#153C8D"/><stop offset="1" stop-color="#0B1B58"/></linearGradient>
+ <linearGradient id="play" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFF7B6"/><stop offset="1" stop-color="#FFC957"/></linearGradient>
+ <filter id="shadow" x="-40%" y="-40%" width="180%" height="190%"><feGaussianBlur stdDeviation="9"/></filter>
+ <filter id="glow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="3.5"/></filter>
+</defs>
+<ellipse cx="180" cy="129" rx="147" ry="109" fill="url(#halo)"/>
+<ellipse cx="185" cy="220" rx="98" ry="14" fill="#010924" opacity=".38" filter="url(#shadow)"/>
+<!-- Friendly oversized arcade card with crisp dimensional edges -->
+<g transform="rotate(-9 178 121)">
+ <rect x="96" y="30" width="172" height="187" rx="29" fill="#071332" stroke="#0D274E" stroke-width="10" opacity=".55" transform="translate(6 10)"/>
+ <rect x="95" y="29" width="172" height="185" rx="27" fill="url(#base)" stroke="#A0FBFF" stroke-width="3.5"/>
+ <rect x="104" y="39" width="154" height="163" rx="20" fill="url(#tile)" stroke="#126EA6" stroke-width="2"/>
+ <path d="M124 47H236" stroke="#83FAFF" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+ <path d="M115 97C147 48 225 48 248 104V62Q235 45 214 44H141Q114 45 115 72Z" fill="#fff" opacity=".07"/>
+ <!-- A single, instantly legible play button -->
+ <circle cx="180" cy="124" r="52" fill="#003F83" opacity=".7"/>
+ <circle cx="180" cy="116" r="49" fill="#2FDDFA" opacity=".36" filter="url(#glow)"/>
+ <circle cx="180" cy="116" r="45" fill="#44E7FA" stroke="#CEFFFF" stroke-width="4"/>
+ <circle cx="180" cy="116" r="36" fill="#11B3E6"/>
+ <path d="M168 91C166 88 162 90 162 95V139C162 144 167 146 171 143L210 120C214 118 214 113 209 111Z" fill="#01446D" opacity=".6" transform="translate(0 5)"/>
+ <path d="M166 91C162 89 160 92 160 96V135C160 140 164 142 168 140L205 121C210 118 210 113 205 111Z" fill="url(#play)" stroke="#FFF8DB" stroke-width="2"/>
+ <circle cx="130" cy="172" r="6" fill="#64F4FE"/><circle cx="147" cy="172" r="6" fill="#64F4FE"/><path d="M212 168h22m-11 -11v22" stroke="#FFCC63" stroke-width="5" stroke-linecap="round"/>
+</g>
+<!-- Soft, whimsical confetti elements, no text embedded in images -->
+<path d="M53 95l7-2 3-8 3 8 7 2-7 3-3 8-3-8Z" fill="#FFD974"/>
+<path d="M293 63l5-2 2-6 2 6 6 2-6 2-2 6-2-6Z" fill="#FF69CD"/>
+<circle cx="62" cy="163" r="4.8" fill="#F47FE0"/><circle cx="301" cy="158" r="4" fill="#70EAFF"/><path d="M299 174l12-10" stroke="#FFE292" stroke-width="5" stroke-linecap="round"/><path d="M65 64l10-8" stroke="#67EFFF" stroke-width="4" stroke-linecap="round"/>
+</svg>

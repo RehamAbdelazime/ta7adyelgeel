@@ -16,7 +16,7 @@ export function TwitchAuthGate() {
   };
 
   return (
-    <main className="auth-gate-page auth-gate-simple" dir={snapshot.direction}>
+    <main className="auth-gate-page auth-gate-simple" dir={snapshot.direction} lang={snapshot.locale}>
       <div className="auth-gate-bg auth-gate-stage-bg" aria-hidden="true" />
 
       <section className="auth-simple-panel" aria-label={t('authGate.title')}>

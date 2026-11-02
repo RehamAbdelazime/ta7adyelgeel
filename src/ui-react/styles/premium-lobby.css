@@ -281,31 +281,8 @@ html body .concert-host-presenter-open { opacity:1 !important; animation:none !i
 html body .concert-host-result-blink,
 html body .concert-host-presenter-blink { opacity:0 !important; animation:none !important; }
 
-/* ===== Set dressing: 2 slow, low-contrast beams stay clear of the text ===== */
+/* ConcertLightingRig renders stage & audience lights as one coordinated scene. */
 .premium-stage-ambience { position:absolute; inset:0; z-index:2; overflow:hidden; pointer-events:none; }
-.premium-stage-beam {
-  position:absolute; top:18%; width:23%; height:46%; opacity:.13;
-  transform-origin:50% 0;
-  clip-path:polygon(49% 0,51% 0,97% 100%,3% 100%);
-  mix-blend-mode:screen;
-  filter:blur(10px);
-}
-.premium-stage-beam-cyan {
-  left:17%; background:linear-gradient(180deg,rgba(111,237,255,.08),rgba(71,208,255,.5) 80%,transparent);
-  animation:premiumBeamCyan 16s ease-in-out infinite alternate;
-}
-.premium-stage-beam-pink {
-  right:17%; background:linear-gradient(180deg,rgba(245,131,255,.06),rgba(231,95,255,.42) 80%,transparent);
-  animation:premiumBeamPink 19s ease-in-out infinite alternate;
-}
-.premium-stage-floor-glow {
-  position:absolute; left:22%; right:22%; top:67.3%; height:3%; opacity:.28;
-  background:radial-gradient(ellipse,rgba(119,119,255,.18),transparent 70%);
-  animation:premiumFloorBreathe 9s ease-in-out infinite;
-}
-@keyframes premiumBeamCyan { from { transform:rotate(-13deg); opacity:.09; } to { transform:rotate(13deg); opacity:.16; } }
-@keyframes premiumBeamPink { from { transform:rotate(12deg); opacity:.10; } to { transform:rotate(-12deg); opacity:.17; } }
-@keyframes premiumFloorBreathe { 0%,100% { opacity:.14; } 50% { opacity:.33; } }
 @keyframes premiumChatEnter { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
 @keyframes premiumChatPulse { 0%,100% { opacity:.35; } 50% { opacity:.8; } }
 
@@ -319,7 +296,7 @@ html body .concert-host-presenter-blink { opacity:0 !important; animation:none !
   html body .gameplay-overlay-lobby-scene .gameplay-citizen-card > .gameplay-citizen-nameplate { min-width:135px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .premium-stage-beam, .premium-stage-floor-glow, .premium-chat-empty-light, .premium-chat-message,
+  .premium-chat-empty-light, .premium-chat-message,
   html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
     animation:none !important; transition:none !important;
   }
