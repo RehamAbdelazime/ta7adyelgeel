@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import { QuestionBankService } from '../../questions/question-bank-service';
 import type {
@@ -12,13 +13,6 @@ import type {
 } from '../minigame-types';
 import { COUPLE_OR_SIBLINGS_QUESTIONS, type PairGuessAnswerKind, type PairGuessQuestion } from './couple-or-siblings-content';
 
-const PARTICIPATION_POINTS = 10;
-
-const DIFFICULTY_SCORE: Record<PairGuessQuestion['difficulty'], number> = {
-  easy: 70,
-  medium: 120,
-  hard: 180,
-};
 
 export class CoupleOrSiblingsMiniGameService {
   private readonly questionBank = new QuestionBankService<PairGuessQuestion>(COUPLE_OR_SIBLINGS_QUESTIONS);
@@ -99,8 +93,7 @@ export class CoupleOrSiblingsMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.question.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('couple-or-siblings', this.question.difficulty, isCorrect),
         difficulty: this.question.difficulty,
       });
     }

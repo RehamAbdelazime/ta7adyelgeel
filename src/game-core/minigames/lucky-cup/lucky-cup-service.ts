@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -34,15 +35,13 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
   swapCount: number;
   swapDurationMs: number;
   revealMs: number;
-  score: number;
 }> = {
-  easy: { swapCount: 5, swapDurationMs: 620, revealMs: 2300, score: 120 },
-  medium: { swapCount: 8, swapDurationMs: 490, revealMs: 2050, score: 180 },
-  hard: { swapCount: 12, swapDurationMs: 370, revealMs: 1750, score: 240 },
+  easy: { swapCount: 5, swapDurationMs: 620, revealMs: 2300 },
+  medium: { swapCount: 8, swapDurationMs: 490, revealMs: 2050 },
+  hard: { swapCount: 12, swapDurationMs: 370, revealMs: 1750 },
 };
 
 const CUP_IDS = [0, 1, 2] as const;
-const PARTICIPATION_POINTS = 0;
 
 function createSeededRandom(seed: number): () => number {
   let value = Math.max(1, seed >>> 0);
@@ -55,10 +54,6 @@ function createSeededRandom(seed: number): () => number {
 
 function getDifficulty(roundNumber: number): QuestionDifficulty {
   return DIFFICULTY_ORDER[(roundNumber - 1) % DIFFICULTY_ORDER.length] ?? 'hard';
-}
-
-function scoreAnswer(difficulty: QuestionDifficulty, correctCupNumber: number, submittedAnswer: number): number {
-  return submittedAnswer === correctCupNumber ? DIFFICULTY_CONFIG[difficulty].score : PARTICIPATION_POINTS;
 }
 
 export class LuckyCupMiniGameService {
@@ -139,16 +134,14 @@ export class LuckyCupMiniGameService {
 
     const awards = [...this.answers.values()].map((record): MiniGameScoreAward => {
       const numericAnswer = Number(record.answer);
-      const points = Number.isFinite(numericAnswer)
-        ? scoreAnswer(this.round!.difficulty, this.round!.correctCupNumber, numericAnswer)
-        : PARTICIPATION_POINTS;
+      const isCorrect = Number.isFinite(numericAnswer) && numericAnswer === this.round!.correctCupNumber;
+      const scoring = calculateExactAnswerScore('lucky-cup', this.round!.difficulty, isCorrect);
 
       return {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points,
-        isCorrect: points > PARTICIPATION_POINTS,
+        ...scoring,
         difficulty: this.round!.difficulty,
       };
     });

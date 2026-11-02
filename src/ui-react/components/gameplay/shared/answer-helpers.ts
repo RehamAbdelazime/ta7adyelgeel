@@ -104,13 +104,37 @@ export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | nul
   return null;
 }
 
+export type ChoiceResultState = 'pending' | 'correct' | 'partial' | 'wrong';
+
+export function getChoiceOptionResultState(
+  miniGame: MiniGameSnapshot,
+  answerOption: number | null,
+): ChoiceResultState {
+  const correctOption = getCorrectOptionNumber(miniGame);
+  if (answerOption === null || correctOption === null || miniGame.correctAnswer === null) return 'pending';
+  if (answerOption === correctOption) return 'correct';
+
+  // Memory Count is a numeric estimate presented as multiple-choice options.
+  // Reflect the same one-count quarter-credit margin used by its score policy.
+  if (miniGame.id === 'memory-count') {
+    const memoryCount = miniGame.memoryCount;
+    if (memoryCount && memoryCount.correctCount !== null) {
+      const selectedChoice = memoryCount.choices.find((choice) => choice.optionNumber === answerOption);
+      const difference = selectedChoice
+        ? Math.abs(selectedChoice.value - memoryCount.correctCount)
+        : Number.POSITIVE_INFINITY;
+      if (difference > 0 && difference <= memoryCount.scoring.partialTolerance) return 'partial';
+    }
+  }
+
+  return 'wrong';
+}
+
 export function getCitizenChoiceResultState(
   miniGame: MiniGameSnapshot,
   answerOption: number | null,
-): 'pending' | 'correct' | 'wrong' {
-  const correctOption = getCorrectOptionNumber(miniGame);
-  if (answerOption === null || correctOption === null || miniGame.correctAnswer === null) return 'pending';
-  return answerOption === correctOption ? 'correct' : 'wrong';
+): ChoiceResultState {
+  return getChoiceOptionResultState(miniGame, answerOption);
 }
 
 export function getAnswerOptionByUserId(miniGame: MiniGameSnapshot): Map<string, number> {

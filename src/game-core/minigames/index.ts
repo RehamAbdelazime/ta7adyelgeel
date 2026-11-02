@@ -11,3 +11,4 @@ export * from './hangman/hangman-service';
 export * from './couple-or-siblings/couple-or-siblings-service';
 export * from './count-the-beat/count-the-beat-service';
 export * from './lucky-cup/lucky-cup-service';
+export * from './scoring-policy';

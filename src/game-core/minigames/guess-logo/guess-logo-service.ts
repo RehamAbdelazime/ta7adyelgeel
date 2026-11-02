@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -11,14 +12,8 @@ import type {
   SubmitMiniGameAnswerResult,
 } from '../minigame-types';
 
-const PARTICIPATION_POINTS = 10;
 const OPTION_COUNT = 4;
 
-const DIFFICULTY_SCORE: Record<QuestionDifficulty, number> = {
-  easy: 60,
-  medium: 110,
-  hard: 160,
-};
 
 type GuessLogoQuestion = {
   id: string;
@@ -242,8 +237,7 @@ export class GuessLogoMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.round.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('guess-logo', this.round.difficulty, isCorrect),
         difficulty: this.round.difficulty,
       });
     }

@@ -42,6 +42,7 @@ export type TourPlayerStats = {
   currentScore: number;
   totalAnswers: number;
   correctAnswers: number;
+  partialAnswers: number;
   wrongAnswers: number;
   pointsEarned: number;
   roundPoints: number[];

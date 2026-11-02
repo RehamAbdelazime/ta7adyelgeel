@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateNumericEstimateScore, getNumericEstimateScoringGuide } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -32,9 +33,6 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
   maxDelayMs: number;
   durationMinMs: number;
   durationRangeMs: number;
-  exactScore: number;
-  marginOneScore: number;
-  marginTwoScore: number;
 }> = {
   easy: {
     targetMin: 8,
@@ -44,9 +42,6 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
     maxDelayMs: 5_400,
     durationMinMs: 980,
     durationRangeMs: 420,
-    exactScore: 120,
-    marginOneScore: 70,
-    marginTwoScore: 35,
   },
   medium: {
     targetMin: 11,
@@ -56,9 +51,6 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
     maxDelayMs: 6_200,
     durationMinMs: 760,
     durationRangeMs: 360,
-    exactScore: 180,
-    marginOneScore: 105,
-    marginTwoScore: 55,
   },
   hard: {
     targetMin: 15,
@@ -68,9 +60,6 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
     maxDelayMs: 7_200,
     durationMinMs: 560,
     durationRangeMs: 320,
-    exactScore: 240,
-    marginOneScore: 140,
-    marginTwoScore: 80,
   },
 };
 
@@ -95,7 +84,6 @@ const BEAT_ICON_GLYPHS: Record<CountTheBeatIconId, string> = {
 };
 
 const BEAT_TONES: CountTheBeatTone[] = ['cyan', 'pink', 'yellow', 'purple', 'green'];
-const PARTICIPATION_POINTS = 0;
 const MAX_NUMERIC_ANSWER = 99;
 
 function createSeededRandom(seed: number): () => number {
@@ -128,17 +116,6 @@ function getDifficulty(roundNumber: number): QuestionDifficulty {
 
 function getIconLabel(icon: CountTheBeatIconId, locale: LocaleCode): string {
   return BEAT_ICON_LABELS[icon]?.[locale] ?? BEAT_ICON_LABELS[icon].en;
-}
-
-function scoreAnswer(difficulty: QuestionDifficulty, correctAnswer: number, submittedAnswer: number): number {
-  const difference = Math.abs(correctAnswer - submittedAnswer);
-  const config = DIFFICULTY_CONFIG[difficulty];
-
-  if (difference === 0) return config.exactScore;
-  if (difference === 1) return config.marginOneScore;
-  if (difference === 2) return config.marginTwoScore;
-
-  return PARTICIPATION_POINTS;
 }
 
 export class CountTheBeatMiniGameService {
@@ -219,16 +196,18 @@ export class CountTheBeatMiniGameService {
 
     const awards = [...this.answers.values()].map((record): MiniGameScoreAward => {
       const numericAnswer = Number(record.answer);
-      const points = Number.isFinite(numericAnswer)
-        ? scoreAnswer(this.round!.difficulty, this.round!.targetCount, numericAnswer)
-        : PARTICIPATION_POINTS;
+      const scoring = calculateNumericEstimateScore(
+        'count-the-beat',
+        this.round!.difficulty,
+        this.round!.targetCount,
+        numericAnswer,
+      );
 
       return {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points,
-        isCorrect: points === DIFFICULTY_CONFIG[this.round!.difficulty].exactScore,
+        ...scoring,
         difficulty: this.round!.difficulty,
       };
     });
@@ -295,12 +274,7 @@ export class CountTheBeatMiniGameService {
             targetGlyph: BEAT_ICON_GLYPHS[this.round.targetIcon],
             targetCount: shouldRevealAnswer ? this.round.targetCount : null,
             items: this.round.items,
-            answerMargin: 2,
-            scoring: {
-              exact: DIFFICULTY_CONFIG[difficulty].exactScore,
-              marginOne: DIFFICULTY_CONFIG[difficulty].marginOneScore,
-              marginTwo: DIFFICULTY_CONFIG[difficulty].marginTwoScore,
-            },
+            scoring: getNumericEstimateScoringGuide('count-the-beat', difficulty),
           }
         : null,
     };

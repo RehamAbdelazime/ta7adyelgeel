@@ -56,8 +56,14 @@ export type MiniGameScoreAward = {
   twitchUserId: string;
   displayName: string;
   role: CitizenRole;
+  /** Runtime leaderboard score delta, after game-specific scoring rules. */
   points: number;
+  /** True for a fully correct answer or a successful game-specific action (for example, a correct Hangman letter). Numeric near-misses remain false. */
   isCorrect: boolean;
+  /** Explicit partial-credit classification for numeric estimate games. */
+  scoreOutcome?: 'correct' | 'partial' | 'incorrect';
+  /** Maximum available points for this answer; used to cap partial credit centrally. */
+  maxPoints?: number;
   difficulty: QuestionDifficulty;
   usedHint?: boolean;
   scoreMultiplier?: number;
@@ -232,6 +238,12 @@ export type MiniGameSnapshot = {
     choices: NumberChoice[];
     correctCount: number | null;
     showItems: boolean;
+    scoring: {
+      exact: number;
+      partial: number;
+      partialTolerance: number;
+      incorrect: number;
+    };
   } | null;
   foodOrigin?: {
     dishName: string;
@@ -299,11 +311,11 @@ export type CountTheBeatSnapshot = {
   targetGlyph: string;
   targetCount: number | null;
   items: CountTheBeatItemSnapshot[];
-  answerMargin: number;
   scoring: {
     exact: number;
-    marginOne: number;
-    marginTwo: number;
+    partial: number;
+    partialTolerance: number;
+    incorrect: number;
   };
 };
 

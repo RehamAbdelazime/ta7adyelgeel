@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import { QuestionBankService } from '../../questions/question-bank-service';
 import type {
@@ -11,13 +12,6 @@ import type {
 } from '../minigame-types';
 import { TRUE_FAKE_QUESTIONS, type TrueFakeQuestion } from './true-fake-content';
 
-const PARTICIPATION_POINTS = 10;
-
-const DIFFICULTY_SCORE: Record<TrueFakeQuestion['difficulty'], number> = {
-  easy: 50,
-  medium: 100,
-  hard: 150,
-};
 
 export class TrueFakeMiniGameService {
   private readonly questionBank = new QuestionBankService<TrueFakeQuestion>(TRUE_FAKE_QUESTIONS);
@@ -128,8 +122,7 @@ export class TrueFakeMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.question.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('true-fake', this.question.difficulty, isCorrect),
         difficulty: this.question.difficulty,
       });
     }

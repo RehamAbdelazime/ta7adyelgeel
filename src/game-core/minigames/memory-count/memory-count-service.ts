@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateNumericEstimateScore, getNumericEstimateScoringGuide } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -12,13 +13,6 @@ import type {
   SubmitMiniGameAnswerResult,
 } from '../minigame-types';
 
-const PARTICIPATION_POINTS = 10;
-
-const DIFFICULTY_SCORE: Record<QuestionDifficulty, number> = {
-  easy: 60,
-  medium: 120,
-  hard: 180,
-};
 
 const TARGET_KIND_LABELS: Record<LocaleCode, Record<MemoryCountCell['kind'], string>> = {
   en: {
@@ -129,22 +123,18 @@ export class MemoryCountMiniGameService {
 
     for (const record of this.answers.values()) {
       const chosenValue = this.getChoiceValue(record.answer as MemoryCountAnswer);
-      const diff = chosenValue === null ? Number.POSITIVE_INFINITY : Math.abs(chosenValue - this.round.correctCount);
-      const maxPoints = DIFFICULTY_SCORE[this.round.difficulty];
-      const points = diff === 0
-        ? maxPoints
-        : diff === 1
-          ? Math.round(maxPoints * 0.65)
-          : diff === 2
-            ? Math.round(maxPoints * 0.35)
-            : PARTICIPATION_POINTS;
+      const scoring = calculateNumericEstimateScore(
+        'memory-count',
+        this.round.difficulty,
+        this.round.correctCount,
+        chosenValue ?? Number.NaN,
+      );
 
       awards.push({
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points,
-        isCorrect: diff === 0,
+        ...scoring,
         difficulty: this.round.difficulty,
       });
     }
@@ -212,6 +202,7 @@ export class MemoryCountMiniGameService {
             choices: this.round.choices,
             correctCount: shouldRevealAnswer ? this.round.correctCount : null,
             showItems: this.status === 'intro' || this.status === 'prepare',
+            scoring: getNumericEstimateScoringGuide('memory-count', this.round.difficulty),
           }
         : null,
     };
@@ -301,7 +292,7 @@ export class MemoryCountMiniGameService {
   }
 
   private buildChoices(correctCount: number, difficulty: QuestionDifficulty, random: () => number): NumberChoice[] {
-    const spread = difficulty === 'easy' ? [0, -2, 2, 4] : difficulty === 'medium' ? [0, -1, 2, -3] : [0, -1, 1, 2];
+    const spread = difficulty === 'easy' ? [0, -1, 3, -4] : difficulty === 'medium' ? [0, 1, -3, 4] : [0, -1, 2, -4];
     const values = new Set<number>();
     for (const offset of shuffle(spread, random)) values.add(Math.max(1, correctCount + offset));
     while (values.size < 4) values.add(Math.max(1, correctCount + Math.floor(random() * 7) - 3));

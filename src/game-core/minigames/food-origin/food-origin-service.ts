@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore, FOOD_ORIGIN_HINT_SCORE_MULTIPLIER } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import { QuestionBankService } from '../../questions/question-bank-service';
 import type {
@@ -20,16 +21,7 @@ import {
   type TimedAnswerHintState,
 } from '../hints/timed-answer-hint';
 
-const PARTICIPATION_POINTS = 10;
 const FOOD_ORIGIN_DIFFICULTY_PATTERN: Array<FoodOriginQuestion['difficulty']> = ['easy', 'easy', 'medium', 'medium', 'hard'];
-const FOOD_ORIGIN_HINT_SCORE_MULTIPLIER = 0.5;
-
-const DIFFICULTY_SCORE: Record<FoodOriginQuestion['difficulty'], number> = {
-  easy: 60,
-  medium: 120,
-  hard: 180,
-};
-
 export class FoodOriginMiniGameService {
   private readonly questionBank = new QuestionBankService<FoodOriginQuestion>(FOOD_ORIGIN_QUESTIONS);
   private question: FoodOriginQuestion | null = null;
@@ -133,8 +125,7 @@ export class FoodOriginMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? Math.round(DIFFICULTY_SCORE[this.question.difficulty] * scoreMultiplier) : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('food-origin', this.question.difficulty, isCorrect, scoreMultiplier),
         difficulty: this.question.difficulty,
         usedHint: record.usedHint ?? false,
         scoreMultiplier,

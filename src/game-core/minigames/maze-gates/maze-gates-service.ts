@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -13,13 +14,6 @@ import type {
   SubmitMiniGameAnswerResult,
 } from '../minigame-types';
 
-const PARTICIPATION_POINTS = 10;
-
-const DIFFICULTY_SCORE: Record<QuestionDifficulty, number> = {
-  easy: 90,
-  medium: 140,
-  hard: 200,
-};
 
 type MazeGateRound = {
   id: string;
@@ -176,8 +170,7 @@ export class MazeGatesMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.round.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('maze-gates', this.round.difficulty, isCorrect),
         difficulty: this.round.difficulty,
       });
     }

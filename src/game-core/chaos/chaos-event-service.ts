@@ -1,6 +1,7 @@
 import type { LocaleCode } from '../localization/locale-types';
 import type { CitizenRuntime } from '../citizens/citizen-types';
 import type { MiniGameScoreAward } from '../minigames/minigame-types';
+import { getAwardScoreOutcome } from '../minigames/scoring-policy';
 import type { ChaosEventDefinition, ChaosEventSnapshot } from './chaos-types';
 
 export const CHAOS_EVENTS: ChaosEventDefinition[] = [
@@ -27,7 +28,7 @@ export const CHAOS_EVENTS: ChaosEventDefinition[] = [
   {
     id: 'risk_round',
     title: { en: 'Risk Round', ar: 'راوند المخاطرة' },
-    description: { en: 'Wrong answers lose 30 points. No answer is safe.', ar: 'الإجابة الغلط تخصم 30 نقطة. عدم الإجابة آمن.' },
+    description: { en: 'Incorrect answers lose 30 points. Close numeric estimates keep their partial credit; skipped questions are not penalized.', ar: 'الإجابة الخاطئة تخصم 30 نقطة. التقدير القريب يحتفظ بنقاطه الجزئية، وتجاوز السؤال بدون إجابة لا يسبب خصمًا.' },
     category: 'answer',
     rarity: 'rare',
     appliesTo: 'all',
@@ -142,7 +143,8 @@ export class ChaosEventService {
         return award;
       }
 
-      if (!award.isCorrect && typeof params.event!.wrongAnswerPenalty === 'number') {
+      // A numeric near-miss is partial credit, not a fully wrong answer.
+      if (getAwardScoreOutcome(award) === 'incorrect' && typeof params.event!.wrongAnswerPenalty === 'number') {
         points = params.event!.wrongAnswerPenalty;
       } else if (typeof params.event!.scoreMultiplier === 'number') {
         const canMultiply = params.event!.correctOnly ? award.isCorrect : true;

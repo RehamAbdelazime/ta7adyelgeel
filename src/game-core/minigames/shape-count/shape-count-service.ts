@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -13,13 +14,6 @@ import type {
   SubmitMiniGameAnswerResult,
 } from '../minigame-types';
 
-const PARTICIPATION_POINTS = 10;
-
-const DIFFICULTY_SCORE: Record<QuestionDifficulty, number> = {
-  easy: 50,
-  medium: 100,
-  hard: 150,
-};
 
 const SHAPES: ShapeCountShapeId[] = ['circle', 'square', 'triangle', 'star', 'diamond', 'hexagon'];
 
@@ -157,8 +151,7 @@ export class ShapeCountMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.round.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('shape-count', this.round.difficulty, isCorrect),
         difficulty: this.round.difficulty,
       });
     }

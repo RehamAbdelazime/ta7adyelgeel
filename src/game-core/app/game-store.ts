@@ -29,6 +29,7 @@ import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, GuessLogoAnswer, Hangman
 import { CountTheBeatMiniGameService } from '../minigames/count-the-beat/count-the-beat-service';
 import { LuckyCupMiniGameService } from '../minigames/lucky-cup/lucky-cup-service';
 import { BeforeOrAfterMiniGameService } from '../minigames/before-or-after/before-or-after-service';
+import { enforceMiniGameScoreAwardPolicy, getAwardScoreOutcome } from '../minigames/scoring-policy';
 import { ProfileService } from '../profiles/profile-service';
 import { ProgressionService } from '../progression/progression-service';
 import type { CommandUnlockDefinition } from '../progression/progression-types';
@@ -1789,6 +1790,7 @@ export class GameStore {
       currentScore: citizen.score,
       totalAnswers: 0,
       correctAnswers: 0,
+      partialAnswers: 0,
       wrongAnswers: 0,
       pointsEarned: 0,
       roundPoints: [],
@@ -1797,39 +1799,46 @@ export class GameStore {
     });
   }
 
-  private recordTourAwardStats(awards: MiniGameScoreAward[]): void {
+  private recordTourAwardStats(
+    awards: MiniGameScoreAward[],
+    scoresBeforeRound: Map<string, number>,
+  ): void {
     const isChaosRound = Boolean(this.activeChaosEvent);
-
+    const awardsByUserId = new Map<string, MiniGameScoreAward>();
     for (const award of awards) {
-      const citizen = this.citizens.get(award.twitchUserId);
+      awardsByUserId.set(award.twitchUserId, award);
+    }
+    const roundIndex = Math.max(0, this.tourStateMachine.getSnapshot().roundNumber - 1);
 
-      if (!citizen) {
-        continue;
-      }
-
+    // Track the actual runtime-score delta, not just the answer award. This keeps
+    // the Tour scoreboard aligned with global Chaos modifiers such as Score Storm.
+    for (const citizen of this.citizens.values()) {
       this.ensureTourPlayerStats(citizen);
-      const existing = this.tourPlayerStats.get(award.twitchUserId);
+      const existing = this.tourPlayerStats.get(citizen.twitchUserId);
 
       if (!existing) {
         continue;
       }
 
-      const isUnlucky = !award.isCorrect;
-      const roundIndex = Math.max(0, this.tourStateMachine.getSnapshot().roundNumber - 1);
+      const award = awardsByUserId.get(citizen.twitchUserId);
+      const scoreBefore = scoresBeforeRound.get(citizen.twitchUserId) ?? citizen.score;
+      const scoreDelta = citizen.score - scoreBefore;
       const roundPoints = [...existing.roundPoints];
-      roundPoints[roundIndex] = (roundPoints[roundIndex] ?? 0) + award.points;
+      roundPoints[roundIndex] = (roundPoints[roundIndex] ?? 0) + scoreDelta;
 
-      this.tourPlayerStats.set(award.twitchUserId, {
+      this.tourPlayerStats.set(citizen.twitchUserId, {
         ...existing,
-        displayName: award.displayName,
-        role: award.role,
-        totalAnswers: existing.totalAnswers + 1,
-        correctAnswers: existing.correctAnswers + (award.isCorrect ? 1 : 0),
-        wrongAnswers: existing.wrongAnswers + (award.isCorrect ? 0 : 1),
-        pointsEarned: existing.pointsEarned + award.points,
+        displayName: citizen.displayName,
+        role: citizen.role,
+        currentScore: citizen.score,
+        totalAnswers: existing.totalAnswers + (award ? 1 : 0),
+        correctAnswers: existing.correctAnswers + (award && getAwardScoreOutcome(award) === 'correct' ? 1 : 0),
+        partialAnswers: existing.partialAnswers + (award && getAwardScoreOutcome(award) === 'partial' ? 1 : 0),
+        wrongAnswers: existing.wrongAnswers + (award && getAwardScoreOutcome(award) === 'incorrect' ? 1 : 0),
+        pointsEarned: existing.pointsEarned + scoreDelta,
         roundPoints,
-        chaosRounds: existing.chaosRounds + (isChaosRound && award.isCorrect ? 1 : 0),
-        unluckyRounds: existing.unluckyRounds + (isUnlucky ? 1 : 0),
+        chaosRounds: existing.chaosRounds + (isChaosRound && award?.isCorrect ? 1 : 0),
+        unluckyRounds: existing.unluckyRounds + (award && getAwardScoreOutcome(award) === 'incorrect' ? 1 : 0),
       });
     }
   }
@@ -1991,22 +2000,32 @@ export class GameStore {
   }
 
   private applyMiniGameScoring(): void {
-    const baseAwards = this.getActiveMiniGameService().createScoreAwards();
-    const awards = this.chaosEventService.applyToAwards({
+    const scoresBeforeRound = new Map<string, number>();
+    for (const citizen of this.citizens.values()) {
+      scoresBeforeRound.set(citizen.twitchUserId, citizen.score);
+    }
+
+    // Enforce the shared scoring contract before and after Chaos modifiers:
+    // exact answers receive full points, explicit near-misses are capped at 25%,
+    // and incorrect answers cannot receive positive runtime score. Negative
+    // Risk Round penalties remain supported.
+    const baseAwards = enforceMiniGameScoreAwardPolicy(
+      this.getActiveMiniGameService().createScoreAwards(),
+      this.activeMiniGameId,
+    );
+    const chaosAdjustedAwards = this.chaosEventService.applyToAwards({
       event: this.activeChaosEvent,
       awards: baseAwards,
       citizens: [...this.citizens.values()],
     });
+    const awards = enforceMiniGameScoreAwardPolicy(chaosAdjustedAwards, this.activeMiniGameId, {
+      allowedWrongAnswerPenalty: this.activeChaosEvent?.wrongAnswerPenalty ?? null,
+    });
 
     this.lastRoundAwards = awards;
 
+    // Some Chaos events affect everyone, including players who did not answer.
     this.applyActiveChaosFlatScoreDelta();
-    this.recordTourAwardStats(awards);
-
-    if (awards.length === 0) {
-      this.addFeed(translate(this.locale, this.getMiniGameTranslationKey('noAnswers')));
-      return;
-    }
 
     let officialAwardCount = 0;
     let spectatorAwardCount = 0;
@@ -2024,6 +2043,8 @@ export class GameStore {
       if (award.role === 'official') {
         officialAwardCount += 1;
         const correctReward = this.runtimeConfig.scoring.officialCorrectRewardByDifficulty[award.difficulty];
+        // Participation XP/coins are a separate progression system; they do
+        // not contribute to the runtime leaderboard score.
         const xpAward = award.isCorrect ? correctReward.xp : this.runtimeConfig.scoring.officialParticipationXp;
         const coinAward = award.isCorrect ? correctReward.coins : this.runtimeConfig.scoring.officialParticipationCoins;
         totalOfficialXp += xpAward;
@@ -2032,6 +2053,15 @@ export class GameStore {
         spectatorAwardCount += 1;
         this.citizens.set(award.twitchUserId, { ...citizen, score: nextScore });
       }
+    }
+
+    // Record the net score movement after both answer awards and global round
+    // modifiers have been applied, so per-round totals equal the live score.
+    this.recordTourAwardStats(awards, scoresBeforeRound);
+
+    if (awards.length === 0) {
+      this.addFeed(translate(this.locale, this.getMiniGameTranslationKey('noAnswers')));
+      return;
     }
 
     this.addFeed(translate(this.locale, this.getMiniGameTranslationKey('scoringApplied'), {

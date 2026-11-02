@@ -4,6 +4,7 @@ import {
   buildChoiceSpotlights,
   getCorrectOptionNumber,
   getOptionNumberForAnswer,
+  getChoiceOptionResultState,
 } from './answer-helpers';
 import { getCorrectAnswerText } from './overlay-types';
 
@@ -61,6 +62,33 @@ describe('shared answer helpers', () => {
     expect(buildChoiceSpotlights(snapshot).map((choice) => choice.command)).toEqual(['!1', '!2']);
   });
 
+
+  it('classifies a one-count Memory Count near-miss as partial instead of wrong', () => {
+    const memory = createSnapshot('memory-count', {
+      correctAnswer: 'option-2',
+      memoryCount: {
+        rows: 4,
+        columns: 6,
+        cells: [],
+        targetKind: 'star',
+        targetLabel: 'Stars',
+        choices: [
+          { optionNumber: 1, command: '!1', label: '8', value: 8 },
+          { optionNumber: 2, command: '!2', label: '9', value: 9 },
+          { optionNumber: 3, command: '!3', label: '12', value: 12 },
+          { optionNumber: 4, command: '!4', label: '14', value: 14 },
+        ],
+        correctCount: 9,
+        showItems: false,
+        scoring: { exact: 60, partial: 15, partialTolerance: 1, incorrect: 0 },
+      },
+    });
+
+    expect(getChoiceOptionResultState(memory, 2)).toBe('correct');
+    expect(getChoiceOptionResultState(memory, 1)).toBe('partial');
+    expect(getChoiceOptionResultState(memory, 3)).toBe('wrong');
+  });
+
   it('resolves Lucky Cup numeric answers as cup options', () => {
     const snapshot = createSnapshot('lucky-cup', {
       correctAnswer: 3,
@@ -93,8 +121,7 @@ describe('shared answer helpers', () => {
         targetGlyph: '♪',
         targetCount: 12,
         items: [],
-        answerMargin: 2,
-        scoring: { exact: 100, marginOne: 50, marginTwo: 20 },
+        scoring: { exact: 100, partial: 25, partialTolerance: 1, incorrect: 0 },
       },
     });
 

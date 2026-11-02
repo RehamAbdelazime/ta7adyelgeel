@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty, QuestionBankStats } from '../../questions/question-types';
 import type {
@@ -12,14 +13,8 @@ import type {
 } from '../minigame-types';
 import beforeOrAfterBank from '../data/before-or-after-questions.json';
 
-const PARTICIPATION_POINTS = 10;
 const DIFFICULTY_PATTERN: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
 
-const DIFFICULTY_SCORE: Record<QuestionDifficulty, number> = {
-  easy: 60,
-  medium: 120,
-  hard: 180,
-};
 
 type BeforeAfterSide = 'left' | 'right';
 
@@ -126,8 +121,7 @@ export class BeforeOrAfterMiniGameService {
         twitchUserId: record.twitchUserId,
         displayName: record.displayName,
         role: record.role,
-        points: isCorrect ? DIFFICULTY_SCORE[this.question.difficulty] : PARTICIPATION_POINTS,
-        isCorrect,
+        ...calculateExactAnswerScore('before-after', this.question.difficulty, isCorrect),
         difficulty: this.question.difficulty,
       });
     }

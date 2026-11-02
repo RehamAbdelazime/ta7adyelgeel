@@ -1,4 +1,5 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
+import { calculateHangmanActionPoints } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -9,14 +10,6 @@ import type {
   MiniGameStatus,
   SubmitMiniGameAnswerResult,
 } from '../minigame-types';
-
-const WRONG_GUESS_POINTS = 5;
-const CORRECT_LETTER_POINTS = 25;
-const WORD_WINNER_BONUS: Record<QuestionDifficulty, number> = {
-  easy: 150,
-  medium: 220,
-  hard: 320,
-};
 
 const MAX_WRONG_GUESSES: Record<QuestionDifficulty, number> = {
   easy: 9,
@@ -192,10 +185,10 @@ export class HangmanMiniGameService {
       isCorrect = targetWord.includes(guess.value);
       if (isCorrect) {
         this.revealedLetters.add(guess.value);
-        points = CORRECT_LETTER_POINTS;
+        points = calculateHangmanActionPoints(this.question.difficulty, 'letter', true);
       } else {
         this.wrongLetters.add(guess.value);
-        points = WRONG_GUESS_POINTS;
+        points = calculateHangmanActionPoints(this.question.difficulty, 'letter', false);
       }
     } else {
       if (this.guessedWords.has(guess.value)) {
@@ -204,7 +197,7 @@ export class HangmanMiniGameService {
 
       this.guessedWords.add(guess.value);
       isCorrect = guess.value === targetWord;
-      points = isCorrect ? WORD_WINNER_BONUS[this.question.difficulty] : WRONG_GUESS_POINTS;
+      points = calculateHangmanActionPoints(this.question.difficulty, 'word', isCorrect);
 
       if (isCorrect) {
         this.winnerId = citizen.twitchUserId;
