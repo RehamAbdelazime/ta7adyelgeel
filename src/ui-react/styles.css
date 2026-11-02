@@ -1,15 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");
 :root {
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Tahoma,
-    Arial,
-    sans-serif;
+  --display-font: "Labo Display", "Tajawal", "Cairo", Tahoma, "Segoe UI", "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
+  font-family: var(--display-font);
   color: #eafbff;
   background: #050017;
   text-rendering: geometricPrecision;
@@ -81,27 +72,27 @@
   --egc-panel-shadow:
     0 0 26px rgba(45, 244, 255, 0.13), 0 0 28px rgba(255, 75, 231, 0.1),
     inset 0 0 52px rgba(0, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --ta7ady-host-side-x: 8.8%;
-  --ta7ady-host-side-bottom: 13.7%;
-  --ta7ady-host-side-width: clamp(104px, 6.9vw, 146px);
-  --ta7ady-host-intro-x: 50%;
-  --ta7ady-host-intro-bottom: 15.1%;
-  --ta7ady-host-intro-width: clamp(120px, 7.6vw, 162px);
-  --ta7ady-host-side-point-width: clamp(132px, 8.75vw, 188px);
-  --ta7ady-host-intro-point-width: clamp(146px, 9.2vw, 198px);
-  --ta7ady-host-side-floor-top: 79.2%;
-  --ta7ady-host-lobby-x: 77.85%;
-  --ta7ady-host-lobby-bottom: 29.95%;
-  --ta7ady-host-lobby-size: clamp(190px, 10.4vw, 230px);
-  --ta7ady-host-lobby-floor-top: 69.55%;
-  --ta7ady-host-stage-x: 10.65%;
-  --ta7ady-host-stage-bottom: 15.85%;
-  --ta7ady-host-stage-size: clamp(176px, 9.15vw, 218px);
-  --ta7ady-host-stage-floor-top: 80.05%;
-  --ta7ady-host-intro-size: clamp(176px, 9.15vw, 220px);
-  --v2-host-left: 5.8%;
-  --v2-host-bottom: 11.8%;
-  --v2-host-floor-top: 83.1%;
+  --ta7ady-host-side-x: 5.5%;
+  --ta7ady-host-side-bottom: 11.5%;
+  --ta7ady-host-side-width: clamp(250px, 14.2vw, 286px);
+  --ta7ady-host-intro-x: 5.5%;
+  --ta7ady-host-intro-bottom: 11.5%;
+  --ta7ady-host-intro-width: clamp(250px, 14.2vw, 286px);
+  --ta7ady-host-side-point-width: clamp(250px, 14.2vw, 286px);
+  --ta7ady-host-intro-point-width: clamp(250px, 14.2vw, 286px);
+  --ta7ady-host-side-floor-top: 84.2%;
+  --ta7ady-host-lobby-x: 79.6%;
+  --ta7ady-host-lobby-bottom: 31.2%;
+  --ta7ady-host-lobby-size: clamp(280px, 15.2vw, 316px);
+  --ta7ady-host-lobby-floor-top: 68.8%;
+  --ta7ady-host-stage-x: 5.5%;
+  --ta7ady-host-stage-bottom: 11.5%;
+  --ta7ady-host-stage-size: clamp(250px, 14.2vw, 286px);
+  --ta7ady-host-stage-floor-top: 84.2%;
+  --ta7ady-host-intro-size: clamp(250px, 14.2vw, 286px);
+  --v2-host-left: 5.5%;
+  --v2-host-bottom: 11.5%;
+  --v2-host-floor-top: 84.2%;
   --v2-private-left: clamp(148px, 10.2vw, 205px);
   --v2-private-bottom: clamp(150px, 16.4vh, 188px);
   --v2-private-width: clamp(218px, 14vw, 248px);
@@ -739,7 +730,7 @@ button {
 .keyboard-help kbd {
   min-width: 70px;
   padding: 2px 12px;
-  font-family: inherit;
+  font-family: var(--display-font);
   font-size: 13px;
 }
 
@@ -2001,7 +1992,7 @@ button {
   pointer-events: none;
   z-index: 1;
   color: #f2fbff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--display-font);
 }
 
 .gameplay-main-screen-overlay {
@@ -4210,7 +4201,7 @@ button {
 .host-panel h2,
 .brand-title,
 .brand-wordmark {
-  font-family: "Luckiest Guy", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--display-font);
   letter-spacing: 0.08em;
   font-weight: 400;
 }
@@ -4413,7 +4404,7 @@ button {
 
 .gameplay-citizen-card strong {
   max-width: 132px;
-  font-family: "Luckiest Guy", Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-weight: 400;
   letter-spacing: 0.04em;
   text-transform: none;
@@ -4510,8 +4501,7 @@ button {
 .gameplay-top-three-board,
 .gameplay-tour-complete-board,
 .gameplay-choice-card {
-  font-family:
-    "Luckiest Guy", Inter, ui-sans-serif, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-weight: 400 !important;
 }
 
@@ -4568,8 +4558,7 @@ button {
 
 .gameplay-citizen-card strong {
   max-width: 138px !important;
-  font-family:
-    "Luckiest Guy", Inter, ui-sans-serif, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-weight: 400 !important;
   letter-spacing: 0.045em !important;
   padding: 3px 9px !important;
@@ -5136,7 +5125,7 @@ button {
   inset: 0;
   z-index: 14;
   pointer-events: none;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
 }
 
 .center-play-button {
@@ -5380,12 +5369,6 @@ button {
   cursor: pointer;
 }
 
-.play-choice-close:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255, 94, 219, 0.65);
-  box-shadow: 0 0 18px rgba(255, 94, 219, 0.24);
-}
-
 .play-choice-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -5503,7 +5486,7 @@ button {
 .play-choice-card small {
   max-width: 18ch;
   color: rgba(242, 251, 255, 0.8);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(11px, 0.85vw, 14px);
   font-weight: 900;
 }
@@ -5511,7 +5494,7 @@ button {
 .play-choice-warning {
   margin: 0 0 18px;
   color: #ffe66d;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: 14px;
   font-weight: 950;
   text-align: center;
@@ -5599,7 +5582,7 @@ button {
     );
   color: #ffffff;
   cursor: pointer;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: 22px;
   font-weight: 1000;
   letter-spacing: 0.06em;
@@ -5933,7 +5916,7 @@ button {
 .gameplay-tour-starting-card h1 {
   margin: 0;
   color: #f9fcff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(48px, 5.4vw, 112px);
   font-weight: 400;
   letter-spacing: 0.08em;
@@ -6682,7 +6665,7 @@ button {
 }
 
 .settings-modal-header h2 {
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   color: white;
   letter-spacing: 0.06em;
   text-shadow:
@@ -6991,7 +6974,7 @@ button {
     );
   color: #fff;
   cursor: pointer;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(20px, 1.55vw, 32px);
   letter-spacing: 0.075em;
   text-transform: uppercase;
@@ -8223,7 +8206,7 @@ button {
 .gameplay-intro-continue-button,
 .host-action-grid .host-primary,
 .settings-apply-button {
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   letter-spacing: 0.08em !important;
 }
 
@@ -8792,7 +8775,7 @@ button {
   align-self: center !important;
   margin: 0 !important;
   transform: translateY(2px) !important;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(34px, 3.05vw, 58px) !important;
   line-height: 0.9 !important;
   letter-spacing: 0.08em !important;
@@ -10465,7 +10448,7 @@ button {
 
 .gameplay-scoreboard-champion small {
   color: #ffe66d;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(14px, 1.05vw, 20px);
   line-height: 1;
   letter-spacing: 0.08em;
@@ -10523,7 +10506,7 @@ button {
 
 .gameplay-scoreboard-row b {
   color: #ffe66d;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(16px, 1.15vw, 23px);
   line-height: 1;
   text-shadow: 0 0 12px rgba(255, 230, 109, 0.28);
@@ -11026,7 +11009,7 @@ button {
   place-items: center;
   border-inline-end: 1px solid rgba(54, 232, 255, 0.42);
   color: #ffe66d;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(11px, 0.82vw, 17px);
   line-height: 1;
   text-shadow: 0 0 10px rgba(255, 230, 109, 0.38);
@@ -11645,7 +11628,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
   position: absolute;
   z-index: 8;
   pointer-events: none;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   line-height: 1;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.42));
 }
@@ -16744,7 +16727,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
     linear-gradient(90deg, rgba(54, 232, 255, 0.15), rgba(155, 92, 255, 0.12)),
     rgba(7, 8, 36, 0.86);
   color: #eafbff;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-weight: 1000;
   letter-spacing: 0.06em;
   padding: 0 16px;
@@ -16783,7 +16766,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
 
 .play-picker-header strong {
   color: #ffffff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(30px, 3vw, 58px);
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -16894,7 +16877,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
 
 .play-mini-game-tile strong {
   color: #ffffff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(19px, 1.45vw, 29px);
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -16932,7 +16915,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
   border-radius: 10px;
   background: rgba(3, 8, 28, 0.72);
   color: #5cffb1;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: 18px;
   font-weight: 1000;
   box-shadow:
@@ -16977,7 +16960,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
       rgba(255, 79, 216, 0.82)
     );
   color: #ffffff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(22px, 1.75vw, 34px);
   font-weight: 400;
   letter-spacing: 0.08em;
@@ -17200,7 +17183,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
   display: block !important;
   text-align: center !important;
   color: #ffffff !important;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(23px, 1.7vw, 34px) !important;
   font-weight: 400 !important;
   letter-spacing: 0.08em !important;
@@ -17271,7 +17254,7 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
 
 .play-picker-header em {
   color: rgba(255, 230, 109, 0.86);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(11px, 0.8vw, 14px);
   font-style: normal;
   font-weight: 1000;
@@ -18708,7 +18691,7 @@ button.host-danger {
   border-radius: 999px !important;
   background: rgba(2, 7, 28, 0.62) !important;
   color: rgba(234, 251, 255, 0.86) !important;
-  font-family: Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: 11px !important;
   font-weight: 950 !important;
   cursor: pointer !important;
@@ -18761,7 +18744,7 @@ button.host-danger {
 .play-picker-header span,
 .play-picker-header em {
   color: rgba(234, 251, 255, 0.72) !important;
-  font-family: Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(9px, 0.62vw, 12px) !important;
   font-style: normal !important;
   font-weight: 950 !important;
@@ -18915,7 +18898,7 @@ button.host-danger {
   z-index: 1 !important;
   max-width: 15ch !important;
   color: rgba(234, 251, 255, 0.7) !important;
-  font-family: Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(8px, 0.58vw, 11px) !important;
   font-weight: 900 !important;
   line-height: 1.22 !important;
@@ -18930,7 +18913,7 @@ button.host-danger {
   border-radius: 999px !important;
   color: rgba(234, 251, 255, 0.78) !important;
   background: rgba(255, 255, 255, 0.05) !important;
-  font-family: Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(7px, 0.52vw, 10px) !important;
   font-style: normal !important;
   font-weight: 1000 !important;
@@ -18991,7 +18974,7 @@ button.host-danger {
       rgba(255, 94, 219, 0.88)
     ) !important;
   color: #ffffff !important;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(16px, 1.28vw, 25px) !important;
   line-height: 1 !important;
   letter-spacing: 0.08em !important;
@@ -19113,7 +19096,7 @@ button.host-danger {
   height: 100%;
   min-height: 0;
   color: #f6fbff;
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--display-font);
 }
 
 .main-screen-home-layout {
@@ -19195,7 +19178,7 @@ button.host-danger {
   gap: 0;
   margin: 0 0 clamp(8px, 0.95vw, 16px);
   color: #f7fbff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(38px, 4.05vw, 76px) !important;
   font-weight: 400 !important;
   letter-spacing: 0.045em !important;
@@ -19265,7 +19248,7 @@ button.host-danger {
   color: #050722;
   cursor: pointer;
   padding: 0 clamp(15px, 1.25vw, 24px);
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   text-align: center;
   box-shadow:
     0 0 0 4px rgba(5, 7, 30, 0.72),
@@ -19573,7 +19556,7 @@ button.host-danger {
 .main-screen-grid-header h2 {
   margin: 0;
   color: #fff9fd;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(24px, 2.45vw, 46px);
   font-weight: 400 !important;
   letter-spacing: 0.055em;
@@ -19674,7 +19657,7 @@ button.host-danger {
 .main-screen-mode-card strong {
   margin-top: 2px;
   color: #fff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(24px, 2.15vw, 38px);
   font-weight: 400 !important;
   letter-spacing: 0.045em;
@@ -19837,7 +19820,7 @@ button.host-danger {
 .main-screen-mini-card-copy strong {
   overflow: hidden;
   color: #f6fbff;
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
 
   /* كان 14px - 21px */
   font-size: clamp(11px, 0.85vw, 16px);
@@ -19962,7 +19945,7 @@ button.host-danger {
   color: #06112f;
   cursor: pointer;
   padding: 0 clamp(14px, 1.2vw, 22px);
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(18px, 1.55vw, 30px);
   letter-spacing: 0.03em;
   box-shadow:
@@ -20130,8 +20113,7 @@ button.host-danger {
   justify-content: center !important;
   gap: 0.02em !important;
   margin: 0 !important;
-  font-family:
-    "Luckiest Guy", Impact, Haettenschweiler, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(58px, 6.5vw, 118px) !important;
   line-height: 0.78 !important;
   letter-spacing: 0.035em !important;
@@ -20345,7 +20327,7 @@ button.host-danger {
   b {
   color: #ffe86b !important;
   text-shadow: 0 0 12px rgba(255, 232, 107, 0.46) !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 .gameplay-round-score-hold-board.gameplay-neon-scoreboard
@@ -20356,7 +20338,7 @@ button.host-danger {
   span {
   color: #f7fbff !important;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.22) !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   letter-spacing: 0.035em !important;
 }
 
@@ -20371,7 +20353,7 @@ button.host-danger {
   strong {
   color: #25e9ff !important;
   text-shadow: 0 0 14px rgba(38, 229, 255, 0.58) !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 .gameplay-simple-scoreboard.gameplay-neon-scoreboard {
@@ -20538,7 +20520,7 @@ button.host-danger {
   height: 100% !important;
   min-height: 0 !important;
   overflow: hidden !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   color: #f7fbff !important;
   pointer-events: auto !important;
 }
@@ -20759,7 +20741,7 @@ button.host-danger {
   width: 100% !important;
   border-radius: clamp(12px, 1vw, 18px) !important;
   background: rgba(1, 9, 25, 0.72) !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 .gameplay-question-helper {
@@ -21119,7 +21101,7 @@ button.host-danger {
   display: inline-flex !important;
   align-items: center !important;
   min-height: 1em !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.15vw, 24px) !important;
   line-height: 0.95 !important;
   letter-spacing: 0.1em !important;
@@ -21231,7 +21213,7 @@ button.host-danger {
 .gameplay-question-timer strong {
   min-width: clamp(48px, 4vw, 76px) !important;
   color: #2df4ff !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.25vw, 26px) !important;
   line-height: 1 !important;
   letter-spacing: 0.08em !important;
@@ -21305,7 +21287,7 @@ button.host-danger {
 
 .gameplay-question-side-hint small {
   color: #2df4ff !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(10px, 0.78vw, 15px) !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
@@ -21314,7 +21296,7 @@ button.host-danger {
 
 .gameplay-question-side-hint span {
   color: #f7fdff !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(12px, 0.9vw, 18px) !important;
   line-height: 1.08 !important;
   text-align: center !important;
@@ -21327,7 +21309,7 @@ button.host-danger {
 
 .gameplay-question-side-hint b {
   color: #ff70dd !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(36px, 3.2vw, 70px) !important;
   line-height: 0.85 !important;
   text-shadow:
@@ -21575,7 +21557,7 @@ button.host-danger {
 .gameplay-question-timed-hint b {
   position: relative !important;
   z-index: 1 !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   line-height: 1 !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
@@ -21772,7 +21754,7 @@ button.host-danger {
 }
 
 .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
-  font-family: "Luckiest Guy", Inter, system-ui, sans-serif !important;
+  font-family: var(--display-font) !important;
   color: #f8fcff !important;
   font-size: clamp(16px, 1.35vw, 25px) !important;
   font-weight: 400 !important;
@@ -22011,7 +21993,7 @@ button.host-danger {
 .gameplay-scoreboard-hero strong,
 .gameplay-intro-card h2,
 .gameplay-tour-starting-card h1 {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   letter-spacing: 0.055em !important;
   text-transform: uppercase !important;
   text-shadow: var(--egc-title-shadow) !important;
@@ -22378,7 +22360,7 @@ button.host-danger {
 
 .gameplay-question-choices .gameplay-choice-card span,
 .gameplay-choice-spotlight span {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-weight: 400 !important;
   letter-spacing: 0.06em !important;
 }
@@ -23497,16 +23479,6 @@ button.host-danger {
   image-rendering: auto !important;
 }
 
-.gameplay-citizen-character-male_person,
-.gameplay-citizen-character-female_person,
-.gameplay-citizen-character-robot {
-  --citizen-visual-scale: 0.96 !important;
-}
-
-.gameplay-citizen-character-cat,
-.gameplay-citizen-character-dog {
-  --citizen-visual-scale: 0.88 !important;
-}
 
 @media (max-width: 1400px) {
   .gameplay-overlay-lobby-scene .gameplay-main-screen-lobby,
@@ -23783,7 +23755,7 @@ button.host-danger {
   border: 2px solid rgba(255, 255, 255, 0.38) !important;
   background: linear-gradient(135deg, #31ecff, #ff4fd8) !important;
   color: #06112f !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(15px, 1.1vw, 23px) !important;
   line-height: 1 !important;
   text-shadow: none !important;
@@ -23991,7 +23963,7 @@ button.host-danger {
     rgba(255, 75, 231, 0.16)
   ) !important;
   color: #fff !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(54px, 4.6vw, 94px) !important;
   text-shadow:
     0 4px 0 rgba(0, 0, 0, 0.62),
@@ -24001,7 +23973,7 @@ button.host-danger {
 
 .gameplay-logo-guess-card strong {
   color: #ffe86f !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(18px, 1.45vw, 30px) !important;
   letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
@@ -24071,7 +24043,7 @@ button.host-danger {
 .gameplay-round-top3-card b {
   min-width: clamp(54px, 3.8vw, 74px) !important;
   color: #45f6ff !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(34px, 2.7vw, 56px) !important;
   text-shadow: 0 0 16px rgba(45, 244, 255, 0.44) !important;
 }
@@ -24080,7 +24052,7 @@ button.host-danger {
   min-width: 0 !important;
   overflow: hidden !important;
   color: #fff !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(22px, 1.65vw, 34px) !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
@@ -24088,7 +24060,7 @@ button.host-danger {
 
 .gameplay-round-top3-card strong {
   color: #ff74df !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(24px, 1.8vw, 38px) !important;
   text-shadow: 0 0 16px rgba(255, 75, 231, 0.4) !important;
 }
@@ -24111,7 +24083,7 @@ button.host-danger {
 
 .gameplay-next-mini-game-card strong {
   color: #fff !important;
-  font-family: "Luckiest Guy", Impact, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(28px, 2.3vw, 54px) !important;
   line-height: 1.02 !important;
   text-shadow:
@@ -24188,7 +24160,7 @@ button.host-danger {
   gap: 10px;
   margin-bottom: 8px;
   color: #f7fdff;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   text-transform: uppercase;
 }
 
@@ -24202,7 +24174,7 @@ button.host-danger {
 
 .private-streamer-answer-header strong {
   color: #fff;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(13px, 0.95vw, 17px);
   font-weight: 400;
   letter-spacing: 0.055em;
@@ -24226,7 +24198,7 @@ button.host-danger {
   outline: none;
   background: rgba(0, 7, 24, 0.84);
   color: #f7fdff;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(18px, 1.25vw, 26px);
   letter-spacing: 0.18em;
   text-align: center;
@@ -24260,7 +24232,7 @@ button.host-danger {
     rgba(255, 75, 231, 0.92)
   );
   color: #fff;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(11px, 0.78vw, 14px);
   letter-spacing: 0.08em;
   text-shadow: 0 2px 0 rgba(4, 8, 30, 0.7);
@@ -24281,7 +24253,7 @@ button.host-danger {
   min-height: 1.25em;
   margin: 8px 0 0;
   color: rgba(247, 253, 255, 0.68);
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(9px, 0.62vw, 11px);
   font-weight: 900;
   letter-spacing: 0.045em;
@@ -25027,7 +24999,7 @@ button.host-danger {
   border-radius: 999px !important;
   background: rgba(5, 8, 26, 0.74) !important;
   color: #ffe86f !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(8px, 0.55vw, 11px) !important;
   letter-spacing: 0.08em !important;
   text-shadow: 0 0 10px rgba(255, 232, 111, 0.42) !important;
@@ -26624,7 +26596,7 @@ button.host-danger {
 /* v2 source mode-picker cleanup: remove broken fallback text artifacts only. */
 .main-screen-section-header span[aria-hidden="true"],
 .main-screen-grid-header span[aria-hidden="true"] {
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--display-font);
 }
 
 /* V2_SELECTION_GRID_PORT_START */
@@ -26746,8 +26718,7 @@ html body .main-screen-game-grid-layout .main-screen-grid-header h2 {
   padding: 0 !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  font-family:
-    "Luckiest Guy", Impact, "Arial Black", Tahoma, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(20px, 2vw, 36px) !important;
   line-height: 0.96 !important;
   letter-spacing: 0.015em !important;
@@ -26762,7 +26733,7 @@ html body .main-screen-game-grid-layout .main-screen-grid-header h2 {
   transform: none !important;
 }
 html[dir="rtl"] body .main-screen-game-grid-layout .main-screen-grid-header h2 {
-  font-family: Tajawal, Cairo, Tahoma, Arial, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(22px, 2.2vw, 38px) !important;
   line-height: 1.05 !important;
   font-weight: 950 !important;
@@ -26894,8 +26865,7 @@ html body .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
   padding: 0 !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  font-family:
-    "Luckiest Guy", Impact, "Arial Black", Tahoma, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(11px, 1.05vw, 15px) !important;
   line-height: 0.98 !important;
   letter-spacing: 0.01em !important;
@@ -26912,7 +26882,7 @@ html[dir="rtl"]
   .main-screen-game-grid-layout
   .main-screen-mini-card-copy
   strong {
-  font-family: Tajawal, Cairo, Tahoma, Arial, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(13px, 1.1vw, 16px) !important;
   font-weight: 950 !important;
   line-height: 1.03 !important;
@@ -26961,8 +26931,7 @@ html
   box-shadow:
     0 0 14px rgba(45, 244, 255, 0.3),
     0 0 15px rgba(255, 75, 231, 0.25) !important;
-  font-family:
-    "Luckiest Guy", Impact, "Arial Black", Tahoma, sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(15px, 1.12vw, 21px) !important;
   line-height: 1 !important;
 }
@@ -28085,20 +28054,20 @@ html body .gameplay-question-shell .gameplay-choice-card strong {
 }
 /* Ensure consistent font across all UI text */
 html body .gameplay-question-shell .gameplay-question-meta {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 html body .gameplay-question-shell .gameplay-question-meta span,
 html body .gameplay-question-shell .gameplay-question-meta b {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 html body .gameplay-question-shell .gameplay-question-timer strong {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 html body .gameplay-question-shell .qshell-header h2 {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 html body .gameplay-question-shell .gameplay-choice-card span {
@@ -28443,7 +28412,7 @@ html body .gameplay-question-shell {
   font-size: clamp(20px, 1.6vw, 32px) !important;
   color: #ffe86f !important;
   text-align: center !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 /* ── 6. Choice cards fill their grid rows ──────────────────────────
@@ -28499,7 +28468,7 @@ html body .gameplay-question-shell {
   border: 2px solid rgba(255, 230, 109, 0.92);
   background: rgba(8, 5, 24, 0.96);
   color: #ffe66d;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(16px, 1.2vw, 26px);
   line-height: 1.1;
   white-space: nowrap;
@@ -28543,7 +28512,7 @@ html body .gameplay-question-next-button {
     0 0 22px rgba(45, 244, 255, 0.24),
     inset 0 0 28px rgba(0, 0, 0, 0.52) !important;
   color: #e8fcff !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(16px, 1.2vw, 26px) !important;
   letter-spacing: 0.09em !important;
   text-transform: uppercase !important;
@@ -28680,7 +28649,7 @@ html body .gameplay-question-shell .gameplay-choice-card span {
   font-size: clamp(16px, 1.3vw, 24px) !important;
   direction: inherit !important;
   color: #fff !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
 }
 
 html body .gameplay-question-shell .gameplay-choice-card strong {
@@ -28852,7 +28821,7 @@ html body .gameplay-question-shell .qshell-body .gameplay-logo-guess-mark {
   border: 2px solid rgba(255, 230, 109, 0.92) !important;
   background: rgba(8, 5, 24, 0.96) !important;
   color: #ffe66d !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.1vw, 24px) !important;
   line-height: 1.1 !important;
   white-space: nowrap !important;
@@ -28970,7 +28939,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .gameplay-before-after-question {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(20px, 1.8vw, 36px) !important;
   color: #fff !important;
   text-align: center !important;
@@ -28983,7 +28952,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .gameplay-before-after-helper {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.1vw, 22px) !important;
   color: rgba(180, 240, 255, 0.8) !important;
   text-align: center !important;
@@ -29014,7 +28983,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.3vw, 24px) !important;
   color: #9ff8ff !important;
   z-index: 10 !important;
@@ -29052,7 +29021,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 
 /* Command badge */
 .gameplay-before-after-cmd {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(22px, 2vw, 40px) !important;
   color: rgba(45, 244, 255, 0.9) !important;
   background: rgba(45, 244, 255, 0.1) !important;
@@ -29065,7 +29034,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 
 /* Choice label */
 .gameplay-before-after-label {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(24px, 2.4vw, 52px) !important;
   color: #ffffff !important;
   text-align: center !important;
@@ -29106,7 +29075,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 
 /* Correct badge shown on winner */
 .gameplay-before-after-badge {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif !important;
+  font-family: var(--display-font) !important;
   font-size: clamp(14px, 1.1vw, 22px) !important;
   color: #afffcb !important;
   background: rgba(102, 255, 153, 0.15) !important;
@@ -29151,7 +29120,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-target-label {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(14px, 1.1vw, 22px);
   color: rgba(200, 240, 255, 0.75);
   letter-spacing: 0.04em;
@@ -29176,7 +29145,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-target-name {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(18px, 1.6vw, 32px);
   color: #22e7ff;
   text-shadow: 0 0 14px #22e7ff88;
@@ -29185,7 +29154,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-answer-reveal {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(18px, 1.6vw, 32px);
   color: #afffcb;
   text-shadow: 0 0 16px rgba(102, 255, 153, 0.6);
@@ -29240,7 +29209,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-reveal-count {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(56px, 8vw, 130px);
   color: #afffcb;
   text-shadow:
@@ -29259,7 +29228,7 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-instruction {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(13px, 1vw, 20px);
   color: rgba(200, 240, 255, 0.7);
   letter-spacing: 0.04em;
@@ -29288,14 +29257,14 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 .ctb-scoring-row span {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(10px, 0.75vw, 14px);
   color: rgba(180, 230, 255, 0.6);
   letter-spacing: 0.03em;
 }
 
 .ctb-scoring-row strong {
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(12px, 0.9vw, 18px);
   color: #ffe246;
   text-shadow: 0 0 8px rgba(255, 226, 70, 0.4);
@@ -29496,7 +29465,7 @@ html body .qshell-body.gameplay-question-body-count-the-beat {
 .gameplay-question-header-helper {
   margin: 0;
   color: rgba(180, 240, 255, 0.88);
-  font-family: "Luckiest Guy", Impact, "Arial Black", sans-serif;
+  font-family: var(--display-font);
   font-size: clamp(13px, 1vw, 20px);
   line-height: 1.2;
   text-align: center;
@@ -29621,5 +29590,1892 @@ html body .gameplay-question-body-maze .gameplay-maze-full-solution {
 @media (max-height: 760px) {
   html body .gameplay-question-shell .qshell-body .gameplay-maze-full-svg {
     max-height: 46vh !important;
+  }
+}
+
+
+
+/* The plaza overlay spans the stage, so percentage positions from citizen helpers
+   and percentage positions from answer markers share the same coordinate space. */
+.gameplay-overlay-minigame-scene .gameplay-citizen-plaza-overlay {
+  position: absolute !important;
+  left: 0 !important;
+  top: 73.9% !important;
+  width: 100% !important;
+  height: 26.1% !important;
+  min-height: 0 !important;
+  display: block !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+/* Minigame-scene overrides need the scene prefix because older art calibration
+   rules use greater specificity. The marker centres now match citizen-helper.ts. */
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 {
+  left: 20% !important;
+  top: 84.2% !important;
+  width: 60% !important;
+  height: 13.4% !important;
+  display: grid !important;
+  gap: 0 !important;
+  justify-content: stretch !important;
+  align-items: start !important;
+  overflow: visible !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight {
+  width: 100% !important;
+  height: auto !important;
+  grid-template-rows: auto auto auto !important;
+  align-content: start !important;
+  justify-self: stretch !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset-wrap,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset-wrap,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset-wrap {
+  width: min(190px, 100%) !important;
+  height: clamp(76px, 10vh, 118px) !important;
+  max-width: 100% !important;
+  transform: none !important;
+  align-items: center !important;
+}
+
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-2 .gameplay-choice-spotlight-asset,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-3 .gameplay-choice-spotlight-asset,
+.gameplay-overlay-minigame-scene .gameplay-choice-spotlights-4 .gameplay-choice-spotlight-asset {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Shared scoring guide for numeric count / estimate mini-games. */
+.ctb-scoring-partial {
+  border-color: rgba(255, 210, 75, 0.48);
+  background: rgba(42, 30, 8, 0.82);
+}
+
+.ctb-scoring-partial strong {
+  color: #ffd66b;
+  text-shadow: 0 0 8px rgba(255, 214, 107, 0.38);
+}
+
+.ctb-scoring-wrong {
+  border-color: rgba(255, 100, 120, 0.3);
+}
+
+.gameplay-memory-scoring {
+  width: min(760px, 92%);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 4px auto 0;
+}
+
+
+/* Numeric near-misses earn quarter credit and should not look fully wrong. */
+.gameplay-choice-spotlight-partial .gameplay-choice-spotlight-asset-wrap {
+  filter: drop-shadow(0 0 14px rgba(255, 198, 82, 0.72)) saturate(1.12) !important;
+  animation: choiceAssetPartialPulse 980ms ease-in-out infinite alternate !important;
+}
+
+.gameplay-choice-spotlight-partial .gameplay-choice-spotlight-count {
+  color: #ffe09a !important;
+  opacity: 1 !important;
+}
+
+.gameplay-citizen-answer-partial:not(.gameplay-citizen-entering) {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 11px rgba(255, 198, 82, 0.5)) !important;
+}
+
+.gameplay-citizen-answer-partial:not(.gameplay-citizen-entering) img.gameplay-citizen-sprite {
+  animation: citizenPartialCreditNod 940ms ease-in-out infinite !important;
+  filter: drop-shadow(0 0 13px rgba(255, 198, 82, 0.48))
+    drop-shadow(0 9px 9px rgba(0, 0, 0, 0.4)) !important;
+}
+
+.gameplay-citizen-answer-partial .gameplay-citizen-ground-shadow {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 198, 82, 0.36) 0%,
+    rgba(0, 0, 0, 0.28) 48%,
+    rgba(0, 0, 0, 0) 74%
+  );
+  opacity: 0.7;
+}
+
+@keyframes choiceAssetPartialPulse {
+  from { filter: drop-shadow(0 0 8px rgba(255, 198, 82, 0.42)); }
+  to { filter: drop-shadow(0 0 18px rgba(255, 198, 82, 0.78)); }
+}
+
+@keyframes citizenPartialCreditNod {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  45% { transform: translateY(-5px) rotate(-1deg); }
+}
+
+
+/* ==========================================================================
+   TA7ADY ELGEEL VISUAL REFRESH
+   Local display typography, grounded host placement, consistent audience scale,
+   and a lightweight neon Play interaction.
+   ========================================================================== */
+@font-face {
+  font-family: "Labo Display";
+  src: url("./assets/fonts/LaboDisplay.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  font-family: var(--display-font);
+}
+
+html body,
+html body #root,
+html body #root * {
+  font-family: var(--display-font) !important;
+}
+
+/* Keep the current bilingual logo contained within the LED screen without cropping. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(7px, 0.8vh, 14px) !important;
+  padding: clamp(8px, 1.15vw, 22px) !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-logo {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: min(100%, clamp(210px, 18.5vw, 350px)) !important;
+  max-height: min(30vh, 330px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.42)) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  position: relative !important;
+  z-index: 2 !important;
+  margin: 0 !important;
+  color: rgba(236, 247, 255, 0.82) !important;
+  font-size: clamp(12px, 0.82vw, 16px) !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Clean text-first Play action: no glossy pill, no heavy frame. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  min-width: clamp(120px, 10vw, 190px) !important;
+  min-height: clamp(46px, 4.2vw, 68px) !important;
+  margin: 2px 0 0 !important;
+  padding: 8px 20px 15px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f7fbff !important;
+  cursor: pointer !important;
+  isolation: isolate !important;
+  transform: none !important;
+  transition: color 180ms ease, opacity 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+  color: currentColor !important;
+  font-size: clamp(24px, 2.05vw, 38px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.48) !important;
+  transition: text-shadow 180ms ease, transform 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-underline {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 3px !important;
+  width: 0 !important;
+  height: 2px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, #43edff 0%, #b967ff 55%, #ff61dc 100%) !important;
+  box-shadow: 0 0 8px rgba(67, 237, 255, 0.3) !important;
+  opacity: 0 !important;
+  transform: translateX(-50%) scaleX(0.82) !important;
+  transform-origin: center !important;
+  transition: width 220ms ease, opacity 220ms ease, box-shadow 220ms ease, transform 220ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 0 !important;
+  width: 76% !important;
+  height: 20px !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  transform: translateX(-50%) !important;
+  transition: opacity 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i {
+  position: absolute !important;
+  bottom: 0 !important;
+  width: 3px !important;
+  height: 3px !important;
+  border-radius: 50% !important;
+  background: #b9fbff !important;
+  box-shadow: 0 0 7px 2px rgba(67, 237, 255, 0.72) !important;
+  opacity: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(1) { left: 17% !important; }
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(2) { left: 51% !important; background: #ffd6fa !important; box-shadow: 0 0 7px 2px rgba(255, 97, 220, 0.72) !important; }
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-particles i:nth-child(3) { right: 14% !important; }
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) {
+  color: #ffffff !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-label,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-label {
+  transform: translateY(-2px) !important;
+  text-shadow: 0 0 12px rgba(67, 237, 255, 0.32), 0 0 18px rgba(255, 97, 220, 0.2) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-underline,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-underline {
+  width: 78% !important;
+  opacity: 1 !important;
+  transform: translateX(-50%) scaleX(1) !important;
+  box-shadow: 0 0 7px rgba(67, 237, 255, 0.86), 0 0 16px rgba(255, 97, 220, 0.54) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles {
+  opacity: 1 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i,
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i {
+  animation: mainScreenPlayParticle 720ms ease-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i:nth-child(2),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i:nth-child(2) {
+  animation-delay: 160ms !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:hover:not(:disabled) .main-screen-play-cta-particles i:nth-child(3),
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:focus-visible:not(:disabled) .main-screen-play-cta-particles i:nth-child(3) {
+  animation-delay: 310ms !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:disabled {
+  color: rgba(225, 236, 249, 0.48) !important;
+  cursor: not-allowed !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta:disabled .main-screen-play-cta-underline {
+  opacity: 0.24 !important;
+}
+
+@keyframes mainScreenPlayParticle {
+  0% { opacity: 0; transform: translateY(1px) scale(0.65); }
+  35% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-12px) scale(1.15); }
+}
+
+/* Host scale and stage marks: lobby host stands beside the LED screen; game host
+   stays on the left wing and points inward, with feet anchored to the floor line. */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 79.6% !important;
+  right: auto !important;
+  bottom: 31.2% !important;
+  width: clamp(280px, 15.2vw, 316px) !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 79.6% !important;
+  right: auto !important;
+  top: 68.8% !important;
+  width: 14.4% !important;
+  height: 3.8% !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+html body .concert-host-question-mascot,
+html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+html body .concert-host-result-mascot,
+html body .concert-host-result-layer-winner .concert-host-result-mascot,
+html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+  left: 5.5% !important;
+  right: auto !important;
+  bottom: 11.5% !important;
+  width: clamp(250px, 14.2vw, 286px) !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+}
+
+html body .concert-host-presenter-floor-pool,
+html body .concert-host-question-floor-pool,
+html body .concert-host-question-layer-urgent .concert-host-question-floor-pool,
+html body .concert-host-result-floor-pool,
+html body .concert-host-result-layer-winner .concert-host-result-floor-pool,
+html body .concert-host-result-layer-runnerup .concert-host-result-floor-pool {
+  left: 5.5% !important;
+  right: auto !important;
+  top: 84.2% !important;
+  width: 10% !important;
+  height: 3.6% !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-pose,
+html body .concert-host-question-pose,
+html body .concert-host-result-pose,
+html body .concert-host-mascot-pose {
+  object-fit: contain !important;
+  object-position: center bottom !important;
+}
+
+/* Audience sprites: enlarge the bodies while keeping a narrow calibration range. */
+html body .gameplay-citizen-card {
+  width: clamp(98px, 5.9vw, 120px) !important;
+  min-height: clamp(140px, 8.8vw, 168px) !important;
+}
+
+html body .gameplay-citizen-card .gameplay-citizen-body-shell {
+  width: calc(clamp(88px, 5.6vw, 112px) * var(--citizen-visual-scale, 1)) !important;
+  height: calc(clamp(126px, 8vw, 156px) * var(--citizen-visual-scale, 1)) !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card,
+html body .game-scene-stage-lobby .gameplay-citizen-card {
+  width: clamp(98px, 5.9vw, 120px) !important;
+  min-height: clamp(140px, 8.8vw, 168px) !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card .gameplay-citizen-body-shell,
+html body .game-scene-stage-lobby .gameplay-citizen-card .gameplay-citizen-body-shell {
+  width: calc(clamp(88px, 5.6vw, 112px) * var(--citizen-visual-scale, 1)) !important;
+  height: calc(clamp(126px, 8vw, 156px) * var(--citizen-visual-scale, 1)) !important;
+}
+
+html body .gameplay-citizen-nameplate {
+  min-width: clamp(104px, 6.3vw, 138px) !important;
+  max-width: clamp(116px, 7.15vw, 156px) !important;
+  height: clamp(22px, 1.72vw, 32px) !important;
+}
+
+html body .gameplay-citizen-ground-shadow {
+  width: clamp(52px, 3.8vw, 76px) !important;
+  height: clamp(8px, 0.68vw, 13px) !important;
+  opacity: 0.7 !important;
+}
+
+@media (max-width: 1400px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-logo {
+    width: min(100%, clamp(190px, 22vw, 290px)) !important;
+    max-height: min(29vh, 260px) !important;
+  }
+
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    left: 79.4% !important;
+    width: clamp(248px, 16vw, 284px) !important;
+  }
+
+  html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+  html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+  html body .concert-host-question-mascot,
+  html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+  html body .concert-host-result-mascot,
+  html body .concert-host-result-layer-winner .concert-host-result-mascot,
+  html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+    left: 5.5% !important;
+    width: clamp(230px, 15.5vw, 260px) !important;
+  }
+
+  html body .gameplay-citizen-card .gameplay-citizen-body-shell {
+    width: calc(clamp(82px, 5.5vw, 102px) * var(--citizen-visual-scale, 1)) !important;
+    height: calc(clamp(116px, 7.7vw, 142px) * var(--citizen-visual-scale, 1)) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta,
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ==========================================================================\n   LANDING EXPERIENCE POLISH — BRAND MARK, JOIN FLOW, LIVE IDENTITY, STAGE\n   Responsive dimensions are relative to the fixed 16:9 game-stage container.\n   ========================================================================== */
+.game-scene-stage {
+  container-type: size;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr) !important;
+  gap: clamp(8px, 1.05cqw, 22px) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(5px, 0.62cqh, 11px) !important;
+  padding: clamp(7px, 0.78cqw, 16px) !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+.main-screen-brand-lockup {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(1px, 0.2cqh, 4px);
+  isolation: isolate;
+}
+
+.main-screen-brand-name {
+  margin: 0 !important;
+  color: #f8fcff !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(22px, 2.35cqw, 46px) !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.045em !important;
+  text-shadow:
+    0 3px 0 rgba(3, 7, 28, 0.88),
+    0 0 18px rgba(54, 232, 255, 0.2),
+    0 0 22px rgba(255, 79, 216, 0.16) !important;
+  text-transform: uppercase;
+}
+
+.main-screen-brand-mark {
+  display: block;
+  width: min(82%, clamp(150px, 15.4cqw, 300px));
+  max-height: 6.6cqh;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  filter:
+    drop-shadow(0 0 5px rgba(54, 232, 255, 0.38))
+    drop-shadow(0 0 8px rgba(255, 79, 216, 0.3));
+  animation: landingBrandDrift 6.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.main-screen-brand-slogan {
+  margin: 0 !important;
+  color: rgba(234, 245, 255, 0.76) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(10px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.18);
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  position: relative !important;
+  z-index: 2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 94% !important;
+  margin: 0 !important;
+  padding: clamp(4px, 0.36cqh, 7px) clamp(9px, 0.7cqw, 14px) !important;
+  border: 1px solid rgba(54, 232, 255, 0.22) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.075), rgba(255, 79, 216, 0.065)) !important;
+  color: rgba(240, 248, 255, 0.88) !important;
+  font-size: clamp(10px, 0.72cqw, 14px) !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.015em !important;
+  text-align: center !important;
+  box-shadow: 0 0 16px rgba(54, 232, 255, 0.08), inset 0 0 12px rgba(255, 255, 255, 0.025) !important;
+  animation: landingJoinHintGlow 4.8s ease-in-out infinite;
+}
+
+.main-screen-home-actions {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(0px, 0.16cqh, 3px);
+  width: 100%;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link {
+  position: relative !important;
+  display: inline-flex !important;
+  min-width: 92px !important;
+  min-height: clamp(26px, 2.8cqh, 36px) !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  margin: 0 !important;
+  padding: 4px 12px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  color: rgba(234, 245, 255, 0.66) !important;
+  font-family: var(--display-font) !important;
+  font-size: clamp(11px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.045em !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link > span {
+  color: #55e9ff !important;
+  font-size: 1.12em !important;
+  transition: transform 260ms ease, filter 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  color: #ffffff !important;
+  outline: none !important;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.45) !important;
+  transform: translateY(-1px) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover > span,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible > span {
+  filter: drop-shadow(0 0 6px rgba(54, 232, 255, 0.8)) !important;
+  transform: rotate(32deg) !important;
+}
+
+.main-screen-streamer-name {
+  justify-self: end;
+  min-width: 0;
+  max-width: 48%;
+  overflow: hidden;
+  color: rgba(246, 251, 255, 0.9);
+  font-family: var(--display-font);
+  font-size: clamp(10px, 0.82cqw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.18);
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat {
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  border-color: rgba(54, 232, 255, 0.28) !important;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(54, 232, 255, 0.105), transparent 52%),
+    linear-gradient(180deg, rgba(4, 8, 32, 0.72), rgba(5, 4, 24, 0.58)) !important;
+  box-shadow:
+    0 0 22px rgba(54, 232, 255, 0.08),
+    inset 0 0 28px rgba(255, 255, 255, 0.025) !important;
+  animation: landingChatPanelBreath 8s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, auto) !important;
+  gap: clamp(6px, 0.55cqw, 11px) !important;
+  min-width: 0 !important;
+  padding: clamp(7px, 0.64cqw, 13px) clamp(8px, 0.75cqw, 15px) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+  min-width: 0 !important;
+  font-size: clamp(11px, 0.95cqw, 18px) !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+  display: block !important;
+  max-width: 100% !important;
+  padding: 3px 0 !important;
+  color: #f7fbff !important;
+  font-size: clamp(10px, 0.82cqw, 16px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.02em !important;
+  text-align: end !important;
+}
+
+/* The stage is a fixed 16:9 canvas; these anchors scale with it, not the desktop viewport. */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 80.4cqw !important;
+  right: auto !important;
+  bottom: 30.8cqh !important;
+  width: clamp(218px, 17.8cqw, 372px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  translate: 0 0;
+  animation: hostStageIdle 5.2s ease-in-out infinite;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 80.4cqw !important;
+  right: auto !important;
+  top: 69.2cqh !important;
+  width: 14.5cqw !important;
+  height: 3.8cqh !important;
+  transform: translateX(-50%) !important;
+}
+
+html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+html body .concert-host-question-mascot,
+html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+html body .concert-host-result-mascot,
+html body .concert-host-result-layer-winner .concert-host-result-mascot,
+html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+  left: 6.2cqw !important;
+  right: auto !important;
+  bottom: 9.5cqh !important;
+  width: clamp(205px, 17.4cqw, 360px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  translate: 0 0;
+  animation: hostStageIdle 5.6s ease-in-out infinite;
+}
+
+html body .concert-host-presenter-floor-pool,
+html body .concert-host-question-floor-pool,
+html body .concert-host-question-layer-urgent .concert-host-question-floor-pool,
+html body .concert-host-result-floor-pool,
+html body .concert-host-result-layer-winner .concert-host-result-floor-pool,
+html body .concert-host-result-layer-runnerup .concert-host-result-floor-pool {
+  left: 6.2cqw !important;
+  right: auto !important;
+  top: 89.2cqh !important;
+  width: 10.5cqw !important;
+  height: 3.6cqh !important;
+  transform: translateX(-50%) !important;
+}
+
+.visual-world-layer-lobby-active::after {
+  content: "";
+  position: absolute;
+  inset: -8% -18%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  background: linear-gradient(112deg,
+    transparent 0 34%,
+    rgba(54, 232, 255, 0.025) 40%,
+    rgba(54, 232, 255, 0.16) 47%,
+    rgba(255, 79, 216, 0.09) 51%,
+    transparent 58% 100%);
+  transform: translateX(-28%);
+  animation: lobbyStageLightSweep 17s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-welcome-card::before {
+  animation: lobbyWelcomeGlow 8s ease-in-out infinite;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  min-height: clamp(40px, 4.5cqh, 64px) !important;
+  padding-block: 7px 12px !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  font-size: clamp(22px, 2.05cqw, 40px) !important;
+}
+
+@keyframes landingBrandDrift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes landingJoinHintGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(54, 232, 255, 0.055), inset 0 0 10px rgba(255, 255, 255, 0.02); }
+  50% { box-shadow: 0 0 18px rgba(54, 232, 255, 0.13), 0 0 14px rgba(255, 79, 216, 0.07), inset 0 0 12px rgba(255, 255, 255, 0.035); }
+}
+
+@keyframes landingChatPanelBreath {
+  0%, 100% { border-color: rgba(54, 232, 255, 0.22); }
+  50% { border-color: rgba(255, 79, 216, 0.25); }
+}
+
+@keyframes landingChatWave {
+  0%, 100% { transform: scaleY(0.32); opacity: 0.5; }
+  50% { transform: scaleY(1); opacity: 0.96; }
+}
+
+@keyframes lobbyStageLightSweep {
+  0%, 15% { transform: translateX(-28%); opacity: 0.06; }
+  45% { opacity: 0.2; }
+  82%, 100% { transform: translateX(28%); opacity: 0.06; }
+}
+
+@keyframes lobbyWelcomeGlow {
+  0%, 100% { opacity: 0.23; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes hostStageIdle {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+
+@container (max-width: 1160px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr) !important;
+    gap: 5px !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(19px, 2.25cqw, 27px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    width: min(76%, 15cqw) !important;
+    max-height: 6.2cqh !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+    font-size: clamp(8px, 0.82cqw, 10px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    max-width: 98% !important;
+    font-size: clamp(9px, 0.78cqw, 11px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+    font-size: clamp(9px, 0.86cqw, 12px) !important;
+  }
+
+  html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+    font-size: clamp(8px, 0.75cqw, 11px) !important;
+  }
+
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    width: clamp(208px, 17.8cqw, 290px) !important;
+  }
+
+  html body .concert-host-presenter-layer-intro .concert-host-presenter-mascot,
+  html body .concert-host-presenter-layer-side .concert-host-presenter-mascot,
+  html body .concert-host-question-mascot,
+  html body .concert-host-question-layer-urgent .concert-host-question-mascot,
+  html body .concert-host-result-mascot,
+  html body .concert-host-result-layer-winner .concert-host-result-mascot,
+  html body .concert-host-result-layer-runnerup .concert-host-result-mascot {
+    width: clamp(198px, 17.4cqw, 278px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active::after,
+  .main-screen-brand-mark,
+  .main-screen-join-hint,
+  .main-screen-live-chat,
+  .concert-host-mascot-front,
+  .concert-host-presenter-mascot,
+  .concert-host-question-mascot,
+  .concert-host-result-mascot {
+    animation: none !important;
+    translate: none !important;
+  }
+}
+
+/* The thinking/hurry artwork has more transparent side padding than result poses.
+   Scale only the artwork (not its placement box) so the host reads consistently. */
+html body .concert-host-question-pose {
+  transform: scale(1.22) !important;
+  transform-origin: 50% 96% !important;
+}
+
+/* ========================================================================
+   LOBBY VISUAL QA PASS — coherent brand, non-overlapping live identity,
+   grounded host, and restrained stage atmosphere.
+   These are the final lobby-specific rules to override the older legacy UI.
+   ======================================================================== */
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr) !important;
+  align-items: stretch !important;
+  gap: clamp(10px, 0.9cqw, 18px) !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(10px, 1.25cqh, 18px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: clamp(8px, 0.8cqw, 16px) clamp(8px, 1.15cqw, 22px) !important;
+  text-align: center !important;
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(54, 232, 255, 0.09), transparent 58%),
+    radial-gradient(ellipse at 50% 92%, rgba(255, 79, 216, 0.075), transparent 55%) !important;
+  overflow: visible !important;
+}
+
+.main-screen-brand-lockup {
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: clamp(2px, 0.45cqh, 7px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  isolation: isolate;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+  display: block !important;
+  width: min(64%, 245px) !important;
+  max-width: 245px !important;
+  height: auto !important;
+  max-height: clamp(24px, 4.5cqh, 48px) !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 0 clamp(1px, 0.18cqh, 3px) !important;
+  filter:
+    drop-shadow(0 0 5px rgba(54, 232, 255, 0.46))
+    drop-shadow(0 0 9px rgba(255, 79, 216, 0.34)) !important;
+  animation: landingBrandDrift 7.5s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  color: #f8fcff !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(24px, 2.22cqw, 43px) !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0.055em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-shadow:
+    0 2px 0 rgba(2, 6, 24, 0.96),
+    0 0 12px rgba(255, 255, 255, 0.18),
+    0 0 22px rgba(54, 232, 255, 0.15) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+  margin: 0 !important;
+  color: rgba(242, 248, 255, 0.86) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.92cqw, 17px) !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.12em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 0 10px rgba(54, 232, 255, 0.18) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.28em !important;
+  width: fit-content !important;
+  max-width: 98% !important;
+  min-height: clamp(29px, 3.35cqh, 38px) !important;
+  margin: 0 !important;
+  padding: 5px clamp(9px, 0.8cqw, 15px) !important;
+  border: 1px solid rgba(54, 232, 255, 0.2) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.07), rgba(155, 92, 255, 0.07), rgba(255, 79, 216, 0.07)) !important;
+  color: rgba(227, 239, 250, 0.84) !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.72cqw, 13px) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.005em !important;
+  text-align: center !important;
+  white-space: normal !important;
+  box-shadow: 0 0 14px rgba(54, 232, 255, 0.07), inset 0 0 10px rgba(255, 255, 255, 0.02) !important;
+  animation: landingJoinHintGlow 5.8s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint code {
+  display: inline-block !important;
+  margin-inline: 2px !important;
+  padding: 1px 6px 2px !important;
+  border: 1px solid rgba(255, 79, 216, 0.32) !important;
+  border-radius: 6px !important;
+  background: rgba(255, 79, 216, 0.1) !important;
+  color: #8df5ff !important;
+  font-family: "Labo Display", "Segoe UI", Arial, sans-serif !important;
+  font-size: 1.03em !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.03em !important;
+  direction: ltr !important;
+}
+
+.main-screen-home-actions {
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: clamp(2px, 0.45cqh, 7px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: fit-content !important;
+  min-width: clamp(126px, 10.6cqw, 188px) !important;
+  min-height: clamp(42px, 5.7cqh, 60px) !important;
+  margin: 0 !important;
+  padding: 5px 20px 11px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f9fcff !important;
+  cursor: pointer !important;
+  overflow: visible !important;
+  appearance: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(25px, 2.05cqw, 39px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.09em !important;
+  text-shadow: 0 2px 9px rgba(0, 0, 0, 0.34) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-underline {
+  bottom: 2px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #36e8ff, #9b5cff 52%, #ff4fd8) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+  min-height: 30px !important;
+  margin: 0 !important;
+  padding: 4px 9px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(234, 244, 255, 0.72) !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(11px, 0.78cqw, 14px) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.035em !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::before,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link svg {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  fill: currentColor !important;
+  color: #64eaff !important;
+  transition: transform 220ms ease, filter 220ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  text-shadow: 0 0 11px rgba(54, 232, 255, 0.35) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover svg,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible svg {
+  transform: rotate(30deg) !important;
+  filter: drop-shadow(0 0 5px rgba(54, 232, 255, 0.65)) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat {
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(91, 218, 255, 0.22) !important;
+  border-radius: clamp(10px, 0.9cqw, 17px) !important;
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(57, 108, 255, 0.14), transparent 66%),
+    linear-gradient(160deg, rgba(4, 13, 40, 0.82), rgba(7, 5, 31, 0.76)) !important;
+  box-shadow: 0 0 20px rgba(54, 232, 255, 0.07), inset 0 0 24px rgba(255, 255, 255, 0.025) !important;
+  animation: landingChatPanelBreath 9s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: auto auto !important;
+  align-content: center !important;
+  justify-items: start !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  min-height: clamp(56px, 7.3cqh, 76px) !important;
+  padding: clamp(8px, 0.8cqh, 13px) clamp(10px, 0.9cqw, 17px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.075) !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.055), rgba(255, 79, 216, 0.035)) !important;
+}
+
+.main-screen-live-chat-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+  display: block !important;
+  min-width: 0 !important;
+  color: rgba(228, 241, 255, 0.78) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.82cqw, 15px) !important;
+  font-weight: 400 !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0.1em !important;
+  white-space: nowrap !important;
+}
+
+.main-screen-live-dot {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+}
+
+.main-screen-streamer-name {
+  display: block !important;
+  justify-self: start !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  color: #f5fbff !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(11px, 0.92cqw, 16px) !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.035em !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 12px rgba(54, 232, 255, 0.22) !important;
+}
+
+.main-screen-chat-orbit {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  display: block;
+  border: 1px solid rgba(77, 225, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.main-screen-chat-orbit-outer {
+  width: clamp(112px, 11.5cqw, 190px);
+  aspect-ratio: 1;
+  border-color: rgba(54, 232, 255, 0.22);
+  box-shadow: 0 0 22px rgba(54, 232, 255, 0.06), inset 0 0 20px rgba(54, 232, 255, 0.035);
+  animation: lobbyChatOrbit 24s linear infinite;
+}
+
+.main-screen-chat-orbit-inner {
+  width: clamp(74px, 7.7cqw, 128px);
+  aspect-ratio: 1;
+  border-style: dashed;
+  border-color: rgba(255, 79, 216, 0.27);
+  animation: lobbyChatOrbitReverse 32s linear infinite;
+}
+
+.main-screen-chat-core {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  width: clamp(15px, 1.5cqw, 24px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(233, 252, 255, 0.72);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #48eaff 42%, #8a5dff 76%, #ff4fd8);
+  box-shadow: 0 0 15px rgba(54, 232, 255, 0.72), 0 0 28px rgba(255, 79, 216, 0.25);
+  transform: translate(-50%, -50%);
+  animation: lobbyChatCorePulse 3.2s ease-in-out infinite;
+}
+
+.main-screen-chat-equalizer {
+  position: absolute;
+  left: 50%;
+  bottom: 21%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3px, 0.32cqw, 6px);
+  width: min(76%, 230px);
+  height: clamp(28px, 4.5cqh, 48px);
+  transform: translateX(-50%);
+}
+
+.main-screen-chat-equalizer i {
+  display: block;
+  width: clamp(3px, 0.28cqw, 5px);
+  height: 20%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #76f5ff, #9b5cff 58%, #ff70dc);
+  box-shadow: 0 0 8px rgba(54, 232, 255, 0.38);
+  opacity: 0.72;
+  transform-origin: center;
+  animation: lobbyChatEqualizer 1.65s ease-in-out infinite;
+}
+
+.main-screen-chat-equalizer i:nth-child(4n + 1) { height: 78%; animation-delay: -0.23s; }
+.main-screen-chat-equalizer i:nth-child(4n + 2) { height: 48%; animation-delay: -0.74s; }
+.main-screen-chat-equalizer i:nth-child(4n + 3) { height: 92%; animation-delay: -1.12s; }
+.main-screen-chat-equalizer i:nth-child(4n) { height: 34%; animation-delay: -0.48s; }
+
+.main-screen-chat-glint {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #a9faff;
+  box-shadow: 0 0 9px 2px rgba(54, 232, 255, 0.54);
+  animation: lobbyChatGlint 4.8s ease-in-out infinite;
+}
+
+.main-screen-chat-glint-one { left: 23%; top: 23%; }
+.main-screen-chat-glint-two { right: 19%; top: 58%; background: #ffc2f1; box-shadow: 0 0 9px 2px rgba(255, 79, 216, 0.56); animation-delay: -2.1s; }
+
+/* Re-anchor the host to the front edge of the right stage wing. The transparent
+   padding inside the supplied PNG is accounted for by the lower baseline. */
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 79.8cqw !important;
+  right: auto !important;
+  bottom: 29cqh !important;
+  width: clamp(270px, 19.5cqw, 374px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  animation: hostStageIdle 5.8s ease-in-out infinite !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 79.8cqw !important;
+  right: auto !important;
+  top: 69.5cqh !important;
+  width: 15.5cqw !important;
+  height: 4.2cqh !important;
+  transform: translateX(-50%) !important;
+  opacity: 0.76 !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-mascot-shadow {
+  bottom: 0.4% !important;
+  width: 78% !important;
+  height: 7.5% !important;
+  opacity: 0.78 !important;
+}
+
+/* A little motion belongs to the stage, not only to the widgets on its screen. */
+.visual-world-layer-lobby-active::before {
+  content: "";
+  position: absolute;
+  inset: 7% 7% 25%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: screen;
+  filter: blur(12px);
+  background:
+    linear-gradient(73deg, transparent 0 42%, rgba(54, 232, 255, 0.16) 47%, transparent 53% 100%),
+    linear-gradient(108deg, transparent 0 51%, rgba(255, 79, 216, 0.13) 56%, transparent 62% 100%);
+  transform: translateX(-2.5%);
+  animation: lobbySpotlightDrift 16s ease-in-out infinite alternate;
+}
+
+.visual-world-layer-lobby-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  background: linear-gradient(112deg, transparent 0 43%, rgba(54, 232, 255, 0.14) 48%, rgba(255, 79, 216, 0.1) 51%, transparent 57% 100%);
+  transform: translateX(-32%);
+  animation: lobbyStageLightSweep 19s ease-in-out infinite;
+}
+
+.visual-world-stage-lobby {
+  position: absolute;
+  overflow: visible;
+}
+
+.visual-world-stage-lobby::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 12.4%;
+  right: 12.4%;
+  top: 67.4%;
+  height: clamp(2px, 0.24cqh, 4px);
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(54, 232, 255, 0.9) 14%, rgba(155, 92, 255, 0.8) 48%, rgba(255, 79, 216, 0.94) 83%, transparent);
+  box-shadow: 0 0 9px rgba(54, 232, 255, 0.5), 0 0 15px rgba(255, 79, 216, 0.28);
+  opacity: 0.56;
+  animation: lobbyDeckLedPulse 5.5s ease-in-out infinite;
+}
+
+.concert-lobby-sparkles {
+  position: absolute;
+  z-index: 4;
+  left: 10%;
+  right: 10%;
+  top: 70%;
+  bottom: 4%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.concert-lobby-sparkles i {
+  position: absolute;
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #aafaff;
+  box-shadow: 0 0 7px 2px rgba(54, 232, 255, 0.5);
+  opacity: 0;
+  animation: lobbyFloorSparkle 7.5s ease-in-out infinite;
+}
+
+.concert-lobby-sparkles i:nth-child(1) { left: 8%; bottom: 12%; animation-delay: -1.2s; }
+.concert-lobby-sparkles i:nth-child(2) { left: 17%; bottom: 48%; animation-delay: -4.1s; background: #ffc5f1; }
+.concert-lobby-sparkles i:nth-child(3) { left: 27%; bottom: 20%; animation-delay: -2.7s; }
+.concert-lobby-sparkles i:nth-child(4) { left: 36%; bottom: 65%; animation-delay: -5.6s; background: #ffc5f1; }
+.concert-lobby-sparkles i:nth-child(5) { left: 46%; bottom: 14%; animation-delay: -3.4s; }
+.concert-lobby-sparkles i:nth-child(6) { left: 57%; bottom: 52%; animation-delay: -0.6s; background: #ffc5f1; }
+.concert-lobby-sparkles i:nth-child(7) { left: 68%; bottom: 25%; animation-delay: -6.2s; }
+.concert-lobby-sparkles i:nth-child(8) { left: 77%; bottom: 72%; animation-delay: -2s; background: #ffc5f1; }
+.concert-lobby-sparkles i:nth-child(9) { left: 88%; bottom: 34%; animation-delay: -4.9s; }
+.concert-lobby-sparkles i:nth-child(10) { left: 13%; bottom: 77%; animation-delay: -3.8s; }
+.concert-lobby-sparkles i:nth-child(11) { left: 61%; bottom: 82%; animation-delay: -1.8s; background: #ffc5f1; }
+.concert-lobby-sparkles i:nth-child(12) { left: 94%; bottom: 10%; animation-delay: -5.1s; }
+
+@keyframes lobbyChatOrbit { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes lobbyChatOrbitReverse { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+@keyframes lobbyChatCorePulse { 0%, 100% { transform: translate(-50%, -50%) scale(0.92); filter: brightness(0.94); } 50% { transform: translate(-50%, -50%) scale(1.12); filter: brightness(1.16); } }
+@keyframes lobbyChatEqualizer { 0%, 100% { transform: scaleY(0.42); opacity: 0.56; } 50% { transform: scaleY(1); opacity: 0.95; } }
+@keyframes lobbyChatGlint { 0%, 100% { transform: scale(0.65); opacity: 0.25; } 50% { transform: scale(1.25); opacity: 0.9; } }
+@keyframes lobbySpotlightDrift { 0% { transform: translateX(-3%) rotate(-0.5deg); opacity: 0.14; } 100% { transform: translateX(3%) rotate(0.5deg); opacity: 0.26; } }
+@keyframes lobbyDeckLedPulse { 0%, 100% { opacity: 0.38; filter: brightness(0.85); } 50% { opacity: 0.78; filter: brightness(1.2); } }
+@keyframes lobbyFloorSparkle { 0%, 100% { transform: translate3d(0, 8px, 0) scale(0.55); opacity: 0; } 30% { opacity: 0.62; } 65% { transform: translate3d(8px, -18px, 0) scale(1); opacity: 0.32; } }
+
+@container (max-width: 1360px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr) !important;
+    gap: clamp(7px, 0.65cqw, 11px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(21px, 2.12cqw, 30px) !important;
+    letter-spacing: 0.035em !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    width: min(62%, 190px) !important;
+    max-height: 4.3cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+    font-size: clamp(9px, 0.82cqw, 12px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+    min-height: 54px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+    font-size: clamp(9px, 0.78cqw, 12px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+    font-size: clamp(9px, 0.75cqw, 12px) !important;
+  }
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    width: clamp(230px, 19.5cqw, 310px) !important;
+  }
+}
+
+@container (max-height: 760px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+    gap: clamp(5px, 0.85cqh, 10px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    max-height: 4cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(21px, 2.05cqw, 34px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    min-height: 26px !important;
+    padding-block: 3px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+    min-height: 40px !important;
+  }
+}
+
+[dir="rtl"] .gameplay-main-screen-lobby-interactive .main-screen-brand-name,
+[dir="rtl"] .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active::before,
+  .visual-world-layer-lobby-active::after,
+  .visual-world-stage-lobby::after,
+  .concert-lobby-sparkles i,
+  .main-screen-brand-mark,
+  .main-screen-live-chat,
+  .main-screen-chat-orbit,
+  .main-screen-chat-core,
+  .main-screen-chat-equalizer i,
+  .main-screen-chat-glint,
+  .concert-host-mascot-front {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ========================================================================
+   LOBBY FINAL CALIBRATION
+   Tuned against the actual 1920x1080 stage and the user's simplified mark.
+   ======================================================================== */
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-home-layout-logo {
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr) !important;
+  gap: clamp(8px, 0.82cqw, 16px) !important;
+  align-items: stretch !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+  gap: clamp(8px, 1.1cqh, 15px) !important;
+  padding: clamp(7px, 0.82cqw, 16px) clamp(8px, 1.1cqw, 20px) !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(ellipse at 50% 8%, rgba(54, 232, 255, 0.075), transparent 60%),
+    radial-gradient(ellipse at 50% 100%, rgba(255, 79, 216, 0.065), transparent 56%),
+    linear-gradient(180deg, rgba(3, 11, 34, 0.22), rgba(3, 6, 26, 0.12)) !important;
+  border: 1px solid rgba(91, 218, 255, 0.12) !important;
+  border-radius: clamp(9px, 0.82cqw, 15px) !important;
+}
+
+.main-screen-brand-lockup {
+  display: grid !important;
+  justify-items: center !important;
+  align-content: center !important;
+  gap: clamp(2px, 0.38cqh, 6px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+  width: clamp(145px, 12.8cqw, 280px) !important;
+  max-width: 72% !important;
+  max-height: clamp(29px, 5.0cqh, 54px) !important;
+  height: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 !important;
+  filter:
+    drop-shadow(0 0 6px rgba(54, 232, 255, 0.44))
+    drop-shadow(0 0 11px rgba(255, 79, 216, 0.28)) !important;
+  animation: landingBrandDrift 7.5s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  color: #f7fbff !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(20px, 1.4cqw, 34px) !important;
+  font-weight: 400 !important;
+  line-height: 1.08 !important;
+  letter-spacing: 0.035em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-shadow: 0 2px 0 rgba(2, 6, 24, 0.9), 0 0 15px rgba(54, 232, 255, 0.14) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+  margin: 0 !important;
+  color: rgba(221, 235, 249, 0.88) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.74cqw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.095em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 10px rgba(54, 232, 255, 0.16) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.3em !important;
+  width: fit-content !important;
+  max-width: 96% !important;
+  min-height: clamp(28px, 3.25cqh, 38px) !important;
+  margin: 0 !important;
+  padding: 5px clamp(8px, 0.75cqw, 14px) !important;
+  border: 1px solid rgba(73, 222, 255, 0.26) !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.075), rgba(119, 83, 255, 0.07), rgba(255, 79, 216, 0.065)) !important;
+  color: rgba(223, 237, 250, 0.92) !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.72cqw, 14px) !important;
+  font-weight: 600 !important;
+  line-height: 1.28 !important;
+  letter-spacing: 0 !important;
+  text-align: center !important;
+  white-space: normal !important;
+  box-shadow: 0 0 13px rgba(54, 232, 255, 0.075), inset 0 0 9px rgba(255, 255, 255, 0.025) !important;
+  animation: landingJoinHintGlow 6s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint code {
+  display: inline-block !important;
+  direction: ltr !important;
+  margin-inline: 2px !important;
+  padding: 1px 5px 2px !important;
+  border: 1px solid rgba(255, 79, 216, 0.3) !important;
+  border-radius: 5px !important;
+  background: rgba(255, 79, 216, 0.1) !important;
+  color: #7df1ff !important;
+  font-family: "Labo Display", "Segoe UI", Arial, sans-serif !important;
+  font-size: 1.04em !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.035em !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+  min-width: clamp(126px, 10.5cqw, 194px) !important;
+  min-height: clamp(42px, 5.5cqh, 61px) !important;
+  padding: 5px 18px 11px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(26px, 2.1cqw, 42px) !important;
+  line-height: 1 !important;
+  letter-spacing: 0.075em !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-underline {
+  bottom: 2px !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, #36e8ff, #9b5cff 52%, #ff4fd8) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  min-width: 0 !important;
+  min-height: 29px !important;
+  margin: 0 !important;
+  padding: 4px 9px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(207, 224, 241, 0.76) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(11px, 0.78cqw, 15px) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.065em !important;
+  cursor: pointer !important;
+  transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::before,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link::after {
+  display: none !important;
+  content: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link svg {
+  display: block !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+  fill: none !important;
+  stroke: #65eaff !important;
+  stroke-width: 1.45 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  transition: transform 220ms ease, filter 220ms ease !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  text-shadow: 0 0 11px rgba(54, 232, 255, 0.36) !important;
+  outline: none !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:hover svg,
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible svg {
+  transform: translateX(1px) !important;
+  filter: drop-shadow(0 0 5px rgba(54, 232, 255, 0.66)) !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat {
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(91, 218, 255, 0.25) !important;
+  border-radius: clamp(10px, 0.82cqw, 15px) !important;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(57, 108, 255, 0.13), transparent 66%),
+    linear-gradient(160deg, rgba(4, 13, 40, 0.86), rgba(7, 5, 31, 0.82)) !important;
+  box-shadow: 0 0 20px rgba(54, 232, 255, 0.075), inset 0 0 22px rgba(255, 255, 255, 0.025) !important;
+  animation: landingChatPanelBreath 9s ease-in-out infinite !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: clamp(58px, 7.1cqh, 78px) !important;
+  padding: clamp(8px, 0.8cqh, 13px) clamp(11px, 0.92cqw, 17px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(90deg, rgba(54, 232, 255, 0.055), rgba(255, 79, 216, 0.035)) !important;
+}
+
+.main-screen-live-chat-heading {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-width: 0 !important;
+}
+
+html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+  display: block !important;
+  min-width: 0 !important;
+  color: rgba(225, 240, 252, 0.86) !important;
+  font-family: "Labo Display", Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(12px, 0.92cqw, 18px) !important;
+  font-weight: 400 !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+}
+
+.main-screen-live-dot {
+  flex: 0 0 auto !important;
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: #ff55a5 !important;
+  box-shadow: 0 0 9px rgba(255, 85, 165, 0.82) !important;
+  animation: lobbyLiveDotPulse 1.9s ease-in-out infinite !important;
+}
+
+.main-screen-streamer-name {
+  display: block !important;
+  align-self: flex-start !important;
+  justify-self: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  color: #f4f9ff !important;
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif !important;
+  font-size: clamp(10px, 0.78cqw, 15px) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.02em !important;
+  text-align: left !important;
+  text-overflow: ellipsis !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  text-shadow: 0 0 10px rgba(54, 232, 255, 0.18) !important;
+}
+
+.main-screen-chat-orbit {
+  position: absolute !important;
+  left: 50% !important;
+  top: 43% !important;
+  display: block !important;
+  border: 1px solid rgba(77, 225, 255, 0.22) !important;
+  border-radius: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
+}
+
+.main-screen-chat-orbit-outer {
+  width: clamp(108px, 11cqw, 190px) !important;
+  aspect-ratio: 1 !important;
+  box-shadow: 0 0 19px rgba(54, 232, 255, 0.055), inset 0 0 16px rgba(54, 232, 255, 0.025) !important;
+  animation: lobbyChatOrbit 26s linear infinite !important;
+}
+
+.main-screen-chat-orbit-inner {
+  width: clamp(72px, 7.4cqw, 128px) !important;
+  aspect-ratio: 1 !important;
+  border-style: dashed !important;
+  border-color: rgba(255, 79, 216, 0.27) !important;
+  animation: lobbyChatOrbitReverse 34s linear infinite !important;
+}
+
+.main-screen-chat-core {
+  position: absolute !important;
+  left: 50% !important;
+  top: 43% !important;
+  width: clamp(12px, 1.25cqw, 20px) !important;
+  aspect-ratio: 1 !important;
+  border: 1px solid rgba(233, 252, 255, 0.72) !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff, #48eaff 42%, #8a5dff 76%, #ff4fd8) !important;
+  box-shadow: 0 0 14px rgba(54, 232, 255, 0.72), 0 0 26px rgba(255, 79, 216, 0.24) !important;
+  transform: translate(-50%, -50%) !important;
+  animation: lobbyChatCorePulse 3.2s ease-in-out infinite !important;
+}
+
+.main-screen-chat-equalizer {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: 18% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(3px, 0.3cqw, 6px) !important;
+  width: min(76%, 230px) !important;
+  height: clamp(26px, 4.2cqh, 44px) !important;
+  transform: translateX(-50%) !important;
+}
+
+.main-screen-chat-equalizer i {
+  display: block !important;
+  width: clamp(3px, 0.28cqw, 5px) !important;
+  height: 20% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(180deg, #76f5ff, #9b5cff 58%, #ff70dc) !important;
+  box-shadow: 0 0 8px rgba(54, 232, 255, 0.38) !important;
+  opacity: 0.72 !important;
+  transform-origin: center !important;
+  animation: lobbyChatEqualizer 1.65s ease-in-out infinite !important;
+}
+
+.main-screen-chat-equalizer i:nth-child(4n + 1) { height: 78% !important; animation-delay: -0.23s !important; }
+.main-screen-chat-equalizer i:nth-child(4n + 2) { height: 48% !important; animation-delay: -0.74s !important; }
+.main-screen-chat-equalizer i:nth-child(4n + 3) { height: 92% !important; animation-delay: -1.12s !important; }
+.main-screen-chat-equalizer i:nth-child(4n) { height: 34% !important; animation-delay: -0.48s !important; }
+
+html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+  left: 82.2cqw !important;
+  right: auto !important;
+  bottom: 30cqh !important;
+  width: clamp(220px, 15.4cqw, 300px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  transform: translateX(-50%) !important;
+  transform-origin: 50% 100% !important;
+  animation: hostStageIdle 5.8s ease-in-out infinite !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-floor-pool-front {
+  left: 82.2cqw !important;
+  right: auto !important;
+  top: 67.6cqh !important;
+  width: 13.4cqw !important;
+  height: 4cqh !important;
+  transform: translateX(-50%) !important;
+  opacity: 0.74 !important;
+}
+
+html body .concert-host-mascot-stage-layer .concert-host-mascot-shadow {
+  bottom: 0.4% !important;
+  width: 78% !important;
+  height: 7.5% !important;
+  opacity: 0.8 !important;
+}
+
+/* A modest lobby-only audience scale lift; gameplay choice-position geometry is unchanged. */
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-body-shell {
+  scale: 1.13 !important;
+}
+
+html body .gameplay-overlay-lobby-scene .gameplay-citizen-card > .gameplay-citizen-nameplate {
+  transform: translateX(-50%) scale(1.04) !important;
+  transform-origin: center bottom !important;
+}
+
+.concert-lobby-sparkles i {
+  width: 4px !important;
+  height: 4px !important;
+  box-shadow: 0 0 9px 2px rgba(54, 232, 255, 0.48) !important;
+}
+
+@keyframes lobbyLiveDotPulse {
+  0%, 100% { opacity: 0.66; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+
+@container (max-width: 1160px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-name {
+    font-size: clamp(15px, 1.55cqw, 20px) !important;
+    letter-spacing: 0.018em !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    width: clamp(112px, 13cqw, 160px) !important;
+    max-height: 4.3cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-slogan {
+    font-size: clamp(8px, 0.78cqw, 11px) !important;
+    letter-spacing: 0.055em !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    min-height: 25px !important;
+    padding: 3px 7px !important;
+    font-size: clamp(8px, 0.72cqw, 10px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta-label {
+    font-size: clamp(21px, 2.05cqw, 29px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header {
+    min-height: 50px !important;
+    gap: 3px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-live-chat > header strong {
+    font-size: clamp(9px, 0.86cqw, 13px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-streamer-name {
+    font-size: clamp(8px, 0.72cqw, 10px) !important;
+  }
+  html body .concert-host-mascot-stage-layer .concert-host-mascot-front {
+    width: clamp(185px, 15.4cqw, 235px) !important;
+  }
+}
+
+@container (max-height: 760px) {
+  html body .gameplay-main-screen-lobby-interactive .main-screen-logo-card {
+    gap: clamp(5px, 0.8cqh, 9px) !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-brand-mark {
+    max-height: 4.2cqh !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-join-hint {
+    min-height: 25px !important;
+    padding-block: 3px !important;
+  }
+  html body .gameplay-main-screen-lobby-interactive .main-screen-play-cta {
+    min-height: 39px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-lobby-active::before,
+  .visual-world-layer-lobby-active::after,
+  .visual-world-stage-lobby::after,
+  .concert-lobby-sparkles i,
+  .main-screen-brand-mark,
+  .main-screen-live-chat,
+  .main-screen-live-dot,
+  .main-screen-chat-orbit,
+  .main-screen-chat-core,
+  .main-screen-chat-equalizer i,
+  .main-screen-chat-glint,
+  .concert-host-mascot-front {
+    animation: none !important;
+    transition: none !important;
   }
 }

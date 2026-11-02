@@ -88,6 +88,12 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
         ))}
       </div>
 
+      {!isMiniGameScene ? (
+        <div className="concert-lobby-sparkles" aria-hidden="true">
+          {Array.from({ length: 18 }, (_, index) => <i key={index} />)}
+        </div>
+      ) : null}
+
       <div className="concert-effect-layer concert-effect-layer-back">
         <span className="concert-host-spotlight" />
         <span className="concert-host-floor-pool" />

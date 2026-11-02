@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import type { LocaleCode } from '../../../game-core/localization/locale-types';
 import type { DisplayMode, DisplaySettings, ResolutionPreset } from '../../../desktop-electron/preload';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { useAudioTuning } from '../../context/AudioTuningContext';
 import { useTranslation } from '../../i18n/useTranslation';
+import { OPEN_APP_SETTINGS_EVENT } from '../../events/app-ui-events';
 
 const DEFAULT_DISPLAY_SETTINGS: DisplaySettings = {
   displayMode: 'borderless',
@@ -92,13 +93,19 @@ export function AppSettingsButton() {
   const isActiveSession = snapshot.tour.isTourActive && snapshot.tour.phase !== 'lobby_open';
   const endSessionLabel = snapshot.activeSessionMode === 'mini-game' ? 'End Mini Game' : 'End Tour';
 
-  const openSettings = () => {
+  const openSettings = useCallback(() => {
     setDraftLocale(snapshot.locale);
     setDraftDisplaySettings(savedDisplaySettings);
     setError(null);
     setIsDisconnectConfirmOpen(false);
     setIsOpen(true);
-  };
+  }, [savedDisplaySettings, snapshot.locale]);
+
+  useEffect(() => {
+    const handleOpenSettings = () => openSettings();
+    window.addEventListener(OPEN_APP_SETTINGS_EVENT, handleOpenSettings);
+    return () => window.removeEventListener(OPEN_APP_SETTINGS_EVENT, handleOpenSettings);
+  }, [openSettings]);
 
   const closeSettings = () => {
     setDraftLocale(snapshot.locale);
@@ -178,9 +185,11 @@ export function AppSettingsButton() {
 
   return (
     <>
-      <button className="app-settings-gear" type="button" aria-label={t('settings.open')} onClick={openSettings}>
-        ⚙
-      </button>
+      {snapshot.tour.isTourActive ? (
+        <button className="app-settings-gear" type="button" aria-label={t('settings.open')} onClick={openSettings}>
+          ⚙
+        </button>
+      ) : null}
 
       {isOpen ? (
         <div className="settings-modal-backdrop" role="presentation">

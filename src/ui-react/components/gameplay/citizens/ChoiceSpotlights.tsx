@@ -1,7 +1,7 @@
 import type { MiniGameSnapshot, ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { SHAPE_COLORS, type ChoiceTone, type ChoiceSpotlightDefinition } from '../shared/overlay-types';
-import { buildChoiceSpotlights, getAnswerCountsByOption, getCorrectOptionNumber } from '../shared/answer-helpers';
+import { buildChoiceSpotlights, getAnswerCountsByOption, getChoiceOptionResultState, getCorrectOptionNumber } from '../shared/answer-helpers';
 
 export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapshot; phase: TourPhase }) {
   const choices = buildChoiceSpotlights(miniGame);
@@ -21,7 +21,7 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
         const answerCount = counts.get(choice.optionNumber) ?? 0;
 
         const resultState = shouldShowResultFeedback
-          ? choice.optionNumber === correctOption ? 'correct' : 'wrong'
+          ? getChoiceOptionResultState(miniGame, choice.optionNumber)
           : 'pending';
 
         return (

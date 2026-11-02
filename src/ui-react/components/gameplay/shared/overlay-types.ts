@@ -55,7 +55,7 @@ export type CitizenSpotlightPlacement = {
   optionCount: number;
   groupIndex: number;
   tone: ChoiceTone;
-  resultState: 'pending' | 'correct' | 'wrong';
+  resultState: 'pending' | 'correct' | 'partial' | 'wrong';
 };
 
 export type CitizenSidePlacement = {

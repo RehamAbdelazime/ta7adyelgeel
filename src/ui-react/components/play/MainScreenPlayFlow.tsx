@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
 import type { TextDirection, TranslationKey } from '../../../game-core/localization/locale-types';
-import type { TwitchChatMessage } from '../../../game-core/twitch/twitch-message-types';
 import { useGame } from '../../context/GameContext';
+import { OPEN_APP_SETTINGS_EVENT } from '../../events/app-ui-events';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { useTranslation } from '../../i18n/useTranslation';
 
@@ -12,14 +12,13 @@ type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 // Public catalog eligibility comes from the registry; runtime enablement comes from GameStore.
 type MiniGameCardDefinition = ReturnType<typeof getPublicMiniGames>[number];
 
-type LiveChatItem = TwitchChatMessage & {
-  id: string;
-};
+// type LiveChatItem = TwitchChatMessage & {
+//   id: string;
+// };
 
 const MODE_ASSET_ROOT = './assets/game/runtime/ui/main';
 const FOOD_ORIGIN_CARD_BACKGROUND = `${MODE_ASSET_ROOT}/food_origin_card_background.png`;
-const LANDING_LOGO_AR = `${MODE_ASSET_ROOT}/ta7ady_landing_logo_ar.png`;
-const LANDING_LOGO_EN = `${MODE_ASSET_ROOT}/ta7ady_landing_logo_en.png`;
+const LANDING_BRAND_MARK = `${MODE_ASSET_ROOT}/ta7ady_brand_mark.png`;
 
 function getMiniGameCardBackground(miniGameId: MiniGameId): string {
   return miniGameId === 'shape-count' ? `${MODE_ASSET_ROOT}/shape_count_card_background.png` : FOOD_ORIGIN_CARD_BACKGROUND;
@@ -123,18 +122,52 @@ export function MainScreenPlayFlow() {
 }
 
 function LobbyHomeScreen({ canStart, onPlay }: { canStart: boolean; onPlay: () => void }) {
-  const { snapshot } = useGame();
   const t = useTranslation();
-  const logoSrc = snapshot.locale === 'ar' ? LANDING_LOGO_AR : LANDING_LOGO_EN;
+
+  const openSettings = () => {
+    window.dispatchEvent(new Event(OPEN_APP_SETTINGS_EVENT));
+  };
 
   return (
     <div className="main-screen-home-layout main-screen-home-layout-logo">
       <section className="main-screen-welcome-card main-screen-logo-card">
-        <img className="main-screen-brand-logo" src={logoSrc} alt={t('app.logo.main')} draggable={false} />
-        {!canStart ? <small className="main-screen-join-hint">{t('ui.landing.joinHint')}</small> : null}
-        <button className="main-screen-play-button main-screen-play-button-redesign" type="button" onClick={onPlay} disabled={!canStart}>
-          <b>{t('ui.play')}</b>
-        </button>
+        <div className="main-screen-brand-lockup">
+          <img className="main-screen-brand-mark" src={LANDING_BRAND_MARK} alt="" draggable={false} />
+
+        </div>
+        <JoinInstruction text={t('ui.landing.joinHint')} />
+        <div className="main-screen-home-actions">
+          <button
+            className="main-screen-play-cta"
+            type="button"
+            onClick={onPlay}
+            disabled={!canStart}
+          >
+            <span className="main-screen-play-cta-label">{t('ui.play')}</span>
+            <span className="main-screen-play-cta-underline" aria-hidden="true" />
+            <span className="main-screen-play-cta-particles" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+          </button>
+
+
+          <button
+            className="main-screen-play-cta"
+            type="button"
+            onClick={openSettings}
+          >
+            <span className="main-screen-play-cta-label">{t('settings.title')}</span>
+            <span className="main-screen-play-cta-underline" aria-hidden="true" />
+            <span className="main-screen-play-cta-particles" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+          </button>
+
+        </div>
       </section>
       <LiveChatPanel />
     </div>
@@ -255,58 +288,41 @@ function ScreenBackButton({ onBack }: { onBack: () => void }) {
   return <button className="main-screen-back-button" type="button" onClick={onBack}>‹ {t('main.back')}</button>;
 }
 
-function LiveChatPanel() {
-  const { runtime } = useGame();
-  const { status, isConnected } = useTwitchConnection();
-  const t = useTranslation();
-  const [messages, setMessages] = useState<LiveChatItem[]>([]);
+function JoinInstruction({ text }: { text: string }) {
+  const command = '!join';
+  const commandIndex = text.indexOf(command);
 
-  useEffect(() => {
-    return runtime.eventBus.subscribe((event) => {
-      if (event.type !== 'twitch.chat.message') {
-        return;
-      }
-
-      const nextMessage: LiveChatItem = {
-        ...event.message,
-        id: `${event.message.twitchUserId}-${event.message.timestamp}-${event.message.message}`,
-      };
-
-      setMessages((currentMessages) => [...currentMessages.slice(-7), nextMessage]);
-    });
-  }, [runtime.eventBus]);
-
-  const channelName = status.channelName ? status.channelName.replace(/^#/, '') : '';
-  const channelLabel = channelName ? `#${channelName}` : t('ui.landing.notConnected');
+  if (commandIndex < 0) {
+    return <small className="main-screen-join-hint" dir="auto">{text}</small>;
+  }
 
   return (
-    <aside className="main-screen-live-chat" aria-label={t('ui.landing.liveChat')}>
-      <header>
-        <span className={isConnected ? 'main-screen-live-dot main-screen-live-dot-on' : 'main-screen-live-dot'} />
-        <strong>{t('ui.landing.liveChat')}</strong>
-        <small className="main-screen-streamer-channel"><span>{t('ui.landing.streamer')}</span><b>{channelLabel}</b></small>
-      </header>
-      <div className="main-screen-chat-list">
-        {messages.length > 0 ? messages.map((message) => <LiveChatMessageRow key={message.id} message={message} />) : (
-          <div className="main-screen-chat-empty">
-            <b>{t('ui.landing.chatWaitingTitle')}</b>
-            <span>{t('ui.landing.chatWaitingBody')}</span>
-          </div>
-        )}
-      </div>
-    </aside>
+    <small className="main-screen-join-hint" dir="auto">
+      <span>{text.slice(0, commandIndex)}</span>
+      <code dir="ltr">{command}</code>
+      <span>{text.slice(commandIndex + command.length)}</span>
+    </small>
   );
 }
 
-function LiveChatMessageRow({ message }: { message: LiveChatItem }) {
-  const time = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' }).format(new Date(message.timestamp));
+function LiveChatPanel() {
+  const { status, isConnected } = useTwitchConnection();
+  const t = useTranslation();
+
+  const rawChannelName = status.channelName ? status.channelName.replace(/^#/, '').trim() : '';
+  const channelName = rawChannelName;
 
   return (
-    <article className="main-screen-chat-row">
-      <div>
-        <header><strong>{message.displayName}</strong><small>{time}</small></header>
-        <p>{message.message}</p>
-      </div>
-    </article>
+    <aside className={`main-screen-live-chat ${isConnected ? 'main-screen-live-chat-connected' : ''}`} aria-label={t('ui.landing.liveChat')}>
+      <header className="main-screen-live-chat-header">
+        <div className="main-screen-live-chat-heading">
+          <span className={isConnected ? 'main-screen-live-dot main-screen-live-dot-on' : 'main-screen-live-dot'} />
+          <strong>{t('ui.landing.liveChat')}</strong>
+        </div>
+        {channelName ? (
+          <b className="main-screen-streamer-name" dir="ltr" title={channelName}>{channelName}</b>
+        ) : null}
+      </header>
+    </aside>
   );
 }

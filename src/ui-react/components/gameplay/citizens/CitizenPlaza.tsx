@@ -8,14 +8,14 @@ import { useTwitchConnection } from '../../../context/TwitchConnectionContext';
 import {
   CHARACTER_FRAME_COUNT, CHARACTER_IDS, CHARACTER_IDLE_FRAME_MS, CHARACTER_SESSION_SEED,
   STATIC_NEUTRAL_IDLE_CHARACTERS, type CharacterId, type CharacterAnimationName,
-  type CitizenPlacement, type CitizenSpotlightPlacement, type CitizenSidePlacement,
-  type CitizenChampionPlacement,
+  type CitizenPlacement,
 } from '../shared/overlay-types';
 import {
   hashString, getCitizenAnimationName, getCharacterFrameIndex, getCitizenVisualScale,
   getCharacterId, getCitizenPlacementSignature, getCitizenPlacementMotionSignature,
-  getCitizenWalkFacing, getCitizenFloorStyle, getCitizenSideStyle, getCitizenChampionStyle,
-  getCitizenSpotlightStyle, getCitizenReactionClass, getCitizenFrameDurationMs,
+  getCitizenWalkFacing, getCitizenFloorStyle, getCitizenReactionClass, getCitizenFrameDurationMs,
+  getCitizenStageSidePlacement,
+  shouldUseCitizenAnswerPlacement,
   getChampionCelebrationAnimationName, getChampionCelebrationStage,
   getAnswerOptionByUserId, getCitizenChoiceResultState,
 } from '../shared/citizen-helpers';
@@ -36,20 +36,20 @@ export function CitizenPlazaOverlay({
   const { status } = useTwitchConnection();
   const streamerUserId = status.accountUserId;
   const choiceSpotlights = buildChoiceSpotlights(miniGame);
-  const shouldUseAnswerPlacement = ['answer_window_open', 'scoring'].includes(phase);
+  // Characters stand on answer markers only while answers are being accepted.
+  // As soon as scoring starts, every viewer returns to the stage-side formation.
+  const shouldUseAnswerPlacement = miniGame.hasRound && shouldUseCitizenAnswerPlacement(phase);
   const answerOptionByUserId = shouldUseAnswerPlacement ? getAnswerOptionByUserId(miniGame) : new Map<string, number>();
-  const isMiniGameSceneActive = miniGame.hasRound && phase !== 'lobby_open' && phase !== 'cleanup';
+  const isMiniGameSceneActive = phase !== 'lobby_open' && phase !== 'cleanup';
   const visibleCitizens = citizens
     .filter((citizen) => !streamerUserId || citizen.twitchUserId !== streamerUserId)
-    .slice(0, 72)
-    .filter((citizen) => phase !== 'scoring' || answerOptionByUserId.has(citizen.twitchUserId));
+    .slice(0, 72);
   const finalChampionId = phase === 'tour_complete'
     ? [...citizens]
       .filter((citizen) => citizen.role === 'official')
       .sort((a, b) => b.score - a.score || a.displayName.localeCompare(b.displayName))[0]?.twitchUserId ?? null
     : null;
   const optionGroupCounters = new Map<number, number>();
-  const sideGroupCounters: Record<'left' | 'right', number> = { left: 0, right: 0 };
 
   if (visibleCitizens.length === 0) {
     return null;
@@ -66,24 +66,26 @@ export function CitizenPlazaOverlay({
           optionGroupCounters.set(answerOption, groupIndex + 1);
         }
 
-        const side = index % 2 === 0 ? 'left' : 'right';
-        const sideGroupIndex = sideGroupCounters[side];
-        sideGroupCounters[side] += 1;
-
-        const placement: CitizenPlacement | null = finalChampionId === citizen.twitchUserId
-          ? { kind: 'champion' }
-          : choice
-            ? {
-                kind: 'choice',
-                optionNumber: choice.optionNumber,
-                optionCount: choiceSpotlights.length,
-                groupIndex,
-                tone: choice.tone,
-                resultState: getCitizenChoiceResultState(miniGame, answerOption),
-              }
-            : isMiniGameSceneActive
-              ? { kind: 'side', side, groupIndex: sideGroupIndex }
-              : null;
+        let placement: CitizenPlacement | null;
+        if (finalChampionId === citizen.twitchUserId) {
+          placement = { kind: 'champion' };
+        } else if (choice) {
+          placement = {
+            kind: 'choice',
+            optionNumber: choice.optionNumber,
+            optionCount: choiceSpotlights.length,
+            groupIndex,
+            tone: choice.tone,
+            resultState: getCitizenChoiceResultState(miniGame, answerOption),
+          };
+        } else if (isMiniGameSceneActive) {
+          // Reserve a stable side slot for every citizen. When a viewer answers, only
+          // that character moves to the numbered marker; the rest of the crowd does not
+          // reshuffle. The same slot is therefore restored when scoring begins.
+          placement = getCitizenStageSidePlacement(index);
+        } else {
+          placement = null;
+        }
 
         return (
           <CitizenCard
@@ -183,10 +185,9 @@ export function CitizenCard({
       return;
     }
 
-    const shouldWalkBeforeTranslate = !isEntering
-      && currentRenderedPlacement !== null
-      && nextPlacement !== null
-      && (nextPlacement.kind === 'choice' || nextPlacement.kind === 'champion');
+    // Every placement transition is a real movement: lobby → stage, stage → answer
+    // marker, answer marker → stage sides, and stage → final champion position.
+    const shouldWalkBeforeTranslate = !isEntering;
 
     let firstFrameId = 0;
     let secondFrameId = 0;
@@ -200,7 +201,7 @@ export function CitizenCard({
       return;
     }
 
-    const moveMs = nextPlacement.kind === 'champion'
+    const moveMs = currentRenderedPlacement?.kind === 'champion' || nextPlacement?.kind === 'champion'
       ? tuning.citizens.championWalkMs
       : tuning.citizens.sideToChoiceMs;
 

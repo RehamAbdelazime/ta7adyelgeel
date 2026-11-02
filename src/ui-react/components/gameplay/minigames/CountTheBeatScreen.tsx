@@ -4,6 +4,7 @@ import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell } from '../shared/question-shell';
+import { ScoringGuide } from '../shared/ScoringGuide';
 
 const TONE_COLOUR: Record<string, string> = {
   cyan: '#22e7ff',
@@ -36,16 +37,6 @@ function BeatItem({ item, revealTargets }: { item: CountTheBeatItemSnapshot; rev
   };
 
   return <span style={style} aria-hidden="true">{item.glyph}</span>;
-}
-
-function ScoringGuide({ exact, marginOne, marginTwo }: { exact: number; marginOne: number; marginTwo: number }) {
-  return (
-    <div className="ctb-scoring" aria-label="Scoring">
-      <div className="ctb-scoring-row ctb-scoring-exact"><span>✓ Exact</span><strong>+{exact}</strong></div>
-      <div className="ctb-scoring-row"><span>±1</span><strong>+{marginOne}</strong></div>
-      <div className="ctb-scoring-row"><span>±2</span><strong>+{marginTwo}</strong></div>
-    </div>
-  );
 }
 
 export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
@@ -93,8 +84,12 @@ export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGame
           <p className="ctb-instruction">{miniGame.acceptsAnswers ? helperText : t('gameplay.helper.phase.scoring')}</p>
           <ScoringGuide
             exact={beat.scoring.exact}
-            marginOne={beat.scoring.marginOne}
-            marginTwo={beat.scoring.marginTwo}
+            partial={beat.scoring.partial}
+            partialTolerance={beat.scoring.partialTolerance}
+            incorrect={beat.scoring.incorrect}
+            exactLabel={t('gameplay.scoring.exact')}
+            partialLabel={t('gameplay.scoring.withinMargin')}
+            incorrectLabel={t('gameplay.scoring.incorrect')}
           />
         </div>
       </div>

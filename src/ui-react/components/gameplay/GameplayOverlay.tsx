@@ -1,22 +1,22 @@
-import { useState, useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import type { TourAwardsSnapshot } from '../../../game-core/awards/tour-awards';
 import type { ChampionCelebrationSnapshot } from '../../../game-core/app/game-snapshot';
 import type { ChaosEventSnapshot } from '../../../game-core/chaos/chaos-types';
 import type { CitizenRuntime } from '../../../game-core/citizens/citizen-types';
-import type { MiniGameId, MiniGameScoreAward, MiniGameSnapshot } from '../../../game-core/minigames/minigame-types';
+import type { MiniGameScoreAward, MiniGameSnapshot } from '../../../game-core/minigames/minigame-types';
 import type { TourPhase, TourSnapshot } from '../../../game-core/tours/tour-types';
+import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
 import { MainScreenPlayFlow } from '../play/MainScreenPlayFlow';
-import { PHASE_LABEL_KEY, DIFFICULTY_LABEL, getBottomStatus, getPhaseHelper, getMiniGameTitle, getCorrectAnswerText, type TranslateFn } from './shared/overlay-types';
-import type { TranslationKey } from '../../../game-core/localization/locale-types';
-import { formatAnswerParticipation, getCorrectOptionNumber, getCommandOptionNumber, buildChoiceSpotlights, getAnswerCountsByOption } from './shared/answer-helpers';
-import { QuestionScreenShell, ChoiceCard, ShapeMark, type QuestionChoiceItem } from './shared/question-shell';
+import { PHASE_LABEL_KEY, DIFFICULTY_LABEL, getBottomStatus } from './shared/overlay-types';
+import { formatAnswerParticipation } from './shared/answer-helpers';
 import { ChoiceSpotlights } from './citizens/ChoiceSpotlights';
 import { CitizenPlazaOverlay } from './citizens/CitizenPlaza';
-import { RoundResult, RoundScoreBoard, RoundIntermissionScreen, TourCompleteSummary } from './scoreboard/Scoreboard';
+import { RoundScoreBoard, TourCompleteSummary } from './scoreboard/Scoreboard';
 import { MINI_GAME_BY_ID } from '../../../game-core/minigames/minigame-registry';
 import { MINI_GAME_SCREENS } from './minigames/minigame-screen-registry';
+import { resolveGameplayOverlayMode } from './gameplay-overlay-mode';
 
 export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | 'minigame' } = {}) {
   const { snapshot } = useGame();
@@ -158,38 +158,57 @@ function MainScreenGameplayOverlay({
   lastRoundAwards: MiniGameScoreAward[];
   shouldShowMiniGame: boolean;
 }) {
-  const { actions, snapshot } = useGame();
+  const { snapshot } = useGame();
   const t = useTranslation();
   const phaseRemaining = Math.max(0, Math.ceil(tour.phaseRemainingMs / 1000));
+  const scoringRevealKey = `${tour.tourId}:${tour.roundNumber}:${miniGame.questionId ?? 'no-question'}`;
+  const [completedScoringRevealKey, setCompletedScoringRevealKey] = useState<string | null>(null);
 
-  // V2_RETURN_TO_STAGE_ON_END
-  // Final scoreboard is not shown in the live scene. When a single mini game or tour ends,
-  // immediately return to the stage/lobby flow instead.
+  // Keep each game's visual answer reveal briefly, then move to the round scoreboard.
+  // This preserves game-specific reveals (e.g. the Maze path and Lucky Cup result)
+  // without leaving the scoreboard hidden indefinitely.
   useEffect(() => {
-    if (tour.phase === 'tour_complete') {
-      actions.backToStage();
+    if (tour.phase !== 'scoring' || !miniGame.hasRound) {
+      setCompletedScoringRevealKey(null);
+      return;
     }
-  }, [actions, tour.phase]);
 
-  if (tour.phase === 'tour_complete') {
-    return null;
+    const revealTimer = window.setTimeout(() => setCompletedScoringRevealKey(scoringRevealKey), 2400);
+    return () => window.clearTimeout(revealTimer);
+  }, [miniGame.hasRound, scoringRevealKey, tour.phase]);
+
+  const overlayMode = resolveGameplayOverlayMode(tour.phase, tour.isTourActive, shouldShowMiniGame);
+
+  if (overlayMode === 'final-score') {
+    return (
+      <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-tour_complete">
+        <TourCompleteSummary citizens={citizens} tour={tour} tourAwards={tourAwards} lastRoundAwards={lastRoundAwards} />
+      </section>
+    );
   }
 
-  if (!shouldShowMiniGame) {
-    if (tour.isTourActive && tour.phase === 'tour_starting') {
-      return <TourStartingScreen seconds={phaseRemaining} />;
-    }
+  if (overlayMode === 'round-score') {
+    const isShowingAnswerReveal = miniGame.hasRound && completedScoringRevealKey !== scoringRevealKey;
+    return (
+      <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-scoring">
+        {isShowingAnswerReveal
+          ? <MiniGamePlayScreen miniGame={miniGame} tourPhase="scoring" />
+          : <RoundScoreBoard citizens={citizens} tour={tour} miniGame={miniGame} lastRoundAwards={lastRoundAwards} />}
+      </section>
+    );
+  }
 
+  if (overlayMode === 'tour-starting') {
+    return <TourStartingScreen seconds={phaseRemaining} />;
+  }
+
+  if (overlayMode === 'lobby') {
     return <LobbyScreen />;
   }
 
   const phaseLabel = t(PHASE_LABEL_KEY[tour.phase] ?? 'gameplay.phase.miniGame');
   const isTourMode = snapshot.activeSessionMode === 'tour';
   const roundLabel = isTourMode && tour.totalRounds > 0 ? `${t('gameplay.round.label')} ${tour.roundNumber}/${tour.totalRounds}` : null;
-  const showFinalScore = false;
-  const showAnswerReveal = tour.phase === 'scoring' && miniGame.hasRound;
-  const showRoundScore = tour.phase === 'scoring' && !showAnswerReveal;
-  const showResult = false;
   const spectatorCount = citizens.filter((citizen) => citizen.role === 'spectator').length;
 
   return (
@@ -206,13 +225,9 @@ function MainScreenGameplayOverlay({
 
       {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} /> : null}
 
-      {(tour.phase === 'answer_window_open' || showAnswerReveal) && !showResult ? (
+      {tour.phase === 'answer_window_open' ? (
         <MiniGamePlayScreen miniGame={miniGame} tourPhase={tour.phase} />
       ) : null}
-
-      {showResult ? <RoundResult miniGame={miniGame} /> : null}
-      {showRoundScore ? <RoundScoreBoard citizens={citizens} tour={tour} miniGame={miniGame} lastRoundAwards={lastRoundAwards} /> : null}
-      {showFinalScore ? <TourCompleteSummary citizens={citizens} tour={tour} tourAwards={tourAwards} lastRoundAwards={lastRoundAwards} /> : null}
 
       {!['tour_complete', 'scoring'].includes(tour.phase) ? (
         <div className="gameplay-answer-status">

@@ -41,10 +41,20 @@ export function getCharacterFrameIndex(characterId: CharacterId, animationName: 
 }
 
 export function getCitizenVisualScale(characterId: CharacterId): number {
+  // Per-sprite calibration compensates for transparent padding and different silhouettes.
+  // Values intentionally stay close so the audience looks like one coherent cast.
   const scales: Record<CharacterId, number> = {
-    cat: 0.76, dog: 0.80, cute_girl: 0.96, flat_boy: 0.98,
-    female_person: 0.96, male_person: 0.96, red_hat: 0.80,
-    temple_runner: 0.82, robot: 0.92, stage_office: 0.96, stage_chef: 0.96,
+    cat: 1.00,
+    dog: 0.99,
+    cute_girl: 0.99,
+    flat_boy: 1.01,
+    female_person: 1.02,
+    male_person: 1.02,
+    red_hat: 1.03,
+    temple_runner: 1.08,
+    robot: 0.97,
+    stage_office: 1.12,
+    stage_chef: 1.12,
   };
   return scales[characterId] ?? 1;
 }
@@ -54,24 +64,88 @@ export function getCharacterId(twitchUserId: string, _index: number): CharacterI
   return CHARACTER_IDS[hash % CHARACTER_IDS.length];
 }
 
+export function shouldUseCitizenAnswerPlacement(phase: TourPhase): boolean {
+  return phase === 'answer_window_open';
+}
+
 export function getCitizenPlacementSignature(placement: CitizenPlacement | null): string {
   if (!placement) return 'none';
   if (placement.kind === 'champion') return 'champion';
   if (placement.kind === 'side') return `side-${placement.side}-${placement.groupIndex}`;
-  return `choice-${placement.optionNumber}-${placement.groupIndex}`;
+  return `choice-${placement.optionNumber}-${placement.optionCount}-${placement.groupIndex}-${placement.resultState}`;
 }
 
 export function getCitizenPlacementMotionSignature(placement: CitizenPlacement | null): string {
   if (!placement) return 'none';
   if (placement.kind === 'champion') return 'champion';
-  if (placement.kind === 'side') return `side-${placement.side}`;
-  return `choice-${placement.optionNumber}`;
+  if (placement.kind === 'side') return `side-${placement.side}-${placement.groupIndex}`;
+  return `choice-${placement.optionNumber}-${placement.optionCount}-${placement.groupIndex}`;
 }
 
-export function getCitizenWalkFacing(currentPlacement: CitizenPlacement | null, nextPlacement: CitizenPlacement | null, index: number): number {
-  if (!currentPlacement && nextPlacement) return 1;
-  if (currentPlacement?.kind === 'side' && currentPlacement.side === 'left') return 1;
-  if (currentPlacement?.kind === 'side' && currentPlacement.side === 'right') return -1;
+const CHOICE_SPOTLIGHT_LAYOUT = {
+  leftPercent: 20,
+  widthPercent: 60,
+  topPercent: 84.2,
+  heightPercent: 13.4,
+} as const;
+
+const CITIZEN_PLAZA_LAYOUT = {
+  topPercent: 73.9,
+  heightPercent: 26.1,
+} as const;
+
+function getChoiceSpotlightCenterYInCitizenPlaza(): number {
+  const markerCenterY = CHOICE_SPOTLIGHT_LAYOUT.topPercent + CHOICE_SPOTLIGHT_LAYOUT.heightPercent / 2;
+  return ((markerCenterY - CITIZEN_PLAZA_LAYOUT.topPercent) / CITIZEN_PLAZA_LAYOUT.heightPercent) * 100;
+}
+
+function getChoiceSpotlightCenterX(placement: CitizenSpotlightPlacement): number {
+  const count = Math.max(1, placement.optionCount);
+  const index = Math.max(0, Math.min(count - 1, placement.optionNumber - 1));
+  return CHOICE_SPOTLIGHT_LAYOUT.leftPercent
+    + CHOICE_SPOTLIGHT_LAYOUT.widthPercent * ((index + 0.5) / count);
+}
+
+function getLobbyCrowdCoordinates(index: number): { x: number; y: number; scale: number } {
+  const columns = 12;
+  const row = Math.floor(index / columns);
+  const column = index % columns;
+  return {
+    x: 5 + (90 / (columns - 1)) * column,
+    y: Math.max(24, 78 - row * 10),
+    scale: Math.max(0.58, 0.92 - row * 0.055),
+  };
+}
+
+function getPlacementXPercent(placement: CitizenPlacement | null, index: number): number {
+  if (!placement) return getLobbyCrowdCoordinates(index).x;
+  if (placement.kind === 'champion') return 50;
+  if (placement.kind === 'choice') return getChoiceSpotlightCenterX(placement);
+
+  const columns = 6;
+  const row = Math.floor(placement.groupIndex / columns);
+  const column = placement.groupIndex % columns;
+  return placement.side === 'left'
+    ? 4.5 + column * 4.2 + row * 0.6
+    : 95.5 - column * 4.2 - row * 0.6;
+}
+
+export function getCitizenStageSidePlacement(index: number): CitizenSidePlacement {
+  return {
+    kind: 'side',
+    side: index % 2 === 0 ? 'left' : 'right',
+    groupIndex: Math.floor(index / 2),
+  };
+}
+
+export function getCitizenWalkFacing(
+  currentPlacement: CitizenPlacement | null,
+  nextPlacement: CitizenPlacement | null,
+  index: number,
+): number {
+  const delta = getPlacementXPercent(nextPlacement, index) - getPlacementXPercent(currentPlacement, index);
+  if (Math.abs(delta) > 0.25) return delta > 0 ? 1 : -1;
+  if (nextPlacement?.kind === 'side') return nextPlacement.side === 'left' ? 1 : -1;
   return index % 2 === 0 ? 1 : -1;
 }
 
@@ -82,48 +156,76 @@ export function getCitizenFrameDurationMs(animationName: CharacterAnimationName)
   return durations[animationName] ?? CHARACTER_IDLE_FRAME_MS;
 }
 
-export function getCitizenFloorStyle(index: number, _placement?: unknown): CSSProperties {
+export function getCitizenFloorStyle(index: number, placement: CitizenPlacement | null = null): CSSProperties {
+  if (!placement) return getCitizenLobbyStyle(index);
+  if (placement.kind === 'side') return getCitizenSideStyle(placement, index);
+  if (placement.kind === 'champion') return getCitizenChampionStyle();
+  return getCitizenSpotlightStyle(placement, index);
+}
+
+function citizenPositionStyle({ x, y, scale, z, index, facing }: {
+  x: number;
+  y: number;
+  scale: number;
+  z: number;
+  index: number;
+  facing?: number;
+}): CSSProperties {
   return {
+    '--citizen-x': `${x}%`,
+    '--citizen-target-x': `${x}%`,
+    '--citizen-y': `${y}%`,
+    '--citizen-scale': scale,
+    '--citizen-z': z,
     '--citizen-delay': `${(index * 0.07) % 0.8}s`,
+    '--citizen-walk-facing': facing ?? 1,
   } as CSSProperties;
+}
+
+export function getCitizenLobbyStyle(index: number): CSSProperties {
+  const position = getLobbyCrowdCoordinates(index);
+  return citizenPositionStyle({ ...position, z: Math.round(position.y) + 10, index });
 }
 
 export function getCitizenSideStyle(placement: CitizenSidePlacement, fallbackIndex: number): CSSProperties {
+  const columns = 6;
+  const row = Math.floor(placement.groupIndex / columns);
+  const column = placement.groupIndex % columns;
   const isLeft = placement.side === 'left';
-  const x = isLeft ? 12 + placement.groupIndex * 3.5 : 88 - placement.groupIndex * 3.5;
-  return {
-    '--citizen-x': `${x}%`,
-    '--citizen-y': '75%',
-    '--citizen-scale': 0.72 - placement.groupIndex * 0.04,
-    '--citizen-z': 25 + fallbackIndex,
-    '--citizen-delay': `${(fallbackIndex * 0.08) % 0.7}s`,
-    '--citizen-walk-facing': isLeft ? 1 : -1,
-  } as CSSProperties;
+  const x = isLeft
+    ? 4.5 + column * 4.2 + row * 0.6
+    : 95.5 - column * 4.2 - row * 0.6;
+  const y = Math.max(18, 66 - row * 9.2);
+  const scale = Math.max(0.62, 0.94 - row * 0.055);
+
+  return citizenPositionStyle({
+    x, y, scale, z: Math.round(y) + 10 + (fallbackIndex % 5), index: fallbackIndex,
+    facing: isLeft ? 1 : -1,
+  });
 }
 
 export function getCitizenChampionStyle(): CSSProperties {
-  return {
-    '--citizen-x': '50%',
-    '--citizen-y': '74%',
-    '--citizen-scale': 1.22,
-    '--citizen-z': 100,
-    '--citizen-delay': '0s',
-  } as CSSProperties;
+  return citizenPositionStyle({ x: 50, y: 76, scale: 1.16, z: 120, index: 0, facing: 1 });
 }
 
 export function getCitizenSpotlightStyle(placement: CitizenSpotlightPlacement, fallbackIndex: number): CSSProperties {
-  const optionCount = placement.optionCount;
-  const col = placement.optionNumber - 1;
-  const segWidth = 100 / Math.max(optionCount, 1);
-  const x = segWidth * col + segWidth * 0.5 + ((placement.groupIndex % 3) - 1) * 4;
-  const scale = 0.88 - placement.groupIndex * 0.045;
-  return {
-    '--citizen-x': `${Math.max(8, Math.min(92, x))}%`,
-    '--citizen-y': '82%',
-    '--citizen-scale': Math.max(0.55, scale),
-    '--citizen-z': 30 + fallbackIndex,
-    '--citizen-delay': `${(fallbackIndex * 0.06) % 0.5}s`,
-  } as CSSProperties;
+  const centerX = getChoiceSpotlightCenterX(placement);
+  // Place small groups in a fan that remains inside the matching numbered tile.
+  // Larger groups form shallow depth rows behind the first row.
+  const fanOffsets = [0, -1, 1, -2, 2, -3, 3, -4, 4];
+  const row = Math.floor(placement.groupIndex / fanOffsets.length);
+  const fan = fanOffsets[placement.groupIndex % fanOffsets.length];
+  const maximumSpread = Math.min(3.8, (CHOICE_SPOTLIGHT_LAYOUT.widthPercent / Math.max(1, placement.optionCount)) * 0.24);
+  const x = Math.max(3, Math.min(97, centerX + fan * (maximumSpread / 4)));
+  // The character's centre sits at the centre of the same numbered spotlight image.
+  // Additional rows are layered slightly behind it, still inside the marker area.
+  const y = Math.max(36, getChoiceSpotlightCenterYInCitizenPlaza() - row * 9);
+  const scale = Math.max(0.56, 0.9 - row * 0.055);
+
+  return citizenPositionStyle({
+    x, y, scale, z: Math.round(y) + 20 + (fallbackIndex % 5), index: fallbackIndex,
+    facing: fan < 0 ? 1 : fan > 0 ? -1 : 1,
+  });
 }
 
 export function getCitizenReactionClass(phase: TourPhase, _miniGame: MiniGameSnapshot): string {

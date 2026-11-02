@@ -1,15 +1,9 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
-import { useState, useEffect } from 'react';
-import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
-import {
-  SHAPE_COLORS, MEMORY_ITEM_EMOJI, normalizeRuntimeAssetUrl,
-  getShapeLabel, getShapeIcon, getChoiceTone, getPairChoiceTone,
-  getPhaseHelper, type TranslateFn, type ChoiceTone,
-} from '../shared/overlay-types';
-import { type ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
-import { QuestionScreenShell, type QuestionChoiceItem, ShapeMark } from '../shared/question-shell';
+import { MEMORY_ITEM_EMOJI, getPhaseHelper } from '../shared/overlay-types';
+import { QuestionScreenShell } from '../shared/question-shell';
+import { ScoringGuide } from '../shared/ScoringGuide';
 
 export function MemoryCountScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
@@ -41,6 +35,16 @@ export function MemoryCountScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
           </div>
         )}
       </div>
+      <ScoringGuide
+        exact={memory.scoring.exact}
+        partial={memory.scoring.partial}
+        partialTolerance={memory.scoring.partialTolerance}
+        incorrect={memory.scoring.incorrect}
+        exactLabel={t('gameplay.scoring.exact')}
+        partialLabel={t('gameplay.scoring.withinMargin')}
+        incorrectLabel={t('gameplay.scoring.incorrect')}
+        className="gameplay-memory-scoring"
+      />
     </QuestionScreenShell>
   );
 }

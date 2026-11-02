@@ -232,7 +232,7 @@ export function QuestionScreenShell({
         {eyebrow ? <div className="gameplay-question-eyebrow">{eyebrow}</div> : null}
 
         {/* Question text — full width below */}
-        <h2 style={{ margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: "'Luckiest Guy', Impact, 'Arial Black', sans-serif", textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
+        <h2 style={{ margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: 'var(--display-font)', textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
           {miniGame.statement}
         </h2>
 
