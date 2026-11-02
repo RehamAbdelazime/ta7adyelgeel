@@ -23,9 +23,9 @@ export function App() {
     <GameConfigProvider>
       <MotionTuningProvider>
         <AudioTuningProvider>
-          <main className="relative h-screen w-screen overflow-hidden bg-[#050017]" dir={snapshot.direction}>
+          <main className="app-desktop-shell" dir={snapshot.direction}>
             <GameSceneStage />
-            <div className="pointer-events-none absolute inset-0 z-10">
+            <div className="app-desktop-overlay-layer">
               <AppSettingsButton />
               <PrivateStreamerAnswerDock />
             </div>

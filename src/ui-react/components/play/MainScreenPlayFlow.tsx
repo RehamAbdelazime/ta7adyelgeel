@@ -51,6 +51,18 @@ export function MainScreenPlayFlow() {
     });
   }, [availableMiniGames]);
 
+  // Navigation remains available before anyone joins; only launching a round is gated.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || step === 'home' || event.defaultPrevented) return;
+      // Settings owns Escape while its dialog is open.
+      if (document.querySelector('.settings-modal[role="dialog"]')) return;
+      setStep(step === 'mode' ? 'home' : 'mode');
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [step]);
+
   const openModePicker = () => setStep('mode');
   const backHome = () => setStep('home');
   const startMiniGame = (miniGameId: MiniGameId) => {
@@ -79,7 +91,7 @@ export function MainScreenPlayFlow() {
 
   return (
     <div className={`main-screen-play-flow main-screen-play-flow-${step}`}>
-      {step === 'home' ? <LobbyHomeScreen canStart={canStart} onPlay={openModePicker} /> : null}
+      {step === 'home' ? <LobbyHomeScreen onPlay={openModePicker} /> : null}
       {step === 'mode' ? (
         <ModePickerScreen
           canStart={canStart}
@@ -121,7 +133,7 @@ export function MainScreenPlayFlow() {
   );
 }
 
-function LobbyHomeScreen({ canStart, onPlay }: { canStart: boolean; onPlay: () => void }) {
+function LobbyHomeScreen({ onPlay }: { onPlay: () => void }) {
   const t = useTranslation();
 
   const openSettings = () => {
@@ -133,7 +145,8 @@ function LobbyHomeScreen({ canStart, onPlay }: { canStart: boolean; onPlay: () =
       <section className="main-screen-welcome-card main-screen-logo-card">
         <div className="main-screen-brand-lockup">
           <img className="main-screen-brand-mark" src={LANDING_BRAND_MARK} alt="" draggable={false} />
-
+          <h1 className="main-screen-brand-name">{t('ui.landing.brand')}</h1>
+          <p className="main-screen-brand-slogan">{t('ui.landing.slogan')}</p>
         </div>
         <JoinInstruction text={t('ui.landing.joinHint')} />
         <div className="main-screen-home-actions">
@@ -141,7 +154,6 @@ function LobbyHomeScreen({ canStart, onPlay }: { canStart: boolean; onPlay: () =
             className="main-screen-play-cta"
             type="button"
             onClick={onPlay}
-            disabled={!canStart}
           >
             <span className="main-screen-play-cta-label">{t('ui.play')}</span>
             <span className="main-screen-play-cta-underline" aria-hidden="true" />
@@ -152,19 +164,13 @@ function LobbyHomeScreen({ canStart, onPlay }: { canStart: boolean; onPlay: () =
             </span>
           </button>
 
-
-          <button
-            className="main-screen-play-cta"
-            type="button"
-            onClick={openSettings}
-          >
-            <span className="main-screen-play-cta-label">{t('settings.title')}</span>
-            <span className="main-screen-play-cta-underline" aria-hidden="true" />
-            <span className="main-screen-play-cta-particles" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
+          <button className="main-screen-settings-link" type="button" onClick={openSettings}>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 7h16M4 17h16M8 4v6M16 14v6" />
+              <circle cx="8" cy="7" r="2" />
+              <circle cx="16" cy="17" r="2" />
+            </svg>
+            <span>{t('settings.title')}</span>
           </button>
 
         </div>
@@ -195,15 +201,16 @@ function ModePickerScreen({
         <h2>{t('main.mode.title')}</h2>
         <span>{'\u2726'}</span>
         <p>{t('main.mode.subtitle')}</p>
+        {!canStart ? <p className="main-screen-start-notice" role="status">{t('ui.needJoinPlayer')}</p> : null}
       </header>
       <div className="main-screen-mode-cards">
-        <button className="main-screen-mode-card main-screen-mode-card-mini" type="button" onClick={onMiniGame} disabled={!canStart}>
+        <button className="main-screen-mode-card main-screen-mode-card-mini" type="button" onClick={onMiniGame}>
           <img src={MODE_ASSET_ROOT + '/mini_game_mode_controller.png'} alt="" draggable={false} />
           <strong>{t('main.mode.miniGame')}</strong>
           <small>{t('main.mode.miniGameNote')}</small>
           <b>{t('main.mode.chooseMiniGame')}</b>
         </button>
-        <button className="main-screen-mode-card main-screen-mode-card-tour" type="button" onClick={onTour} disabled={!canStart}>
+        <button className="main-screen-mode-card main-screen-mode-card-tour" type="button" onClick={onTour}>
           <img src={MODE_ASSET_ROOT + '/tour_mode_trophy.png'} alt="" draggable={false} />
           <strong>{t('main.mode.tour')}</strong>
           <small>{t('main.mode.tourNote')}</small>
@@ -248,21 +255,22 @@ function MiniGameGridScreen({
         {mode === 'tour' ? <strong>{selectedMiniGames.length}/{miniGames.length}</strong> : <span aria-hidden="true">✦</span>}
       </header>
 
-      {/* Show every runtime-enabled public game together in a two-row grid. */}
-      <div className="main-screen-mini-card-grid" dir={direction} role="group" aria-label="Mini-game choices">
+      {!canStart ? <p className="main-screen-grid-notice" role="status">{translate('ui.needJoinPlayer')}</p> : null}
+      {/* Disabled launch is intentional; tour selections are still editable before joining. */}
+      <div className="main-screen-mini-card-grid" dir={direction} role="group" aria-label={title}>
         {miniGames.map((miniGame) => (
           <button
             key={miniGame.id}
             className={`main-screen-mini-card main-screen-mini-card-${miniGame.id}${selectedMiniGames.includes(miniGame.id) ? ' main-screen-mini-card-selected' : ''}`}
             type="button"
             onClick={() => onLaunch(miniGame.id)}
-            disabled={!canStart}
+            disabled={mode === 'single' && !canStart}
             aria-pressed={mode === 'tour' ? selectedMiniGames.includes(miniGame.id) : undefined}
             aria-label={translate(miniGame.titleKey)}
           >
             {mode === 'tour' && selectedMiniGames.includes(miniGame.id) && (
               <span className="main-screen-mini-card-order" aria-hidden="true">
-                {selectedMiniGames.indexOf(miniGame.id) + 1}
+                {'✓'}
               </span>
             )}
             <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
@@ -273,6 +281,7 @@ function MiniGameGridScreen({
           </button>
         ))}
       </div>
+      {miniGames.length === 0 ? <p className="main-screen-empty-catalog" role="status">{translate('ui.play.noGamesEnabled')}</p> : null}
       {mode === 'tour' ? (
         <footer className="main-screen-tour-footer">
           <button type="button" onClick={onStartTour} disabled={!canStart || selectedMiniGames.length === 0}>{translate('ui.play.startSelectedTour')} <b>›</b></button>
@@ -284,8 +293,9 @@ function MiniGameGridScreen({
 
 function ScreenBackButton({ onBack }: { onBack: () => void }) {
   const t = useTranslation();
+  const { snapshot } = useGame();
 
-  return <button className="main-screen-back-button" type="button" onClick={onBack}>‹ {t('main.back')}</button>;
+  return <button className="main-screen-back-button" type="button" onClick={onBack}><span aria-hidden="true">{snapshot.direction === 'rtl' ? '›' : '‹'}</span> {t('main.back')}</button>;
 }
 
 function JoinInstruction({ text }: { text: string }) {

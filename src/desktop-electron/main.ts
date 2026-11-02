@@ -298,7 +298,7 @@ async function createMainWindow(): Promise<void> {
       preload: resolveElectronPreloadPath(),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false,
+      sandbox: true,
       webSecurity: true,
       allowRunningInsecureContent: false,
       experimentalFeatures: false,

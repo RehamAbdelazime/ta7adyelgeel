@@ -71,7 +71,7 @@ export function RoundScoreBoard({
         nextMiniGameTitle={nextMiniGameTitle}
         roundLabel={roundLabel}
         isLoading={hasPendingAnswers}
-        primaryActionLabel={'START'}
+        primaryActionLabel={t('ui.startRound')}
         onPrimaryAction={actions.skipPhase}
       />
     );
@@ -80,7 +80,7 @@ export function RoundScoreBoard({
   return (
     <ReusableScoreboard
       title={isTourMode && isLastRound ? t('gameplay.score.scoreboard') : t('gameplay.score.roundScore')}
-      subtitle={isTourMode && isLastRound ? `${miniGame.title} · FINAL ROUND` : `${miniGame.title} · ${roundLabel}`}
+      subtitle={isTourMode && isLastRound ? `${miniGame.title} · ${t('gameplay.score.finalRound')}` : `${miniGame.title} · ${roundLabel}`}
       rows={rows}
       totalRounds={tour.totalRounds}
       currentRound={tour.roundNumber}
@@ -88,8 +88,8 @@ export function RoundScoreBoard({
       emptyLabel={snapshot.locale === 'ar' ? 'لا توجد نتائج بعد.' : 'No scores yet.'}
       isLoading={hasPendingAnswers}
       loadingTitle={snapshot.locale === 'ar' ? 'جاري حساب النقاط...' : 'Calculating scores...'}
-      loadingSubtitle={'One small moment.'}
-      primaryActionLabel={isLastRound ? ('VIEW FINAL SCORE') : ('NEXT')}
+      loadingSubtitle={t('gameplay.score.calculatingHint')}
+      primaryActionLabel={isLastRound ? t('gameplay.score.viewFinal') : t('gameplay.next')}
       onPrimaryAction={actions.skipPhase}
     />
   );
@@ -117,24 +117,24 @@ export function RoundIntermissionScreen({
 
   return (
     <div className="gameplay-round-intermission">
-      <ScoreboardHero title={primaryActionLabel === 'START' ? 'TOP 3' : 'TOP 3'} subtitle={roundLabel} />
+      <ScoreboardHero title={t('gameplay.score.topThree')} subtitle={roundLabel} />
       <div className="gameplay-round-intermission-panel">
         <span className="gameplay-round-finished-label">{currentMiniGameTitle}</span>
         <div className="gameplay-round-intermission-content">
           {isLoading ? (
             <div className="gameplay-score-loader gameplay-reusable-score-loader" role="status">
-              <strong>{primaryActionLabel}</strong>
-              <small />
+              <strong>{t('gameplay.score.calculating')}</strong>
+              <small>{t('gameplay.score.calculatingHint')}</small>
             </div>
           ) : topRows.length === 0 ? (
-            <p className="gameplay-scoreboard-empty">{primaryActionLabel}</p>
+            <p className="gameplay-scoreboard-empty">{t('ui.noScores')}</p>
           ) : (
-            <div className="gameplay-round-top3-list" aria-label="Top three players">
+            <div className="gameplay-round-top3-list" aria-label={t('gameplay.score.topThree')}>
               {topRows.map((row, index) => (
                 <article key={row.twitchUserId} className={`gameplay-round-top3-card gameplay-round-top3-${index + 1}`}>
                   <b>#{index + 1}</b>
                   <strong>{row.displayName}</strong>
-                  <span>{row.total} pts</span>
+                  <span>{row.total} {t('gameplay.score.pointsShort')}</span>
                 </article>
               ))}
             </div>
@@ -175,7 +175,7 @@ export function TourCompleteSummary({
   return (
     <ReusableScoreboard
       title={t('gameplay.score.scoreboard')}
-      subtitle={tour.totalRounds > 0 ? `FINAL · ${tour.totalRounds} ROUNDS` : t('ui.finalScoreboard')}
+      subtitle={tour.totalRounds > 0 ? t('gameplay.score.finalRounds', { count: String(tour.totalRounds) }) : t('ui.finalScoreboard')}
       rows={rows}
       totalRounds={tour.totalRounds}
       currentRound={tour.totalRounds}
@@ -320,7 +320,7 @@ export function ReusableScoreboard({
         ) : rows.length === 0 ? (
           <p className="gameplay-scoreboard-empty">{emptyLabel}</p>
         ) : (
-          <div className="gameplay-reusable-scoreboard-list" aria-label="Player scoreboard">
+          <div className="gameplay-reusable-scoreboard-list" aria-label={t('gameplay.score.playerList')}>
             {visibleRows.map((row, index) => {
               const rank = pageStart + index + 1;
               const initials = row.displayName.trim().slice(0, 2).toUpperCase() || 'P';

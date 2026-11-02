@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ChangeEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from 'react';
 import type { LocaleCode } from '../../../game-core/localization/locale-types';
 import type { DisplayMode, DisplaySettings, ResolutionPreset } from '../../../desktop-electron/preload';
 import { useGame } from '../../context/GameContext';
@@ -37,6 +37,11 @@ export function AppSettingsButton() {
   const [isApplying, setIsApplying] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isDisconnectConfirmOpen, setIsDisconnectConfirmOpen] = useState(false);
+  const [draftMusicVolume, setDraftMusicVolume] = useState(() => Math.round(audioTuning.globalVolume * 100));
+  const dialogRef = useRef<HTMLElement | null>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
+  const isApplyingRef = useRef(isApplying);
+  isApplyingRef.current = isApplying;
 
   useEffect(() => {
     const api = window.elGeel?.display;
@@ -77,10 +82,11 @@ export function AppSettingsButton() {
     if (isOpen) {
       setDraftLocale(snapshot.locale);
       setDraftDisplaySettings(savedDisplaySettings);
+      setDraftMusicVolume(Math.round(audioTuning.globalVolume * 100));
       setError(null);
       setIsDisconnectConfirmOpen(false);
     }
-  }, [isOpen, savedDisplaySettings, snapshot.locale]);
+  }, [isOpen, savedDisplaySettings, snapshot.locale, audioTuning.globalVolume]);
 
   const accountLabel = useMemo(() => {
     return status.accountDisplayName ?? status.accountLogin ?? status.channelName ?? 'Twitch';
@@ -89,17 +95,21 @@ export function AppSettingsButton() {
   const hasDisplayChanges = draftDisplaySettings.displayMode !== savedDisplaySettings.displayMode
     || draftDisplaySettings.resolution !== savedDisplaySettings.resolution;
   const hasLanguageChanges = draftLocale !== snapshot.locale;
+  const hasAudioChanges = draftMusicVolume !== Math.round(audioTuning.globalVolume * 100);
+  const hasAnyChanges = hasDisplayChanges || hasLanguageChanges || hasAudioChanges;
   const isWindowedMode = draftDisplaySettings.displayMode === 'windowed';
   const isActiveSession = snapshot.tour.isTourActive && snapshot.tour.phase !== 'lobby_open';
   const endSessionLabel = snapshot.activeSessionMode === 'mini-game' ? 'End Mini Game' : 'End Tour';
 
   const openSettings = useCallback(() => {
+    if (!isOpen) restoreFocusRef.current = document.activeElement as HTMLElement | null;
     setDraftLocale(snapshot.locale);
     setDraftDisplaySettings(savedDisplaySettings);
+    setDraftMusicVolume(Math.round(audioTuning.globalVolume * 100));
     setError(null);
     setIsDisconnectConfirmOpen(false);
     setIsOpen(true);
-  }, [savedDisplaySettings, snapshot.locale]);
+  }, [savedDisplaySettings, snapshot.locale, isOpen, audioTuning.globalVolume]);
 
   useEffect(() => {
     const handleOpenSettings = () => openSettings();
@@ -107,33 +117,72 @@ export function AppSettingsButton() {
     return () => window.removeEventListener(OPEN_APP_SETTINGS_EVENT, handleOpenSettings);
   }, [openSettings]);
 
-  const closeSettings = () => {
+  const closeSettings = useCallback(() => {
     setDraftLocale(snapshot.locale);
     setDraftDisplaySettings(savedDisplaySettings);
+    setDraftMusicVolume(Math.round(audioTuning.globalVolume * 100));
     setError(null);
     setIsDisconnectConfirmOpen(false);
     setIsOpen(false);
-  };
+  }, [snapshot.locale, savedDisplaySettings, audioTuning.globalVolume]);
+
+  const closeSettingsRef = useRef(closeSettings);
+  closeSettingsRef.current = closeSettings;
+
+  // A real keyboard-modal: initial focus, Escape, Tab loop, and focus restoration.
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const dialog = dialogRef.current;
+    if (!dialog) return undefined;
+
+    const getFocusable = () => Array.from(dialog.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    )).filter((element) => element.getClientRects().length > 0);
+    const [first] = getFocusable();
+    (first ?? dialog).focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !isApplyingRef.current) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeSettingsRef.current();
+      } else if (event.key === 'Tab') {
+        const focusable = getFocusable();
+        if (focusable.length === 0) { event.preventDefault(); dialog.focus(); return; }
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+        if (event.shiftKey && (document.activeElement === firstElement || !dialog.contains(document.activeElement))) {
+          event.preventDefault(); lastElement.focus();
+        } else if (!event.shiftKey && (document.activeElement === lastElement || !dialog.contains(document.activeElement))) {
+          event.preventDefault(); firstElement.focus();
+        }
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      restoreFocusRef.current?.focus();
+    };
+  }, [isOpen]);
 
   const applySettings = async () => {
-    const api = window.elGeel?.display;
+    if (isApplying) return;
     setError(null);
-
-    if (hasLanguageChanges) {
-      actions.setLanguage(draftLocale);
-    }
-
-    if (!api) {
-      setError('Desktop display bridge is unavailable.');
-      return;
-    }
-
     setIsApplying(true);
 
     try {
-      const saved = await api.setSettings(draftDisplaySettings);
-      setSavedDisplaySettings(saved);
-      setDraftDisplaySettings(saved);
+      // Do not commit language/audio before display settings have succeeded.
+      // A locale-only or audio-only change must not require the display bridge.
+      if (hasDisplayChanges) {
+        const api = window.elGeel?.display;
+        if (!api) throw new Error('Desktop display bridge is unavailable.');
+        const saved = await api.setSettings(draftDisplaySettings);
+        setSavedDisplaySettings(saved);
+        setDraftDisplaySettings(saved);
+      }
+      if (hasLanguageChanges) actions.setLanguage(draftLocale);
+      if (hasAudioChanges) setGlobalVolume(draftMusicVolume / 100);
+      setIsOpen(false);
     } catch (err) {
       setError(getErrorMessage(err));
     } finally {
@@ -154,7 +203,7 @@ export function AppSettingsButton() {
   };
 
   const changeMusicVolume = (event: ChangeEvent<HTMLInputElement>) => {
-    setGlobalVolume(Number(event.target.value) / 100);
+    setDraftMusicVolume(Number(event.target.value));
   };
 
   const endActiveSession = () => {
@@ -193,11 +242,11 @@ export function AppSettingsButton() {
 
       {isOpen ? (
         <div className="settings-modal-backdrop" role="presentation">
-          <section className="settings-modal" role="dialog" aria-modal="true" aria-label={t('settings.title')}>
+          <section ref={dialogRef} tabIndex={-1} className="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-dialog-title">
             <header className="settings-modal-header">
               <div>
                 <span>{t('settings.kicker')}</span>
-                <h2>{t('settings.title')}</h2>
+                <h2 id="settings-dialog-title">{t('settings.title')}</h2>
               </div>
               <button type="button" className="settings-close-button" onClick={closeSettings} aria-label={t('settings.close')}>
                 ×
@@ -240,11 +289,11 @@ export function AppSettingsButton() {
                   min="0"
                   max="100"
                   step="1"
-                  value={Math.round(audioTuning.globalVolume * 100)}
+                  value={draftMusicVolume}
                   onChange={changeMusicVolume}
                   aria-label="Music volume"
                 />
-                <strong>{Math.round(audioTuning.globalVolume * 100)}%</strong>
+                <strong>{draftMusicVolume}%</strong>
               </div>
             </div>
 
@@ -275,7 +324,7 @@ export function AppSettingsButton() {
 
               <div className="settings-section">
                 <h3>{t('settings.displayMode')}</h3>
-                <div className="settings-choice-grid settings-choice-grid-three" role="radiogroup" aria-label={t('settings.displayMode')}>
+                <div className="settings-choice-grid settings-choice-grid-three" role="group" aria-label={t('settings.displayMode')}>
                   {DISPLAY_MODES.map((mode) => (
                     <button
                       type="button"
@@ -295,7 +344,7 @@ export function AppSettingsButton() {
               {isWindowedMode ? (
                 <div className="settings-section">
                   <h3>{t('settings.resolution')}</h3>
-                  <div className="settings-choice-grid settings-choice-grid-resolution" role="radiogroup" aria-label={t('settings.resolution')}>
+                  <div className="settings-choice-grid settings-choice-grid-resolution" role="group" aria-label={t('settings.resolution')}>
                     {RESOLUTIONS.map((resolution) => (
                       <button
                         type="button"
@@ -319,13 +368,13 @@ export function AppSettingsButton() {
                 <span aria-hidden="true">←</span>
                 {t('settings.cancel')}
               </button>
-              <button type="button" className="settings-apply-button" onClick={() => void applySettings()} disabled={isApplying}>
+              <button type="button" className="settings-apply-button" onClick={() => void applySettings()} disabled={isApplying || !hasAnyChanges}>
                 <span aria-hidden="true">✓</span>
                 {isApplying ? t('settings.applying') : t('settings.apply')}
               </button>
             </div>
 
-            {error ? <p className="settings-error-text">{error}</p> : null}
+            {error ? <p className="settings-error-text" role="alert">{error}</p> : null}
           </section>
         </div>
       ) : null}

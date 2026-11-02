@@ -15,6 +15,15 @@ export function setRuntimeTranslations(overrides: RuntimeTranslationOverrides): 
 
 export const translations: Record<LocaleCode, Record<TranslationKey, string>> = {
   en: {
+    'gameplay.score.topThree': 'TOP 3',
+    'gameplay.score.pointsShort': 'pts',
+    'gameplay.score.finalRound': 'FINAL ROUND',
+    'gameplay.score.finalRounds': 'FINAL · {{count}} ROUNDS',
+    'gameplay.score.calculatingHint': 'Scores are being calculated.',
+    'gameplay.score.viewFinal': 'VIEW FINAL SCORE',
+    'gameplay.score.playerList': 'Player scoreboard',
+    'gameplay.score.calculating': 'Calculating scores…',
+
 
     'minigame.countTheBeat.title': 'COUNT THE BEAT',
     'minigame.countTheBeat.note': 'Count the target music symbols before they disappear.',
@@ -42,8 +51,9 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     'minigame.luckyCup.alreadyAnswered': '{name}, you already answered.',
     'minigame.luckyCup.answerWindowClosed': '{name}, answer window is closed.',
     'minigame.luckyCup.answerAccepted': '{name} picked cup {answer}.',
-    'ui.play.chooseTourGamesHint': "Choose Tour Games Hint",
-    'ui.play.chooseMiniGameHint': "Choose Mini Game Hint",
+    'ui.play.noGamesEnabled': 'No mini-games are enabled. Enable a game in Host settings.',
+    'ui.play.chooseTourGamesHint': 'Pick the mini-games you want in your tour.',
+    'ui.play.chooseMiniGameHint': 'Choose one game to play now.',
     'twitch.tv': "Tv",
     'twitch.chat.message': "Message",
     'settings.json': "Json",
@@ -408,6 +418,8 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     "ui.invitePlayers": "Invite players with !join",
     "ui.landing.chatWaitingBody": "Messages and commands will appear here live.",
     "ui.landing.chatWaitingTitle": "Waiting for Twitch chat...",
+    "ui.landing.brand": "Ta7ady ElGeel",
+    "ui.landing.slogan": "PROVE IT TO THE END",
     "ui.landing.joinHint": "Type !join in Twitch chat to enter the game.",
     "ui.landing.liveChat": "LIVE CHAT",
     "ui.landing.notConnected": "Not connected",
@@ -444,6 +456,15 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     "ui.tourNote": "Full multi-round show",
   },
   ar: {
+    'gameplay.score.topThree': 'أفضل ٣ لاعبين',
+    'gameplay.score.pointsShort': 'نقطة',
+    'gameplay.score.finalRound': 'الجولة الأخيرة',
+    'gameplay.score.finalRounds': 'النهائي · {{count}} جولات',
+    'gameplay.score.calculatingHint': 'بنحسب النقاط دلوقتي.',
+    'gameplay.score.viewFinal': 'عرض النتيجة النهائية',
+    'gameplay.score.playerList': 'ترتيب اللاعبين',
+    'gameplay.score.calculating': 'جاري حساب النقاط…',
+
 
     'minigame.countTheBeat.title': 'عدّ الإيقاع',
     'minigame.countTheBeat.note': 'عدّ رموز المزيكا المطلوبة قبل ما تختفي.',
@@ -471,8 +492,9 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     'minigame.luckyCup.answerWindowClosed': '{name}، نافذة الإجابة مقفولة.',
     'minigame.luckyCup.answerAccepted': '{name} اختار كوباية {answer}.',
 
-    'ui.play.chooseTourGamesHint': "Choose Tour Games Hint",
-    'ui.play.chooseMiniGameHint': "Choose Mini Game Hint",
+    'ui.play.noGamesEnabled': 'مفيش ألعاب مفعّلة حاليًا. فعّل لعبة من إعدادات المضيف.',
+    'ui.play.chooseTourGamesHint': 'اختار الألعاب اللي هتكون موجودة في التحدي.',
+    'ui.play.chooseMiniGameHint': 'اختار لعبة واحدة نبدأ بيها.',
     'twitch.tv': "Tv",
     'twitch.chat.message': "Message",
     'settings.json': "Json",
@@ -837,6 +859,8 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     "ui.invitePlayers": "ادعُ اللاعبين باستخدام !join",
     "ui.landing.chatWaitingBody": "الرسائل والأوامر هتظهر هنا لايف.",
     "ui.landing.chatWaitingTitle": "في انتظار شات تويتش...",
+    "ui.landing.brand": "تحدي الجيل",
+    "ui.landing.slogan": "اثبت للآخر",
     "ui.landing.joinHint": "اكتب !join في شات تويتش عشان تدخل اللعبة.",
     "ui.landing.liveChat": "شات تويتش المباشر",
     "ui.landing.notConnected": "غير متصل",
@@ -861,7 +885,7 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     "ui.play.randomOrder": "ترتيب عشوائي كل مرة",
     "ui.play.selectedCount": "المختار",
     "ui.play.startSelectedTour": "ابدأ التور",
-    "ui.play.tourGamesHint": "الكروت المختارة هتتلعب بالترتيب.",
+    "ui.play.tourGamesHint": "الألعاب المختارة هتتلعب بترتيب عشوائي.",
     "ui.playerMoments": "لحظات اللاعبين",
     "ui.players": "لاعبين",
     "ui.rounds": "راوندات",

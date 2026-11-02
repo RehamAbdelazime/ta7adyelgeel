@@ -31479,3 +31479,83 @@ html body .gameplay-overlay-lobby-scene .gameplay-citizen-card > .gameplay-citiz
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   DESKTOP UX HARDENING — keyboard clarity and pre-join setup states.
+   Follow-up should consolidate these rules when the legacy CSS is refactored.
+   ========================================================================== */
+html body .main-screen-mode-layout .main-screen-start-notice,
+html body .main-screen-game-grid-layout .main-screen-grid-notice {
+  color: #ffe5a0 !important;
+  background: rgba(27, 17, 43, .91) !important;
+  border: 1px solid rgba(255, 214, 107, .50) !important;
+  border-radius: 10px !important;
+  padding: 7px 12px !important;
+  text-align: center !important;
+  font-family: var(--display-font) !important;
+  line-height: 1.25 !important;
+  font-size: clamp(11px, .9cqw, 16px) !important;
+  max-width: min(86%, 760px) !important;
+}
+html body .main-screen-mode-layout .main-screen-start-notice {
+  grid-column: 1 / -1 !important;
+  justify-self: center !important;
+}
+html body .main-screen-game-grid-layout .main-screen-grid-notice {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: clamp(22px, 4.2cqh, 48px) !important;
+  transform: translateX(-50%) !important;
+  z-index: 64 !important;
+  pointer-events: none !important;
+  margin: 0 !important;
+}
+html body .main-screen-game-grid-layout .main-screen-empty-catalog {
+  position: absolute !important;
+  top: 47% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  max-width: 75% !important;
+  z-index: 66 !important;
+  text-align: center !important;
+  color: #fff !important;
+  font-size: clamp(13px, 1.25cqw, 21px) !important;
+}
+:where(button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #ffda73 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 5px rgba(20, 10, 39, .83), 0 0 21px rgba(255, 218, 115, .38) !important;
+}
+.settings-modal:focus { outline: none; }
+@media (prefers-reduced-motion: reduce) {
+  .main-screen-play-cta-particles *,
+  .main-screen-play-cta-underline,
+  .auth-button-spinner {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* App shell must not depend on Tailwind utility classes: Tailwind is not installed. */
+.app-desktop-shell {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #050017;
+}
+.app-desktop-overlay-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+/* Restore a visible focus ring for the secondary lobby Settings action: the
+   legacy highly-specific hover rule removes outlines with !important. */
+html body .gameplay-main-screen-lobby-interactive .main-screen-settings-link:focus-visible {
+  outline: 3px solid #ffda73 !important;
+  outline-offset: 3px !important;
+  border-radius: 5px !important;
+}
