@@ -1,0 +1,415 @@
+/*
+ * Question Experience v17 — opt-in shared casual game-show layout.
+ * ONLY .qshell-v17: the remaining mini-games keep their old geometry until QA.
+ * The legacy stylesheet has many !important rules, hence the deliberate
+ * scoped specificity in this file. Never widen these selectors globally.
+ */
+html body .gameplay-question-shell.qshell-v17 {
+  --qx-cyan: #48e6f5;
+  --qx-pink: #ff67d5;
+  --qx-ink: #f4f9ff;
+  --qx-muted: #aebcd4;
+  --qx-space: clamp(6px, 0.63vw, 11px);
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  gap: var(--qx-space) !important;
+  padding: clamp(9px, 0.7vw, 15px) clamp(11px, 0.95vw, 20px) !important;
+  border: 1px solid rgba(120, 226, 255, 0.28) !important;
+  border-radius: clamp(13px, 0.95vw, 20px) !important;
+  background: linear-gradient(135deg, rgba(1, 12, 34, 0.94), rgba(20, 11, 40, 0.91)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05), 0 10px 25px rgba(0, 0, 0, .3) !important;
+  direction: inherit !important;
+  container-type: inline-size;
+}
+html body .gameplay-question-shell.qshell-v17::before {
+  opacity: .34 !important;
+}
+
+html body .gameplay-question-shell.qshell-v17 .qshell-header {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  gap: clamp(3px, .35vw, 7px) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-topline {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: clamp(6px, .65vw, 12px) !important;
+  width: 100% !important;
+  min-height: clamp(25px, 2.35vw, 38px) !important;
+  min-width: 0 !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-game-name {
+  color: var(--qx-cyan) !important;
+  font: 700 clamp(12px, .88vw, 17px)/1.2 var(--font-game-ui, sans-serif) !important;
+  text-align: start !important;
+  min-width: 0 !important;
+  max-width: 33% !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-question-meta {
+  position: static !important;
+  flex: 0 1 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  max-width: 44% !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 4px clamp(6px, .5vw, 10px) !important;
+  border: 1px solid rgba(185, 206, 246, .23) !important;
+  border-radius: 999px !important;
+  background: rgba(13, 30, 61, .66) !important;
+  box-shadow: none !important;
+  color: #e6efff !important;
+  direction: inherit !important;
+  white-space: nowrap !important;
+  font: 700 clamp(10px, .73vw, 14px)/1.2 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-question-meta :is(span,b) {
+  font: inherit !important;
+  color: inherit !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-question-timer {
+  position: static !important;
+  flex: 1 1 130px !important;
+  min-width: 105px !important;
+  max-width: 215px !important;
+  width: auto !important;
+  height: auto !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(5px, .5vw, 10px) !important;
+  padding: 0 !important;
+  margin-inline-start: auto !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  direction: ltr !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-question-timer-track {
+  flex: 1 1 80px !important;
+  min-width: 0 !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-question-timer strong {
+  color: #d7fbff !important;
+  font: 750 clamp(13px, 1vw, 19px)/1 var(--font-game-ui, sans-serif) !important;
+  min-width: 3ch !important;
+  text-align: end !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-title {
+  margin: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 4px !important;
+  color: #fff !important;
+  font: 750 clamp(19px, 1.35vw, 27px)/1.25 var(--font-game-title, var(--font-game-ui)) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .52) !important;
+  text-align: center !important;
+  text-wrap: balance !important;
+  overflow-wrap: anywhere !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-answer-reveal-banner {
+  display: flex !important;
+  align-items: center !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 5px 12px !important;
+  margin: 0 !important;
+  position: static !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  background: rgba(46, 160, 103, .18) !important;
+  border: 1px solid rgba(90, 234, 159, .62) !important;
+  border-radius: 10px !important;
+  font: 700 clamp(11px, .85vw, 16px)/1.25 var(--font-game-ui, sans-serif) !important;
+  color: #b5ffd2 !important;
+  box-shadow: none !important;
+  align-self: center !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-answer-reveal-banner :is(span,strong) {
+  font: inherit !important;
+  color: inherit !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+
+html body .gameplay-question-shell.qshell-v17 .qshell-content {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: var(--qx-space) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-choice .qshell-content {
+  grid-template-columns: minmax(0, 1fr) minmax(155px, 35%) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-content {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-body {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  place-items: stretch !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border-radius: clamp(9px, .75vw, 14px) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-body > * {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: inherit !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-body > :is(.gameplay-maze-stage,.gameplay-maze-full-stage) {
+  padding: 1px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-body :is(.gameplay-maze-svg,.gameplay-maze-full-svg) {
+  width: 98% !important;
+  height: 96% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: contain !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-choices {
+  position: static !important;
+  display: grid !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-width: none !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-rows: minmax(0, 1fr) !important;
+  gap: clamp(5px, .52vw, 9px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  inset: auto !important;
+  align-self: stretch !important;
+  transform: none !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-choices.gameplay-question-choices-2 {
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-choices.gameplay-question-choices-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-choices.gameplay-question-choices-4 {
+  grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-choices {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  height: clamp(36px, 3.3vw, 58px) !important;
+  max-height: 58px !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-choices.gameplay-question-choices-2 {grid-template-columns: repeat(2, minmax(0,1fr)) !important;grid-template-rows: minmax(0,1fr) !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-layout-interactive .qshell-choices.gameplay-question-choices-3 {grid-template-columns: repeat(3, minmax(0,1fr)) !important;grid-template-rows: minmax(0,1fr) !important;}
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-card {
+  --qx-choice: var(--qx-cyan);
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: clamp(6px, .55vw, 11px) !important;
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  padding: clamp(4px, .45vw, 8px) !important;
+  border-radius: clamp(7px, .6vw, 11px) !important;
+  background: rgba(21, 31, 63, .82) !important;
+  border: 1px solid rgba(93, 170, 199, .26) !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+  direction: inherit !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-pink { --qx-choice: var(--qx-pink); }
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-orange { --qx-choice: #f8b375; }
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-yellow { --qx-choice: #ffde8a; }
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-purple { --qx-choice: #bc96fa; }
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-green { --qx-choice: #8fefb0; }
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-card strong {
+  display: inline-grid !important;
+  place-items: center !important;
+  flex: 0 0 auto !important;
+  min-width: clamp(34px, 2.4vw, 46px) !important;
+  height: clamp(27px, 2.1vw, 40px) !important;
+  background: color-mix(in srgb, var(--qx-choice) 16%, #0a1531) !important;
+  border: 1px solid color-mix(in srgb, var(--qx-choice) 55%, transparent) !important;
+  border-radius: 7px !important;
+  color: var(--qx-choice) !important;
+  font: 800 clamp(12px, .9vw, 18px)/1 var(--font-game-ui, sans-serif) !important;
+  padding: 2px 5px !important;
+  direction: ltr !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-card > span:not(.gameplay-choice-shape-answer) {
+  display: block !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+  font: 700 clamp(11px, .92vw, 18px)/1.25 var(--font-game-ui, sans-serif) !important;
+  color: var(--qx-ink) !important;
+  text-align: start !important;
+  text-shadow: none !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-result-correct {
+  background: rgba(38, 121, 78, .35) !important;
+  border-color: rgba(121, 245, 167, .8) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .gameplay-choice-result-disabled {
+  opacity: .4 !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: clamp(6px, .7vw, 13px) !important;
+  min-height: clamp(32px, 2.7vw, 48px) !important;
+  height: auto !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(5px, .45vw, 8px) clamp(7px, .7vw, 12px) 0 !important;
+  border-top: 1px solid rgba(209, 225, 255, .12) !important;
+  pointer-events: auto !important;
+  z-index: 4 !important;
+  background: transparent !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer .gameplay-question-side-hint {
+  position: relative !important;
+  inset: auto !important;
+  transform: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  width: auto !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: clamp(5px, .45vw, 9px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: start !important;
+  flex: 0 1 auto !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer .gameplay-question-side-hint-left {min-width: 0 !important; flex: 1 1 auto !important;}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer :is(small,span,b) {
+  display: inline !important;
+  font: 600 clamp(10px, .72vw, 14px)/1.25 var(--font-game-ui, sans-serif) !important;
+  text-shadow: none !important;
+  color: var(--qx-muted) !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer small {
+  color: #85eaf0 !important;
+  white-space: nowrap !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer b {
+  color: #fff !important;
+  font-size: clamp(14px, 1.1vw, 20px) !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-footer .gameplay-question-side-hint-right {flex: 0 0 auto !important;}
+html body .gameplay-question-shell.qshell-v17 .qshell-next-button {
+  position: static !important;
+  min-width: 75px !important;
+  min-height: 30px !important;
+  width: auto !important;
+  height: auto !important;
+  inset: auto !important;
+  transform: none !important;
+  display: inline-flex !important;
+  padding: 6px 11px !important;
+  font: 750 clamp(11px,.8vw,15px)/1.2 var(--font-game-ui, sans-serif) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  background: #4bdde8 !important;
+  color: #061430 !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 0 #098d9b !important;
+  text-shadow: none !important;
+  cursor: pointer !important;
+  flex: 0 0 auto !important;
+}
+html body .gameplay-question-shell.qshell-v17 .qshell-next-button:focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 2px !important;
+}
+/* Spacious media and an unambiguous photo focal point for choice-based rounds. */
+html body .gameplay-question-shell.qshell-v17.qshell-layout-choice .qshell-body > div {
+  background: rgba(5, 12, 32, .7) !important;
+  border-color: rgba(152, 204, 240, .25) !important;
+}
+/* At a compact stage size, favor image/maze and readable commands over ornament. */
+@container (max-width: 620px) {
+  .qshell-layout-choice .qshell-content {grid-template-columns: minmax(0,1fr) minmax(140px, 37%) !important;}
+  .qshell-v17 .qshell-game-name {max-width: 29% !important;}
+  .qshell-v17 .qshell-footer .gameplay-question-side-hint-left small {display: none !important;}
+}
+@media (max-height: 760px) {
+  html body .gameplay-question-shell.qshell-v17 {gap: 4px !important; padding-block: 6px !important;}
+  html body .gameplay-question-shell.qshell-v17 .qshell-title {font-size: clamp(16px,1.25vw,23px) !important;}
+  html body .gameplay-question-shell.qshell-v17 .qshell-topline {min-height: 26px !important;}
+  html body .gameplay-question-shell.qshell-v17 .qshell-footer {min-height: 28px !important;}
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .gameplay-question-shell.qshell-v17 *,
+  html body .gameplay-question-shell.qshell-v17 *::before,
+  html body .gameplay-question-shell.qshell-v17 *::after {animation-duration: .01ms !important; transition-duration: .01ms !important;}
+}

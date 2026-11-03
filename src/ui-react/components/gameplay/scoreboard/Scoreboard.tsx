@@ -13,6 +13,7 @@ import {
   getScoreboardPageRows,
   getScoreboardParticipantSignature,
   SCOREBOARD_PAGE_SIZE,
+  getVisibleScoreboardRoundIndexes,
 } from './scoreboard-pagination';
 
 export type ReusableScoreboardRow = {
@@ -278,7 +279,8 @@ export function ReusableScoreboard({
 }) {
   const { snapshot } = useGame();
   const t = useTranslation();
-  const visibleRoundCount = Math.max(1, Math.min(5, totalRounds || currentRound || 1));
+  const roundIndexes = getVisibleScoreboardRoundIndexes(totalRounds, currentRound);
+  const visibleRoundCount = roundIndexes.length;
   const pageCount = getScoreboardPageCount(rows.length, SCOREBOARD_PAGE_SIZE);
   const [page, setPage] = useState(0);
   // Score totals and row ordering change while a round is scored. Those changes
@@ -289,7 +291,7 @@ export function ReusableScoreboard({
 
   useEffect(() => {
     setPage(0);
-  }, [participantSignature, visibleRoundCount]);
+  }, [participantSignature, currentRound]);
 
   useEffect(() => {
     setPage((currentPage: number) => clampScoreboardPage(currentPage, pageCount));
@@ -297,7 +299,6 @@ export function ReusableScoreboard({
 
   const pageStart = safePage * SCOREBOARD_PAGE_SIZE;
   const visibleRows = getScoreboardPageRows(rows, safePage, SCOREBOARD_PAGE_SIZE);
-  const roundIndexes = Array.from({ length: visibleRoundCount }, (_, index) => index);
 
   return (
     <div className={`gameplay-reusable-scoreboard ${isFinal ? 'gameplay-reusable-scoreboard-final' : 'gameplay-reusable-scoreboard-round'}`} style={{ '--score-round-count': visibleRoundCount } as CSSProperties}>
@@ -308,7 +309,7 @@ export function ReusableScoreboard({
         <div className="gameplay-reusable-scoreboard-head" aria-hidden="true">
           <b>{t('gameplay.score.rank')}</b>
           <span>{t('gameplay.score.player')}</span>
-          {roundIndexes.map((roundIndex) => <i key={roundIndex}>R{roundIndex + 1}</i>)}
+          {roundIndexes.map((roundIndex) => <i key={roundIndex}>{snapshot.locale === 'ar' ? 'ج' : 'R'}{roundIndex + 1}</i>)}
           <strong>{t('gameplay.score.total')}</strong>
         </div>
 
@@ -324,7 +325,7 @@ export function ReusableScoreboard({
             {visibleRows.map((row, index) => {
               const rank = pageStart + index + 1;
               const initials = row.displayName.trim().slice(0, 2).toUpperCase() || 'P';
-              const highlightedRoundIndex = Math.max(0, Math.min(visibleRoundCount - 1, currentRound - 1));
+              const highlightedRoundIndex = Math.max(0, currentRound - 1);
 
               return (
                 <div key={row.twitchUserId} className={`gameplay-reusable-scoreboard-row gameplay-score-rank-${rank <= 3 ? rank : 'normal'}`}>

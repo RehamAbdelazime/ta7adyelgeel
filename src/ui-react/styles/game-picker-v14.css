@@ -1,0 +1,295 @@
+/* v14: playful, compact game-catalog panel.
+ * Scoped overrides deliberately come AFTER the legacy selection CSS.
+ * Uses parent-panel percentages, not viewport vw/vh, so it stays inside the LED.
+ */
+html body #root .main-screen-game-grid-layout {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-grid-header {
+  position: absolute !important;
+  top: 8% !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: 86% !important;
+  max-width: 86% !important;
+  height: auto !important;
+  display: grid !important;
+  justify-items: center !important;
+  gap: 4px !important;
+  pointer-events: none !important;
+  z-index: 10 !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-grid-header h2 {
+  font-family: var(--font-game-ui, 'Fredoka Variable', system-ui, sans-serif) !important;
+  font-size: clamp(18px, 1.55vw, 28px) !important;
+  font-weight: 680 !important;
+  line-height: 1.12 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  text-wrap: balance;
+  letter-spacing: 0 !important;
+  text-shadow: 0 2px 12px #000814 !important;
+}
+html[dir='rtl'] body #root .main-screen-game-grid-layout .main-screen-grid-header h2 {
+  font-family: var(--font-game-title, 'Alexandria Variable', Tahoma, sans-serif) !important;
+  font-size: clamp(18px, 1.45vw, 26px) !important;
+  line-height: 1.35 !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-grid-header p {
+  font-size: clamp(11px, .83vw, 15px) !important;
+  font-weight: 470 !important;
+  line-height: 1.35 !important;
+  color: #c9dbed !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-grid {
+  position: absolute !important;
+  top: 28% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translateX(-50%) !important;
+  width: min(94%, 930px) !important;
+  max-width: min(94%, 930px) !important;
+  height: 65% !important;
+  max-height: none !important;
+  padding: 2px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  grid-auto-rows: auto !important;
+  gap: clamp(7px, .7vw, 13px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(133, 215, 246, .45) transparent;
+}
+html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-grid { height: 52% !important; }
+html body #root .main-screen-game-grid-layout .main-screen-mini-card {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: clamp(2px, .24vw, 5px) !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: clamp(5px, .42vw, 9px) clamp(4px, .35vw, 8px) !important;
+  background: linear-gradient(155deg, rgba(20, 50, 82, .93), rgba(8, 15, 36, .97)) !important;
+  border: 1.5px solid rgba(104, 219, 247, .38) !important;
+  border-radius: clamp(9px, .8vw, 15px) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 4px 14px rgba(0,0,0,.13) !important;
+  transform: none !important;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  isolation: isolate;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:nth-child(4n+2),
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:nth-child(4n+3) {
+  background: linear-gradient(155deg, rgba(57, 26, 77, .93), rgba(15, 13, 37, .97)) !important;
+  border-color: rgba(255, 123, 205, .36) !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card::before {
+  background: none !important;
+  opacity: 0 !important;
+}
+html body #root .main-screen-game-grid-layout .game-picker-v14-illustration {
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 90% !important;
+  height: 52% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img {
+  position: static !important;
+  width: min(90%, 112px) !important;
+  height: 100% !important;
+  max-height: 96px !important;
+  object-fit: contain !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 5px 7px rgba(0, 4, 24, .32)) !important;
+  transform: none !important;
+  transition: transform 160ms ease !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy {
+  position: static !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  min-height: 39px !important;
+  max-height: none !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 2px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
+  font-family: var(--font-game-ui, 'Fredoka Variable', system-ui, sans-serif) !important;
+  font-size: clamp(12px, .98vw, 18px) !important;
+  font-weight: 650 !important;
+  line-height: 1.13 !important;
+  letter-spacing: 0 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5) !important;
+  text-wrap: balance;
+  overflow-wrap: normal !important;
+}
+html[dir='rtl'] body #root .main-screen-game-grid-layout .main-screen-mini-card-copy strong {
+  font-family: var(--font-game-title, 'Alexandria Variable', Tahoma, sans-serif) !important;
+  font-size: clamp(12px, .95vw, 17px) !important;
+  line-height: 1.35 !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small {
+  display: block !important;
+  font-size: clamp(9px, .68vw, 12px) !important;
+  font-weight: 450 !important;
+  line-height: 1.22 !important;
+  color: rgba(230, 244, 255, .79) !important;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+html body #root .main-screen-game-grid-layout .game-picker-v14-chevron {
+  position: absolute !important;
+  top: 7px !important;
+  right: 9px !important;
+  font-family: system-ui, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  color: rgba(243,252,255,.6) !important;
+  z-index: 2 !important;
+}
+html[dir='rtl'] body #root .main-screen-game-grid-layout .game-picker-v14-chevron { right: auto !important; left: 9px !important; }
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-order {
+  top: 6px !important;
+  left: 8px !important;
+  right: auto !important;
+  z-index: 4 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 50% !important;
+  background: #5aebfa !important;
+  border: 1px solid #ecfcff !important;
+  color: #04182f !important;
+  font: 700 13px system-ui, sans-serif !important;
+}
+html[dir='rtl'] body #root .main-screen-game-grid-layout .main-screen-mini-card-order { left: auto !important; right: 8px !important; }
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-selected {
+  border-color: #62eaff !important;
+  box-shadow: 0 0 0 1px #62eaff, 0 0 14px rgba(75,225,255,.22) !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:hover:not(:disabled),
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:focus-visible {
+  transform: translateY(-2px) !important;
+  border-color: #aaf9ff !important;
+  box-shadow: 0 4px 17px rgba(42,223,255,.25) !important;
+  filter: none !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:focus-visible { outline: 2px solid #fff !important; outline-offset: 2px !important; }
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:hover:not(:disabled) .game-picker-v14-illustration img {
+  transform: scale(1.055) !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-mini-card:disabled { opacity: .6 !important; cursor: not-allowed !important; }
+html body #root .main-screen-game-grid-layout .main-screen-tour-footer {
+  top: auto !important;
+  right: 50% !important;
+  left: auto !important;
+  bottom: 2.5% !important;
+  transform: translateX(50%) !important;
+  width: min(75%, 400px) !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-tour-footer button {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(30px, 3.8vh, 46px) !important;
+  background: #62e8f5 !important;
+  color: #041b32 !important;
+  border: 0 !important;
+  box-shadow: 0 4px 14px rgba(55,224,242,.13) !important;
+  font-family: var(--font-game-ui, 'Fredoka Variable', sans-serif) !important;
+  font-size: clamp(11px, .85vw, 16px) !important;
+  font-weight: 680 !important;
+}
+html body #root .main-screen-game-grid-layout .game-picker-v14-count {
+  position: absolute !important;
+  top: 0 !important;
+  right: 2% !important;
+  font: 600 12px system-ui, sans-serif !important;
+  color: #92edf3 !important;
+}
+html body #root .main-screen-game-grid-layout .main-screen-grid-notice {
+  position: absolute !important;
+  bottom: 2% !important;
+  top: auto !important;
+  width: 90% !important;
+  left: 5% !important;
+  margin: 0 !important;
+  font-size: clamp(10px, .7vw, 13px) !important;
+  text-align: center !important;
+  background: rgba(4,15,36,.83) !important;
+  padding: 4px 8px !important;
+  border-radius: 8px !important;
+  z-index: 20 !important;
+}
+html body #root .main-screen-game-grid-layout-tour .main-screen-grid-notice { bottom: 15% !important; }
+@media (max-width: 950px) {
+  html body #root .main-screen-game-grid-layout .main-screen-mini-card-grid { gap: 6px !important; }
+  html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small { display: none !important; }
+  html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy { min-height: 22px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .main-screen-game-grid-layout .main-screen-mini-card,
+  html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img { transition: none !important; transform: none !important; }
+}
+/* Strip the old hardcoded English SELECTED pill; the numbered chip replaces it. */
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-selected::after { content: none !important; display: none !important; }
+/* Tour is a compact sequencer, so reserve room for a visible illustration and CTA. */
+html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-grid {
+  top: 27% !important;
+  height: 51% !important;
+}
+html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-copy { min-height: 21px !important; }
+html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-copy small { display: none !important; }
+html body #root .main-screen-game-grid-layout-tour .game-picker-v14-illustration { height: 62% !important; }
+html body #root .main-screen-game-grid-layout-tour .main-screen-tour-footer { bottom: 2% !important; }
+
+html body #root .main-screen-game-grid-layout .game-picker-v14-count { display: block !important; top: 42px !important; right: 0 !important; }
+
+/* Keep descriptive copy contained if a localization is longer than expected. */
+html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden !important;
+}
+/* The tour footer is the status/action area, so the empty-lobby notice lives in its tooltip.
+   Prevent a second floating notice from covering selectable cards on compact screens. */
+html body #root .main-screen-game-grid-layout-tour .main-screen-grid-notice { display: none !important; }
+
+html body #root .main-screen-game-grid-layout-single .main-screen-grid-notice { bottom: .7% !important; padding: 2px 6px !important; min-height: 0 !important; line-height: 1.15 !important; }

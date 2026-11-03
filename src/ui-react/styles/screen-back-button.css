@@ -1,0 +1,75 @@
+/* Ta7ady — Shared Back button (Mode Picker + Game Picker)
+ * One component, one style; intentionally uses a NEW class so the conflicting
+ * legacy .main-screen-back-button overrides cannot change it per screen.
+ */
+html body #root .main-screen-mode-layout .screen-back-button,
+html body #root .main-screen-game-grid-layout .screen-back-button {
+  box-sizing: border-box;
+  position: absolute !important;
+  inset-block-start: clamp(10px, 1.15cqh, 17px);
+  inset-inline-start: clamp(12px, 1.3cqw, 22px);
+  inset-inline-end: auto;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: clamp(86px, 8.2cqw, 118px);
+  height: clamp(30px, 3.75cqh, 38px);
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid rgba(106, 214, 241, .42);
+  border-radius: 999px;
+  background: rgba(5, 17, 41, .84);
+  color: #effaff;
+  box-shadow: 0 3px 10px rgba(0, 5, 23, .24), inset 0 1px 0 rgba(255,255,255,.05);
+  font-family: var(--font-game-ui, 'Fredoka Variable', system-ui, sans-serif);
+  font-size: clamp(12px, .95cqw, 14px);
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+html body #root .main-screen-mode-layout .screen-back-button:hover,
+html body #root .main-screen-game-grid-layout .screen-back-button:hover {
+  background: rgba(12, 42, 71, .95);
+  border-color: rgba(102, 237, 255, .86);
+  box-shadow: 0 0 12px rgba(63, 204, 251, .18);
+}
+
+html body #root .main-screen-mode-layout .screen-back-button:focus-visible,
+html body #root .main-screen-game-grid-layout .screen-back-button:focus-visible {
+  outline: 2px solid #7beeff;
+  outline-offset: 3px;
+}
+
+html body #root .screen-back-button__chevron {
+  flex: none;
+  font-family: inherit;
+  font-size: 1.35em;
+  font-weight: 600;
+  line-height: .75;
+}
+
+html body #root .screen-back-button__label {
+  min-width: 0;
+  font: inherit;
+  line-height: 1;
+}
+
+/* The language changes the typography, not the layout or button size. */
+html body #root main[lang='ar'] .screen-back-button {
+  font-family: var(--font-game-ui, 'Alexandria Variable', Tahoma, sans-serif);
+  font-weight: 650;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body #root .screen-back-button {
+    transition: none;
+  }
+}

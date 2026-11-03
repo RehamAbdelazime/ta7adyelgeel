@@ -1,0 +1,29 @@
+{
+  "base_version": "v17 Question Experience SOURCE",
+  "patch_version": "v18 Question Stage Polish",
+  "modified": [
+    "package.json",
+    "src/ui-react/App.tsx",
+    "src/ui-react/components/gameplay/GameplayOverlay.tsx",
+    "src/ui-react/components/gameplay/citizens/ChoiceSpotlights.tsx",
+    "src/ui-react/components/gameplay/minigames/FoodOriginScreen.tsx",
+    "src/ui-react/components/gameplay/minigames/MazeGatesScreen.tsx",
+    "src/ui-react/components/gameplay/shared/answer-helpers.ts",
+    "src/ui-react/components/gameplay/shared/citizen-helpers.ts",
+    "src/ui-react/components/gameplay/shared/question-shell.tsx",
+    "src/ui-react/components/streamer/PrivateStreamerAnswerDock.tsx",
+    "src/ui-react/components/visual/VisualWorldLayer.tsx",
+    "src/ui-react/main.tsx"
+  ],
+  "new": [
+    "PATCH_README_V18_AR.md",
+    "README_QUESTION_STAGE_V18_AR.md",
+    "TA7ADY_QUESTION_STAGE_V18_FILE_MANIFEST.json",
+    "scripts/verify-question-stage-v18.mjs",
+    "src/ui-react/components/gameplay/shared/answer-stage-layout.ts",
+    "src/ui-react/styles/question-stage-v18.css"
+  ],
+  "removed": [],
+  "base_required": "Question Experience v17",
+  "safe_to_overwrite_existing_files": true
+}

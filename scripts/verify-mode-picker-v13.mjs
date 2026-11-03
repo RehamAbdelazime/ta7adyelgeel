@@ -19,9 +19,9 @@ for (const line of [
  '"main.mode.miniGame": "ONE GAME"',
  '"main.mode.tour": "FULL SHOW"',
  '"main.mode.miniGame": "لعبة واحدة"',
- '"main.mode.tour": "شو كامل"',
- '"main.mode.title": "HOW DO WE PLAY?"',
- '"main.mode.title": "هنلعب إزاي؟"',
+ '"main.mode.tour": "جولة كاملة"',
+ '"main.mode.title": "WHAT ARE WE PLAYING?"',
+ '"main.mode.title": "هنلعب إيه؟"',
 ]) assert.ok(i18n.includes(line), `copy missing: ${line}`);
 assert.ok(entry.lastIndexOf('mode-picker-casual-v12.css') > entry.lastIndexOf('typography-system-v11.css'));
 assert.match(css, /v13 editorial pass/);
@@ -32,4 +32,4 @@ assert.match(flow, /onClick=\{onMiniGame\}/);
 assert.match(flow, /onClick=\{onTour\}/);
 assert.match(flow, /onKeyDown=\{onCardKeyDown\}/);
 assert.match(flow, /onBack=\{onBack\}/);
-console.log('ModePicker v13: original vector assets, bilingual copy, keyboard, routing and scoped CSS PASS.');
+console.log('ModePicker v13/14: original vector assets, agreed bilingual copy, keyboard, routing and scoped CSS PASS.');

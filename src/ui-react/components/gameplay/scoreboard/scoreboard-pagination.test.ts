@@ -4,6 +4,7 @@ import {
   getScoreboardPageCount,
   getScoreboardPageRows,
   getScoreboardParticipantSignature,
+  getVisibleScoreboardRoundIndexes,
 } from './scoreboard-pagination';
 
 type Row = {
@@ -57,5 +58,18 @@ describe('scoreboard pagination behavior', () => {
     expect(clampScoreboardPage(2, 2)).toBe(1);
     expect(clampScoreboardPage(0, 1)).toBe(0);
     expect(clampScoreboardPage(-1, 3)).toBe(0);
+  });
+});
+
+describe('visible round scoreboard window', () => {
+  it('shows first five rounds during round five', () => {
+    expect(getVisibleScoreboardRoundIndexes(10, 5)).toEqual([0, 1, 2, 3, 4]);
+  });
+  it('slides to the most recent rounds when a tour exceeds five', () => {
+    expect(getVisibleScoreboardRoundIndexes(10, 9)).toEqual([4, 5, 6, 7, 8]);
+    expect(getVisibleScoreboardRoundIndexes(10, 10)).toEqual([5, 6, 7, 8, 9]);
+  });
+  it('uses all columns for short tours', () => {
+    expect(getVisibleScoreboardRoundIndexes(2, 2)).toEqual([0, 1]);
   });
 });

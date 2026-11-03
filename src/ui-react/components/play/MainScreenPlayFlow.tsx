@@ -8,6 +8,7 @@ import { OPEN_APP_SETTINGS_EVENT } from '../../events/app-ui-events';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { useTranslation } from '../../i18n/useTranslation';
 import { getVisibleAudience } from '../gameplay/shared/visible-audience';
+import { ScreenBackButton } from '../shared/ScreenBackButton';
 
 type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 
@@ -15,12 +16,9 @@ type ScreenStep = 'home' | 'mode' | 'mini-game-grid' | 'tour-grid';
 type MiniGameCardDefinition = ReturnType<typeof getPublicMiniGames>[number];
 
 const MODE_ASSET_ROOT = './assets/game/runtime/ui/main';
-const FOOD_ORIGIN_CARD_BACKGROUND = `${MODE_ASSET_ROOT}/food_origin_card_background.png`;
 const LANDING_BRAND_MARK = `${MODE_ASSET_ROOT}/ta7ady_brand_mark.png`;
 
-function getMiniGameCardBackground(miniGameId: MiniGameId): string {
-  return miniGameId === 'shape-count' ? `${MODE_ASSET_ROOT}/shape_count_card_background.png` : FOOD_ORIGIN_CARD_BACKGROUND;
-}
+const MINI_GAME_ART_ROOT = `${MODE_ASSET_ROOT}/game-picker-v14`;
 
 
 function uniqueMiniGames(miniGames: MiniGameCardDefinition[]): MiniGameId[] {
@@ -282,12 +280,29 @@ function MiniGameGridScreen({
       <header className="main-screen-grid-header">
         <h2>{title}</h2>
         <p>{subtitle}</p>
-        {mode === 'tour' ? <strong>{selectedMiniGames.length}/{miniGames.length}</strong> : <span aria-hidden="true">✦</span>}
+        {mode === 'tour' ? <strong className="game-picker-v14-count" aria-live="polite">{selectedMiniGames.length} / {miniGames.length}</strong> : null}
       </header>
 
       {!canStart ? <p className="main-screen-grid-notice" role="status">{translate('ui.needJoinPlayer')}</p> : null}
       {/* Disabled launch is intentional; tour selections are still editable before joining. */}
-      <div className="main-screen-mini-card-grid" dir={direction} role="group" aria-label={title}>
+      <div
+        className="main-screen-mini-card-grid"
+        dir={direction}
+        role="group"
+        aria-label={title}
+        onKeyDown={(event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+          const buttons = Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('.main-screen-mini-card:not(:disabled)'));
+          const index = buttons.indexOf(event.target as HTMLButtonElement);
+          if (index < 0) return;
+          const reverse = direction === 'rtl' ? -1 : 1;
+          const delta = event.key === 'ArrowDown' ? 4 : event.key === 'ArrowUp' ? -4 : event.key === 'ArrowRight' ? reverse : -reverse;
+          const nextIndex = index + delta;
+          if (nextIndex < 0 || nextIndex >= buttons.length) return;
+          event.preventDefault();
+          buttons[nextIndex].focus();
+        }}
+      >
         {miniGames.map((miniGame) => (
           <button
             key={miniGame.id}
@@ -300,32 +315,28 @@ function MiniGameGridScreen({
           >
             {mode === 'tour' && selectedMiniGames.includes(miniGame.id) && (
               <span className="main-screen-mini-card-order" aria-hidden="true">
-                {'✓'}
+                {selectedMiniGames.indexOf(miniGame.id) + 1}
               </span>
             )}
-            <img className="main-screen-mini-card-bg" src={getMiniGameCardBackground(miniGame.id)} alt="" draggable={false} aria-hidden="true" />
+            <span className="game-picker-v14-illustration" aria-hidden="true">
+              <img src={`${MINI_GAME_ART_ROOT}/${miniGame.id}.svg`} alt="" draggable={false} />
+            </span>
             <span className="main-screen-mini-card-copy">
               <strong>{translate(miniGame.titleKey)}</strong>
               <small>{translate(miniGame.noteKey)}</small>
             </span>
+            <span className="game-picker-v14-chevron" aria-hidden="true">{mode === 'tour' ? (selectedMiniGames.includes(miniGame.id) ? '✓' : '+') : '›'}</span>
           </button>
         ))}
       </div>
       {miniGames.length === 0 ? <p className="main-screen-empty-catalog" role="status">{translate('ui.play.noGamesEnabled')}</p> : null}
       {mode === 'tour' ? (
         <footer className="main-screen-tour-footer">
-          <button type="button" onClick={onStartTour} disabled={!canStart || selectedMiniGames.length === 0}>{translate('ui.play.startSelectedTour')} <b>›</b></button>
+          <button type="button" onClick={onStartTour} disabled={!canStart || selectedMiniGames.length === 0} title={!canStart ? translate('ui.needJoinPlayer') : undefined}>{canStart ? translate('ui.play.startSelectedTour') : translate('ui.needJoinPlayer')} <b aria-hidden="true">›</b></button>
         </footer>
       ) : null}
     </div>
   );
-}
-
-function ScreenBackButton({ onBack }: { onBack: () => void }) {
-  const t = useTranslation();
-  const { snapshot } = useGame();
-
-  return <button className="main-screen-back-button" type="button" onClick={onBack}><span aria-hidden="true">{snapshot.direction === 'rtl' ? '›' : '‹'}</span> {t('main.back')}</button>;
 }
 
 function JoinInstruction({ text }: { text: string }) {

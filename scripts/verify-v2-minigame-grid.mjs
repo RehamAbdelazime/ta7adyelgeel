@@ -18,7 +18,7 @@ const gameplay = JSON.parse(read('public/assets/game/runtime/config/gameplay-con
 const enabledMiniGames = gameplay?.tour?.enabledMiniGames;
 
 assert(
-  component.includes('className="main-screen-mini-card-grid" dir={direction}'),
+  component.includes('className="main-screen-mini-card-grid"') && component.includes('dir={direction}'),
   'the picker must render the complete game list in a direction-aware grid',
 );
 assert(

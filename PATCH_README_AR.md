@@ -1,16 +1,14 @@
-# Mode Picker v13 — تطبيق التعديل
+# Casual Settings v10 — Patch فوق v9 فقط
 
-1. خدي نسخة احتياطية من مشروعك.
-2. **الـPatch مخصص لنسخة Mode Picker v12** (اللي فيها خطوط Fredoka وAlexandria).
-3. فكّي ملفات الـPatch فوق مجلد المشروع، مع الحفاظ على بنية المجلدات والموافقة على استبدال الملفات الموجودة.
-4. ليس مطلوبًا حذف أي ملف قديم؛ أيقونات v12 القديمة لا تزال بالملفات للتوافق ولكن الشاشة تستخدم رسمتين SVG جديدتين.
-5. شغّلي من مجلد المشروع:
+افتحي `files/` وانسخي المحتويات إلى جذر مشروع Arcade Settings v9 مع السماح باستبدال الملفات ذات الأسماء نفسها.
 
-```powershell
-npm run verify:mode-picker
-npm run dev
+بعد النسخ **احذفي** ملف الـCSS التالي من المشروع القديم:
+`src/ui-react/styles/arcade-settings-v9.css`
+
+تأكدي من استيراد `casual-settings-v10.css` في `src/ui-react/main.tsx` ثم شغّلي:
 ```
-
-لو التبعيات غير مثبتة، شغّلي `npm install` أولًا. مفيش Font dependencies جديدة في v13.
-
-الـPatch يغيّر نصوص شاشة اختيار النمط ورسوماتها وتوزيعها فقط، ولا يغيّر طريقة حساب النقاط أو نظام Twitch أو الحركات على المسرح.
+npm run verify:premium-settings
+npm run verify:cleanup
+npm run build
+```
+إذا كانت نسخة المشروع مختلفة عن v9، استخدمي الـFull SOURCE بدل Patch.

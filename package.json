@@ -11,9 +11,9 @@
     "build": "npm run verify:assets && npm run verify:css && npm run typecheck && vite build && npm run build:electron",
     "build:electron": "node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && tsc -p tsconfig.electron.json",
     "start": "npm run build:electron && electron .",
-    "test": "npm run verify:assets && npm run verify:css && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && vitest run",
+    "test": "npm run verify:localization-contract && npm run verify:assets && npm run verify:css && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && vitest run",
     "test:watch": "vitest",
-    "typecheck": "node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && tsc --noEmit",
+    "typecheck": "npm run verify:localization-contract && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && tsc --noEmit",
     "lint": "eslint .",
     "package:win": "npm run build && electron-builder --win portable",
     "package:clean": "npm run package:win",
@@ -35,7 +35,10 @@
     "verify:lighting": "node scripts/verify-concert-lighting.mjs",
     "verify:premium-settings": "node scripts/verify-premium-settings.mjs",
     "verify:typography": "node scripts/verify-typography-system.mjs",
-    "verify:mode-picker": "node scripts/verify-mode-picker-v13.mjs"
+    "verify:mode-picker": "node scripts/verify-mode-picker-v13.mjs && node scripts/verify-game-picker-v14.mjs",
+    "verify:localization-contract": "node scripts/verify-localization-contract.mjs",
+    "verify:question-experience": "node scripts/verify-question-experience-v17.mjs",
+    "verify:question-stage": "node scripts/verify-question-stage-v18.mjs"
   },
   "dependencies": {
     "@fontsource-variable/alexandria": "5.3.0",

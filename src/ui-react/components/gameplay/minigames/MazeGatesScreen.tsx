@@ -16,13 +16,13 @@ export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
   const fullMaze = mazeGates.fullMaze;
   const pathLine = (points: { x: number; y: number }[]) => points.map((point) => `${point.x},${point.y}`).join(' ');
   const choices = fullMaze
-    ? fullMaze.gates.map((gate) => ({ command: gate.command, label: gate.label, tone: 'orange' as ChoiceTone }))
-    : mazeGates.paths.map((path) => ({ command: path.command, label: path.label, tone: 'orange' as ChoiceTone }));
+    ? fullMaze.gates.map((gate) => ({ command: gate.command, label: gate.label, tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[gate.optionNumber - 1] ?? 'cyan' }))
+    : mazeGates.paths.map((path) => ({ command: path.command, label: path.label, tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[path.optionNumber - 1] ?? 'cyan' }));
   const helper = miniGame.acceptsAnswers ? t('gameplay.helper.maze.answerNow') : reveal ? t('gameplay.maze.correctGate', { answer: String(mazeGates.correctOptionNumber ?? '-') }) : getPhaseHelper(tourPhase, t);
 
   const mazeBody = fullMaze ? (
     <div className={`gameplay-maze-stage gameplay-maze-full-stage ${reveal ? 'gameplay-maze-reveal' : ''}`}>
-      <svg viewBox={`0 0 ${fullMaze.viewBoxWidth} ${fullMaze.viewBoxHeight}`} className="gameplay-maze-svg gameplay-maze-full-svg" role="img" aria-label="Maze gates">
+      <svg viewBox={`0 0 ${fullMaze.viewBoxWidth} ${fullMaze.viewBoxHeight}`} className="gameplay-maze-svg gameplay-maze-full-svg" role="img" aria-label={t('gameplay.maze.boardLabel')}>
         <defs>
           <filter id="mazeFullGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3.4" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
           <linearGradient id="mazeFullBoardFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="rgba(8, 13, 38, 0.98)" /><stop offset="1" stopColor="rgba(40, 15, 74, 0.95)" /></linearGradient>
@@ -43,7 +43,7 @@ export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
     </div>
   ) : (
     <div className={`gameplay-maze-stage ${reveal ? 'gameplay-maze-reveal' : ''}`}>
-      <svg viewBox="0 0 720 390" className="gameplay-maze-svg" role="img" aria-label="Maze gates">
+      <svg viewBox="0 0 720 390" className="gameplay-maze-svg" role="img" aria-label={t('gameplay.maze.boardLabel')}>
         <defs><filter id="mazeGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter><linearGradient id="mazeBoardFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="rgba(5, 11, 34, 0.95)" /><stop offset="1" stopColor="rgba(42, 16, 77, 0.92)" /></linearGradient></defs>
         <rect x="34" y="28" width="652" height="332" rx="26" className="gameplay-maze-board" />
         <g className="gameplay-maze-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <path key={`v-${index}`} d={`M${106 + index * 64} 58 V330`} />)}{Array.from({ length: 5 }, (_, index) => <path key={`h-${index}`} d={`M70 ${94 + index * 54} H650`} />)}</g>
@@ -57,7 +57,7 @@ export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
   );
 
   return (
-    <QuestionScreenShell miniGame={miniGame} tourPhase={tourPhase} helperText={helper} choices={choices} bodyClassName="gameplay-question-body-maze">
+    <QuestionScreenShell miniGame={miniGame} tourPhase={tourPhase} helperText={helper} choices={choices} layout="interactive" bodyClassName="gameplay-question-body-maze">
       {mazeBody}
     </QuestionScreenShell>
   );

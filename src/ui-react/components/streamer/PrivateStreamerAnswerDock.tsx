@@ -4,7 +4,7 @@ import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 
 const STATUS_RESET_MS = 1400;
 
-export function PrivateStreamerAnswerDock() {
+export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boolean } = {}) {
   const { snapshot, actions } = useGame();
   const { status } = useTwitchConnection();
   const [value, setValue] = useState('');
@@ -16,6 +16,7 @@ export function PrivateStreamerAnswerDock() {
   const choiceCount = useMemo(() => getPrivateChoiceCount(snapshot.miniGame), [snapshot.miniGame]);
   const isCountAnswer = snapshot.miniGame.id === 'count-the-beat';
   const isWordAnswer = snapshot.miniGame.id === 'hangman';
+  const isArabic = snapshot.locale === 'ar';
   const isValidAnswer = isWordAnswer ? value.trim().length > 0
     : isCountAnswer ? /^\d{1,3}$/.test(value)
       : /^[1-9]$/.test(value) && Number(value) <= choiceCount;
@@ -55,10 +56,11 @@ export function PrivateStreamerAnswerDock() {
   };
 
   return (
-    <aside className={`private-streamer-answer private-streamer-answer-${statusTone}`} aria-label="Streamer private answer">
+    <aside className={`private-streamer-answer private-streamer-answer-${statusTone} ${embedded ? 'private-streamer-answer-embedded' : ''}`} aria-label={isArabic ? 'إجابة الهوست الخاصة' : 'Host private answer'}>
       <div className="private-streamer-answer-header">
-        <span>HOST ONLY</span>
-        <strong>Private Answer</strong>
+        {embedded ? <strong>{isArabic ? 'إجابة الهوست' : 'HOST ANSWER'}</strong> : (
+          <><span>{isArabic ? 'للهوست فقط' : 'HOST ONLY'}</span><strong>{isArabic ? 'الإجابة الخاصة' : 'Private answer'}</strong></>
+        )}
       </div>
 
       <form
@@ -80,12 +82,14 @@ export function PrivateStreamerAnswerDock() {
           value={value}
           onChange={(event) => setValue(event.target.value.replace(isWordAnswer ? /^!/ : isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
           placeholder={isWordAnswer ? 'letter / word' : isCountAnswer ? '0–999' : `1–${choiceCount}`}
-          aria-label="Private streamer answer input"
+          aria-label={isArabic ? 'اكتب إجابة الهوست' : 'Type host answer'}
         />
-        <button type="submit" disabled={!isValidAnswer}>SEND</button>
+        <button type="submit" disabled={!isValidAnswer}>{isArabic ? 'إرسال' : 'SEND'}</button>
       </form>
 
-      <p>{statusMessage}</p>
+      <p aria-live="polite" className={statusTone === 'idle' ? 'private-answer-idle-message' : ''}>
+        {statusTone === 'idle' ? '' : statusTone === 'ok' ? (isArabic ? 'تم الإرسال' : 'Sent!') : statusMessage}
+      </p>
     </aside>
   );
 }

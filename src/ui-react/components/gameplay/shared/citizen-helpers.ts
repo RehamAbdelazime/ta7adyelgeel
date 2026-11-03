@@ -1,3 +1,4 @@
+import { ANSWER_STAGE_LAYOUT } from './answer-stage-layout';
 import type { CSSProperties } from 'react';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
@@ -82,12 +83,7 @@ export function getCitizenPlacementMotionSignature(placement: CitizenPlacement |
   return `choice-${placement.optionNumber}-${placement.optionCount}-${placement.groupIndex}`;
 }
 
-const CHOICE_SPOTLIGHT_LAYOUT = {
-  leftPercent: 20,
-  widthPercent: 60,
-  topPercent: 84.2,
-  heightPercent: 13.4,
-} as const;
+const CHOICE_SPOTLIGHT_LAYOUT = ANSWER_STAGE_LAYOUT;
 
 const CITIZEN_PLAZA_LAYOUT = {
   topPercent: 73.9,

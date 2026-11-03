@@ -34,3 +34,19 @@ export function getScoreboardPageRows<T>(
   const pageStart = clampScoreboardPage(page, getScoreboardPageCount(rows.length, safePageSize)) * safePageSize;
   return rows.slice(pageStart, pageStart + safePageSize);
 }
+
+/** Show the most recent round columns, preserving their actual round numbers.
+ * Tours can contain up to ten rounds, while the desktop scoreboard has space
+ * for only five round columns. Older rounds remain included in Total.
+ */
+export function getVisibleScoreboardRoundIndexes(
+  totalRounds: number,
+  currentRound: number,
+  maxVisibleRounds = 5,
+): number[] {
+  const total = Math.max(1, Math.trunc(totalRounds || currentRound || 1));
+  const current = Math.max(1, Math.min(total, Math.trunc(currentRound || total)));
+  const visible = Math.max(1, Math.min(total, Math.trunc(maxVisibleRounds)));
+  const start = Math.max(0, current - visible);
+  return Array.from({ length: visible }, (_, index) => start + index);
+}

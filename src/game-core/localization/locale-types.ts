@@ -194,6 +194,8 @@ export type TranslationKey =
   | 'gameplay.status.getReady'
   | 'gameplay.status.startingSoon'
   | 'gameplay.status.typeAnswerNow'
+  | 'gameplay.timer.remaining'
+  | 'gameplay.maze.boardLabel'
   | 'gameplay.timer.ready'
   | 'main.back'
   | 'main.grid.buildTour'

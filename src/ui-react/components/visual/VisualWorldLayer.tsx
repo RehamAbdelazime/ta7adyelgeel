@@ -131,6 +131,16 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
         </div>
       ))}
 
+      {isMiniGameScene ? (
+        <div className="question-stage-lighting-v18" aria-hidden="true">
+          <i className="question-stage-beam question-stage-beam-left" />
+          <i className="question-stage-beam question-stage-beam-center" />
+          <i className="question-stage-beam question-stage-beam-right" />
+          <i className="question-stage-floor-glow question-stage-floor-glow-left" />
+          <i className="question-stage-floor-glow question-stage-floor-glow-right" />
+        </div>
+      ) : null}
+
       <div className="concert-star-twinkle-layer" aria-hidden="true">
         {Array.from({ length: 36 }, (_, index) => (
           <span key={index} className={`concert-star-twinkle concert-star-twinkle-${index + 1}`} />

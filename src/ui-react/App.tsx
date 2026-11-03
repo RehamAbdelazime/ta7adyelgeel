@@ -27,7 +27,9 @@ export function App() {
             <GameSceneStage />
             <div className="app-desktop-overlay-layer">
               <AppSettingsButton />
-              <PrivateStreamerAnswerDock />
+              {!(snapshot.tour.phase === 'answer_window_open' &&
+                (snapshot.miniGame.id === 'food-origin' || snapshot.miniGame.id === 'maze-gates'))
+                ? <PrivateStreamerAnswerDock /> : null}
             </div>
           </main>
         </AudioTuningProvider>

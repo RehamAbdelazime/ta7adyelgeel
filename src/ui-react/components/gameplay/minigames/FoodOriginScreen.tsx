@@ -1,24 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { normalizeRuntimeAssetUrl, getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell, MediaCard } from '../shared/question-shell';
-import { seededShuffle } from '../../../../game-core/utils/seeded-shuffle';
 
 export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
   const food = miniGame.foodOrigin;
   const imageUrl = normalizeRuntimeAssetUrl(food?.dishImageUrl);
   const [hintLabelNow, setHintLabelNow] = useState(() => Date.now());
-
-  // Seeded shuffle: deterministic per round+dish, different each round.
-  // Mulberry32 PRNG — faster and more consistent than Math.random().
-  const shuffledChoices = useMemo(() => {
-    if (!food?.choices) return [];
-    const seed = `${miniGame.roundNumber}:${food.dishName ?? food.dishImageUrl ?? ''}`;
-    return seededShuffle(food.choices, seed);
-  }, [food?.choices, food?.dishName, food?.dishImageUrl, miniGame.roundNumber]);
 
   useEffect(() => {
     if (!miniGame.hint?.isEnabled || miniGame.hint.isRevealed || !miniGame.hint.revealAt) return undefined;
@@ -44,10 +35,12 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
     ? t('gameplay.food.correctCountry', { answer: food.correctCountry })
     : getPhaseHelper(tourPhase, t);
 
-  const choices = shuffledChoices.map((choice) => ({
+  // Choice numbers are assigned and randomized by the game service ONCE per round.
+  // Never shuffle them in React: !1 must always mean the option displayed as #1.
+  const choices = [...food.choices].sort((a, b) => a.optionNumber - b.optionNumber).map((choice) => ({
     command: choice.command,
     label: choice.label,
-    tone: 'cyan' as const,
+    tone: (['cyan', 'pink', 'yellow', 'purple'] as const)[choice.optionNumber - 1] ?? 'cyan',
   }));
 
   return (
@@ -56,6 +49,7 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
       tourPhase={tourPhase}
       helperText={helperText}
       choices={choices}
+      layout="choice"
       bodyClassName="gameplay-question-body-food"
     >
       <MediaCard

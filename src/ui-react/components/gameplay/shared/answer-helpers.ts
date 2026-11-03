@@ -173,7 +173,7 @@ export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlig
   if (miniGame.id === 'food-origin' && miniGame.foodOrigin) {
     return miniGame.foodOrigin.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
-      tone: (['green', 'cyan', 'purple', 'orange'] as ChoiceTone[])[i] ?? 'green', icon: '🌍',
+      tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[i] ?? 'green', icon: '🌍',
     }));
   }
   if (miniGame.id === 'guess-logo' && miniGame.guessLogo) {
@@ -185,7 +185,7 @@ export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlig
   if (miniGame.id === 'maze-gates' && miniGame.mazeGates) {
     return miniGame.mazeGates.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
-      tone: (['cyan', 'purple', 'green', 'orange'] as ChoiceTone[])[i] ?? 'cyan', icon: '→',
+      tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[i] ?? 'cyan', icon: '→',
     }));
   }
   if (miniGame.id === 'before-after' && miniGame.beforeOrAfter) {

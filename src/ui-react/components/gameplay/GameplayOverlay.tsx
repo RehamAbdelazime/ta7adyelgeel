@@ -173,7 +173,7 @@ function MainScreenGameplayOverlay({
       return;
     }
 
-    const revealTimer = window.setTimeout(() => setCompletedScoringRevealKey(scoringRevealKey), 2400);
+    const revealTimer = window.setTimeout(() => setCompletedScoringRevealKey(scoringRevealKey), 4800);
     return () => window.clearTimeout(revealTimer);
   }, [miniGame.hasRound, scoringRevealKey, tour.phase]);
 

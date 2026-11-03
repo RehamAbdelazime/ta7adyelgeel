@@ -1,10 +1,18 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import type { MiniGameSnapshot, ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
+import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-registry';
 import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { SHAPE_COLORS, type ChoiceTone, getCorrectAnswerText } from './overlay-types';
 import { getCorrectOptionNumber, getCommandOptionNumber } from './answer-helpers';
+import { PrivateStreamerAnswerDock } from '../../streamer/PrivateStreamerAnswerDock';
+
+/**
+ * Visual variants share timer, answer logic, choices, and Twitch hint/footer.
+ * 'legacy' deliberately retains existing layout for mini-games not yet QA'd.
+ */
+export type QuestionLayout = 'legacy' | 'choice' | 'focus' | 'interactive';
 
 export type QuestionChoiceItem = {
   command: string;
@@ -27,6 +35,8 @@ type QuestionPhaseTimerProps = {
   phaseDurationMs: number;
   phaseRemainingMs: number;
   readyLabel: string;
+  remainingLabel: (seconds: number) => string;
+  modern?: boolean;
 };
 
 /**
@@ -41,6 +51,8 @@ function QuestionPhaseTimer({
   phaseDurationMs,
   phaseRemainingMs,
   readyLabel,
+  remainingLabel,
+  modern = false,
 }: QuestionPhaseTimerProps) {
   const [now, setNow] = useState(() => Date.now());
 
@@ -71,18 +83,18 @@ function QuestionPhaseTimer({
     <div
       className="gameplay-question-timer"
       role="timer"
-      aria-label={isRunning ? `${remainingSeconds} seconds remaining` : readyLabel}
+      aria-label={isRunning ? remainingLabel(remainingSeconds) : readyLabel}
       aria-live="off"
-      style={{ flex: '1 1 auto', minWidth: 0, maxWidth: 'clamp(200px, 28vw, 420px)', display: 'flex', alignItems: 'center', gap: 'clamp(8px,.7vw,12px)', background: 'transparent', border: 0, padding: 0, boxShadow: 'none' }}
+      style={modern ? undefined : { flex: '1 1 auto', minWidth: 0, maxWidth: 'clamp(200px, 28vw, 420px)', display: 'flex', alignItems: 'center', gap: 'clamp(8px,.7vw,12px)', background: 'transparent', border: 0, padding: 0, boxShadow: 'none' }}
     >
       <i className="gameplay-question-timer-icon" aria-hidden="true" />
-      <div className="gameplay-question-timer-track" style={{ flex: '1 1 auto', minWidth: 0 }}>
+      <div className="gameplay-question-timer-track" style={modern ? undefined : { flex: '1 1 auto', minWidth: 0 }}>
         <span
           className="gameplay-question-timer-fill"
           style={{ '--timer-progress': `${progress * 100}%`, '--timer-scale': String(progress) } as CSSProperties}
         />
       </div>
-      <strong style={{ minWidth: '3.5ch', color: '#9ff8ff', fontSize: 'clamp(15px,1.1vw,22px)', lineHeight: 1, whiteSpace: 'nowrap' }}>
+      <strong style={modern ? undefined : { minWidth: '3.5ch', color: '#9ff8ff', fontSize: 'clamp(15px,1.1vw,22px)', lineHeight: 1, whiteSpace: 'nowrap' }}>
         {isRunning ? `${remainingSeconds}s` : readyLabel}
       </strong>
     </div>
@@ -96,6 +108,7 @@ export function QuestionScreenShell({
   choices = [],
   bodyClassName = '',
   shellClassName = '',
+  layout = 'legacy',
   eyebrow,
   showHeaderHelperText = false,
   isAnswerReveal: isAnswerRevealOverride,
@@ -108,6 +121,8 @@ export function QuestionScreenShell({
   choices?: QuestionChoiceItem[];
   bodyClassName?: string;
   shellClassName?: string;
+  /** Opt-in to the new shared game-show layouts. Default keeps older games untouched. */
+  layout?: QuestionLayout;
   eyebrow?: ReactNode;
   /** Render helper instructions directly below the question heading. */
   showHeaderHelperText?: boolean;
@@ -132,8 +147,18 @@ export function QuestionScreenShell({
   const isAnswerReveal = isAnswerRevealOverride
     ?? (tourPhase === 'scoring' && miniGame.correctAnswer !== null);
   const revealText = correctAnswerText ?? getCorrectAnswerText(miniGame, t);
-  const choiceCount = Math.min(choices.length, 4);
+  // Preserve the service's command-to-answer mapping while displaying !1,!2,!3,!4
+  // in visual order. A randomized choice set belongs in the game service, not UI.
+  const orderedChoices = [...choices].sort((a, b) =>
+    (getCommandOptionNumber(a.command) ?? Number.MAX_SAFE_INTEGER)
+    - (getCommandOptionNumber(b.command) ?? Number.MAX_SAFE_INTEGER),
+  );
+  const choiceCount = Math.min(orderedChoices.length, 4);
   const hasChoices = choiceCount > 0;
+  const isModern = layout !== 'legacy';
+  const displayGameName = isModern
+    ? t(MINI_GAME_BY_ID[miniGame.id].titleKey)
+    : miniGame.title;
 
   // ── SHELL: flex column, fills its container ─────────────────────────────────
   const shellStyle: CSSProperties = {
@@ -193,11 +218,11 @@ export function QuestionScreenShell({
 
   return (
     <div
-      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${shellClassName} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`.trim()}
+      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${isModern ? `qshell-v17 qshell-v18 qshell-layout-${layout}` : ''} ${shellClassName} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`.trim()}
       style={shellStyle}
     >
       {/* NEXT button — absolute in shell, styled via CSS */}
-      {isAnswerReveal ? (
+      {isAnswerReveal && !isModern ? (
         <button
           className="gameplay-global-next-button gameplay-question-next-button"
           type="button"
@@ -209,12 +234,13 @@ export function QuestionScreenShell({
       ) : null}
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="qshell-header" style={headerStyle}>
+      <div className="qshell-header" style={isModern ? undefined : headerStyle}>
         {/* Meta badge + timer on the same line */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(10px, 1vw, 20px)', width: '100%', justifyContent: 'center' }}>
+        <div className="qshell-topline" style={isModern ? undefined : { display: 'flex', alignItems: 'center', gap: 'clamp(10px, 1vw, 20px)', width: '100%', justifyContent: 'center' }}>
 
+          {isModern ? <strong className="qshell-game-name">{displayGameName}</strong> : null}
           <div className="gameplay-question-meta" aria-label={`${questionLabel} ${roundLabel}`}
-               style={{ flexShrink: 0 }}>
+               style={isModern ? undefined : { flexShrink: 0 }}>
             <span>{questionLabel}</span>
             {roundLabel ? <b>{roundLabel}</b> : null}
           </div>
@@ -225,6 +251,8 @@ export function QuestionScreenShell({
             phaseDurationMs={snapshot.tour.phaseDurationMs}
             phaseRemainingMs={snapshot.tour.phaseRemainingMs}
             readyLabel={t('gameplay.timer.ready')}
+            remainingLabel={(seconds) => t('gameplay.timer.remaining', { seconds: String(seconds) })}
+            modern={isModern}
           />
 
         </div>
@@ -232,7 +260,7 @@ export function QuestionScreenShell({
         {eyebrow ? <div className="gameplay-question-eyebrow">{eyebrow}</div> : null}
 
         {/* Question text — full width below */}
-        <h2 style={{ margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: 'var(--display-font)', textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
+        <h2 className="qshell-title" style={isModern ? undefined : { margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: 'var(--display-font)', textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
           {miniGame.statement}
         </h2>
 
@@ -242,19 +270,23 @@ export function QuestionScreenShell({
 
         {isAnswerReveal ? (
           <div className="gameplay-answer-reveal-banner" role="status">
+            {isModern ? <span className="qshell-reveal-check" aria-hidden="true">✓</span> : null}
             <span>{t('gameplay.answer.correct')}</span>
+            {isModern && correctOptionNumber !== null ? (
+              <b className="qshell-reveal-command" dir="ltr">!{correctOptionNumber}</b>
+            ) : null}
             <strong>{revealText}</strong>
           </div>
         ) : null}
       </div>
 
       {/* ── Content: body left | choices right ────────────────────────── */}
-      <div style={contentStyle}>
+      <div className="qshell-content" style={isModern ? undefined : contentStyle}>
 
         {/* Body — left column, fills first grid cell */}
         <div
           className={`qshell-body ${bodyClassName}`}
-          style={bodyStyle}
+          style={isModern ? undefined : bodyStyle}
         >
           {children}
         </div>
@@ -262,10 +294,10 @@ export function QuestionScreenShell({
         {/* Choices — right column */}
         {hasChoices ? (
           <div
-            className={`gameplay-question-choices gameplay-question-choices-${choiceCount}`}
-            style={choicesStyle}
+            className={`gameplay-question-choices gameplay-question-choices-${choiceCount} qshell-choices`}
+            style={isModern ? undefined : choicesStyle}
           >
-            {choices.map((choice) => {
+            {orderedChoices.map((choice) => {
               const optionNumber = getCommandOptionNumber(choice.command);
               const defaultResultState = isAnswerReveal && correctOptionNumber !== null
                 ? optionNumber === correctOptionNumber ? 'correct' : 'disabled'
@@ -288,15 +320,27 @@ export function QuestionScreenShell({
       </div>
 
       {/* ── Side hints ─────────────────────────────────────────────────── */}
-      <div className="gameplay-question-side-hints" style={{ flexShrink: 0 }} aria-live="polite">
+      <div className="gameplay-question-side-hints qshell-footer" style={isModern ? undefined : { flexShrink: 0 }} aria-live="polite">
         <aside className="gameplay-question-side-hint gameplay-question-side-hint-left">
           <small>{t('gameplay.chat.command')}</small>
           <span>{helperText}</span>
         </aside>
+        {isModern && tourPhase === 'answer_window_open' ? (
+          <PrivateStreamerAnswerDock embedded />
+        ) : null}
         <aside className="gameplay-question-side-hint gameplay-question-side-hint-right">
           <small>{t('gameplay.liveAnswers')}</small>
           <b>{miniGame.officialAnswerCount}</b>
         </aside>
+        {isModern && isAnswerReveal ? (
+          <button
+            className="gameplay-global-next-button gameplay-question-next-button qshell-next-button"
+            type="button"
+            onClick={actions.skipPhase}
+          >
+            {t('gameplay.next')}
+          </button>
+        ) : null}
       </div>
     </div>
   );
@@ -386,6 +430,7 @@ export function ChoiceCard({
 }) {
   return (
     <div
+      data-option-number={getCommandOptionNumber(command) ?? undefined}
       className={`gameplay-choice-card gameplay-choice-${tone} ${shape ? 'gameplay-choice-card-shape' : ''} ${isOpen ? 'gameplay-choice-open' : ''} gameplay-choice-result-${resultState}`}
       style={{ width: '100%', height: '100%', minHeight: 0 }}
       aria-disabled={resultState === 'disabled'}
