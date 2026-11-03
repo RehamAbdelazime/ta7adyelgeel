@@ -1,5 +1,6 @@
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
+import { LUCKY_CUP_SHUFFLE_START_MS, LUCKY_CUP_SETTLE_MS } from './lucky-cup-motion';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionDifficulty } from '../../questions/question-types';
 import type {
@@ -31,17 +32,67 @@ type LuckyCupRound = {
 
 const DIFFICULTY_ORDER: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
 
-const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
+/**
+ * Lucky Cup V30: the hard round has an intentionally brutal five-swap finale.
+ * The duration/gap helpers are the single source of truth for both the plan
+ * and the tour phase timer; the ball always stays under one tracked cup.
+ */
+type LuckyCupTempo = {
   swapCount: number;
-  swapDurationMs: number;
+  firstSwapMs: number;
+  lastSwapMs: number;
+  interSwapGapMs: number;
+  /** Optional per-swap speed override for the very last exchanges. */
+  finaleDurationsMs?: readonly number[];
+  /** Gap entering and during the finale; the earlier swaps use the regular gap. */
+  finaleGapMs?: number;
   revealMs: number;
-}> = {
-  easy: { swapCount: 5, swapDurationMs: 620, revealMs: 2300 },
-  medium: { swapCount: 8, swapDurationMs: 490, revealMs: 2050 },
-  hard: { swapCount: 12, swapDurationMs: 370, revealMs: 1750 },
+};
+
+const DIFFICULTY_CONFIG: Record<QuestionDifficulty, LuckyCupTempo> = {
+  easy:   { swapCount: 5,  firstSwapMs: 630, lastSwapMs: 600, interSwapGapMs: 120, revealMs: 2300 },
+  medium: { swapCount: 10, firstSwapMs: 480, lastSwapMs: 360, interSwapGapMs: 95,  revealMs: 2050 },
+  hard:   {
+    swapCount: 18, firstSwapMs: 300, lastSwapMs: 220,
+    interSwapGapMs: 55,
+    // Last five switches happen back-to-back in ~0.7s — intentionally extreme.
+    finaleDurationsMs: [175, 145, 120, 100, 85], finaleGapMs: 12,
+    revealMs: 1750,
+  },
 };
 
 const CUP_IDS = [0, 1, 2] as const;
+const SLOT_PAIRS = [[0, 1], [0, 2], [1, 2]] as const;
+
+function getFinaleStartIndex(config: LuckyCupTempo): number {
+  return config.swapCount - (config.finaleDurationsMs?.length ?? 0);
+}
+
+function getSwapDurationMs(config: LuckyCupTempo, index: number): number {
+  const finaleStart = getFinaleStartIndex(config);
+  if (config.finaleDurationsMs && index >= finaleStart) {
+    return config.finaleDurationsMs[index - finaleStart];
+  }
+  const progress = finaleStart > 1 ? index / (finaleStart - 1) : 0;
+  return Math.round(config.firstSwapMs + (config.lastSwapMs - config.firstSwapMs) * progress);
+}
+
+/** A short lead-in gap is part of the finale, not just the gaps within it. */
+function getSwapGapMs(config: LuckyCupTempo, index: number): number {
+  const nextSwapIsFinale = index + 1 >= getFinaleStartIndex(config);
+  return nextSwapIsFinale ? (config.finaleGapMs ?? config.interSwapGapMs) : config.interSwapGapMs;
+}
+
+/** The FSM asks for this duration before the service creates its swap plan. */
+export function getLuckyCupPreparationMsForRound(roundNumber: number): number {
+  const config = DIFFICULTY_CONFIG[getDifficulty(roundNumber)];
+  let shuffleDurationMs = 0;
+  for (let index = 0; index < config.swapCount; index += 1) {
+    shuffleDurationMs += getSwapDurationMs(config, index);
+    if (index < config.swapCount - 1) shuffleDurationMs += getSwapGapMs(config, index);
+  }
+  return LUCKY_CUP_SHUFFLE_START_MS + shuffleDurationMs + LUCKY_CUP_SETTLE_MS;
+}
 
 function createSeededRandom(seed: number): () => number {
   let value = Math.max(1, seed >>> 0);
@@ -220,23 +271,32 @@ export class LuckyCupMiniGameService {
     const swaps: LuckyCupSwap[] = [];
     const cupsBySlot = [...CUP_IDS];
 
+    let nextSwapStartMs = 0;
+    let lastPairIndex = -1;
+    let trackedBallSlot: number = initialBallCupId;
     for (let index = 0; index < config.swapCount; index += 1) {
-      let a = Math.floor(random() * CUP_IDS.length);
-      let b = Math.floor(random() * CUP_IDS.length);
-
-      while (b === a) {
-        b = Math.floor(random() * CUP_IDS.length);
-      }
-
+      // No instant reversal of the same pair (too easy to cancel mentally).
+      // During the hard finale, EVERY exchange moves the ball's cup; a decoy-
+      // only exchange would give players a free chance to catch up.
+      const isFinale = difficulty === 'hard' && index >= getFinaleStartIndex(config);
+      const allowedPairs = SLOT_PAIRS.map((_, pairIndex) => pairIndex)
+        .filter((pairIndex) => pairIndex !== lastPairIndex)
+        .filter((pairIndex) => !isFinale || SLOT_PAIRS[pairIndex].includes(trackedBallSlot));
+      const pairIndex = allowedPairs[Math.floor(random() * allowedPairs.length)];
+      const [a, b] = SLOT_PAIRS[pairIndex];
+      const durationMs = getSwapDurationMs(config, index);
       swaps.push({
         id: `swap-${index}`,
         a,
         b,
-        delayMs: index * (config.swapDurationMs + 120),
-        durationMs: config.swapDurationMs,
+        delayMs: nextSwapStartMs,
+        durationMs,
       });
-
       [cupsBySlot[a], cupsBySlot[b]] = [cupsBySlot[b], cupsBySlot[a]];
+      if (trackedBallSlot === a) trackedBallSlot = b;
+      else if (trackedBallSlot === b) trackedBallSlot = a;
+      lastPairIndex = pairIndex;
+      nextSwapStartMs += durationMs + getSwapGapMs(config, index);
     }
 
     const finalBallSlot = cupsBySlot.indexOf(initialBallCupId as (typeof CUP_IDS)[number]);

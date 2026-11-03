@@ -24,8 +24,9 @@ export function BeforeOrAfterScreen({ miniGame, tourPhase }: { miniGame: MiniGam
     <QuestionScreenShell
       miniGame={miniGame}
       tourPhase={tourPhase}
+      layout="choice"
       helperText={helperText}
-      choices={[]}
+      choices={data.choices.map((choice) => ({ command: choice.command, label: choice.label, tone: 'cyan' as const }))}
       eyebrow={data.categoryLabel}
       showHeaderHelperText
       isAnswerReveal={isRevealed}
@@ -47,7 +48,7 @@ export function BeforeOrAfterScreen({ miniGame, tourPhase }: { miniGame: MiniGam
                   isWrong ? 'gameplay-before-after-card--wrong' : '',
                 ].filter(Boolean).join(' ')}
               >
-                <span className="gameplay-before-after-cmd">{choice.command}</span>
+
                 <span className="gameplay-before-after-label">{choice.label}</span>
                 {isCorrect ? (
                   <span className="gameplay-before-after-badge" aria-label={t('gameplay.answer.correct')}>

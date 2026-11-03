@@ -6,7 +6,6 @@ import { useTwitchConnection } from './context/TwitchConnectionContext';
 import { GameConfigProvider } from './context/GameConfigContext';
 import { MotionTuningProvider } from './context/MotionTuningContext';
 import { AudioTuningProvider } from './context/AudioTuningContext';
-import { PrivateStreamerAnswerDock } from './components/streamer/PrivateStreamerAnswerDock';
 
 export function App() {
   const { snapshot } = useGame();
@@ -27,9 +26,6 @@ export function App() {
             <GameSceneStage />
             <div className="app-desktop-overlay-layer">
               <AppSettingsButton />
-              {!(snapshot.tour.phase === 'answer_window_open' &&
-                (snapshot.miniGame.id === 'food-origin' || snapshot.miniGame.id === 'maze-gates'))
-                ? <PrivateStreamerAnswerDock /> : null}
             </div>
           </main>
         </AudioTuningProvider>

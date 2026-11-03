@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { KeyboardEvent } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { getPublicMiniGames } from '../../../game-core/minigames/minigame-registry';
 import type { TextDirection, TranslationKey } from '../../../game-core/localization/locale-types';
@@ -203,7 +203,7 @@ function ModePickerScreen({
 
   // Native buttons keep Tab, Enter and Space accessible. Horizontal arrows
   // are an optional desktop convenience and respect RTL visual ordering.
-  const onCardKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
+  const onCardKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     const cards = Array.from(event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('.premium-mode-card') ?? []);
     const index = cards.indexOf(event.currentTarget);
@@ -399,15 +399,7 @@ function LiveChatPanel() {
           shouldFollowRef.current = element.scrollHeight - element.scrollTop - element.clientHeight < 44;
         }}
       >
-        {recentMessages.length === 0 ? (
-          <div className="premium-chat-empty">
-            <span className="premium-chat-empty-light" aria-hidden="true" />
-            <strong>{isConnected ? (isArabic ? 'جاهزين للشات!' : 'CHAT IS READY') : (isArabic ? 'الشات مش متصل' : 'CHAT OFFLINE')}</strong>
-            <p>{isConnected
-              ? (isArabic ? 'أي رسالة جديدة على تويتش هتظهر هنا.' : 'New Twitch messages will appear here.')
-              : (isArabic ? 'وصّلي تويتش من الإعدادات علشان تعرضي الرسائل هنا.' : 'Connect Twitch in Settings to show live messages.')}</p>
-          </div>
-        ) : (
+        {recentMessages.length > 0 ? (
           <div className="premium-chat-messages">
             {recentMessages.map(({ key, message }) => (
               <div className="premium-chat-message" key={key}>
@@ -425,7 +417,7 @@ function LiveChatPanel() {
               </div>
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     </aside>
   );

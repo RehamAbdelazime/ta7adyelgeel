@@ -41,6 +41,7 @@ export type GameSnapshot = {
   feed: FeedEntry[];
   tour: TourSnapshot;
   commandFeedback: CommandFeedback | null;
+  privateStreamerAnswerSubmitted: boolean;
   miniGame: MiniGameSnapshot;
   nextMiniGameId: MiniGameId | null;
   lastRoundAwards: MiniGameScoreAward[];

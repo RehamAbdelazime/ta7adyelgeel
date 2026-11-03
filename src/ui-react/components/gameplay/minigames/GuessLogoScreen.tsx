@@ -1,7 +1,7 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
-import { getPhaseHelper, type ChoiceTone } from '../shared/overlay-types';
+import { getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell } from '../shared/question-shell';
 
 export function GuessLogoScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
@@ -17,7 +17,8 @@ export function GuessLogoScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
       miniGame={miniGame}
       tourPhase={tourPhase}
       helperText={miniGame.acceptsAnswers ? t('gameplay.helper.logo.answerNow') : guessLogo.correctLogo ? t('gameplay.logo.correctLogo', { answer: guessLogo.correctLogo }) : getPhaseHelper(tourPhase, t)}
-      choices={guessLogo.choices.map((choice, index) => ({ command: choice.command, label: choice.label, tone: (['cyan', 'pink', 'purple', 'orange'] as ChoiceTone[])[index] ?? 'cyan' }))}
+      choices={guessLogo.choices.map((choice) => ({ command: choice.command, label: choice.label, tone: 'cyan' as const }))}
+      layout="choice"
       bodyClassName="gameplay-question-body-logo"
     >
       <div className="gameplay-logo-guess-card">

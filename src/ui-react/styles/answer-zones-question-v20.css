@@ -1,0 +1,461 @@
+/* Ta7ady ElGeel v20 — stage question layout and longitudinal answer lanes.
+   Desktop-only; opted-in modern QuestionScreenShell (Food Origin / Maze Gates).
+   Shared coordinates: src/ui-react/components/gameplay/shared/answer-stage-layout.ts.
+   Existing game logic and other mini-game layouts remain untouched. */
+
+:root {
+  --question-v20-cyan: #49dce8;
+  --question-v20-pink: #f85ac8;
+  --question-v20-green: #8ff4b8;
+  --question-v20-border: rgba(86, 193, 225, .36);
+  --question-v20-bg: rgba(8, 18, 42, .95);
+}
+
+/* Compact game-and-round screen banner, full progress strip, prompt, visual, options. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 {
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  gap: clamp(4px, .42vw, 8px) !important;
+  padding: clamp(9px, .76vw, 15px) clamp(12px, 1vw, 21px) !important;
+  border-color: var(--question-v20-border) !important;
+  background: linear-gradient(150deg, rgba(7, 20, 43, .975), rgba(11, 13, 37, .955)) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-header {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: clamp(3px, .34vw, 6px) !important;
+  padding: 0 !important;
+  flex: 0 0 auto !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-topline {
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 86% !important;
+  min-height: clamp(29px, 2.28vw, 39px) !important;
+  gap: clamp(10px, .8vw, 16px) !important;
+  padding: 3px clamp(12px, 1.25vw, 23px) !important;
+  border-radius: 9px !important;
+  border: 1px solid rgba(92, 197, 230, .4) !important;
+  background: linear-gradient(95deg,rgba(22,67,93,.57),rgba(23,29,73,.64)) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-game-name {
+  max-width: none !important;
+  color: #95f1fb !important;
+  font: 750 clamp(12px, .97vw, 18px)/1.15 var(--font-game-ui, sans-serif) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-meta {
+  max-width: none !important;
+  background: none !important;
+  border: 0 !important;
+  border-inline-start: 1px solid rgba(133, 210, 240, .32) !important;
+  padding: 1px 0 1px clamp(9px, .75vw, 15px) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #f6fdff !important;
+  font: 730 clamp(11px, .9vw, 17px)/1.2 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-meta b {font-weight: 650 !important; color: #bddce9 !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-timer {
+  display: flex !important;
+  direction: ltr !important;
+  align-items: center !important;
+  gap: clamp(9px, .7vw, 14px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  flex: 0 0 auto !important;
+  height: clamp(20px, 1.95vw, 35px) !important;
+  max-height: clamp(20px, 1.95vw, 35px) !important;
+  min-height: 0 !important;
+  padding: 2px clamp(5px, .55vw, 10px) !important;
+  margin: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-timer-track {
+  width: 100% !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  height: clamp(5px, .46vw, 8px) !important;
+  background: rgba(57, 91, 127, .44) !important;
+  box-shadow: inset 0 1px 2px rgba(1, 3, 20, .8) !important;
+  border-radius: 99px !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-timer-fill {
+  background: linear-gradient(90deg, var(--question-v20-cyan), var(--question-v20-pink)) !important;
+  box-shadow: 0 0 8px rgba(76, 216, 245, .24) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-timer-icon {
+  flex: 0 0 auto !important;
+  opacity: .7 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-question-timer strong {
+  min-width: 3.1ch !important;
+  font: 850 clamp(15px, 1.12vw, 23px)/1 var(--font-game-ui, sans-serif) !important;
+  color: #f4ffff !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-timer-urgent .gameplay-question-timer-fill {background: linear-gradient(90deg, #fabc5f, #ff6e97) !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-timer-urgent strong {color: #ffe2b8 !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-title {
+  margin: 0 !important;
+  padding: 0 5px !important;
+  max-height: 2.35em !important;
+  font: 780 clamp(20px, 1.62vw, 33px)/1.15 var(--font-game-title, var(--font-game-ui)) !important;
+  text-align: center !important;
+  color: #fff !important;
+  text-transform: none !important;
+  text-shadow: 0 3px 10px rgba(0,0,0,.45) !important;
+}
+
+/* Main image or interactive challenge gets the majority of the board.
+   The four equal-width answers live in ONE reserved bottom row. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-content,
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20.qshell-layout-choice .qshell-content,
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20.qshell-layout-interactive .qshell-content {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) !important;
+  grid-template-rows: minmax(0,1fr) clamp(74px, 7.2vw, 112px) !important;
+  gap: clamp(7px, .72vw, 13px) !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  align-content: stretch !important;
+  direction: ltr !important; /* choice 1 always starts at physical left in RTL, too */
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-body {
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-body > * {
+  height: 100% !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+}
+/* Preserve the ENTIRE food/logo image: cover-cropping was hiding the visual clue.
+   Soft ambient image behind it avoids two wide, empty black columns for square art. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-media-frame {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  border-color: rgba(95,190,229,.3) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-media-frame::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -25px !important;
+  z-index: 0 !important;
+  background-image: var(--qshell-media-bg) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  opacity: .63 !important;
+  filter: blur(28px) brightness(.56) !important;
+  pointer-events: none !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-media-img {
+  position: relative !important;
+  z-index: 1 !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 5px 13px rgba(0,0,0,.33)) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-choices,
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-choices.gameplay-question-choices-4 {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  grid-auto-rows: minmax(0, 1fr) !important;
+  gap: clamp(7px, .72vw, 14px) !important;
+  direction: ltr !important;
+  overflow: visible !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-choices.gameplay-question-choices-2 {grid-template-columns: repeat(2,minmax(0,1fr)) !important;grid-template-rows: minmax(0, 1fr) !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-choices.gameplay-question-choices-3 {grid-template-columns: repeat(3,minmax(0,1fr)) !important;grid-template-rows: minmax(0, 1fr) !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-card {
+  display: grid !important;
+  grid-template-columns: auto minmax(0,1fr) !important;
+  grid-template-rows: minmax(0,1fr) auto !important;
+  column-gap: clamp(8px, .75vw, 15px) !important;
+  row-gap: 2px !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: clamp(6px, .62vw, 13px) !important;
+  border: 1px solid rgba(84, 186, 213, .4) !important;
+  background: linear-gradient(150deg, rgba(15, 37, 66, .95), rgba(14, 23, 55, .94)) !important;
+  border-radius: 10px !important;
+  box-shadow: inset 0 1px rgba(166,229,242,.055) !important;
+  text-shadow: none !important;
+  direction: ltr !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-card > strong {
+  grid-area: 1 / 1 / 3 / 2 !important;
+  min-width: clamp(36px, 3.25vw, 58px) !important;
+  width: clamp(36px, 3.25vw, 58px) !important;
+  height: clamp(36px, 3.25vw, 58px) !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 3px !important;
+  color: #86edfa !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(87,214,230,.39) !important;
+  background: rgba(58,166,192,.13) !important;
+  font: 850 clamp(16px, 1.48vw, 29px)/1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-card > span:not(.qshell-vote-count) {
+  grid-area: 1 / 2 / 3 / 3 !important;
+  align-self: center !important;
+  justify-self: stretch !important;
+  flex: initial !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  text-align: center !important;
+  color: #f8fcff !important;
+  font: 800 clamp(17px, 1.4vw, 28px)/1.1 var(--font-game-ui,sans-serif) !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+html body .app-desktop-shell[lang="ar"] .gameplay-question-shell.qshell-v20 .gameplay-choice-card > span:not(.qshell-vote-count) {direction: rtl !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-card .qshell-vote-count {
+  grid-area: 2 / 2 / 3 / 3 !important;
+  justify-self: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  font: 740 clamp(11px, .85vw, 17px)/1 var(--font-game-ui, sans-serif) !important;
+  color: #a5ced9 !important;
+  opacity: .85 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-result-correct {
+  border-color: rgba(133, 245, 185, .94) !important;
+  background: linear-gradient(135deg,rgba(20,111,74,.9),rgba(12,71,64,.94)) !important;
+  box-shadow: 0 0 15px rgba(81,231,142,.22), inset 0 1px rgba(202,255,213,.11) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-result-disabled {opacity: .4 !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-footer {
+  height: clamp(25px, 2.65vw, 43px) !important;
+  min-height: 0 !important;
+  padding: 2px 2px 0 !important;
+  border-top: 1px solid rgba(102,179,220,.14) !important;
+  direction: inherit !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-quick-total {margin-inline-start: 0 !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-next-button {margin-inline-start: auto !important;}
+
+/* Reveal becomes one clear answer announcement, no duplicated verbose instructions. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-header .qshell-reveal-v19 {
+  width: max-content !important;
+  max-width: 90% !important;
+  min-height: clamp(32px,3vw,50px) !important;
+  margin: 0 auto !important;
+  padding: 4px 14px !important;
+  border-radius: 9px !important;
+  border-color: rgba(149,241,190,.77) !important;
+  background: linear-gradient(100deg,rgba(20,101,75,.98),rgba(8,66,59,.98)) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-header .qshell-reveal-v19 :is(span,strong,b) {
+  font: 780 clamp(13px,1vw,20px)/1.12 var(--font-game-ui, sans-serif) !important;
+}
+
+/* Ground is partitioned in depth, rather than four separated bright pads.
+   Markers are attached to the screen apron (top) while audience sprites move
+   inside full-height translucent lanes. Position contract is identical in LTR/RTL. */
+html body .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20 {
+  position: absolute !important;
+  left: var(--answer-zone-left) !important;
+  top: var(--answer-zone-top) !important;
+  width: var(--answer-zone-width) !important;
+  height: var(--answer-zone-height) !important;
+  z-index: 19 !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  direction: ltr !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+  perspective: none !important;
+}
+html body .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20.gameplay-choice-spotlights-2 {grid-template-columns: repeat(2,minmax(0,1fr)) !important;}
+html body .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20.gameplay-choice-spotlights-3 {grid-template-columns: repeat(3,minmax(0,1fr)) !important;}
+html body .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20 .gameplay-choice-spotlight {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  align-content: initial !important;
+  justify-self: stretch !important;
+  animation: none !important;
+  --spot-color: var(--question-v20-cyan) !important;
+}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .answer-lane-wash-v20 {
+  position: absolute !important;
+  inset: 0 2% 0 !important;
+  background: linear-gradient(180deg, rgba(69,221,237,.065), rgba(65,203,229,.05) 34%, rgba(65,203,229,.075) 100%) !important;
+  border-inline: 1px solid rgba(106,229,236,.18) !important;
+  clip-path: polygon(12% 0,88% 0,100% 100%,0 100%) !important;
+  box-shadow: inset 0 0 20px rgba(64,234,242,.06) !important;
+}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .answer-lane-label-v20 {
+  position: absolute !important;
+  inset: 0 auto auto 50% !important;
+  transform: translate(-50%,-5%) !important;
+  display: grid !important;
+  place-items: center !important;
+  min-width: clamp(57px,5.3vw,94px) !important;
+  height: clamp(36px,3.2vw,54px) !important;
+  padding: 0 clamp(8px,.55vw,12px) !important;
+  color: #dcfeff !important;
+  border-radius: 7px !important;
+  border: 1px solid rgba(101,224,235,.64) !important;
+  background: linear-gradient(180deg,rgba(8,42,68,.99),rgba(8,24,51,.99)) !important;
+  box-shadow: 0 3px 0 rgba(4,10,27,.8),0 0 16px rgba(45,212,231,.12) !important;
+  z-index: 25 !important;
+}
+html body .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20 .gameplay-choice-spotlight .answer-lane-label-v20 span {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: static !important;
+  transform: none !important;
+  font: 850 clamp(20px,2.1vw,39px)/1 var(--font-game-ui,sans-serif) !important;
+  color: inherit !important;
+  filter: none !important;
+  text-shadow: 0 1px 8px rgba(36,221,237,.19) !important;
+}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .gameplay-choice-spotlight-wrong .answer-lane-wash-v20 {opacity:.12 !important;}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .gameplay-choice-spotlight-wrong .answer-lane-label-v20 {opacity:.45 !important;}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .gameplay-choice-spotlight-correct .answer-lane-wash-v20 {
+  background: linear-gradient(180deg,rgba(78,244,157,.24),rgba(68,220,136,.14),rgba(66,224,151,.21)) !important;
+  border-color: rgba(145,255,185,.39) !important;
+}
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .gameplay-choice-spotlight-correct .answer-lane-label-v20 {
+  color: #f4fff7 !important;
+  border-color: rgba(155,254,192,.85) !important;
+  background: linear-gradient(160deg,rgba(19,115,72,.98),rgba(5,74,55,.98)) !important;
+  box-shadow: 0 0 17px rgba(92,244,151,.4) !important;
+}
+/* The end of answer reveal is handled by the existing scoreboard timer.
+   Fade decorative floor guides at the same moment as the scoreboard appears. */
+html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20:has(.gameplay-choice-spotlight-correct) {animation: qv20-floor-reveal-end 4.8s linear forwards !important;}
+@keyframes qv20-floor-reveal-end {0%,93%{opacity:1}100%{opacity:0}}
+
+/* Private host input belongs to the host, not the question or the audience floor.
+   The host stands on the left wing; the bubble sits directly above his head. */
+html body .game-scene-stage .qshell-host-bubble-v20 {
+  position: absolute !important;
+  left: 1.1% !important;
+  bottom: 34.6% !important;
+  width: clamp(155px, 12vw, 220px) !important;
+  z-index: 55 !important;
+  pointer-events: auto !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer.private-streamer-answer-embedded {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: clamp(7px,.6vw,11px) !important;
+  display: block !important;
+  border: 1px solid rgba(110,227,240,.6) !important;
+  border-radius: 11px !important;
+  background: rgba(5,21,46,.96) !important;
+  box-shadow: 0 7px 19px rgba(0,0,0,.46),0 0 9px rgba(58,235,245,.11) !important;
+  transform: none !important;
+  direction: ltr !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer::before,
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer::after {content:none !important;display:none !important;}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-header {
+  display: block !important;
+  margin: 0 0 clamp(4px,.4vw,7px) !important;
+  padding: 0 !important;
+  text-align: center !important;
+  height: auto !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-header strong {
+  font: 750 clamp(12px,.88vw,17px)/1 var(--font-game-ui,sans-serif) !important;
+  color: #a6f2fd !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-form {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto !important;
+  width: 100% !important;
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-form input {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: clamp(32px,2.5vw,43px) !important;
+  margin: 0 !important;
+  border: 1px solid rgba(83,177,217,.36) !important;
+  border-radius: 6px !important;
+  background: #07152c !important;
+  color: #fff !important;
+  text-align: center !important;
+  font: 750 clamp(12px,.86vw,17px)/1 var(--font-game-ui,sans-serif) !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-form button {
+  height: clamp(32px,2.5vw,43px) !important;
+  min-width: clamp(40px,3.5vw,59px) !important;
+  padding: 0 7px !important;
+  border-radius: 6px !important;
+  border: 0 !important;
+  color: #092037 !important;
+  background: var(--question-v20-cyan) !important;
+  font: 780 clamp(11px,.8vw,15px)/1 var(--font-game-ui,sans-serif) !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-form button:disabled {opacity:.38 !important;}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer p {
+  position: absolute !important;
+  inset: auto 0 auto 0 !important;
+  margin: 0 !important;
+  top: calc(100% + 4px) !important;
+  padding: 3px 4px !important;
+  border-radius: 5px !important;
+  font: 650 clamp(10px,.7vw,13px)/1 var(--font-game-ui,sans-serif) !important;
+  color: #c6ffdf !important;
+  background: rgba(4,46,36,.94) !important;
+  text-align: center !important;
+}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-answer-idle-message {display:none !important;}
+html body .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-form :focus-visible {outline:3px solid #fff0a2 !important;outline-offset:2px !important;}
+
+@media (max-width: 1280px) {
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-content,
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20.qshell-layout-choice .qshell-content,
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20.qshell-layout-interactive .qshell-content {grid-template-rows:minmax(0,1fr) clamp(66px,6.5vw,88px) !important;}
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .gameplay-choice-card > span:not(.qshell-vote-count) {font-size:clamp(14px,1.4vw,20px) !important;}
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 {animation:none !important;}
+  html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .gameplay-choice-spotlight,
+  html body .gameplay-overlay-minigame-scene .audience-answer-lanes-v20 .answer-lane-wash-v20 {transition:none !important;}
+}

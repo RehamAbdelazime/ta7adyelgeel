@@ -1,16 +1,17 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import type { MiniGameSnapshot, ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-registry';
 import { useGame } from '../../../context/GameContext';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { SHAPE_COLORS, type ChoiceTone, getCorrectAnswerText } from './overlay-types';
-import { getCorrectOptionNumber, getCommandOptionNumber } from './answer-helpers';
-import { PrivateStreamerAnswerDock } from '../../streamer/PrivateStreamerAnswerDock';
+import { getCorrectOptionNumber, getCommandOptionNumber, getAnswerCountsByOption } from './answer-helpers';
+import { useRoundRevealContinue } from './RoundRevealContext';
 
 /**
  * Visual variants share timer, answer logic, choices, and Twitch hint/footer.
- * 'legacy' deliberately retains existing layout for mini-games not yet QA'd.
+ * 'legacy' is retained for compatibility; all registered games opt into a shared layout.
  */
 export type QuestionLayout = 'legacy' | 'choice' | 'focus' | 'interactive';
 
@@ -81,7 +82,7 @@ function QuestionPhaseTimer({
 
   return (
     <div
-      className="gameplay-question-timer"
+      className={`gameplay-question-timer ${modern && isRunning && remainingSeconds <= 5 ? 'qshell-timer-urgent' : ''}`}
       role="timer"
       aria-label={isRunning ? remainingLabel(remainingSeconds) : readyLabel}
       aria-live="off"
@@ -134,6 +135,7 @@ export function QuestionScreenShell({
 }) {
   const { actions, snapshot } = useGame();
   const t = useTranslation();
+  const continueToLeaderboard = useRoundRevealContinue();
 
   const isTourMode = snapshot.activeSessionMode === 'tour';
   const roundLabel = isTourMode && snapshot.tour.totalRounds > 0
@@ -145,7 +147,7 @@ export function QuestionScreenShell({
 
   const correctOptionNumber = getCorrectOptionNumber(miniGame);
   const isAnswerReveal = isAnswerRevealOverride
-    ?? (tourPhase === 'scoring' && miniGame.correctAnswer !== null);
+    ?? (tourPhase === 'scoring');
   const revealText = correctAnswerText ?? getCorrectAnswerText(miniGame, t);
   // Preserve the service's command-to-answer mapping while displaying !1,!2,!3,!4
   // in visual order. A randomized choice set belongs in the game service, not UI.
@@ -155,10 +157,30 @@ export function QuestionScreenShell({
   );
   const choiceCount = Math.min(orderedChoices.length, 4);
   const hasChoices = choiceCount > 0;
+  const answerCounts = getAnswerCountsByOption(miniGame);
+  const displayedAnswerCount = [...answerCounts.values()].reduce((sum, count) => sum + count, 0);
+  // Choice cards already highlight the correct answer. A second announcement
+  // covers the artwork and forces the viewer to read the same result twice.
+  const showRevealBanner = isAnswerReveal && !hasChoices
+    && miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates';
+  const stageElement = typeof document !== 'undefined'
+    ? document.querySelector('.game-scene-stage') : null;
   const isModern = layout !== 'legacy';
   const displayGameName = isModern
     ? t(MINI_GAME_BY_ID[miniGame.id].titleKey)
     : miniGame.title;
+
+  const revealAction = isAnswerReveal ? (
+    <button
+      className="qshell-reveal-primary-action qshell-reveal-stage-action"
+      type="button"
+      onClick={continueToLeaderboard ?? actions.skipPhase}
+      data-testid="reveal-to-scoreboard"
+    >
+      <span>{snapshot.locale === 'ar' ? 'إظهار الترتيب' : 'SHOW LEADERBOARD'}</span>
+      <b aria-hidden="true">➜</b>
+    </button>
+  ) : null;
 
   // ── SHELL: flex column, fills its container ─────────────────────────────────
   const shellStyle: CSSProperties = {
@@ -218,20 +240,13 @@ export function QuestionScreenShell({
 
   return (
     <div
-      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${isModern ? `qshell-v17 qshell-v18 qshell-layout-${layout}` : ''} ${shellClassName} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`.trim()}
+      className={`gameplay-question-shell gameplay-question-${miniGame.id} gameplay-session-${snapshot.activeSessionMode} ${isModern ? `qshell-v17 qshell-v18 qshell-v19 qshell-v20 qshell-layout-${layout}` : ''} ${shellClassName} ${isAnswerReveal ? 'gameplay-question-shell-reveal' : ''}`.trim()}
       style={shellStyle}
     >
-      {/* NEXT button — absolute in shell, styled via CSS */}
-      {isAnswerReveal && !isModern ? (
-        <button
-          className="gameplay-global-next-button gameplay-question-next-button"
-          type="button"
-          onClick={actions.skipPhase}
-          aria-label={t('gameplay.next')}
-        >
-          {t('gameplay.next')}
-        </button>
-      ) : null}
+      {/* The action belongs in the free stage apron BELOW the screen.
+          A portal avoids the question shell's overflow:hidden without shifting
+          the answer cards or covering the question/image/timer. */}
+      {revealAction && (stageElement ? createPortal(revealAction, stageElement) : revealAction)}
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className="qshell-header" style={isModern ? undefined : headerStyle}>
@@ -245,17 +260,19 @@ export function QuestionScreenShell({
             {roundLabel ? <b>{roundLabel}</b> : null}
           </div>
 
-          <QuestionPhaseTimer
-            isRunning={tourPhase === 'answer_window_open'}
-            phaseStartedAt={snapshot.tour.phaseStartedAt}
-            phaseDurationMs={snapshot.tour.phaseDurationMs}
-            phaseRemainingMs={snapshot.tour.phaseRemainingMs}
-            readyLabel={t('gameplay.timer.ready')}
-            remainingLabel={(seconds) => t('gameplay.timer.remaining', { seconds: String(seconds) })}
-            modern={isModern}
-          />
-
         </div>
+
+        {/* A single full-width read on time, directly under the compact game banner.
+            The host control is stage-anchored above the host, not inside this HUD. */}
+        <QuestionPhaseTimer
+          isRunning={tourPhase === 'answer_window_open'}
+          phaseStartedAt={snapshot.tour.phaseStartedAt}
+          phaseDurationMs={snapshot.tour.phaseDurationMs}
+          phaseRemainingMs={snapshot.tour.phaseRemainingMs}
+          readyLabel={t('gameplay.timer.ready')}
+          remainingLabel={(seconds) => t('gameplay.timer.remaining', { seconds: String(seconds) })}
+          modern={isModern}
+        />
 
         {eyebrow ? <div className="gameplay-question-eyebrow">{eyebrow}</div> : null}
 
@@ -267,22 +284,21 @@ export function QuestionScreenShell({
         {showHeaderHelperText && helperText ? (
           <p className="gameplay-question-header-helper">{helperText}</p>
         ) : null}
-
-        {isAnswerReveal ? (
-          <div className="gameplay-answer-reveal-banner" role="status">
-            {isModern ? <span className="qshell-reveal-check" aria-hidden="true">✓</span> : null}
-            <span>{t('gameplay.answer.correct')}</span>
-            {isModern && correctOptionNumber !== null ? (
-              <b className="qshell-reveal-command" dir="ltr">!{correctOptionNumber}</b>
-            ) : null}
-            <strong>{revealText}</strong>
-          </div>
-        ) : null}
       </div>
+
+      {/* Answer announcement overlays the board; it never alters the header
+          height or pushes the answer cards down while the reveal is visible. */}
+      {showRevealBanner ? (
+        <div className="gameplay-answer-reveal-banner qshell-reveal-v32" role="status">
+          <span className="qshell-reveal-check" aria-hidden="true">✓</span>
+          <span>{t('gameplay.answer.correct')}</span>
+          {correctOptionNumber !== null ? <b className="qshell-reveal-command" dir="ltr">!{correctOptionNumber}</b> : null}
+          <strong>{revealText}</strong>
+        </div>
+      ) : null}
 
       {/* ── Content: body left | choices right ────────────────────────── */}
       <div className="qshell-content" style={isModern ? undefined : contentStyle}>
-
         {/* Body — left column, fills first grid cell */}
         <div
           className={`qshell-body ${bodyClassName}`}
@@ -312,6 +328,8 @@ export function QuestionScreenShell({
                   shape={choice.shape}
                   isOpen={miniGame.acceptsAnswers && !isAnswerReveal}
                   resultState={resultState}
+                  answerCount={isModern ? (answerCounts.get(optionNumber ?? 0) ?? 0) : undefined}
+                  answerCountAriaLabel={snapshot.locale === 'ar' ? 'إجابة' : 'answers'}
                 />
               );
             })}
@@ -319,28 +337,25 @@ export function QuestionScreenShell({
         ) : null}
       </div>
 
-      {/* ── Side hints ─────────────────────────────────────────────────── */}
+      {/* ── Minimal answer HUD ───────────────────────────────────────── */}
       <div className="gameplay-question-side-hints qshell-footer" style={isModern ? undefined : { flexShrink: 0 }} aria-live="polite">
+        {isModern ? (
+          <>
+            <span className="qshell-quick-total"><b>{displayedAnswerCount}</b> {snapshot.locale === 'ar' ? 'إجابة' : 'answers'}</span>
+
+          </>
+        ) : (
+          <>
         <aside className="gameplay-question-side-hint gameplay-question-side-hint-left">
           <small>{t('gameplay.chat.command')}</small>
           <span>{helperText}</span>
         </aside>
-        {isModern && tourPhase === 'answer_window_open' ? (
-          <PrivateStreamerAnswerDock embedded />
-        ) : null}
         <aside className="gameplay-question-side-hint gameplay-question-side-hint-right">
           <small>{t('gameplay.liveAnswers')}</small>
           <b>{miniGame.officialAnswerCount}</b>
         </aside>
-        {isModern && isAnswerReveal ? (
-          <button
-            className="gameplay-global-next-button gameplay-question-next-button qshell-next-button"
-            type="button"
-            onClick={actions.skipPhase}
-          >
-            {t('gameplay.next')}
-          </button>
-        ) : null}
+          </>
+        )}
       </div>
     </div>
   );
@@ -377,7 +392,7 @@ export function MediaCard({
       gap: caption ? 'clamp(10px,1vh,16px)' : 0,
     }}>
       {/* Image card */}
-      <div style={{
+      <div className="qshell-media-frame" style={{
         minHeight: 0,
         width: '100%',
         height: '100%',
@@ -388,7 +403,8 @@ export function MediaCard({
         background: 'rgba(0,5,18,0.85)',
         border: '1px solid rgba(34,231,255,0.30)',
         boxShadow: '0 0 32px rgba(0,0,0,0.60),0 0 18px rgba(34,231,255,0.08),inset 0 0 22px rgba(0,0,0,0.42)',
-      }}>
+        '--qshell-media-bg': showImage ? `url("${imageUrl}")` : 'none',
+      } as CSSProperties}>
         {showImage ? (
           <img
             src={imageUrl!}
@@ -421,12 +437,14 @@ export function MediaCard({
 // ─── ChoiceCard ───────────────────────────────────────────────────────────────
 
 export function ChoiceCard({
-  command, label, tone, shape, isOpen, resultState = 'pending',
+  command, label, tone, shape, isOpen, resultState = 'pending', answerCount, answerCountAriaLabel = 'answers',
 }: {
   command: string; label: string;
   tone: 'cyan' | 'pink' | 'yellow' | 'green' | 'purple' | 'orange';
   shape?: ShapeCountShapeId; isOpen?: boolean;
   resultState?: 'pending' | 'correct' | 'disabled';
+  answerCount?: number;
+  answerCountAriaLabel?: string;
 }) {
   return (
     <div
@@ -435,7 +453,7 @@ export function ChoiceCard({
       style={{ width: '100%', height: '100%', minHeight: 0 }}
       aria-disabled={resultState === 'disabled'}
     >
-      <strong>{command}</strong>
+      <strong dir="ltr">{command}</strong>
       {shape ? (
         <span className="gameplay-choice-shape-answer" aria-label={label} title={label}>
           <svg className="gameplay-choice-shape-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
@@ -450,6 +468,9 @@ export function ChoiceCard({
       ) : (
         <span>{label}</span>
       )}
+      {answerCount !== undefined ? (
+        <span className="qshell-vote-count" aria-label={`${answerCount} ${answerCountAriaLabel}`}>{answerCount > 999 ? '999+' : answerCount}</span>
+      ) : null}
     </div>
   );
 }

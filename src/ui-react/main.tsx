@@ -28,6 +28,28 @@ import './styles/screen-back-button.css';
 import './styles/question-experience-v17.css';
 // Final polish for the stage question experience (above legacy styles).
 import './styles/question-stage-v18.css';
+// Unified question HUD, scalable answer zones and shared casual score screens.
+import './styles/game-show-polish-v19.css';
+// v20: horizontal choices, unified stage answer lanes and host bubble.
+import './styles/answer-zones-question-v20.css';
+// Scoreboard interaction regression fix + shared casual action + mini-game lighting.
+import './styles/scoreboard-stage-v21.css';
+// v22: stage-mounted lighting follows answer reveal and leaderboard events.
+import './styles/event-stage-lighting-v22.css';
+// v23: shared question-style result banner, simplified scoreboard and matching game CTA.
+import './styles/scoreboard-casual-v23.css';
+// V25: shared compact answers for Shape Count and other choice-based minigames.
+import './styles/shared-choice-questions-v25.css';
+// V27: premium Lucky Cup artwork + deterministic visible shuffle.
+import './styles/lucky-cup-v27.css';
+// V28: correct full-stage Lucky Cup prep, ball visibility, and stage-host answer pod.
+import './styles/lucky-cup-v28.css';
+import './styles/host-answer-pod-v28.css';
+
+// V32: permanent answer reveal, illustrated intros, and shared visual structure.
+import './styles/experience-unification-v32.css';
+// V34: scoped, minimal gameplay fixes for four tested mini-games.
+import './styles/gameplay-clarity-v34.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

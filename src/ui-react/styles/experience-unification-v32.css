@@ -1,0 +1,211 @@
+/* V32 — one visual contract for every mini-game, no duplicated floor labels. */
+html body #root .gameplay-choice-spotlights .answer-lane-label-v20,
+html body #root .gameplay-choice-spotlights .floor-answer-pad,
+html body #root .gameplay-choice-spotlights .floor-answer-number {
+  display: none !important;
+}
+
+/* A full-size persistent reveal action sits ABOVE the question grid.
+   No reveal control or banner participates in flex/grid sizing: the choice row
+   keeps exactly the same y-coordinate throughout answering and scoring. */
+html body #root .gameplay-question-shell .qshell-reveal-primary-action {
+  position: absolute !important;
+  z-index: 85 !important;
+  top: clamp(8px, .9vw, 18px) !important;
+  right: clamp(12px, 1.3vw, 25px) !important;
+  bottom: auto !important;
+  left: auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, .9vw, 15px) !important;
+  min-width: clamp(164px, 13vw, 242px) !important;
+  min-height: clamp(50px, 4.25vw, 76px) !important;
+  padding: 10px clamp(14px, 1.6vw, 30px) !important;
+  border: 2px solid #a8ffd0 !important;
+  border-radius: 15px !important;
+  background: linear-gradient(145deg, #36f3b2 0%, #67edf2 100%) !important;
+  box-shadow: 0 9px 0 rgba(2, 55, 64, .8), 0 0 35px rgba(89, 255, 193, .31), inset 0 2px 0 rgba(255, 255, 255, .48) !important;
+  color: #062d35 !important;
+  font: 900 clamp(17px, 1.3vw, 26px)/1.1 var(--font-game-ui, sans-serif) !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  text-shadow: none !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  animation: howtoRevealButtonEnter .33s cubic-bezier(.18,.95,.24,1) both;
+}
+html body #root .gameplay-question-shell .qshell-reveal-primary-action > b {
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: 1.15em !important;
+  transition: transform 140ms ease;
+}
+html body #root .gameplay-question-shell .qshell-reveal-primary-action:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-2px) !important;
+}
+html body #root .gameplay-question-shell .qshell-reveal-primary-action:hover > b { transform: translateX(4px); }
+html body #root .gameplay-question-shell .qshell-reveal-primary-action:focus-visible {outline: 4px solid white !important;outline-offset:4px !important;}
+html body #root .gameplay-question-shell .qshell-reveal-v32 {
+  position: absolute !important;
+  z-index: 60 !important;
+  top: clamp(105px, 8vw, 145px) !important;
+  bottom: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: max-content !important;
+  max-width: 85% !important;
+  min-height: clamp(46px, 3.9vw, 72px) !important;
+  padding: clamp(7px, .65vw, 12px) clamp(16px, 1.25vw, 25px) !important;
+  border: 2px solid rgba(142, 255, 200, .9) !important;
+  background: linear-gradient(125deg, rgba(6, 62, 58, .98), rgba(11, 39, 68, .97)) !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,.6), 0 0 22px rgba(76,243,183,.26) !important;
+  border-radius: 14px !important;
+  pointer-events: none !important;
+  text-shadow: none !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+html body #root .gameplay-question-shell .qshell-reveal-v32 strong {font-weight:900 !important;color:#fff !important;}
+html body #root .gameplay-question-shell.qshell-v20 .qshell-content {min-height: 0 !important; flex: 1 1 auto !important;}
+html body #root .gameplay-question-shell.qshell-v20.qshell-layout-focus .qshell-content {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+}
+html body #root .gameplay-question-shell.qshell-v20.qshell-layout-focus .qshell-body {
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+html body #root .gameplay-question-shell.qshell-v20.qshell-layout-focus .qshell-body > * {min-height: 0 !important;max-height:100% !important;}
+html body #root .gameplay-question-shell.qshell-v20 .qshell-footer .qshell-next-button { display: none !important; }
+
+/* Illustrated pre-round lessons. A compact example + 3 visual steps fit the
+   SAME central screen in 720p and 1080p; no offscreen modal or external images. */
+html body #root .gameplay-overlay-minigame-scene .gameplay-phase-mini_game_intro {
+  display: flex !important;
+  justify-content: stretch !important;
+  align-items: stretch !important;
+  padding: clamp(7px, .7vw, 13px) !important;
+  overflow: hidden !important;
+}
+html body #root .gameplay-phase-mini_game_intro .gameplay-intro-card {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: clamp(12px, 1.1vw, 23px) !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto auto !important;
+  align-items: stretch !important;
+  justify-items: stretch !important;
+  align-content: stretch !important;
+  gap: clamp(7px, .65vw, 13px) !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(85,190,232,.4) !important;
+  border-radius: 15px !important;
+  background: linear-gradient(140deg,rgba(8,21,45,.98),rgba(14,15,47,.98)) !important;
+}
+html body #root .howto-intro-header {display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(8px,.85vw,17px)!important;text-align:center!important;min-height:0!important;}
+html body #root .howto-intro-header > span {font-size:clamp(30px,2.4vw,48px)!important;line-height:1!important;}
+html body #root .howto-intro-header small {display:block!important;line-height:1.1!important;color:#91e9fa!important;font:800 clamp(12px,.95vw,18px)/1 var(--font-game-ui,sans-serif)!important;}
+html body #root .howto-intro-header h2 {margin:2px 0 0!important;font:900 clamp(23px,2.2vw,42px)/1.1 var(--font-game-title,var(--font-game-ui))!important;color:#fff!important;text-shadow:0 4px 15px rgba(0,0,0,.7)!important;}
+html body #root .howto-visual {
+  margin:0!important;
+  padding:clamp(7px,.7vw,14px) clamp(12px,1vw,20px) clamp(6px,.6vw,11px)!important;
+  border:1px solid rgba(89,191,239,.31)!important;
+  border-radius:13px!important;
+  background: radial-gradient(ellipse at 50% 100%,rgba(90,45,167,.23),transparent 60%),linear-gradient(145deg,rgba(5,12,31,.97),rgba(10,19,44,.97))!important;
+  display:grid!important;grid-template-rows:auto minmax(0,1fr) auto!important;gap:4px!important;
+  width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;overflow:hidden!important;
+}
+html body #root .howto-visual-kicker {color:#8fdce9!important;opacity:.8!important;font:750 clamp(10px,.8vw,15px)/1.1 var(--font-game-ui,sans-serif)!important;text-align:start!important;}
+html body #root .howto-visual-content {display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:clamp(4px,.45vw,9px)!important;min-height:0!important;min-width:0!important;overflow:hidden!important;}
+html body #root .howto-visual figcaption {display:flex!important;gap:clamp(7px,.7vw,14px)!important;align-items:center!important;justify-content:center!important;font:750 clamp(11px,.8vw,16px)/1.1 var(--font-game-ui,sans-serif)!important;color:#bedbec!important;}
+html body #root .howto-visual figcaption strong {padding:3px 12px!important;color:#97fff0!important;background:rgba(27,94,98,.3)!important;border:1px solid #2f9d9f!important;border-radius:7px!important;letter-spacing:.08em!important;}
+html body #root .howto-sample-choices {display:flex!important;justify-content:center!important;align-items:center!important;gap:clamp(6px,.7vw,13px)!important;max-width:100%!important;width:100%!important;}
+html body #root .howto-sample-option {display:flex!important;align-items:center!important;gap:8px!important;border:1px solid rgba(103,195,226,.5)!important;border-radius:9px!important;background:rgba(24,40,74,.9)!important;color:#f5faff!important;padding:clamp(4px,.43vw,8px) clamp(7px,.85vw,16px)!important;font:750 clamp(12px,.93vw,18px)/1.1 var(--font-game-ui,sans-serif)!important;min-width:0!important;white-space:nowrap!important;}
+html body #root .howto-sample-option b {color:#80eaff!important;}
+html body #root .howto-sample-option-highlight {border-color:#60f6c2!important;box-shadow:0 0 13px rgba(52,242,178,.2)!important;background:rgba(13,90,77,.8)!important;}
+html body #root .howto-food-display {display:flex!important;align-items:center!important;justify-content:center!important;gap:16px!important;font-size:clamp(37px,4.1vw,75px)!important;line-height:1.1!important;}
+html body #root .howto-food-display i {font-size:.6em!important;color:#72e5fc!important;}
+html body #root .howto-shapes-display {max-width:335px!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:3px 18px!important;font-size:clamp(25px,2.1vw,43px)!important;line-height:1.05!important;justify-items:center!important;color:#fa84df!important;}
+html body #root .howto-shapes-display .howto-most-common {color:#56e9fb!important;}
+html body #root .howto-maze-demo {height:min(100%,135px)!important;width:min(100%,470px)!important;}
+html body #root .howto-demo-tag {color:#aafbf8!important;font:800 clamp(12px,.95vw,18px)/1.2 var(--font-game-ui,sans-serif)!important;text-align:center!important;}
+html body #root .howto-timeline {display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(10px,1.1vw,20px)!important;}
+html body #root .howto-timeline-event {display:grid!important;justify-items:center!important;gap:2px!important;color:#effbff!important;}
+html body #root .howto-timeline-event > span {font-size:clamp(30px,2.75vw,50px)!important;line-height:1!important;}
+html body #root .howto-timeline-event b {font:740 clamp(11px,.83vw,16px)/1 var(--font-game-ui,sans-serif)!important;}
+html body #root .howto-timeline-arrow {color:#81eaff!important;font-size:clamp(32px,2.5vw,50px)!important;}
+html body #root .howto-logo-demo {position:relative!important;width:135px!important;height:90px!important;display:grid!important;place-items:center!important;}
+html body #root .howto-mystery-logo {position:relative!important;font-size:clamp(52px,4.4vw,83px)!important;line-height:1!important;color:#ff82e6!important;}
+html body #root .howto-mystery-logo > span {position:absolute!important;font-size:.4em!important;inset:32% 0 auto!important;text-align:center!important;color:#fff!important;}
+html body #root .howto-logo-magnify {position:absolute!important;right:-4px!important;top:-6px!important;color:#7de9f9!important;font-size:50px!important;}
+html body #root .howto-beat-demo {display:flex!important;justify-content:center!important;align-items:center!important;flex-wrap:wrap!important;gap:clamp(6px,.75vw,13px)!important;color:#ad94f8!important;font-size:clamp(28px,2.65vw,52px)!important;}
+html body #root .howto-beat-target {color:#57f8ed!important;text-shadow:0 0 11px rgba(59,226,240,.3)!important;}
+html body #root .howto-count-result {display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(16px,1.5vw,30px)!important;font-size:clamp(17px,1.6vw,29px)!important;color:#eafaff!important;}
+html body #root .howto-count-result strong {font-size:.9em!important;color:#7ff6c9!important;background:#12364b!important;border:1px solid #4aeabb!important;border-radius:7px!important;padding:5px 11px!important;}
+html body #root .howto-cups-demo {width:min(480px,100%)!important;display:flex!important;justify-content:space-evenly!important;align-items:flex-end!important;min-height:80px!important;}
+html body #root .howto-demo-cup {position:relative!important;width:clamp(46px,4.65vw,82px)!important;height:clamp(60px,5.5vw,95px)!important;}
+html body #root .howto-demo-cup > img:first-child {position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;z-index:2!important;}
+html body #root .howto-demo-cup:nth-child(2) > img:first-child {transform:translateY(-14px)!important;}
+html body #root .howto-demo-cup > img.howto-demo-ball {position:absolute!important;bottom:-2px!important;left:30%!important;width:47%!important;height:47%!important;object-fit:contain!important;z-index:1!important;}
+html body #root .howto-demo-cup > b {position:absolute!important;top:40%!important;left:-24%!important;font-size:26px!important;color:#72ecf8!important;z-index:3!important;}
+html body #root .howto-demo-cup:first-child > b {display:none!important;}
+html body #root .howto-statement-demo {font:880 clamp(20px,2.4vw,44px)/1.2 var(--font-game-title,var(--font-game-ui))!important;color:white!important;text-align:center!important;}
+html body #root .howto-memory-demo {position:relative!important;width:300px!important;max-width:95%!important;}
+html body #root .howto-memory-items {display:grid!important;grid-template-columns:repeat(6,1fr)!important;justify-items:center!important;gap:6px!important;font-size:clamp(24px,2.2vw,42px)!important;}
+html body #root .howto-memory-cover {position:absolute!important;right:-5px!important;top:-10px!important;width:34%!important;height:115%!important;display:grid!important;place-items:center!important;background:linear-gradient(90deg,transparent,#172445 24%,#10213e)!important;font-size:clamp(29px,2.5vw,48px)!important;color:#8bebfb!important;}
+html body #root .howto-hangman-demo {display:flex!important;align-items:center!important;gap:14px!important;}
+html body #root .howto-hangman-hint {font-size:clamp(36px,3.1vw,58px)!important;}
+html body #root .howto-hangman-blanks {font:900 clamp(21px,2.5vw,45px)/1 var(--font-game-ui,sans-serif)!important;letter-spacing:.2em!important;color:#defaff!important;}
+html body #root .howto-keyboard {display:flex!important;gap:12px!important;}
+html body #root .howto-keyboard kbd {background:#1b4d60!important;color:#a0f7d2!important;font:800 clamp(14px,1.25vw,22px)/1 var(--font-game-ui,sans-serif)!important;border:1px solid #58d8c5!important;padding:6px 13px!important;border-radius:8px!important;}
+html body #root .howto-pair-demo {display:flex!important;gap:clamp(12px,1.8vw,35px)!important;align-items:center!important;font-size:clamp(43px,4.5vw,80px)!important;line-height:1!important;}
+html body #root .howto-pair-demo b {font-size:.7em!important;color:#7deafa!important;}
+html body #root .gameplay-phase-mini_game_intro .gameplay-intro-steps {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(5px,.65vw,12px)!important;width:100%!important;min-width:0!important;height:auto!important;}
+html body #root .gameplay-phase-mini_game_intro .gameplay-intro-steps .howto-step {display:grid!important;grid-template-columns:auto minmax(0,1fr)!important;grid-template-rows:auto 1fr!important;align-items:center!important;gap:4px 9px!important;min-height:0!important;padding:clamp(6px,.65vw,12px)!important;border:1px solid rgba(103,186,227,.34)!important;border-radius:10px!important;background:rgba(24,44,78,.66)!important;}
+html body #root .gameplay-phase-mini_game_intro .howto-step-icon {grid-area:1 / 1 / 3 / 2!important;font-size:clamp(20px,1.5vw,30px)!important;}
+html body #root .gameplay-phase-mini_game_intro .howto-step b {grid-area:1 / 2!important;font-size:clamp(11px,.8vw,16px)!important;color:#76ebef!important;}
+html body #root .gameplay-phase-mini_game_intro .howto-step p {grid-area:2 / 2!important;margin:0!important;font:710 clamp(11px,.86vw,17px)/1.3 var(--font-game-ui,sans-serif)!important;color:#f3faff!important;text-align:start!important;}
+html body #root .gameplay-phase-mini_game_intro .gameplay-intro-continue-button {position:relative!important;justify-self:center!important;align-self:center!important;min-height:clamp(44px,3.2vw,60px)!important;min-width:clamp(165px,16vw,275px)!important;width:max-content!important;margin:0!important;padding:8px 28px!important;font:850 clamp(18px,1.4vw,26px)/1.1 var(--font-game-ui,sans-serif)!important;}
+@keyframes howtoRevealButtonEnter {from {opacity:0;translate:0 -12px;}to {opacity:1;translate:0 0;}}
+@media (max-width:1280px), (max-height:760px) {
+ html body #root .gameplay-phase-mini_game_intro .gameplay-intro-card {gap:5px!important;padding:9px!important;}
+ html body #root .gameplay-phase-mini_game_intro .howto-intro-header h2 {font-size:clamp(19px,2vw,28px)!important;}
+ html body #root .gameplay-phase-mini_game_intro .howto-step p {font-size:clamp(10px,.85vw,13px)!important;}
+ html body #root .gameplay-phase-mini_game_intro .howto-step-icon {font-size:20px!important;}
+ html body #root .gameplay-question-shell .qshell-reveal-primary-action {min-height:48px!important;min-width:150px!important;font-size:16px!important;}
+}
+@media (prefers-reduced-motion:reduce) {html body #root .gameplay-question-shell .qshell-reveal-primary-action {animation:none!important;}}
+/* Numeric scoring remains visible but no longer becomes a second full-size
+   grid item under the Memory Count artwork. */
+html body #root .gameplay-question-memory-count .gameplay-memory-stage {position:relative!important;padding-bottom:clamp(48px,3.9vw,71px)!important;}
+html body #root .gameplay-question-memory-count .gameplay-memory-scoring {
+  position:absolute!important;
+  z-index:15!important;
+  bottom:clamp(4px,.4vw,8px)!important;
+  left:50%!important;
+  transform:translateX(-50%)!important;
+  width:max-content!important;
+  max-width:96%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:3px 6px!important;
+  display:flex!important;
+  gap:clamp(4px,.55vw,10px)!important;
+  flex-wrap:nowrap!important;
+  border-radius:10px!important;
+  background:rgba(4,15,36,.94)!important;
+  pointer-events:none!important;
+}
+html body #root .gameplay-question-memory-count .gameplay-memory-scoring .ctb-scoring-row {min-height:0!important;padding:3px 7px!important;font-size:clamp(10px,.75vw,14px)!important;}

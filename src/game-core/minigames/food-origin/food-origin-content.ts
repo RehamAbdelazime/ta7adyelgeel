@@ -31,7 +31,7 @@ function q(params: {
   return {
     id: params.id,
     answer: params.answer,
-    statement: text('Which country is this dish originally associated with?', 'الأكلة دي أصلها من أي بلد؟'),
+    statement: text('Where is this dish from?', 'الأكلة دي منين؟'),
     dishName: text(params.dishEn, params.dishAr),
     imageLabel: '🍽️',
     imageUrl: `/assets/game/runtime/minigames/food-origin/photos/${params.imageFile}`,

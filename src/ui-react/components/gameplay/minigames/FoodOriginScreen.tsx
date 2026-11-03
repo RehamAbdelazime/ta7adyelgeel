@@ -40,7 +40,7 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
   const choices = [...food.choices].sort((a, b) => a.optionNumber - b.optionNumber).map((choice) => ({
     command: choice.command,
     label: choice.label,
-    tone: (['cyan', 'pink', 'yellow', 'purple'] as const)[choice.optionNumber - 1] ?? 'cyan',
+    tone: 'cyan' as const, // Uniform neutral answer styling; correctness only appears in reveal.
   }));
 
   return (

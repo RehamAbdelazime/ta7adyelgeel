@@ -13,6 +13,8 @@ import { QuestionScreenShell, type QuestionChoiceItem, ShapeMark } from '../shar
 
 export function HangmanScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
+  const { snapshot } = useGame();
+  const isAr = snapshot.locale === 'ar';
   const hangman = miniGame.hangman;
 
   if (!hangman) {
@@ -25,14 +27,15 @@ export function HangmanScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnaps
     <QuestionScreenShell
       miniGame={miniGame}
       tourPhase={tourPhase}
-      helperText={miniGame.acceptsAnswers ? 'Type one letter like !a / !س, or guess word with !word ...' : hangman.correctWord ? `Correct word: ${hangman.correctWord}` : getPhaseHelper(tourPhase, t)}
+      layout="focus"
+      helperText={miniGame.acceptsAnswers ? (isAr ? 'اكتب حرف زي !a أو !س، أو خمن الكلمة' : 'Type a letter like !a, or guess the word') : hangman.correctWord ? `${isAr ? 'الكلمة الصح' : 'Correct word'}: ${hangman.correctWord}` : getPhaseHelper(tourPhase, t)}
       bodyClassName="gameplay-question-body-hangman"
     >
       <div className="gameplay-hangman-card">
         <div className="gameplay-hangman-hint"><span>{t('gameplay.hangman.hint')}</span><strong>{hangman.hint}</strong></div>
         <div className="gameplay-hangman-word" dir="auto">{hangman.maskedWord}</div>
-        <div className="gameplay-hangman-lives" aria-label="Wrong guesses">{wrongSlots.map((used, index) => <span key={index} className={used ? 'gameplay-hangman-life-used' : ''} />)}</div>
-        <div className="gameplay-hangman-letters"><span>Correct letters: {hangman.guessedLetters.length ? hangman.guessedLetters.join(' · ') : '-'}</span><span>Wrong letters: {hangman.wrongLetters.length ? hangman.wrongLetters.join(' · ') : '-'}</span></div>
+        <div className="gameplay-hangman-lives" aria-label={isAr ? 'المحاولات الغلط' : 'Wrong guesses'}>{wrongSlots.map((used, index) => <span key={index} className={used ? 'gameplay-hangman-life-used' : ''} />)}</div>
+        <div className="gameplay-hangman-letters"><span>{isAr ? 'الحروف الصح' : 'Correct letters'}: {hangman.guessedLetters.length ? hangman.guessedLetters.join(' · ') : '-'}</span><span>{isAr ? 'الحروف الغلط' : 'Wrong letters'}: {hangman.wrongLetters.length ? hangman.wrongLetters.join(' · ') : '-'}</span></div>
         {hangman.winnerDisplayName ? <div className="gameplay-hangman-winner">{t('gameplay.hangman.winner', { name: hangman.winnerDisplayName })}</div> : null}
       </div>
     </QuestionScreenShell>

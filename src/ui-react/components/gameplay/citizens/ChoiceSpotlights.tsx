@@ -3,7 +3,7 @@ import { ANSWER_STAGE_LAYOUT } from '../shared/answer-stage-layout';
 import { useGame } from '../../../context/GameContext';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
-import { buildChoiceSpotlights, getAnswerCountsByOption, getChoiceOptionResultState, getCorrectOptionNumber } from '../shared/answer-helpers';
+import { buildChoiceSpotlights, getChoiceOptionResultState, getCorrectOptionNumber } from '../shared/answer-helpers';
 
 export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapshot; phase: TourPhase }) {
   const { snapshot } = useGame();
@@ -15,12 +15,11 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
     return null;
   }
 
-  const counts = getAnswerCountsByOption(miniGame);
   const correctOption = getCorrectOptionNumber(miniGame);
   const shouldShowResultFeedback = phase === 'scoring' && correctOption !== null;
 
   return (
-    <section className={`gameplay-choice-spotlights gameplay-choice-spotlights-v18 gameplay-choice-spotlights-${choices.length}`}
+    <section className={`gameplay-choice-spotlights gameplay-choice-spotlights-v18 gameplay-choice-spotlights-v19 audience-answer-lanes-v20 gameplay-choice-spotlights-${choices.length}`}
       style={{
         '--answer-zone-left': `${ANSWER_STAGE_LAYOUT.leftPercent}%`,
         '--answer-zone-width': `${ANSWER_STAGE_LAYOUT.widthPercent}%`,
@@ -29,8 +28,6 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
       } as CSSProperties}
       aria-label={isArabic ? 'اختيارات الإجابة على المسرح' : 'Answer options on stage'}>
       {choices.map((choice) => {
-        const answerCount = counts.get(choice.optionNumber) ?? 0;
-
         const resultState = shouldShowResultFeedback
           ? getChoiceOptionResultState(miniGame, choice.optionNumber)
           : 'pending';
@@ -39,13 +36,10 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
           <article key={choice.optionNumber}
             data-option-number={choice.optionNumber}
             className={`gameplay-choice-spotlight gameplay-choice-spotlight-${choice.tone} gameplay-choice-spotlight-${resultState}`}
-            aria-label={isArabic
-              ? `الاختيار ${choice.optionNumber}: ${answerCount} إجابة`
-              : `Option ${choice.optionNumber}: ${answerCount} answers`}>
-            <div className="floor-answer-pad" aria-hidden="true">
-              <span className="floor-answer-number">{choice.optionNumber}</span>
-              <span className="floor-answer-tally">{answerCount}</span>
-            </div>
+            aria-label={isArabic ? `منطقة الإجابة ${choice.optionNumber}` : `Answer zone ${choice.optionNumber}`}>
+
+            <div className="answer-lane-wash-v20" aria-hidden="true" />
+            {/* No duplicate floor numbers: the answer cards on screen own the labels. */}
           </article>
         );
       })}

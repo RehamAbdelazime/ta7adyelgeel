@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import type { TourAwardsSnapshot } from '../../../game-core/awards/tour-awards';
 import type { ChampionCelebrationSnapshot } from '../../../game-core/app/game-snapshot';
 import type { ChaosEventSnapshot } from '../../../game-core/chaos/chaos-types';
@@ -17,6 +16,9 @@ import { RoundScoreBoard, TourCompleteSummary } from './scoreboard/Scoreboard';
 import { MINI_GAME_BY_ID } from '../../../game-core/minigames/minigame-registry';
 import { MINI_GAME_SCREENS } from './minigames/minigame-screen-registry';
 import { resolveGameplayOverlayMode } from './gameplay-overlay-mode';
+import { RoundRevealProvider } from './shared/RoundRevealContext';
+import { getScoringRevealKey, useRoundRevealCompletion } from './shared/RoundRevealCompletionContext';
+import { MiniGameIntroIllustration, INTRO_STEP_ICONS } from './shared/MiniGameIntroIllustration';
 
 export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | 'minigame' } = {}) {
   const { snapshot } = useGame();
@@ -51,7 +53,6 @@ export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | '
 }
 
 function ChaosEventBanner({ chaosEvent, tourPhase }: { chaosEvent: ChaosEventSnapshot; tourPhase: TourPhase }) {
-  const t = useTranslation();
   const isRevealPhase = tourPhase === 'mini_game_intro';
 
   return (
@@ -84,7 +85,8 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
 }
 
 function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
-  const { actions } = useGame();
+  const { actions, snapshot } = useGame();
+  const locale = snapshot.locale;
   const t = useTranslation();
   const fallbackSteps: TranslationKey[] = [
     'gameplay.intro.shape.step1',
@@ -95,43 +97,23 @@ function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
 
   return (
     <div className="gameplay-intro-card">
-      <h2>{miniGame.title}</h2>
+      <header className="howto-intro-header">
+        <span>{MINI_GAME_BY_ID[miniGame.id].icon}</span>
+        <div><small>{locale === 'ar' ? 'إزاي نلعب؟' : 'HOW TO PLAY'}</small><h2>{miniGame.title}</h2></div>
+      </header>
+      <MiniGameIntroIllustration gameId={miniGame.id} />
       <div className="gameplay-intro-steps">
         {steps.map((step, index) => (
-          <span key={step}><b>{index + 1}</b>{t(step)}</span>
+          <article className="howto-step" key={step}>
+            <span className="howto-step-icon" aria-hidden="true">{INTRO_STEP_ICONS[miniGame.id][index]}</span>
+            <b>{index + 1}</b>
+            <p>{t(step)}</p>
+          </article>
         ))}
       </div>
       <button className="gameplay-intro-continue-button" type="button" onClick={actions.skipPhase}>
         {t('ui.startRound')}
       </button>
-    </div>
-  );
-}
-
-function PrepareCountdown({ seconds }: { miniGame: MiniGameSnapshot; seconds: number }) {
-  const t = useTranslation();
-
-  return (
-    <div className="gameplay-prepare-card">
-      <h2>{seconds}</h2>
-      <strong>{t('gameplay.getReady')}</strong>
-      <span>{t('gameplay.prepare.questionAppears')}</span>
-    </div>
-  );
-}
-
-function ActionWarmupScreen({ seconds: _seconds }: { miniGame: MiniGameSnapshot; seconds: number }) {
-  return null;
-}
-
-function AnswersLockedScreen({ miniGame }: { miniGame: MiniGameSnapshot }) {
-  const t = useTranslation();
-
-  return (
-    <div className="gameplay-prepare-card gameplay-answers-locked-card">
-      <h2>★</h2>
-      <strong>{t('gameplay.answers.locked')}</strong>
-      <span>{t('gameplay.answers.received', { count: String(miniGame.answerRecords.length) })}</span>
     </div>
   );
 }
@@ -161,21 +143,10 @@ function MainScreenGameplayOverlay({
   const { snapshot } = useGame();
   const t = useTranslation();
   const phaseRemaining = Math.max(0, Math.ceil(tour.phaseRemainingMs / 1000));
-  const scoringRevealKey = `${tour.tourId}:${tour.roundNumber}:${miniGame.questionId ?? 'no-question'}`;
-  const [completedScoringRevealKey, setCompletedScoringRevealKey] = useState<string | null>(null);
-
-  // Keep each game's visual answer reveal briefly, then move to the round scoreboard.
-  // This preserves game-specific reveals (e.g. the Maze path and Lucky Cup result)
-  // without leaving the scoreboard hidden indefinitely.
-  useEffect(() => {
-    if (tour.phase !== 'scoring' || !miniGame.hasRound) {
-      setCompletedScoringRevealKey(null);
-      return;
-    }
-
-    const revealTimer = window.setTimeout(() => setCompletedScoringRevealKey(scoringRevealKey), 4800);
-    return () => window.clearTimeout(revealTimer);
-  }, [miniGame.hasRound, scoringRevealKey, tour.phase]);
+  const scoringRevealKey = getScoringRevealKey(tour.tourId, tour.roundNumber, miniGame.questionId);
+  // The reveal flag is shared with stage lighting: no separate 4.8-second
+  // timer can flip the scenery while the host is still showing the answer.
+  const { completedScoringRevealKey, setCompletedScoringRevealKey } = useRoundRevealCompletion();
 
   const overlayMode = resolveGameplayOverlayMode(tour.phase, tour.isTourActive, shouldShowMiniGame);
 
@@ -192,13 +163,25 @@ function MainScreenGameplayOverlay({
     return (
       <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-scoring">
         {isShowingAnswerReveal
-          ? <MiniGamePlayScreen miniGame={miniGame} tourPhase="scoring" />
+          ? <RoundRevealProvider onContinue={() => setCompletedScoringRevealKey(scoringRevealKey)}>
+              <MiniGamePlayScreen miniGame={miniGame} tourPhase="scoring" />
+            </RoundRevealProvider>
           : <RoundScoreBoard citizens={citizens} tour={tour} miniGame={miniGame} lastRoundAwards={lastRoundAwards} />}
       </section>
     );
   }
 
   if (overlayMode === 'tour-starting') {
+    // Lucky Cup's countdown IS the visible, non-answerable shuffle. All swaps
+    // must complete before the answer window opens; never show the generic
+    // countdown here or viewers would have to guess an invisible shuffle.
+    if (miniGame.id === 'lucky-cup' && miniGame.hasRound) {
+      return (
+        <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-tour_starting gameplay-lucky-cup-warmup">
+          <MiniGamePlayScreen miniGame={miniGame} tourPhase="tour_starting" />
+        </section>
+      );
+    }
     return <TourStartingScreen seconds={phaseRemaining} />;
   }
 
@@ -215,13 +198,13 @@ function MainScreenGameplayOverlay({
     <section className={`gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-${tour.phase}`}>
       {chaosEvent.active ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
 
-      <div className="gameplay-round-header">
+      {tour.phase !== 'mini_game_intro' && tour.phase !== 'answer_window_open' ? <div className="gameplay-round-header">
         <span>{roundLabel ? `${roundLabel} · ${phaseLabel}` : phaseLabel}</span>
         <b>{miniGame.title}</b>
         {miniGame.questionDifficulty ? <i>{DIFFICULTY_LABEL[miniGame.questionDifficulty]}</i> : null}
         {chaosEvent.active ? <em>{'\u26A1'} {chaosEvent.badge}</em> : null}
         {phaseRemaining > 0 ? <strong>{phaseRemaining}s</strong> : null}
-      </div>
+      </div> : null}
 
       {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} /> : null}
 
@@ -229,7 +212,7 @@ function MainScreenGameplayOverlay({
         <MiniGamePlayScreen miniGame={miniGame} tourPhase={tour.phase} />
       ) : null}
 
-      {!['tour_complete', 'scoring'].includes(tour.phase) ? (
+      {!['tour_complete', 'scoring', 'mini_game_intro', 'answer_window_open'].includes(tour.phase) ? (
         <div className="gameplay-answer-status">
           <span>{getBottomStatus(tour.phase, miniGame)}</span>
           <span>{formatAnswerParticipation(t, miniGame.officialAnswerCount, miniGame.spectatorAnswerCount, spectatorCount)}</span>

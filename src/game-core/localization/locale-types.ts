@@ -2,7 +2,13 @@ export type LocaleCode = 'en' | 'ar';
 export type TextDirection = 'ltr' | 'rtl';
 
 export type TranslationKey =
-  'minigame.countTheBeat.title' |   'minigame.countTheBeat.note' |   'minigame.countTheBeat.started' |   'minigame.countTheBeat.answerWindowOpen' |   'minigame.countTheBeat.answerWindowLocked' |   'minigame.countTheBeat.resultFeed' |   'minigame.countTheBeat.noAnswers' |   'minigame.countTheBeat.scoringApplied' |   'minigame.countTheBeat.invalidAnswer' |   'minigame.countTheBeat.alreadyAnswered' |   'minigame.countTheBeat.answerWindowClosed' |   'minigame.countTheBeat.answerAccepted' |   'minigame.luckyCup.started' |   'minigame.luckyCup.answerWindowOpen' |   'minigame.luckyCup.answerWindowLocked' |   'minigame.luckyCup.resultFeed' |   'minigame.luckyCup.noAnswers' |   'minigame.luckyCup.scoringApplied' |   'minigame.luckyCup.answerAccepted' | 'minigame.luckyCup.answerWindowClosed' | 'minigame.luckyCup.alreadyAnswered' | 'minigame.luckyCup.invalidAnswer' | 'minigame.luckyCup.note' | 'minigame.luckyCup.title' | 'app.logo.main'
+  | 'gameplay.intro.beat.step1'
+  | 'gameplay.intro.beat.step2'
+  | 'gameplay.intro.beat.step3'
+  | 'gameplay.intro.lucky.step1'
+  | 'gameplay.intro.lucky.step2'
+  | 'gameplay.intro.lucky.step3'
+  | 'minigame.countTheBeat.title' |   'minigame.countTheBeat.note' |   'minigame.countTheBeat.started' |   'minigame.countTheBeat.answerWindowOpen' |   'minigame.countTheBeat.answerWindowLocked' |   'minigame.countTheBeat.resultFeed' |   'minigame.countTheBeat.noAnswers' |   'minigame.countTheBeat.scoringApplied' |   'minigame.countTheBeat.invalidAnswer' |   'minigame.countTheBeat.alreadyAnswered' |   'minigame.countTheBeat.answerWindowClosed' |   'minigame.countTheBeat.answerAccepted' |   'minigame.luckyCup.started' |   'minigame.luckyCup.answerWindowOpen' |   'minigame.luckyCup.answerWindowLocked' |   'minigame.luckyCup.resultFeed' |   'minigame.luckyCup.noAnswers' |   'minigame.luckyCup.scoringApplied' |   'minigame.luckyCup.answerAccepted' | 'minigame.luckyCup.answerWindowClosed' | 'minigame.luckyCup.alreadyAnswered' | 'minigame.luckyCup.invalidAnswer' | 'minigame.luckyCup.note' | 'minigame.luckyCup.title' | 'app.logo.main'
   | 'app.logo.sub'
   | 'authGate.checking'
   | 'authGate.connectButton'
@@ -79,6 +85,8 @@ export type TranslationKey =
   | 'gameplay.score.topThree'
   | 'gameplay.score.pointsShort'
   | 'gameplay.score.finalRound'
+  | 'gameplay.score.sessionEnded'
+  | 'gameplay.score.sessionEndedHint'
   | 'gameplay.score.finalRounds'
   | 'gameplay.score.calculatingHint'
   | 'gameplay.score.viewFinal'
@@ -93,6 +101,8 @@ export type TranslationKey =
   | 'gameplay.answers.locked'
   | 'gameplay.answers.received'
   | 'gameplay.chaos.event'
+  | 'gameplay.answer.chatShort'
+  | 'gameplay.answer.revealedShort'
   | 'gameplay.chat.command'
   | 'gameplay.correct.players'
   | 'gameplay.correct.playersSpectators'

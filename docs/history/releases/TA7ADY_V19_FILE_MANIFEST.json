@@ -1,0 +1,28 @@
+{
+  "base_version": "Question Stage v18",
+  "new_version": "Question + Scoreboard Polish v19",
+  "added": [
+    "PATCH_README_V19_AR.md",
+    "README_QUESTION_SCOREBOARD_V19_AR.md",
+    "scripts/verify-game-show-v19.mjs",
+    "src/ui-react/styles/game-show-polish-v19.css"
+  ],
+  "modified": [
+    "PATCH_README_AR.md",
+    "package.json",
+    "public/assets/game/runtime/config/localization.json",
+    "src/game-core/localization/locale-types.ts",
+    "src/game-core/localization/translations.ts",
+    "src/game-core/minigames/food-origin/food-origin-content.ts",
+    "src/ui-react/components/gameplay/GameplayOverlay.tsx",
+    "src/ui-react/components/gameplay/citizens/ChoiceSpotlights.tsx",
+    "src/ui-react/components/gameplay/minigames/FoodOriginScreen.tsx",
+    "src/ui-react/components/gameplay/scoreboard/Scoreboard.tsx",
+    "src/ui-react/components/gameplay/shared/citizen-helpers.ts",
+    "src/ui-react/components/gameplay/shared/question-shell.tsx",
+    "src/ui-react/components/streamer/PrivateStreamerAnswerDock.tsx",
+    "src/ui-react/main.tsx"
+  ],
+  "deleted": [],
+  "notes": "Copy PATCH onto v18 only; do not include node_modules."
+}

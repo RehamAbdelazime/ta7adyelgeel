@@ -47,3 +47,8 @@ release-v2/
 
 # Generated reports
 SECURITY_AUDIT.json
+
+# Generated verification and local editor cache
+LOCALIZATION_REPORT.json
+.coverage/
+coverage/

@@ -1,8 +1,11 @@
-/** One source of truth for podium centers AND citizen walking destinations.
- * Coordinates are percentages of the authored 16:9 game stage. */
+/** Single stage-space coordinate contract (percentages of the authored 16:9 scene).
+ * Choice labels sit against the screen apron; the lit lanes run forward into
+ * the spectator floor. Citizen motion uses the exact same left/width geometry.
+ * Number 1 always stays at the physical left, even in RTL mode.
+ */
 export const ANSWER_STAGE_LAYOUT = {
-  leftPercent: 20,
-  widthPercent: 60,
-  topPercent: 84.2,
-  heightPercent: 13.4,
+  leftPercent: 13,
+  widthPercent: 74,
+  topPercent: 80.5,
+  heightPercent: 19.5,
 } as const;

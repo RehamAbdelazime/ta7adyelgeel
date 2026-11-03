@@ -73,7 +73,7 @@ export function getCitizenPlacementSignature(placement: CitizenPlacement | null)
   if (!placement) return 'none';
   if (placement.kind === 'champion') return 'champion';
   if (placement.kind === 'side') return `side-${placement.side}-${placement.groupIndex}`;
-  return `choice-${placement.optionNumber}-${placement.optionCount}-${placement.groupIndex}-${placement.resultState}`;
+  return `choice-${placement.optionNumber}-${placement.optionCount}-${placement.groupIndex}-${placement.groupSize ?? 0}-${placement.resultState}`;
 }
 
 export function getCitizenPlacementMotionSignature(placement: CitizenPlacement | null): string {
@@ -84,16 +84,6 @@ export function getCitizenPlacementMotionSignature(placement: CitizenPlacement |
 }
 
 const CHOICE_SPOTLIGHT_LAYOUT = ANSWER_STAGE_LAYOUT;
-
-const CITIZEN_PLAZA_LAYOUT = {
-  topPercent: 73.9,
-  heightPercent: 26.1,
-} as const;
-
-function getChoiceSpotlightCenterYInCitizenPlaza(): number {
-  const markerCenterY = CHOICE_SPOTLIGHT_LAYOUT.topPercent + CHOICE_SPOTLIGHT_LAYOUT.heightPercent / 2;
-  return ((markerCenterY - CITIZEN_PLAZA_LAYOUT.topPercent) / CITIZEN_PLAZA_LAYOUT.heightPercent) * 100;
-}
 
 function getChoiceSpotlightCenterX(placement: CitizenSpotlightPlacement): number {
   const count = Math.max(1, placement.optionCount);
@@ -242,23 +232,32 @@ export function getCitizenChampionStyle(): CSSProperties {
   return citizenPositionStyle({ x: 50, y: 76, scale: 1.16, z: 120, index: 0, facing: 1 });
 }
 
+/** Place responders in longitudinal lanes without stacking them on a single pad.
+ * Keep deterministic columns to avoid movement every time one viewer joins.
+ * Rows extend from the screen apron towards the spectator-facing floor.
+ * Dense groups shrink moderately; all placements remain within their own lane.
+ */
 export function getCitizenSpotlightStyle(placement: CitizenSpotlightPlacement, fallbackIndex: number): CSSProperties {
-  const centerX = getChoiceSpotlightCenterX(placement);
-  // Place small groups in a fan that remains inside the matching numbered tile.
-  // Larger groups form shallow depth rows behind the first row.
-  const fanOffsets = [0, -1, 1, -2, 2, -3, 3, -4, 4];
-  const row = Math.floor(placement.groupIndex / fanOffsets.length);
-  const fan = fanOffsets[placement.groupIndex % fanOffsets.length];
-  const maximumSpread = Math.min(3.8, (CHOICE_SPOTLIGHT_LAYOUT.widthPercent / Math.max(1, placement.optionCount)) * 0.24);
-  const x = Math.max(3, Math.min(97, centerX + fan * (maximumSpread / 4)));
-  // The character's centre sits at the centre of the same numbered spotlight image.
-  // Additional rows are layered slightly behind it, still inside the marker area.
-  const y = Math.max(36, getChoiceSpotlightCenterYInCitizenPlaza() - row * 9);
-  const scale = Math.max(0.56, 0.9 - row * 0.055);
-
+  const laneCenter = getChoiceSpotlightCenterX(placement);
+  const laneWidth = CHOICE_SPOTLIGHT_LAYOUT.widthPercent / Math.max(1, placement.optionCount);
+  const count = Math.max(1, placement.groupSize ?? placement.groupIndex + 1);
+  const columns = count <= 3 ? 3 : count <= 16 ? 4 : count <= 36 ? 5 : 6;
+  const columnOrder = columns === 3 ? [1, 0, 2] : [2, 1, 3, 0, 4, 5];
+  const column = columnOrder[placement.groupIndex % columns] ?? 0;
+  const row = Math.floor(placement.groupIndex / columns);
+  const totalRows = Math.max(1, Math.ceil(count / columns));
+  const offset = (column - (columns - 1) / 2) * (laneWidth * 0.8 / columns);
+  const x = Math.max(2, Math.min(98, laneCenter + offset));
+  // Local CitizenPlaza height covers y=73.9%..100% of the game stage.
+  // Keep fronts away from bottom OBS/taskbar safe area, and leave the screen
+  // apron above free for highly readable answer-zone labels.
+  const backY = 27;
+  const frontY = 72;
+  const y = totalRows === 1 ? 58 : backY + (frontY - backY) * row / (totalRows - 1);
+  const scale = count > 48 ? 0.41 : count > 24 ? 0.48 : count > 12 ? 0.56 : count > 4 ? 0.7 : 0.86;
   return citizenPositionStyle({
     x, y, scale, z: Math.round(y) + 20 + (fallbackIndex % 5), index: fallbackIndex,
-    facing: fan < 0 ? 1 : fan > 0 ? -1 : 1,
+    facing: x < laneCenter ? 1 : -1,
   });
 }
 

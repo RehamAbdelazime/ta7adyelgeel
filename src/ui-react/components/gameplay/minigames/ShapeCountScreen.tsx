@@ -1,7 +1,7 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
-import { getShapeLabel, getChoiceTone, getPhaseHelper } from '../shared/overlay-types';
+import { getShapeLabel, getPhaseHelper } from '../shared/overlay-types';
 import type { ShapeCountShapeId } from '../../../../game-core/minigames/minigame-types';
 import { QuestionScreenShell, ShapeMark } from '../shared/question-shell';
 
@@ -20,7 +20,8 @@ export function ShapeCountScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
       miniGame={miniGame}
       tourPhase={tourPhase}
       helperText={miniGame.acceptsAnswers ? t('gameplay.helper.shape.answerNow') : miniGame.correctAnswer ? t('gameplay.shape.mostCommon', { answer: getShapeLabel(miniGame.correctAnswer as ShapeCountShapeId, t) }) : getPhaseHelper(tourPhase, t)}
-      choices={grid.choices.map((choice) => ({ command: choice.command, label: choice.label, tone: getChoiceTone(choice.shape), shape: choice.shape }))}
+      choices={grid.choices.map((choice) => ({ command: choice.command, label: choice.label, tone: 'cyan' as const, shape: choice.shape }))}
+      layout="choice"
       bodyClassName="gameplay-question-body-shapes"
     >
       <div className="gameplay-shape-stage">

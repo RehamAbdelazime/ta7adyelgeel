@@ -21,17 +21,17 @@ assert(flow.includes('setStep(step === \'mode\' ? \'home\' : \'mode\')'), 'Escap
 assert(!flow.includes('<LobbyHomeScreen canStart='), 'Browsing games is locked until players join');
 assert(flow.includes("disabled={mode === 'single' && !canStart}"), 'Single-round launch must still be gated');
 assert(flow.includes("disabled={!canStart || selectedMiniGames.length === 0}"), 'Tour launch must still be gated');
-assert(flow.includes("{'✓'}"), 'Selected tour cards should not imply deterministic play order');
+assert(flow.includes("selectedMiniGames.includes(miniGame.id) ? '✓' : '+'"), 'Selected tour cards must keep a visible selection state');
 assert(settings.includes('dialogRef') && settings.includes('restoreFocusRef') && settings.includes('event.key === \'Tab\''), 'Modal keyboard flow is missing');
 assert(settings.indexOf('if (hasDisplayChanges) {', settings.indexOf('const applySettings'))
   < settings.indexOf('if (hasLanguageChanges) actions.setLanguage(draftLocale)', settings.indexOf('const applySettings')), 'Settings commits language before display succeeds');
 assert(settings.includes('setDraftMusicVolume(Number(event.target.value))'), 'Audio draft is not transactional');
 assert(answerDock.includes('isCountAnswer ? 3 : 1'), 'Numeric count input is limited to one digit');
 assert(answerDock.includes("miniGame.id === 'lucky-cup'"), 'Lucky cup choice count must be 3');
-assert(answerDock.includes("miniGame.id === 'before-or-after'"), 'Before/after choice count must be 2');
+assert(answerDock.includes("miniGame.id === 'before-after'"), 'Before/after choice count must be 2');
 for (const key of ['gameplay.score.topThree', 'gameplay.score.finalRounds', 'gameplay.score.calculatingHint', 'ui.play.noGamesEnabled']) {
   assert(localeTypes.includes(`'${key}'`), `Missing localization key type: ${key}`);
-  assert(translations.split(`'${key}':`).length === 3, `Missing/duplicated translation of ${key}`);
+  assert.equal((translations.match(new RegExp(`[\\"']${key.replaceAll('.', '\\.')}[\\"']\\s*:`, 'g')) ?? []).length, 2, `Missing/duplicated translation of ${key}`);
 }
 assert(!translations.includes('"Choose Tour Games Hint"'), 'Literal placeholder copy returned');
 assert(!translations.includes('"Choose Mini Game Hint"'), 'Literal placeholder copy returned');

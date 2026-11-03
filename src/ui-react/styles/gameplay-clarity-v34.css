@@ -1,0 +1,198 @@
+/* V34 Gameplay Clarity: stage-safe actions + no redundant answer banners.
+   Imported LAST deliberately: legacy minigame CSS has !important overrides. */
+
+/* The host's primary action lives on the vacant apron beneath the monitor,
+   never above the timer, food photo, question, or the choice row. */
+html body #root .game-scene-stage > .qshell-reveal-stage-action {
+  position: absolute !important;
+  top: auto !important;
+  right: auto !important;
+  left: 50% !important;
+  bottom: clamp(42px, 6.4%, 74px) !important;
+  transform: translateX(-50%) !important;
+  z-index: 220 !important;
+  min-width: clamp(215px, 20vw, 350px) !important;
+  min-height: clamp(56px, 5.7vw, 76px) !important;
+  padding: 10px clamp(24px,2vw,38px) !important;
+  border: 2px solid #aeffe0 !important;
+  border-radius: 18px !important;
+  background: linear-gradient(140deg, #58f7c6, #6febf4) !important;
+  box-shadow: 0 8px 0 rgba(4,46,61,.85), 0 10px 32px rgba(0,0,0,.8), 0 0 25px rgba(50,248,183,.35) !important;
+  color: #082f38 !important;
+  font: 850 clamp(18px, 1.5vw, 27px)/1.1 var(--font-game-ui, sans-serif) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  animation: v34-action-in .26s ease-out both;
+}
+html body #root .game-scene-stage > .qshell-reveal-stage-action:hover {
+  filter: brightness(1.08) !important;
+  translate: 0 -3px !important;
+}
+html body #root .game-scene-stage > .qshell-reveal-stage-action:focus-visible { outline: 4px solid #fff !important; outline-offset: 4px !important; }
+@keyframes v34-action-in { from { opacity:0; translate:0 12px; } to { opacity:1; translate:0 0; } }
+
+/* Count the Beat: the source keyframes were accidentally commented out,
+   while every item was explicitly opacity:0. That hid ALL symbols. */
+@keyframes ctb-pop {
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(.45) rotate(var(--ctb-rotate,0deg)); }
+  11%  { opacity: 1; transform: translate(-50%,-50%) scale(1.16) rotate(var(--ctb-rotate,0deg)); }
+  65%  { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(var(--ctb-rotate,0deg)); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(.72) rotate(var(--ctb-rotate,0deg)); }
+}
+html body #root .gameplay-question-count-the-beat .ctb-shell {
+  grid-template-rows: auto minmax(0,1fr) !important;
+  gap: clamp(7px,.65vw,13px) !important;
+  padding: clamp(8px,.75vw,14px) !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-target-bar {
+  align-self: center !important;
+  justify-self: center !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+  min-height: 0 !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage {
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: block !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage > span[aria-hidden] {
+  position: absolute !important;
+  display: block !important;
+  line-height: 1 !important;
+  will-change: opacity, transform;
+}
+html body #root .gameplay-question-count-the-beat .ctb-reveal-overlay {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(16px, 2.5vw, 44px) !important;
+  background: radial-gradient(ellipse at center, rgba(14,68,78,.45), rgba(0,5,18,.82) 70%) !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-reveal-glyph { font-size: clamp(100px,12vw,205px) !important; }
+html body #root .gameplay-question-count-the-beat .ctb-reveal-count { font-size: clamp(100px,12vw,195px) !important; }
+
+/* Lucky Cup: reserve a real fixed choice row, above the footer. */
+html body #root .gameplay-question-shell.lucky-v27-shell.qshell-v20 .qshell-content {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) !important;
+  grid-template-rows: minmax(0,1fr) clamp(72px,8.2vh,92px) !important;
+  gap: clamp(6px,.6vw,12px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  padding-bottom: clamp(5px,.5vw,9px) !important;
+}
+html body #root .gameplay-question-shell.lucky-v27-shell.qshell-v20 .qshell-content > .qshell-body {
+  grid-column: 1 !important; grid-row: 1 !important;
+  min-height: 0 !important; height: 100% !important;
+}
+html body #root .gameplay-question-shell.lucky-v27-shell.qshell-v20 .qshell-content > .qshell-choices {
+  grid-column: 1 !important; grid-row: 2 !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0,1fr)) !important;
+  grid-template-rows: minmax(0,1fr) !important;
+  min-height: 0 !important; max-height: none !important;
+  height: 100% !important; padding: 0 !important; margin: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+html body #root .gameplay-question-shell.lucky-v27-shell.qshell-v20 .qshell-choices .gameplay-choice-card {
+  min-height: 0 !important; height: 100% !important; max-height: 100% !important;
+  box-sizing: border-box !important; overflow: hidden !important;
+}
+html body #root .gameplay-question-shell.lucky-v27-shell.qshell-v20 .qshell-footer {
+  flex: 0 0 clamp(22px,2.2vh,30px) !important;
+  min-height: 0 !important;
+}
+
+/* Maze: use 1:1 natural SVG fitting; older CSS enlarged the SVG 118%
+   while a narrow choice row overlaid/cropped the lower maze and its gates. */
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-content {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) !important;
+  grid-template-rows: minmax(0,1fr) !important;
+  overflow: hidden !important;
+  min-height: 0 !important;
+}
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-body.gameplay-question-body-maze {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-body > .gameplay-maze-full-stage,
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-body > .gameplay-maze-stage {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-body .gameplay-maze-full-svg,
+html body #root .gameplay-question-shell.gameplay-question-maze-gates .qshell-body .gameplay-maze-svg {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  object-fit: contain !important;
+  transform: none !important;
+  scale: 1 !important;
+  margin: auto !important;
+  overflow: visible !important;
+}
+
+/* The private-answer control is visually attached to the host on the left
+   wing, never floating in the middle of the scenery. */
+html body #root .game-scene-stage .qshell-host-bubble-v20 {
+  left: clamp(18px,2.2%,38px) !important;
+  bottom: 34% !important;
+  width: clamp(174px,12.4vw,212px) !important;
+  z-index: 165 !important;
+}
+html body #root .game-scene-stage .qshell-host-bubble-v20::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -9px !important;
+  left: 29% !important;
+  width: 15px !important; height: 15px !important;
+  background: rgba(12,31,64,.98) !important;
+  border-right: 1px solid rgba(93,213,245,.72) !important;
+  border-bottom: 1px solid rgba(93,213,245,.72) !important;
+  transform: rotate(45deg) !important;
+  pointer-events: none !important;
+}
+@media (max-width: 1280px), (max-height: 740px) {
+  html body #root .game-scene-stage > .qshell-reveal-stage-action {bottom:5% !important; min-height:54px!important;min-width:195px!important;font-size:17px!important;}
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .game-scene-stage > .qshell-reveal-stage-action {animation:none!important;}
+  /* Static icon fallbacks remain visible, without an animated count burst. */
+  html body #root .gameplay-question-count-the-beat .ctb-stage > span[aria-hidden] {opacity:1!important;animation:none!important;transform:translate(-50%,-50%)!important;}
+}

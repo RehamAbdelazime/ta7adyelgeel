@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
+import { PrivateStreamerAnswerDock } from '../streamer/PrivateStreamerAnswerDock';
 
 const RUNTIME = './assets/game/runtime';
 
@@ -134,6 +135,16 @@ export function HostMascotLayer({ scene }: { scene: 'lobby' | 'minigame' }) {
             <img className="concert-host-question-pose concert-host-question-open" src={questionOpenAsset} alt="" draggable={false} />
             <img className="concert-host-question-pose concert-host-question-blink" src={questionBlinkAsset} alt="" draggable={false} />
           </div>
+        </div>
+      ) : null}
+
+      {/* V31: the only host-answer mount, shared by every mini-game.
+          Keep it on the 16:9 stage next to the presenter, never in the
+          desktop overlay (which previously rendered the old floating dock).
+          Interactive content deliberately stays outside aria-hidden layers. */}
+      {isQuestionHostActive ? (
+        <div className="qshell-host-bubble-v20">
+          <PrivateStreamerAnswerDock />
         </div>
       ) : null}
 

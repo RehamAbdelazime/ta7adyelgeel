@@ -250,7 +250,7 @@
     "gameplay.helper.phase.tourStarting": "Starting countdown...",
     "gameplay.helper.phase.scoring": "Round score is ready.",
     "gameplay.helper.phase.wait": "Wait for the answer window.",
-    "gameplay.hint.food.countdown": "DISH NAME HINT IN {{seconds}} SEC",
+    "gameplay.hint.food.countdown": "HINT IN {{seconds}}s",
     "gameplay.food.photoLoading": "PHOTO LOADING",
     "gameplay.food.correctCountry": "Correct country: {{answer}}",
     "gameplay.shape.mostCommon": "Most common: {{answer}}",
@@ -388,7 +388,11 @@
     "minigame.guessLogo.title": "Guess The Logo",
     "minigame.guessLogo.note": "Guess the brand from the logo clue.",
     "ui.play.chooseMiniGameHint": "Every game is a different challenge. Pick your favorite!",
-    "ui.play.chooseTourGamesHint": "Pick the games for your show. Their order will be shuffled."
+    "ui.play.chooseTourGamesHint": "Pick the games for your show. Their order will be shuffled.",
+    "gameplay.answer.chatShort": "Answer in chat:",
+    "gameplay.answer.revealedShort": "Answer revealed!",
+    "gameplay.score.sessionEnded": "SESSION ENDED",
+    "gameplay.score.sessionEndedHint": "Scores so far · Round {{current}} / {{total}}"
   },
   "ar": {
     "app.logo.main": "تحدي الجيل",
@@ -642,7 +646,7 @@
     "gameplay.helper.phase.tourStarting": "العد التنازلي شغال...",
     "gameplay.helper.phase.scoring": "نتيجة الجولة جاهزة.",
     "gameplay.helper.phase.wait": "استنى وقت الإجابة يفتح.",
-    "gameplay.hint.food.countdown": "اسم الأكلة يظهر بعد {{seconds}} ثانية",
+    "gameplay.hint.food.countdown": "تلميح بعد {{seconds}} ث",
     "gameplay.food.photoLoading": "الصورة بتتحمل",
     "gameplay.food.correctCountry": "البلد الصح: {{answer}}",
     "gameplay.shape.mostCommon": "الأكثر ظهورًا: {{answer}}",
@@ -780,6 +784,10 @@
     "minigame.guessLogo.title": "اخمن اللوجو",
     "minigame.guessLogo.note": "اخمن العلامة من اللوجو.",
     "ui.play.chooseMiniGameHint": "كل لعبة فيها تحدي مختلف… اختار اللي يعجبك!",
-    "ui.play.chooseTourGamesHint": "اختار ألعاب الجولة، وترتيبها هيكون عشوائي."
+    "ui.play.chooseTourGamesHint": "اختار ألعاب الجولة، وترتيبها هيكون عشوائي.",
+    "gameplay.answer.chatShort": "جاوب في الشات:",
+    "gameplay.answer.revealedShort": "ظهرت الإجابة!",
+    "gameplay.score.sessionEnded": "انتهت اللعبة",
+    "gameplay.score.sessionEndedHint": "النتيجة حتى الآن · الجولة {{current}} / {{total}}"
   }
 }

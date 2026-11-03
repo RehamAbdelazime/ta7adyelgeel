@@ -1,44 +1,93 @@
-# Ta7ady ElGeel — Desktop (Electron / React)
+# Ta7ady ElGeel — Electron + React Game Show
 
-This is the complete Windows desktop game source, with the Premium Stage/Mode UI and the non-destructive cleanup pass.
+**Current maintenance baseline: V33 (safe code + repository cleanup, based on V32).**
 
-## Local setup
+A desktop Twitch-interactive game show with eleven registered mini-games, shared
+question layouts, host controls, scores, a full tour, illustrated instructions,
+and the Lucky Cup Turbo Finale. V33 does not change gameplay rules, question
+order, scoring weights, public game eligibility, Twitch authorization, or the
+Lucky Cup V30 speed curve.
 
-```bash
+## Windows setup
+
+Extract the complete V33 source archive into a **new, empty project folder**.
+Do not merge a clean-source archive on top of an old version: doing so leaves
+previously removed files in place.
+
+```powershell
 npm ci
+npm run verify:integrity
+npm run smoke:v2
 npm run verify:cleanup
+npm run verify:all
 npm test
 npm run build
-npm run start
+npm run audit:release
+npm run dev
 ```
 
-> `npm run start` builds the Electron main/preload and opens the application.
-> `npm run package:win` produces the portable Windows release (on a supported build host).
+`npm run start` builds Electron's main/preload and launches the app;
+`npm run package:win` creates a Windows portable release. The `dev` command
+starts both the Vite renderer and Electron. `audit:release` only runs *after*
+`build` because it verifies the actual output directory.
 
-## Architecture
+If you apply **V33 PATCH ONLY** on an existing V32 folder instead, files that
+were removed in V33 still exist after copying. After taking a backup:
 
-- `src/game-core/` — game logic, mini-games, scoring, localization, question bank.
-- `src/desktop-electron/` — Electron main process, Twitch auth/IRC, and the **single** active `preload.cts` bridge.
-- `src/ui-react/` — React UI, components, contexts, styles.
-- `src/ui-react/styles.css` — **ordered CSS entrypoint**, containing 17 local imports.
-- `src/ui-react/styles/legacy/` — legacy rules split by ordered cascade phase; edit carefully.
-- `src/ui-react/styles/premium-lobby.css` and `premium-stage-mode.css` — premium overrides, intentionally loaded last.
-- `public/assets/game/runtime/characters/stage-ready/` — unique PNG frames; duplicate bytes removed.
-- `src/ui-react/components/gameplay/citizens/sprite-frame-aliases.generated.ts` — maps all removed duplicate frames to byte-identical surviving assets. Every animation still runs ten logical frames.
+```powershell
+npm run cleanup:v33                # dry-run; deletes nothing
+npm run cleanup:v33 -- --apply     # removes only original V32 files with matching SHA-256
+```
 
-### Asset or CSS changes
+Modified files are never deleted by this helper. Re-extract into a fresh folder
+if you prefer a clean project without running any cleanup command.
 
-Run `npm run verify:assets` whenever adding/updating character animations. If replacing a surviving PNG, regenerate/check its dependent aliases before releasing; alias frames intentionally share a single file.
+## Project structure
 
-Run `npm run verify:css` and `npm run verify:landing-experience` after editing CSS. **Cascade order is behavior:** don't sort legacy imports alphabetically or move premium styles above legacy.
+| Path | Purpose |
+| --- | --- |
+| `src/game-core/` | Game runtime, tour phases, mini-game services, scoring, question bank, translations |
+| `src/desktop-electron/` | Electron main process, secure preload, Twitch auth and IRC |
+| `src/ui-react/` | React game stage, overlays, streamer controls, accessibility, UI |
+| `src/ui-react/styles.css` | Stable cascade entrypoint for seventeen legacy style modules |
+| `src/ui-react/styles/` | Newer feature-scoped styles; ordering is intentionally preserved |
+| `public/assets/game/runtime/` | Bundled stages, sprites, audio, game media, tuning config |
+| `src/game-core/minigames/true-fake/true-fake-questions.json` | Editable bilingual question content (500 entries) |
+| `scripts/` | Build checks, gameplay regression checks, release checks, safe cleanup |
+| `docs/history/releases/` | Historical release notes and archived manifests (not active instructions) |
+| `docs/CLEANUP_V33_AR.md` | Precise V33 cleanup changes and validation limits |
 
-## Validation
+## Verification and maintenance
 
-- `npm run verify:cleanup` — CSS order, frame aliases, previous UI hardening checks.
-- `npm run verify:assets` — validates 660 logical sprite-frame URLs.
-- `npm run verify:css` — validates all 17 CSS modules and resource links.
-- `npm run audit:security` — Electron/security static scan (generates ignored `SECURITY_AUDIT.json`).
-- `npm test` — game/test suite when dependencies are installed.
-- `npm run build` — actual React/Electron bundle when dependencies are installed.
+- `npm run verify:integrity` checks source imports, all imported CSS, static
+  asset paths, JSON, package-script links, Windows path collisions, file
+  signatures, duplicate public asset bytes, question bank consistency and
+  host-controlled reveal/lighting synchronization. Runs without dependencies.
+- `npm run smoke:v2` runs fast offline structural checks across the current game
+  system. It **does not** simulate a real Twitch stream or launch Electron.
+- `npm run verify:all` runs the complete historical/current source regression matrix
+  (including older CSS/UI contract checks) in one command.
+- `npm run verify:assets` checks all 660 logical sprite frames and their 278
+  aliases (so removing a duplicate sprite never removes an animation frame).
+- `npm run verify:css` checks the 17 cascade-ordered style modules.
+- `npm run check:localization` verifies typed/runtime dictionaries and prints
+  advisory JSX literal candidates; it never rewrites text automatically.
+- `npm run audit:security` checks the Electron/Twitch boundary and static
+  security assertions; output is `SECURITY_AUDIT.json` and is ignored by git.
+- `npm run lint` uses TypeScript typechecking and JavaScript ESLint rules. It
+  needs `npm ci` first.
+- `npm test`, `npm run build` and `npm run audit:release` are the full validation
+  gate **on a machine with all dependencies installed**.
 
-For previous iterations see `docs/history/`; the current cleanup report is `docs/cleanup-report-ar.md`.
+### CSS and game media safety
+
+This cleanup intentionally did **not** mass-delete selectors or reorder CSS:
+legacy styles contain thousands of conflicting `!important` declarations.
+Those require before/after screenshots in Electron at multiple resolutions.
+Do not delete generated sprite-alias mapping entries or unpublished game assets
+on the basis of filename searches; their paths can be created dynamically.
+
+## Detailed report
+
+See [`docs/CLEANUP_V33_AR.md`](docs/CLEANUP_V33_AR.md) for the exact refactors,
+removed/moved files, validations performed, and work that still needs live QA.

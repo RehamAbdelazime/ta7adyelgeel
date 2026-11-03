@@ -11,18 +11,18 @@ import {
 import type { CitizenSpotlightPlacement, CitizenSidePlacement } from './overlay-types';
 
 describe('citizen placement', () => {
-  it('places a character in the same horizontal center as its answer marker', () => {
+  it('places the first responder at the center of its longitudinal answer zone', () => {
     const placement: CitizenSpotlightPlacement = {
       kind: 'choice', optionNumber: 3, optionCount: 4, groupIndex: 0,
       tone: 'green', resultState: 'pending',
     };
     const style = getCitizenSpotlightStyle(placement, 0) as Record<string, unknown>;
-    expect(style['--citizen-x']).toBe('57.5%');
-    expect(style['--citizen-target-x']).toBe('57.5%');
-    expect(Number.parseFloat(String(style['--citizen-y']))).toBeCloseTo(65.1, 1);
+    expect(style['--citizen-x']).toBe('59.25%');
+    expect(style['--citizen-target-x']).toBe('59.25%');
+    expect(Number.parseFloat(String(style['--citizen-y']))).toBeCloseTo(58, 1);
   });
 
-  it('fans multiple viewers inside the same numbered marker area', () => {
+  it('spreads multiple responders across their shared answer zone', () => {
     const first = getCitizenSpotlightStyle({
       kind: 'choice', optionNumber: 1, optionCount: 4, groupIndex: 0,
       tone: 'cyan', resultState: 'pending',
@@ -32,7 +32,31 @@ describe('citizen placement', () => {
       tone: 'cyan', resultState: 'pending',
     }, 1) as Record<string, unknown>;
     expect(first['--citizen-x']).not.toBe(second['--citizen-x']);
-    expect(Number.parseFloat(String(first['--citizen-y']))).toBeCloseTo(65.1, 1);
+    expect(Number.parseFloat(String(first['--citizen-y']))).toBeCloseTo(58, 1);
+  });
+
+  it('keeps audience clusters inside their respective numbered aisles with up to 72 answers', () => {
+    const widths = { min: 13, lane: 74 / 4 };
+    for (const groupSize of [1, 2, 3, 4, 8, 16, 30, 72]) {
+      for (const optionNumber of [1, 2, 3, 4]) {
+        const zoneStart = widths.min + (optionNumber - 1) * widths.lane;
+        const zoneEnd = zoneStart + widths.lane;
+        const locations = Array.from({ length: groupSize }, (_, groupIndex) => {
+          const style = getCitizenSpotlightStyle({
+            kind: 'choice', optionNumber, optionCount: 4, groupIndex, groupSize,
+            tone: 'cyan', resultState: 'pending',
+          }, groupIndex) as Record<string, unknown>;
+          const x = Number.parseFloat(String(style['--citizen-x']));
+          const y = Number.parseFloat(String(style['--citizen-y']));
+          expect(x).toBeGreaterThanOrEqual(zoneStart);
+          expect(x).toBeLessThanOrEqual(zoneEnd);
+          expect(y).toBeGreaterThanOrEqual(27);
+          expect(y).toBeLessThanOrEqual(72);
+          return `${x.toFixed(4)}/${y.toFixed(4)}`;
+        });
+        expect(new Set(locations).size).toBe(groupSize);
+      }
+    }
   });
 
   it('creates real positions for lobby and side formations', () => {

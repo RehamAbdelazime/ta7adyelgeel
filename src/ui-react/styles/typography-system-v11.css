@@ -84,7 +84,7 @@ html body #root main[lang="ar"] .gameplay-main-screen-lobby-interactive .main-sc
 html body #root .main-screen-join-hint,
 html body #root .premium-lobby-status,
 html body #root .main-screen-live-chat-header,
-html body #root .premium-live-chat :is(.premium-chat-message, .premium-chat-empty, .main-screen-live-chat-message) {
+html body #root .premium-live-chat :is(.premium-chat-message, .main-screen-live-chat-message) {
   font-weight: 600 !important;
   letter-spacing: 0 !important;
   line-height: 1.45 !important;

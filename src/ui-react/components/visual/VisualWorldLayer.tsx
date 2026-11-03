@@ -4,6 +4,10 @@ import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { getVisibleAudience } from '../gameplay/shared/visible-audience';
 import { getAdaptiveLobbyCrowdCoordinates } from '../gameplay/shared/citizen-helpers';
 import { ConcertLightingRig } from './ConcertLightingRig';
+import { MiniGameLightingRig } from './MiniGameLightingRig';
+import { getCorrectOptionNumber, buildChoiceSpotlights } from '../gameplay/shared/answer-helpers';
+import { getLightingState } from './mini-game-lighting-cues';
+import { getScoringRevealKey, useRoundRevealCompletion } from '../gameplay/shared/RoundRevealCompletionContext';
 
 type VisualAsset = {
   id: string;
@@ -106,6 +110,21 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
     : 'visual-world-layer-lobby-active';
 
   const joinFlash = useLobbyJoinFlash(!isMiniGameScene);
+  // The same host-controlled reveal key drives both scoreboard and lighting.
+  // There is intentionally no time-based fallback here.
+  const { completedScoringRevealKey } = useRoundRevealCompletion();
+  const revealKey = getScoringRevealKey(snapshot.tour.tourId, snapshot.tour.roundNumber, snapshot.miniGame.questionId);
+  const phase = snapshot.tour.phase;
+  const hasScoredWinner = snapshot.tourScoreboardRows.some((row) => row.role === 'official' && row.total > 0)
+    || snapshot.lastRoundAwards.some((award) => award.role === 'official' && award.points > 0)
+    || snapshot.citizens.some((citizen) => citizen.role === 'official' && citizen.score > 0);
+  const lightingState = getLightingState({
+    phase,
+    revealFinished: completedScoringRevealKey === revealKey,
+    correctOption: getCorrectOptionNumber(snapshot.miniGame),
+    optionCount: buildChoiceSpotlights(snapshot.miniGame).length,
+    hasScoredWinner: snapshot.activeSessionMode !== null && hasScoredWinner,
+  });
 
   return (
     <div
@@ -133,11 +152,7 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
 
       {isMiniGameScene ? (
         <div className="question-stage-lighting-v18" aria-hidden="true">
-          <i className="question-stage-beam question-stage-beam-left" />
-          <i className="question-stage-beam question-stage-beam-center" />
-          <i className="question-stage-beam question-stage-beam-right" />
-          <i className="question-stage-floor-glow question-stage-floor-glow-left" />
-          <i className="question-stage-floor-glow question-stage-floor-glow-right" />
+          <MiniGameLightingRig state={lightingState} />
         </div>
       ) : null}
 

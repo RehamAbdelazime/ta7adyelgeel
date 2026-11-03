@@ -54,6 +54,8 @@ export type CitizenSpotlightPlacement = {
   optionNumber: number;
   optionCount: number;
   groupIndex: number;
+  /** Total current answers in this lane, for responsive crowd density. */
+  groupSize?: number;
   tone: ChoiceTone;
   resultState: 'pending' | 'correct' | 'partial' | 'wrong';
 };

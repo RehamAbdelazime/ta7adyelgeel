@@ -27,7 +27,7 @@ import {
 } from '../persistence/persistence-types';
 import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, GuessLogoAnswer, HangmanAnswer, MazeGateAnswer, MemoryCountAnswer, MiniGameId, MiniGameScoreAward, ShapeCountAnswer, ShapeCountShapeId, TrueFakeAnswer } from '../minigames/minigame-types';
 import { CountTheBeatMiniGameService } from '../minigames/count-the-beat/count-the-beat-service';
-import { LuckyCupMiniGameService } from '../minigames/lucky-cup/lucky-cup-service';
+import { LuckyCupMiniGameService, getLuckyCupPreparationMsForRound } from '../minigames/lucky-cup/lucky-cup-service';
 import { BeforeOrAfterMiniGameService } from '../minigames/before-or-after/before-or-after-service';
 import { enforceMiniGameScoreAwardPolicy, getAwardScoreOutcome } from '../minigames/scoring-policy';
 import { ProfileService } from '../profiles/profile-service';
@@ -130,6 +130,8 @@ export class GameStore {
   private lastRoundAwards: MiniGameScoreAward[] = [];
   private phaseTick: ReturnType<typeof setInterval> | null = null;
   private lastCommandFeedback: CommandFeedback | null = null;
+  // One accepted host answer per question, regardless of UI remounts or Twitch ID changes.
+  private privateStreamerAnswerSubmitted = false;
 
   constructor(private readonly eventBus: GameEventBus, options: GameStoreOptions = {}) {
     this.runtimeConfig = options.runtimeConfig ?? DEFAULT_RUNTIME_GAME_CONFIG;
@@ -232,6 +234,18 @@ export class GameStore {
   }
 
   submitPrivateStreamerAnswer(params: { rawAnswer: string; displayName?: string | null; twitchUserId?: string | null }): CommandFeedback {
+    if (this.privateStreamerAnswerSubmitted) {
+      const feedback = this.createCommandFeedback({
+        ok: false,
+        displayName: this.sanitizePrivateStreamerName(params.displayName),
+        command: 'private-answer',
+        message: this.locale === 'ar' ? 'إجابتك اتسجلت ومينفعش تغيرها.' : 'Your answer is already locked.',
+      });
+      this.lastCommandFeedback = feedback;
+      this.notifyChanged();
+      return feedback;
+    }
+
     const normalizedCommand = this.normalizePrivateStreamerAnswer(params.rawAnswer);
     const displayName = this.sanitizePrivateStreamerName(params.displayName);
 
@@ -853,6 +867,20 @@ export class GameStore {
   }
 
   private handleMiniGameAnswerCommand(message: TwitchChatMessage, command: ParsedTwitchCommand) {
+    // A broadcaster must not be able to replace an accepted private answer by posting
+    // from chat (or vice versa), even if the account ID changes after reconnecting.
+    if (message.isBroadcaster && this.privateStreamerAnswerSubmitted) {
+      const response = this.locale === 'ar' ? 'إجابتك اتسجلت ومينفعش تغيرها.' : 'Your first answer is already locked.';
+      return { ok: false, command, message: response };
+    }
+    const result = this.handleMiniGameAnswerCommandForCitizen(message, command);
+    if (result.ok && message.isBroadcaster) {
+      this.privateStreamerAnswerSubmitted = true;
+    }
+    return result;
+  }
+
+  private handleMiniGameAnswerCommandForCitizen(message: TwitchChatMessage, command: ParsedTwitchCommand) {
     const citizen = this.citizens.get(message.twitchUserId);
 
     if (!citizen) {
@@ -1565,6 +1593,8 @@ export class GameStore {
         this.getActiveMiniGameService().setStatus('prepare');
         break;
       case 'answer_window_open': {
+        // Reset only when a new answer window opens, not on pause/resume or a render.
+        this.privateStreamerAnswerSubmitted = false;
         const miniGameService = this.getActiveMiniGameService();
         if (supportsTimedAnswerHint(miniGameService)) {
           miniGameService.configureAnswerWindow({
@@ -1720,6 +1750,20 @@ export class GameStore {
     const phaseConfigDuration = this.runtimeConfig.tour.phaseDurationsMs[phase];
     const miniGameOverride = this.runtimeConfig.tour.miniGamePhaseOverridesMs[this.activeMiniGameId]?.[phase];
     let durationMs = miniGameOverride ?? phaseConfigDuration ?? defaultDurationMs;
+
+    // Unlike ordinary mini-games, Lucky Cup must finish showing EVERY swap
+    // before Twitch answers open. The displayed path and authoritative answer
+    // are derived from the same immutable plan in LuckyCupMiniGameService.
+    if (phase === 'tour_starting') {
+      // The FSM resolves duration BEFORE onPhaseChanged creates the next
+      // round, so use the upcoming round/game selection, not the old service
+      // snapshot from the previous round.
+      const upcoming = this.tourStateMachine.getSnapshot();
+      const upcomingGameId = this.selectMiniGameForRound(upcoming.roundNumber, upcoming.tourNumber);
+      if (upcomingGameId === 'lucky-cup') {
+        durationMs = Math.max(durationMs, getLuckyCupPreparationMsForRound(upcoming.roundNumber));
+      }
+    }
 
     if (phase !== 'answer_window_open' || !this.activeChaosEvent?.answerWindowMultiplier) {
       return durationMs;
@@ -2360,6 +2404,7 @@ export class GameStore {
       feed: [...this.feed],
       tour,
       commandFeedback: this.lastCommandFeedback,
+      privateStreamerAnswerSubmitted: this.privateStreamerAnswerSubmitted,
       miniGame: this.getActiveMiniGameService().getSnapshot(this.locale),
       nextMiniGameId: this.getNextMiniGameId(tour),
       lastRoundAwards: [...this.lastRoundAwards],

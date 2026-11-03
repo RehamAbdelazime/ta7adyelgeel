@@ -1,0 +1,187 @@
+/* Ta7ady v21 — clickable scoreboard, shared casual action, living mini-game lights.
+ * Loaded AFTER v20, scoped to gameplay score phases and mini-game decoration.
+ * The gameplay overlay's ancestor is pointer-events:none by design; score panels
+ * must opt IN to pointer interaction or Back To Stage cannot receive clicks. */
+html body #root .gameplay-overlay-minigame-scene .gameplay-main-screen-active.gameplay-phase-tour_complete,
+html body #root .gameplay-overlay-minigame-scene .gameplay-main-screen-active.gameplay-phase-scoring,
+html body #root .gameplay-main-screen-overlay > .show-scoreboard-v21,
+html body #root .gameplay-main-screen-overlay > .show-intermission-v21 {
+  pointer-events: auto !important;
+}
+html body #root .show-scoreboard-v21 .show-score-action-v21,
+html body #root .show-intermission-v21 .show-score-action-v21,
+html body #root .show-scoreboard-v21 .show-score-pages button {
+  pointer-events: auto !important;
+}
+
+/* Same CTA is reused by round, intermission and final score screens. */
+html body #root .show-score-action-v21 {
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: clamp(8px, .7vw, 13px) !important;
+  min-width: clamp(159px, 13.6vw, 232px) !important;
+  min-height: clamp(43px, 3.45vw, 57px) !important;
+  padding: clamp(6px, .55vw, 10px) clamp(15px, 1.1vw, 22px) !important;
+  border: 1.5px solid rgba(119, 242, 249, .78) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #52e4ed 0%, #52d2ed 73%, #68d3fa 100%) !important;
+  color: #062338 !important;
+  box-shadow: 0 5px 18px rgba(20, 173, 221, .16), inset 0 1px 0 rgba(255, 255, 255, .5) !important;
+  font: 750 clamp(14px, 1.02vw, 21px)/1.12 var(--font-game-ui, 'Fredoka Variable', sans-serif) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transform: none !important;
+  transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease !important;
+}
+html body #root .show-score-action-v21 .show-score-action-chevron {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 21px;
+  font-weight: 700;
+  background: rgba(3, 40, 64, .12);
+}
+html body #root .show-score-action-v21:hover {
+  filter: brightness(1.065) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 23px rgba(36, 197, 232, .3), inset 0 1px 0 rgba(255, 255, 255, .62) !important;
+}
+html body #root .show-score-action-v21:focus-visible {
+  outline: 3px solid #fff1b3 !important;
+  outline-offset: 4px !important;
+}
+html body #root main[lang='ar'] .show-score-action-v21 {
+  font-family: var(--font-game-ui, 'Alexandria Variable', Tahoma, sans-serif) !important;
+}
+html body #root main[dir='rtl'] .show-score-action-chevron { transform: scaleX(-1); }
+
+/* Illuminated, but gentle, game-show accents: all decorative layers ignore input. */
+.show-scoreboard-v21,
+.show-intermission-v21 { position: relative !important; isolation: isolate !important; }
+.show-score-ambient-v21 {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+.show-scoreboard-v21 > :not(.show-score-ambient-v21),
+.show-intermission-v21 > :not(.show-score-ambient-v21) {
+  position: relative !important;
+  z-index: 1 !important;
+}
+.show-score-ambient-v21 .show-score-light-beam {
+  position: absolute;
+  top: -5%;
+  width: 29%;
+  height: 84%;
+  opacity: .32;
+  filter: blur(8px);
+  clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 0;
+  animation: scoreLightSwingV21 10s ease-in-out infinite alternate;
+}
+.show-score-light-beam-left {left: -3%; background: linear-gradient(180deg, rgba(105,234,255,.4),rgba(35,178,222,.13),transparent); --light-angle:-8deg;}
+.show-score-light-beam-right {right: -3%; background: linear-gradient(180deg,rgba(255,134,224,.36),rgba(234,76,194,.13),transparent);--light-angle:8deg;animation-delay:-4.3s!important;}
+.show-score-ambient-v21 .show-score-light-core {
+  position: absolute;
+  top: -22px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  opacity: .56;
+  pointer-events: none;
+  animation: scoreLightPulseV21 4.7s ease-in-out infinite alternate;
+}
+.show-score-light-core-left {left: 9%;background: radial-gradient(circle,#f9ffff 0%,rgba(90,234,251,.6) 11%,transparent 65%);}
+.show-score-light-core-right {right:9%;background:radial-gradient(circle,#fff7ff 0%,rgba(252,111,221,.54) 11%,transparent 65%);animation-delay:-2s!important;}
+.show-score-ambient-v21 .show-score-light-pool {
+  position:absolute;
+  width:38%;
+  height:21%;
+  top:46%;
+  opacity:.18;
+  border-radius:50%;
+  filter:blur(24px);
+  animation: scorePoolFloatV21 11s ease-in-out infinite alternate;
+}
+.show-score-light-pool-left {left:5%;background:radial-gradient(ellipse,rgba(59,228,249,.6),transparent 67%);}
+.show-score-light-pool-right {right:5%;background:radial-gradient(ellipse,rgba(250,92,213,.52),transparent 67%);animation-delay:-5.5s!important;}
+.show-scoreboard-v21 .show-score-hero h2,
+.show-intermission-v21 .show-score-hero h2 {
+  text-shadow: 0 2px 15px rgba(70,207,241,.16) !important;
+}
+.show-scoreboard-v21 .show-score-leader {
+  border-color: rgba(105,229,245,.48) !important;
+  background: linear-gradient(107deg,rgba(29,136,158,.27),rgba(16,42,78,.7) 60%,rgba(238,91,206,.14)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.08), 0 9px 30px rgba(0,0,0,.12) !important;
+}
+.show-scoreboard-v21.show-scoreboard-has-points:not(.show-scoreboard-ended-early) .show-score-leader {
+  animation: scoreLeaderGlowV21 5.2s ease-in-out infinite alternate;
+}
+/* Keep an aborted/no-score game calm rather than crowning a zero-point champion. */
+.show-scoreboard-v21.show-scoreboard-ended-early .show-score-leader { border-color:rgba(106,195,218,.35)!important; }
+.show-scoreboard-v21.show-scoreboard-solo .show-scoreboard-body { justify-content: center !important; }
+.show-scoreboard-v21.show-scoreboard-solo .show-scoreboard-surface { background: radial-gradient(ellipse at 50% 49%,rgba(63,160,205,.065),transparent 65%); }
+
+@keyframes scoreLightSwingV21 {
+  from{transform:rotate(calc(var(--light-angle) - 3deg));opacity:.22}
+  to{transform:rotate(calc(var(--light-angle) + 4deg));opacity:.36}
+}
+@keyframes scoreLightPulseV21 {from{opacity:.32;transform:scale(.9)}to{opacity:.64;transform:scale(1.07)}}
+@keyframes scorePoolFloatV21 {from{transform:translateX(-7%)}to{transform:translateX(7%)}}
+@keyframes scoreLeaderGlowV21 {from{box-shadow:inset 0 1px rgba(255,255,255,.09),0 8px 30px rgba(0,0,0,.16)}to{box-shadow:inset 0 1px rgba(255,255,255,.09),0 9px 28px rgba(37,205,239,.14)}}
+
+/* SVG coordinates follow the actual mini-game truss (roof y≈80, audience y≈960).
+ * Beam + pool in each group: no disconnected moving circles or heavy repaint loops. */
+.visual-world-layer-minigame-active .question-stage-lighting-v18 .minigame-lighting-rig-v21 {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: .9;
+  overflow: visible;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+.visual-world-layer-minigame-active .minigame-light-wash {
+  transform-box: view-box;
+  animation: minigameWashV21 10s ease-in-out infinite alternate;
+}
+.visual-world-layer-minigame-active .minigame-light-wash-left { transform-origin:320px 81px; }
+.visual-world-layer-minigame-active .minigame-light-wash-center { transform-origin:960px 81px; animation-duration:12s;animation-delay:-5s; }
+.visual-world-layer-minigame-active .minigame-light-wash-right { transform-origin:1600px 81px; animation-duration:11.5s;animation-delay:-7s; }
+.visual-world-layer-minigame-active .minigame-light-head {
+  transform-box: view-box;
+  will-change: transform;
+}
+.visual-world-layer-minigame-active .minigame-light-head-left {
+  transform-origin: 211px 413px;
+  animation: minigameSweepLeftV21 12s cubic-bezier(.43,0,.57,1) infinite alternate;
+}
+.visual-world-layer-minigame-active .minigame-light-head-right {
+  transform-origin: 1709px 413px;
+  animation: minigameSweepRightV21 13.5s cubic-bezier(.43,0,.57,1) infinite alternate;
+  animation-delay: -4s;
+}
+@keyframes minigameWashV21 {from{opacity:.46;transform:rotate(-1.6deg)}to{opacity:.83;transform:rotate(1.6deg)}}
+@keyframes minigameSweepLeftV21 {from{transform:rotate(-6deg);opacity:.64}to{transform:rotate(6deg);opacity:.96}}
+@keyframes minigameSweepRightV21 {from{transform:rotate(6deg);opacity:.64}to{transform:rotate(-6deg);opacity:.96}}
+@media (prefers-reduced-motion: reduce) {
+  .show-score-ambient-v21 *,
+  .show-scoreboard-v21 .show-score-leader,
+  .visual-world-layer-minigame-active .minigame-lighting-rig-v21 * {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    transform: none !important;
+  }
+  .show-score-action-v21 {transition:none!important;}
+}

@@ -22,6 +22,7 @@ import {
 } from '../shared/citizen-helpers';
 import { buildChoiceSpotlights } from '../shared/answer-helpers';
 import { getVisibleAudience } from '../shared/visible-audience';
+import { usesModernQuestionUi } from '../shared/modern-question-games';
 
 export function CitizenPlazaOverlay({
   citizens,
@@ -38,9 +39,22 @@ export function CitizenPlazaOverlay({
   const { status } = useTwitchConnection();
   const streamerUserId = status.accountUserId;
   const choiceSpotlights = buildChoiceSpotlights(miniGame);
-  // Characters stand on answer markers only while answers are being accepted.
-  // As soon as scoring starts, every viewer returns to the stage-side formation.
-  const shouldUseAnswerPlacement = miniGame.hasRound && shouldUseCitizenAnswerPlacement(phase);
+  // Keep responders in their answer lanes for the 4.8s correct-answer reveal.
+  // When the scoreboard replaces the reveal, move everyone back to the wing.
+  // Other legacy games retain their previous movement timing.
+  const usesModernQuestion = usesModernQuestionUi(miniGame.id);
+  const [showScoringAudience, setShowScoringAudience] = useState(true);
+  useEffect(() => {
+    if (phase !== 'scoring' || !usesModernQuestion) {
+      setShowScoringAudience(true);
+      return undefined;
+    }
+    setShowScoringAudience(true);
+    const timer = window.setTimeout(() => setShowScoringAudience(false), 4800);
+    return () => window.clearTimeout(timer);
+  }, [phase, usesModernQuestion, miniGame.questionId]);
+  const shouldUseAnswerPlacement = miniGame.hasRound && (shouldUseCitizenAnswerPlacement(phase)
+    || (usesModernQuestion && phase === 'scoring' && showScoringAudience));
   const answerOptionByUserId = shouldUseAnswerPlacement ? getAnswerOptionByUserId(miniGame) : new Map<string, number>();
   const isMiniGameSceneActive = phase !== 'lobby_open' && phase !== 'cleanup';
   const visibleCitizens = getVisibleAudience(citizens, streamerUserId);
@@ -53,6 +67,13 @@ export function CitizenPlazaOverlay({
   const showLobbyFootlights = !isMiniGameSceneActive && visibleCitizens.length <= 12;
   const crowdDensityClass = visibleCitizens.length > 24 ? 'gameplay-citizen-plaza-packed' : visibleCitizens.length > 8 ? 'gameplay-citizen-plaza-busy' : '';
   const optionGroupCounters = new Map<number, number>();
+  const optionGroupSizes = new Map<number, number>();
+  if (shouldUseAnswerPlacement) {
+    for (const citizen of visibleCitizens) {
+      const option = answerOptionByUserId.get(citizen.twitchUserId);
+      if (option) optionGroupSizes.set(option, (optionGroupSizes.get(option) ?? 0) + 1);
+    }
+  }
 
   if (visibleCitizens.length === 0) {
     return null;
@@ -78,6 +99,7 @@ export function CitizenPlazaOverlay({
             optionNumber: choice.optionNumber,
             optionCount: choiceSpotlights.length,
             groupIndex,
+            groupSize: optionGroupSizes.get(choice.optionNumber) ?? 0,
             tone: choice.tone,
             resultState: getCitizenChoiceResultState(miniGame, answerOption),
           };

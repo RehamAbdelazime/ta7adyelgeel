@@ -1,0 +1,110 @@
+/* v22: Timed show-light cues. All sources are existing illustrated truss fixtures.
+ * No hit-testing, no per-frame React updates, and no artificial flashes over text. */
+.visual-world-layer-minigame-active .minigame-lighting-rig-v21 .minigame-v22-event-cue {
+  opacity: 0;
+  pointer-events: none;
+  animation: ta7ady-event-cue-in-v22 800ms cubic-bezier(.21,.7,.27,1) both;
+}
+/* Both articulated beams carry their own matching light pool while aiming.
+ * The pivot is the actual lamp center, not the center of the screen. */
+.visual-world-layer-minigame-active .minigame-v22-correct-cue > g {
+  transform-box: view-box;
+}
+.visual-world-layer-minigame-active .minigame-v22-correct-cue .minigame-v22-aim-left {
+  transform-origin: 211px 413px;
+  animation: ta7ady-aim-left-v22 1150ms cubic-bezier(.22,.75,.28,1) both;
+}
+.visual-world-layer-minigame-active .minigame-v22-correct-cue .minigame-v22-aim-right {
+  transform-origin: 1709px 413px;
+  animation: ta7ady-aim-right-v22 1150ms cubic-bezier(.22,.75,.28,1) both;
+}
+@keyframes ta7ady-aim-left-v22 {
+  from { transform: rotate(-8deg); opacity: .1; }
+  to { transform: rotate(0deg); opacity: 1; }
+}
+@keyframes ta7ady-aim-right-v22 {
+  from { transform: rotate(8deg); opacity: .1; }
+  to { transform: rotate(0deg); opacity: 1; }
+}
+/* When a correct lane is announced, resting moving heads settle and the two
+ * side rigs converge toward that ONE lane. Existing light sources stay put. */
+.visual-world-layer-minigame-active .minigame-lighting-cue-correct .minigame-light-head {
+  animation-play-state: paused;
+  opacity: .18;
+  transition: opacity 550ms ease;
+}
+.visual-world-layer-minigame-active .minigame-lighting-cue-correct .minigame-light-wash {
+  opacity: .23;
+  animation-play-state: paused;
+}
+/* The winner announcement is warm and brief, not an endlessly looping disco. */
+.visual-world-layer-minigame-active .minigame-lighting-cue-winner .minigame-light-wash {
+  opacity: .26;
+  animation-play-state: paused;
+}
+.visual-world-layer-minigame-active .minigame-lighting-cue-winner .minigame-v22-winner-cue {
+  animation: ta7ady-winner-stage-v22 2600ms ease-out both;
+}
+@keyframes ta7ady-event-cue-in-v22 {
+  0% { opacity: 0; }
+  100% { opacity: .9; }
+}
+@keyframes ta7ady-winner-stage-v22 {
+  0% { opacity: 0; }
+  22% { opacity: .87; }
+  69% { opacity: .65; }
+  100% { opacity: .37; }
+}
+
+/* A video-wall reflection accompanies the physical ceiling beam. It is BEHIND
+ * scoreboard content (z-order defined in scoreboard-stage-v21.css). */
+html body .show-score-ambient-v21 .show-score-winner-screen-glow-v22 {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  top: 28%;
+  height: 47%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 60%, rgba(255,215,137,.20) 0%,rgba(255,223,148,.075) 40%,transparent 72%);
+  filter: blur(14px);
+  opacity: 0;
+  animation: ta7ady-leader-screen-v22 2900ms ease-out both;
+}
+html body .show-scoreboard-v21.show-scoreboard-winner-v22 .show-score-leader {
+  border-color: rgba(255,213,136,.57) !important;
+  background: linear-gradient(103deg,rgba(42,123,144,.33),rgba(28,42,76,.73) 62%,rgba(255,174,117,.16)) !important;
+  animation: ta7ady-leader-card-v22 2800ms ease-out both !important;
+}
+html body .show-scoreboard-v21.show-scoreboard-winner-v22 .show-score-place,
+html body .show-intermission-v21 .show-intermission-player-1 .show-intermission-place {
+  color: #ffe3ad;
+}
+html body .show-intermission-v21:has(.show-score-ambient-winner-v22) .show-intermission-player-1 {
+  border-color: rgba(255,221,151,.66);
+  animation: ta7ady-leader-card-v22 2800ms ease-out both;
+}
+@keyframes ta7ady-leader-screen-v22 {
+  0% { opacity: 0; transform: scale(.87); }
+  25% { opacity: 1; transform: scale(1.02); }
+  72% { opacity: .55; transform: scale(1.05); }
+  100% { opacity: .24; transform: scale(1.06); }
+}
+@keyframes ta7ady-leader-card-v22 {
+  0% { box-shadow: inset 0 1px rgba(255,255,255,.07), 0 0 0 rgba(255,211,124,0); }
+  26% { box-shadow: inset 0 1px rgba(255,255,255,.13), 0 0 29px rgba(255,207,116,.26); }
+  100% { box-shadow: inset 0 1px rgba(255,255,255,.07), 0 7px 24px rgba(255,207,116,.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .visual-world-layer-minigame-active .minigame-lighting-rig-v21 .minigame-v22-event-cue,
+  .visual-world-layer-minigame-active .minigame-v22-correct-cue > g,
+  html body .show-score-ambient-v21 .show-score-winner-screen-glow-v22,
+  html body .show-scoreboard-v21.show-scoreboard-winner-v22 .show-score-leader,
+  html body .show-intermission-v21:has(.show-score-ambient-winner-v22) .show-intermission-player-1 {
+    animation: none !important;
+    transition: none !important;
+  }
+  .visual-world-layer-minigame-active .minigame-lighting-rig-v21 .minigame-v22-event-cue { opacity: .55; }
+  .visual-world-layer-minigame-active .minigame-lighting-cue-winner .minigame-v22-event-cue { opacity: .35; }
+  html body .show-score-ambient-v21 .show-score-winner-screen-glow-v22 { opacity: .23; }
+}

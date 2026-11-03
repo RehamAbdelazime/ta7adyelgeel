@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+/** V34: prevent regressions in the four player-reported game layout defects. */
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+const root = resolve(import.meta.dirname, '..');
+const read = file => readFileSync(resolve(root, file), 'utf8');
+const shell = read('src/ui-react/components/gameplay/shared/question-shell.tsx');
+const beat = read('src/ui-react/components/gameplay/minigames/CountTheBeatScreen.tsx');
+const cup = read('src/ui-react/components/gameplay/minigames/LuckyCupScreen.tsx');
+const maze = read('src/ui-react/components/gameplay/minigames/MazeGatesScreen.tsx');
+const food = read('src/ui-react/components/gameplay/minigames/FoodOriginScreen.tsx');
+const css = read('src/ui-react/styles/gameplay-clarity-v34.css');
+const main = read('src/ui-react/main.tsx');
+let checks = 0;
+const check = (ok, reason) => { assert.ok(ok, reason); checks++; };
+check(shell.includes('createPortal(revealAction, stageElement)'), 'Reveal button stays below screen in scene-stage portal');
+check(shell.includes('showRevealBanner = isAnswerReveal && !hasChoices'), 'Choices communicate correctness: no redundant banner');
+check(shell.includes("miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates'"), 'Beat and Maze use in-game reveal, not a duplicate banner');
+check(shell.includes('onClick={continueToLeaderboard ?? actions.skipPhase}'), 'Reveal is controlled manually by host');
+check(food.includes('layout="choice"') && food.includes('<MediaCard'), 'Food artwork and selected choice remain intact');
+check(css.includes('game-scene-stage > .qshell-reveal-stage-action') && css.includes('bottom: clamp('), 'Large action anchored in safe stage apron');
+check(beat.includes('animation: `ctb-pop') && css.includes('@keyframes ctb-pop'), 'Beat icon animation MUST have live keyframes');
+check(css.includes('opacity: 1; transform: translate(-50%,-50%)'), 'Beat icons must reach visible state');
+check(beat.includes('ctb-reveal-glyph') && beat.includes('ctb-reveal-count'), 'Beat reveal displays glyph + number in playfield');
+check(!beat.includes('<ScoringGuide') && !beat.includes('ctb-instruction'), 'Beat screen stripped of redundant instructional/scoring text');
+check(cup.includes('elapsed < LUCKY_CUP_SHUFFLE_START_MS') && cup.includes('{phasePrompt ?'), 'Cup duplicate question is hidden after tracking starts');
+check(css.includes('lucky-v27-shell.qshell-v20 .qshell-content') && css.includes('grid-template-rows: minmax(0,1fr) clamp(72px'), 'Cup choice row guaranteed visible height');
+check(maze.includes('choices={[]} layout="focus"'), 'Maze has no duplicate numbered choice cards');
+check(maze.includes('{gate.optionNumber}</text>') && maze.includes('{path.optionNumber}</text>'), 'All maze paths show number only');
+check(css.includes('gameplay-question-maze-gates') && css.includes('max-height: 100% !important'), 'Maze SVG contained within stage height');
+check(css.includes('qshell-host-bubble-v20') && css.includes('bottom: 34%'), 'Unified stage-mounted host bubble positioned beside host');
+check(main.includes("import './styles/gameplay-clarity-v34.css';") && main.lastIndexOf('gameplay-clarity-v34.css') > main.lastIndexOf('experience-unification-v32.css'), 'Scoped V34 CSS overrides legacy last');
+console.log(`V34 four-game clarity contracts: PASS (${checks} checks).`);

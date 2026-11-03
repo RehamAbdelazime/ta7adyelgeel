@@ -37,6 +37,15 @@ type GameContextValue = {
 
 const GameContext = createContext<GameContextValue | null>(null);
 
+/** Freeze only the stage's outgoing view while a curtain closes. Runtime and
+ * actions still point to the live game; never rewind the game store itself. */
+export function GameViewSnapshotProvider({ snapshot, children }: { snapshot: GameSnapshot; children: ReactNode }) {
+  const parent = useGame();
+  const view = useMemo(() => ({ ...parent, snapshot }), [parent, snapshot]);
+  return <GameContext.Provider value={view}>{children}</GameContext.Provider>;
+}
+
+
 export function GameProvider({ children }: { children: ReactNode }) {
   const runtime = useMemo(() => createGameRuntime({ persistence: createDesktopPersistenceAdapter() }), []);
 

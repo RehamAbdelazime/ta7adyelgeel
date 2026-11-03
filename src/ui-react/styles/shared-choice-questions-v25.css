@@ -1,0 +1,149 @@
+/* v25 — Shared question HUD rollout.
+   All ordinary multiple-choice games use QuestionScreenShell(layout="choice").
+   Only their central challenge artwork remains game-specific. These overrides
+   are deliberately scoped to modern variants; special minigames keep legacy
+   geometry until they receive a dedicated visual QA pass. */
+
+/* Shape Count: the visual puzzle fills the same hero area used by Food Origin.
+   Legacy Shape Count CSS hard-coded a two-column layout and 430px min-height;
+   neither applies to a modern choice screen. */
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .qshell-body.gameplay-question-body-shapes {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .qshell-body.gameplay-question-body-shapes .gameplay-shape-stage {
+  box-sizing: border-box !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: clamp(8px, 1.1vw, 22px) !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+  transform: none !important;
+}
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .gameplay-shape-grid {
+  box-sizing: border-box !important;
+  width: min(92%, 720px) !important;
+  max-width: 100% !important;
+  max-height: 95% !important;
+  height: auto !important;
+  margin: auto !important;
+  padding: clamp(4px, .5vw, 9px) !important;
+  gap: clamp(4px, .75vw, 13px) !important;
+  align-items: center !important;
+  justify-items: center !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .gameplay-shape-grid .gameplay-shape-mark {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: clamp(24px, 3.6vw, 68px) !important;
+  height: clamp(24px, 3.6vw, 68px) !important;
+  margin: auto !important;
+  filter: none !important;
+}
+/* Triangles rely on border drawing. Avoid forcibly replacing their zero-width
+   geometry; only constrain the enclosing grid, which already handles them. */
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .gameplay-shape-grid .gameplay-shape-triangle {
+  width: 0 !important;
+  height: 0 !important;
+  border-left-width: clamp(12px, 1.7vw, 32px) !important;
+  border-right-width: clamp(12px, 1.7vw, 32px) !important;
+  border-bottom-width: clamp(24px, 3.3vw, 64px) !important;
+}
+
+/* Three shape choices follow the SAME bottom horizontal row, number badge,
+   cyan border and result feedback as Food Origin (no separate shape UI). */
+html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .qshell-choices.gameplay-question-choices-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-template-rows: minmax(0, 1fr) !important;
+  gap: clamp(8px, .8vw, 15px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  transform: none !important;
+}
+html body .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-card-shape {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(0,1fr) !important;
+  grid-template-rows: minmax(0,1fr) auto !important;
+  align-items: center !important;
+  justify-items: center !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-card-shape > .gameplay-choice-shape-answer {
+  grid-area: 1 / 2 / 3 / 3 !important;
+  justify-self: center !important;
+  width: clamp(40px, 3.8vw, 72px) !important;
+  height: clamp(40px, 3.8vw, 72px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+}
+html body .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-card-shape .gameplay-choice-shape-svg {
+  width: clamp(40px, 3.8vw, 72px) !important;
+  height: clamp(40px, 3.8vw, 72px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  display: block !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* Guess Logo and Couple/Siblings: share Food Origin's full visual panel, while
+   preserving original contain framing and existing content. */
+html body .gameplay-question-shell.qshell-v20.gameplay-question-guess-logo .qshell-body .gameplay-logo-guess-card,
+html body .gameplay-question-shell.qshell-v20.gameplay-question-true-fake .qshell-body .gameplay-question-statement-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+  border-radius: 10px !important;
+}
+html body .gameplay-question-shell.qshell-v20.gameplay-question-guess-logo .gameplay-logo-guess-mark {
+  font-size: clamp(90px, 10vw, 175px) !important;
+}
+html body .gameplay-question-shell.qshell-v20.gameplay-question-true-fake .gameplay-question-statement-card {
+  font: 820 clamp(24px, 2.8vw, 50px)/1.2 var(--font-game-title, var(--font-game-ui)) !important;
+}
+
+/* Same HUD + hint-size choices across compact 720p windows. */
+@media (max-width: 1280px), (max-height: 740px) {
+  html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .gameplay-shape-grid {
+    width: min(94%, 570px) !important;
+    gap: clamp(4px, .5vw, 8px) !important;
+  }
+  html body .gameplay-question-shell.qshell-v20.gameplay-question-shape-count .gameplay-shape-grid .gameplay-shape-mark {
+    width: clamp(20px, 3vw, 45px) !important;
+    height: clamp(20px, 3vw, 45px) !important;
+  }
+}

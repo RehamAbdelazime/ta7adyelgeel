@@ -4,7 +4,8 @@ import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 
 const STATUS_RESET_MS = 1400;
 
-export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boolean } = {}) {
+// The sole V31 host-answer UI, styled and positioned by the stage-mounted pod.
+export function PrivateStreamerAnswerDock() {
   const { snapshot, actions } = useGame();
   const { status } = useTwitchConnection();
   const [value, setValue] = useState('');
@@ -12,7 +13,11 @@ export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boo
   const [statusTone, setStatusTone] = useState<'idle' | 'ok' | 'error'>('idle');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const canAnswer = snapshot.tour.phase === 'answer_window_open' && snapshot.miniGame.acceptsAnswers;
+  // The GameStore owns the answer lock; an accepted answer closes this dock
+  // immediately and cannot reopen until the next question (including remounts).
+  const canAnswer = snapshot.tour.phase === 'answer_window_open'
+    && snapshot.miniGame.acceptsAnswers
+    && !snapshot.privateStreamerAnswerSubmitted;
   const choiceCount = useMemo(() => getPrivateChoiceCount(snapshot.miniGame), [snapshot.miniGame]);
   const isCountAnswer = snapshot.miniGame.id === 'count-the-beat';
   const isWordAnswer = snapshot.miniGame.id === 'hangman';
@@ -52,15 +57,15 @@ export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boo
     setValue('');
     setStatusTone(feedback.ok ? 'ok' : 'error');
     setStatusMessage(feedback.ok ? 'Submitted privately' : feedback.message);
-    inputRef.current?.focus();
+    // Do not refocus after a successful submit: the store update unmounts the dock.
+    if (!feedback.ok) inputRef.current?.focus();
   };
 
   return (
-    <aside className={`private-streamer-answer private-streamer-answer-${statusTone} ${embedded ? 'private-streamer-answer-embedded' : ''}`} aria-label={isArabic ? 'إجابة الهوست الخاصة' : 'Host private answer'}>
+    <aside className={`private-streamer-answer private-streamer-answer-embedded private-streamer-answer-${statusTone}`} aria-label={isArabic ? 'إجابة الهوست الخاصة' : 'Host private answer'}>
       <div className="private-streamer-answer-header">
-        {embedded ? <strong>{isArabic ? 'إجابة الهوست' : 'HOST ANSWER'}</strong> : (
-          <><span>{isArabic ? 'للهوست فقط' : 'HOST ONLY'}</span><strong>{isArabic ? 'الإجابة الخاصة' : 'Private answer'}</strong></>
-        )}
+        <span className="qshell-host-private-tag">{isArabic ? 'خاص • HOST' : 'PRIVATE • HOST'}</span>
+        <strong>{isArabic ? 'اختيار الهوست' : 'Host pick'}</strong>
       </div>
 
       <form
@@ -81,7 +86,7 @@ export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boo
           maxLength={isWordAnswer ? 30 : isCountAnswer ? 3 : 1}
           value={value}
           onChange={(event) => setValue(event.target.value.replace(isWordAnswer ? /^!/ : isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
-          placeholder={isWordAnswer ? 'letter / word' : isCountAnswer ? '0–999' : `1–${choiceCount}`}
+          placeholder={isCountAnswer ? '0–999' : isWordAnswer ? (isArabic ? 'كلمة' : 'word') : `1 – ${choiceCount}`}
           aria-label={isArabic ? 'اكتب إجابة الهوست' : 'Type host answer'}
         />
         <button type="submit" disabled={!isValidAnswer}>{isArabic ? 'إرسال' : 'SEND'}</button>
@@ -97,7 +102,7 @@ export function PrivateStreamerAnswerDock({ embedded = false }: { embedded?: boo
 type MiniGameSnapshotLike = ReturnType<typeof useGame>['snapshot']['miniGame'];
 
 function getPrivateChoiceCount(miniGame: MiniGameSnapshotLike): number {
-  if (miniGame.id === 'true-fake' || miniGame.id === 'couple-or-siblings' || miniGame.id === 'before-or-after') return 2;
+  if (miniGame.id === 'true-fake' || miniGame.id === 'couple-or-siblings' || miniGame.id === 'before-after') return 2;
   if (miniGame.id === 'lucky-cup') return 3;
   if (miniGame.id === 'shape-count') return miniGame.shapeGrid?.choices.length ?? 4;
   if (miniGame.id === 'memory-count') return miniGame.memoryCount?.choices.length ?? 4;

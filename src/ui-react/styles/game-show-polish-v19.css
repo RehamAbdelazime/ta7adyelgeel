@@ -1,0 +1,370 @@
+/* Ta7ady ElGeel v19 — unified Casual Game Show language.
+ * Scoped to opt-in Food Origin/Maze question shell and NEW scoreboard components.
+ * Does not modify game logic, answers, timer, Twitch, old question layouts or scores.
+ */
+:root {
+  --show-cyan: #4de3ed;
+  --show-pink: #fa57c7;
+  --show-ink: #f4faff;
+  --show-muted: #b0c5d7;
+  --show-panel: #0b1730;
+  --show-border: rgba(91, 194, 228, .29);
+  --show-radius: 14px;
+}
+
+/* ================ QUESTION HUD ================ */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 {
+  --v18-cyan: var(--show-cyan);
+  --v18-pink: var(--show-pink);
+  padding: clamp(10px, .9vw, 17px) clamp(12px, 1vw, 20px) !important;
+  gap: clamp(7px, .55vw, 11px) !important;
+  background: linear-gradient(160deg, rgba(5, 17, 38, .96), rgba(12, 16, 42, .95)) !important;
+  border: 1px solid var(--show-border) !important;
+  border-radius: var(--show-radius) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.045) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-topline {
+  display: flex !important;
+  gap: clamp(8px, .75vw, 14px) !important;
+  min-height: clamp(36px, 3vw, 47px) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-game-name {
+  flex: 0 1 auto !important;
+  max-width: 21% !important;
+  font: 750 clamp(12px, .92vw, 18px)/1.2 var(--font-game-ui, sans-serif) !important;
+  color: var(--show-cyan) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-question-meta {
+  flex: 0 0 auto !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background: rgba(78, 228, 244, .09) !important;
+  padding: clamp(5px, .45vw, 9px) clamp(7px, .62vw, 12px) !important;
+  color: #dff7fb !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-title {
+  font: 740 clamp(21px, 1.6vw, 33px)/1.22 var(--font-game-title, var(--font-game-ui)) !important;
+  color: #fcfdff !important;
+  padding: 0 clamp(6px, 1vw, 15px) !important;
+  margin: clamp(2px, .25vw, 5px) auto 0 !important;
+  text-shadow: 0 2px 7px rgba(0,0,0,.5) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-question-timer {
+  flex: 0 1 clamp(135px, 13vw, 210px) !important;
+  max-width: clamp(135px, 13vw, 210px) !important;
+  margin-inline-start: 0 !important;
+  gap: 7px !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-question-timer strong {
+  color: #f1ffff !important;
+  font: 800 clamp(13px, 1.02vw, 21px)/1 var(--font-game-ui, sans-serif) !important;
+}
+
+/* Compact, fixed host control lives in reserved header space, not on audience floor. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-host-slot {
+  flex: 0 1 clamp(175px, 17vw, 275px) !important;
+  min-width: 152px !important;
+  max-width: 275px !important;
+  margin-inline-start: auto !important;
+  z-index: 8 !important;
+  position: relative !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded {
+  width: 100% !important; min-width: 0 !important; max-width: none !important;
+  height: clamp(34px, 2.8vw, 43px) !important;
+  min-height: 0 !important;
+  margin: 0 !important; padding: 3px !important;
+  display: flex !important; align-items: center !important; gap: 6px !important;
+  background: rgba(8, 26, 52, .88) !important;
+  border: 1px solid rgba(91, 194, 228, .32) !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded .private-streamer-answer-header {
+  display: flex !important; flex: 0 0 auto !important; align-items: center !important;
+  margin: 0 0 0 5px !important; padding: 0 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded .private-streamer-answer-header strong {
+  font: 760 clamp(9px,.7vw,12px)/1 var(--font-game-ui,sans-serif) !important;
+  color: #b9e2ec !important; letter-spacing: 0 !important; text-shadow: none !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded .private-streamer-answer-form {
+  width: 100% !important; height: 100% !important; min-width: 0 !important; flex: 1 1 0 !important;
+  display: grid !important; grid-template-columns: minmax(0,1fr) auto !important; gap: 3px !important;
+  margin: 0 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded input {
+  width: 100% !important; height: 100% !important; min-width: 0 !important;
+  background: rgba(4, 14, 31, .68) !important; border: 0 !important;
+  border-radius: 6px !important; padding: 0 8px !important;
+  font: 700 clamp(11px, .82vw, 15px)/1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded button {
+  height: 100% !important; min-width: clamp(46px, 4.2vw, 72px) !important;
+  border-radius: 6px !important; background: var(--show-cyan) !important;
+  color: #09213a !important; border: 0 !important; padding: 0 6px !important;
+  font: 750 clamp(10px, .75vw, 13px)/1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded button:disabled {opacity: .48 !important;cursor: not-allowed !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded p {
+  position: absolute !important; inset-inline: 0 !important; top: calc(100% + 2px) !important;
+  background: #0a273a !important; border-radius: 6px !important;
+  padding: 3px 5px !important; margin: 0 !important; color: #b9ffdf !important;
+  font: 650 11px/1.1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .private-streamer-answer-embedded .private-answer-idle-message {display:none !important;}
+
+/* Uniform answer option language, not four unrelated rainbow frames. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-content {position:relative !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-choices {gap: clamp(6px, .52vw, 9px) !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card {
+  --v18-choice: var(--show-cyan) !important;
+  --qx-choice: var(--show-cyan) !important;
+  padding: clamp(9px, .65vw, 14px) !important;
+  gap: clamp(9px, .75vw, 15px) !important;
+  border: 1px solid rgba(111, 168, 215, .28) !important;
+  border-inline-start: 3px solid rgba(92, 226, 237, .66) !important;
+  background: rgba(18, 29, 57, .85) !important;
+  border-radius: 11px !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card > strong {
+  border: 1px solid rgba(77, 227, 237, .44) !important;
+  border-radius: 8px !important;
+  background: rgba(77, 227, 237, .1) !important;
+  color: #7ceaf5 !important;
+  height: clamp(39px, 3.2vw, 56px) !important;
+  min-width: clamp(48px, 3.4vw, 61px) !important;
+  font: 800 clamp(17px, 1.4vw, 26px)/1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card > span:not(.gameplay-choice-shape-answer):not(.qshell-vote-count) {
+  flex: 1 1 auto !important; color: white !important;
+  font: 740 clamp(18px, 1.35vw, 27px)/1.18 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card .qshell-vote-count {
+  display: grid !important; place-items: center !important;
+  margin-inline-start: auto !important; flex: 0 0 auto !important;
+  min-width: clamp(28px, 2.3vw, 43px) !important; height: clamp(26px, 2.3vw, 39px) !important;
+  padding: 0 6px !important; border-radius: 8px !important;
+  background: rgba(80, 218, 233, .1) !important;
+  border: 1px solid rgba(119, 223, 240, .21) !important;
+  color: #d6f4f6 !important;
+  font: 750 clamp(13px, .95vw, 18px)/1 var(--font-game-ui, sans-serif) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-result-correct {
+  border-color: #70e9b4 !important; border-inline-start: 4px solid #70e9b4 !important;
+  background: rgba(15, 85, 58, .88) !important; box-shadow: 0 0 23px rgba(66, 217, 133, .2) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-result-correct > strong {
+  color: #c9ffdd !important; background: rgba(118, 245, 177, .19) !important; border-color: #a5edbe !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-result-disabled {opacity: .3 !important;}
+
+/* Reveal occupies its own reserved stripe beneath the question; it never hides the
+ * photographed subject or the choices. Only the reveal phase uses this extra row. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-header .qshell-reveal-v19 {
+  position: relative !important; inset: auto !important;
+  margin: clamp(3px,.35vw,6px) auto 0 !important; transform:none !important;
+  z-index: 6 !important; pointer-events: none !important;
+  width: min(100%, 690px) !important;
+  min-height: clamp(46px, 3.7vw, 67px) !important;
+  display:flex !important;align-items:center !important;justify-content:center !important;
+  gap:clamp(8px,.9vw,15px) !important;flex-wrap:nowrap !important;
+  padding:clamp(7px,.55vw,12px) clamp(10px,1vw,17px) !important;
+  background:linear-gradient(110deg,rgba(12,103,71,.98),rgba(7,66,55,.97)) !important;
+  border:1px solid #85efbd !important;border-radius:10px !important;
+  box-shadow:0 5px 24px rgba(0,0,0,.26),0 0 19px rgba(90,236,158,.18) !important;
+  animation:showRevealFade .22s ease-out both !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-reveal-v19 :is(span,strong,b) {
+  font: 820 clamp(14px,1.1vw,21px)/1.15 var(--font-game-ui,sans-serif) !important;
+  color:#f4fff8 !important;white-space:nowrap !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-reveal-v19 strong{font-weight:900!important;overflow:hidden;text-overflow:ellipsis;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-reveal-v19 .qshell-reveal-check{display:grid!important;place-items:center!important;border-radius:50%!important;width:28px!important;height:28px!important;background:#bdffdd!important;color:#083927!important;flex:none!important;}
+@keyframes showRevealFade {from{opacity:0}to{opacity:1}}
+
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-footer {
+  height: clamp(36px, 3vw, 49px) !important; min-height: 0 !important;
+  flex: 0 0 auto !important; padding: 4px 3px 0 !important;
+  display: flex !important; flex-wrap: nowrap !important; align-items: center !important; gap: 14px !important;
+  border-top: 1px solid rgba(104, 178, 219, .16) !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quick-instruction {
+  font: 740 clamp(13px, 1vw, 19px)/1.2 var(--font-game-ui, sans-serif) !important;
+  color: #c8e7f6 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quick-total {
+  margin-inline-start: auto !important; white-space: nowrap !important;
+  font: 650 clamp(12px, .9vw, 17px)/1 var(--font-game-ui, sans-serif) !important; color: #b1cbd9 !important;
+}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quick-total b {font-size:1.25em !important;color:#f6fdff !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-next-button {
+  position: relative !important; inset: auto !important; transform: none !important; margin: 0 !important;
+  min-height: clamp(30px, 2.4vw, 42px) !important; min-width: clamp(74px, 6.5vw, 112px) !important;
+  border-radius: 8px !important; background: var(--show-cyan) !important; color: #071b2f !important;
+  font: 800 clamp(12px, .85vw, 17px)/1 var(--font-game-ui, sans-serif) !important;
+}
+
+/* ================ FLOOR ZONES ================ */
+/* Number plates are wayfinding markers. Vote totals are ONLY inside the choice cards,
+   so large character crowds never hide the data. These share placement math with citizens. */
+html body .gameplay-choice-spotlights.gameplay-choice-spotlights-v18.gameplay-choice-spotlights-v19 .gameplay-choice-spotlight {
+  --floor-accent: var(--show-cyan) !important;
+  width: min(100%, clamp(90px, 10vw, 160px)) !important;
+  height: clamp(59px, 5.8vw, 92px) !important;
+}
+html body .gameplay-choice-spotlights.gameplay-choice-spotlights-v18.gameplay-choice-spotlights-v19 .floor-answer-pad {
+  width: min(100%, 135px) !important;
+  height: clamp(51px, 5vw, 80px) !important;
+  border-radius: 11px !important; border: 2px solid rgba(95, 230, 237, .64) !important;
+  background: linear-gradient(180deg,rgba(14,53,80,.66),rgba(5,17,42,.5)) !important;
+  box-shadow: 0 6px 0 rgba(0,3,15,.65), 0 0 14px rgba(69, 226, 237, .12), inset 0 1px rgba(183, 250, 252, .16) !important;
+  transform: perspective(400px) rotateX(26deg) !important;
+}
+html body .gameplay-choice-spotlights.gameplay-choice-spotlights-v18.gameplay-choice-spotlights-v19 .floor-answer-number {
+  font: 850 clamp(29px, 3.1vw, 56px)/1 var(--font-game-ui, sans-serif) !important;
+  color: #effdff !important; text-shadow: 0 3px 2px rgba(0, 2, 22, .6) !important;
+}
+html body .gameplay-choice-spotlights.gameplay-choice-spotlights-v18.gameplay-choice-spotlights-v19 .gameplay-choice-spotlight-wrong .floor-answer-pad {
+  opacity: .25 !important; filter: grayscale(.7) !important;
+}
+html body .gameplay-choice-spotlights.gameplay-choice-spotlights-v18.gameplay-choice-spotlights-v19 .gameplay-choice-spotlight-correct .floor-answer-pad {
+  border-color: #99f6bb !important; background: rgba(12,81,49,.8) !important;
+  box-shadow: 0 0 23px rgba(107,255,164,.45) !important;
+}
+
+/* ================ SCOREBOARDS ================ */
+/* New component classes deliberately avoid the legacy scoreboard cascade. */
+.show-scoreboard-v19, .show-intermission-v19 {
+  box-sizing: border-box; height: 100%; width: 100%; min-height: 0; min-width: 0;
+  display: grid; grid-template-rows: auto minmax(0,1fr) auto;
+  gap: clamp(12px, 1.15vw, 22px);
+  padding: clamp(16px, 1.6vw, 27px);
+  border-radius: clamp(14px, 1.2vw, 20px);
+  border: 1px solid rgba(88,195,232,.35);
+  background: linear-gradient(160deg,rgba(4,18,42,.96),rgba(16,13,39,.96));
+  color: var(--show-ink);
+  box-shadow: inset 0 1px rgba(255,255,255,.055);
+  font-family: var(--font-game-ui, sans-serif);
+  overflow: hidden;
+}
+.show-score-hero {text-align:center; align-self:start; position:relative; padding: 0 12px 3px;}
+.show-score-hero h2 {margin:0; color:#f4fdff; font:800 clamp(26px,2.4vw,47px)/1.06 var(--font-game-title,var(--font-game-ui)); letter-spacing:.018em;}
+.show-score-hero p {margin: 5px 0 0; color:#a9d4e8; font:650 clamp(12px,.92vw,18px)/1.1 var(--font-game-ui);}
+.show-score-hero-decoration {position:absolute; top:0; inset-inline-start:20%; font-size:clamp(16px,1.5vw,25px);color:var(--show-pink);opacity:.9;}
+.show-scoreboard-surface {min-height:0; display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(9px,.9vw,15px);}
+.show-scoreboard-summary {display:flex;justify-content:space-between;align-items:center;gap:10px; padding: 0 clamp(8px,.7vw,13px); font:650 clamp(12px,.8vw,16px)/1.25 var(--font-game-ui); color:#b7cbd9;}
+.show-scoreboard-summary strong {color:#6ce9f2; font-weight:850;}
+.show-scoreboard-body {min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:clamp(12px,1vw,17px);overflow:hidden;}
+.show-score-leader {display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;align-items:center;gap:clamp(12px,1.25vw,23px);
+  border:1px solid rgba(88, 220, 232, .56);border-radius:14px;
+  background:linear-gradient(100deg,rgba(37,132,158,.24),rgba(15,40,74,.63) 65%,rgba(243,79,194,.08));
+  padding:clamp(11px,1.1vw,21px); min-height:clamp(108px,10vw,158px);
+  box-shadow:inset 0 1px rgba(255,255,255,.07);
+}
+.show-score-place {font:900 clamp(24px,2.2vw,44px)/1 var(--font-game-ui);color:#7af4fd;}
+.show-score-avatar {display:grid;place-items:center;width:clamp(55px,5.7vw,93px);height:clamp(55px,5.7vw,93px);flex:none;
+  border-radius:50%;background:linear-gradient(135deg,#117b95,#af3d9d);color:white;border:2px solid rgba(173,239,251,.56);
+  font:850 clamp(18px,1.7vw,30px)/1 var(--font-game-ui);}
+.show-score-leader-identity {min-width:0;display:flex;flex-direction:column;gap:clamp(8px,.8vw,13px);}
+.show-score-leader-identity > strong {font:800 clamp(22px,1.85vw,35px)/1.16 var(--font-game-ui);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.show-score-rounds {display:flex;gap:6px;flex-wrap:wrap;}
+.show-score-rounds span {color:#afc6d9;background:rgba(9,28,58,.7);border:1px solid rgba(115,193,228,.18);padding:4px 7px;border-radius:6px;
+  font:650 clamp(11px,.7vw,13px)/1.1 var(--font-game-ui);white-space:nowrap;}
+.show-score-rounds b{color:#f4fdff;}
+.show-score-rounds .show-score-active-round {border-color:rgba(70,224,234,.56);color:#8ef4fc;}
+.show-score-leader-points {display:flex;flex-direction:column;align-items:center;gap:3px;padding-inline:8px;}
+.show-score-leader-points b {font:850 clamp(31px,3.3vw,63px)/.9 var(--font-game-ui);color:#f6fcff;}
+.show-score-leader-points small{font:650 clamp(11px,.82vw,16px)/1 var(--font-game-ui);color:#a8c6d9;}
+.show-score-ranking {display:flex;flex-direction:column;gap:5px;min-height:0;overflow:hidden;}
+.show-score-ranking-head, .show-score-ranking-row {display:grid;grid-template-columns:clamp(55px,6vw,99px) minmax(0,1fr) clamp(80px,7vw,122px);align-items:center;gap:10px;padding:0 clamp(11px,1.1vw,20px);}
+.show-score-ranking-head {min-height:22px;color:#84cbdc;font:650 clamp(11px,.85vw,16px)/1.1 var(--font-game-ui);opacity:.95;}
+.show-score-ranking-head span:last-child{text-align:center;}
+.show-score-ranking-row {min-height:clamp(39px,3.35vw,57px);border:1px solid rgba(106,178,210,.18);border-radius:9px;background:rgba(17,32,58,.58);}
+.show-score-ranking-row b {font:800 clamp(16px,1.2vw,24px)/1 var(--font-game-ui);color:#92dce8;}
+.show-score-ranking-row span {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 clamp(15px,1.1vw,23px)/1 var(--font-game-ui);}
+.show-score-ranking-row strong{text-align:center;font:850 clamp(19px,1.3vw,25px)/1 var(--font-game-ui);color:#f3fdff;}
+.show-score-loading,.show-score-empty {min-height:0;display:grid;place-content:center;gap:8px;text-align:center;color:#bedbe5;font:750 clamp(16px,1.2vw,24px)/1.3 var(--font-game-ui);}
+.show-score-loading small{font-size:.7em;color:#9bb8ce;}
+.show-score-footer {display:flex;align-items:center;justify-content:space-between;min-height:clamp(42px,3.7vw,65px);gap:15px;border-top:1px solid rgba(108,193,222,.15);padding-top:clamp(8px,.65vw,12px);}
+.show-score-pages nav {display:flex;align-items:center;gap:12px;}
+.show-score-pages button{display:grid;place-items:center;width:clamp(28px,2.6vw,43px);height:clamp(28px,2.6vw,43px);border:1px solid rgba(96,204,229,.38);background:#0c2741;border-radius:8px;color:white;font:800 25px/1 var(--font-game-ui);cursor:pointer;}
+.show-score-pages button:disabled {opacity:.28;cursor:default;}
+.show-score-pages strong{color:#d6f3ff;font:750 clamp(13px,.9vw,18px)/1 var(--font-game-ui);}
+.show-score-action {border:0;border-radius:9px; background:linear-gradient(100deg,#35d7e5,#67e8f0);color:#041b30;
+  min-width:clamp(117px,12vw,218px); min-height:clamp(39px,3.5vw,58px);padding:5px 18px;
+  font:800 clamp(15px,1vw,20px)/1 var(--font-game-ui);cursor:pointer;box-shadow:0 5px 20px rgba(40,212,236,.1);}
+.show-score-action:hover {filter:brightness(1.1);transform:translateY(-1px);}
+.show-score-action:focus-visible,.show-score-pages button:focus-visible {outline:3px solid #ffe4a0;outline-offset:2px;}
+/* Intermission shares the same materials, type scale and primary action. */
+.show-intermission-body{min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,1.4vw,27px);}
+.show-intermission-podium{display:flex;justify-content:center;align-items:stretch;gap:clamp(9px,1vw,19px);}
+.show-intermission-player {flex:1;min-width:0;max-width:350px;min-height:clamp(112px,12vw,210px);padding:clamp(13px,1.1vw,22px);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:clamp(4px,.55vw,9px);
+  border-radius:13px;border:1px solid rgba(88,193,234,.28);background:rgba(18,39,67,.73);}
+.show-intermission-player-1{border-color:rgba(90,228,236,.65);background:linear-gradient(125deg,rgba(27,117,140,.3),rgba(23,32,63,.7));}
+.show-intermission-place{font:850 clamp(15px,1.1vw,23px)/1 var(--font-game-ui);color:#9ae1ed;}
+.show-intermission-avatar{display:grid;place-items:center;border-radius:50%;width:clamp(36px,3.7vw,66px);height:clamp(36px,3.7vw,66px);
+  background:linear-gradient(135deg,#116788,#a14496);color:#fff;font:800 clamp(13px,1.3vw,23px)/1 var(--font-game-ui);}
+.show-intermission-player strong{font:750 clamp(15px,1.25vw,23px)/1.1 var(--font-game-ui);text-align:center;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.show-intermission-player b{font:800 clamp(21px,1.7vw,31px)/1 var(--font-game-ui);color:#f7fdff;}
+.show-intermission-player b small{font-size:.55em;color:#aac2d3;}
+.show-intermission-next{display:flex;align-items:center;justify-content:center;gap:clamp(12px,1.4vw,26px);margin:0 auto;
+  width:min(100%,700px);padding:clamp(11px,1vw,18px);border-radius:11px;border:1px solid rgba(108,192,223,.29);background:rgba(10,32,60,.66);}
+.show-intermission-next span{color:#a6cada;font:650 clamp(13px,.95vw,19px)/1.2 var(--font-game-ui);}
+.show-intermission-next strong{font:800 clamp(16px,1.3vw,25px)/1.15 var(--font-game-ui);color:#f9feff;text-align:center;}
+.show-intermission-v19 > .show-score-action{justify-self:center;align-self:end;}
+
+@media (max-width: 1280px) {
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-topline{gap:6px!important;}
+  html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-host-slot{min-width:145px!important;}
+  .show-score-leader{min-height:90px;}
+  .show-scoreboard-v19,.show-intermission-v19{padding:clamp(10px,1.4vw,18px);gap:9px;}
+  .show-score-ranking-row{min-height:34px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .show-score-action,html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-reveal-v19 {animation:none!important;transition:none!important;}
+}
+
+/* Two short ranking columns fit all eight names without hiding players at 720p. */
+.show-scoreboard-v19 .show-score-ranking {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-auto-rows:clamp(36px,3.15vw,48px);
+  align-content:start;
+  gap:clamp(5px,.52vw,9px);
+  flex:0 1 auto;
+  overflow:visible;
+}
+.show-scoreboard-v19 .show-score-ranking-head {display:none;}
+.show-scoreboard-v19 .show-score-ranking-row {
+  grid-template-columns:clamp(33px,3.2vw,58px) minmax(0,1fr) clamp(36px,3.5vw,67px);
+  min-height:0; height:100%; padding:0 clamp(7px,.75vw,12px); gap:6px;
+}
+.show-scoreboard-v19.show-scoreboard-crowded .show-score-leader {min-height:clamp(82px,7.6vw,116px);padding:clamp(8px,.9vw,14px);}
+.show-scoreboard-v19.show-scoreboard-crowded .show-score-avatar {width:clamp(45px,4.5vw,70px);height:clamp(45px,4.5vw,70px);}
+.show-scoreboard-v19.show-scoreboard-crowded .show-score-place {font-size:clamp(20px,1.7vw,31px);}
+.show-scoreboard-v19.show-scoreboard-crowded .show-score-leader-points b {font-size:clamp(26px,2.4vw,43px);}
+.show-scoreboard-v19.show-scoreboard-crowded .show-scoreboard-body {gap:clamp(7px,.7vw,12px);}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card::after {display:none!important;content:none!important;}
+@media (max-height:760px){
+  .show-scoreboard-v19 .show-score-ranking{grid-auto-rows:32px;gap:4px;}
+  .show-scoreboard-v19 .show-score-ranking-row span{font-size:clamp(12px,.9vw,16px);}
+  .show-scoreboard-v19 .show-score-ranking-row strong{font-size:clamp(14px,1vw,19px);}
+  .show-scoreboard-v19.show-scoreboard-crowded .show-score-leader{min-height:78px;}
+  .show-scoreboard-v19.show-scoreboard-crowded .show-scoreboard-summary{font-size:11px;}
+}
+
+/* v19 legacy-cascade guard: no rainbow frames or pseudo decoration. */
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card {outline:0 !important; filter:none !important; text-shadow:none !important;}
+html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card::before, html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .gameplay-choice-card::after {content:none !important;display:none !important;box-shadow:none !important;}
+
+/* For a solo player, make the champion card intentional instead of a tiny row
+ * stranded at the top of a mostly empty table. */
+.show-scoreboard-v19.show-scoreboard-solo .show-scoreboard-body {justify-content:center;}
+.show-scoreboard-v19.show-scoreboard-solo .show-score-leader {min-height:clamp(158px,14vw,231px);}
+@media (max-height:760px) {
+  .show-scoreboard-v19.show-scoreboard-solo .show-score-leader {min-height:clamp(110px,13vw,165px);}
+}

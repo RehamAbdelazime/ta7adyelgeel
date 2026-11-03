@@ -108,9 +108,10 @@ for (const fragment of [
 
 const countTheBeatUi = read('src/ui-react/components/gameplay/minigames/CountTheBeatScreen.tsx');
 const memoryCountUi = read('src/ui-react/components/gameplay/minigames/MemoryCountScreen.tsx');
-for (const [file, source] of [['Count The Beat', countTheBeatUi], ['Memory Count', memoryCountUi]]) {
-  assertIncludes(source, 'ScoringGuide', `${file} must display its exact / near-miss / incorrect score rules.`);
-  assertIncludes(source, "gameplay.scoring.withinMargin", `${file} must explain its numeric margin reward.`);
-}
+// V34 explicitly removes the verbose numeric-scoring panel from Count the Beat's
+// timed screen (the scoring policy still lives in the service and its tests).
+assertNotIncludes(countTheBeatUi, '<ScoringGuide', 'Count the Beat must not distract players with a score table while counting icons.');
+assertIncludes(memoryCountUi, 'ScoringGuide', 'Memory Count keeps its score-guide presentation.');
+assertIncludes(memoryCountUi, 'gameplay.scoring.withinMargin', 'Memory Count still explains near-miss scoring.');
 
 console.log('v2 scoring policy verified: scoring is centralized; exact answers receive full points, numeric near-misses receive capped quarter credit, incorrect answers receive zero, and Risk Round only penalizes fully incorrect answers.');

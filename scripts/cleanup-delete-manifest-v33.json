@@ -1,0 +1,237 @@
+{
+  "sourceVersion": "V32",
+  "targetVersion": "V33",
+  "description": "Removal list for files no longer part of the clean source. SHA-256 matches V32 bytes; unknown or edited files are never deleted.",
+  "entries": [
+    {
+      "path": "PATCH_README_AR.md",
+      "size": 914,
+      "sha256": "91508c094bf33e1a0633979f447efb8e46d6fe73fccbdb86030bb7161c4d2df8"
+    },
+    {
+      "path": "PATCH_README_V15_AR.md",
+      "size": 1308,
+      "sha256": "e14002c57f681ba6206905cf795ca143364c3af8210854140c5c97d6c885345e"
+    },
+    {
+      "path": "PATCH_README_V16_AR.md",
+      "size": 861,
+      "sha256": "465610c6fb0fa9e2b462507e7ce6e7661f2d5f814668bcfd1303eb6b5187c3be"
+    },
+    {
+      "path": "PATCH_README_V17_AR.md",
+      "size": 818,
+      "sha256": "8b98736fa6f55de86f679d050fcd3c08c84a3afb1768d3c573f740924414b38e"
+    },
+    {
+      "path": "PATCH_README_V18_AR.md",
+      "size": 872,
+      "sha256": "a67a028375facad66b0cb64afaf850d56d220a3db8ca6fe4aea8b00699b9c8a7"
+    },
+    {
+      "path": "PATCH_README_V19_AR.md",
+      "size": 914,
+      "sha256": "91508c094bf33e1a0633979f447efb8e46d6fe73fccbdb86030bb7161c4d2df8"
+    },
+    {
+      "path": "PATCH_README_V20_AR.md",
+      "size": 1315,
+      "sha256": "da7c8d957d7d44092e62ecc106b512973cce0b735b014fab3ee5103d2e66b579"
+    },
+    {
+      "path": "PATCH_README_V22_AR.md",
+      "size": 796,
+      "sha256": "46a265313773ecbeb14d77dfccef6040bf56e758af54199be97e0973a8aa53cf"
+    },
+    {
+      "path": "PATCH_README_V23_AR.md",
+      "size": 865,
+      "sha256": "be7d925752b3e84b80375b9b107d485ad993281096e0c9408f82f610a726c839"
+    },
+    {
+      "path": "PATCH_README_V24_AR.md",
+      "size": 1746,
+      "sha256": "ba92f6cad320f46466a4cccc89d22c7bc461b3687dc7e4cf6187e04af514d546"
+    },
+    {
+      "path": "PATCH_README_V27_AR.md",
+      "size": 765,
+      "sha256": "12505b6be13d5a4a929d85cf516a019430dfa65eb8f28b5a2ddd58085ba05584"
+    },
+    {
+      "path": "PATCH_README_V31_AR.md",
+      "size": 543,
+      "sha256": "44fa24445916170dd014342ce2f632916839ac7efea7c99330de56feae627954"
+    },
+    {
+      "path": "PATCH_README_V32_AR.md",
+      "size": 700,
+      "sha256": "41da28ae38ffeb30f9b4a30d4fe9a827b30923f47ddab07506180d9a247961ad"
+    },
+    {
+      "path": "README_ARCHITECTURE_V16_AR.md",
+      "size": 9735,
+      "sha256": "0cd79b43eababf607a43783756f12229991e77cdfc70d060718eee7994c327bc"
+    },
+    {
+      "path": "README_EVENT_LIGHTING_V22_AR.md",
+      "size": 4004,
+      "sha256": "4aa45ec5d680692f96bc8f090ec3a36aea295143266f156575b6122159bd4c34"
+    },
+    {
+      "path": "README_EXPERIENCE_V32_AR.md",
+      "size": 4924,
+      "sha256": "a1aa2637ec14aa329482e3a7a3c46c96a06dd79880442bcab9274abd89629887"
+    },
+    {
+      "path": "README_HOST_ANSWER_LOCK_V24_AR.md",
+      "size": 3338,
+      "sha256": "e7b34207a440b18cdbb7ba4330df5afd3e6dfe80f795f065713624a8a5429984"
+    },
+    {
+      "path": "README_HOST_ANSWER_UNIFIED_V31_AR.md",
+      "size": 2740,
+      "sha256": "f929eed632a901322e6be4f90e4df59e15402a5660332e697ae69be7c8e1b10b"
+    },
+    {
+      "path": "README_LUCKY_CUP_V27_AR.md",
+      "size": 6893,
+      "sha256": "a56500d2f1e3c75497e65cef830a29ebf0809abd8c5f2f0b10c5d689f6f1a6d8"
+    },
+    {
+      "path": "README_LUCKY_CUP_V28_FIX_AR.md",
+      "size": 4579,
+      "sha256": "80691bf592c87a356819b06076cd39c78ab8ef2b29c889ecf62bd3b40fb82052"
+    },
+    {
+      "path": "README_LUCKY_CUP_V29_SPEED_AR.md",
+      "size": 2533,
+      "sha256": "c0a112ed69c0a7a1fd0a75413141c563db8f075bda7bd053fb1a34229f9e2446"
+    },
+    {
+      "path": "README_LUCKY_CUP_V30_TURBO_AR.md",
+      "size": 3601,
+      "sha256": "8ec7d6c8bc1e24708b0f9d706edb89bd37c549ee8b468ad987eb742fc38ba1dc"
+    },
+    {
+      "path": "README_MODE_PICKER_V12_AR.md",
+      "size": 1956,
+      "sha256": "aa5de2f4546d53081630b6247914b47cb89c0ed9444bff717c1ed2551cc17579"
+    },
+    {
+      "path": "README_QUESTION_EXPERIENCE_V17_AR.md",
+      "size": 5420,
+      "sha256": "636787adf78df8ad7ae6e5cd714454d73f9767ad0b0b0fb40a3513d5e4a36c36"
+    },
+    {
+      "path": "README_QUESTION_SCOREBOARD_V19_AR.md",
+      "size": 6837,
+      "sha256": "ea7732d4bfd9aa100be8145f422e6b1a05a5b554a3e2c784c5e852db198fd506"
+    },
+    {
+      "path": "README_QUESTION_SHOW_V20_AR.md",
+      "size": 3887,
+      "sha256": "a6bee81237dad66928ae59e14706b5dcbbbc64a6f6617d6a4ca5b8be843c5e7a"
+    },
+    {
+      "path": "README_QUESTION_STAGE_V18_AR.md",
+      "size": 8287,
+      "sha256": "46af498d0cee2b75a9b20b3e084ad417c228c4b7c884611f208ab5da09a06e75"
+    },
+    {
+      "path": "README_SCOREBOARD_LIGHTING_V21_AR.md",
+      "size": 4072,
+      "sha256": "53f89b7a1e8303e707feb6843326d238ffd420d65a75a0c6655031c310b3a175"
+    },
+    {
+      "path": "README_SCOREBOARD_POLISH_V23_AR.md",
+      "size": 4047,
+      "sha256": "7c7315532f74ed308f078db5eec8d931c86f2f2e878708019c23a7a85c87d273"
+    },
+    {
+      "path": "README_SETTINGS_ARCADE_V9_AR.md",
+      "size": 3040,
+      "sha256": "cfc4d63630adab5c7582b9109f663db9b7e520fe27dc95f15129e01873366c7f"
+    },
+    {
+      "path": "README_SETTINGS_CASUAL_V10_AR.md",
+      "size": 2669,
+      "sha256": "3be2bef7eccb6c7dfe3d0c240b2970e2f6c7fa844d651ef21874d6574cc2909d"
+    },
+    {
+      "path": "README_SETTINGS_PREMIUM_V8_AR.md",
+      "size": 4079,
+      "sha256": "83d2fbe5cc199ff6e3e205f52586d5e9f49abf496abd42e71717c9b21248dd49"
+    },
+    {
+      "path": "README_SHARED_QUESTIONS_V25_AR.md",
+      "size": 3508,
+      "sha256": "74e861514218438b85c332a2eb19421f47c644044fd8f2fe5dbe514707fa5efb"
+    },
+    {
+      "path": "README_TYPOGRAPHY_V11_AR.md",
+      "size": 4706,
+      "sha256": "4cc71ac44e4a12d906ef2c3fdd42c8bdc9c408788e44a4b739b665aab629e5cf"
+    },
+    {
+      "path": "TA7ADY_V19_FILE_MANIFEST.json",
+      "size": 1154,
+      "sha256": "b6f85cd499263a3f6443914764e48d6e5891706a50f99e521f645c884a6466ed"
+    },
+    {
+      "path": "V23_CHANGE_MANIFEST.json",
+      "size": 511,
+      "sha256": "b85fd6e4d68a606f93b6d1c43e9a15cc38034081e8686264bc48caad1c6015be"
+    },
+    {
+      "path": "V32_CHANGE_MANIFEST.json",
+      "size": 1582,
+      "sha256": "b49f6a97bcba76d92a42370392811ab6e9866ecf75da234bddcdac67b95d603d"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/choice_spotlight_1.png",
+      "size": 123230,
+      "sha256": "43ffc319d3c0fb2df6ad25586afc7746c5162b0bc870b065ec8719f686c8f67c"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/choice_spotlight_2.png",
+      "size": 154179,
+      "sha256": "0d294abbfbad8be43aee25b536cccff26a7e2a3a64b1bde49650648ed98b91c0"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/choice_spotlight_3.png",
+      "size": 139611,
+      "sha256": "8654c83491d5c7fe7bd6b0fcf721280c8aa81a82d8a19f5483c78970dcd19ce9"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/choice_spotlight_4.png",
+      "size": 144710,
+      "sha256": "df6da3efa86625670522fa3b872b71acf0d2d83c8ebd002a32ccba8ecaf0d83d"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/main/food_origin_card_background.png",
+      "size": 1152354,
+      "sha256": "87cf0c15b9a180bebd232e02d2994398928e03288bf1d5fa59c7611965ddd223"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/main/mini_game_mode_controller.png",
+      "size": 992416,
+      "sha256": "47fdfa7d55347cf1830f4d2d8b3270cead0d1040c18ca8ea42c8d49f431ae428"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/main/shape_count_card_background.png",
+      "size": 2898040,
+      "sha256": "03330a91b9286342f2f49af47311eadd99ae3a2016b610a3a646158e72fb353b"
+    },
+    {
+      "path": "public/assets/game/runtime/ui/main/tour_mode_trophy.png",
+      "size": 903718,
+      "sha256": "958f6da5402ac71efd114a87d8219c0b6c39af4ea2b3582afb589adc65b8542e"
+    },
+    {
+      "path": "src/ui-react/components/streamer/StreamerControls.tsx",
+      "size": 135,
+      "sha256": "27ac568167104f900ae4adea1bb214596c230cc4caa4c01afa0f74865ddd9e80"
+    }
+  ]
+}

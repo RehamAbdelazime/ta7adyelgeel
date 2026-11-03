@@ -1,10 +1,10 @@
 import type { CSSProperties } from 'react';
+import { useGame } from '../../../context/GameContext';
 import type { MiniGameSnapshot, CountTheBeatItemSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell } from '../shared/question-shell';
-import { ScoringGuide } from '../shared/ScoringGuide';
 
 const TONE_COLOUR: Record<string, string> = {
   cyan: '#22e7ff',
@@ -14,26 +14,23 @@ const TONE_COLOUR: Record<string, string> = {
   green: '#36e8a0',
 };
 
-function BeatItem({ item, revealTargets }: { item: CountTheBeatItemSnapshot; revealTargets: boolean }) {
+function BeatItem({ item }: { item: CountTheBeatItemSnapshot }) {
   const colour = TONE_COLOUR[item.tone] ?? TONE_COLOUR.cyan;
-  const style: CSSProperties = {
+  const style: CSSProperties & { '--ctb-rotate': string } = {
     position: 'absolute',
     left: `${item.x}%`,
     top: `${item.y}%`,
     fontSize: `${item.size * 2.4}rem`,
     color: colour,
-    transform: `rotate(${item.rotate}deg)`,
+    '--ctb-rotate': `${item.rotate}deg`,
     animation: `ctb-pop ${item.durationMs}ms ease-in-out ${item.delayMs}ms both`,
-    filter: revealTargets && !item.isTarget
-      ? 'none'
-      : item.isTarget
-        ? `drop-shadow(0 0 8px ${colour}) drop-shadow(0 0 14px ${colour}88)`
-        : `drop-shadow(0 0 4px ${colour}66)`,
-    opacity: 0,
+    filter: item.isTarget
+      ? `drop-shadow(0 0 8px ${colour}) drop-shadow(0 0 14px ${colour}88)`
+      : `drop-shadow(0 0 4px ${colour}66)`,
+    opacity: 0, // Keyframes explicitly animate from/to 0; no flashing before delay.
     userSelect: 'none',
     pointerEvents: 'none',
     lineHeight: 1,
-    ...(revealTargets && !item.isTarget ? { color: 'rgba(255,255,255,0.18)' } : {}),
   };
 
   return <span style={style} aria-hidden="true">{item.glyph}</span>;
@@ -41,6 +38,7 @@ function BeatItem({ item, revealTargets }: { item: CountTheBeatItemSnapshot; rev
 
 export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
+  const { snapshot } = useGame();
   const beat = miniGame.countTheBeat;
 
   if (!beat) {
@@ -48,14 +46,19 @@ export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGame
   }
 
   const isRevealed = tourPhase === 'scoring' && beat.targetCount !== null;
-  const helperText = miniGame.acceptsAnswers
-    ? t('gameplay.helper.beat.answerNow')
-    : getPhaseHelper(tourPhase, t);
+  const helperText = getPhaseHelper(tourPhase, t);
+  // A single short prompt. The target symbol is displayed on the playfield;
+  // don't repeat scoring rules, chat syntax and question text in three places.
+  const displayedMiniGame = {
+    ...miniGame,
+    statement: snapshot.locale === 'ar' ? 'عدّ الرمز ده' : 'Count this symbol',
+  };
 
   return (
     <QuestionScreenShell
-      miniGame={miniGame}
+      miniGame={displayedMiniGame}
       tourPhase={tourPhase}
+      layout="focus"
       helperText={helperText}
       choices={[]}
       isAnswerReveal={isRevealed}
@@ -63,15 +66,15 @@ export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGame
       bodyClassName="gameplay-question-body-count-the-beat"
     >
       <div className="ctb-shell">
-        <div className="ctb-target-bar" aria-label={`${beat.targetLabel}`}>
+        <div className="ctb-target-bar" aria-label={beat.targetLabel}>
           <span className="ctb-target-glyph" aria-hidden="true">{beat.targetGlyph}</span>
           <span className="ctb-target-name">{beat.targetLabel}</span>
         </div>
 
         <div className="ctb-stage" aria-label={t('gameplay.countTheBeat.countEvery')}>
-          {beat.items.map((item) => (
-            <BeatItem key={item.id} item={item} revealTargets={isRevealed} />
-          ))}
+          {!isRevealed ? beat.items.map((item) => (
+            <BeatItem key={item.id} item={item} />
+          )) : null}
           {isRevealed ? (
             <div className="ctb-reveal-overlay" role="status">
               <span className="ctb-reveal-glyph">{beat.targetGlyph}</span>
@@ -80,18 +83,6 @@ export function CountTheBeatScreen({ miniGame, tourPhase }: { miniGame: MiniGame
           ) : null}
         </div>
 
-        <div className="ctb-footer">
-          <p className="ctb-instruction">{miniGame.acceptsAnswers ? helperText : t('gameplay.helper.phase.scoring')}</p>
-          <ScoringGuide
-            exact={beat.scoring.exact}
-            partial={beat.scoring.partial}
-            partialTolerance={beat.scoring.partialTolerance}
-            incorrect={beat.scoring.incorrect}
-            exactLabel={t('gameplay.scoring.exact')}
-            partialLabel={t('gameplay.scoring.withinMargin')}
-            incorrectLabel={t('gameplay.scoring.incorrect')}
-          />
-        </div>
       </div>
     </QuestionScreenShell>
   );

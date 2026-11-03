@@ -1,7 +1,7 @@
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
-import { getPairChoiceTone, getPhaseHelper } from '../shared/overlay-types';
+import { getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell, MediaCard } from '../shared/question-shell';
 
 export function CoupleOrSiblingsScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
@@ -23,7 +23,7 @@ export function CoupleOrSiblingsScreen({ miniGame, tourPhase }: { miniGame: Mini
   const choices = pair.choices.map((choice) => ({
     command: choice.command,
     label: choice.label,
-    tone: getPairChoiceTone(choice),
+    tone: 'cyan' as const,
   }));
 
   return (
@@ -32,6 +32,7 @@ export function CoupleOrSiblingsScreen({ miniGame, tourPhase }: { miniGame: Mini
       tourPhase={tourPhase}
       helperText={helperText}
       choices={choices}
+      layout="choice"
       bodyClassName="gameplay-question-body-pairguess"
     >
       {/* SVG pair image — use contain so both characters are always visible */}

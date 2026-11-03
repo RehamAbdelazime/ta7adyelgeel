@@ -17,7 +17,7 @@ assert(main.indexOf("import './styles/premium-stage-mode.css'") < main.indexOf("
 assert(lobby.includes('premium-lobby-status') && lobby.includes('joinedCount'), 'joined count UI missing');
 assert(lobby.includes("t('ui.landing.playersJoined')"), 'joined count must be localized');
 assert(enAr.includes('"ui.landing.playersJoined": "PLAYERS JOINED"'));
-assert(enAr.includes('"ui.landing.playersJoined": "اللاعبون المنضمون"'));
+assert(enAr.includes('"ui.landing.playersJoined": "هيلعبوا معانا"'));
 assert(typeKeys.includes("| 'ui.landing.playersJoined'"));
 assert(positions.includes('export function getLobbyCrowdCoordinates(index: number)'), 'stable positioning missing');
 assert(positions.includes('y: Math.max(10, 50 - row * 5)'), 'audience safe-area contract changed');
