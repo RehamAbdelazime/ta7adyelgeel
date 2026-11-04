@@ -22,8 +22,6 @@ for (const symbol of [
   'calculateExactAnswerScore',
   'calculateNumericEstimateScore',
   'enforceMiniGameScoreAwardPolicy',
-  'HANGMAN_SCORING',
-  'calculateHangmanActionPoints',
   'FOOD_ORIGIN_HINT_SCORE_MULTIPLIER',
 ]) {
   assertIncludes(policy, symbol, `Shared scoring policy is missing ${symbol}.`);
@@ -50,9 +48,6 @@ const exactAnswerServices = [
   'src/game-core/minigames/food-origin/food-origin-service.ts',
   'src/game-core/minigames/shape-count/shape-count-service.ts',
   'src/game-core/minigames/maze-gates/maze-gates-service.ts',
-  'src/game-core/minigames/before-or-after/before-or-after-service.ts',
-  'src/game-core/minigames/guess-logo/guess-logo-service.ts',
-  'src/game-core/minigames/true-fake/true-fake-service.ts',
   'src/game-core/minigames/couple-or-siblings/couple-or-siblings-service.ts',
   'src/game-core/minigames/lucky-cup/lucky-cup-service.ts',
 ];
@@ -77,12 +72,6 @@ for (const file of [
 
 const foodOrigin = read('src/game-core/minigames/food-origin/food-origin-service.ts');
 assertIncludes(foodOrigin, 'FOOD_ORIGIN_HINT_SCORE_MULTIPLIER', 'Food Origin hint multiplier must be centralized.');
-
-const hangman = read('src/game-core/minigames/hangman/hangman-service.ts');
-assertIncludes(hangman, 'calculateHangmanActionPoints', 'Hangman action points must use the central scoring policy.');
-assertNotIncludes(hangman, 'HANGMAN_SCORING', 'Hangman must not keep a second scoring calculation in its service.');
-assertNotIncludes(hangman, 'const CORRECT_LETTER_POINTS', 'Hangman must not duplicate its point constants.');
-assertNotIncludes(hangman, 'const WORD_WINNER_BONUS', 'Hangman must not duplicate its word bonus table.');
 
 const store = read('src/game-core/app/game-store.ts');
 assertIncludes(store, 'enforceMiniGameScoreAwardPolicy(', 'GameStore is missing the shared scoring safety boundary.');
@@ -111,7 +100,9 @@ const memoryCountUi = read('src/ui-react/components/gameplay/minigames/MemoryCou
 // V34 explicitly removes the verbose numeric-scoring panel from Count the Beat's
 // timed screen (the scoring policy still lives in the service and its tests).
 assertNotIncludes(countTheBeatUi, '<ScoringGuide', 'Count the Beat must not distract players with a score table while counting icons.');
-assertIncludes(memoryCountUi, 'ScoringGuide', 'Memory Count keeps its score-guide presentation.');
-assertIncludes(memoryCountUi, 'gameplay.scoring.withinMargin', 'Memory Count still explains near-miss scoring.');
+// V35: numeric scoring stays in the service and shared scoring policy, not in
+// the timed memory board (where it distracted players and obscured the grid).
+assertNotIncludes(memoryCountUi, '<ScoringGuide', 'Memory Count must keep its preview and answer screen clear of scoring tables.');
+assertIncludes(read('src/game-core/minigames/memory-count/memory-count-service.ts'), 'getNumericEstimateScoringGuide', 'Memory Count still exposes its full numeric scoring rules.');
 
 console.log('v2 scoring policy verified: scoring is centralized; exact answers receive full points, numeric near-misses receive capped quarter credit, incorrect answers receive zero, and Risk Round only penalizes fully incorrect answers.');

@@ -1,0 +1,268 @@
+{
+  "schemaVersion": 1,
+  "mediaPolicy": "External Wikimedia Commons files for QA preview only; local licensed images are recommended before public release.",
+  "movies": [
+    {
+      "id": "the-kid",
+      "name": {
+        "en": "The Kid",
+        "ar": "الطفل"
+      },
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kid%20%281921%29%20poster.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:The%20Kid%20%281921%29%20poster.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      },
+      "titleMask": {
+        "x": 11,
+        "y": 69,
+        "w": 83,
+        "h": 23
+      }
+    },
+    {
+      "id": "sherlock-jr",
+      "name": {
+        "en": "Sherlock Jr.",
+        "ar": "شيرلوك جونيور"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sherlock%20jr%20poster.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Sherlock%20jr%20poster.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      },
+      "titleMask": {
+        "x": 8,
+        "y": 71,
+        "w": 86,
+        "h": 21
+      }
+    },
+    {
+      "id": "trip-moon",
+      "name": {
+        "en": "A Trip to the Moon",
+        "ar": "رحلة إلى القمر"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trip-to-moon-1902.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Trip-to-moon-1902.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      },
+      "titleMask": {
+        "x": 6,
+        "y": 2,
+        "w": 89,
+        "h": 28
+      }
+    },
+    {
+      "id": "safety-last",
+      "name": {
+        "en": "Safety Last!",
+        "ar": "السلامة أخيرًا"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Safety%20Last%20%281923%29%20sceenshot.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Safety%20Last%20%281923%29%20sceenshot.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "train-robbery",
+      "name": {
+        "en": "The Great Train Robbery",
+        "ar": "سرقة القطار الكبرى"
+      },
+      "mode": "scene",
+      "difficulty": "medium",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The-Great-Train-Robbery-1903.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:The-Great-Train-Robbery-1903.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "nosferatu",
+      "name": {
+        "en": "Nosferatu",
+        "ar": "نوسفيراتو"
+      },
+      "mode": "scene",
+      "difficulty": "hard",
+      "category": "movies",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nosferatu.jpg?width=1200",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Nosferatu.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    }
+  ],
+  "stars": [
+    {
+      "id": "chaplin",
+      "name": {
+        "en": "Charlie Chaplin",
+        "ar": "تشارلي تشابلن"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Charlie%20Chaplin%20portrait.jpg?width=1200",
+      "focus": {
+        "x": 50,
+        "y": 24
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Charlie%20Chaplin%20portrait.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "keaton",
+      "name": {
+        "en": "Buster Keaton",
+        "ar": "باستر كيتون"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Busterkeaton.jpg?width=1200",
+      "focus": {
+        "x": 52,
+        "y": 24
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Busterkeaton.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "pickford",
+      "name": {
+        "en": "Mary Pickford",
+        "ar": "ماري بيكفورد"
+      },
+      "mode": "silhouette",
+      "difficulty": "easy",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mary%20Pickford%20photograph.jpg?width=1200",
+      "focus": {
+        "x": 50,
+        "y": 25
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Mary%20Pickford%20photograph.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "valentino",
+      "name": {
+        "en": "Rudolph Valentino",
+        "ar": "رودولف فالنتينو"
+      },
+      "mode": "silhouette",
+      "difficulty": "medium",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rudolph%20Valentino%20LCCN2014718921.jpg?width=1200",
+      "focus": {
+        "x": 50,
+        "y": 23
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Rudolph%20Valentino%20LCCN2014718921.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "lloyd",
+      "name": {
+        "en": "Harold Lloyd",
+        "ar": "هارولد لويد"
+      },
+      "mode": "zoom",
+      "difficulty": "medium",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Harold%20Lloyd%2C%201918.jpg?width=1200",
+      "focus": {
+        "x": 50,
+        "y": 42
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Harold%20Lloyd%2C%201918.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "sharif",
+      "name": {
+        "en": "Omar Sharif",
+        "ar": "عمر الشريف"
+      },
+      "mode": "zoom",
+      "difficulty": "hard",
+      "category": "actors",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Omar%20Sharif-Cairo.jpg?width=1200",
+      "focus": {
+        "x": 53,
+        "y": 38
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Omar%20Sharif-Cairo.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "umm",
+      "name": {
+        "en": "Umm Kulthum",
+        "ar": "أم كلثوم"
+      },
+      "mode": "reveal",
+      "difficulty": "easy",
+      "category": "singers",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Umm%20Kulthum%20in%201939.jpg?width=1200",
+      "focus": {
+        "x": 49,
+        "y": 38
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Umm%20Kulthum%20in%201939.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    },
+    {
+      "id": "elvis",
+      "name": {
+        "en": "Elvis Presley",
+        "ar": "إلفيس بريسلي"
+      },
+      "mode": "reveal",
+      "difficulty": "hard",
+      "category": "singers",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elvis%20Presley%2C%20June%201958%20%28cropped%29.jpg?width=1200",
+      "focus": {
+        "x": 53,
+        "y": 25
+      },
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Elvis%20Presley%2C%20June%201958%20%28cropped%29.jpg",
+        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+      }
+    }
+  ]
+}

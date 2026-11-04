@@ -141,15 +141,15 @@ html body #root .howto-shapes-display {max-width:335px!important;display:grid!im
 html body #root .howto-shapes-display .howto-most-common {color:#56e9fb!important;}
 html body #root .howto-maze-demo {height:min(100%,135px)!important;width:min(100%,470px)!important;}
 html body #root .howto-demo-tag {color:#aafbf8!important;font:800 clamp(12px,.95vw,18px)/1.2 var(--font-game-ui,sans-serif)!important;text-align:center!important;}
-html body #root .howto-timeline {display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(10px,1.1vw,20px)!important;}
-html body #root .howto-timeline-event {display:grid!important;justify-items:center!important;gap:2px!important;color:#effbff!important;}
-html body #root .howto-timeline-event > span {font-size:clamp(30px,2.75vw,50px)!important;line-height:1!important;}
-html body #root .howto-timeline-event b {font:740 clamp(11px,.83vw,16px)/1 var(--font-game-ui,sans-serif)!important;}
-html body #root .howto-timeline-arrow {color:#81eaff!important;font-size:clamp(32px,2.5vw,50px)!important;}
-html body #root .howto-logo-demo {position:relative!important;width:135px!important;height:90px!important;display:grid!important;place-items:center!important;}
-html body #root .howto-mystery-logo {position:relative!important;font-size:clamp(52px,4.4vw,83px)!important;line-height:1!important;color:#ff82e6!important;}
-html body #root .howto-mystery-logo > span {position:absolute!important;font-size:.4em!important;inset:32% 0 auto!important;text-align:center!important;color:#fff!important;}
-html body #root .howto-logo-magnify {position:absolute!important;right:-4px!important;top:-6px!important;color:#7de9f9!important;font-size:50px!important;}
+
+
+
+
+
+
+
+
+
 html body #root .howto-beat-demo {display:flex!important;justify-content:center!important;align-items:center!important;flex-wrap:wrap!important;gap:clamp(6px,.75vw,13px)!important;color:#ad94f8!important;font-size:clamp(28px,2.65vw,52px)!important;}
 html body #root .howto-beat-target {color:#57f8ed!important;text-shadow:0 0 11px rgba(59,226,240,.3)!important;}
 html body #root .howto-count-result {display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(16px,1.5vw,30px)!important;font-size:clamp(17px,1.6vw,29px)!important;color:#eafaff!important;}
@@ -161,15 +161,15 @@ html body #root .howto-demo-cup:nth-child(2) > img:first-child {transform:transl
 html body #root .howto-demo-cup > img.howto-demo-ball {position:absolute!important;bottom:-2px!important;left:30%!important;width:47%!important;height:47%!important;object-fit:contain!important;z-index:1!important;}
 html body #root .howto-demo-cup > b {position:absolute!important;top:40%!important;left:-24%!important;font-size:26px!important;color:#72ecf8!important;z-index:3!important;}
 html body #root .howto-demo-cup:first-child > b {display:none!important;}
-html body #root .howto-statement-demo {font:880 clamp(20px,2.4vw,44px)/1.2 var(--font-game-title,var(--font-game-ui))!important;color:white!important;text-align:center!important;}
+
 html body #root .howto-memory-demo {position:relative!important;width:300px!important;max-width:95%!important;}
 html body #root .howto-memory-items {display:grid!important;grid-template-columns:repeat(6,1fr)!important;justify-items:center!important;gap:6px!important;font-size:clamp(24px,2.2vw,42px)!important;}
 html body #root .howto-memory-cover {position:absolute!important;right:-5px!important;top:-10px!important;width:34%!important;height:115%!important;display:grid!important;place-items:center!important;background:linear-gradient(90deg,transparent,#172445 24%,#10213e)!important;font-size:clamp(29px,2.5vw,48px)!important;color:#8bebfb!important;}
-html body #root .howto-hangman-demo {display:flex!important;align-items:center!important;gap:14px!important;}
-html body #root .howto-hangman-hint {font-size:clamp(36px,3.1vw,58px)!important;}
-html body #root .howto-hangman-blanks {font:900 clamp(21px,2.5vw,45px)/1 var(--font-game-ui,sans-serif)!important;letter-spacing:.2em!important;color:#defaff!important;}
-html body #root .howto-keyboard {display:flex!important;gap:12px!important;}
-html body #root .howto-keyboard kbd {background:#1b4d60!important;color:#a0f7d2!important;font:800 clamp(14px,1.25vw,22px)/1 var(--font-game-ui,sans-serif)!important;border:1px solid #58d8c5!important;padding:6px 13px!important;border-radius:8px!important;}
+
+
+
+
+
 html body #root .howto-pair-demo {display:flex!important;gap:clamp(12px,1.8vw,35px)!important;align-items:center!important;font-size:clamp(43px,4.5vw,80px)!important;line-height:1!important;}
 html body #root .howto-pair-demo b {font-size:.7em!important;color:#7deafa!important;}
 html body #root .gameplay-phase-mini_game_intro .gameplay-intro-steps {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(5px,.65vw,12px)!important;width:100%!important;min-width:0!important;height:auto!important;}

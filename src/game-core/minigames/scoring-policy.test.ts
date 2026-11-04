@@ -5,7 +5,6 @@ import { MemoryCountMiniGameService } from './memory-count/memory-count-service'
 import type { MiniGameScoreAward, MemoryCountAnswer } from './minigame-types';
 import {
   calculateExactAnswerScore,
-  calculateHangmanActionPoints,
   calculateNumericEstimateScore,
   enforceMiniGameScoreAwardPolicy,
   getAwardScoreOutcome,
@@ -51,16 +50,6 @@ describe('shared mini-game scoring policy', () => {
     expect(getMiniGameBasePoints('memory-count', 'easy')).toBe(60);
     expect(getMiniGameBasePoints('memory-count', 'medium')).toBe(120);
     expect(getMiniGameBasePoints('memory-count', 'hard')).toBe(180);
-  });
-
-  it('centralizes Hangman action rewards and keeps every wrong guess at zero', () => {
-    expect(calculateHangmanActionPoints('easy', 'letter', true)).toBe(25);
-    expect(calculateHangmanActionPoints('hard', 'letter', true)).toBe(25);
-    expect(calculateHangmanActionPoints('easy', 'word', true)).toBe(150);
-    expect(calculateHangmanActionPoints('medium', 'word', true)).toBe(220);
-    expect(calculateHangmanActionPoints('hard', 'word', true)).toBe(320);
-    expect(calculateHangmanActionPoints('hard', 'letter', false)).toBe(0);
-    expect(calculateHangmanActionPoints('easy', 'word', false)).toBe(0);
   });
 
   it('awards full points only for an exact categorical answer', () => {

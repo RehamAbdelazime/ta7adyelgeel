@@ -8,13 +8,11 @@ import { GameEventBus } from '../events/game-event-bus';
 import { localeDirection, translate } from '../localization/translations';
 import type { LocaleCode, TranslationKey } from '../localization/locale-types';
 import { CoupleOrSiblingsMiniGameService } from '../minigames/couple-or-siblings/couple-or-siblings-service';
-import { GuessLogoMiniGameService } from '../minigames/guess-logo/guess-logo-service';
+import { VisualGuessMiniGameService } from '../minigames/visual-guess/visual-guess-service';
 import { FoodOriginMiniGameService } from '../minigames/food-origin/food-origin-service';
 import { MemoryCountMiniGameService } from '../minigames/memory-count/memory-count-service';
 import { MazeGatesMiniGameService } from '../minigames/maze-gates/maze-gates-service';
-import { createHangmanAnswerFromCommand, HangmanMiniGameService } from '../minigames/hangman/hangman-service';
 import { ShapeCountMiniGameService } from '../minigames/shape-count/shape-count-service';
-import { TrueFakeMiniGameService } from '../minigames/true-fake/true-fake-service';
 import {
   createNoopPersistencePort,
   type GamePersistencePort,
@@ -25,10 +23,9 @@ import {
   type StoredTourHistoryEntry,
   type StoredTourLeaderboardEntry,
 } from '../persistence/persistence-types';
-import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, GuessLogoAnswer, HangmanAnswer, MazeGateAnswer, MemoryCountAnswer, MiniGameId, MiniGameScoreAward, ShapeCountAnswer, ShapeCountShapeId, TrueFakeAnswer } from '../minigames/minigame-types';
+import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, MazeGateAnswer, MemoryCountAnswer, MiniGameId, MiniGameScoreAward, ShapeCountAnswer, ShapeCountShapeId } from '../minigames/minigame-types';
 import { CountTheBeatMiniGameService } from '../minigames/count-the-beat/count-the-beat-service';
 import { LuckyCupMiniGameService, getLuckyCupPreparationMsForRound } from '../minigames/lucky-cup/lucky-cup-service';
-import { BeforeOrAfterMiniGameService } from '../minigames/before-or-after/before-or-after-service';
 import { enforceMiniGameScoreAwardPolicy, getAwardScoreOutcome } from '../minigames/scoring-policy';
 import { ProfileService } from '../profiles/profile-service';
 import { ProgressionService } from '../progression/progression-service';
@@ -83,17 +80,15 @@ export class GameStore {
   private readonly tourStateMachine: TourStateMachine;
   private readonly chaosEventService = new ChaosEventService();
   private activeChaosEvent: ChaosEventDefinition | null = null;
-  private readonly trueFakeMiniGame = new TrueFakeMiniGameService();
   private readonly shapeCountMiniGame = new ShapeCountMiniGameService();
   private readonly countTheBeatMiniGame = new CountTheBeatMiniGameService();
   private readonly luckyCupMiniGame = new LuckyCupMiniGameService();
   private readonly memoryCountMiniGame = new MemoryCountMiniGameService();
   private readonly foodOriginMiniGame = new FoodOriginMiniGameService();
   private readonly coupleOrSiblingsMiniGame = new CoupleOrSiblingsMiniGameService();
-  private readonly guessLogoMiniGame = new GuessLogoMiniGameService();
+  private readonly guessMovieMiniGame = new VisualGuessMiniGameService('guess-movie');
+  private readonly guessStarMiniGame = new VisualGuessMiniGameService('guess-star');
   private readonly mazeGatesMiniGame = new MazeGatesMiniGameService();
-  private readonly hangmanMiniGame = new HangmanMiniGameService();
-  private readonly beforeOrAfterMiniGame = new BeforeOrAfterMiniGameService();
   private runtimeConfig: RuntimeGameConfig;
   private activeMiniGameId: MiniGameId = 'food-origin';
   private activeSessionMode: ActiveSessionMode = null;
@@ -328,12 +323,6 @@ export class GameStore {
       return null;
     }
 
-    // Hangman: free-text answer
-    if (this.activeMiniGameId === 'hangman') {
-      const cleanAnswer = withoutBang.replace(/\s+/g, ' ').slice(0, 30);
-      return cleanAnswer ? `!${cleanAnswer}` : null;
-    }
-
     // All other games: single-digit choice 1–9
     if (/^[1-9]$/.test(withoutBang)) {
       return `!${withoutBang}`;
@@ -437,15 +426,13 @@ export class GameStore {
     this.chaosEventService.beginTour();
     this.activeChaosEvent = null;
     this.lastRoundAwards = [];
-    this.trueFakeMiniGame.beginTour();
     this.shapeCountMiniGame.beginTour();
     this.memoryCountMiniGame.beginTour();
     this.foodOriginMiniGame.beginTour();
     this.coupleOrSiblingsMiniGame.beginTour();
-    this.guessLogoMiniGame.beginTour();
+    this.guessMovieMiniGame.beginTour();
+    this.guessStarMiniGame.beginTour();
     this.mazeGatesMiniGame.beginTour();
-    this.hangmanMiniGame.beginTour();
-    this.beforeOrAfterMiniGame.beginTour();
 
     this.activeSessionMode = sessionMode;
     const result = this.tourStateMachine.startTour(plannedRoundCount);
@@ -905,16 +892,12 @@ export class GameStore {
       return this.handleCoupleOrSiblingsAnswerCommand(citizen, command);
     }
 
-    if (this.activeMiniGameId === 'guess-logo') {
-      return this.handleGuessLogoAnswerCommand(citizen, command);
+    if (this.activeMiniGameId === 'guess-movie' || this.activeMiniGameId === 'guess-star') {
+      return this.handleVisualGuessAnswerCommand(citizen, command);
     }
 
     if (this.activeMiniGameId === 'maze-gates') {
       return this.handleMazeGatesAnswerCommand(citizen, command);
-    }
-
-    if (this.activeMiniGameId === 'hangman') {
-      return this.handleHangmanAnswerCommand(citizen, command);
     }
 
     if (this.activeMiniGameId === 'count-the-beat') {
@@ -925,7 +908,10 @@ export class GameStore {
       return this.handleLuckyCupAnswerCommand(citizen, command);
     }
 
-    return this.handleTrueFakeAnswerCommand(citizen, command);
+    // Every registered game has an explicit handler above.
+    const response = this.locale === 'ar' ? 'اللعبة غير مدعومة.' : 'Unsupported mini-game.';
+    this.addFeed(response);
+    return { ok: false, command, message: response };
   }
 
 
@@ -1004,38 +990,6 @@ export class GameStore {
     return Number(value);
   }
 
-
-  private handleTrueFakeAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
-    const answer = this.getTrueFakeAnswerFromCommand(command);
-
-    if (!answer) {
-      const response = translate(this.locale, 'minigame.trueFake.invalidAnswer', { name: citizen.displayName });
-      this.addFeed(response);
-      return { ok: false, command, message: response };
-    }
-
-    const result = this.trueFakeMiniGame.submitAnswer(citizen, answer);
-
-    if (!result.ok) {
-      const reasonKey = result.reason === 'already_answered'
-        ? 'minigame.trueFake.alreadyAnswered'
-        : 'minigame.trueFake.answerWindowClosed';
-      const response = translate(this.locale, reasonKey, { name: citizen.displayName });
-      this.addFeed(response);
-      return { ok: false, command, message: response };
-    }
-
-    const response = translate(this.locale, 'minigame.trueFake.answerAccepted', {
-      name: citizen.displayName,
-      answer: translate(this.locale, answer === 'true' ? 'minigame.trueFake.true' : 'minigame.trueFake.fake'),
-    });
-
-    this.addFeed(response);
-    this.eventBus.emit({ type: 'minigame.answer.accepted', twitchUserId: citizen.twitchUserId, answer });
-    this.notifyChanged();
-
-    return { ok: true, command, message: response };
-  }
 
   private handleShapeCountAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
     const answer = this.getShapeCountAnswerFromCommand(command);
@@ -1165,38 +1119,32 @@ export class GameStore {
     return { ok: true, command, message: response };
   }
 
-  private handleGuessLogoAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
-    const answer = this.getGuessLogoAnswerFromCommand(command);
-
+  private handleVisualGuessAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
+    const service = this.activeMiniGameId === 'guess-movie' ? this.guessMovieMiniGame : this.guessStarMiniGame;
+    const number = this.getAnswerOptionNumber(command);
+    const answer = number ? service.getAnswerByOptionNumber(number) : null;
+    const label = this.activeMiniGameId === 'guess-movie' ? 'فيلم' : 'نجم';
     if (!answer) {
-      const response = translate(this.locale, 'minigame.guessLogo.invalidAnswer', { name: citizen.displayName });
+      const response = this.locale === 'ar' ? `${citizen.displayName}، اختار رقم من 1 إلى 4.` : `${citizen.displayName}, pick 1–4.`;
       this.addFeed(response);
       return { ok: false, command, message: response };
     }
-
-    const result = this.guessLogoMiniGame.submitAnswer(citizen, answer);
-
+    const result = service.submitAnswer(citizen, answer);
     if (!result.ok) {
-      const reasonKey = result.reason === 'already_answered'
-        ? 'minigame.guessLogo.alreadyAnswered'
-        : 'minigame.guessLogo.answerWindowClosed';
-      const response = translate(this.locale, reasonKey, { name: citizen.displayName });
+      const response = this.locale === 'ar'
+        ? (result.reason === 'already_answered' ? 'إجابتك اتسجلت بالفعل.' : 'وقت الإجابة مش مفتوح.')
+        : (result.reason === 'already_answered' ? 'Answer already locked.' : 'Answer window closed.');
       this.addFeed(response);
       return { ok: false, command, message: response };
     }
-
-    const response = translate(this.locale, 'minigame.guessLogo.answerAccepted', {
-      name: citizen.displayName,
-      answer: this.getAnswerOptionNumber(command)?.toString() ?? '-',
-    });
-
+    const response = this.locale === 'ar'
+      ? `${citizen.displayName} اختار ${label} رقم ${number}.`
+      : `${citizen.displayName} picked option ${number}.`;
     this.addFeed(response);
     this.eventBus.emit({ type: 'minigame.answer.accepted', twitchUserId: citizen.twitchUserId, answer });
     this.notifyChanged();
-
     return { ok: true, command, message: response };
   }
-
 
   private handleMazeGatesAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
     const answer = this.getMazeGatesAnswerFromCommand(command);
@@ -1230,39 +1178,6 @@ export class GameStore {
     return { ok: true, command, message: response };
   }
 
-
-  private handleHangmanAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
-    const answer = this.getHangmanAnswerFromCommand(command);
-
-    if (!answer) {
-      const response = translate(this.locale, 'minigame.hangman.invalidAnswer', { name: citizen.displayName });
-      this.addFeed(response);
-      return { ok: false, command, message: response };
-    }
-
-    const result = this.hangmanMiniGame.submitGuess(citizen, answer, this.locale);
-
-    if (!result.ok) {
-      const reasonKey = result.reason === 'already_answered'
-        ? 'minigame.hangman.alreadyAnswered'
-        : 'minigame.hangman.answerWindowClosed';
-      const response = translate(this.locale, reasonKey, { name: citizen.displayName });
-      this.addFeed(response);
-      return { ok: false, command, message: response };
-    }
-
-    const guessLabel = answer.startsWith('letter:') ? answer.replace('letter:', '') : answer.replace('word:', '');
-    const response = translate(this.locale, 'minigame.hangman.answerAccepted', {
-      name: citizen.displayName,
-      answer: guessLabel,
-    });
-
-    this.addFeed(response);
-    this.eventBus.emit({ type: 'minigame.answer.accepted', twitchUserId: citizen.twitchUserId, answer });
-    this.notifyChanged();
-
-    return { ok: true, command, message: response };
-  }
 
   private handleUnlockedCommand(message: TwitchChatMessage, command: ParsedTwitchCommand) {
     const citizen = this.citizens.get(message.twitchUserId);
@@ -1325,20 +1240,6 @@ export class GameStore {
     };
   }
 
-  private getTrueFakeAnswerFromCommand(command: ParsedTwitchCommand): TrueFakeAnswer | null {
-    const optionNumber = this.getAnswerOptionNumber(command);
-
-    if (optionNumber === 1) {
-      return 'true';
-    }
-
-    if (optionNumber === 2) {
-      return 'fake';
-    }
-
-    return null;
-  }
-
   private getShapeCountAnswerFromCommand(command: ParsedTwitchCommand): ShapeCountAnswer | null {
     const optionNumber = this.getAnswerOptionNumber(command);
 
@@ -1379,17 +1280,6 @@ export class GameStore {
     return this.coupleOrSiblingsMiniGame.getAnswerByOptionNumber(optionNumber);
   }
 
-  private getGuessLogoAnswerFromCommand(command: ParsedTwitchCommand): GuessLogoAnswer | null {
-    const optionNumber = this.getAnswerOptionNumber(command);
-
-    if (!optionNumber || optionNumber < 1 || optionNumber > 4) {
-      return null;
-    }
-
-    return this.guessLogoMiniGame.getAnswerByOptionNumber(optionNumber);
-  }
-
-
   private getMazeGatesAnswerFromCommand(command: ParsedTwitchCommand): MazeGateAnswer | null {
     const optionNumber = this.getAnswerOptionNumber(command);
 
@@ -1400,14 +1290,6 @@ export class GameStore {
     return this.mazeGatesMiniGame.getAnswerByOptionNumber(optionNumber);
   }
 
-
-  private getHangmanAnswerFromCommand(command: ParsedTwitchCommand): HangmanAnswer | null {
-    if (command.kind !== 'answer') {
-      return null;
-    }
-
-    return createHangmanAnswerFromCommand(command.rawCommand, command.args);
-  }
 
   private getAnswerOptionNumber(command: ParsedTwitchCommand): number | null {
     if (command.kind !== 'answer') {
@@ -1505,7 +1387,7 @@ export class GameStore {
     return queue.slice(0, roundCount);
   }
 
-  private getActiveMiniGameService(): TrueFakeMiniGameService | ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | BeforeOrAfterMiniGameService | CoupleOrSiblingsMiniGameService | GuessLogoMiniGameService | MazeGatesMiniGameService | HangmanMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService {
+  private getActiveMiniGameService(): ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | CoupleOrSiblingsMiniGameService | VisualGuessMiniGameService | MazeGatesMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService {
     switch (this.activeMiniGameId) {
       case 'shape-count':
         return this.shapeCountMiniGame;
@@ -1519,17 +1401,14 @@ export class GameStore {
         return this.foodOriginMiniGame;
       case 'couple-or-siblings':
         return this.coupleOrSiblingsMiniGame;
-      case 'guess-logo':
-        return this.guessLogoMiniGame;
+      case 'guess-movie':
+        return this.guessMovieMiniGame;
+      case 'guess-star':
+        return this.guessStarMiniGame;
       case 'maze-gates':
         return this.mazeGatesMiniGame;
-      case 'hangman':
-        return this.hangmanMiniGame;
-      case 'before-after':
-        return this.beforeOrAfterMiniGame;
-      case 'true-fake':
       default:
-        return this.trueFakeMiniGame;
+        throw new Error(`Unregistered mini-game: ${this.activeMiniGameId}`);
     }
   }
 
@@ -1663,17 +1542,14 @@ export class GameStore {
           : '-';
     }
 
-    if (miniGame.id === 'guess-logo') {
-      return miniGame.guessLogo?.correctLogo ?? '-';
+    if (miniGame.id === 'guess-movie' || miniGame.id === 'guess-star') {
+      return miniGame.visualGuess?.correctLabel ?? '-';
     }
 
     if (miniGame.id === 'maze-gates') {
       return miniGame.mazeGates?.correctOptionNumber ? `!${miniGame.mazeGates.correctOptionNumber}` : '-';
     }
 
-    if (miniGame.id === 'hangman') {
-      return miniGame.hangman?.correctWord ?? '-';
-    }
 
     if (miniGame.id === 'count-the-beat') {
       return miniGame.countTheBeat?.targetCount !== null && miniGame.countTheBeat?.targetCount !== undefined
@@ -1685,9 +1561,7 @@ export class GameStore {
       return miniGame.luckyCup?.correctCupNumber ? `!${miniGame.luckyCup.correctCupNumber}` : '-';
     }
 
-    return miniGame.correctAnswer
-      ? translate(this.locale, miniGame.correctAnswer === 'true' ? 'minigame.trueFake.true' : 'minigame.trueFake.fake')
-      : '-';
+    return '-';
   }
 
   private getMiniGameTranslationKey(action: 'started' | 'answerWindowOpen' | 'answerWindowLocked' | 'resultFeed' | 'noAnswers' | 'scoringApplied'): TranslationKey {
@@ -1755,13 +1629,23 @@ export class GameStore {
     // before Twitch answers open. The displayed path and authoritative answer
     // are derived from the same immutable plan in LuckyCupMiniGameService.
     if (phase === 'tour_starting') {
-      // The FSM resolves duration BEFORE onPhaseChanged creates the next
-      // round, so use the upcoming round/game selection, not the old service
-      // snapshot from the previous round.
+      // Timing is resolved BEFORE the FSM notifies listeners. While leaving
+      // mini_game_intro, activeMiniGameId already points at the chosen round,
+      // including a one-off forced QA game. Only when leaving scoring does
+      // the FSM increment the round before calling this resolver, so that
+      // specific edge needs to look up the next game from the queue.
       const upcoming = this.tourStateMachine.getSnapshot();
-      const upcomingGameId = this.selectMiniGameForRound(upcoming.roundNumber, upcoming.tourNumber);
+      const upcomingGameId = upcoming.phase === 'scoring'
+        ? this.selectMiniGameForRound(upcoming.roundNumber, upcoming.tourNumber)
+        : this.activeMiniGameId;
       if (upcomingGameId === 'lucky-cup') {
         durationMs = Math.max(durationMs, getLuckyCupPreparationMsForRound(upcoming.roundNumber));
+      } else if (upcomingGameId === 'memory-count') {
+        // The cells must be memorized during the visible preparation phase.
+        // Three seconds wasn't enough for a dense grid, and the old UI hid
+        // the grid behind a generic countdown (making guesses pure luck).
+        const previewMs = [6_000, 5_300, 4_700][(upcoming.roundNumber - 1) % 3];
+        durationMs = Math.max(durationMs, previewMs);
       }
     }
 

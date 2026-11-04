@@ -139,13 +139,6 @@ function normalizeMiniGamePhaseOverrides(overrides: Record<string, unknown>): Ru
     normalized[miniGameId] = phaseOverrides;
   }
 
-  if (normalized.hangman?.answer_window_open === undefined) {
-    normalized.hangman = {
-      ...normalized.hangman,
-      answer_window_open: DEFAULT_RUNTIME_GAME_CONFIG.tour.miniGamePhaseOverridesMs.hangman?.answer_window_open ?? 20_000,
-    };
-  }
-
   return normalized;
 }
 

@@ -16,12 +16,9 @@ import type { MiniGameId } from '../../../../game-core/minigames/minigame-types'
 import { FoodOriginScreen } from './FoodOriginScreen';
 import { ShapeCountScreen } from './ShapeCountScreen';
 import { MazeGatesScreen } from './MazeGatesScreen';
-import { BeforeOrAfterScreen } from './BeforeOrAfterScreen';
-import { GuessLogoScreen } from './GuessLogoScreen';
+import { VisualGuessScreen } from './VisualGuessScreen';
 import { LuckyCupScreen } from './LuckyCupScreen';
 import { MemoryCountScreen } from './MemoryCountScreen';
-import { TrueFakeScreen } from './TrueFakeScreen';
-import { HangmanScreen } from './HangmanScreen';
 import { CoupleOrSiblingsScreen } from './CoupleOrSiblingsScreen';
 import { CountTheBeatScreen } from './CountTheBeatScreen';
 
@@ -38,12 +35,10 @@ export const MINI_GAME_SCREENS: Record<MiniGameId, ComponentType<MiniGameScreenP
   'food-origin':        FoodOriginScreen,
   'shape-count':        ShapeCountScreen,
   'maze-gates':         MazeGatesScreen,
-  'before-after':       BeforeOrAfterScreen,
-  'guess-logo':         GuessLogoScreen,
+  'guess-movie':        VisualGuessScreen,
+  'guess-star':         VisualGuessScreen,
   'lucky-cup':          LuckyCupScreen,
   'memory-count':       MemoryCountScreen,
-  'true-fake':          TrueFakeScreen,
-  hangman:              HangmanScreen,
   'couple-or-siblings': CoupleOrSiblingsScreen,
   'count-the-beat':       CountTheBeatScreen,
 };

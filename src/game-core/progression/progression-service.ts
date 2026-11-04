@@ -59,7 +59,7 @@ export const COMMAND_UNLOCKS: CommandUnlockDefinition[] = [
     description: { en: 'Show level, XP, coins, and role.', ar: 'اعرض المستوى والخبرة والعملات والدور.' },
   },
   {
-    id: 'true-fake',
+    id: 'answer-choices',
     primaryCommand: '!1 / !2 / !3 / !4',
     aliases: [],
     levelRequired: 1,

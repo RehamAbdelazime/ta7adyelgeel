@@ -12,11 +12,9 @@ describe('runtime mini-game configuration', () => {
       .map((game) => game.id);
 
     expect(PUBLIC_MINI_GAME_IDS).toEqual(publicIds);
-    expect(PUBLIC_MINI_GAME_IDS).toContain('true-fake');
-    expect(DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames).toContain('true-fake');
-    expect(DEFAULT_RUNTIME_GAME_CONFIG.tour.miniGameRotation).toContain('true-fake');
+    expect(PUBLIC_MINI_GAME_IDS).toHaveLength(7);
+    expect(DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames).toHaveLength(7);
     expect(PUBLIC_MINI_GAME_IDS).not.toContain('memory-count');
-    expect(PUBLIC_MINI_GAME_IDS).not.toContain('hangman');
     expect(PUBLIC_MINI_GAME_IDS).not.toContain('couple-or-siblings');
   });
 
@@ -36,7 +34,7 @@ describe('runtime mini-game configuration', () => {
     const normalized = normalizeRuntimeGameConfig({
       tour: {
         enabledMiniGames: ['count-the-beat', 'lucky-cup'],
-        miniGameRotation: ['food-origin', 'lucky-cup', 'true-fake'],
+        miniGameRotation: ['food-origin', 'lucky-cup', 'maze-gates'],
       },
     });
 
@@ -59,10 +57,10 @@ describe('runtime mini-game configuration', () => {
   it('preserves an explicit zero phase override', () => {
     const normalized = normalizeRuntimeGameConfig({
       tour: {
-        miniGamePhaseOverridesMs: { hangman: { answer_window_open: 0 } },
+        miniGamePhaseOverridesMs: { 'count-the-beat': { answer_window_open: 0 } },
       },
     });
 
-    expect(normalized.tour.miniGamePhaseOverridesMs.hangman?.answer_window_open).toBe(0);
+    expect(normalized.tour.miniGamePhaseOverridesMs['count-the-beat']?.answer_window_open).toBe(0);
   });
 });

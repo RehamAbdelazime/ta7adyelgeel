@@ -403,7 +403,7 @@ html body .gameplay-phase-scoring > .gameplay-round-header {
 
 html body .gameplay-question-meta::before,
 html body .gameplay-question-meta::after {
-  content: "\2726" !important;
+  content: "✦" !important;
   display: inline-block !important;
   margin: 0 0.62em !important;
   color: #fff45a !important;
@@ -641,11 +641,7 @@ html body .private-streamer-answer p {
 */
 
 /* The media/content area itself was still too narrow. */
-html body .gameplay-question-body-food,
-html body .gameplay-question-body-maze,
-html body .gameplay-question-body-shapes,
-html body .gameplay-question-body-logo,
-html body .gameplay-question-body-text {
+html body .gameplay-question-body-food,html body .gameplay-question-body-maze,html body .gameplay-question-body-shapes,html body .gameplay-question-body-text{
   width: clamp(610px, 43vw, 805px) !important;
   max-width: 805px !important;
   min-height: clamp(430px, 47vh, 625px) !important;
@@ -720,29 +716,14 @@ html body .gameplay-question-body-shapes .gameplay-shape-mark {
   height: clamp(32px, 2.45vw, 52px) !important;
 }
 
-/* Guess Logo: make logo clue the hero, not a tiny mark. */
-html body .gameplay-question-body-logo .gameplay-logo-guess-card {
-  width: clamp(610px, 41vw, 790px) !important;
-  max-width: 790px !important;
-  height: clamp(420px, 45vh, 610px) !important;
-  display: grid !important;
-  place-items: center !important;
-}
 
-html body .gameplay-question-body-logo .gameplay-logo-guess-mark {
-  font-size: clamp(150px, 11vw, 230px) !important;
-  line-height: 1 !important;
-  transform: none !important;
-  filter: drop-shadow(0 0 24px rgba(45, 244, 255, 0.42))
-    drop-shadow(0 0 28px rgba(255, 75, 231, 0.3)) !important;
-}
 
-html body .gameplay-question-body-logo .gameplay-logo-guess-card strong {
-  margin-top: clamp(16px, 1.2vw, 24px) !important;
-  font-size: clamp(24px, 1.65vw, 36px) !important;
-}
 
-/* True/Fake or generic text visual. */
+
+
+
+
+/* Generic text visual. */
 html body .gameplay-question-body-text .gameplay-question-statement-card {
   width: clamp(580px, 39vw, 760px) !important;
   max-width: 760px !important;
@@ -767,11 +748,7 @@ html body .private-streamer-answer {
 }
 
 @media (max-width: 1500px) {
-  html body .gameplay-question-body-food,
-  html body .gameplay-question-body-maze,
-  html body .gameplay-question-body-shapes,
-  html body .gameplay-question-body-logo,
-  html body .gameplay-question-body-text {
+  html body .gameplay-question-body-food,html body .gameplay-question-body-maze,html body .gameplay-question-body-shapes,html body .gameplay-question-body-text{
     width: clamp(560px, 41vw, 700px) !important;
     max-width: 700px !important;
   }
@@ -792,9 +769,7 @@ html body .private-streamer-answer {
     transform: scale(1.12) !important;
   }
 
-  html body .gameplay-question-body-logo .gameplay-logo-guess-mark {
-    font-size: clamp(132px, 10vw, 200px) !important;
-  }
+  
 }
 
 /* V2 GAMEPLAY CONTENT SCALE FINAL END */

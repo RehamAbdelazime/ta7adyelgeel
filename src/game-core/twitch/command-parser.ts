@@ -46,13 +46,7 @@ export class CommandParser {
 
     const [rawCommand = '', ...args] = normalizedMessage.split(' ');
     const command = rawCommand.toLowerCase();
-    let kind = COMMAND_ALIASES[command] ?? 'unknown';
-
-    // Hangman uses free-form commands like !a, !م, !word pizza, and !guess pizza.
-    // Keep the parser generic: the active mini-game validates whether this answer is usable.
-    if (kind === 'unknown' && isHangmanStyleAnswer(command, args)) {
-      kind = 'answer';
-    }
+    const kind = COMMAND_ALIASES[command] ?? 'unknown';
 
     return {
       kind,
@@ -63,11 +57,3 @@ export class CommandParser {
   }
 }
 
-
-function isHangmanStyleAnswer(command: string, args: string[]): boolean {
-  const raw = command.replace(/^!/, '').trim();
-  if (!raw) return false;
-  if (raw === 'word' || raw === 'guess' || raw === 'كلمة' || raw === 'كلمه') return args.length > 0;
-  const normalized = raw.normalize('NFKD').replace(/[ً-ٰٟ]/g, '').replace(/[^a-zء-ي]/gi, '');
-  return [...normalized].length === 1;
-}

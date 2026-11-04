@@ -20,11 +20,9 @@ export function PrivateStreamerAnswerDock() {
     && !snapshot.privateStreamerAnswerSubmitted;
   const choiceCount = useMemo(() => getPrivateChoiceCount(snapshot.miniGame), [snapshot.miniGame]);
   const isCountAnswer = snapshot.miniGame.id === 'count-the-beat';
-  const isWordAnswer = snapshot.miniGame.id === 'hangman';
   const isArabic = snapshot.locale === 'ar';
-  const isValidAnswer = isWordAnswer ? value.trim().length > 0
-    : isCountAnswer ? /^\d{1,3}$/.test(value)
-      : /^[1-9]$/.test(value) && Number(value) <= choiceCount;
+  const isValidAnswer = isCountAnswer ? /^\d{1,3}$/.test(value)
+    : /^[1-9]$/.test(value) && Number(value) <= choiceCount;
   const streamerName = status.accountDisplayName || status.channelName || status.accountLogin || 'STREAMER';
   const streamerTwitchUserId = status.accountUserId;
 
@@ -78,15 +76,15 @@ export function PrivateStreamerAnswerDock() {
         <input
           ref={inputRef}
           type="password"
-          inputMode={isWordAnswer ? 'text' : 'numeric'}
-          pattern={isWordAnswer ? undefined : '[0-9]*'}
+          inputMode={'numeric'}
+          pattern={'[0-9]*'}
           autoComplete="off"
           autoCorrect="off"
           spellCheck={false}
-          maxLength={isWordAnswer ? 30 : isCountAnswer ? 3 : 1}
+          maxLength={isCountAnswer ? 3 : 1}
           value={value}
-          onChange={(event) => setValue(event.target.value.replace(isWordAnswer ? /^!/ : isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
-          placeholder={isCountAnswer ? '0–999' : isWordAnswer ? (isArabic ? 'كلمة' : 'word') : `1 – ${choiceCount}`}
+          onChange={(event) => setValue(event.target.value.replace(isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
+          placeholder={isCountAnswer ? '0–999' : `1 – ${choiceCount}`}
           aria-label={isArabic ? 'اكتب إجابة الهوست' : 'Type host answer'}
         />
         <button type="submit" disabled={!isValidAnswer}>{isArabic ? 'إرسال' : 'SEND'}</button>
@@ -102,12 +100,12 @@ export function PrivateStreamerAnswerDock() {
 type MiniGameSnapshotLike = ReturnType<typeof useGame>['snapshot']['miniGame'];
 
 function getPrivateChoiceCount(miniGame: MiniGameSnapshotLike): number {
-  if (miniGame.id === 'true-fake' || miniGame.id === 'couple-or-siblings' || miniGame.id === 'before-after') return 2;
+  if (miniGame.id === 'couple-or-siblings') return 2;
   if (miniGame.id === 'lucky-cup') return 3;
   if (miniGame.id === 'shape-count') return miniGame.shapeGrid?.choices.length ?? 4;
   if (miniGame.id === 'memory-count') return miniGame.memoryCount?.choices.length ?? 4;
   if (miniGame.id === 'food-origin') return miniGame.foodOrigin?.choices.length ?? 4;
-  if (miniGame.id === 'guess-logo') return miniGame.guessLogo?.choices.length ?? 4;
+  if (miniGame.id === 'guess-movie' || miniGame.id === 'guess-star') return miniGame.visualGuess?.choices.length ?? 4;
   if (miniGame.id === 'maze-gates') return miniGame.mazeGates?.choices.length ?? 4;
   return 4;
 }

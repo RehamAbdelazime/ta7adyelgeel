@@ -162,7 +162,8 @@ export function QuestionScreenShell({
   // Choice cards already highlight the correct answer. A second announcement
   // covers the artwork and forces the viewer to read the same result twice.
   const showRevealBanner = isAnswerReveal && !hasChoices
-    && miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates';
+    && miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates'
+;
   const stageElement = typeof document !== 'undefined'
     ? document.querySelector('.game-scene-stage') : null;
   const isModern = layout !== 'legacy';
@@ -265,7 +266,7 @@ export function QuestionScreenShell({
         {/* A single full-width read on time, directly under the compact game banner.
             The host control is stage-anchored above the host, not inside this HUD. */}
         <QuestionPhaseTimer
-          isRunning={tourPhase === 'answer_window_open'}
+          isRunning={tourPhase === 'answer_window_open' || (tourPhase === 'tour_starting' && miniGame.id === 'memory-count')}
           phaseStartedAt={snapshot.tour.phaseStartedAt}
           phaseDurationMs={snapshot.tour.phaseDurationMs}
           phaseRemainingMs={snapshot.tour.phaseRemainingMs}
@@ -277,9 +278,11 @@ export function QuestionScreenShell({
         {eyebrow ? <div className="gameplay-question-eyebrow">{eyebrow}</div> : null}
 
         {/* Question text — full width below */}
-        <h2 className="qshell-title" style={isModern ? undefined : { margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: 'var(--display-font)', textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
-          {miniGame.statement}
-        </h2>
+        {miniGame.statement.trim() ? (
+          <h2 className="qshell-title" style={isModern ? undefined : { margin: 0, textAlign: 'center', color: '#ffffff', fontSize: 'clamp(20px,1.6vw,34px)', lineHeight: 1.18, fontFamily: 'var(--display-font)', textShadow: '0 4px 0 rgba(0,0,0,.52), 0 0 18px rgba(255,255,255,.28)', textTransform: 'uppercase', letterSpacing: '.04em', width: '100%' }}>
+            {miniGame.statement}
+          </h2>
+        ) : null}
 
         {showHeaderHelperText && helperText ? (
           <p className="gameplay-question-header-helper">{helperText}</p>

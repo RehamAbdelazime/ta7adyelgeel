@@ -39,25 +39,20 @@ function IllustrationContent({ gameId, locale }: { gameId: MiniGameId; locale: L
           <rect x="400" y="77" width="50" height="42" rx="10" fill="#1f6947" stroke="#7bf6ae" />
           <text x="425" y="103" textAnchor="middle" fill="white" fontSize="18">✓</text>
         </svg><div className="howto-demo-tag"><L locale={locale} ar="اتبع الطريق لحد المخرج" en="Follow the path to the exit" /></div></>;
-    case 'before-after':
-      return <><div className="howto-timeline"><div className="howto-timeline-event"><span>📻</span><b><L locale={locale} ar="الحدث الأول" en="Event A" /></b></div><span className="howto-timeline-arrow">⟷</span><div className="howto-timeline-event"><span>📱</span><b><L locale={locale} ar="الحدث الثاني" en="Event B" /></b></div></div>
-        <SampleChoices labels={locale === 'ar' ? ['الأول', 'الثاني'] : ['First', 'Second']} highlight={0} /></>;
-    case 'guess-logo':
-      return <><div className="howto-logo-demo"><div className="howto-mystery-logo">◈<span>?</span></div><div className="howto-logo-magnify">⌕</div></div>
-        <SampleChoices labels={locale === 'ar' ? ['ماركة أ', 'ماركة ب', 'ماركة ج'] : ['Brand A', 'Brand B', 'Brand C']} highlight={1} /></>;
+    case 'guess-movie':
+      return <><div className="v36-howto-poster"><span>🎬</span><strong>?</strong><i>FILM</i></div>
+        <SampleChoices labels={locale === 'ar' ? ['فيلم ١','فيلم ٢','فيلم ٣'] : ['Film 1','Film 2','Film 3']} highlight={1} /></>;
+    case 'guess-star':
+      return <><div className="v36-howto-eyes"><span aria-hidden="true">◉　◉</span><strong>?</strong></div>
+        <SampleChoices labels={locale === 'ar' ? ['نجم ١','نجم ٢','نجم ٣'] : ['Star 1','Star 2','Star 3']} highlight={1} /></>;
     case 'count-the-beat':
       return <><div className="howto-beat-demo">{['♫','♪','★','♫','♫','♪','♫','★'].map((v, i) => <span key={i} className={v === '♫' ? 'howto-beat-target' : ''}>{v}</span>)}</div>
         <div className="howto-count-result"><span>♫ × 4</span><strong dir="ltr">!4</strong></div></>;
     case 'lucky-cup':
       return <><div className="howto-cups-demo" dir="ltr">{[0,1,2].map(i => <div className="howto-demo-cup" key={i}><img src={CUP} alt="" draggable={false} />{i===1 ? <img className="howto-demo-ball" src={BALL} alt="" draggable={false} /> : null}<b>↔</b></div>)}</div>
         <div className="howto-demo-tag"><L locale={locale} ar="راقب الكورة وبعدين اختار الكوباية" en="Track the ball, then pick a cup" /></div></>;
-    case 'true-fake':
-      return <><div className="howto-statement-demo">“<L locale={locale} ar="الشمس نجم" en="The Sun is a star" />”</div>
-        <SampleChoices labels={locale === 'ar' ? ['صح ✓','غلط ✕'] : ['True ✓','False ✕']} highlight={0} /></>;
     case 'memory-count':
       return <><div className="howto-memory-demo"><div className="howto-memory-items">{'🍎 🍋 🍎 🍇 🍎 🍋'.split(' ').map((v,i) => <span key={i}>{v}</span>)}</div><div className="howto-memory-cover">?</div></div><div className="howto-count-result"><span><L locale={locale} ar="كام تفاحة؟" en="How many apples?" /></span><strong dir="ltr">!3</strong></div></>;
-    case 'hangman':
-      return <><div className="howto-hangman-demo"><span className="howto-hangman-hint">🍎</span><div className="howto-hangman-blanks" dir="ltr">A _ _ L E</div></div><div className="howto-keyboard"><kbd>!P</kbd><kbd>!APPLE</kbd></div></>;
     case 'couple-or-siblings':
       return <><div className="howto-pair-demo"><span>👩</span><b>?</b><span>👨</span></div>
         <SampleChoices labels={locale === 'ar' ? ['مرتبطين ❤️','إخوات 👨‍👩‍👧'] : ['Couple ❤️','Siblings 👨‍👩‍👧']} highlight={1} /></>;
@@ -65,10 +60,8 @@ function IllustrationContent({ gameId, locale }: { gameId: MiniGameId; locale: L
 }
 
 const EXAMPLE_ANSWERS: Record<MiniGameId, string> = {
-  'food-origin': '!1', 'shape-count': '!1', 'maze-gates': '!1',
-  'before-after': '!1', 'guess-logo': '!2', 'count-the-beat': '!4',
-  'lucky-cup': '!2', 'true-fake': '!1', 'memory-count': '!3',
-  'hangman': '!a', 'couple-or-siblings': '!2',
+  'food-origin': '!1', 'shape-count': '!1', 'maze-gates': '!1', 'count-the-beat': '!4',
+  'lucky-cup': '!2', 'guess-movie': '!2', 'guess-star': '!2', 'memory-count': '!3', 'couple-or-siblings': '!2',
 };
 
 /** Pure decorative example — never shows the real round answer. */
@@ -88,12 +81,10 @@ export const INTRO_STEP_ICONS: Record<MiniGameId, readonly [string, string, stri
   'food-origin': ['👀','🌍','💬'],
   'shape-count': ['👀','🔢','💬'],
   'maze-gates': ['🧠','🧭','💬'],
-  'before-after': ['🕰️','👆','💬'],
-  'guess-logo': ['🔎','✨','💬'],
+  'guess-movie': ['🎞️','🎬','💬'],
+  'guess-star': ['👀','✨','💬'],
   'count-the-beat': ['♫','🔢','💬'],
   'lucky-cup': ['🥇','🔀','💬'],
-  'true-fake': ['📖','⚖️','💬'],
   'memory-count': ['👁️','🧠','💬'],
-  'hangman': ['💡','🔤','🏆'],
   'couple-or-siblings': ['👥','❤️','💬'],
 };

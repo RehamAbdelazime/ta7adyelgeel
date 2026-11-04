@@ -36,11 +36,6 @@ export function getOptionNumberForAnswer(
   miniGame: MiniGameSnapshot,
   answer: MiniGameSnapshot['answerRecords'][number]['answer'],
 ): number | null {
-  if (miniGame.id === 'true-fake') {
-    if (answer === 'true') return 1;
-    if (answer === 'fake') return 2;
-    return null;
-  }
 
   if (miniGame.id === 'lucky-cup') {
     const optionNumber = Number(answer);
@@ -74,9 +69,6 @@ export function getAnswerCountsByOption(miniGame: MiniGameSnapshot): Map<number,
 export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | null {
   if (miniGame.correctAnswer === null) return null;
 
-  if (miniGame.id === 'true-fake') {
-    return miniGame.correctAnswer === 'true' ? 1 : miniGame.correctAnswer === 'fake' ? 2 : null;
-  }
   if (miniGame.id === 'shape-count') {
     return miniGame.shapeGrid?.choices.find((c) => c.shape === (miniGame.correctAnswer as ShapeCountShapeId))?.optionNumber ?? null;
   }
@@ -89,14 +81,11 @@ export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | nul
   if (miniGame.id === 'couple-or-siblings') {
     return miniGame.coupleOrSiblings?.choices.find((c) => c.value === miniGame.coupleOrSiblings?.correctAnswer)?.optionNumber ?? null;
   }
-  if (miniGame.id === 'guess-logo') {
-    return miniGame.guessLogo?.correctOptionNumber ?? null;
+  if (miniGame.id === 'guess-movie' || miniGame.id === 'guess-star') {
+    return miniGame.visualGuess?.correctOptionNumber ?? null;
   }
   if (miniGame.id === 'maze-gates') {
     return miniGame.mazeGates?.correctOptionNumber ?? null;
-  }
-  if (miniGame.id === 'before-after') {
-    return miniGame.beforeOrAfter?.correctOptionNumber ?? null;
   }
   if (miniGame.id === 'lucky-cup') {
     return miniGame.luckyCup?.correctCupNumber ?? null;
@@ -152,12 +141,6 @@ export function getAnswerOptionByUserId(miniGame: MiniGameSnapshot): Map<string,
 export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlightDefinition[] {
   if (!miniGame.hasRound) return [];
 
-  if (miniGame.id === 'true-fake') {
-    return [
-      { optionNumber: 1, command: '!1', label: 'TRUE', tone: 'cyan', icon: '✓' },
-      { optionNumber: 2, command: '!2', label: 'FAKE', tone: 'pink', icon: '✕' },
-    ];
-  }
   if (miniGame.id === 'shape-count' && miniGame.shapeGrid) {
     return miniGame.shapeGrid.choices.map((c) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
@@ -176,25 +159,16 @@ export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlig
       tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[i] ?? 'green', icon: '🌍',
     }));
   }
-  if (miniGame.id === 'guess-logo' && miniGame.guessLogo) {
-    return miniGame.guessLogo.choices.map((c, i) => ({
+  if ((miniGame.id === 'guess-movie' || miniGame.id === 'guess-star') && miniGame.visualGuess) {
+    return miniGame.visualGuess.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
-      tone: (['cyan', 'pink', 'purple', 'orange'] as ChoiceTone[])[i] ?? 'cyan', icon: '★',
+      tone: (['cyan','pink','yellow','purple'] as ChoiceTone[])[i] ?? 'cyan', icon: '✦',
     }));
   }
   if (miniGame.id === 'maze-gates' && miniGame.mazeGates) {
     return miniGame.mazeGates.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
       tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[i] ?? 'cyan', icon: '→',
-    }));
-  }
-  if (miniGame.id === 'before-after' && miniGame.beforeOrAfter) {
-    return miniGame.beforeOrAfter.choices.map((choice, index) => ({
-      optionNumber: choice.optionNumber,
-      command: choice.command,
-      label: choice.label,
-      tone: (index === 0 ? 'cyan' : 'pink') as ChoiceTone,
-      icon: index === 0 ? '◀' : '▶',
     }));
   }
   if (miniGame.id === 'lucky-cup' && miniGame.luckyCup) {

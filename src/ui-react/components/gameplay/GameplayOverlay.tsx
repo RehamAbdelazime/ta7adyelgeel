@@ -172,10 +172,10 @@ function MainScreenGameplayOverlay({
   }
 
   if (overlayMode === 'tour-starting') {
-    // Lucky Cup's countdown IS the visible, non-answerable shuffle. All swaps
-    // must complete before the answer window opens; never show the generic
-    // countdown here or viewers would have to guess an invisible shuffle.
-    if (miniGame.id === 'lucky-cup' && miniGame.hasRound) {
+    // Visual preparation is actual gameplay for both games: Lucky Cup shuffles,
+    // Memory Count briefly exposes the grid before the answer window hides it.
+    // Never replace either with the generic countdown.
+    if ((miniGame.id === 'lucky-cup' || miniGame.id === 'memory-count') && miniGame.hasRound) {
       return (
         <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-tour_starting gameplay-lucky-cup-warmup">
           <MiniGamePlayScreen miniGame={miniGame} tourPhase="tour_starting" />

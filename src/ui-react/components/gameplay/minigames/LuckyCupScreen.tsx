@@ -10,6 +10,7 @@ import {
 import type { TourPhase, TourSnapshot } from '../../../../game-core/tours/tour-types';
 import { useGame } from '../../../context/GameContext';
 import { QuestionScreenShell } from '../shared/question-shell';
+import { useLuckyCupRevealCue } from '../../audio/useGameplayCue';
 
 // Relative to Vite's base (./ in packaged Electron), not filesystem root.
 const CUP_URL = `${import.meta.env.BASE_URL}assets/game/runtime/minigames/lucky-cup/cup.png`;
@@ -96,6 +97,7 @@ function LuckyCupPlayfield({
           left: `${16.6667 + motion.slot * 33.3333}%`,
           '--lucky-arc': `${motion.arc * 44 + lift * 118}px`,
           '--lucky-tilt': `${motion.tilt}deg`,
+          '--v35-flight-scale': String(1 + Math.max(0, motion.arc) * 0.075),
           zIndex: 10 + motion.layer + (lift > 0 ? 4 : 0),
         } as CSSProperties;
         return (
@@ -128,6 +130,7 @@ export function LuckyCupScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnap
   const { snapshot } = useGame();
   const plan = miniGame.luckyCup;
   const locale = snapshot.locale;
+  useLuckyCupRevealCue(tourPhase === 'scoring', miniGame.questionId);
 
   if (!plan) return null;
 

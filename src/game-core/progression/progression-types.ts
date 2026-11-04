@@ -4,7 +4,7 @@ export type CommandUnlockId =
   | 'join'
   | 'help'
   | 'profile'
-  | 'true-fake'
+  | 'answer-choices'
   | 'wave'
   | 'dance'
   | 'emote'

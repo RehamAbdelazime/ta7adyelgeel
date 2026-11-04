@@ -1,0 +1,96 @@
+/* V35: targeted visual review, scoped to minigames. Imported after V34.
+   No global !important overrides of the game-show stage or scoreboards. */
+
+/* TRUE / FAKE – the statement is the one and only focus, not duplicated by a
+   generic "true or false" filler card in the body. */
+
+
+/* GUESS THE LOGO – a genuine recognizable mark, with no brand name printed
+   until the numbered answer card highlights the correct option. */
+
+
+
+/* BEFORE / AFTER – no two giant duplicate event labels stealing time from
+   the same choices shown in the answer row. The clock reads as one question. */
+
+
+
+
+/* The question is the same top-level choice row as every choice-based game. */
+
+
+/* MEMORY COUNT – the PREPARATION phase actually shows the grid; answering
+   and reveal replace it with one huge target icon + "?" / numeric answer. */
+html body #root .gameplay-question-memory-count .v35-memory-puzzle {
+  display:grid;place-items:center;width:100%;height:100%;min-height:0;min-width:0;
+  padding:clamp(12px,1vw,22px);box-sizing:border-box;
+  border-radius:16px;background:radial-gradient(ellipse at center,rgba(17,48,82,.6),rgba(6,14,34,.95));
+  border:1px solid rgba(88,210,244,.28);overflow:hidden;
+}
+html body #root .gameplay-question-memory-count .v35-memory-grid {
+  width:100%!important;height:100%!important;max-height:100%!important;
+  display:grid;align-items:center;justify-items:center;gap:clamp(4px,.6vw,12px);
+  font-size:clamp(20px,2.8vw,58px);overflow:hidden;padding:0!important;
+}
+html body #root .gameplay-question-memory-count .v35-memory-grid .gameplay-memory-item {
+  font-size:inherit!important;line-height:1!important;
+}
+html body #root .gameplay-question-memory-count .v35-memory-query {
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(12px,2vw,40px);
+  color:#fff;
+}
+html body #root .gameplay-question-memory-count .v35-memory-query-icon {font-size:clamp(70px,9vw,165px);line-height:1;}
+html body #root .gameplay-question-memory-count .v35-memory-query strong {
+  font:900 clamp(95px,11vw,185px)/1 var(--font-game-ui,sans-serif);
+  color:#f0fcff;text-shadow:0 0 24px rgba(53,232,243,.24);
+}
+html body #root .gameplay-question-memory-count .v35-memory-query small {
+  flex:1 0 100%;text-align:center;color:#a7f5ff;
+  font:800 clamp(17px,1.5vw,27px)/1.2 var(--font-game-ui,sans-serif);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* COUNT THE BEAT – each glyph is visible in its scheduled frame; no blanket
+   !important opacity / inherited animation that would hide it forever. */
+html body #root .gameplay-question-count-the-beat .ctb-target-bar {min-height:clamp(64px,8vh,95px)!important;}
+html body #root .gameplay-question-count-the-beat .ctb-stage {isolation:isolate!important;}
+html body #root .gameplay-question-count-the-beat .ctb-target-glyph {font-size:clamp(38px,4.6vw,84px)!important;}
+
+/* MAZE – enforce a neutral gate appearance until reveal; correct/dead-end
+   classes belong to the final result, never the question stage. */
+html body #root .gameplay-question-maze-gates:not(.gameplay-question-shell-reveal) .gameplay-maze-full-gate circle {
+  fill:rgba(5,20,43,.98)!important;stroke:#5de3ff!important;
+}
+
+/* LUCKY CUP – preserve V30's brutal finale, improve moving-cup depth without
+   changing timing or authoritative slot mapping. */
+html body #root .lucky-v27-field .lucky-v27-cup-unit {backface-visibility:hidden;}
+html body #root .lucky-v27-field .lucky-v27-cup-art {transform:scale(var(--v35-flight-scale,1));}
+
+@media (max-height:740px),(max-width:1200px) {
+  
+  
+  html body #root .gameplay-question-memory-count .v35-memory-grid {font-size:clamp(19px,2.2vw,42px);}
+}
+@media (prefers-reduced-motion:reduce) {
+  
+}
+
+/* Preparation uses the entire puzzle body: hide the 0-answer HUD and the
+   eventual choice column while the memory grid is exposed. */
+html body #root .v35-memory-prep .qshell-content {display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(0,1fr)!important;}
+html body #root .v35-memory-prep .qshell-footer {display:none!important;}

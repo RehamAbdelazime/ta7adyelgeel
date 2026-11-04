@@ -50,6 +50,12 @@ import './styles/host-answer-pod-v28.css';
 import './styles/experience-unification-v32.css';
 // V34: scoped, minimal gameplay fixes for four tested mini-games.
 import './styles/gameplay-clarity-v34.css';
+// V35: targeted polish per game, after legacy and v34 rule layers.
+import './styles/gameplay-review-v35.css';
+// V36: two visual trivia modes sharing the existing question HUD and host controls.
+import './styles/visual-guess-v36.css';
+// V38: count/maze/shape gameplay quality without changing shared layouts.
+import './styles/gameplay-quality-v38.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

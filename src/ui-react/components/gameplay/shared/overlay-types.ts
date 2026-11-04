@@ -127,10 +127,6 @@ export function getMiniGameTitle(miniGameId: MiniGameId | null, locale: 'en' | '
 
 export function getCorrectAnswerText(miniGame: MiniGameSnapshot, t?: TranslateFn): string {
   switch (miniGame.id) {
-    case 'true-fake':
-      if (miniGame.correctAnswer === 'true') return `!1 ${t ? t('trueFake.true') : 'TRUE'}`;
-      if (miniGame.correctAnswer === 'fake') return `!2 ${t ? t('trueFake.fake') : 'FAKE'}`;
-      return '-';
     case 'shape-count': {
       const answer = miniGame.correctAnswer as ShapeCountShapeId | null;
       const choice = answer ? miniGame.shapeGrid?.choices.find((item) => item.shape === answer) : null;
@@ -146,23 +142,19 @@ export function getCorrectAnswerText(miniGame: MiniGameSnapshot, t?: TranslateFn
       if (miniGame.coupleOrSiblings?.correctAnswer === 'couple') return t ? t('pair.answer.couple') : 'Couple';
       if (miniGame.coupleOrSiblings?.correctAnswer === 'siblings') return t ? t('pair.answer.siblings') : 'Siblings';
       return '-';
-    case 'guess-logo':
-      return miniGame.guessLogo?.correctLogo ?? '-';
+    case 'guess-movie':
+    case 'guess-star':
+      return miniGame.visualGuess?.correctLabel ?? '-';
     case 'maze-gates': {
       const correctGate = miniGame.mazeGates?.correctOptionNumber;
       return correctGate ? (t ? t('gameplay.maze.correctGate', { answer: String(correctGate) }) : `!${correctGate}`) : '-';
     }
-    case 'before-after':
-      return miniGame.beforeOrAfter?.correctLabel
-        ?? (miniGame.beforeOrAfter?.correctOptionNumber ? `!${miniGame.beforeOrAfter.correctOptionNumber}` : '-');
     case 'count-the-beat':
       return miniGame.countTheBeat?.targetCount !== null && miniGame.countTheBeat?.targetCount !== undefined
         ? String(miniGame.countTheBeat.targetCount)
         : '-';
     case 'lucky-cup':
       return miniGame.luckyCup?.correctCupNumber ? `!${miniGame.luckyCup.correctCupNumber}` : '-';
-    case 'hangman':
-      return miniGame.hangman?.correctWord ?? '-';
     default: {
       const exhaustiveCheck: never = miniGame.id;
       return exhaustiveCheck;

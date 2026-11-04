@@ -21,6 +21,7 @@ type CountTheBeatRound = {
   targetIcon: CountTheBeatIconId;
   targetCount: number;
   items: CountTheBeatItemSnapshot[];
+  bpm: number;
 };
 
 const DIFFICULTY_ORDER: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
@@ -30,7 +31,10 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
   targetRange: number;
   distractorMin: number;
   distractorRange: number;
-  maxDelayMs: number;
+  /** Beat tempo; all symbols are scheduled on exact subdivisions of this clock. */
+  bpm: number;
+  beatCount: number;
+  maxItemsPerBeat: number;
   durationMinMs: number;
   durationRangeMs: number;
 }> = {
@@ -39,27 +43,24 @@ const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
     targetRange: 5,
     distractorMin: 14,
     distractorRange: 5,
-    maxDelayMs: 5_400,
-    durationMinMs: 980,
-    durationRangeMs: 420,
+    bpm: 108, beatCount: 20, maxItemsPerBeat: 2,
+    durationMinMs: 340, durationRangeMs: 65,
   },
   medium: {
     targetMin: 11,
     targetRange: 6,
     distractorMin: 20,
     distractorRange: 7,
-    maxDelayMs: 6_200,
-    durationMinMs: 760,
-    durationRangeMs: 360,
+    bpm: 134, beatCount: 22, maxItemsPerBeat: 2,
+    durationMinMs: 285, durationRangeMs: 60,
   },
   hard: {
     targetMin: 15,
     targetRange: 8,
     distractorMin: 28,
     distractorRange: 10,
-    maxDelayMs: 7_200,
-    durationMinMs: 560,
-    durationRangeMs: 320,
+    bpm: 158, beatCount: 24, maxItemsPerBeat: 3,
+    durationMinMs: 230, durationRangeMs: 55,
   },
 };
 
@@ -76,11 +77,11 @@ const BEAT_ICON_LABELS: Record<CountTheBeatIconId, Record<LocaleCode, string>> =
 const BEAT_ICON_GLYPHS: Record<CountTheBeatIconId, string> = {
   note: '♪',
   'double-note': '♫',
-  wave: '≋',
-  mic: '◉',
-  headphones: 'Ω',
-  speaker: '▶',
-  disc: '◎',
+  wave: '〰',
+  mic: '🎤',
+  headphones: '🎧',
+  speaker: '🔊',
+  disc: '💿',
 };
 
 const BEAT_TONES: CountTheBeatTone[] = ['cyan', 'pink', 'yellow', 'purple', 'green'];
@@ -274,6 +275,7 @@ export class CountTheBeatMiniGameService {
             targetGlyph: BEAT_ICON_GLYPHS[this.round.targetIcon],
             targetCount: shouldRevealAnswer ? this.round.targetCount : null,
             items: this.round.items,
+            bpm: this.round.bpm,
             scoring: getNumericEstimateScoringGuide('count-the-beat', difficulty),
           }
         : null,
@@ -300,12 +302,42 @@ export class CountTheBeatMiniGameService {
       items.push(this.createItem(`distractor-${index}`, icon, false, index + targetCount, random, difficulty));
     }
 
+    // Quantize glyphs to an explicit musical pulse, but keep multiple distinct
+    // icons per beat on hard difficulty. Never rely on a random pile-up.
+    const orderedItems = shuffle(items, random);
+    const beatMs = 60_000 / config.bpm;
+    const beatCount = Math.max(config.beatCount, Math.ceil(orderedItems.length / config.maxItemsPerBeat));
+    const occupiedByBeat = new Map<number, Set<number>>();
+    const positions = [
+      [17, 24], [39, 20], [62, 23], [83, 20],
+      [23, 49], [45, 48], [66, 47], [85, 52],
+      [17, 75], [40, 77], [62, 75], [82, 78],
+    ] as const;
+    const positionOffset = Math.floor(random() * positions.length);
+
+    orderedItems.forEach((item, index) => {
+      const beat = Math.floor((index * beatCount) / orderedItems.length);
+      const occupied = occupiedByBeat.get(beat) ?? new Set<number>();
+      // Consecutive items in a simultaneous beat get different clear zones.
+      let slot = (beat * 5 + index * 7 + positionOffset) % positions.length;
+      while (occupied.has(slot)) slot = (slot + 1) % positions.length;
+      occupied.add(slot);
+      occupiedByBeat.set(beat, occupied);
+      const [x, y] = positions[slot];
+      item.x = x;
+      item.y = y;
+      item.delayMs = Math.round(beat * beatMs);
+      item.durationMs = Math.min(item.durationMs, Math.round(beatMs * 0.86));
+      item.rotate = 0; // keep the silhouette recognizable when several land together
+    });
+
     return {
       id: `count-the-beat-${roundNumber}-${targetIcon}-${targetCount}`,
       difficulty,
       targetIcon,
       targetCount,
-      items: shuffle(items, random),
+      items: orderedItems,
+      bpm: config.bpm,
     };
   }
 
@@ -326,10 +358,10 @@ export class CountTheBeatMiniGameService {
       icon,
       glyph: BEAT_ICON_GLYPHS[icon],
       isTarget,
-      x: clampNumber(8 + random() * 84, 6, 94),
-      y: clampNumber(12 + random() * 74, 8, 88),
+      x: clampNumber(12 + random() * 76, 10, 90),
+      y: clampNumber(18 + random() * 60, 14, 86),
       size: isTarget ? 1.04 + random() * 0.36 : 0.82 + random() * 0.32,
-      delayMs: Math.floor(random() * config.maxDelayMs),
+      delayMs: 0, // overwritten by the shared beat scheduler
       durationMs,
       rotate: Math.floor(-18 + random() * 36),
       tone,

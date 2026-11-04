@@ -5,8 +5,8 @@ import { resolve, dirname } from 'node:path';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => readFileSync(resolve(root, p), 'utf8');
 const screens = [
-  'BeforeOrAfter','CountTheBeat','CoupleOrSiblings','FoodOrigin','GuessLogo',
-  'Hangman','LuckyCup','MazeGates','MemoryCount','ShapeCount','TrueFake',
+  'CountTheBeat','CoupleOrSiblings','FoodOrigin',
+  'LuckyCup','MazeGates','MemoryCount','ShapeCount','VisualGuess',
 ];
 function assert(condition, message) {if (!condition) throw Error('V32: '+message);}
 const overlay = read('src/ui-react/components/gameplay/GameplayOverlay.tsx');
@@ -26,14 +26,14 @@ assert(!shell.includes('qshell-next-button" type="button"'), 'remove outdated ti
 assert(scene.includes('GameViewSnapshotProvider') && scene.includes('curtainPhase'), 'freeze old stage until curtain closes');
 assert(!spotlights.includes('answer-lane-label-v20"'), 'remove duplicated floor number tiles');
 assert(visual.includes('EXAMPLE_ANSWERS') && visual.includes('INTRO_STEP_ICONS'), 'illustrations + icon steps required');
-assert(visual.match(/case '[^']+':/g)?.length === 11, 'every mini-game has one illustration');
+assert((visual.match(/case '[^']+':/g) ?? []).length >= 9, 'every registered mini-game has one illustration, including V36 games');
 assert(css.includes('qshell-reveal-primary-action') && css.includes('position: absolute !important'), 'floating action must not move answers');
 for (const name of screens) {
   const screen = read(`src/ui-react/components/gameplay/minigames/${name}Screen.tsx`);
   assert(screen.includes('QuestionScreenShell'), `${name} must render the common shell`);
   assert(screen.includes('layout="') || screen.includes('layout={'), `${name} must explicitly opt into shared layout`);
 }
-for (const id of ['food-origin','shape-count','maze-gates','before-after','guess-logo','count-the-beat','lucky-cup','true-fake','memory-count','hangman','couple-or-siblings']) {
+for (const id of ['food-origin','shape-count','maze-gates','count-the-beat','lucky-cup','memory-count','couple-or-siblings']) {
   assert(modern.includes(`'${id}'`), `${id} must be in shared question screen set`);
   assert(registry.includes(`id: '${id}'`), `${id} must be registered`);
   assert(existsSync(resolve(root, 'src/ui-react/styles/experience-unification-v32.css')), 'styles exist');
@@ -41,4 +41,4 @@ for (const id of ['food-origin','shape-count','maze-gates','before-after','guess
 for (const id of ['beat','lucky']) {
   assert(registry.includes(`gameplay.intro.${id}.step1`), `${id} intro should not borrow shape steps`);
 }
-console.log('V32: PASS — stable curtain view, manual answer reveal, single large action, no floor badges, 11 illustrated intros + shared shells.');
+console.log('V32: PASS — stable curtain view, manual answer reveal, single large action, no floor badges, 9 illustrated intros + shared shells.');

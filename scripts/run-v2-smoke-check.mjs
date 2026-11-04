@@ -6,7 +6,6 @@ import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const checks = [
   'verify-source-integrity.mjs',
-  'verify-true-fake-bank.mjs',
   'verify-v33-reveal-consistency.mjs',
   'verify-v2-minigame-baseline.mjs',
   'verify-v2-minigame-grid.mjs',

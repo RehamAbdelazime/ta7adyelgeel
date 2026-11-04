@@ -28,7 +28,7 @@ assert(settings.indexOf('if (hasDisplayChanges) {', settings.indexOf('const appl
 assert(settings.includes('setDraftMusicVolume(Number(event.target.value))'), 'Audio draft is not transactional');
 assert(answerDock.includes('isCountAnswer ? 3 : 1'), 'Numeric count input is limited to one digit');
 assert(answerDock.includes("miniGame.id === 'lucky-cup'"), 'Lucky cup choice count must be 3');
-assert(answerDock.includes("miniGame.id === 'before-after'"), 'Before/after choice count must be 2');
+assert(answerDock.includes("miniGame.id === 'couple-or-siblings'"), 'Two-choice QA game must retain its choice count');
 for (const key of ['gameplay.score.topThree', 'gameplay.score.finalRounds', 'gameplay.score.calculatingHint', 'ui.play.noGamesEnabled']) {
   assert(localeTypes.includes(`'${key}'`), `Missing localization key type: ${key}`);
   assert.equal((translations.match(new RegExp(`[\\"']${key.replaceAll('.', '\\.')}[\\"']\\s*:`, 'g')) ?? []).length, 2, `Missing/duplicated translation of ${key}`);

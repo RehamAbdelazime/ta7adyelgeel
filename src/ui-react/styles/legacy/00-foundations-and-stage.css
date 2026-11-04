@@ -2136,12 +2136,7 @@ button {
   animation: gameplayPulse 0.9s ease-in-out infinite;
 }
 
-.gameplay-intro-card,
-.gameplay-prepare-card,
-.gameplay-true-fake-layout,
-.gameplay-shape-layout,
-.gameplay-result-card,
-.gameplay-top-three-board {
+.gameplay-intro-card,.gameplay-prepare-card,.gameplay-shape-layout,.gameplay-result-card,.gameplay-top-three-board{
   display: grid;
   gap: 12px;
   justify-items: center;
@@ -2198,8 +2193,7 @@ button {
   font-weight: 1000;
 }
 
-.gameplay-true-fake-layout h2,
-.gameplay-shape-layout h2 {
+.gameplay-shape-layout h2{
   width: min(860px, 98%);
   margin: 0;
   color: white;
@@ -2209,10 +2203,7 @@ button {
   text-shadow: 0 0 18px rgba(54, 232, 255, 0.38);
 }
 
-.gameplay-true-fake-layout p,
-.gameplay-shape-layout p,
-.gameplay-empty-round,
-.gameplay-top-three-board p {
+.gameplay-shape-layout p,.gameplay-empty-round,.gameplay-top-three-board p{
   margin: 0;
   color: rgba(242, 251, 255, 0.82);
   font-size: clamp(12px, 1vw, 17px);
@@ -2833,129 +2824,36 @@ button {
   }
 }
 
-.gameplay-hangman-card {
-  display: grid;
-  width: min(780px, 96%);
-  gap: 10px;
-  border: 1px solid rgba(255, 230, 109, 0.28);
-  border-radius: 22px;
-  background: linear-gradient(
-    135deg,
-    rgba(12, 20, 52, 0.78),
-    rgba(36, 12, 62, 0.72)
-  );
-  box-shadow:
-    0 0 24px rgba(255, 230, 109, 0.1),
-    inset 0 0 24px rgba(54, 232, 255, 0.04);
-  padding: 14px 16px;
-}
 
-.gameplay-hangman-hint {
-  display: grid;
-  gap: 4px;
-  border: 1px solid rgba(54, 232, 255, 0.18);
-  border-radius: 15px;
-  background: rgba(54, 232, 255, 0.07);
-  padding: 9px 12px;
-}
 
-.gameplay-hangman-hint span {
-  color: #ffe66d;
-  font-size: 10px;
-  font-weight: 1000;
-  letter-spacing: 0.16em;
-}
 
-.gameplay-hangman-hint strong {
-  color: rgba(242, 251, 255, 0.92);
-  font-size: clamp(13px, 1.05vw, 20px);
-  font-weight: 950;
-}
 
-.gameplay-hangman-word {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 70px;
-  color: #36e8ff;
-  font-size: clamp(32px, 4vw, 68px);
-  font-weight: 1000;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  text-shadow: 0 0 24px rgba(54, 232, 255, 0.45);
-  word-break: break-word;
-}
 
-.gameplay-hangman-lives {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
 
-.gameplay-hangman-lives span {
-  width: 18px;
-  height: 18px;
-  border: 1px solid rgba(255, 230, 109, 0.4);
-  border-radius: 999px;
-  background: rgba(92, 255, 177, 0.24);
-  box-shadow: 0 0 12px rgba(92, 255, 177, 0.18);
-}
 
-.gameplay-hangman-lives .gameplay-hangman-life-used {
-  border-color: rgba(255, 90, 90, 0.66);
-  background: rgba(255, 90, 90, 0.42);
-  box-shadow: 0 0 12px rgba(255, 90, 90, 0.24);
-}
 
-.gameplay-hangman-letters {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
 
-.gameplay-hangman-letters span {
-  min-height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.18);
-  padding: 8px 10px;
-  color: rgba(242, 251, 255, 0.78);
-  font-size: 12px;
-  font-weight: 850;
-}
 
-.gameplay-hangman-winner {
-  border: 1px solid rgba(92, 255, 177, 0.42);
-  border-radius: 13px;
-  background: rgba(92, 255, 177, 0.12);
-  color: #5cffb1;
-  padding: 9px 10px;
-  font-size: 14px;
-  font-weight: 1000;
-  text-shadow: 0 0 16px rgba(92, 255, 177, 0.25);
-}
 
-.gameplay-hangman-layout p {
-  margin: 0;
-  color: rgba(242, 251, 255, 0.76);
-  font-size: 12px;
-  font-weight: 850;
-}
 
-[dir="rtl"] .gameplay-hangman-word {
-  letter-spacing: 0.09em;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-height: 850px) {
-  .gameplay-hangman-word {
-    min-height: 52px;
-    font-size: clamp(28px, 3.5vw, 54px);
-  }
+  
 
-  .gameplay-hangman-card {
-    gap: 7px;
-    padding: 10px 13px;
-  }
+  
 }
 
 .developer-qa-panel {
@@ -3816,11 +3714,7 @@ button {
   font-size: clamp(17px, 1.75vw, 34px);
 }
 
-.gameplay-intro-card h2,
-.gameplay-top-three-board h2,
-.gameplay-prepare-card strong,
-.gameplay-true-fake-layout h2,
-.gameplay-shape-layout h2 {
+.gameplay-intro-card h2,.gameplay-top-three-board h2,.gameplay-prepare-card strong,.gameplay-shape-layout h2{
   font-size: clamp(24px, 2.1vw, 42px);
 }
 
@@ -4183,24 +4077,7 @@ button {
 }
 
 /* cleaned legacy comment */
-.gameplay-main-screen-lobby h1,
-.gameplay-main-screen-lobby strong,
-.gameplay-intro-card h2,
-.gameplay-prepare-card h2,
-.gameplay-prepare-card strong,
-.gameplay-true-fake-layout h2,
-.gameplay-shape-layout h2,
-.gameplay-food-layout h2,
-.gameplay-memory-layout h2,
-.gameplay-falling-layout h2,
-.gameplay-maze-layout h2,
-.gameplay-hangman-layout h2,
-.gameplay-top-three-board h2,
-.gameplay-tour-complete h2,
-.host-panel-title,
-.host-panel h2,
-.brand-title,
-.brand-wordmark {
+.gameplay-main-screen-lobby h1,.gameplay-main-screen-lobby strong,.gameplay-intro-card h2,.gameplay-prepare-card h2,.gameplay-prepare-card strong,.gameplay-shape-layout h2,.gameplay-food-layout h2,.gameplay-memory-layout h2,.gameplay-falling-layout h2,.gameplay-maze-layout h2,.gameplay-top-three-board h2,.gameplay-tour-complete h2,.host-panel-title,.host-panel h2,.brand-title,.brand-wordmark{
   font-family: var(--display-font);
   letter-spacing: 0.08em;
   font-weight: 400;

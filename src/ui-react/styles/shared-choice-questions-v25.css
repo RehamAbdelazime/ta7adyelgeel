@@ -115,26 +115,10 @@ html body .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-c
   filter: none !important;
 }
 
-/* Guess Logo and Couple/Siblings: share Food Origin's full visual panel, while
-   preserving original contain framing and existing content. */
-html body .gameplay-question-shell.qshell-v20.gameplay-question-guess-logo .qshell-body .gameplay-logo-guess-card,
-html body .gameplay-question-shell.qshell-v20.gameplay-question-true-fake .qshell-body .gameplay-question-statement-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 100% !important;
-  max-height: 100% !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  transform: none !important;
-  overflow: hidden !important;
-  border-radius: 10px !important;
-}
-html body .gameplay-question-shell.qshell-v20.gameplay-question-guess-logo .gameplay-logo-guess-mark {
-  font-size: clamp(90px, 10vw, 175px) !important;
-}
-html body .gameplay-question-shell.qshell-v20.gameplay-question-true-fake .gameplay-question-statement-card {
-  font: 820 clamp(24px, 2.8vw, 50px)/1.2 var(--font-game-title, var(--font-game-ui)) !important;
-}
+
+
+
+
 
 /* Same HUD + hint-size choices across compact 720p windows. */
 @media (max-width: 1280px), (max-height: 740px) {

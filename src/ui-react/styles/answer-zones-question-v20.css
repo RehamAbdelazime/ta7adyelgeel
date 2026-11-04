@@ -139,7 +139,7 @@ html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .
   min-height: 0 !important;
   max-width: 100% !important;
 }
-/* Preserve the ENTIRE food/logo image: cover-cropping was hiding the visual clue.
+/* Preserve the ENTIRE media image: cover-cropping was hiding the visual clue.
    Soft ambient image behind it avoids two wide, empty black columns for square art. */
 html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-media-frame {
   position: relative !important;

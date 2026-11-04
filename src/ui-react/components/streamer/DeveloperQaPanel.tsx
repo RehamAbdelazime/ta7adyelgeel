@@ -151,7 +151,6 @@ export function DeveloperQaPanel() {
 
   const getActiveAnswerCommands = () => {
     switch (snapshot.miniGame.id) {
-      case 'true-fake':
       case 'couple-or-siblings':
         return ANSWER_COMMANDS.slice(0, 2);
       case 'shape-count':
@@ -160,12 +159,8 @@ export function DeveloperQaPanel() {
         return (snapshot.miniGame.memoryCount?.choices ?? []).map((choice) => choice.command) as typeof ANSWER_COMMANDS[number][];
       case 'food-origin':
         return (snapshot.miniGame.foodOrigin?.choices ?? []).map((choice) => choice.command) as typeof ANSWER_COMMANDS[number][];
-      case 'guess-logo':
-        return (snapshot.miniGame.guessLogo?.choices ?? []).map((choice) => choice.command) as typeof ANSWER_COMMANDS[number][];
       case 'maze-gates':
         return (snapshot.miniGame.mazeGates?.choices ?? []).map((choice) => choice.command) as typeof ANSWER_COMMANDS[number][];
-      case 'hangman':
-        return [];
       default:
         return [...ANSWER_COMMANDS];
     }
@@ -173,9 +168,7 @@ export function DeveloperQaPanel() {
 
   const submitAnswerFromTestUsers = (command: string) => {
     getQaAnswerTargets().forEach((user, index) => {
-      const message = snapshot.miniGame.id === 'hangman'
-        ? getHangmanQaCommand(index)
-        : command;
+      const message = command;
       actions.submitTwitchMessage(createQaMessage(user.twitchUserId, user.displayName, message));
     });
   };
@@ -185,9 +178,7 @@ export function DeveloperQaPanel() {
     const fallbackCommands = activeCommands.length > 0 ? activeCommands : [...ANSWER_COMMANDS];
 
     getQaAnswerTargets().forEach((user, index) => {
-      const command = snapshot.miniGame.id === 'hangman'
-        ? getHangmanQaCommand(index)
-        : fallbackCommands[index % fallbackCommands.length] ?? '!1';
+      const command = fallbackCommands[index % fallbackCommands.length] ?? '!1';
       actions.submitTwitchMessage(createQaMessage(user.twitchUserId, user.displayName, command));
     });
   };
@@ -376,7 +367,3 @@ function clampNumber(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, Math.round(value)));
 }
 
-function getHangmanQaCommand(index: number): string {
-  const commands = ['!a', '!e', '!m', '!s', '!word moon', '!word city', '!o', '!r', '!n', '!l', '!word test', '!word maze'];
-  return commands[index % commands.length];
-}

@@ -30,25 +30,19 @@ assert(
   'the picker must not retain carousel paging state or controls',
 );
 assert(
-  Array.isArray(enabledMiniGames) && enabledMiniGames.length === 8,
-  'the current public mini-game list must contain exactly 8 games for the requested two-row layout',
+  Array.isArray(enabledMiniGames) && enabledMiniGames.length === 7,
+  'the public mini-game list must contain exactly 7 games for the two-row layout',
 );
-assert(enabledMiniGames.includes('true-fake'), 'True or Fake must be included as the eighth public game.');
+assert(enabledMiniGames.every((id) => (read('src/game-core/minigames/minigame-registry.ts').includes(`id: '${id}'`))), 'All public games must be in the canonical registry.');
 
 const gridRules = [...styles.matchAll(/\.main-screen-game-grid-layout \.main-screen-mini-card-grid\s*\{([^}]+)\}/g)];
 assert(gridRules.length > 0, 'mini-game grid CSS rule is missing');
-const desktopGridRule = gridRules.find((match) => /grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)\s*!important/.test(match[1]))?.[1];
-assert(
-  Boolean(desktopGridRule),
-  'desktop picker must display four cards per row',
-);
-assert(
-  /grid-template-rows:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)\s*!important/.test(desktopGridRule ?? ''),
-  'desktop picker must reserve exactly two card rows',
-);
-assert(
-  /display:\s*grid\s*!important/.test(desktopGridRule ?? ''),
-  'mini-game picker must use CSS Grid',
-);
+const v36Styles = read('src/ui-react/styles/visual-guess-v36.css');
+const desktopGridRule = [...v36Styles.matchAll(/html body #root \.main-screen-game-grid-layout \.main-screen-mini-card-grid\s*\{([^}]+)\}/g)][0]?.[1];
+assert(Boolean(desktopGridRule), 'V36 expanded picker rule is missing');
+assert(/grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)\s*!important/.test(desktopGridRule ?? ''), 'desktop picker must display four cards per row');
+assert(/grid-template-rows:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)\s*!important/.test(desktopGridRule ?? ''), 'desktop picker must reserve two rows');
+assert(read('src/ui-react/main.tsx').includes("import './styles/visual-guess-v36.css';"), 'V36 picker override must be loaded last');
+assert(/display:\s*grid\s*!important/.test(read('src/ui-react/styles/game-picker-v14.css')), 'mini-game picker must use CSS Grid');
 
 console.log(`v2 mini-game two-row grid verified (${enabledMiniGames.length} public games currently enabled; capacity: 8).`);

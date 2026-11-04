@@ -34,11 +34,9 @@ assert.match(keys, /'gameplay\.timer\.remaining'/);
 const sharedChoiceScreens = [
   'FoodOriginScreen.tsx',
   'ShapeCountScreen.tsx',
-  'GuessLogoScreen.tsx',
   'CoupleOrSiblingsScreen.tsx',
-  'TrueFakeScreen.tsx',
 ];
 for (const screen of sharedChoiceScreens) {
   assert.match(read(`src/ui-react/components/gameplay/minigames/${screen}`), /layout="choice"/, `${screen} should reuse horizontal choice layout`);
 }
-console.log('Question Experience shared choice contract PASS — Food Origin, Shape Count, Guess Logo, Couple/Siblings and True/Fake; Maze Gates uses full-focus puzzle layout');
+console.log('Question Experience shared choice contract PASS — Food Origin, Shape Count and Couple/Siblings; Maze Gates uses full-focus puzzle layout');

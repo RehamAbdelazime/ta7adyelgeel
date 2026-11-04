@@ -14,6 +14,8 @@ export function ShapeCountScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
   }
 
   const compact = grid.cells.length > 45;
+  const isRevealed = tourPhase === 'scoring';
+  const winningShape = isRevealed ? miniGame.correctAnswer : null;
 
   return (
     <QuestionScreenShell
@@ -30,7 +32,9 @@ export function ShapeCountScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
           style={{ gridTemplateColumns: `repeat(${grid.columns}, minmax(0, 1fr))` }}
         >
           {grid.cells.map((cell) => (
-            <ShapeMark key={cell.id} shape={cell.shape} />
+            <span key={cell.id} className={`v38-shape-tile ${winningShape ? (cell.shape === winningShape ? 'v38-shape-hit' : 'v38-shape-dim') : ''}`}>
+              <ShapeMark shape={cell.shape} />
+            </span>
           ))}
         </div>
       </div>

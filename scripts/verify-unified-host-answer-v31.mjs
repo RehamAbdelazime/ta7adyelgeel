@@ -29,14 +29,14 @@ assert.doesNotMatch(dock, /embedded\s*\?|embedded\s*=\s*false|HOST ONLY|الل?�
 assert.match(dock, /private-streamer-answer-embedded/, 'new unified design must be used');
 assert.match(dock, /snapshot\.privateStreamerAnswerSubmitted/, 'private answer must remain locked after acceptance');
 assert.match(dock, /submitPrivateStreamerAnswer/, 'host submission must use the existing game-store command');
-assert.match(dock, /miniGame\.id === 'before-after'\) return 2/, 'Before/After must use two choices, not a stale game id');
+assert.match(dock, /miniGame\.id === 'couple-or-siblings'\) return 2/, 'Couple/Siblings must use two choices');
 assert.match(dock, /miniGame\.id === 'lucky-cup'\) return 3/, 'Lucky Cup must retain three choices');
 assert.match(dock, /isCountAnswer \? 3 : 1/, 'count input must retain 3 digits');
 assert.match(podCss, /bottom:\s*39%\s*!important/, 'new left-stage position must be stable');
 assert.match(podCss, /private-streamer-answer-form button/, 'new host-answer styles must cover the submit control');
 assert.match(main, /import '\.\/styles\/host-answer-pod-v28\.css'/, 'new design must stay imported');
 const miniGames = [...registry.matchAll(/^\s*id: '(.*?)',/gm)].map(m => m[1]);
-assert.equal(miniGames.length, 11, 'verify current full catalog including QA-only games');
+assert.equal(miniGames.length, 9, 'verify retained public and QA-only game catalog');
 const allUiComponents = [
   resolve(srcDir, 'App.tsx'),
   resolve(srcDir, 'components/visual/HostMascotLayer.tsx'),

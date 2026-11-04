@@ -102,7 +102,7 @@ for (const file of mandatoryFiles) check(fs.existsSync(path.join(root,file)), `m
 const store = fs.readFileSync(path.join(root, 'src/game-core/app/game-store.ts'), 'utf8');
 const overlay = fs.readFileSync(path.join(root, 'src/ui-react/components/gameplay/GameplayOverlay.tsx'), 'utf8');
 check(store.includes('upcomingGameId') && store.includes('getLuckyCupPreparationMsForRound'), 'new round timing not guarded');
-check(overlay.includes("miniGame.id === 'lucky-cup' && miniGame.hasRound") && overlay.includes('tourPhase="tour_starting"'), 'real shuffle not shown in countdown');
+check(overlay.includes("miniGame.id === 'lucky-cup'") && overlay.includes('miniGame.hasRound') && overlay.includes('tourPhase="tour_starting"'), 'real shuffle not shown in countdown');
 const ui = fs.readFileSync(path.join(root, 'src/ui-react/components/gameplay/minigames/LuckyCupScreen.tsx'), 'utf8');
 check(!ui.includes('gameplay-lucky-cup-cup-number'), 'cup must not have tracking number');
 check(ui.includes('QuestionScreenShell') && ui.includes('layout="choice"'), 'shared layout missing');

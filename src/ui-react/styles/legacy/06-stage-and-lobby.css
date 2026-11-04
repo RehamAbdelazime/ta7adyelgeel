@@ -237,15 +237,7 @@
   justify-self: center !important;
 }
 
-.gameplay-question-body .gameplay-food-card,
-.gameplay-question-body .gameplay-food-card-with-photo,
-.gameplay-question-body .gameplay-pairguess-card,
-.gameplay-question-body-shapes .gameplay-shape-stage,
-.gameplay-question-body-memory .gameplay-memory-stage,
-.gameplay-question-body-falling .gameplay-falling-stage,
-.gameplay-question-body-maze .gameplay-maze-stage,
-.gameplay-question-body-maze .gameplay-maze-full-stage,
-.gameplay-question-body-hangman .gameplay-hangman-card {
+.gameplay-question-body .gameplay-food-card,.gameplay-question-body .gameplay-food-card-with-photo,.gameplay-question-body .gameplay-pairguess-card,.gameplay-question-body-shapes .gameplay-shape-stage,.gameplay-question-body-memory .gameplay-memory-stage,.gameplay-question-body-falling .gameplay-falling-stage,.gameplay-question-body-maze .gameplay-maze-stage,.gameplay-question-body-maze .gameplay-maze-full-stage{
   border-color: rgba(45, 244, 255, 0.42) !important;
   border-right-color: rgba(255, 75, 231, 0.48) !important;
   background:
@@ -1864,71 +1856,13 @@
   text-align: right !important;
 }
 
-.gameplay-question-body-logo {
-  width: min(760px, 72%) !important;
-}
 
-.gameplay-logo-guess-card {
-  width: min(640px, 88%) !important;
-  min-height: clamp(210px, 20vw, 350px) !important;
-  margin-inline: auto !important;
-  display: grid !important;
-  place-items: center !important;
-  gap: clamp(10px, 0.8vw, 18px) !important;
-  border: 1.5px solid rgba(45, 244, 255, 0.52) !important;
-  border-right-color: rgba(255, 75, 231, 0.58) !important;
-  border-bottom-color: rgba(255, 75, 231, 0.54) !important;
-  border-radius: clamp(18px, 1.2vw, 28px) !important;
-  background:
-    radial-gradient(
-      circle at 22% 18%,
-      rgba(45, 244, 255, 0.18),
-      transparent 36%
-    ),
-    radial-gradient(
-      circle at 78% 14%,
-      rgba(255, 75, 231, 0.18),
-      transparent 40%
-    ),
-    linear-gradient(180deg, rgba(2, 8, 28, 0.86), rgba(3, 3, 18, 0.72)) !important;
-  box-shadow:
-    0 0 22px rgba(45, 244, 255, 0.16),
-    0 0 24px rgba(255, 75, 231, 0.12),
-    inset 0 0 36px rgba(0, 0, 0, 0.44) !important;
-}
 
-.gameplay-logo-guess-mark {
-  display: grid !important;
-  width: clamp(105px, 8vw, 155px) !important;
-  height: clamp(105px, 8vw, 155px) !important;
-  place-items: center !important;
-  border: 2px solid rgba(45, 244, 255, 0.54) !important;
-  border-right-color: rgba(255, 75, 231, 0.62) !important;
-  border-radius: 32px !important;
-  background: linear-gradient(
-    145deg,
-    rgba(45, 244, 255, 0.18),
-    rgba(255, 75, 231, 0.16)
-  ) !important;
-  color: #fff !important;
-  font-family: var(--display-font) !important;
-  font-size: clamp(54px, 4.6vw, 94px) !important;
-  text-shadow:
-    0 4px 0 rgba(0, 0, 0, 0.62),
-    0 0 20px rgba(45, 244, 255, 0.34),
-    0 0 24px rgba(255, 75, 231, 0.25) !important;
-}
 
-.gameplay-logo-guess-card strong {
-  color: #ffe86f !important;
-  font-family: var(--display-font) !important;
-  font-size: clamp(18px, 1.45vw, 30px) !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  text-shadow:
-    0 2px 0 rgba(0, 0, 0, 0.7),
-    0 0 14px rgba(255, 232, 111, 0.34) !important;
-}
+
+
+
+
 
 .gameplay-round-intermission {
   width: 100% !important;

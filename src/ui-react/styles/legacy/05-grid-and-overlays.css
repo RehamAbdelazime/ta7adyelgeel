@@ -977,12 +977,7 @@
   object-fit: cover !important;
 }
 
-.gameplay-question-body-shapes .gameplay-shape-stage,
-.gameplay-question-body-memory .gameplay-memory-stage,
-.gameplay-question-body-falling .gameplay-falling-stage,
-.gameplay-question-body-maze .gameplay-maze-stage,
-.gameplay-question-body-maze .gameplay-maze-full-stage,
-.gameplay-question-body-hangman .gameplay-hangman-card {
+.gameplay-question-body-shapes .gameplay-shape-stage,.gameplay-question-body-memory .gameplay-memory-stage,.gameplay-question-body-falling .gameplay-falling-stage,.gameplay-question-body-maze .gameplay-maze-stage,.gameplay-question-body-maze .gameplay-maze-full-stage{
   width: min(960px, 86%) !important;
   height: min(100%, 360px) !important;
   max-height: none !important;

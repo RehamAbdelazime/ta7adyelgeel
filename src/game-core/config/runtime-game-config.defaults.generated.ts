@@ -13,21 +13,17 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
       "food-origin",
       "shape-count",
       "maze-gates",
-      "before-after",
-      "guess-logo",
       "count-the-beat",
-      "lucky-cup",
-      "true-fake"
+      "lucky-cup"
     ],
     "enabledMiniGames": [
       "food-origin",
       "shape-count",
       "maze-gates",
-      "before-after",
-      "guess-logo",
       "count-the-beat",
       "lucky-cup",
-      "true-fake"
+      "guess-movie",
+      "guess-star"
     ],
     "phaseDurationsMs": {
       "mini_game_intro": 0,
@@ -38,20 +34,15 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
       "cleanup": 0,
       "lobby_open": 0
     },
-    "miniGamePhaseOverridesMs": {
-      "hangman": {
-        "answer_window_open": 20000
-      }
-    },
+    "miniGamePhaseOverridesMs": {},
     "singleMiniGameRoundCounts": {
       "food-origin": 3,
       "shape-count": 3,
       "maze-gates": 3,
-      "before-after": 3,
-      "guess-logo": 3,
       "count-the-beat": 3,
       "lucky-cup": 3,
-      "true-fake": 3
+      "guess-movie": 4,
+      "guess-star": 4
     }
   },
   "scoring": {

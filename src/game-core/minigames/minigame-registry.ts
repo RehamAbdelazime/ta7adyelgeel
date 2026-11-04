@@ -39,7 +39,7 @@ export type MiniGameRegistryEntry = {
 
 /**
  * THE registry. One entry per mini-game.
- * Order here = order in the picker UI.
+ * Order here = order in the picker UI. Deleting games must also remove service, view, data and config links.
  */
 export const MINI_GAME_REGISTRY = [
   {
@@ -73,26 +73,6 @@ export const MINI_GAME_REGISTRY = [
     availability: 'public',
   },
   {
-    id: 'before-after',
-    icon: '⏳',
-    titleKey: 'minigame.beforeAfter.title',
-    noteKey: 'minigame.beforeAfter.note',
-    descriptionKey: 'minigame.beforeAfter.note',
-    introSteps: ['gameplay.intro.beforeAfter.step1', 'gameplay.intro.beforeAfter.step2', 'gameplay.intro.beforeAfter.step3'],
-    speed: 'Normal',
-    availability: 'public',
-  },
-  {
-    id: 'guess-logo',
-    icon: '✨',
-    titleKey: 'minigame.guessLogo.title',
-    noteKey: 'minigame.guessLogo.note',
-    descriptionKey: 'minigame.guessLogo.description',
-    introSteps: ['gameplay.intro.logo.step1', 'gameplay.intro.logo.step2', 'gameplay.intro.logo.step3'],
-    speed: 'Fast',
-    availability: 'public',
-  },
-  {
     id: 'count-the-beat',
     icon: '🎵',
     titleKey: 'minigame.countTheBeat.title',
@@ -112,20 +92,21 @@ export const MINI_GAME_REGISTRY = [
     speed: 'Fast',
     availability: 'public',
   },
-  // ══════════════════════════════════════════════════════════════════════════
-  // Implemented but unreleased games remain QA-only until explicitly promoted.
-  // True or Fake is public; the remaining three are reserved for QA.
-  // ══════════════════════════════════════════════════════════════════════════
   {
-    id: 'true-fake',
-    icon: '✅',
-    titleKey: 'minigame.trueFake.title',
-    noteKey: 'minigame.trueFake.note',
-    descriptionKey: 'minigame.trueFake.description',
-    introSteps: ['gameplay.intro.trueFake.step1', 'gameplay.intro.trueFake.step2', 'gameplay.intro.trueFake.step3'],
-    speed: 'Fast',
-    availability: 'public',
+    id: 'guess-movie', icon: '🎬', titleKey: 'minigame.guessMovie.title',
+    noteKey: 'minigame.guessMovie.note', descriptionKey: 'minigame.guessMovie.note',
+    introSteps: ['gameplay.intro.movie.step1', 'gameplay.intro.movie.step2', 'gameplay.intro.movie.step3'],
+    speed: 'Fast', availability: 'public',
   },
+  {
+    id: 'guess-star', icon: '👀', titleKey: 'minigame.guessStar.title',
+    noteKey: 'minigame.guessStar.note', descriptionKey: 'minigame.guessStar.note',
+    introSteps: ['gameplay.intro.star.step1', 'gameplay.intro.star.step2', 'gameplay.intro.star.step3'],
+    speed: 'Fast', availability: 'public',
+  },
+  // ══════════════════════════════════════════════════════════════════════════
+  // Only active, unreleased games remain QA-only.
+  // ══════════════════════════════════════════════════════════════════════════
   {
     id: 'memory-count',
     icon: '🧩',
@@ -133,16 +114,6 @@ export const MINI_GAME_REGISTRY = [
     noteKey: 'minigame.memoryCount.note',
     descriptionKey: 'minigame.memoryCount.description',
     introSteps: ['gameplay.intro.memory.step1', 'gameplay.intro.memory.step2', 'gameplay.intro.memory.step3'],
-    speed: 'Normal',
-    availability: 'qa-only',
-  },
-  {
-    id: 'hangman',
-    icon: '🔤',
-    titleKey: 'minigame.hangman.title',
-    noteKey: 'minigame.hangman.note',
-    descriptionKey: 'minigame.hangman.description',
-    introSteps: ['gameplay.intro.hangman.step1', 'gameplay.intro.hangman.step2', 'gameplay.intro.hangman.step3'],
     speed: 'Normal',
     availability: 'qa-only',
   },

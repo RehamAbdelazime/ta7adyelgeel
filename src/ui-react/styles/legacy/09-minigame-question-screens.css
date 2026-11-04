@@ -206,15 +206,7 @@ html body .gameplay-question-shell > .gameplay-question-body {
 }
 
 /* Shared visual content fills ONLY the left zone. */
-html body .gameplay-question-body .gameplay-food-card,
-html body .gameplay-question-body .gameplay-food-card-with-photo,
-html body .gameplay-question-body .gameplay-pairguess-card,
-html body .gameplay-question-body .gameplay-shape-stage,
-html body .gameplay-question-body .gameplay-memory-stage,
-html body .gameplay-question-body .gameplay-maze-stage,
-html body .gameplay-question-body .gameplay-maze-full-stage,
-html body .gameplay-question-body .gameplay-logo-guess-card,
-html body .gameplay-question-body .gameplay-hangman-card {
+html body .gameplay-question-body .gameplay-food-card,html body .gameplay-question-body .gameplay-food-card-with-photo,html body .gameplay-question-body .gameplay-pairguess-card,html body .gameplay-question-body .gameplay-shape-stage,html body .gameplay-question-body .gameplay-memory-stage,html body .gameplay-question-body .gameplay-maze-stage,html body .gameplay-question-body .gameplay-maze-full-stage{
   width: 100% !important;
   max-width: 100% !important;
   height: 100% !important;
@@ -320,9 +312,7 @@ html body .gameplay-question-body-food .gameplay-food-card > strong {
 }
 
 /* Non-image minigames inside the same left media zone. */
-html body .gameplay-question-body-shapes .gameplay-shape-stage,
-html body .gameplay-question-body-memory .gameplay-memory-stage,
-html body .gameplay-question-body-logo .gameplay-logo-guess-card {
+html body .gameplay-question-body-shapes .gameplay-shape-stage,html body .gameplay-question-body-memory .gameplay-memory-stage{
   display: grid !important;
   place-items: center !important;
 }

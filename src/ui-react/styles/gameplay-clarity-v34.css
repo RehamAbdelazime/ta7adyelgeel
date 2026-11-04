@@ -193,6 +193,6 @@ html body #root .game-scene-stage .qshell-host-bubble-v20::after {
 }
 @media (prefers-reduced-motion: reduce) {
   html body #root .game-scene-stage > .qshell-reveal-stage-action {animation:none!important;}
-  /* Static icon fallbacks remain visible, without an animated count burst. */
-  html body #root .gameplay-question-count-the-beat .ctb-stage > span[aria-hidden] {opacity:1!important;animation:none!important;transform:translate(-50%,-50%)!important;}
+  /* V38: never reveal every counted icon simultaneously. The scoped
+     accessible fade sequence is defined in gameplay-quality-v38.css. */
 }

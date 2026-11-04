@@ -1,7 +1,6 @@
 import type { CitizenRole, CitizenRuntime } from '../citizens/citizen-types';
 import type { QuestionBankStats, QuestionCategory, QuestionDifficulty } from '../questions/question-types';
 
-export type TrueFakeAnswer = 'true' | 'fake';
 
 export type ShapeCountShapeId = 'circle' | 'square' | 'triangle' | 'star' | 'diamond' | 'hexagon';
 
@@ -11,13 +10,17 @@ export type MemoryCountAnswer = `option-${1 | 2 | 3 | 4}`;
 
 export type FoodOriginAnswer = `option-${1 | 2 | 3 | 4}`;
 
-export type BeforeOrAfterAnswer = `option-${1 | 2}`;
 
-export type GuessLogoAnswer = `option-${1 | 2 | 3 | 4}`;
+export type VisualGuessAnswer = `option-${1 | 2 | 3 | 4}`;
+export type VisualGuessChoice = {
+  optionNumber: number;
+  command: string;
+  label: string;
+  value: string;
+};
 
 export type MazeGateAnswer = `option-${1 | 2 | 3 | 4}`;
 
-export type HangmanAnswer = `letter:${string}` | `word:${string}`;
 
 export type CoupleOrSiblingsAnswer = `option-${1 | 2}`;
 
@@ -25,7 +28,7 @@ export type CountTheBeatAnswer = number;
 
 export type LuckyCupAnswer = number;
 
-export type MiniGameAnswer = TrueFakeAnswer | ShapeCountAnswer | MemoryCountAnswer | FoodOriginAnswer | BeforeOrAfterAnswer | GuessLogoAnswer | MazeGateAnswer | HangmanAnswer | CoupleOrSiblingsAnswer | CountTheBeatAnswer | LuckyCupAnswer;
+export type MiniGameAnswer = ShapeCountAnswer | MemoryCountAnswer | FoodOriginAnswer | VisualGuessAnswer | MazeGateAnswer | CoupleOrSiblingsAnswer | CountTheBeatAnswer | LuckyCupAnswer;
 
 export type { MiniGameId } from './minigame-registry';
 import type { MiniGameId } from './minigame-registry';
@@ -58,7 +61,7 @@ export type MiniGameScoreAward = {
   role: CitizenRole;
   /** Runtime leaderboard score delta, after game-specific scoring rules. */
   points: number;
-  /** True for a fully correct answer or a successful game-specific action (for example, a correct Hangman letter). Numeric near-misses remain false. */
+  /** True for a fully correct answer or a successful game-specific action (for example, a correct game action). Numeric near-misses remain false. */
   isCorrect: boolean;
   /** Explicit partial-credit classification for numeric estimate games. */
   scoreOutcome?: 'correct' | 'partial' | 'incorrect';
@@ -95,20 +98,6 @@ export type CountryChoice = {
   countryCode: string;
 };
 
-
-export type GuessLogoChoice = {
-  optionNumber: number;
-  command: string;
-  label: string;
-  value: string;
-};
-
-export type BeforeOrAfterChoice = {
-  optionNumber: number;
-  command: string;
-  label: string;
-  value: 'left' | 'right';
-};
 
 export type CoupleOrSiblingsChoice = {
   optionNumber: number;
@@ -172,18 +161,6 @@ export type MazeGateFullMaze = {
 };
 
 
-export type HangmanSnapshot = {
-  maskedWord: string;
-  hint: string;
-  guessedLetters: string[];
-  wrongLetters: string[];
-  maxWrongGuesses: number;
-  remainingWrongGuesses: number;
-  correctWord: string | null;
-  winnerDisplayName: string | null;
-  isSolved: boolean;
-};
-
 
 export type MiniGameHintSnapshot = {
   isEnabled: boolean;
@@ -228,6 +205,8 @@ export type MiniGameSnapshot = {
     cells: ShapeCountCell[];
     choices: ShapeCountChoice[];
     counts: Partial<Record<ShapeCountShapeId, number>>;
+    mode: 'majority' | 'exact';
+    targetCount: number | null;
   } | null;
   memoryCount?: {
     rows: number;
@@ -253,19 +232,15 @@ export type MiniGameSnapshot = {
     correctCountry: string | null;
     correctCountryCode: string | null;
   } | null;
-  beforeOrAfter?: {
-    prompt: string;
-    categoryLabel: string;
-    choices: BeforeOrAfterChoice[];
+  visualGuess?: {
+    fallbackImageUrl: string;
+    mode: 'scene' | 'poster' | 'eyes' | 'silhouette' | 'zoom' | 'reveal';
+    imageUrl: string;
+    focus: { x: number; y: number };
+    titleMask: { x: number; y: number; w: number; h: number } | null;
+    choices: VisualGuessChoice[];
+    correctOptionNumber: number | null;
     correctLabel: string | null;
-    correctOptionNumber: number | null;
-  } | null;
-  guessLogo?: {
-    prompt: string;
-    logoMark: string;
-    choices: GuessLogoChoice[];
-    correctLogo: string | null;
-    correctOptionNumber: number | null;
   } | null;
   mazeGates?: {
     gateCount: number;
@@ -277,7 +252,6 @@ export type MiniGameSnapshot = {
   } | null;
   countTheBeat?: CountTheBeatSnapshot | null;
   luckyCup?: LuckyCupSnapshot | null;
-  hangman?: HangmanSnapshot | null;
   coupleOrSiblings?: {
     imageUrl: string;
     imageAlt: string;
@@ -311,6 +285,8 @@ export type CountTheBeatSnapshot = {
   targetGlyph: string;
   targetCount: number | null;
   items: CountTheBeatItemSnapshot[];
+  /** Stable visual beat clock in beats per minute. */
+  bpm: number;
   scoring: {
     exact: number;
     partial: number;

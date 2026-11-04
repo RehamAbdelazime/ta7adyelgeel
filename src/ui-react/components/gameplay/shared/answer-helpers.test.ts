@@ -42,26 +42,6 @@ function createSnapshot(
 }
 
 describe('shared answer helpers', () => {
-  it('resolves Before or After option metadata', () => {
-    const snapshot = createSnapshot('before-after', {
-      correctAnswer: 'option-2',
-      beforeOrAfter: {
-        prompt: 'Pick what came first',
-        categoryLabel: 'Movies',
-        correctLabel: 'The first film',
-        correctOptionNumber: 2,
-        choices: [
-          { optionNumber: 1, command: '!1', label: 'Film A', value: 'left' },
-          { optionNumber: 2, command: '!2', label: 'Film B', value: 'right' },
-        ],
-      },
-    });
-
-    expect(getCorrectOptionNumber(snapshot)).toBe(2);
-    expect(getCorrectAnswerText(snapshot)).toBe('The first film');
-    expect(buildChoiceSpotlights(snapshot).map((choice) => choice.command)).toEqual(['!1', '!2']);
-  });
-
 
   it('classifies a one-count Memory Count near-miss as partial instead of wrong', () => {
     const memory = createSnapshot('memory-count', {
@@ -112,7 +92,7 @@ describe('shared answer helpers', () => {
     expect(buildChoiceSpotlights(snapshot)).toHaveLength(3);
   });
 
-  it('shows Count the Beat numeric answers instead of treating them as True or Fake', () => {
+  it('shows Count the Beat numeric answers without assuming a choice-based answer', () => {
     const snapshot = createSnapshot('count-the-beat', {
       correctAnswer: 12,
       countTheBeat: {
@@ -184,29 +164,6 @@ describe('shared answer helpers', () => {
     expect(getOptionNumberForAnswer(maze, 'option-3')).toBe(3);
     expect(getCorrectAnswerText(maze)).toBe('!3');
 
-    const logo = createSnapshot('guess-logo', {
-      correctAnswer: 'option-2',
-      guessLogo: {
-        prompt: 'Which logo?',
-        logoMark: 'N',
-        choices: [
-          { optionNumber: 1, command: '!1', label: 'Nike', value: 'nike' },
-          { optionNumber: 2, command: '!2', label: 'Netflix', value: 'netflix' },
-        ],
-        correctLogo: 'Netflix',
-        correctOptionNumber: 2,
-      },
-    });
-    expect(getCorrectOptionNumber(logo)).toBe(2);
-    expect(getOptionNumberForAnswer(logo, 'option-2')).toBe(2);
-    expect(getCorrectAnswerText(logo)).toBe('Netflix');
   });
 
-  it('formats True or Fake answers only when the answer is explicitly known', () => {
-    const unknown = createSnapshot('true-fake');
-    const fake = createSnapshot('true-fake', { correctAnswer: 'fake' });
-    expect(getCorrectAnswerText(unknown)).toBe('-');
-    expect(getCorrectAnswerText(fake)).toBe('!2 FAKE');
-    expect(getCorrectOptionNumber(fake)).toBe(2);
-  });
 });

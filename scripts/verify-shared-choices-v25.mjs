@@ -31,7 +31,7 @@ for(const path of ['src/ui-react/components/gameplay/GameplayOverlay.tsx','src/u
 for(const path of ['src/ui-react/App.tsx','src/ui-react/components/visual/HostMascotLayer.tsx']) {
  check(!read(path).includes('usesModernQuestionUi'), `${path} must not restrict host answers to modern-layout games`);
 }
-for(const file of ['ShapeCountScreen','GuessLogoScreen','CoupleOrSiblingsScreen','TrueFakeScreen']) {
+for(const file of ['ShapeCountScreen','CoupleOrSiblingsScreen','VisualGuessScreen']) {
   const source=read(`src/ui-react/components/gameplay/minigames/${file}.tsx`);
   check(source.includes('layout="choice"'),`${file} uses shared question layout`);
   check(source.includes('QuestionScreenShell'),`${file} keeps shared header/timer/reveal`);

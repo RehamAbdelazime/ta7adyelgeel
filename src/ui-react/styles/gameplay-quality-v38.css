@@ -1,0 +1,43 @@
+/* V38 – five-game quality pass. Scoped; imported after historical CSS. */
+/* Count the Beat: a visible pulse without a text HUD. Pulse and glyphs start
+   together only when the answer phase opens; never during the prestart. */
+html body #root .gameplay-question-count-the-beat .ctb-beat-pulse {
+  position:absolute;left:50%;top:50%;width:clamp(35px,5vw,90px);height:clamp(35px,5vw,90px);
+  border:2px solid rgba(111,244,255,.45);border-radius:50%;pointer-events:none;
+  animation:v38-beat-ring linear infinite;z-index:0;
+}
+@keyframes v38-beat-ring {
+  0% {opacity:.55;transform:translate(-50%,-50%) scale(.65)}
+  80% {opacity:.1;transform:translate(-50%,-50%) scale(2.15)}
+  100% {opacity:0;transform:translate(-50%,-50%) scale(2.3)}
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage-active > span:not(.ctb-beat-pulse) {z-index:1;}
+/* Keep the pulse passive at reduced-motion settings, but DO NOT expose every
+   item simultaneously: that would reveal the target count and spoil the game. */
+@media(prefers-reduced-motion:reduce) {
+ html body #root .gameplay-question-count-the-beat .ctb-beat-pulse {animation:none!important;opacity:.15!important;transform:translate(-50%,-50%)!important;}
+ html body #root .gameplay-question-count-the-beat .ctb-stage-active > span:not(.ctb-beat-pulse) {animation:v38-beat-accessible var(--v38-duration,360ms) linear var(--v38-delay,0ms) both!important;transform:translate(-50%,-50%)!important;}
+}
+@keyframes v38-beat-accessible {0%,100% {opacity:0;} 5%,80% {opacity:1;}}
+/* Shape Count: no visual shift when the answer is revealed. Highlight the
+   *actual* counted cells for the chosen shape, not a duplicate label/banner. */
+html body #root .gameplay-question-shape-count .v38-shape-tile {display:grid;place-items:center;min-width:0;min-height:0;width:100%;height:100%;transition:opacity 180ms,filter 180ms;}
+html body #root .gameplay-question-shape-count .v38-shape-dim {opacity:.22;filter:grayscale(.75);}
+html body #root .gameplay-question-shape-count .v38-shape-hit {filter:drop-shadow(0 0 9px rgba(104,251,201,.8));}
+/* Maze: never leak a green solution while players are solving. Trace the only
+   valid route after pressing reveal; neutral numbered gates before that. */
+html body #root .gameplay-question-maze-gates:not(.gameplay-question-shell-reveal) .gameplay-maze-full-gate text {fill:#fff!important;}
+html body #root .gameplay-question-maze-gates .gameplay-maze-full-grid path {stroke:rgba(59,174,213,.09)!important;stroke-width:1.1!important;}
+html body #root .gameplay-question-maze-gates .v38-maze-solution {
+  stroke:#6affb9!important;stroke-width:8px!important;
+  stroke-dasharray:1;stroke-dashoffset:1;
+  animation:v38-maze-trace 1250ms ease-in-out forwards;
+}
+@keyframes v38-maze-trace {to {stroke-dashoffset:0;}}
+@media(prefers-reduced-motion:reduce) {
+ html body #root .gameplay-question-maze-gates .v38-maze-solution {animation:none!important;stroke-dashoffset:0;}
+}
+/* Lucky Cup: tactile contact and warm reveal without touching the V30 motion
+   timeline, 85 ms last swap, ball-to-cup mapping, or the choice row. */
+html body #root .lucky-v27-field .lucky-v27-cup-art {transform:scale(var(--v35-flight-scale,1));filter:drop-shadow(0 11px 9px rgba(0,0,16,.7)) drop-shadow(0 0 5px rgba(89,226,255,.1));}
+html body #root .lucky-v27-field.lucky-v27-reveal .lucky-v27-ball-revealed {filter:drop-shadow(0 0 15px rgba(255,213,70,.55));}

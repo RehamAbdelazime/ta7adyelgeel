@@ -19,13 +19,11 @@ export const MINI_GAME_BASE_POINTS: Record<MiniGameId, Record<QuestionDifficulty
   'food-origin': { easy: 60, medium: 120, hard: 180 },
   'shape-count': { easy: 50, medium: 100, hard: 150 },
   'maze-gates': { easy: 90, medium: 140, hard: 200 },
-  'before-after': { easy: 60, medium: 120, hard: 180 },
-  'guess-logo': { easy: 60, medium: 110, hard: 160 },
+  'guess-movie': { easy: 60, medium: 110, hard: 170 },
+  'guess-star': { easy: 60, medium: 110, hard: 170 },
   'count-the-beat': { easy: 120, medium: 180, hard: 240 },
   'lucky-cup': { easy: 120, medium: 180, hard: 240 },
-  'true-fake': { easy: 50, medium: 100, hard: 150 },
   'memory-count': { easy: 60, medium: 120, hard: 180 },
-  hangman: { easy: 0, medium: 0, hard: 0 },
   'couple-or-siblings': { easy: 70, medium: 120, hard: 180 },
 };
 
@@ -42,23 +40,6 @@ export const NUMERIC_ESTIMATE_RULES = {
 }>>;
 
 export const FOOD_ORIGIN_HINT_SCORE_MULTIPLIER = 0.5;
-
-export const HANGMAN_SCORING = {
-  wrongGuessPoints: 0,
-  correctLetterPoints: 25,
-  wordWinnerBonus: { easy: 150, medium: 220, hard: 320 } satisfies Record<QuestionDifficulty, number>,
-} as const;
-
-export function calculateHangmanActionPoints(
-  difficulty: QuestionDifficulty,
-  action: 'letter' | 'word',
-  isCorrect: boolean,
-): number {
-  if (!isCorrect) return HANGMAN_SCORING.wrongGuessPoints;
-  return action === 'letter'
-    ? HANGMAN_SCORING.correctLetterPoints
-    : HANGMAN_SCORING.wordWinnerBonus[difficulty];
-}
 
 export function getMiniGameBasePoints(gameId: MiniGameId, difficulty: QuestionDifficulty): number {
   return MINI_GAME_BASE_POINTS[gameId][difficulty];

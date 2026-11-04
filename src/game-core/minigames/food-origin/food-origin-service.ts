@@ -21,9 +21,20 @@ import {
   type TimedAnswerHintState,
 } from '../hints/timed-answer-hint';
 
-const FOOD_ORIGIN_DIFFICULTY_PATTERN: Array<FoodOriginQuestion['difficulty']> = ['easy', 'easy', 'medium', 'medium', 'hard'];
+// The standard three-question run must always contain an Easy, Medium and Hard question.
+const FOOD_ORIGIN_DIFFICULTY_PATTERN: Array<FoodOriginQuestion['difficulty']> = ['easy', 'medium', 'hard'];
+// Do not award points for national-origin claims that are disputed or shared
+// across modern borders. Keep their images/content in the source pack for later
+// editorial review, but do not select them as objectively graded questions.
+// See docs/GAMEPLAY_QUALITY_V38_AR.md for references.
+const FOOD_ORIGIN_REVIEW_IDS = new Set([
+  'food_origin_shakshuka_libya', // North African, not a settled single-country origin
+  'food_origin_makboos_yemen', // Gulf/Yemeni variants: contested single-country origin
+  'food_origin_zelnik_north_macedonia', // Shared Bulgarian/Macedonian Balkan pastry
+]);
+const FOOD_ORIGIN_PLAYABLE_QUESTIONS = FOOD_ORIGIN_QUESTIONS.filter(q => !FOOD_ORIGIN_REVIEW_IDS.has(q.id));
 export class FoodOriginMiniGameService {
-  private readonly questionBank = new QuestionBankService<FoodOriginQuestion>(FOOD_ORIGIN_QUESTIONS);
+  private readonly questionBank = new QuestionBankService<FoodOriginQuestion>(FOOD_ORIGIN_PLAYABLE_QUESTIONS);
   private question: FoodOriginQuestion | null = null;
   private activeChoices: FoodOriginQuestion['choices'] = [];
   private status: MiniGameStatus = 'idle';
@@ -49,7 +60,7 @@ export class FoodOriginMiniGameService {
     this.choiceGenerationCounter += 1;
     this.activeChoices = buildDynamicFoodOriginChoices({
       question: selection.question,
-      allQuestions: FOOD_ORIGIN_QUESTIONS,
+      allQuestions: FOOD_ORIGIN_PLAYABLE_QUESTIONS,
       seed: createFoodOriginChoiceSeed(selection.question.id, roundNumber, this.choiceGenerationCounter),
       targetCount: 4,
     });

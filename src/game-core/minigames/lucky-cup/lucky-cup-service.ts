@@ -281,7 +281,7 @@ export class LuckyCupMiniGameService {
       const isFinale = difficulty === 'hard' && index >= getFinaleStartIndex(config);
       const allowedPairs = SLOT_PAIRS.map((_, pairIndex) => pairIndex)
         .filter((pairIndex) => pairIndex !== lastPairIndex)
-        .filter((pairIndex) => !isFinale || SLOT_PAIRS[pairIndex].includes(trackedBallSlot));
+        .filter((pairIndex) => !isFinale || SLOT_PAIRS[pairIndex].some((slot) => slot === trackedBallSlot));
       const pairIndex = allowedPairs[Math.floor(random() * allowedPairs.length)];
       const [a, b] = SLOT_PAIRS[pairIndex];
       const durationMs = getSwapDurationMs(config, index);

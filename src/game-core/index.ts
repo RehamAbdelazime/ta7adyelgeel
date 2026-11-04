@@ -12,8 +12,6 @@ export * from './questions/question-selector';
 export * from './questions/question-bank-service';
 
 export * from './minigames/minigame-types';
-export * from './minigames/true-fake/true-fake-content';
-export * from './minigames/true-fake/true-fake-service';
 export * from './minigames/shape-count/shape-count-service';
 export * from './tours/tour-types';
 export * from './tours/tour-state-machine';

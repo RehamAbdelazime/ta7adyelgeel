@@ -1031,7 +1031,7 @@ function convertFullMazeToSnapshot(
     exit: {
       x: fullMazeCellCenter(generated.exitCell, profile, geometry).x,
       y: geometry.boardY - 24,
-      label: 'EXIT',
+      label: options.locale === 'ar' ? 'خروج' : 'EXIT',
     },
   };
 }
