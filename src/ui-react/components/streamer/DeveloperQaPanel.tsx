@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { QA_BOT_PREFIX, type QaBotBehavior } from '../../services/qa-bot-controller';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
 import { MINI_GAME_REGISTRY } from '../../../game-core/minigames/minigame-registry';
 import type { TwitchChatMessage } from '../../../game-core/twitch/twitch-message-types';
@@ -24,18 +25,18 @@ type CharacterId =
 type QaCharacterSelection = CharacterId | 'mixed';
 
 const QA_USERS = [
-  ['qa_user_001', 'QA_Nour'],
-  ['qa_user_002', 'QA_Ahmed'],
-  ['qa_user_003', 'QA_Sara'],
-  ['qa_user_004', 'QA_Mona'],
-  ['qa_user_005', 'QA_Karim'],
-  ['qa_user_006', 'QA_Youssef'],
-  ['qa_user_007', 'QA_Laila'],
-  ['qa_user_008', 'QA_Omar'],
-  ['qa_user_009', 'QA_Mariam'],
-  ['qa_user_010', 'QA_Yassin'],
-  ['qa_user_011', 'QA_Farah'],
-  ['qa_user_012', 'QA_Ziad'],
+  [`${QA_BOT_PREFIX}legacy_001`, 'QA_Nour'],
+  [`${QA_BOT_PREFIX}legacy_002`, 'QA_Ahmed'],
+  [`${QA_BOT_PREFIX}legacy_003`, 'QA_Sara'],
+  [`${QA_BOT_PREFIX}legacy_004`, 'QA_Mona'],
+  [`${QA_BOT_PREFIX}legacy_005`, 'QA_Karim'],
+  [`${QA_BOT_PREFIX}legacy_006`, 'QA_Youssef'],
+  [`${QA_BOT_PREFIX}legacy_007`, 'QA_Laila'],
+  [`${QA_BOT_PREFIX}legacy_008`, 'QA_Omar'],
+  [`${QA_BOT_PREFIX}legacy_009`, 'QA_Mariam'],
+  [`${QA_BOT_PREFIX}legacy_010`, 'QA_Yassin'],
+  [`${QA_BOT_PREFIX}legacy_011`, 'QA_Farah'],
+  [`${QA_BOT_PREFIX}legacy_012`, 'QA_Ziad'],
 ] as const;
 
 const ANSWER_COMMANDS = ['!1', '!2', '!3', '!4'] as const;
@@ -71,7 +72,11 @@ const CHARACTER_OPTIONS: { id: QaCharacterSelection; label: string }[] = [
 const MINI_GAME_QUICK_FORCE = MINI_GAME_REGISTRY;
 
 export function DeveloperQaPanel() {
-  const { actions, snapshot } = useGame();
+  const { actions, snapshot, qaBots } = useGame();
+  const [qaBotStatus, setQaBotStatus] = useState(() => qaBots.getSnapshot());
+  const [qaBotBehavior, setQaBotBehavior] = useState<QaBotBehavior>('mixed');
+  const [qaBotCustomCount, setQaBotCustomCount] = useState(50);
+  useEffect(() => qaBots.subscribe(() => setQaBotStatus(qaBots.getSnapshot())), [qaBots]);
   const { configPath, lastError, loadedAt, reloadMotionTuning } = useMotionTuning();
   const { configPath: gameplayConfigPath, lastError: gameplayConfigError, loadedAt: gameplayConfigLoadedAt, reloadGameConfig, config: gameplayConfig } = useGameConfig();
   const { configPath: audioConfigPath, lastError: audioConfigError, loadedAt: audioConfigLoadedAt, reloadAudioTuning } = useAudioTuning();
@@ -92,23 +97,23 @@ export function DeveloperQaPanel() {
 
   const debugRows = useMemo(() => {
     const playerLabel = spectatorCount >= 1
-      ? `${playerCount} players Â· ${spectatorCount} spectators`
+      ? `${playerCount} players · ${spectatorCount} spectators`
       : `${playerCount} players`;
 
     return [
       ['Tour', snapshot.tour.isTourActive ? `R${snapshot.tour.roundNumber}/${snapshot.tour.totalRounds}` : 'Lobby'],
-      ['Phase', `${snapshot.tour.phase} Â· ${phaseSeconds}s`],
-      ['Mini-game', `${snapshot.miniGame.title} Â· ${snapshot.miniGame.status}`],
+      ['Phase', `${snapshot.tour.phase} · ${phaseSeconds}s`],
+      ['Mini-game', `${snapshot.miniGame.title} · ${snapshot.miniGame.status}`],
       ['Answers', String(answerCount)],
       ['Answer window', snapshot.miniGame.acceptsAnswers ? 'OPEN' : 'closed'],
       ['Correct', correctAnswer],
       ['Question', snapshot.miniGame.questionId ?? '-'],
       ['Difficulty', snapshot.miniGame.questionDifficulty ?? '-'],
       ['Category', snapshot.miniGame.questionCategory ?? '-'],
-      ['Chaos', snapshot.chaosEvent.active ? `${snapshot.chaosEvent.title} Â· ${snapshot.chaosEvent.badge}` : `${snapshot.chaosPercent}%`],
+      ['Chaos', snapshot.chaosEvent.active ? `${snapshot.chaosEvent.title} · ${snapshot.chaosEvent.badge}` : `${snapshot.chaosPercent}%`],
       ['Citizens', playerLabel],
       ['Motion config', lastError ? `ERROR: ${lastError}` : loadedAt ? `Loaded ${new Date(loadedAt).toLocaleTimeString()}` : configPath],
-      ['Gameplay config', gameplayConfigError ? `ERROR: ${gameplayConfigError}` : gameplayConfigLoadedAt ? `${gameplayConfig.tour.defaultRoundCount} rounds Â· ${gameplayConfig.tour.phaseDurationsMs.answer_window_open}ms answers` : gameplayConfigPath],
+      ['Gameplay config', gameplayConfigError ? `ERROR: ${gameplayConfigError}` : gameplayConfigLoadedAt ? `${gameplayConfig.tour.defaultRoundCount} rounds · ${gameplayConfig.tour.phaseDurationsMs.answer_window_open}ms answers` : gameplayConfigPath],
       ['Audio config', audioConfigError ? `ERROR: ${audioConfigError}` : audioConfigLoadedAt ? `Loaded ${new Date(audioConfigLoadedAt).toLocaleTimeString()}` : audioConfigPath],
       ['Localization', localizationConfigError ? `ERROR: ${localizationConfigError}` : localizationConfigLoadedAt ? `Loaded ${new Date(localizationConfigLoadedAt).toLocaleTimeString()}` : localizationConfigPath],
     ];
@@ -136,7 +141,8 @@ export function DeveloperQaPanel() {
   };
 
   const getQaAnswerTargets = () => {
-    const joinedCitizens = snapshot.citizens.filter((citizen) => citizen.role === 'official' || citizen.role === 'spectator');
+    // NEVER spoof real viewers' answers from a QA action. Target test identities only.
+    const joinedCitizens = snapshot.citizens.filter((citizen) => citizen.twitchUserId.startsWith(QA_BOT_PREFIX));
 
     if (joinedCitizens.length > 0) {
       return joinedCitizens.map((citizen) => ({
@@ -145,8 +151,8 @@ export function DeveloperQaPanel() {
       }));
     }
 
-    // Fallback for very early QA testing before adding a custom crowd.
-    return QA_USERS.map(([twitchUserId, displayName]) => ({ twitchUserId, displayName }));
+    // No fabricated replies from users who have not joined; QA buttons are no-ops.
+    return [];
   };
 
   const getActiveAnswerCommands = () => {
@@ -167,7 +173,7 @@ export function DeveloperQaPanel() {
   };
 
   const submitAnswerFromTestUsers = (command: string) => {
-    getQaAnswerTargets().forEach((user, index) => {
+    getQaAnswerTargets().forEach((user) => {
       const message = command;
       actions.submitTwitchMessage(createQaMessage(user.twitchUserId, user.displayName, message));
     });
@@ -254,6 +260,40 @@ export function DeveloperQaPanel() {
               <strong>{value}</strong>
             </div>
           ))}
+        </div>
+
+        <div className="v44-qa-bots" aria-label="Offline QA crowd simulation">
+          <header>
+            <strong>🧪 Bots — اختبار جمهور حقيقي بدون Twitch</strong>
+            <span>{qaBotStatus.count} test bots · {qaBotStatus.auto ? 'AUTO ANSWERING' : 'Manual'}</span>
+          </header>
+          <div className="v44-qa-bot-buttons">
+            {[5, 25, 100, 300].map(n => (
+              <button type="button" key={n} onClick={() => qaBots.add(n)} disabled={qaBotStatus.count >= 500}>+{n} bots</button>
+            ))}
+          </div>
+          <div className="v44-qa-bot-buttons">
+            <label>Custom bots
+              <input type="number" min={1} max={500} value={qaBotCustomCount}
+                onChange={event => setQaBotCustomCount(clampNumber(Number(event.target.value),1,500))} />
+            </label>
+            <button type="button" onClick={() => qaBots.add(qaBotCustomCount)} disabled={qaBotStatus.count >= 500}>Add custom</button>
+          </div>
+          <div className="v44-qa-bot-buttons">
+            <label>Responses
+              <select value={qaBotBehavior} onChange={event => setQaBotBehavior(event.target.value as QaBotBehavior)}>
+                <option value="mixed">Mixed answers</option>
+                <option value="random">Random answers</option>
+                <option value="one">All !1</option>
+              </select>
+            </label>
+            <button type="button" onClick={() => qaBots.setAuto(!qaBotStatus.auto, qaBotBehavior)}>
+              {qaBotStatus.auto ? '⏹ Stop auto answering' : '▶ Auto answer every question'}
+            </button>
+            <button type="button" onClick={() => qaBots.answerNow(qaBotBehavior)} disabled={!snapshot.tour.acceptsAnswers}>Answer now</button>
+            <button type="button" onClick={() => qaBots.clear()} disabled={snapshot.tour.isTourActive}>Remove QA bots</button>
+          </div>
+          <p>New bots join as Official before first question and Spectators after. Auto mode survives closing this panel; it never posts real Twitch messages. Max 500. QA profiles/history are not saved.</p>
         </div>
 
         <div className="developer-qa-custom-add">
@@ -356,7 +396,7 @@ function createCustomQaUser(
 function findTwitchIdForCharacter(baseId: string, _citizenIndex: number, desiredCharacter: CharacterId): string {
   // GameplayOverlay reads this explicit QA marker before using the session-randomized assignment.
   // This keeps QA's selected character deterministic while normal Twitch players stay randomized.
-  return `qa_${desiredCharacter}_${baseId}`;
+  return `${QA_BOT_PREFIX}qa_${desiredCharacter}_${baseId}`;
 }
 
 function clampNumber(value: number, min: number, max: number): number {

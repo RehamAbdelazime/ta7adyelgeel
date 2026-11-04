@@ -3814,3 +3814,16 @@ main[dir="rtl"] .app-settings-gear:hover:not(:disabled) {
   animation-delay: -2.55s;
 }
 
+
+/* V44 QA bot bench */
+.v44-qa-bots { padding: 14px; margin: 12px 0; border: 1px solid rgba(99,230,244,.55); border-radius: 15px; background: rgba(11,32,58,.92); color: #e8fbff; }
+.v44-qa-bots header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:9px; }
+.v44-qa-bots header span { font-size: 12px; color:#85e8ec; }
+.v44-qa-bot-buttons { display:flex; gap:7px; flex-wrap:wrap; align-items:center; margin-bottom:9px; }
+.v44-qa-bot-buttons button { min-height:35px; padding:7px 11px; border:1px solid #3ec5db88; border-radius:8px; color:#edffff; background:#184360; cursor:pointer; font-weight:750; }
+.v44-qa-bot-buttons button:hover:not(:disabled) {background:#215979;}
+.v44-qa-bot-buttons button:disabled {opacity:.42;cursor:not-allowed;}
+.v44-qa-bot-buttons label {display:flex;align-items:center;gap:8px;font-size:13px;}
+.v44-qa-bot-buttons input[type="number"] {max-width:90px;background:#081c35;color:#eaffff;padding:6px;border:1px solid #3ec5db88;border-radius:7px;}
+.v44-qa-bot-buttons select { background:#081c35;color:#eaffff;padding:6px;border:1px solid #3ec5db88;border-radius:7px; }
+.v44-qa-bots p {margin:0;font-size:12px;color:#b0cedb;}

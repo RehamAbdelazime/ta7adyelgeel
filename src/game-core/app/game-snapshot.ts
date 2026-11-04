@@ -2,9 +2,11 @@ import type { CitizenRuntime } from '../citizens/citizen-types';
 import type { LocaleCode, TextDirection } from '../localization/locale-types';
 import type { TourSnapshot } from '../tours/tour-types';
 import type { MiniGameId, MiniGameScoreAward, MiniGameSnapshot } from '../minigames/minigame-types';
-import type { ChaosEventSnapshot } from '../chaos/chaos-types';
+import type { ChaosEventSnapshot, ChaosPlayerReward } from '../chaos/chaos-types';
 import type { CommandFeedback } from '../twitch/twitch-message-types';
+import type { CharacterActionSnapshot } from '../progression/character-action-types';
 import type { ProgressionSnapshot } from '../progression/progression-types';
+import type { SessionProgressionAward } from '../progression/session-progression';
 import type { PersistenceSnapshot } from '../persistence/persistence-types';
 import type { TourAwardsSnapshot, TourScoreboardRow } from '../awards/tour-awards';
 
@@ -17,6 +19,7 @@ export type HostProductionSettingsSnapshot = {
   enabledMiniGameIds: MiniGameId[];
   forcedNextMiniGameId: MiniGameId | null;
   chaosMode: HostChaosMode;
+  forcedNextChaosEventId: string | null;
 };
 
 export type FeedEntry = {
@@ -37,6 +40,7 @@ export type GameSnapshot = {
   activeSessionMode: ActiveSessionMode;
   chaosPercent: number;
   chaosEvent: ChaosEventSnapshot;
+  chaosRewards: ChaosPlayerReward[];
   citizens: CitizenRuntime[];
   feed: FeedEntry[];
   tour: TourSnapshot;
@@ -46,6 +50,8 @@ export type GameSnapshot = {
   nextMiniGameId: MiniGameId | null;
   lastRoundAwards: MiniGameScoreAward[];
   progression: ProgressionSnapshot;
+  sessionProgressionAwards: SessionProgressionAward[];
+  characterActions: CharacterActionSnapshot[];
   persistence: PersistenceSnapshot;
   tourAwards: TourAwardsSnapshot;
   tourScoreboardRows: TourScoreboardRow[];

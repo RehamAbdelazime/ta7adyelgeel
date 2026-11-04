@@ -29,6 +29,8 @@ const COMMAND_ALIASES: Record<string, ParsedTwitchCommand['kind']> = {
   '!تحدي': 'challenge',
   '!spotlight': 'spotlight',
   '!نجومية': 'spotlight',
+  '!victory': 'victory',
+  '!فوز': 'victory',
 };
 
 export class CommandParser {

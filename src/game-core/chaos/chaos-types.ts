@@ -1,6 +1,6 @@
 import type { LocaleCode } from '../localization/locale-types';
 
-export type ChaosEventCategory = 'score' | 'time' | 'answer' | 'role' | 'instant';
+export type ChaosEventCategory = 'score' | 'time' | 'answer' | 'role' | 'instant' | 'reward';
 export type ChaosEventRarity = 'common' | 'rare' | 'legendary';
 export type ChaosEventAppliesTo = 'all' | 'official' | 'spectator' | 'bottomPlayers' | 'topPlayers';
 
@@ -32,4 +32,12 @@ export type ChaosEventSnapshot = {
   flatScoreDelta: number | null;
   wrongAnswerPenalty: number | null;
   answerWindowMultiplier: number | null;
+};
+
+/** Tour-scoped rewards; never persisted as XP or granted to spectators. */
+export type ChaosPlayerReward = {
+  twitchUserId: string;
+  shield: number;
+  boost: number;
+  crown: boolean;
 };

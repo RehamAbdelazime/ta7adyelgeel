@@ -1,237 +1,151 @@
 import type { LocaleCode } from '../localization/locale-types';
 import type { CitizenRuntime } from '../citizens/citizen-types';
-import type { MiniGameScoreAward } from '../minigames/minigame-types';
+import type { MiniGameScoreAward, MiniGameId } from '../minigames/minigame-types';
 import { getAwardScoreOutcome } from '../minigames/scoring-policy';
 import type { ChaosEventDefinition, ChaosEventSnapshot } from './chaos-types';
 
-export const CHAOS_EVENTS: ChaosEventDefinition[] = [
+// One event per mini-game, announced BEFORE the question. No negative surprise
+// penalties to players who don't submit an answer.
+export const CHAOS_EVENTS: readonly ChaosEventDefinition[] = [
   {
-    id: 'double_score',
-    title: { en: 'Double Score', ar: 'النقاط مضاعفة' },
-    description: { en: 'Correct answers are worth x2 this round.', ar: 'كل إجابة صحيحة قيمتها x2 في الراوند ده.' },
-    category: 'score',
-    rarity: 'common',
-    appliesTo: 'all',
-    scoreMultiplier: 2,
-    correctOnly: true,
+    id: 'double_score', title: { en: 'Double Trouble ×2', ar: 'النقاط دبل ×2' },
+    description: { en: 'Correct answers earn double points in this game.', ar: 'كل إجابة صحيحة بنقطتين بدل نقطة واحدة ×2.' },
+    category: 'score', rarity: 'common', appliesTo: 'all', scoreMultiplier: 2, correctOnly: true,
   },
   {
-    id: 'half_score',
-    title: { en: 'Half Score', ar: 'نصف النقاط' },
-    description: { en: 'Correct answers are worth half points this round.', ar: 'كل إجابة صحيحة قيمتها نصف النقاط في الراوند ده.' },
-    category: 'score',
-    rarity: 'common',
-    appliesTo: 'all',
-    scoreMultiplier: 0.5,
-    correctOnly: true,
+    id: 'comeback_boost', title: { en: 'Comeback ×2', ar: 'فرصة الرجوع ×2' },
+    description: { en: 'Bottom three official players get double points for correct answers.', ar: 'آخر 3 لاعبين رسميين ياخدوا دبل لو جاوبوا صح.' },
+    category: 'role', rarity: 'rare', appliesTo: 'bottomPlayers', scoreMultiplier: 2, correctOnly: true,
   },
   {
-    id: 'risk_round',
-    title: { en: 'Risk Round', ar: 'راوند المخاطرة' },
-    description: { en: 'Incorrect answers lose 30 points. Close numeric estimates keep their partial credit; skipped questions are not penalized.', ar: 'الإجابة الخاطئة تخصم 30 نقطة. التقدير القريب يحتفظ بنقاطه الجزئية، وتجاوز السؤال بدون إجابة لا يسبب خصمًا.' },
-    category: 'answer',
-    rarity: 'rare',
-    appliesTo: 'all',
-    wrongAnswerPenalty: -30,
+    id: 'spectator_mayhem', title: { en: 'Spectator Power ×2', ar: 'قوة المتفرجين ×2' },
+    description: { en: 'Spectators earn double runtime points. Official standings do not change.', ar: 'المتفرجين بياخدوا دبل في ترتيبهم المنفصل.' },
+    category: 'role', rarity: 'common', appliesTo: 'spectator', scoreMultiplier: 2, correctOnly: true,
   },
   {
-    id: 'score_storm',
-    title: { en: 'Score Storm', ar: 'عاصفة النقاط' },
-    description: { en: 'Everyone loses 5 points at scoring.', ar: 'كل اللاعبين يخسروا 5 نقاط وقت السكور.' },
-    category: 'instant',
-    rarity: 'common',
-    appliesTo: 'all',
-    flatScoreDelta: -5,
+    id: 'fast_window', title: { en: 'Speed Rush', ar: 'تحدي السرعة' },
+    description: { en: 'Less time to answer this game.', ar: 'وقت الإجابة أقصر في اللعبة دي.' },
+    category: 'time', rarity: 'common', appliesTo: 'all', answerWindowMultiplier: 0.8,
   },
   {
-    id: 'comeback_boost',
-    title: { en: 'Comeback Boost', ar: 'فرصة العودة' },
-    description: { en: 'Bottom players get x2 for correct answers.', ar: 'آخر اللاعبين ياخدوا x2 لو جاوبوا صح.' },
-    category: 'role',
-    rarity: 'rare',
-    appliesTo: 'bottomPlayers',
-    scoreMultiplier: 2,
-    correctOnly: true,
+    id: 'risk_round', title: { en: 'Risk Round', ar: 'جولة المخاطرة' },
+    description: { en: 'Wrong answers lose 30 points; passing and near-misses are safe. A Shield blocks one penalty.', ar: 'الغلط يخصم 30؛ عدم الإجابة أو التقدير القريب من غير خصم. الدرع يحميك مرة.' },
+    category: 'answer', rarity: 'rare', appliesTo: 'all', wrongAnswerPenalty: -30,
   },
   {
-    id: 'spectator_mayhem',
-    title: { en: 'Spectator Mayhem', ar: 'فوضى المتفرجين' },
-    description: { en: 'Spectators get x2 runtime score this round.', ar: 'المتفرجون ياخدوا x2 سكور مؤقت في الراوند ده.' },
-    category: 'role',
-    rarity: 'common',
-    appliesTo: 'spectator',
-    scoreMultiplier: 2,
-    correctOnly: true,
+    id: 'golden_round', title: { en: 'GOLDEN ROUND', ar: 'الجولة الذهبية' },
+    description: { en: 'Best-scoring official player wins one Shield and a +25% boost for their next correct answer. Ties are drawn fairly.', ar: 'أعلى لاعب رسمي يكسب درع وبونص 25% على إجابته الصحيحة الجاية. التعادل بقرعة.' },
+    category: 'reward', rarity: 'legendary', appliesTo: 'official',
   },
-  {
-    id: 'fast_window',
-    title: { en: 'Fast Window', ar: 'نافذة سريعة' },
-    description: { en: 'The answer window is shorter this round.', ar: 'وقت الإجابة أقل في الراوند ده.' },
-    category: 'time',
-    rarity: 'common',
-    appliesTo: 'all',
-    answerWindowMultiplier: 0.72,
-  },
-  {
-    id: 'chill_window',
-    title: { en: 'Chill Window', ar: 'وقت إضافي' },
-    description: { en: 'The answer window is longer this round.', ar: 'وقت الإجابة أطول في الراوند ده.' },
-    category: 'time',
-    rarity: 'common',
-    appliesTo: 'all',
-    answerWindowMultiplier: 1.45,
-  },
-];
+] as const;
+
+// Timing-based games are excluded from Speed Rush: shortening their fixed
+// visual sequences would silently remove information from the player.
+const SPEED_RUSH_EXCLUDED: ReadonlySet<MiniGameId> = new Set(['lucky-cup', 'count-the-beat', 'memory-count']);
+
+export function isChaosEventEligible(event: ChaosEventDefinition, params: {
+  officialCount: number; spectatorCount: number; miniGameId: MiniGameId;
+  roundIndex: number; totalRounds: number; goldenAlreadyPlayed: boolean;
+}): boolean {
+  if (event.appliesTo === 'spectator' && params.spectatorCount === 0) return false;
+  if (event.appliesTo === 'bottomPlayers' && params.officialCount < 3) return false;
+  if (event.id === 'fast_window' && SPEED_RUSH_EXCLUDED.has(params.miniGameId)) return false;
+  // A Shield and a next-correct bonus are worthless if there is no future round.
+  if (event.id === 'golden_round' && (params.goldenAlreadyPlayed || params.roundIndex >= params.totalRounds)) return false;
+  return true;
+}
 
 export class ChaosEventService {
   private readonly roundHistory: string[] = [];
+  private goldenAlreadyPlayed = false;
+  private readonly random: () => number;
+
+  constructor(random: () => number = Math.random) { this.random = random; }
 
   beginTour(): void {
     this.roundHistory.length = 0;
+    this.goldenAlreadyPlayed = false;
   }
 
-  selectForRound(params: { roundIndex: number; chaosPercent: number; officialCount: number; spectatorCount: number }): ChaosEventDefinition | null {
-    const random = createSeededRandom(params.roundIndex * 7919 + params.officialCount * 229 + params.spectatorCount * 131 + Math.floor(params.chaosPercent * 37));
-    const chance = Math.min(0.72, 0.24 + params.chaosPercent / 190 + Math.min(0.14, params.officialCount * 0.015));
-
-    if (random() > chance) {
-      this.roundHistory.push('none');
-      return null;
-    }
-
-    const rarityRoll = random();
-    const targetRarity = rarityRoll > 0.72 ? 'rare' : 'common';
-    const candidates = CHAOS_EVENTS.filter((event) => {
-      if (event.rarity !== targetRarity) {
-        return false;
-      }
-
-      if (event.id === this.roundHistory[this.roundHistory.length - 1]) {
-        return false;
-      }
-
-      if (event.appliesTo === 'spectator' && params.spectatorCount === 0) {
-        return false;
-      }
-
-      if (event.appliesTo === 'bottomPlayers' && params.officialCount < 3) {
-        return false;
-      }
-
-      return true;
-    });
-    const fallback = CHAOS_EVENTS.filter((event) => event.id !== this.roundHistory[this.roundHistory.length - 1]);
-    const pool = candidates.length > 0 ? candidates : fallback;
-    const event = pool[Math.floor(random() * pool.length)] ?? null;
-    this.roundHistory.push(event?.id ?? 'none');
+  /** Explicit host choice goes through the same eligibility checks as random events. */
+  selectForced(eventId: string, params: {
+    officialCount: number; spectatorCount: number; miniGameId: MiniGameId;
+    roundIndex: number; totalRounds: number;
+  }): ChaosEventDefinition | null {
+    const event = CHAOS_EVENTS.find(item => item.id === eventId) ?? null;
+    if (!event || !isChaosEventEligible(event, { ...params, goldenAlreadyPlayed: this.goldenAlreadyPlayed })) return null;
+    this.remember(event);
     return event;
   }
 
+  selectForRound(params: {
+    roundIndex: number; totalRounds: number; chance: number;
+    officialCount: number; spectatorCount: number; miniGameId: MiniGameId;
+  }): ChaosEventDefinition | null {
+    const chance = Math.min(1, Math.max(0, params.chance));
+    if (this.random() >= chance) { this.remember(null); return null; }
+    const eligible = CHAOS_EVENTS.filter((event) =>
+      event.id !== this.roundHistory[this.roundHistory.length - 1] &&
+      isChaosEventEligible(event, { ...params, goldenAlreadyPlayed: this.goldenAlreadyPlayed }));
+    if (!eligible.length) { this.remember(null); return null; }
+    // Weighted rarity: Golden is a genuine rare surprise, not a 1-in-6 repeat.
+    const weight = (event: ChaosEventDefinition): number => event.rarity === 'legendary' ? 0.35 : event.rarity === 'rare' ? 1.3 : 3;
+    const totalWeight = eligible.reduce((sum, event) => sum + weight(event), 0);
+    let roll = this.random() * totalWeight;
+    let choice = eligible[eligible.length - 1];
+    for (const event of eligible) { roll -= weight(event); if (roll < 0) { choice = event; break; } }
+    this.remember(choice);
+    return choice;
+  }
+
+  private remember(event: ChaosEventDefinition | null): void {
+    this.roundHistory.push(event?.id ?? 'none');
+    if (event?.id === 'golden_round') this.goldenAlreadyPlayed = true;
+  }
+
   applyToAwards(params: { event: ChaosEventDefinition | null; awards: MiniGameScoreAward[]; citizens: CitizenRuntime[] }): MiniGameScoreAward[] {
-    if (!params.event) {
-      return params.awards;
-    }
-
+    if (!params.event) return params.awards;
+    // Freeze trailing positions when the round is selected, not after scoring.
+    // Callers supply the roster snapshot captured at selection time.
     const bottomPlayerIds = this.getBottomPlayerIds(params.citizens);
-    const topPlayerIds = this.getTopPlayerIds(params.citizens);
-
     return params.awards.map((award) => {
-      let points = award.points;
-      const applies = this.eventAppliesToAward(params.event!, award, bottomPlayerIds, topPlayerIds);
-
-      if (!applies) {
-        return award;
-      }
-
-      // A numeric near-miss is partial credit, not a fully wrong answer.
+      if (!this.eventAppliesToAward(params.event!, award, bottomPlayerIds)) return award;
       if (getAwardScoreOutcome(award) === 'incorrect' && typeof params.event!.wrongAnswerPenalty === 'number') {
-        points = params.event!.wrongAnswerPenalty;
-      } else if (typeof params.event!.scoreMultiplier === 'number') {
-        const canMultiply = params.event!.correctOnly ? award.isCorrect : true;
-        if (canMultiply) {
-          points = Math.round(points * params.event!.scoreMultiplier);
-        }
+        return { ...award, points: params.event!.wrongAnswerPenalty };
       }
-
-      return { ...award, points };
+      if (typeof params.event!.scoreMultiplier === 'number' && (!params.event!.correctOnly || award.isCorrect)) {
+        return { ...award, points: Math.round(award.points * params.event!.scoreMultiplier) };
+      }
+      return award;
     });
   }
 
   getSnapshot(event: ChaosEventDefinition | null, locale: LocaleCode): ChaosEventSnapshot {
-    if (!event) {
-      return {
-        active: false,
-        id: null,
-        title: locale === 'ar' ? 'لا يوجد حدث فوضى' : 'No Chaos Event',
-        description: locale === 'ar' ? 'هذا الراوند عادي.' : 'This round is normal.',
-        category: null,
-        rarity: null,
-        badge: '',
-        scoreMultiplier: null,
-        flatScoreDelta: null,
-        wrongAnswerPenalty: null,
-        answerWindowMultiplier: null,
-      };
-    }
-
+    if (!event) return {
+      active: false, id: null, title: '', description: '', category: null, rarity: null,
+      badge: '', scoreMultiplier: null, flatScoreDelta: null, wrongAnswerPenalty: null, answerWindowMultiplier: null,
+    };
     return {
-      active: true,
-      id: event.id,
-      title: event.title[locale],
-      description: event.description[locale],
-      category: event.category,
-      rarity: event.rarity,
-      badge: this.getBadge(event),
-      scoreMultiplier: event.scoreMultiplier ?? null,
-      flatScoreDelta: event.flatScoreDelta ?? null,
-      wrongAnswerPenalty: event.wrongAnswerPenalty ?? null,
-      answerWindowMultiplier: event.answerWindowMultiplier ?? null,
+      active: true, id: event.id, title: event.title[locale], description: event.description[locale],
+      category: event.category, rarity: event.rarity, badge: event.id === 'golden_round' ? 'GOLDEN' : 'CHAOS',
+      scoreMultiplier: event.scoreMultiplier ?? null, flatScoreDelta: null,
+      wrongAnswerPenalty: event.wrongAnswerPenalty ?? null, answerWindowMultiplier: event.answerWindowMultiplier ?? null,
     };
   }
 
-  private eventAppliesToAward(event: ChaosEventDefinition, award: MiniGameScoreAward, bottomPlayerIds: Set<string>, topPlayerIds: Set<string>): boolean {
+  private eventAppliesToAward(event: ChaosEventDefinition, award: MiniGameScoreAward, bottomIds: Set<string>): boolean {
     switch (event.appliesTo) {
-      case 'official':
-        return award.role === 'official';
-      case 'spectator':
-        return award.role === 'spectator';
-      case 'bottomPlayers':
-        return bottomPlayerIds.has(award.twitchUserId);
-      case 'topPlayers':
-        return topPlayerIds.has(award.twitchUserId);
-      case 'all':
-      default:
-        return true;
+      case 'official': return award.role === 'official';
+      case 'spectator': return award.role === 'spectator';
+      case 'bottomPlayers': return bottomIds.has(award.twitchUserId);
+      case 'topPlayers': return false;
+      default: return true;
     }
   }
 
   private getBottomPlayerIds(citizens: CitizenRuntime[]): Set<string> {
-    return new Set(citizens
-      .filter((citizen) => citizen.role === 'official')
+    return new Set(citizens.filter(c => c.role === 'official')
       .sort((a, b) => a.score - b.score || a.displayName.localeCompare(b.displayName))
-      .slice(0, 3)
-      .map((citizen) => citizen.twitchUserId));
+      .slice(0, 3).map(c => c.twitchUserId));
   }
-
-  private getTopPlayerIds(citizens: CitizenRuntime[]): Set<string> {
-    return new Set(citizens
-      .filter((citizen) => citizen.role === 'official')
-      .sort((a, b) => b.score - a.score || a.displayName.localeCompare(b.displayName))
-      .slice(0, 3)
-      .map((citizen) => citizen.twitchUserId));
-  }
-
-  private getBadge(event: ChaosEventDefinition): string {
-    if (event.rarity === 'legendary') return 'LEGENDARY';
-    if (event.rarity === 'rare') return 'RARE';
-    return 'CHAOS';
-  }
-}
-
-function createSeededRandom(seed: number): () => number {
-  let state = seed >>> 0;
-  return () => {
-    state = (state * 1664525 + 1013904223) >>> 0;
-    return state / 0x100000000;
-  };
 }

@@ -15,7 +15,7 @@ const files = {
 };
 const t = Object.fromEntries(Object.entries(files).map(([k,f])=>[k,read(f)]));
 assert(t.main.indexOf('premium-experience.css')<t.main.indexOf('lobby-final-polish.css'));
-assert(t.plaza.includes('getVisibleAudience(citizens, streamerUserId)'));
+assert(t.plaza.includes('getVisibleAudience(citizens, streamerUserId, activeAnswerUserIds)'));
 assert(t.lobby.includes('getVisibleAudience(snapshot.citizens, status.accountUserId).length'));
 assert(t.stage.includes('useLobbyJoinFlash') && t.stage.includes('premium-audience-join-flash'));
 assert(t.css.includes('prefers-reduced-motion: reduce'));
@@ -37,5 +37,6 @@ assert.equal(exports.getVisibleAudience(people,'1')[0].twitchUserId,'2');
 assert.equal(exports.getVisibleAudience(people,'1')[71].twitchUserId,'73');
 assert.equal(exports.getVisibleAudience(people,'10').find(x=>x.twitchUserId==='10'),undefined);
 assert.equal(exports.getVisibleAudience(people,null).length,72);
+assert(exports.getVisibleAudience(people,'1',new Set(['80'])).some(x=>x.twitchUserId==='80'), 'active late joiner must appear in crowded audience');
 assert.equal(exports.getVisibleAudience([],null).length,0);
 console.log('Final lobby polish checks passed: shared counter/floor selector, 72 cap, broadcaster filtering, assets, CSS order, TS syntax.');

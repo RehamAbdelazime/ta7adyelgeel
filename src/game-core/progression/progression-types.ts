@@ -10,7 +10,8 @@ export type CommandUnlockId =
   | 'emote'
   | 'cheer'
   | 'challenge'
-  | 'spotlight';
+  | 'spotlight'
+  | 'victory';
 
 export type CommandUnlockDefinition = {
   id: CommandUnlockId;
@@ -32,7 +33,6 @@ export type CommandUnlockView = {
 export type PlayerProgressionView = {
   level: number;
   xp: number;
-  coins: number;
   currentLevelXp: number;
   nextLevelXp: number;
   xpIntoLevel: number;

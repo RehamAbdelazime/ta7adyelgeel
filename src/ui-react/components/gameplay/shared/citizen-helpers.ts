@@ -4,7 +4,7 @@ import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import {
   CHARACTER_FRAME_COUNT, CHARACTER_IDS, CHARACTER_IDLE_FRAME_MS,
-  CHARACTER_SESSION_SEED, STATIC_NEUTRAL_IDLE_CHARACTERS,
+  STATIC_NEUTRAL_IDLE_CHARACTERS,
   type CharacterAnimationName, type CharacterId,
   type CitizenPlacement, type CitizenSpotlightPlacement, type CitizenSidePlacement,
 } from './overlay-types';
@@ -61,7 +61,10 @@ export function getCitizenVisualScale(characterId: CharacterId): number {
 }
 
 export function getCharacterId(twitchUserId: string, _index: number): CharacterId {
-  const hash = Math.abs(hashString(twitchUserId + CHARACTER_SESSION_SEED));
+  // Explicit sprite selection is only supported for namespaced local QA identities.
+  const qaSprite = CHARACTER_IDS.find(id => twitchUserId.startsWith(`__ta7ady_qa_bot__qa_${id}_`));
+  if (qaSprite) return qaSprite;
+  const hash = hashString(`character-v42:${twitchUserId}`) >>> 0;
   return CHARACTER_IDS[hash % CHARACTER_IDS.length];
 }
 

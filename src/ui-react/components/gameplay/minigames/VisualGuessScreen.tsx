@@ -47,10 +47,11 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
   const focus = data.focus;
   const isPortrait = miniGame.id === 'guess-star';
   const isPoster = data.mode === 'poster';
-  const isZoom = data.mode === 'eyes' || data.mode === 'zoom';
+  const isEyes = data.mode === 'eyes';
+  const isZoom = data.mode === 'zoom';
   const imageClass = `v36-visual-image v36-visual-image-${data.mode}`;
   const imageStyle: CSSProperties = isZoom
-    ? { objectPosition: `${focus.x}% ${focus.y}%`, transform: `scale(${data.mode === 'eyes' ? 2.55 : 2.15})`, transformOrigin: `${focus.x}% ${focus.y}%` }
+    ? { objectPosition: `${focus.x}% ${focus.y}%`, transform: `scale(2.15)`, transformOrigin: `${focus.x}% ${focus.y}%` }
     : { objectPosition: `${focus.x}% ${focus.y}%` };
 
   return <QuestionScreenShell
@@ -64,7 +65,7 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
   >
     <div className={`v36-visual-stage v36-visual-stage-${data.mode} ${showingResult ? 'v36-visual-revealed' : ''}`}>
       <div className={`v36-visual-frame ${isPoster ? 'v36-visual-frame-poster' : ''} ${isPortrait ? 'v36-visual-frame-portrait' : ''}`}>
-        <div className="v36-visual-canvas">
+        <div className={`v36-visual-canvas ${isEyes && !showingResult ? 'v44-eyes-crop' : ''}`}>
           {!imageError ? <img
             src={useRemoteMedia ? data.fallbackImageUrl : data.imageUrl}
             className={imageClass}
@@ -72,10 +73,10 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
             draggable={false}
             loading="eager"
             style={showingResult && isZoom ? { objectPosition: `${focus.x}% ${focus.y}%` } : imageStyle}
-            onError={() => { if (!useRemoteMedia) setUseRemoteMedia(true); else setImageError(true); }}
+            onError={() => { if (!useRemoteMedia && data.fallbackImageUrl) setUseRemoteMedia(true); else setImageError(true); }}
           /> : <div role="status" className="v36-visual-media-error">
             <b aria-hidden="true">⚠</b>
-            <span>{isAr ? 'الصورة غير متاحة — اتأكدي من اتصال الإنترنت' : 'Image unavailable — check internet access'}</span>
+            <span>{isAr ? 'الصورة مش متاحة — جرّبي تحميل صور المشاهير محليًا' : 'Image unavailable — check internet access'}</span>
           </div>}
           {isPoster && data.titleMask && !showingResult && !imageError ? (
             <div className="v36-visual-poster-mask" style={{

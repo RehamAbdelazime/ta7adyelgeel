@@ -51,3 +51,14 @@ html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img 
     grid-auto-rows: minmax(102px, 1fr) !important;
   }
 }
+
+/* V44: Actual photograph eyes-only crop; frame cuts away the rest of the face.
+   Focal coordinates are photo-specific and should be visually checked after caching. */
+.v36-visual-canvas.v44-eyes-crop {
+  width: min(96%, 700px); height: clamp(86px, 17.5vh, 170px); aspect-ratio: 4.5 / 1;
+  margin: auto; border-radius: 16px; border: 2px solid rgba(90,219,255,.65);
+  overflow: hidden; box-shadow: 0 0 26px rgba(37,194,255,.15);
+}
+.v36-visual-canvas.v44-eyes-crop > img { width: 100%; height: 100%; object-fit: cover; object-fit: cover; transform: scale(1.45); }
+.v36-visual-stage-eyes:not(.v36-visual-revealed) .v36-visual-frame-portrait { border: 0; background: transparent; box-shadow: none; }
+@media (max-height: 720px) { .v36-visual-canvas.v44-eyes-crop { max-height: 112px; } }

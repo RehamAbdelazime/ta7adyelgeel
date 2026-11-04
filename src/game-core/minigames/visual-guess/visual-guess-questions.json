@@ -1,233 +1,1015 @@
 {
-  "schemaVersion": 1,
-  "mediaPolicy": "External Wikimedia Commons files for QA preview only; local licensed images are recommended before public release.",
+  "schemaVersion": 3,
+  "mediaPolicy": "Real photography only. Celebrities: Wikimedia Commons actual portraits with file-specific licenses and required attribution. Movie image candidates: genuine film stills/posters with third-party copyright NOT cleared for public streaming or redistribution; license/permission REQUIRED before use. No original-art substitute. Never claim that a URL alone grants rights. Missing files must show an explicit error, not imaginary artwork.",
+  "difficultyPolicy": {
+    "audience": "Egyptian Arabic Twitch viewers",
+    "source": "editorial familiarity estimate, informed by Egyptian cinema popularity and local cultural context; NOT a statistical survey",
+    "schedule": [
+      "easy",
+      "medium",
+      "hard",
+      "hard"
+    ],
+    "lastVerified": "2026-11-04"
+  },
   "movies": [
     {
-      "id": "the-kid",
+      "id": "movie-el-nazer",
       "name": {
-        "en": "The Kid",
-        "ar": "الطفل"
+        "en": "El Nazer",
+        "ar": "الناظر"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-el-nazer.jpg",
+      "imageUrl": "https://media0093.elcinema.com/uploads/_640x_98d6ce58836df9ea41450c5cda0f4b89da996d6672d4bcba5b8e704055272f6f.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://elcinema.com/work/1001525/gallery/123504697/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://elcinema.com/work/1001525/gallery/123504697/",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-el-limby",
+      "name": {
+        "en": "El Limby",
+        "ar": "اللمبي"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-el-limby.jpg",
+      "imageUrl": "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/original/2022/11/11/1943469_0.jpeg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.almasryalyoum.com/news/details/2739016",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.almasryalyoum.com/news/details/2739016",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-asal-eswed",
+      "name": {
+        "en": "Assal Eswed",
+        "ar": "عسل إسود"
       },
       "mode": "poster",
       "difficulty": "easy",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The%20Kid%20%281921%29%20poster.jpg?width=1200",
+      "category": "egyptian",
+      "asset": "movie-asal-eswed.jpg",
+      "imageUrl": "https://www.mafab.hu/static/profiles/2014/293/00/6580_9.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:The%20Kid%20%281921%29%20poster.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+        "source": "https://www.mafab.hu/movies/--6580.html",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
       },
+      "sourcePage": "https://www.mafab.hu/movies/--6580.html",
+      "mediaApproval": "pending_rights_review",
       "titleMask": {
-        "x": 11,
-        "y": 69,
-        "w": 83,
+        "x": 2,
+        "y": 77,
+        "w": 96,
         "h": 23
       }
     },
     {
-      "id": "sherlock-jr",
+      "id": "movie-x-large",
       "name": {
-        "en": "Sherlock Jr.",
-        "ar": "شيرلوك جونيور"
+        "en": "X-Large",
+        "ar": "إكس لارج"
       },
       "mode": "poster",
-      "difficulty": "medium",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Sherlock%20jr%20poster.jpg?width=1200",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-x-large.jpg",
+      "imageUrl": "https://image.tmdb.org/t/p/w440_and_h660_face/dBK3YVsY27F7VYWXdSrXqot947K.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Sherlock%20jr%20poster.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+        "source": "https://www.themoviedb.org/movie/103376",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
       },
+      "sourcePage": "https://www.themoviedb.org/movie/103376",
+      "mediaApproval": "pending_rights_review",
       "titleMask": {
-        "x": 8,
-        "y": 71,
-        "w": 86,
-        "h": 21
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 30
       }
     },
     {
-      "id": "trip-moon",
+      "id": "movie-el-feel-el-azraq",
       "name": {
-        "en": "A Trip to the Moon",
-        "ar": "رحلة إلى القمر"
-      },
-      "mode": "poster",
-      "difficulty": "hard",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Trip-to-moon-1902.jpg?width=1200",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Trip-to-moon-1902.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      },
-      "titleMask": {
-        "x": 6,
-        "y": 2,
-        "w": 89,
-        "h": 28
-      }
-    },
-    {
-      "id": "safety-last",
-      "name": {
-        "en": "Safety Last!",
-        "ar": "السلامة أخيرًا"
+        "en": "The Blue Elephant",
+        "ar": "الفيل الأزرق"
       },
       "mode": "scene",
       "difficulty": "easy",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Safety%20Last%20%281923%29%20sceenshot.jpg?width=1200",
+      "category": "egyptian",
+      "asset": "movie-el-feel-el-azraq.jpg",
+      "imageUrl": "https://media0095.elcinema.com/uploads/_640x_624cd76e871a5282c45e609ed7000ff4bfa6c2bed65add181ed64860d9e8cacb.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Safety%20Last%20%281923%29%20sceenshot.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://elcinema.com/work/2019662/gallery/124126132/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://elcinema.com/work/2019662/gallery/124126132/",
+      "mediaApproval": "pending_rights_review"
     },
     {
-      "id": "train-robbery",
+      "id": "movie-welad-rezk",
       "name": {
-        "en": "The Great Train Robbery",
-        "ar": "سرقة القطار الكبرى"
+        "en": "Welad Rizk",
+        "ar": "ولاد رزق"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-welad-rezk.jpg",
+      "imageUrl": "https://cdn-ar-1.alwasat.ly/uploads/articles/75225.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://alwasat.ly/news/art-culture/50937",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://alwasat.ly/news/art-culture/50937",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-saeedi-amc",
+      "name": {
+        "en": "Saidi in the American University",
+        "ar": "صعيدي في الجامعة الأمريكية"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-saeedi-amc.jpg",
+      "imageUrl": "https://media0098.elcinema.com/uploads/_640x_b0d3d6324701bf90e1962ea78748597b9dfee6f8b8e02d73994deb3146d520f9.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://elcinema.com/work/1008760/gallery/123516066/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://elcinema.com/work/1008760/gallery/123516066/",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-keda-reda",
+      "name": {
+        "en": "Keda Reda",
+        "ar": "كده رضا"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "egyptian",
+      "asset": "movie-keda-reda.jpg",
+      "imageUrl": "https://image.tmdb.org/t/p/w1066_and_h600_face/qJyIO2Ies3icSZDg5YaZOLrxwNt.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.themoviedb.org/movie/43405",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.themoviedb.org/movie/43405",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-titanic",
+      "name": {
+        "en": "Titanic",
+        "ar": "تيتانيك"
+      },
+      "mode": "scene",
+      "difficulty": "easy",
+      "category": "international",
+      "asset": "movie-titanic.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-home-alone",
+      "name": {
+        "en": "Home Alone",
+        "ar": "وحدي في المنزل"
+      },
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "international",
+      "asset": "movie-home-alone.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-terrorism-kebab",
+      "name": {
+        "en": "Terrorism and Kebab",
+        "ar": "الإرهاب والكباب"
       },
       "mode": "scene",
       "difficulty": "medium",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/The-Great-Train-Robbery-1903.jpg?width=1200",
+      "category": "egyptian",
+      "asset": "movie-terrorism-kebab.jpg",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BYmMyMWRhZTctMmJjYi00YWVmLWIyOWMtMWFmOGY4NWJiNTUxXkEyXkFqcGc%40._V1_QL75_UX670_.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:The-Great-Train-Robbery-1903.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+        "source": "https://www.imdb.com/title/tt0107227/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.imdb.com/title/tt0107227/",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-samir-shahir-bahir",
+      "name": {
+        "en": "Samir, Shahir and Bahir",
+        "ar": "سمير وشهير وبهير"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-samir-shahir-bahir.jpg",
+      "imageUrl": "https://images.justwatch.com/poster/305296579/s718/smyr-wshhyr-wbhyr.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.justwatch.com/eg/movie/smyr-wshhyr-wbhyr",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.justwatch.com/eg/movie/smyr-wshhyr-wbhyr",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 27
       }
     },
     {
-      "id": "nosferatu",
+      "id": "movie-zaki-chan",
       "name": {
-        "en": "Nosferatu",
-        "ar": "نوسفيراتو"
+        "en": "Zaki Chan",
+        "ar": "زكي شان"
+      },
+      "mode": "scene",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-zaki-chan.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-tayer-ent",
+      "name": {
+        "en": "Tayer Ent",
+        "ar": "طير إنت"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-tayer-ent.jpg",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDA5ZTVjYmMtMWYxNS00ZGQ5LWE0ZmEtYzc1ZjY1ZTBkZDRhXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.imdb.com/title/tt1699195/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.imdb.com/title/tt1699195/",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 80,
+        "w": 100,
+        "h": 20
+      }
+    },
+    {
+      "id": "movie-1000-mabrook",
+      "name": {
+        "en": "1000 Mabrook",
+        "ar": "1000 مبروك"
+      },
+      "mode": "scene",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-1000-mabrook.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-la-taragoe",
+      "name": {
+        "en": "No Retreat, No Surrender",
+        "ar": "لا تراجع ولا استسلام"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-la-taragoe.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-el-gazeera",
+      "name": {
+        "en": "El Gezira",
+        "ar": "الجزيرة"
+      },
+      "mode": "scene",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-el-gazeera.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-el-mamar",
+      "name": {
+        "en": "The Passage",
+        "ar": "الممر"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-el-mamar.jpg",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BYTM4MDMwNWQtZTcwYy00NTgzLWJhOWMtOGU2MjA1ZGRmMTU4XkEyXkFqcGc%40._V1_.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.imdb.com/title/tt10443808/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.imdb.com/title/tt10443808/",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 27
+      }
+    },
+    {
+      "id": "movie-kira-wel-gen",
+      "name": {
+        "en": "Kira & El Gin",
+        "ar": "كيرة والجن"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian",
+      "asset": "movie-kira-wel-gen.jpg",
+      "imageUrl": "https://img.youm7.com/ArticleImgs/2022/12/16/211649-%D9%81%D9%8A%D9%84%D9%85-%D9%83%D9%8A%D8%B1%D8%A9-%D9%88%D8%A7%D9%84%D8%AC%D9%86.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.youm7.com/story/2022/12/19/6012497",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.youm7.com/story/2022/12/19/6012497",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 30
+      }
+    },
+    {
+      "id": "movie-harry-potter",
+      "name": {
+        "en": "Harry Potter and the Philosopher’s Stone",
+        "ar": "هاري بوتر وحجر الفيلسوف"
+      },
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "international",
+      "asset": "movie-harry-potter.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-eshtbak",
+      "name": {
+        "en": "Clash",
+        "ar": "اشتباك"
       },
       "mode": "scene",
       "difficulty": "hard",
-      "category": "movies",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nosferatu.jpg?width=1200",
+      "category": "egyptian",
+      "asset": "movie-eshtbak.jpg",
+      "imageUrl": "https://images.dailynewsegypt.com/2018/09/8-1-2.jpeg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Nosferatu.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
+        "source": "https://www.dailynewsegypt.com/2016/05/14/after-opening-un-certain-regard-at-cannes-eshtebak-receives-international-standing-ovation/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.dailynewsegypt.com/2016/05/14/after-opening-un-certain-regard-at-cannes-eshtebak-receives-international-standing-ovation/",
+      "mediaApproval": "pending_rights_review"
+    },
+    {
+      "id": "movie-678",
+      "name": {
+        "en": "678",
+        "ar": "678"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-678.jpg",
+      "imageUrl": "https://m.media-amazon.com/images/M/MV5BZThmMGZkYjctZWE5OS00YjAwLWFhYTMtMjdmN2YyNzdmNWZiXkEyXkFqcGc%40._V1_.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://www.imdb.com/title/tt1764141/",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://www.imdb.com/title/tt1764141/",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 75,
+        "w": 100,
+        "h": 25
       }
+    },
+    {
+      "id": "movie-fatat-el-masnaa",
+      "name": {
+        "en": "Factory Girl",
+        "ar": "فتاة المصنع"
+      },
+      "mode": "scene",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-fatat-el-masnaa.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-yom-lel-setat",
+      "name": {
+        "en": "A Day for Women",
+        "ar": "يوم للستات"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-yom-lel-setat.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-torab-el-mas",
+      "name": {
+        "en": "Diamond Dust",
+        "ar": "تراب الماس"
+      },
+      "mode": "scene",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-torab-el-mas.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-asmaa",
+      "name": {
+        "en": "Asmaa",
+        "ar": "أسماء"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-asmaa.jpg",
+      "imageUrl": "https://images.plex.tv/photo?size=large-1280&url=https%3A%2F%2Fmetadata-static.plex.tv%2Fc%2Fgracenote%2Fcdd4ef2256d71caa89124693d8a279a7.jpg",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://watch.plex.tv/movie/asmaa",
+        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+      },
+      "sourcePage": "https://watch.plex.tv/movie/asmaa",
+      "mediaApproval": "pending_rights_review",
+      "titleMask": {
+        "x": 0,
+        "y": 75,
+        "w": 100,
+        "h": 25
+      }
+    },
+    {
+      "id": "movie-nawara",
+      "name": {
+        "en": "Nawara",
+        "ar": "نوارة"
+      },
+      "mode": "scene",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-nawara.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-akher-ayyam-el-madina",
+      "name": {
+        "en": "In the Last Days of the City",
+        "ar": "آخر أيام المدينة"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian",
+      "asset": "movie-akher-ayyam-el-madina.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-interstellar",
+      "name": {
+        "en": "Interstellar",
+        "ar": "إنترستيلر"
+      },
+      "mode": "scene",
+      "difficulty": "hard",
+      "category": "international",
+      "asset": "movie-interstellar.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
+    },
+    {
+      "id": "movie-inception",
+      "name": {
+        "en": "Inception",
+        "ar": "إنسبشن"
+      },
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "international",
+      "asset": "movie-inception.jpg",
+      "imageUrl": "",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "Awaiting official licensed film still or poster",
+        "license": "None"
+      },
+      "sourcePage": "",
+      "mediaApproval": "missing_authorized_still"
     }
   ],
   "stars": [
     {
-      "id": "chaplin",
+      "id": "star-adel-imam",
       "name": {
-        "en": "Charlie Chaplin",
-        "ar": "تشارلي تشابلن"
+        "en": "Adel Emam",
+        "ar": "عادل إمام"
       },
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Charlie%20Chaplin%20portrait.jpg?width=1200",
+      "asset": "star-adel-imam.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Adel%20Imam%202009%20cropped.jpg?width=900",
       "focus": {
         "x": 50,
-        "y": 24
+        "y": 32
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Charlie%20Chaplin%20portrait.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Adel_Imam_2009_cropped.jpg",
+        "license": "CC BY 2.0",
+        "creator": "daly3d (Daly3d)",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "keaton",
+      "id": "star-mohamed-salah",
       "name": {
-        "en": "Buster Keaton",
-        "ar": "باستر كيتون"
+        "en": "Mohamed Salah",
+        "ar": "محمد صلاح"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "athletes",
+      "asset": "star-mohamed-salah.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Salah%202018.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 26
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Salah_2018.jpg",
+        "license": "CC BY-SA 3.0",
+        "creator": "Anna Nessi / soccer.ru",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-ahmed-helmy",
+      "name": {
+        "en": "Ahmed Helmy",
+        "ar": "أحمد حلمي"
       },
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Busterkeaton.jpg?width=1200",
+      "asset": "star-ahmed-helmy.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Helmy%202014.jpg?width=900",
       "focus": {
-        "x": 52,
-        "y": 24
+        "x": 50,
+        "y": 32
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Busterkeaton.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Helmy_2014.jpg",
+        "license": "CC BY 3.0",
+        "creator": "Akhbar El yom TV",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "pickford",
+      "id": "star-mohamed-henedy",
       "name": {
-        "en": "Mary Pickford",
-        "ar": "ماري بيكفورد"
+        "en": "Mohamed Henedy",
+        "ar": "محمد هنيدي"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "star-mohamed-henedy.png",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Henedy.png?width=900",
+      "focus": {
+        "x": 50,
+        "y": 32
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Henedy.png",
+        "license": "CC BY 3.0",
+        "creator": "Riyadh Season",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-cristiano-ronaldo",
+      "name": {
+        "en": "Cristiano Ronaldo",
+        "ar": "كريستيانو رونالدو"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "athletes",
+      "asset": "star-cristiano-ronaldo.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano%20Ronaldo%202018.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 28
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Cristiano_Ronaldo_2018.jpg",
+        "license": "CC BY-SA 3.0",
+        "creator": "Anna Nessi / soccer.ru",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-tamer-hosny",
+      "name": {
+        "en": "Tamer Hosny",
+        "ar": "تامر حسني"
       },
       "mode": "silhouette",
       "difficulty": "easy",
-      "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mary%20Pickford%20photograph.jpg?width=1200",
+      "category": "singers",
+      "asset": "star-tamer-hosny.png",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tamer%20Hosny.png?width=900",
+      "focus": {
+        "x": 50,
+        "y": 27
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Tamer_Hosny.png",
+        "license": "CC BY 3.0",
+        "creator": "MENA News Agency",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-amr-diab",
+      "name": {
+        "en": "Amr Diab",
+        "ar": "عمرو دياب"
+      },
+      "mode": "silhouette",
+      "difficulty": "easy",
+      "category": "singers",
+      "asset": "star-amr-diab.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amr%20Abdul%20Baset%20Diab.jpg?width=900",
       "focus": {
         "x": 50,
         "y": 25
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Mary%20Pickford%20photograph.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Amr_Abdul_Baset_Diab.jpg",
+        "license": "CC BY-SA 3.0",
+        "creator": "Kareem Nour",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "valentino",
+      "id": "star-ahmed-ezz",
       "name": {
-        "en": "Rudolph Valentino",
-        "ar": "رودولف فالنتينو"
+        "en": "Ahmed Ezz",
+        "ar": "أحمد عز"
       },
       "mode": "silhouette",
       "difficulty": "medium",
       "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rudolph%20Valentino%20LCCN2014718921.jpg?width=1200",
+      "asset": "star-ahmed-ezz.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Ezz%20in%20Dubai%20-%20ElMaslaha%20Premiere.jpg?width=900",
       "focus": {
         "x": 50,
-        "y": 23
+        "y": 33
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Rudolph%20Valentino%20LCCN2014718921.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Ezz_in_Dubai_-_ElMaslaha_Premiere.jpg",
+        "license": "CC BY 2.0",
+        "creator": "The Ahmed Ezz",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "lloyd",
+      "id": "star-ahmed-el-sakka",
       "name": {
-        "en": "Harold Lloyd",
-        "ar": "هارولد لويد"
+        "en": "Ahmed El-Sakka",
+        "ar": "أحمد السقا"
+      },
+      "mode": "silhouette",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "star-ahmed-el-sakka.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Elsaqa%20in%20Dubai%20-%20ElMaslaha%20Premiere.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 30
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Elsaqa_in_Dubai_-_ElMaslaha_Premiere.jpg",
+        "license": "CC BY 2.0",
+        "creator": "The Ahmed Ezz",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-lionel-messi",
+      "name": {
+        "en": "Lionel Messi",
+        "ar": "ليونيل ميسي"
+      },
+      "mode": "silhouette",
+      "difficulty": "easy",
+      "category": "athletes",
+      "asset": "star-lionel-messi.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20Argentina%20v%20Egypt%207%20July%202026-316.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 30
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Lionel_Messi_Argentina_v_Egypt_7_July_2026-316.jpg",
+        "license": "CC BY-SA 4.0",
+        "creator": "Bryan Berlin",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-mohamed-ramadan",
+      "name": {
+        "en": "Mohamed Ramadan",
+        "ar": "محمد رمضان"
+      },
+      "mode": "zoom",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "star-mohamed-ramadan.png",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Ramadan.png?width=900",
+      "focus": {
+        "x": 50,
+        "y": 30
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Ramadan.png",
+        "license": "CC BY 3.0",
+        "creator": "Akhbar El yom TV",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-yousra",
+      "name": {
+        "en": "Yousra",
+        "ar": "يسرا"
       },
       "mode": "zoom",
       "difficulty": "medium",
       "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Harold%20Lloyd%2C%201918.jpg?width=1200",
+      "asset": "star-yousra.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Youssra.jpg?width=900",
       "focus": {
         "x": 50,
-        "y": 42
+        "y": 30
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Harold%20Lloyd%2C%201918.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Youssra.jpg",
+        "license": "CC BY 2.0",
+        "creator": "daly3d abd",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "sharif",
+      "id": "star-mohamed-mounir",
       "name": {
-        "en": "Omar Sharif",
-        "ar": "عمر الشريف"
+        "en": "Mohamed Mounir",
+        "ar": "محمد منير"
+      },
+      "mode": "zoom",
+      "difficulty": "medium",
+      "category": "singers",
+      "asset": "star-mohamed-mounir.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Mounir.jpg?width=900",
+      "focus": {
+        "x": 45,
+        "y": 38
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Mounir.jpg",
+        "license": "CC BY-SA 4.0",
+        "creator": "Alaa Helaly",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-bahaa-sultan",
+      "name": {
+        "en": "Bahaa Sultan",
+        "ar": "بهاء سلطان"
       },
       "mode": "zoom",
       "difficulty": "hard",
-      "category": "actors",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Omar%20Sharif-Cairo.jpg?width=1200",
+      "category": "singers",
+      "asset": "star-bahaa-sultan.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bahaa%20Sultan.jpg?width=900",
       "focus": {
-        "x": 53,
-        "y": 38
+        "x": 50,
+        "y": 40
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Omar%20Sharif-Cairo.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Bahaa_Sultan.jpg",
+        "license": "CC BY 3.0",
+        "creator": "Egyptian TV CH1 (Al Oula)",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "umm",
+      "id": "star-elvis-presley",
+      "name": {
+        "en": "Elvis Presley",
+        "ar": "إلفيس بريسلي"
+      },
+      "mode": "zoom",
+      "difficulty": "hard",
+      "category": "singers",
+      "asset": "star-elvis-presley.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elvis%20Presley%201960.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 32
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Elvis_Presley_1960.jpg",
+        "license": "Public domain (U.S.; jurisdiction check)",
+        "creator": "Bob East / Dell Publishing",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-umm-kulthum",
       "name": {
         "en": "Umm Kulthum",
         "ar": "أم كلثوم"
@@ -235,34 +1017,121 @@
       "mode": "reveal",
       "difficulty": "easy",
       "category": "singers",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Umm%20Kulthum%20in%201939.jpg?width=1200",
+      "asset": "star-umm-kulthum.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Umm%20Kulthum%20in%201939.jpg?width=900",
       "focus": {
-        "x": 49,
-        "y": 38
+        "x": 50,
+        "y": 40
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Umm%20Kulthum%20in%201939.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Umm_Kulthum_in_1939.jpg",
+        "license": "Public domain (Egypt; verify other jurisdictions)",
+        "creator": "Photographer unknown",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     },
     {
-      "id": "elvis",
+      "id": "star-nelly-karim",
       "name": {
-        "en": "Elvis Presley",
-        "ar": "إلفيس بريسلي"
+        "en": "Nelly Karim",
+        "ar": "نيللي كريم"
+      },
+      "mode": "reveal",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "star-nelly-karim.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nelly%20Karim.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 34
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Nelly_Karim.jpg",
+        "license": "CC BY 3.0",
+        "creator": "El Adl Group",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-ali-rabee",
+      "name": {
+        "en": "Ali Rabee",
+        "ar": "علي ربيع"
+      },
+      "mode": "reveal",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "star-ali-rabee.png",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ali%20Rabee.png?width=900",
+      "focus": {
+        "x": 50,
+        "y": 32
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Ali_Rabee.png",
+        "license": "CC BY 3.0",
+        "creator": "Akhbar El yom TV",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-rami-malek",
+      "name": {
+        "en": "Rami Malek",
+        "ar": "رامي مالك"
       },
       "mode": "reveal",
       "difficulty": "hard",
-      "category": "singers",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elvis%20Presley%2C%20June%201958%20%28cropped%29.jpg?width=1200",
+      "category": "actors",
+      "asset": "star-rami-malek.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rami%20Malek%20at%20the%202026%20Cannes%20Film%20Festival-69279.jpg?width=900",
       "focus": {
-        "x": 53,
-        "y": 25
+        "x": 50,
+        "y": 30
       },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Elvis%20Presley%2C%20June%201958%20%28cropped%29.jpg",
-        "license": "See Wikimedia Commons file page (public-domain tag; verify jurisdiction)"
-      }
+        "source": "https://commons.wikimedia.org/wiki/File:Rami_Malek_at_the_2026_Cannes_Film_Festival-69279.jpg",
+        "license": "CC BY-SA 4.0",
+        "creator": "Harald Krichel",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
+    },
+    {
+      "id": "star-omar-sharif",
+      "name": {
+        "en": "Omar Sharif",
+        "ar": "عمر الشريف"
+      },
+      "mode": "reveal",
+      "difficulty": "hard",
+      "category": "actors",
+      "asset": "star-omar-sharif.jpg",
+      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Omar%20Sharif%2001.jpg?width=900",
+      "focus": {
+        "x": 50,
+        "y": 36
+      },
+      "mediaType": "real_photo_wikimedia_commons",
+      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "attribution": {
+        "source": "https://commons.wikimedia.org/wiki/File:Omar_Sharif_01.jpg",
+        "license": "CC BY-SA 3.0",
+        "creator": "Gorup de Besanez",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+      },
+      "mediaApproval": "commons_license_reviewed_per_file"
     }
   ]
 }

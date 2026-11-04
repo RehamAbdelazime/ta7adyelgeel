@@ -50,6 +50,7 @@ export class TwitchCommandRouter {
       case 'cheer':
       case 'challenge':
       case 'spotlight':
+      case 'victory':
         return this.handlers.unlockedCommand(message, command);
       default:
         return this.handlers.unknown(message, command);

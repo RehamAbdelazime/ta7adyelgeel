@@ -176,7 +176,7 @@ export type MiniGameHintSnapshot = {
 
 export type MemoryCountCell = {
   id: string;
-  kind: 'coin' | 'star' | 'gem' | 'bolt' | 'heart' | 'crown';
+  kind: 'sun' | 'star' | 'gem' | 'bolt' | 'heart' | 'crown';
 };
 
 export type MiniGameSnapshot = {

@@ -8,7 +8,6 @@ function isValidProfile(profile: PlayerProfile): boolean {
       typeof profile.displayName === 'string' &&
       typeof profile.level === 'number' &&
       typeof profile.xp === 'number' &&
-      typeof profile.coins === 'number' &&
       typeof profile.totalOfficialWins === 'number' &&
       typeof profile.createdAt === 'string' &&
       typeof profile.lastSeenAt === 'string',
@@ -17,6 +16,13 @@ function isValidProfile(profile: PlayerProfile): boolean {
 
 export class ProfileService {
   private readonly profiles = new Map<string, PlayerProfile>();
+
+  // Legacy profiles.json may contain `coins`. Keep XP, levels and wins,
+  // but never load or write a currency property again.
+  private sanitizeProfile(profile: PlayerProfile): PlayerProfile {
+    const { twitchUserId, displayName, level, xp, totalOfficialWins, createdAt, lastSeenAt } = profile;
+    return { twitchUserId, displayName, level, xp, totalOfficialWins, createdAt, lastSeenAt };
+  }
 
   loadProfiles(profiles: PlayerProfile[]): number {
     let loaded = 0;
@@ -29,16 +35,15 @@ export class ProfileService {
       const existing = this.profiles.get(profile.twitchUserId);
 
       if (!existing) {
-        this.profiles.set(profile.twitchUserId, profile);
+        this.profiles.set(profile.twitchUserId, this.sanitizeProfile(profile));
         loaded += 1;
         continue;
       }
 
       const merged: PlayerProfile = {
-        ...profile,
-        ...existing,
+        ...this.sanitizeProfile(profile),
+        ...this.sanitizeProfile(existing),
         xp: Math.max(profile.xp, existing.xp),
-        coins: Math.max(profile.coins, existing.coins),
         level: Math.max(profile.level, existing.level),
         totalOfficialWins: Math.max(profile.totalOfficialWins, existing.totalOfficialWins),
         createdAt: profile.createdAt < existing.createdAt ? profile.createdAt : existing.createdAt,
@@ -53,7 +58,13 @@ export class ProfileService {
   }
 
   exportProfiles(): PlayerProfile[] {
-    return [...this.profiles.values()].sort((a, b) => a.displayName.localeCompare(b.displayName));
+    return [...this.profiles.values()].map(profile => this.sanitizeProfile(profile)).sort((a, b) => a.displayName.localeCompare(b.displayName));
+  }
+
+  removeQaBotProfiles(): void {
+    for (const id of this.profiles.keys()) {
+      if (id.startsWith('__ta7ady_qa_bot__')) this.profiles.delete(id);
+    }
   }
 
   getProfileCount(): number {
@@ -66,7 +77,7 @@ export class ProfileService {
 
     if (existing) {
       const updated: PlayerProfile = {
-        ...existing,
+        ...this.sanitizeProfile(existing),
         displayName,
         lastSeenAt: now,
       };
@@ -79,7 +90,6 @@ export class ProfileService {
       displayName,
       level: 1,
       xp: 0,
-      coins: 0,
       totalOfficialWins: 0,
       createdAt: now,
       lastSeenAt: now,
@@ -93,7 +103,7 @@ export class ProfileService {
     return this.profiles.get(twitchUserId) ?? null;
   }
 
-  updateProgress(twitchUserId: string, params: { xp: number; coins: number; level: number }): PlayerProfile | null {
+  updateProgress(twitchUserId: string, params: { xp: number; level: number }): PlayerProfile | null {
     const profile = this.profiles.get(twitchUserId);
 
     if (!profile) {
@@ -103,7 +113,6 @@ export class ProfileService {
     const updated: PlayerProfile = {
       ...profile,
       xp: params.xp,
-      coins: params.coins,
       level: params.level,
       lastSeenAt: new Date().toISOString(),
     };

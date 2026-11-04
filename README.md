@@ -1,3 +1,11 @@
+> **V42 — Character actions and final Level Up:** see `docs/CHARACTER_PROGRESSION_V42_AR.md`.
+
+**V41:** XP is committed only on the final scoreboard (at the end of a Full Tour or a single MiniGame session). The Coins economy was removed. Older `profiles.json` files retain their XP, Level and wins; obsolete currency fields are ignored and not written back. See `docs/PROGRESSION_V41_AR.md`.
+
+## V39 — Spectator joining and scoreboards
+
+Official joins remain open until the **first actual question** begins. After that, late viewers join as Spectators with a separate score and no XP. Intermission and final scoreboards now have independent **Players / Spectators** tabs. Score resets each new Tour (persistent progression stays). See `docs/SPECTATOR_EXPERIENCE_V39_AR.md` for full Arabic rules and testing.
+
 # Ta7ady ElGeel — V37
 
 Electron + React + TypeScript party game for interactive Twitch shows.
@@ -28,3 +36,8 @@ For the full deletion rationale and installation instructions, see `docs/REMOVED
 خمس تحسينات للألعاب الحالية (Count the Beat / Maze Gates / Shape Count / Food Origin / Lucky Cup). التفاصيل ومعايير التحقق في `docs/GAMEPLAY_QUALITY_V38_AR.md`.
 
 شغّل `npm run verify:quality-v38` (يتطلب Node وTypeScript)، أو `node scripts/verify-five-game-quality-v38.cjs` لاختبارات اللعب المنطقية.
+
+
+## V43 — Egyptian Visual Guess content
+
+The Guess the Movie bank contains 30 OFFLINE original SVG visual clues (not actual copyrighted film posters/stills), and the Guess the Star bank contains 20 Commons portrait references with license credits. Portrait files are not bundled; run `npm run visuals:cache` while online before streaming. More info: `docs/V43_EGYPTIAN_VISUAL_BANK_AR.md` and `docs/V43_VISUAL_MEDIA_ATTRIBUTION.csv`.

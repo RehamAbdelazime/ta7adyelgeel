@@ -1,0 +1,17 @@
+/* Finale-only progression: one compact, legible reward per official player. */
+.score-xp-finish-v41 { display: inline-flex; align-items: center; gap: .45em; padding: .28em .62em;
+  border-radius: .8em; background: rgba(28, 198, 233, .14); color: #8aeeff;
+  border: 1px solid rgba(78, 224, 240, .32); font-size: clamp(12px, .9vw, 17px); font-weight: 800;
+  white-space: nowrap; direction: ltr; max-width: 100%; }
+.score-xp-finish-v41 small { font-size: .82em; color: #f9e39c; }
+.score-xp-levelup-v41 { background: rgba(249, 190, 65, .17); border-color: rgba(255, 208, 82, .6); }
+.show-score-leader-identity > .score-xp-finish-v41 { align-self: start; margin-block: .3em; }
+/* Keep the original 3-column row grid (rank | name + XP | score).
+   V23 displays two ranking columns, so a fourth grid child would clip badly. */
+html body #root .show-scoreboard-final .show-score-ranking-row .scoreboard-name-badges-v40 { min-width: 0; display: flex; gap: .35em; align-items: center; overflow: hidden; }
+html body #root .show-scoreboard-final .show-score-ranking-row .scoreboard-name-badges-v40 > span:first-child { flex: 1 1 auto; min-width: 0; }
+html body #root .show-scoreboard-final .show-score-ranking-row span.score-xp-finish-v41 { flex: 0 0 auto; overflow: visible; font: 800 clamp(10px,.78vw,14px)/1.1 var(--font-game-ui,sans-serif) !important; }
+html body #root .show-scoreboard-final .show-score-ranking-row .score-xp-finish-v41 small { display: none; }
+
+@media (max-width: 800px) { .score-xp-finish-v41 { font-size: 11px; padding: .16em .4em; gap: .25em; }
+  .show-score-ranking-row .score-xp-finish-v41 small { display: none; } }

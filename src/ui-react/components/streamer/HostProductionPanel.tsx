@@ -13,20 +13,18 @@ const MINI_GAMES = MINI_GAME_REGISTRY;
 
 const CHAOS_MODES: { id: HostChaosMode; label: string; note: string }[] = [
   { id: 'off', label: 'Off', note: 'No random modifiers' },
-  { id: 'normal', label: 'Normal', note: 'Balanced mayhem' },
-  { id: 'high', label: 'High', note: 'More frequent chaos' },
-  { id: 'madness', label: 'Madness', note: 'Maximum stream chaos' },
+  { id: 'normal', label: 'Normal · 25%', note: 'Occasional surprise' },
+  { id: 'high', label: 'High · 40%', note: 'More frequent chaos' },
+  { id: 'madness', label: 'Madness · 60%', note: 'Frequent surprises' },
 ];
 
 const CHAOS_EVENTS = [
-  ['double_score', 'Double Score'],
-  ['half_score', 'Half Score'],
-  ['risk_round', 'Risk Round'],
-  ['score_storm', 'Score Storm'],
-  ['comeback_boost', 'Comeback Boost'],
-  ['spectator_mayhem', 'Spectator Mayhem'],
-  ['fast_window', 'Fast Window'],
-  ['chill_window', 'Chill Window'],
+  ['double_score', '⚡ Double ×2'],
+  ['comeback_boost', '🎯 Comeback ×2'],
+  ['spectator_mayhem', '👀 Spectators ×2'],
+  ['fast_window', '⏱ Speed Rush'],
+  ['risk_round', '🎲 Risk Round (-30)'],
+  ['golden_round', '👑 Golden Round'],
 ] as const;
 
 export function HostProductionPanel() {
@@ -193,15 +191,13 @@ function MiniGamesTab() {
 function ChaosTab() {
   const { actions, snapshot } = useGame();
   const spectatorCount = snapshot.citizens.filter((citizen) => citizen.role === 'spectator').length;
-  const visibleChaosEvents = spectatorCount >= 1
-    ? CHAOS_EVENTS
-    : CHAOS_EVENTS.filter(([id]) => id !== 'spectator_mayhem');
+  const visibleChaosEvents = CHAOS_EVENTS.filter(([id]) => id !== 'spectator_mayhem' || spectatorCount >= 1);
 
   return (
     <div className="host-tab-panel">
       <div className="host-section-title">
         <strong>Chaos Control</strong>
-        <span>Control random round modifiers.</span>
+        <span>One surprise per game. Rewards last only this Tour.</span>
       </div>
 
       <div className="host-chaos-mode-list">
@@ -220,7 +216,7 @@ function ChaosTab() {
 
       <div className="host-section-title host-subsection-title">
         <strong>Force next Chaos Event</strong>
-        <span>Used once, then clears automatically.</span>
+        <span>Overrides the next game, even when Chaos is Off. Invalid events are safely skipped.</span>
       </div>
 
       <div className="host-force-grid">
@@ -233,7 +229,9 @@ function ChaosTab() {
       <div className="host-chaos-meter-note">
         <span>Chaos Meter</span>
         <strong>{snapshot.chaosPercent}%</strong>
-        <small>{snapshot.chaosEvent.active ? snapshot.chaosEvent.title : 'No active event'}</small>
+        <small>{snapshot.hostSettings.forcedNextChaosEventId ? `Next: ${snapshot.hostSettings.forcedNextChaosEventId}` : snapshot.chaosEvent.active ? snapshot.chaosEvent.title : 'No active event'}</small>
+        <small>Odds for next game · Off 0% / Normal 25% / High 40% / Madness 60%</small>
+        <small>🛡️ Shield blocks 1 Risk penalty · ✨ next correct +25% · 👑 Golden winner</small>
       </div>
     </div>
   );
@@ -257,6 +255,11 @@ function PlayersTab({
         <span>Safe runtime player management.</span>
       </div>
 
+      <p className="host-roster-policy-v39">{!snapshot.tour.isTourActive
+        ? 'Official signups open — scores reset on the next Tour.'
+        : snapshot.tour.roundNumber === 1 && ['mini_game_intro', 'tour_starting'].includes(snapshot.tour.phase)
+          ? 'Official signups open until the first question starts.'
+          : 'Official roster locked — new viewers join as Spectators and compete on a separate leaderboard.'}</p>
       <div className="host-player-summary">
         <div><span>Players</span><strong>{official.length}</strong></div>
         {spectators.length >= 1 ? <div><span>Spectators</span><strong>{spectators.length}</strong></div> : null}
@@ -264,9 +267,9 @@ function PlayersTab({
       </div>
 
       <div className="host-action-grid">
-        {spectators.length >= 1 ? <button type="button" onClick={actions.clearSpectators}>Clear Spectators</button> : null}
+        {spectators.length >= 1 ? <button type="button" onClick={actions.clearSpectators} disabled={snapshot.tour.isTourActive}>Clear Spectators</button> : null}
         <button type="button" className="host-danger" onClick={() => setConfirmAction('clearPlayers')} disabled={snapshot.tour.isTourActive}>Clear All Players</button>
-        <button type="button" className="host-danger" onClick={() => setConfirmAction('resetScores')}>Reset Scores</button>
+        <button type="button" className="host-danger" onClick={() => setConfirmAction('resetScores')} disabled={snapshot.tour.isTourActive}>Reset Scores</button>
       </div>
 
       {confirmAction ? (

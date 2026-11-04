@@ -74,6 +74,6 @@ for (const gameId of Object.keys(byMode)) {
   } finally { store.destroy(); }
   console.log(`[PASS] ${gameId}: real GameStore intro → prepare → answers → reveal`);
 }
-assert.equal(getVisualGuessBank('guess-movie').length,6);
-assert.equal(getVisualGuessBank('guess-star').length,8);
+assert.equal(getVisualGuessBank('guess-movie').length,30);
+assert.equal(getVisualGuessBank('guess-star').length,20);
 console.log(`V36 visual-guess runtime PASS: ${total} modes/flows across both new mini-games.`);

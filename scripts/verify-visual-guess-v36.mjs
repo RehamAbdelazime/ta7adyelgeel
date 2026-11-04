@@ -21,7 +21,9 @@ for (const [key,id,modes] of [['movies','guess-movie',['scene','poster']],['star
   for(const mode of modes) assert(bank[key].filter(item=>item.mode===mode).length>=2 || (key==='movies' && bank[key].filter(item=>item.mode===mode).length>=3),`no mode content: ${mode}`);
   for (const item of bank[key]) {
     assert(item.name.en && item.name.ar && item.attribution.source && item.attribution.license);
-    assert(item.imageUrl.startsWith('https://commons.wikimedia.org/wiki/Special:FilePath/'));
+    assert(typeof item.asset === 'string' && item.asset.length > 6);
+    if (key === 'stars') assert(item.imageUrl.startsWith('https://commons.wikimedia.org/wiki/Special:FilePath/'));
+    else assert(!item.asset.endsWith('.svg') && item.mediaApproval && (item.imageUrl === '' || item.imageUrl.startsWith('https://')));
     assert(item.difficulty && modes.includes(item.mode));
   }
   assert(existsSync(resolve(root,`public/assets/game/runtime/ui/main/game-picker-v14/${id}.svg`)),`picker art ${id}`);

@@ -56,6 +56,15 @@ import './styles/gameplay-review-v35.css';
 import './styles/visual-guess-v36.css';
 // V38: count/maze/shape gameplay quality without changing shared layouts.
 import './styles/gameplay-quality-v38.css';
+// V39: spectator leaderboard and join policy visual polish.
+import './styles/spectator-experience-v39.css';
+
+// V40: Chaos reveal + Golden Rewards scoreboard badges.
+import './styles/chaos-v40.css';
+// V41: XP only appears once, at the end of a Tour or single MiniGame.
+import './styles/progression-finale-v41.css';
+// V42: stage character reactions, stable avatars, and finale level-up animations.
+import './styles/character-progression-v42.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
@@ -68,3 +77,4 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     </GameProvider>
   </StrictMode>,
 );
+

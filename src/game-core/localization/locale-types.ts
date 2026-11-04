@@ -286,7 +286,6 @@ export type TranslationKey =
   | 'progression.commandUnlocked'
   | 'progression.levelUp'
   | 'progression.nextUnlockShort'
-  | 'progression.officialXpAwarded'
   | 'progression.spectatorNoRewards'
   | 'settings.apply'
   | 'settings.applying'

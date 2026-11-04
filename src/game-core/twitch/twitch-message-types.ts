@@ -23,6 +23,7 @@ export type TwitchCommandKind =
   | 'cheer'
   | 'challenge'
   | 'spotlight'
+  | 'victory'
   | 'unknown';
 
 export type ParsedTwitchCommand = {

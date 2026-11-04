@@ -16,7 +16,7 @@ import type {
 
 const TARGET_KIND_LABELS: Record<LocaleCode, Record<MemoryCountCell['kind'], string>> = {
   en: {
-    coin: 'Coins',
+    sun: 'Suns',
     star: 'Stars',
     gem: 'Gems',
     bolt: 'Bolts',
@@ -24,7 +24,7 @@ const TARGET_KIND_LABELS: Record<LocaleCode, Record<MemoryCountCell['kind'], str
     crown: 'Crowns',
   },
   ar: {
-    coin: 'العملات',
+    sun: 'الشمس',
     star: 'النجوم',
     gem: 'الجواهر',
     bolt: 'البرق',
@@ -33,7 +33,7 @@ const TARGET_KIND_LABELS: Record<LocaleCode, Record<MemoryCountCell['kind'], str
   },
 };
 
-const TARGET_KINDS: MemoryCountCell['kind'][] = ['coin', 'star', 'gem', 'bolt', 'heart', 'crown'];
+const TARGET_KINDS: MemoryCountCell['kind'][] = ['sun', 'star', 'gem', 'bolt', 'heart', 'crown'];
 
 type MemoryCountRound = {
   id: string;

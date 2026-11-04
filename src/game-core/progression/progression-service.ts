@@ -56,7 +56,7 @@ export const COMMAND_UNLOCKS: CommandUnlockDefinition[] = [
     aliases: ['!me', '!ملفي'],
     levelRequired: 1,
     title: { en: 'Profile', ar: 'الملف الشخصي' },
-    description: { en: 'Show level, XP, coins, and role.', ar: 'اعرض المستوى والخبرة والعملات والدور.' },
+    description: { en: 'Show level, XP and role.', ar: 'اعرض المستوى والخبرة والدور.' },
   },
   {
     id: 'answer-choices',
@@ -80,7 +80,7 @@ export const COMMAND_UNLOCKS: CommandUnlockDefinition[] = [
     aliases: ['!رقص'],
     levelRequired: 3,
     title: { en: 'Dance', ar: 'رقصة' },
-    description: { en: 'Trigger a dance animation later.', ar: 'افتح حركة رقص لاحقًا.' },
+    description: { en: 'Dance with your character on stage.', ar: 'خلّي شخصيتك ترقص على المسرح.' },
   },
   {
     id: 'emote',
@@ -104,7 +104,7 @@ export const COMMAND_UNLOCKS: CommandUnlockDefinition[] = [
     aliases: ['!تحدي'],
     levelRequired: 10,
     title: { en: 'Challenge', ar: 'تحدي' },
-    description: { en: 'Unlock special challenge prompts.', ar: 'افتح تحديات خاصة.' },
+    description: { en: 'Show a challenge pose and READY callout (cosmetic).', ar: 'اعرض حركة تحدي وكلمة مستعد (تجميلية).' },
   },
   {
     id: 'spotlight',
@@ -113,6 +113,14 @@ export const COMMAND_UNLOCKS: CommandUnlockDefinition[] = [
     levelRequired: 15,
     title: { en: 'Spotlight', ar: 'سبوت لايت' },
     description: { en: 'Get a moment on the main screen.', ar: 'خذ لحظة ظهور على الشاشة الرئيسية.' },
+  },
+  {
+    id: 'victory',
+    primaryCommand: '!victory',
+    aliases: ['!فوز'],
+    levelRequired: 20,
+    title: { en: 'Victory Dance', ar: 'رقصة الفوز' },
+    description: { en: 'Celebrate with an epic finale pose on the stage.', ar: 'احتفل بحركة فوز خاصة على المسرح.' },
   },
 ];
 
@@ -139,7 +147,7 @@ export class ProgressionService {
     return Math.min(level, MAX_LEVEL);
   }
 
-  createView(xp: number, coins: number): PlayerProgressionView {
+  createView(xp: number): PlayerProgressionView {
     const level = this.getLevelFromXp(xp);
     const currentLevelXp = LEVEL_XP_THRESHOLDS[level - 1] ?? 0;
     const nextLevelXp = LEVEL_XP_THRESHOLDS[level] ?? currentLevelXp;
@@ -150,7 +158,6 @@ export class ProgressionService {
     return {
       level,
       xp,
-      coins,
       currentLevelXp,
       nextLevelXp,
       xpIntoLevel,

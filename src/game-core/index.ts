@@ -29,3 +29,4 @@ export * from './persistence/persistence-types';
 
 export * from './chaos/chaos-types';
 export * from './chaos/chaos-event-service';
+export * from './chaos/chaos-rewards';

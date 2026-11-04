@@ -1,0 +1,49 @@
+/* V39: two independent rankings, never mix Spectators with official Tour players. */
+html body #root .show-scoreboard-v21:has(.show-scoreboard-roles-v39) {
+  grid-template-rows: auto auto minmax(0, 1fr) auto !important;
+  gap: clamp(5px,.55vw,10px) !important;
+}
+html body #root .show-scoreboard-roles-v39 {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(8px,1vw,17px); min-height: 36px; z-index: 2;
+}
+html body #root .show-scoreboard-roles-v39 button {
+  appearance: none; cursor: pointer; color: #b9d8e9;
+  padding: 6px clamp(14px,1.2vw,23px); border-radius: 999px;
+  background: rgba(17,39,69,.84); border: 1px solid rgba(116,170,200,.4);
+  font: 750 clamp(13px,1vw,18px)/1.2 var(--font-game-ui,sans-serif);
+  display: inline-flex; gap: 10px; align-items: center; justify-content: center;
+}
+html body #root .show-scoreboard-roles-v39 button.selected {
+  background: linear-gradient(110deg,rgba(26,111,146,.9),rgba(92,56,136,.8));
+  border-color: rgba(133,241,249,.9); color: white;
+}
+html body #root .show-scoreboard-roles-v39 button:focus-visible {outline: 3px solid #fff3ad; outline-offset: 2px;}
+html body #root .show-scoreboard-roles-v39 button span {font-size:.83em; opacity:.83;}
+html body #root .show-scoreboard-spectators-v39 .show-score-leader {
+  border-color: rgba(253,178,233,.6)!important;
+  background: linear-gradient(105deg,rgba(104,51,120,.4),rgba(15,33,63,.95))!important;
+}
+html body #root .show-scoreboard-spectators-v39 .show-score-place {color:#ffbce7!important;}
+html body #root .show-intermission-spectator-v39 {
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: clamp(6px, .85vw, 14px); margin: 6px auto 0; padding: 7px 16px;
+  border: 1px solid rgba(246,142,213,.4); border-radius: 12px;
+  background: rgba(69,29,83,.5); max-width: min(92%, 850px); color: #f0d4ed;
+  font: 700 clamp(12px,.94vw,17px)/1.2 var(--font-game-ui,sans-serif);
+}
+html body #root .show-intermission-spectator-v39 strong {color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:220px;}
+html body #root .show-intermission-spectator-v39 b {color:#ffdf90;}
+html body #root .show-intermission-spectator-v39 small {opacity:.8;}
+@media (max-width: 800px) {
+  html body #root .show-scoreboard-roles-v39 {min-height:32px;}
+  html body #root .show-scoreboard-roles-v39 button {padding:5px 11px;}
+  html body #root .show-intermission-spectator-v39 {padding:5px 9px;}
+}
+
+html body #root .host-roster-policy-v39 {margin:0 0 12px;padding:9px 12px;border:1px solid rgba(127,211,238,.3);border-radius:9px;color:#d6f4fc;background:rgba(13,37,59,.7);font-size:13px;line-height:1.4;}
+
+html body #root .show-intermission-roles-v39 {flex:0 0 auto; margin:0 auto 3px; min-height:30px;}
+html body #root .show-intermission-roles-v39 button {padding-block:4px;}
+
+html body #root .show-scoreboard-best-spectator-v39 {display:block;margin:0 0 3px;color:#ffb9e6;font-size:clamp(11px,.75vw,15px);line-height:1.1;font-weight:750;}

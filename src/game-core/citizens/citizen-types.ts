@@ -10,7 +10,6 @@ export type CitizenRuntime = {
   joinedAt: number;
   level: number;
   xp: number;
-  coins: number;
   xpToNextLevel: number;
   progressPercent: number;
   unlockedCommandIds: CommandUnlockId[];

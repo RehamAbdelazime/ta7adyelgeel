@@ -16,9 +16,11 @@ export type RuntimeGameConfig = {
     singleMiniGameRoundCounts: Partial<Record<MiniGameId, number>>;
   };
   scoring: {
-    officialParticipationXp: number;
-    officialParticipationCoins: number;
-    officialCorrectRewardByDifficulty: Record<MiniGameScoreAward['difficulty'], { xp: number; coins: number }>;
+    // One-time participation XP is granted at the end of a Tour or single MiniGame.
+    singleGameParticipationXp: number;
+    tourParticipationXp: number;
+    correctXpByDifficulty: Record<MiniGameScoreAward['difficulty'], number>;
+    nearMissXp: number;
   };
   persistence: {
     saveDebounceMs: number;
@@ -43,7 +45,7 @@ export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfi
   const qa = isRecord(input.qa) ? input.qa : {};
   const phaseDurations = isRecord(tour.phaseDurationsMs) ? tour.phaseDurationsMs : {};
   const overrides = isRecord(tour.miniGamePhaseOverridesMs) ? tour.miniGamePhaseOverridesMs : {};
-  const correctRewards = isRecord(scoring.officialCorrectRewardByDifficulty) ? scoring.officialCorrectRewardByDifficulty : {};
+  const correctRewards = isRecord(scoring.correctXpByDifficulty) ? scoring.correctXpByDifficulty : {};
 
   const enabledMiniGames = readPublicMiniGameIdArray(
     tour.enabledMiniGames,
@@ -80,13 +82,14 @@ export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfi
       singleMiniGameRoundCounts: normalizeSingleMiniGameRoundCounts(tour.singleMiniGameRoundCounts),
     },
     scoring: {
-      officialParticipationXp: readInteger(scoring.officialParticipationXp, DEFAULT_RUNTIME_GAME_CONFIG.scoring.officialParticipationXp, 0, 10_000),
-      officialParticipationCoins: readInteger(scoring.officialParticipationCoins, DEFAULT_RUNTIME_GAME_CONFIG.scoring.officialParticipationCoins, 0, 10_000),
-      officialCorrectRewardByDifficulty: {
-        easy: readReward(correctRewards.easy, DEFAULT_RUNTIME_GAME_CONFIG.scoring.officialCorrectRewardByDifficulty.easy),
-        medium: readReward(correctRewards.medium, DEFAULT_RUNTIME_GAME_CONFIG.scoring.officialCorrectRewardByDifficulty.medium),
-        hard: readReward(correctRewards.hard, DEFAULT_RUNTIME_GAME_CONFIG.scoring.officialCorrectRewardByDifficulty.hard),
+      singleGameParticipationXp: readInteger(scoring.singleGameParticipationXp, DEFAULT_RUNTIME_GAME_CONFIG.scoring.singleGameParticipationXp, 0, 200),
+      tourParticipationXp: readInteger(scoring.tourParticipationXp, DEFAULT_RUNTIME_GAME_CONFIG.scoring.tourParticipationXp, 0, 200),
+      correctXpByDifficulty: {
+        easy: readInteger(correctRewards.easy, DEFAULT_RUNTIME_GAME_CONFIG.scoring.correctXpByDifficulty.easy, 0, 200),
+        medium: readInteger(correctRewards.medium, DEFAULT_RUNTIME_GAME_CONFIG.scoring.correctXpByDifficulty.medium, 0, 200),
+        hard: readInteger(correctRewards.hard, DEFAULT_RUNTIME_GAME_CONFIG.scoring.correctXpByDifficulty.hard, 0, 200),
       },
+      nearMissXp: readInteger(scoring.nearMissXp, DEFAULT_RUNTIME_GAME_CONFIG.scoring.nearMissXp, 0, 100),
     },
     persistence: {
       saveDebounceMs: readInteger(persistence.saveDebounceMs, DEFAULT_RUNTIME_GAME_CONFIG.persistence.saveDebounceMs, 50, 10_000),
@@ -140,15 +143,6 @@ function normalizeMiniGamePhaseOverrides(overrides: Record<string, unknown>): Ru
   }
 
   return normalized;
-}
-
-function readReward(value: unknown, fallback: { xp: number; coins: number }): { xp: number; coins: number } {
-  const input = isRecord(value) ? value : {};
-
-  return {
-    xp: readInteger(input.xp, fallback.xp, 0, 10_000),
-    coins: readInteger(input.coins, fallback.coins, 0, 10_000),
-  };
 }
 
 function readPublicMiniGameIdArray(value: unknown, fallback: readonly MiniGameId[]): MiniGameId[] {

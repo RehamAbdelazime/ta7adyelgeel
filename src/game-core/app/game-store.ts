@@ -2,7 +2,8 @@ import type { CitizenRuntime } from '../citizens/citizen-types';
 import { DEFAULT_RUNTIME_GAME_CONFIG, type RuntimeGameConfig } from '../config/runtime-game-config';
 import { MINI_GAME_REGISTRY, MINI_GAME_BY_ID, PUBLIC_MINI_GAME_IDS } from '../minigames/minigame-registry';
 import { EMPTY_TOUR_AWARDS, type TourAward, type TourAwardsSnapshot, type TourAwardWinner, type TourPlayerStats, type TourScoreboardRow } from '../awards/tour-awards';
-import { CHAOS_EVENTS, ChaosEventService } from '../chaos/chaos-event-service';
+import { ChaosEventService } from '../chaos/chaos-event-service';
+import { ChaosRewardService } from '../chaos/chaos-rewards';
 import type { ChaosEventDefinition } from '../chaos/chaos-types';
 import { GameEventBus } from '../events/game-event-bus';
 import { localeDirection, translate } from '../localization/translations';
@@ -29,6 +30,8 @@ import { LuckyCupMiniGameService, getLuckyCupPreparationMsForRound } from '../mi
 import { enforceMiniGameScoreAwardPolicy, getAwardScoreOutcome } from '../minigames/scoring-policy';
 import { ProfileService } from '../profiles/profile-service';
 import { ProgressionService } from '../progression/progression-service';
+import type { SessionProgressionAward } from '../progression/session-progression';
+import type { CharacterActionKind, CharacterActionSnapshot } from '../progression/character-action-types';
 import type { CommandUnlockDefinition } from '../progression/progression-types';
 import { getTourPhaseTitleKey } from '../tours/tour-phase-labels';
 import { TourStateMachine } from '../tours/tour-state-machine';
@@ -72,13 +75,16 @@ const PRIVATE_STREAMER_FALLBACK_NAME = 'STREAMER';
 
 export class GameStore {
   private locale: LocaleCode = 'en';
-  private chaosPercent = 2;
+  // Percentage chance for NEXT round, reflecting the host mode.
+  private chaosPercent = 0;
 
   private readonly citizens = new Map<string, CitizenRuntime>();
   private readonly feed: FeedEntry[] = [];
   private readonly listeners = new Set<StoreListener>();
   private readonly tourStateMachine: TourStateMachine;
   private readonly chaosEventService = new ChaosEventService();
+  private readonly chaosRewards = new ChaosRewardService();
+  private chaosRoundRoster: CitizenRuntime[] = [];
   private activeChaosEvent: ChaosEventDefinition | null = null;
   private readonly shapeCountMiniGame = new ShapeCountMiniGameService();
   private readonly countTheBeatMiniGame = new CountTheBeatMiniGameService();
@@ -101,6 +107,14 @@ export class GameStore {
   private readonly twitchCommandRouter: TwitchCommandRouter;
   private readonly profileService = new ProfileService();
   private readonly progressionService = new ProgressionService();
+  // Collected from scored questions, committed ONCE when the session finishes.
+  private readonly pendingSessionXp = new Map<number, Map<string, { xp: number; answered: boolean }>>();
+  private sessionProgressionAwards: SessionProgressionAward[] = [];
+  private progressionSettledTourId: string | null = null;
+  private readonly characterActions = new Map<string, CharacterActionSnapshot>();
+  private readonly characterActionTimers = new Map<string, ReturnType<typeof setTimeout>>();
+  private readonly characterActionCooldowns = new Map<string, number>();
+  private characterActionSerial = 0;
   private readonly persistence: GamePersistencePort;
   private readonly hasPersistence: boolean;
 
@@ -110,6 +124,8 @@ export class GameStore {
   private persistenceLastSavedAt: string | null = null;
   private persistenceReady: Promise<void> = Promise.resolve();
   private persistenceSaveTimer: ReturnType<typeof setTimeout> | null = null;
+  private persistenceSaveRetryCount = 0;
+  private isDestroyed = false;
   private pendingPersistenceSave: PendingPersistenceSave = {
     profiles: false,
     settings: false,
@@ -127,6 +143,9 @@ export class GameStore {
   private lastCommandFeedback: CommandFeedback | null = null;
   // One accepted host answer per question, regardless of UI remounts or Twitch ID changes.
   private privateStreamerAnswerSubmitted = false;
+  // The roster stays open through the first intro/countdown, and is locked
+  // permanently when the first answer window opens (or the first round is skipped).
+  private officialRosterLocked = false;
 
   constructor(private readonly eventBus: GameEventBus, options: GameStoreOptions = {}) {
     this.runtimeConfig = options.runtimeConfig ?? DEFAULT_RUNTIME_GAME_CONFIG;
@@ -193,6 +212,7 @@ export class GameStore {
   }
 
   destroy(): void {
+    this.isDestroyed = true;
     this.stopPhaseTick();
 
     if (this.persistenceSaveTimer) {
@@ -206,6 +226,10 @@ export class GameStore {
       this.championCelebrationTimer = null;
     }
 
+    for (const timer of this.characterActionTimers.values()) clearTimeout(timer);
+    this.characterActionTimers.clear();
+    this.characterActions.clear();
+    this.characterActionCooldowns.clear();
     this.tourStateMachine.destroy();
     this.listeners.clear();
   }
@@ -229,6 +253,17 @@ export class GameStore {
   }
 
   submitPrivateStreamerAnswer(params: { rawAnswer: string; displayName?: string | null; twitchUserId?: string | null }): CommandFeedback {
+    if (!this.tourStateMachine.getSnapshot().acceptsAnswers) {
+      const feedback = this.createCommandFeedback({
+        ok: false,
+        displayName: this.sanitizePrivateStreamerName(params.displayName),
+        command: 'private-answer',
+        message: this.locale === 'ar' ? 'الإجابات مقفولة حاليًا.' : 'Answers are currently closed.',
+      });
+      this.lastCommandFeedback = feedback;
+      this.notifyChanged();
+      return feedback;
+    }
     if (this.privateStreamerAnswerSubmitted) {
       const feedback = this.createCommandFeedback({
         ok: false,
@@ -344,7 +379,7 @@ export class GameStore {
     const twitchUserId = this.sanitizeStreamerTwitchUserId(params.twitchUserId) ?? PRIVATE_STREAMER_TWITCH_USER_ID;
     const displayName = this.sanitizePrivateStreamerName(params.displayName);
     const profile = this.profileService.getOrCreateProfile(twitchUserId, displayName);
-    const progression = this.progressionService.createView(profile.xp, profile.coins);
+    const progression = this.progressionService.createView(profile.xp);
     const existingCitizen = this.citizens.get(twitchUserId);
     const wasAlreadyOfficial = existingCitizen?.role === 'official';
 
@@ -358,7 +393,6 @@ export class GameStore {
       joinedAt: existingCitizen?.joinedAt ?? Date.now(),
       level: progression.level,
       xp: progression.xp,
-      coins: progression.coins,
       xpToNextLevel: progression.xpToNextLevel,
       progressPercent: progression.progressPercent,
       unlockedCommandIds: progression.unlockedCommandIds,
@@ -417,6 +451,16 @@ export class GameStore {
         ? this.clampTourRoundCount(roundCountOverride)
         : this.tourRoundCount;
 
+    // Runtime Tour scores are ephemeral. Persistent XP remains untouched.
+    // Reset BEFORE the first phase callback creates TourPlayerStats.
+    for (const [id, citizen] of this.citizens.entries()) {
+      this.citizens.set(id, { ...citizen, score: 0 });
+    }
+    this.officialRosterLocked = false;
+    this.pendingSessionXp.clear();
+    this.sessionProgressionAwards = [];
+    this.progressionSettledTourId = null;
+
     // Phase 13W sequence starts immediately on mini_game_intro, so all per-tour
     // services must be prepared before the state machine emits the first phase.
     const nextTourNumber = currentTour.tourNumber + 1;
@@ -424,6 +468,8 @@ export class GameStore {
     this.activeMiniGameId = this.selectMiniGameForRound(1, nextTourNumber);
     this.beginTourAwardTracking(plannedRoundCount);
     this.chaosEventService.beginTour();
+    this.chaosRewards.beginTour();
+    this.chaosRoundRoster = [];
     this.activeChaosEvent = null;
     this.lastRoundAwards = [];
     this.shapeCountMiniGame.beginTour();
@@ -452,7 +498,7 @@ export class GameStore {
       };
     }
 
-    this.chaosPercent = Math.min(100, this.chaosPercent + 10 + Math.min(12, officialCount * 2));
+    this.chaosPercent = this.getChaosChancePercent();
     this.addFeed(translate(this.locale, 'event.tourStarted'));
     this.eventBus.emit({ type: 'tour.started', officialCount, tour: result.snapshot });
     this.startPhaseTick();
@@ -470,7 +516,7 @@ export class GameStore {
 
     this.activeTourMiniGameQueue = [];
     this.activeSessionMode = null;
-    this.chaosPercent = Math.max(2, this.chaosPercent - 6);
+    this.chaosPercent = this.getChaosChancePercent();
     this.addFeed(translate(this.locale, 'event.tourEnded'));
     this.eventBus.emit({ type: 'tour.ended', tour: result.snapshot });
 
@@ -493,6 +539,7 @@ export class GameStore {
     }
 
     this.activeChaosEvent = null;
+    this.chaosRewards.beginTour();
     this.lastRoundAwards = [];
     this.activeSessionMode = null;
     this.addFeed(this.locale === 'ar' ? 'تم الرجوع للمسرح.' : 'Back to stage.');
@@ -621,11 +668,17 @@ export class GameStore {
 
   setChaosMode(mode: HostChaosMode): void {
     this.chaosMode = mode;
+    this.chaosPercent = this.getChaosChancePercent();
     this.addFeed(this.locale === 'ar' ? `وضع الفوضى: ${mode}` : `Chaos mode: ${mode}`);
     this.notifyChanged();
   }
 
   forceNextChaosEvent(eventId: string | null): void {
+    if (eventId && !['double_score', 'comeback_boost', 'spectator_mayhem', 'fast_window', 'risk_round', 'golden_round'].includes(eventId)) {
+      this.addFeed(this.locale === 'ar' ? 'حدث فوضى غير معروف.' : 'Unknown Chaos Event.');
+      this.notifyChanged();
+      return;
+    }
     this.forcedNextChaosEventId = eventId;
     this.addFeed(eventId
       ? (this.locale === 'ar' ? `حدث الفوضى القادم: ${eventId}` : `Forced next chaos event: ${eventId}`)
@@ -634,6 +687,11 @@ export class GameStore {
   }
 
   clearSpectators(): void {
+    if (this.tourStateMachine.isTourActive()) {
+      this.addFeed(this.locale === 'ar' ? 'مينفعش حذف المتفرجين أثناء التور.' : 'Spectators cannot be cleared during a Tour.');
+      this.notifyChanged();
+      return;
+    }
     let removed = 0;
     for (const [id, citizen] of this.citizens.entries()) {
       if (citizen.role === 'spectator') {
@@ -643,6 +701,24 @@ export class GameStore {
     }
 
     this.addFeed(this.locale === 'ar' ? `تم حذف ${removed} متفرج.` : `Cleared ${removed} spectator(s).`);
+    this.notifyChanged();
+  }
+
+  /** QA-only identities never survive a test session; real players are untouched. */
+  clearQaTestBots(): void {
+    if (this.tourStateMachine.isTourActive()) return;
+    for (const [id] of this.citizens) {
+      if (id.startsWith('__ta7ady_qa_bot__')) {
+        this.citizens.delete(id);
+        this.tourPlayerStats.delete(id);
+        this.characterActions.delete(id);
+        this.characterActionCooldowns.delete(id);
+        const timer = this.characterActionTimers.get(id);
+        if (timer) clearTimeout(timer);
+        this.characterActionTimers.delete(id);
+      }
+    }
+    this.profileService.removeQaBotProfiles();
     this.notifyChanged();
   }
 
@@ -662,13 +738,20 @@ export class GameStore {
   }
 
   resetRuntimeScores(): void {
+    if (this.tourStateMachine.isTourActive()) {
+      this.addFeed(this.locale === 'ar' ? 'لا يمكن تصفير النقاط أثناء التور.' : 'Scores cannot be reset during a Tour.');
+      this.notifyChanged();
+      return;
+    }
     for (const [id, citizen] of this.citizens.entries()) {
       this.citizens.set(id, { ...citizen, score: 0 });
     }
 
-    for (const [id, stats] of this.tourPlayerStats.entries()) {
-      this.tourPlayerStats.set(id, { ...stats, startScore: 0, currentScore: 0, pointsEarned: 0 });
-    }
+    // A manual lobby reset also discards stale per-round breakdowns; it does
+    // not delete saved profiles or the completed Tour history.
+    this.tourPlayerStats.clear();
+    this.lastRoundAwards = [];
+    this.finalTourAwards = EMPTY_TOUR_AWARDS;
 
     this.addFeed(this.locale === 'ar' ? 'تم تصفير السكور الحالي.' : 'Runtime scores reset.');
     this.notifyChanged();
@@ -687,11 +770,10 @@ export class GameStore {
     const topScore = Math.max(0, ...[...this.citizens.values()].map((candidate) => candidate.score));
     const profile = this.profileService.getOrCreateProfile(citizen.twitchUserId, citizen.displayName);
     const targetXp = Math.max(profile.xp, 2_700);
-    const progression = this.progressionService.createView(targetXp, Math.max(profile.coins, citizen.coins));
+    const progression = this.progressionService.createView(targetXp);
 
     this.profileService.updateProgress(citizen.twitchUserId, {
       xp: targetXp,
-      coins: progression.coins,
       level: Math.max(10, progression.level),
     });
 
@@ -700,7 +782,6 @@ export class GameStore {
       score: topScore + 250,
       level: Math.max(10, progression.level),
       xp: targetXp,
-      coins: progression.coins,
       xpToNextLevel: progression.xpToNextLevel,
       progressPercent: progression.progressPercent,
       unlockedCommandIds: progression.unlockedCommandIds,
@@ -739,7 +820,7 @@ export class GameStore {
   private joinCitizen(params: { twitchUserId: string; displayName: string }): CitizenRuntime {
     const existingCitizen = this.citizens.get(params.twitchUserId);
     const profile = this.profileService.getOrCreateProfile(params.twitchUserId, params.displayName);
-    const progression = this.progressionService.createView(profile.xp, profile.coins);
+    const progression = this.progressionService.createView(profile.xp);
 
     if (existingCitizen) {
       const updatedCitizen: CitizenRuntime = {
@@ -747,8 +828,7 @@ export class GameStore {
         displayName: params.displayName,
         level: progression.level,
         xp: progression.xp,
-        coins: progression.coins,
-        xpToNextLevel: progression.xpToNextLevel,
+          xpToNextLevel: progression.xpToNextLevel,
         progressPercent: progression.progressPercent,
         unlockedCommandIds: progression.unlockedCommandIds,
       };
@@ -760,7 +840,9 @@ export class GameStore {
       return updatedCitizen;
     }
 
-    const role = this.tourStateMachine.isTourActive() ? 'spectator' : 'official';
+    // A viewer may join as Official during the first explanation/countdown.
+    // After the first answer opens, every newcomer is Spectator until next Tour.
+    const role = this.officialRosterLocked ? 'spectator' : 'official';
     const citizen: CitizenRuntime = {
       twitchUserId: params.twitchUserId,
       displayName: params.displayName,
@@ -769,7 +851,6 @@ export class GameStore {
       joinedAt: Date.now(),
       level: progression.level,
       xp: progression.xp,
-      coins: progression.coins,
       xpToNextLevel: progression.xpToNextLevel,
       progressPercent: progression.progressPercent,
       unlockedCommandIds: progression.unlockedCommandIds,
@@ -838,13 +919,15 @@ export class GameStore {
           name: citizen.displayName,
           level: String(citizen.level),
           xp: String(citizen.xp),
-          coins: String(citizen.coins),
           role: citizen.role.toUpperCase(),
           next: String(citizen.xpToNextLevel),
         })
       : translate(this.locale, 'command.feedback.profileMissing', { name: message.displayName });
 
     this.addFeed(response);
+    if (citizen && profile && !this.tourStateMachine.getSnapshot().acceptsAnswers) {
+      this.showCharacterAction(citizen.twitchUserId, 'profile', 5200, undefined, false);
+    }
 
     return {
       ok: Boolean(citizen && profile),
@@ -868,6 +951,13 @@ export class GameStore {
   }
 
   private handleMiniGameAnswerCommandForCitizen(message: TwitchChatMessage, command: ParsedTwitchCommand) {
+    // Central gate: mini-game services may still say "answering" while paused.
+    // Never accept chat or private host answers outside an active answer window.
+    if (!this.tourStateMachine.getSnapshot().acceptsAnswers) {
+      const response = this.locale === 'ar' ? 'الإجابات مقفولة حاليًا.' : 'Answers are currently closed.';
+      return { ok: false, command, message: response };
+    }
+
     const citizen = this.citizens.get(message.twitchUserId);
 
     if (!citizen) {
@@ -1200,12 +1290,69 @@ export class GameStore {
       return { ok: false, command, message: response };
     }
 
+    // Cosmetics must never cover the fast, timed question surface.
+    if (this.tourStateMachine.getSnapshot().acceptsAnswers) {
+      const response = this.locale === 'ar'
+        ? 'حركات الشخصيات متاحة بين الأسئلة، مش أثناء وقت الإجابة.'
+        : 'Character reactions are available between questions, not during answers.';
+      return { ok: false, command, message: response };
+    }
+
+    const kind = command.kind as CharacterActionKind;
+    const now = Date.now();
+    const cooldownMs = kind === 'spotlight' || kind === 'victory' ? 12_000 : 6_000;
+    const lastAt = this.characterActionCooldowns.get(citizen.twitchUserId) ?? 0;
+    if (lastAt > 0 && now - lastAt < cooldownMs) {
+      const response = this.locale === 'ar' ? 'استنى شوية قبل حركة جديدة.' : 'Wait a moment before another reaction.';
+      return { ok: false, command, message: response };
+    }
+    // Keep one spotlight on the stage. No competitive advantage or forced re-layout.
+    if (kind === 'spotlight' || kind === 'victory') {
+      const someoneElseFeatured = [...this.characterActions.values()].some(
+        action => action.twitchUserId !== citizen.twitchUserId && (action.kind === 'spotlight' || action.kind === 'victory'),
+      );
+      if (someoneElseFeatured) {
+        const response = this.locale === 'ar' ? 'السبوت لايت مشغول حاليًا.' : 'The spotlight is busy right now.';
+        return { ok: false, command, message: response };
+      }
+    }
+    // Hard cap to avoid 100+ simultaneous effect overlays during a crowded live stream.
+    if (this.characterActions.size >= 16 && !this.characterActions.has(citizen.twitchUserId)) {
+      const response = this.locale === 'ar' ? 'المسرح مليان حركات دلوقتي، جرب كمان شوية.' : 'The stage is busy. Try again shortly.';
+      return { ok: false, command, message: response };
+    }
+    this.characterActionCooldowns.set(citizen.twitchUserId, now);
+    if (this.characterActionCooldowns.size > 2048) {
+      const oldest = this.characterActionCooldowns.keys().next().value;
+      if (oldest !== undefined) this.characterActionCooldowns.delete(oldest);
+    }
+    this.showCharacterAction(citizen.twitchUserId, kind, kind === 'victory' ? 5400 : 3800, undefined, false);
     const response = translate(this.locale, 'progression.commandActivated', {
       name: citizen.displayName,
       command: command.rawCommand,
     });
     this.addFeed(response);
     return { ok: true, command, message: response };
+  }
+
+  /** Retain only one short-lived stage effect per citizen. All timers are cleaned up on destroy. */
+  private showCharacterAction(twitchUserId: string, kind: CharacterActionKind, durationMs: number, level?: number, publish = true): void {
+    const previousTimer = this.characterActionTimers.get(twitchUserId);
+    if (previousTimer) clearTimeout(previousTimer);
+    const sequence = ++this.characterActionSerial;
+    const startedAt = Date.now();
+    this.characterActions.set(twitchUserId, {
+      twitchUserId, kind, sequence, startedAt, expiresAt: startedAt + durationMs, ...(level === undefined ? {} : { level }),
+    });
+    const timer = setTimeout(() => {
+      if (this.isDestroyed) return;
+      if (this.characterActions.get(twitchUserId)?.sequence !== sequence) return;
+      this.characterActions.delete(twitchUserId);
+      this.characterActionTimers.delete(twitchUserId);
+      this.notifyChanged();
+    }, durationMs);
+    this.characterActionTimers.set(twitchUserId, timer);
+    if (publish) this.notifyChanged();
   }
 
   private handleUnknownCommand(message: TwitchChatMessage) {
@@ -1449,6 +1596,7 @@ export class GameStore {
   private syncMiniGameWithTourPhase(tour: TourSnapshot, previousPhase: TourPhase): void {
     switch (tour.phase) {
       case 'mini_game_intro':
+        this.pendingSessionXp.delete(tour.roundNumber); // restart invalidates any earlier score for this round
         this.activeMiniGameId = this.selectMiniGameForRound(tour.roundNumber, tour.tourNumber);
         if (this.forcedNextMiniGameId === this.activeMiniGameId) {
           this.forcedNextMiniGameId = null;
@@ -1460,6 +1608,7 @@ export class GameStore {
         break;
       case 'tour_starting':
         if (previousPhase === 'scoring') {
+          this.pendingSessionXp.delete(tour.roundNumber);
           this.activeMiniGameId = this.selectMiniGameForRound(tour.roundNumber, tour.tourNumber);
           if (this.forcedNextMiniGameId === this.activeMiniGameId) {
             this.forcedNextMiniGameId = null;
@@ -1472,6 +1621,7 @@ export class GameStore {
         this.getActiveMiniGameService().setStatus('prepare');
         break;
       case 'answer_window_open': {
+        this.officialRosterLocked = true;
         // Reset only when a new answer window opens, not on pause/resume or a render.
         this.privateStreamerAnswerSubmitted = false;
         const miniGameService = this.getActiveMiniGameService();
@@ -1486,6 +1636,8 @@ export class GameStore {
         break;
       }
       case 'scoring':
+        // Also lock a skipped first question: never allow late Official entry.
+        this.officialRosterLocked = true;
         // Resolve and score immediately after the answer timer closes. The UI holds on the
         // round score screen until the host presses Go To Leaderboard / View Final Score.
         this.getActiveMiniGameService().resolveRound();
@@ -1494,6 +1646,10 @@ export class GameStore {
         this.triggerRoundChampionCelebration();
         break;
       case 'tour_complete':
+        this.settleSessionProgression(tour);
+        // Ending/skipping an unplayed first question still closes Official signup.
+        // Nobody may join the already-finalized Tour as a new competitor.
+        this.officialRosterLocked = true;
         this.getActiveMiniGameService().setStatus('leaderboard');
         this.finalTourAwards = this.computeTourAwardsSnapshot(tour.totalRounds);
         this.triggerChampionCelebration(this.finalTourAwards.champion?.twitchUserId ?? null);
@@ -1578,46 +1734,35 @@ export class GameStore {
     return `${prefixByGame[this.activeMiniGameId]}.${action}` as TranslationKey;
   }
 
-  private selectChaosEventForRound(roundIndex: number): void {
-    if (this.chaosMode === 'off') {
-      this.activeChaosEvent = null;
-      this.chaosPercent = Math.max(0, this.chaosPercent - 2);
-      return;
-    }
-
-    if (this.forcedNextChaosEventId) {
-      this.activeChaosEvent = CHAOS_EVENTS.find((event) => event.id === this.forcedNextChaosEventId) ?? null;
-      this.forcedNextChaosEventId = null;
-    } else {
-      this.activeChaosEvent = this.chaosEventService.selectForRound({
-        roundIndex,
-        chaosPercent: this.getEffectiveChaosPercent(),
-        officialCount: this.getOfficialCitizens().length,
-        spectatorCount: this.getSpectatorCitizens().length,
-      });
-    }
-
-    if (this.activeChaosEvent) {
-      const boost = this.chaosMode === 'madness' ? 20 : this.chaosMode === 'high' ? 17 : 14;
-      this.chaosPercent = Math.min(100, this.chaosPercent + boost);
-      this.addFeed(`${this.activeChaosEvent.title[this.locale]}: ${this.activeChaosEvent.description[this.locale]}`);
-      return;
-    }
-
-    const passiveGain = this.chaosMode === 'madness' ? 10 : this.chaosMode === 'high' ? 7 : 4;
-    this.chaosPercent = Math.min(100, this.chaosPercent + passiveGain);
+  private getChaosChancePercent(): number {
+    return { off: 0, normal: 25, high: 40, madness: 60 }[this.chaosMode];
   }
 
-  private getEffectiveChaosPercent(): number {
-    if (this.chaosMode === 'madness') {
-      return Math.min(100, this.chaosPercent + 55);
+  private selectChaosEventForRound(roundIndex: number): void {
+    const tour = this.tourStateMachine.getSnapshot();
+    const params = {
+      roundIndex, totalRounds: tour.totalRounds,
+      miniGameId: this.activeMiniGameId,
+      officialCount: this.getOfficialCitizens().length,
+      spectatorCount: this.getSpectatorCitizens().length,
+    };
+    // The standings for Comeback must not shift due to scoring in the same round.
+    this.chaosRoundRoster = [...this.citizens.values()].map(c => ({ ...c }));
+    this.chaosPercent = this.getChaosChancePercent();
+    if (this.forcedNextChaosEventId) {
+      this.activeChaosEvent = this.chaosEventService.selectForced(this.forcedNextChaosEventId, params);
+      if (!this.activeChaosEvent) {
+        this.addFeed(this.locale === 'ar' ? 'حدث الفوضى غير مناسب للعبة أو المرحلة؛ اتلغى.' : 'Chaos event cannot run in this game/round; skipped.');
+      }
+      this.forcedNextChaosEventId = null;
+    } else if (this.chaosMode === 'off') {
+      this.activeChaosEvent = null;
+    } else {
+      this.activeChaosEvent = this.chaosEventService.selectForRound({ ...params, chance: this.chaosPercent / 100 });
     }
-
-    if (this.chaosMode === 'high') {
-      return Math.min(100, this.chaosPercent + 30);
+    if (this.activeChaosEvent) {
+      this.addFeed(`${this.activeChaosEvent.title[this.locale]}: ${this.activeChaosEvent.description[this.locale]}`);
     }
-
-    return this.chaosPercent;
   }
 
   private resolveTourPhaseDurationMs(phase: TourPhase, defaultDurationMs: number): number {
@@ -1655,29 +1800,6 @@ export class GameStore {
 
     return Math.max(4_500, Math.round(durationMs * this.activeChaosEvent.answerWindowMultiplier));
   }
-
-  private applyActiveChaosFlatScoreDelta(): void {
-    if (!this.activeChaosEvent || typeof this.activeChaosEvent.flatScoreDelta !== 'number') {
-      return;
-    }
-
-    const delta = this.activeChaosEvent.flatScoreDelta;
-
-    for (const [id, citizen] of this.citizens.entries()) {
-      if (this.activeChaosEvent.appliesTo === 'official' && citizen.role !== 'official') {
-        continue;
-      }
-
-      if (this.activeChaosEvent.appliesTo === 'spectator' && citizen.role !== 'spectator') {
-        continue;
-      }
-
-      this.citizens.set(id, { ...citizen, score: Math.max(0, citizen.score + delta) });
-    }
-
-    this.addFeed(`${this.activeChaosEvent.title[this.locale]}: ${delta > 0 ? '+' : ''}${delta} score`);
-  }
-
 
   private beginTourAwardTracking(roundsPlayed: number): void {
     this.tourPlayerStats.clear();
@@ -1791,7 +1913,9 @@ export class GameStore {
     const officialCitizens = this.createSortedCitizens('official');
     const spectatorCitizens = this.createSortedCitizens('spectator');
     const champion = officialCitizens[0] ? this.createAwardWinner(officialCitizens[0]) : null;
-    const bestSpectator = spectatorCitizens[0] ? this.createAwardWinner(spectatorCitizens[0]) : null;
+    // A spectator who joined but earned no points is not a Tour winner.
+    const bestSpectator = spectatorCitizens[0] && spectatorCitizens[0].score > 0
+      ? this.createAwardWinner(spectatorCitizens[0]) : null;
     const topOfficial = officialCitizens.slice(0, 3).map((citizen) => this.createAwardWinner(citizen));
     const awards: TourAward[] = [];
 
@@ -1927,6 +2051,27 @@ export class GameStore {
     }
   }
 
+  private grantGoldenRoundReward(awards: MiniGameScoreAward[]): void {
+    const eligible = awards.filter(award => award.role === 'official' && award.isCorrect && award.points > 0);
+    if (eligible.length === 0) {
+      this.addFeed(this.locale === 'ar' ? 'الجولة الذهبية: مفيش فائز بإجابة صحيحة.' : 'Golden Round: no correct official answer.');
+      return;
+    }
+    const best = Math.max(...eligible.map(award => award.points));
+    const tied = eligible.filter(award => award.points === best)
+      .sort((a, b) => a.twitchUserId.localeCompare(b.twitchUserId));
+    // Fair tie draw independent of client latency or Twitch response order.
+    const tour = this.tourStateMachine.getSnapshot();
+    const seed = `${tour.tourId ?? 'tour'}:${tour.roundNumber}:${tied.map(a => a.twitchUserId).join(',')}`;
+    let hash = 2166136261;
+    for (const ch of seed) hash = Math.imul(hash ^ ch.charCodeAt(0), 16777619) >>> 0;
+    const winner = tied[hash % tied.length];
+    this.chaosRewards.awardGolden(winner.twitchUserId);
+    const name = this.citizens.get(winner.twitchUserId)?.displayName ?? winner.displayName;
+    const lottery = tied.length > 1 ? (this.locale === 'ar' ? ' (قرعة تعادل)' : ' (tiebreak draw)') : '';
+    this.addFeed(`${this.locale === 'ar' ? 'الفائز بالجولة الذهبية' : 'Golden Round winner'}: ${name} 👑 🛡️ ✨${lottery}`);
+  }
+
   private applyMiniGameScoring(): void {
     const scoresBeforeRound = new Map<string, number>();
     for (const citizen of this.citizens.values()) {
@@ -1944,20 +2089,25 @@ export class GameStore {
     const chaosAdjustedAwards = this.chaosEventService.applyToAwards({
       event: this.activeChaosEvent,
       awards: baseAwards,
-      citizens: [...this.citizens.values()],
+      citizens: this.chaosRoundRoster,
     });
-    const awards = enforceMiniGameScoreAwardPolicy(chaosAdjustedAwards, this.activeMiniGameId, {
+    const validatedAwards = enforceMiniGameScoreAwardPolicy(chaosAdjustedAwards, this.activeMiniGameId, {
       allowedWrongAnswerPenalty: this.activeChaosEvent?.wrongAnswerPenalty ?? null,
     });
-
+    // Awarded Golden boosts apply only to previous-round winners. The new
+    // winner is chosen AFTER scoring, so no one can earn and spend a boost at once.
+    const rewardResult = this.chaosRewards.applyToAwards(validatedAwards);
+    const awards = enforceMiniGameScoreAwardPolicy(rewardResult.awards, this.activeMiniGameId, {
+      allowedWrongAnswerPenalty: this.activeChaosEvent?.wrongAnswerPenalty ?? null,
+    });
     this.lastRoundAwards = awards;
+    for (const id of rewardResult.blocked) this.addFeed(`${this.citizens.get(id)?.displayName ?? id}: ${this.locale === 'ar' ? 'الدرع صد الخصم 🛡️' : 'Shield blocked penalty 🛡️'}`);
+    for (const id of rewardResult.boosted) this.addFeed(`${this.citizens.get(id)?.displayName ?? id}: ${this.locale === 'ar' ? 'بونص ذهبي +25% ✨' : 'Golden boost +25% ✨'}`);
 
-    // Some Chaos events affect everyone, including players who did not answer.
-    this.applyActiveChaosFlatScoreDelta();
 
     let officialAwardCount = 0;
     let spectatorAwardCount = 0;
-    let totalOfficialXp = 0;
+    const roundXp = new Map<string, { xp: number; answered: boolean }>();
 
     for (const award of awards) {
       const citizen = this.citizens.get(award.twitchUserId);
@@ -1970,22 +2120,29 @@ export class GameStore {
 
       if (award.role === 'official') {
         officialAwardCount += 1;
-        const correctReward = this.runtimeConfig.scoring.officialCorrectRewardByDifficulty[award.difficulty];
-        // Participation XP/coins are a separate progression system; they do
-        // not contribute to the runtime leaderboard score.
-        const xpAward = award.isCorrect ? correctReward.xp : this.runtimeConfig.scoring.officialParticipationXp;
-        const coinAward = award.isCorrect ? correctReward.coins : this.runtimeConfig.scoring.officialParticipationCoins;
-        totalOfficialXp += xpAward;
-        this.applyOfficialProgressionAward(citizen, nextScore, xpAward, coinAward);
+        // XP is PENDING only: the scoreboard points change now, but player
+        // profiles and levels remain unchanged until the final results screen.
+        const earned = award.isCorrect
+          ? this.runtimeConfig.scoring.correctXpByDifficulty[award.difficulty]
+          : award.points > 0 ? this.runtimeConfig.scoring.nearMissXp : 0;
+        const previous = roundXp.get(award.twitchUserId);
+        roundXp.set(award.twitchUserId, { xp: (previous?.xp ?? 0) + earned, answered: true });
+        this.citizens.set(award.twitchUserId, { ...citizen, score: nextScore });
       } else {
         spectatorAwardCount += 1;
         this.citizens.set(award.twitchUserId, { ...citizen, score: nextScore });
       }
     }
 
-    // Record the net score movement after both answer awards and global round
-    // modifiers have been applied, so per-round totals equal the live score.
+    // Index by round: replay/restart a scored round replaces its pending XP
+    // rather than granting that round twice. Skipped rounds earn nothing.
+    this.pendingSessionXp.set(this.tourStateMachine.getSnapshot().roundNumber, roundXp);
+
+    // Net score tracking must agree exactly with the live scoreboard.
     this.recordTourAwardStats(awards, scoresBeforeRound);
+    if (this.activeChaosEvent?.id === 'golden_round') {
+      this.grantGoldenRoundReward(awards);
+    }
 
     if (awards.length === 0) {
       this.addFeed(translate(this.locale, this.getMiniGameTranslationKey('noAnswers')));
@@ -1997,53 +2154,76 @@ export class GameStore {
       spectator: String(spectatorAwardCount),
     }));
 
-    if (officialAwardCount > 0) {
-      this.addFeed(translate(this.locale, 'progression.officialXpAwarded', { xp: String(totalOfficialXp) }));
-    }
-
     if (spectatorAwardCount > 0) {
       this.addFeed(translate(this.locale, 'progression.spectatorNoRewards'));
     }
   }
 
-  private applyOfficialProgressionAward(citizen: CitizenRuntime, nextScore: number, xpAward: number, coinAward: number): void {
-    const profile = this.profileService.getOrCreateProfile(citizen.twitchUserId, citizen.displayName);
-    const awardPreview = this.progressionService.awardXp(profile.xp, xpAward);
-    const nextXp = profile.xp + xpAward;
-    const nextCoins = profile.coins + coinAward;
-    const progression = this.progressionService.createView(nextXp, nextCoins);
-    const updatedProfile = this.profileService.updateProgress(citizen.twitchUserId, {
-      xp: nextXp,
-      coins: nextCoins,
-      level: progression.level,
-    });
+  private settleSessionProgression(tour: TourSnapshot): void {
+    if (!tour.tourId || this.progressionSettledTourId === tour.tourId) return;
+    this.progressionSettledTourId = tour.tourId;
 
-    if (!updatedProfile) {
-      return;
-    }
-
-    this.citizens.set(citizen.twitchUserId, {
-      ...citizen,
-      score: nextScore,
-      level: progression.level,
-      xp: progression.xp,
-      coins: progression.coins,
-      xpToNextLevel: progression.xpToNextLevel,
-      progressPercent: progression.progressPercent,
-      unlockedCommandIds: progression.unlockedCommandIds,
-    });
-    this.queuePersistenceSave('profiles');
-
-    if (awardPreview.leveledUp) {
-      this.addFeed(translate(this.locale, 'progression.levelUp', {
-        name: citizen.displayName,
-        level: String(awardPreview.newLevel),
-      }));
-
-      for (const unlock of awardPreview.unlockedCommands) {
-        this.addFeed(this.buildUnlockFeed(citizen.displayName, unlock));
+    const totals = new Map<string, number>();
+    const participants = new Set<string>();
+    for (const round of this.pendingSessionXp.values()) {
+      for (const [id, award] of round) {
+        if (!award.answered) continue;
+        participants.add(id);
+        totals.set(id, (totals.get(id) ?? 0) + award.xp);
       }
     }
+    // Rank bonuses reward success without granting free XP for a join-only
+    // entry. Spectators never enter the XP pool or placement calculation.
+    const officialRanking = this.getOfficialCitizens()
+      .filter(citizen => participants.has(citizen.twitchUserId) && citizen.score > 0)
+      .sort((a, b) => b.score - a.score || a.twitchUserId.localeCompare(b.twitchUserId));
+    const placeBonuses = this.activeSessionMode === 'tour' ? [15, 8, 4] : [8, 4, 2];
+    officialRanking.slice(0, 3).forEach((citizen, index) => {
+      totals.set(citizen.twitchUserId, (totals.get(citizen.twitchUserId) ?? 0) + placeBonuses[index]);
+    });
+
+    this.sessionProgressionAwards = [];
+    for (const id of participants) {
+      const citizen = this.citizens.get(id);
+      // Role is fixed for each accepted round; the Official-only pending map
+      // ensures that late-joining Spectators can never acquire progression XP.
+      if (!citizen || citizen.role !== 'official') continue;
+      const xpEarned = (totals.get(id) ?? 0) + (this.activeSessionMode === 'tour'
+        ? this.runtimeConfig.scoring.tourParticipationXp
+        : this.runtimeConfig.scoring.singleGameParticipationXp);
+      if (xpEarned <= 0) continue;
+      const profile = this.profileService.getOrCreateProfile(id, citizen.displayName);
+      const preview = this.progressionService.awardXp(profile.xp, xpEarned);
+      const view = this.progressionService.createView(profile.xp + xpEarned);
+      this.profileService.updateProgress(id, { xp: view.xp, level: view.level });
+      this.citizens.set(id, {
+        ...citizen,
+        level: view.level,
+        xp: view.xp,
+        xpToNextLevel: view.xpToNextLevel,
+        progressPercent: view.progressPercent,
+        unlockedCommandIds: view.unlockedCommandIds,
+      });
+      this.sessionProgressionAwards.push({
+        twitchUserId: id,
+        xpEarned,
+        previousLevel: preview.previousLevel,
+        newLevel: view.level,
+        totalXp: view.xp,
+        progressPercent: view.progressPercent,
+        unlockedCommandIds: preview.unlockedCommands.map(unlock => unlock.id),
+      });
+      if (preview.leveledUp) {
+        if (this.characterActions.size < 16 || this.characterActions.has(id)) {
+          this.showCharacterAction(id, 'level_up', 6500, view.level, false);
+        }
+        this.addFeed(translate(this.locale, 'progression.levelUp', { name: citizen.displayName, level: String(view.level) }));
+        for (const unlock of preview.unlockedCommands) this.addFeed(this.buildUnlockFeed(citizen.displayName, unlock));
+      }
+    }
+    this.sessionProgressionAwards.sort((a, b) => b.xpEarned - a.xpEarned);
+    if (this.sessionProgressionAwards.length) this.queuePersistenceSave('profiles');
+    this.pendingSessionXp.clear();
   }
 
   private buildUnlockFeed(displayName: string, unlock: CommandUnlockDefinition): string {
@@ -2056,8 +2236,9 @@ export class GameStore {
 
   private handleTourCompleted(tour: TourSnapshot): void {
     this.recordTourHistory();
+    this.officialRosterLocked = false;
     this.promoteSpectatorsForNextTour();
-    this.chaosPercent = Math.max(2, this.chaosPercent - 4);
+    this.chaosPercent = this.getChaosChancePercent();
     this.addFeed(translate(this.locale, 'event.tourAutoCompleted'));
     this.eventBus.emit({ type: 'tour.completed', tour });
   }
@@ -2143,25 +2324,39 @@ export class GameStore {
 
     try {
       if (shouldSaveProfiles) {
-        await this.persistence.writeJson('profiles.json', this.createProfilesFile(savedAt));
+        if (!await this.persistence.writeJson('profiles.json', this.createProfilesFile(savedAt))) throw new Error('Failed to save profiles.json');
       }
 
       if (shouldSaveSettings) {
-        await this.persistence.writeJson('settings.json', this.createSettingsFile(savedAt));
+        if (!await this.persistence.writeJson('settings.json', this.createSettingsFile(savedAt))) throw new Error('Failed to save settings.json');
       }
 
       if (shouldSaveTourHistory) {
-        await this.persistence.writeJson('tour-history.json', this.createTourHistoryFile(savedAt));
+        if (!await this.persistence.writeJson('tour-history.json', this.createTourHistoryFile(savedAt))) throw new Error('Failed to save tour-history.json');
       }
 
       this.persistenceStatus = 'ready';
       this.persistenceError = null;
+      this.persistenceSaveRetryCount = 0;
       this.persistenceLastSavedAt = savedAt;
       this.notifyChanged();
     } catch (error) {
+      // The persistence port returns false on an unsuccessful write. Keep the
+      // unsaved changes and retry (bounded) so a transient file lock cannot
+      // silently lose XP earned at the final screen.
+      this.pendingPersistenceSave.profiles ||= shouldSaveProfiles;
+      this.pendingPersistenceSave.settings ||= shouldSaveSettings;
+      this.pendingPersistenceSave.tourHistory ||= shouldSaveTourHistory;
       this.persistenceStatus = 'error';
       this.persistenceError = this.getErrorMessage(error);
       this.addFeed(`Persistent storage save failed: ${this.persistenceError}`);
+      if (!this.isDestroyed && !this.persistenceSaveTimer && this.persistenceSaveRetryCount < 3) {
+        this.persistenceSaveRetryCount += 1;
+        this.persistenceSaveTimer = setTimeout(() => {
+          this.persistenceSaveTimer = null;
+          void this.flushPersistenceSaves();
+        }, this.runtimeConfig.persistence.saveDebounceMs * (2 ** this.persistenceSaveRetryCount));
+      }
       this.notifyChanged();
     }
   }
@@ -2170,7 +2365,7 @@ export class GameStore {
     return {
       version: 1,
       savedAt,
-      profiles: this.profileService.exportProfiles(),
+      profiles: this.profileService.exportProfiles().filter(p => !p.twitchUserId.startsWith('__ta7ady_qa_bot__')),
     };
   }
 
@@ -2191,6 +2386,11 @@ export class GameStore {
   }
 
   private recordTourHistory(): void {
+    // Simulated QA runs must never pollute real broadcast history or persistent levels.
+    if ([...this.citizens.keys()].some(id => id.startsWith('__ta7ady_qa_bot__'))) {
+      this.activeTourHistorySeed = null;
+      return;
+    }
     if (!this.activeTourHistorySeed) {
       return;
     }
@@ -2284,6 +2484,7 @@ export class GameStore {
       activeSessionMode: this.activeSessionMode,
       chaosPercent: this.chaosPercent,
       chaosEvent: this.chaosEventService.getSnapshot(this.activeChaosEvent, this.locale),
+      chaosRewards: this.chaosRewards.getSnapshot(),
       citizens: [...this.citizens.values()],
       feed: [...this.feed],
       tour,
@@ -2293,6 +2494,8 @@ export class GameStore {
       nextMiniGameId: this.getNextMiniGameId(tour),
       lastRoundAwards: [...this.lastRoundAwards],
       progression: this.progressionService.createSnapshot(this.locale),
+      sessionProgressionAwards: [...this.sessionProgressionAwards],
+      characterActions: [...this.characterActions.values()],
       persistence: {
         status: this.persistenceStatus,
         error: this.persistenceError,
@@ -2307,6 +2510,7 @@ export class GameStore {
         enabledMiniGameIds: [...this.enabledMiniGameIds],
         forcedNextMiniGameId: this.forcedNextMiniGameId,
         chaosMode: this.chaosMode,
+        forcedNextChaosEventId: this.forcedNextChaosEventId,
       },
       championCelebration: {
         twitchUserId: this.championCelebrationUserId,

@@ -1,12 +1,14 @@
-import { createContext, useContext, useMemo, useSyncExternalStore, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from 'react';
 import { createGameRuntime, type GameRuntime, type GameSnapshot } from '../../game-core';
 import type { MiniGameId } from '../../game-core/minigames/minigame-types';
 import type { HostChaosMode } from '../../game-core/app/game-snapshot';
 import type { TwitchChatMessage } from '../../game-core/twitch/twitch-message-types';
 import { createDesktopPersistenceAdapter } from '../services/desktop-persistence-adapter';
+import { QaBotController } from '../services/qa-bot-controller';
 
 type GameContextValue = {
   runtime: GameRuntime;
+  qaBots: QaBotController;
   snapshot: GameSnapshot;
   actions: {
     startTour: (miniGameIds?: MiniGameId[]) => void;
@@ -48,6 +50,8 @@ export function GameViewSnapshotProvider({ snapshot, children }: { snapshot: Gam
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const runtime = useMemo(() => createGameRuntime({ persistence: createDesktopPersistenceAdapter() }), []);
+  const qaBots = useMemo(() => new QaBotController(runtime), [runtime]);
+  useEffect(() => () => qaBots.destroy(), [qaBots]);
 
   const snapshot = useSyncExternalStore(
     (onStoreChange) => runtime.store.subscribe(() => onStoreChange()),
@@ -86,9 +90,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<GameContextValue>(() => ({
     runtime,
+    qaBots,
     snapshot,
     actions,
-  }), [runtime, snapshot, actions]);
+  }), [runtime, qaBots, snapshot, actions]);
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 }

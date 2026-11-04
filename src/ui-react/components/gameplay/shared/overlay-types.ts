@@ -8,7 +8,7 @@ import { MINI_GAME_BY_ID } from '../../../../game-core/minigames/minigame-regist
 export const CHARACTER_IDS = ['cat', 'dog', 'cute_girl', 'flat_boy', 'female_person', 'male_person', 'red_hat', 'temple_runner', 'robot', 'stage_office', 'stage_chef'] as const;
 export const CHARACTER_FRAME_COUNT = 10;
 export const CHARACTER_IDLE_FRAME_MS = 155;
-export const CHARACTER_SESSION_SEED = Math.floor(Math.random() * 1_000_000_000);
+// V42: citizen identity derives from the stable Twitch ID, not a session random seed.
 
 export type CharacterId = (typeof CHARACTER_IDS)[number];
 export type CharacterAnimationName = 'idle' | 'walk' | 'run' | 'jump' | 'slide' | 'dead';
@@ -24,7 +24,7 @@ export const SHAPE_COLORS: Record<ShapeCountShapeId, string> = {
 };
 
 export const MEMORY_ITEM_EMOJI: Record<MemoryCountCell['kind'], string> = {
-  coin: '\u{1F7E1}',
+  sun: '\u{2600}\u{FE0F}',
   star: '\u{2B50}',
   gem: '\u{1F48E}',
   bolt: '\u{26A1}',

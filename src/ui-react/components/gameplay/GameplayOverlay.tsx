@@ -56,10 +56,10 @@ function ChaosEventBanner({ chaosEvent, tourPhase }: { chaosEvent: ChaosEventSna
   const isRevealPhase = tourPhase === 'mini_game_intro';
 
   return (
-    <div className={`gameplay-chaos-banner gameplay-chaos-${chaosEvent.rarity ?? 'common'} ${isRevealPhase ? 'gameplay-chaos-reveal' : ''}`}>
+    <div className={`gameplay-chaos-banner gameplay-chaos-${chaosEvent.rarity ?? 'common'} ${isRevealPhase ? 'gameplay-chaos-reveal gameplay-chaos-intro-v40' : 'gameplay-chaos-mini-v40'}`} aria-label={chaosEvent.title}>
       <span>● {chaosEvent.badge || 'CHAOS EVENT'} ●</span>
       <strong>{chaosEvent.title}</strong>
-      <small>{chaosEvent.description}</small>
+      {isRevealPhase ? <small>{chaosEvent.description}</small> : null}
     </div>
   );
 }
@@ -84,7 +84,7 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
   );
 }
 
-function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
+function MiniGameIntro({ miniGame, chaosEvent }: { miniGame: MiniGameSnapshot; chaosEvent: ChaosEventSnapshot }) {
   const { actions, snapshot } = useGame();
   const locale = snapshot.locale;
   const t = useTranslation();
@@ -100,6 +100,13 @@ function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
       <header className="howto-intro-header">
         <span>{MINI_GAME_BY_ID[miniGame.id].icon}</span>
         <div><small>{locale === 'ar' ? 'إزاي نلعب؟' : 'HOW TO PLAY'}</small><h2>{miniGame.title}</h2></div>
+        {chaosEvent.active ? (
+          <aside className="howto-chaos-v40" aria-label={chaosEvent.title}>
+            <small>⚡ CHAOS!</small>
+            <strong>{chaosEvent.title}</strong>
+            <small>{chaosEvent.description}</small>
+          </aside>
+        ) : null}
       </header>
       <MiniGameIntroIllustration gameId={miniGame.id} />
       <div className="gameplay-intro-steps">
@@ -196,7 +203,7 @@ function MainScreenGameplayOverlay({
 
   return (
     <section className={`gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-${tour.phase}`}>
-      {chaosEvent.active ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
+      {chaosEvent.active && tour.phase === 'answer_window_open' ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
 
       {tour.phase !== 'mini_game_intro' && tour.phase !== 'answer_window_open' ? <div className="gameplay-round-header">
         <span>{roundLabel ? `${roundLabel} · ${phaseLabel}` : phaseLabel}</span>
@@ -206,7 +213,7 @@ function MainScreenGameplayOverlay({
         {phaseRemaining > 0 ? <strong>{phaseRemaining}s</strong> : null}
       </div> : null}
 
-      {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} /> : null}
+      {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} chaosEvent={chaosEvent} /> : null}
 
       {tour.phase === 'answer_window_open' ? (
         <MiniGamePlayScreen miniGame={miniGame} tourPhase={tour.phase} />

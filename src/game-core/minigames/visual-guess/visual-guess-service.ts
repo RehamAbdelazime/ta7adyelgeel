@@ -23,6 +23,7 @@ type ImageItem = {
   id: string;
   name: I18n;
   imageUrl: string;
+  asset?: string;
   mode: VisualGuessMode;
   difficulty: QuestionDifficulty;
   category: string;
@@ -36,6 +37,7 @@ const MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['scene', 'poster'],
   'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
 };
+const ROUND_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard', 'hard'];
 const ROUND_MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['scene', 'poster', 'scene', 'poster'],
   'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
@@ -65,22 +67,37 @@ export class VisualGuessMiniGameService {
     this.correctOfficialCount = 0;
     this.correctSpectatorCount = 0;
     this.scored = false;
-    const bank = getVisualGuessBank(this.gameId);
+    // A locally imported, permission-cleared photo is playable even if it had no remote URL.
+    const bank = getVisualGuessBank(this.gameId).filter(item => item.imageUrl.length > 0 || (item as ImageItem & { mediaApproval?: string }).mediaApproval === 'user_supplied_with_permission');
     if (bank.length < 4) throw new Error(`${this.gameId} needs at least four valid image entries`);
 
     // A predictable mode cadence guarantees that each variant actually gets played.
     // Avoid repeated photos across a tour, then a session, until the pack is exhausted.
     const scheduledMode = ROUND_MODES[this.gameId][(roundNumber - 1) % ROUND_MODES[this.gameId].length];
-    const eligible = bank.filter(item => item.mode === scheduledMode);
-    const pool = eligible.filter(item => !this.tourUsedIds.has(item.id) && !this.sessionUsedIds.has(item.id));
-    const tourPool = eligible.filter(item => !this.tourUsedIds.has(item.id));
-    const fallback = pool.length ? pool : tourPool.length ? tourPool : eligible.length ? eligible : bank;
+    const targetDifficulty = ROUND_DIFFICULTIES[(roundNumber - 1) % ROUND_DIFFICULTIES.length];
+    const eligible = bank.filter(item => item.mode === scheduledMode && item.difficulty === targetDifficulty);
+    const difficultyOnly = bank.filter(item => item.difficulty === targetDifficulty);
+    // Difficulty cannot be reduced just because a mode had fewer available photos.
+    // Only reset the non-repeating pools when a complete pack has been exhausted.
+    const selectFresh = (candidates: readonly ImageItem[]) =>
+      candidates.filter(item => !this.tourUsedIds.has(item.id) && !this.sessionUsedIds.has(item.id));
+    const selectTourFresh = (candidates: readonly ImageItem[]) =>
+      candidates.filter(item => !this.tourUsedIds.has(item.id));
+    const groups = [
+      selectFresh(eligible), selectTourFresh(eligible),
+      selectFresh(difficultyOnly), selectTourFresh(difficultyOnly),
+      eligible, difficultyOnly,
+    ];
+    const pool = groups.find(items => items.length > 0) ?? bank;
     const rng = seededRandom(seed + roundNumber * 811 + this.sessionUsedIds.size * 2713);
-    const item = fallback[Math.floor(rng() * fallback.length)];
+    const item = pool[Math.floor(rng() * pool.length)];
     if (!item) throw new Error(`${this.gameId} has no playable media content`);
 
     // Distinct distractors, never reveal the real answer until the scoring phase.
-    const distractors = shuffle(bank.filter(q => q.id !== item.id), rng).slice(0, 3);
+    const optionsPool = bank.filter(q => q.id !== item.id);
+    const sameCategory = shuffle(optionsPool.filter(q => q.category === item.category), rng);
+    const alternate = shuffle(optionsPool.filter(q => q.category !== item.category), rng);
+    const distractors = [...sameCategory, ...alternate].slice(0, 3);
     const choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
       optionNumber: index + 1,
       command: `!${index + 1}`,
@@ -175,7 +192,7 @@ export class VisualGuessMiniGameService {
       },
       visualGuess: this.round ? {
         mode: item!.mode,
-        imageUrl: `./assets/game/runtime/minigames/visual-guess/${item!.id}.jpg`,
+        imageUrl: `./assets/game/runtime/minigames/visual-guess/${item!.asset ?? `${item!.id}.jpg`}`,
         fallbackImageUrl: item!.imageUrl,
         focus: item!.focus ?? { x: 50, y: 40 },
         titleMask: item!.titleMask ?? null,

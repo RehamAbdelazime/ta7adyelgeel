@@ -41,22 +41,14 @@
     }
   },
   "scoring": {
-    "officialParticipationXp": 20,
-    "officialParticipationCoins": 2,
-    "officialCorrectRewardByDifficulty": {
-      "easy": {
-        "xp": 40,
-        "coins": 6
-      },
-      "medium": {
-        "xp": 60,
-        "coins": 10
-      },
-      "hard": {
-        "xp": 90,
-        "coins": 16
-      }
-    }
+    "singleGameParticipationXp": 10,
+    "tourParticipationXp": 20,
+    "correctXpByDifficulty": {
+      "easy": 8,
+      "medium": 12,
+      "hard": 16
+    },
+    "nearMissXp": 4
   },
   "persistence": {
     "saveDebounceMs": 250,

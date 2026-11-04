@@ -35,7 +35,6 @@ function citizen(twitchUserId: string): CitizenRuntime {
     joinedAt: 0,
     level: 1,
     xp: 0,
-    coins: 0,
     xpToNextLevel: 100,
     progressPercent: 0,
     unlockedCommandIds: [],
