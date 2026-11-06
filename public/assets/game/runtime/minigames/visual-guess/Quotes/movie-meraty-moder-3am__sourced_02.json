@@ -1,0 +1,19 @@
+{
+  "ar": "عبيط وحياة النبي، أبله!",
+  "speaker": {
+    "role": "actor",
+    "correct": "توفيق الدقن",
+    "wrong": [
+      "صلاح ذو الفقار",
+      "شفيق نور الدين",
+      "عادل إمام"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-032",
+    "source": "https://dhliz.com/film/meraty_moudir_3am/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

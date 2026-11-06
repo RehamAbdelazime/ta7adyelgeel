@@ -242,6 +242,11 @@ export type MiniGameSnapshot = {
     titleMasks: { x: number; y: number; w: number; h: number }[];
     posterAspectRatio: number | null;
     posterReveal?: PosterRevealPlan | null;
+    movieClueKind?: 'poster' | 'frame' | 'quote' | null;
+    movieQuoteText?: string | null;
+    movieQuoteMode?: 'movie' | 'complete' | 'speaker' | null;
+    /** Answer suffix is exposed only once resolveRound has completed. */
+    movieQuoteCompletionAnswer?: string | null;
     choices: VisualGuessChoice[];
     correctOptionNumber: number | null;
     correctLabel: string | null;

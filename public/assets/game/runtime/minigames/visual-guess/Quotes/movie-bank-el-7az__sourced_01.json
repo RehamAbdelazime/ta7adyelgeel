@@ -1,0 +1,19 @@
+{
+  "ar": "صلوحة، بتحبني ولا عادي؟",
+  "speaker": {
+    "role": "actor",
+    "correct": "أحمد فتحي",
+    "wrong": [
+      "محمد ممدوح",
+      "أكرم حسني",
+      "محمد ثروت"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-038",
+    "source": "https://dhliz.com/film/bank_el_7azz/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "ar": "بتستعماني يا هرم؟",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمود عبد العزيز",
+    "wrong": [
+      "نجاح الموجي",
+      "شريف منير",
+      "أحمد كمال"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-015",
+    "source": "https://elcinema.com/press/678957268/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

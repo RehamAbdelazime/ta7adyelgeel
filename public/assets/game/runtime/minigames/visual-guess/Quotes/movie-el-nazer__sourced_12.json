@@ -1,0 +1,19 @@
+{
+  "ar": "هتقولهملي نيلي نيلي هقولهم لك شريهان شريهان",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمد سعد",
+    "wrong": [
+      "علاء ولي الدين",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-012",
+    "source": "https://www.arageek.com/art/jokes-in-egyptian-cinema",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

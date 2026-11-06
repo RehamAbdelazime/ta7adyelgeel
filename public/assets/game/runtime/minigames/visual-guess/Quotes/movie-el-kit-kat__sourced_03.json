@@ -1,0 +1,28 @@
+{
+  "ar": "مشكلة أبويا إنه مش قادر يصدق إنه أعمى",
+  "completion": {
+    "prompt": "مشكلة أبويا إنه مش قادر يصدق",
+    "answer": "إنه أعمى",
+    "wrong": [
+      "إنه لوحده",
+      "إنه اتغيّر",
+      "إنه محتاج مساعدة"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "شريف منير",
+    "wrong": [
+      "محمود عبد العزيز",
+      "نجاح الموجي",
+      "أحمد كمال"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-016",
+    "source": "https://www.albawabhnews.com/3880417",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

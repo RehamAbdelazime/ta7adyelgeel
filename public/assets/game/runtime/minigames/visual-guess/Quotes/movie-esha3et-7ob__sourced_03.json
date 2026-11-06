@@ -1,0 +1,28 @@
+{
+  "ar": "ما تاكل يا حسين، الصنف ده عاملاه مرات عمك برجليها",
+  "completion": {
+    "prompt": "ما تاكل يا حسين، الصنف ده عاملاه مرات عمك",
+    "answer": "برجليها",
+    "wrong": [
+      "على نار هادية",
+      "من إمبارح",
+      "على مزاجك"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "يوسف وهبي",
+    "wrong": [
+      "عمر الشريف",
+      "عبد المنعم إبراهيم",
+      "إحسان شريف"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-021",
+    "source": "https://www.youtube.com/watch?v=cLSrJv4C-CQ",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

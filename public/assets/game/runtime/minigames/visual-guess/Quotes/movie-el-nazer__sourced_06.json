@@ -1,0 +1,19 @@
+{
+  "ar": "وأنا مالي يا لمبي",
+  "speaker": {
+    "role": "actor",
+    "correct": "سحر كامل",
+    "wrong": [
+      "عبلة كامل",
+      "نشوى مصطفى",
+      "سحر رامي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-006",
+    "source": "https://www.elwatannews.com/news/details/5563115",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "ar": "أوعى يغرك جسمك",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمد سعد",
+    "wrong": [
+      "علاء ولي الدين",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-007",
+    "source": "https://darelhilal.com/News/2719942.aspx",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

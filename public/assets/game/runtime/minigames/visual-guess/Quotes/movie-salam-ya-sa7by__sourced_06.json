@@ -1,0 +1,28 @@
+{
+  "ar": "كل نهاية وليها بداية يا باشا",
+  "completion": {
+    "prompt": "كل نهاية وليها",
+    "answer": "بداية يا باشا",
+    "wrong": [
+      "حكاية يا باشا",
+      "حسبة يا باشا",
+      "حكمة يا باشا"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "محمد الدفراوي",
+    "wrong": [
+      "عادل إمام",
+      "سعيد صالح",
+      "مصطفى متولي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-029",
+    "source": "https://dhliz.com/film/salam_ya_sa7by/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

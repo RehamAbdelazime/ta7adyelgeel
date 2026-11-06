@@ -1,0 +1,28 @@
+{
+  "ar": "مفيش معنى إننا نشتري مباني جديدة وتفكيرنا يفضل قديم",
+  "completion": {
+    "prompt": "مفيش معنى إننا نشتري مباني جديدة",
+    "answer": "وتفكيرنا يفضل قديم",
+    "wrong": [
+      "وإحنا لسه واقفين مكاننا",
+      "والناس بتعطل الشغل",
+      "والقرارات متتغيرش"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "شادية",
+    "wrong": [
+      "كريمان",
+      "هالة فاخر",
+      "ليلى حمدي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-033",
+    "source": "https://dhliz.com/film/meraty_moudir_3am/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

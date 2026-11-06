@@ -1,0 +1,28 @@
+{
+  "ar": "أنا زي بابا بالظبط، في الشدة شديد وفي القوة قوي",
+  "completion": {
+    "prompt": "أنا زي بابا بالظبط، في الشدة شديد",
+    "answer": "وفي القوة قوي",
+    "wrong": [
+      "وفي العند عنيد",
+      "وفي الخناقة جامد",
+      "وفي الحنية طيب"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-005",
+    "source": "https://www.brightery.com/ar/post/نصائح-ادارية-الجزء-الاول",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

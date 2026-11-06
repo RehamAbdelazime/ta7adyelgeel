@@ -105,3 +105,29 @@ html body .gameplay-question-shell.v36-visual-shell.qshell-v20 .qshell-choices .
 @media (prefers-reduced-motion: reduce) {
   .v52-poster-puzzle-tiles > span { transition: none; }
 }
+
+/* V53: screenshot frames and cinematic dialogue have their own readable stage.
+   No poster-ratio stretching and no internet images. */
+.v36-visual-frame.v53-movie-wide-frame { width: min(100%, 1000px); max-height: 100%; }
+.v53-movie-wide-frame .v36-visual-canvas { width: 100%; height: 100%; }
+.v53-movie-wide-frame .v36-visual-image { object-fit: contain; width: 100%; height: 100%; }
+.v36-visual-frame.v53-movie-text-frame { width: min(100%, 1000px); }
+.v53-movie-quote-canvas { width: 100%; min-height: 0; padding: clamp(16px,2.5vw,56px); }
+.v53-movie-quote { text-align: center; max-width: 920px; margin: auto; display: grid;
+  justify-items: center; gap: clamp(10px,2vh,26px); color: #f7faff; }
+.v53-movie-quote-glyph { font-size: clamp(46px,6vw,100px); line-height: .7; color: #70eaf8; opacity: .85; }
+.v53-movie-quote p { font-family: var(--arabic-font, 'Alexandria'), var(--display-font, sans-serif), sans-serif;
+  font-size: clamp(24px, 3.3vw, 62px); font-weight: 800; line-height: 1.6; margin: 0;
+  text-wrap: balance; overflow-wrap: anywhere; text-shadow: 0 4px 20px #0009; }
+.v53-movie-quote-kicker { color: #9bdaed; font-size: clamp(13px,1.15vw,20px); font-weight: 700; }
+.v53-movie-quote-cursor { color: #86edfa; }
+@media (max-height: 750px) { .v53-movie-quote p { font-size: clamp(22px, 2.5vw, 45px); } }
+
+/* V54: readable, unmistakable missing ending; it is never shown before manual reveal. */
+.v54-quote-missing { color: #82eafa; white-space: pre-wrap; text-decoration: none; }
+.v36-visual-revealed .v54-quote-missing { color: #9bffc8; }
+
+html body .gameplay-question-shell.v36-visual-shell.v54-quote-complete-shell.qshell-v20 .qshell-choices .gameplay-choice-card > span:not(.qshell-vote-count) {
+  font-size: clamp(15px,1.55vw,26px) !important; line-height: 1.3 !important;
+  white-space: normal !important; overflow-wrap: anywhere; text-wrap: balance;
+}

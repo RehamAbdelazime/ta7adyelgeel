@@ -1,0 +1,28 @@
+{
+  "ar": "الوردة دي دليل حبي، سقيتها بدموعي",
+  "completion": {
+    "prompt": "الوردة دي دليل حبي",
+    "answer": "سقيتها بدموعي",
+    "wrong": [
+      "اشتريتها من زمان",
+      "وحافظت عليها سنين",
+      "وجبتها من الجنينة"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "يوسف وهبي",
+    "wrong": [
+      "عمر الشريف",
+      "عبد المنعم إبراهيم",
+      "إحسان شريف"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-022",
+    "source": "https://dhliz.com/film/esha3et_7ob/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

@@ -1,12 +1,13 @@
 /**
  * Shared visual-choice engine for Guess the Movie and Guess the Star.
- * The clue is always an image, while the four answer options use the same
+ * The clue may be a poster, movie frame, or dialogue prompt; the four answer options use the same
  * Twitch/host commands, scoring policy and tour phases as the existing games.
  * Media and attribution data are authored outside TS; neither game hardcodes a
  * copyrighted image into its UI or silently substitutes a fake celebrity.
  */
 import rawBank from './visual-guess-questions.json';
 import rawPosterProfiles from './poster-visual-profiles-v50.json';
+import rawMovieClues from './movie-clues.generated.json';
 import { planPosterReveal, type PosterRevealPlan } from './poster-mystery';
 import { browserPosterStorage, emptyPosterHistory, readPosterHistory, rememberPosterPlay, type PosterHistory, type PosterHistoryStorage } from './poster-history';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
@@ -21,6 +22,34 @@ import { calculateExactAnswerScore } from '../scoring-policy';
 
 export type VisualGuessMode = 'scene' | 'poster' | 'eyes' | 'silhouette' | 'zoom' | 'reveal';
 export type VisualGuessGameId = Extract<MiniGameId, 'guess-movie' | 'guess-star'>;
+export type MovieClueKind = 'poster' | 'frame' | 'quote';
+export type QuoteChallengeMode = 'movie' | 'complete' | 'speaker';
+type QuoteOptionSet = { answer: I18n; wrong: I18n[] };
+type MovieClue = {
+  id: string; movieId: string; kind: MovieClueKind; asset: string; text: I18n | null;
+  completion?: QuoteOptionSet & { prompt: I18n };
+  speaker?: QuoteOptionSet & { role: 'actor' | 'character' };
+};
+type MovieRoundVariant = 'poster' | 'frame' | 'quote-movie' | 'quote-complete' | 'quote-speaker';
+function clueVariants(clue: MovieClue): MovieRoundVariant[] {
+  if (clue.kind !== 'quote') return [clue.kind];
+  const modes: MovieRoundVariant[] = [];
+  if (clue.completion) modes.push('quote-complete');
+  if (clue.speaker) modes.push('quote-speaker');
+  return modes.length ? modes : ['quote-movie'];
+}
+const variantKind = (variant: MovieRoundVariant): MovieClueKind =>
+  variant.startsWith('quote-') ? 'quote' : variant as MovieClueKind;
+const MOVIE_EXTRA_CLUES = (rawMovieClues as { clues: MovieClue[] }).clues;
+// Index the generated catalog once. Refiltering every clue for every candidate
+// grew quadratically as the user added real Quotes and Frames.
+const MOVIE_EXTRA_CLUES_BY_FILM = new Map<string, MovieClue[]>();
+for (const clue of MOVIE_EXTRA_CLUES) {
+  const forFilm = MOVIE_EXTRA_CLUES_BY_FILM.get(clue.movieId);
+  if (forFilm) forFilm.push(clue);
+  else MOVIE_EXTRA_CLUES_BY_FILM.set(clue.movieId, [clue]);
+}
+const MOVIE_CLUES_CACHE = new Map<string, readonly MovieClue[]>();
 type I18n = { en: string; ar: string };
 type ImageItem = {
   id: string;
@@ -38,7 +67,28 @@ type ImageItem = {
   mediaApproval?: string;
   attribution: { source: string; license: string };
 };
-type ActiveRound = { item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number; posterReveal?: PosterRevealPlan };
+type ActiveRound = {
+  item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number; correctValue: string;
+  posterReveal?: PosterRevealPlan; movieClue?: MovieClue;
+  quoteMode?: QuoteChallengeMode; localizedChoiceLabels?: Record<string, I18n>;
+};
+function movieCluesFor(item: ImageItem): readonly MovieClue[] {
+  const existing = MOVIE_CLUES_CACHE.get(item.id);
+  if (existing) return existing;
+  const clues: MovieClue[] = [
+    ...(item.asset?.startsWith('Posters/') ? [{ id: `poster:${item.id}`, movieId: item.id, kind: 'poster' as const, asset: item.asset, text: null }] : []),
+    ...(MOVIE_EXTRA_CLUES_BY_FILM.get(item.id) ?? []),
+  ];
+  MOVIE_CLUES_CACHE.set(item.id, clues);
+  return clues;
+}
+function pickMovieClue(item: ImageItem, variant: MovieRoundVariant, priorId: string | undefined, rng: () => number): MovieClue {
+  const clues = movieCluesFor(item).filter(clue => clueVariants(clue).includes(variant));
+  const fresh = clues.filter(clue => `${clue.id}#${variant}` !== priorId);
+  const pool = fresh.length ? fresh : clues;
+  return pool[Math.floor(rng() * pool.length)];
+}
+
 const BANK = rawBank as { movies: ImageItem[]; stars: ImageItem[]; movieChoiceCatalog?: Record<string, I18n> };
 const MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['poster'],
@@ -61,6 +111,11 @@ export class VisualGuessMiniGameService {
   private readonly answers = new Map<string, MiniGameAnswerRecord>();
   private readonly tourUsedIds = new Set<string>();
   private readonly sessionUsedIds = new Set<string>();
+  private readonly tourClueKindCounts: Record<MovieClueKind, number> = { poster: 0, frame: 0, quote: 0 };
+  private lastMovieVariant: MovieRoundVariant | null = null;
+  private readonly tourVariantCounts: Record<MovieRoundVariant, number> = {
+    poster: 0, frame: 0, 'quote-movie': 0, 'quote-complete': 0, 'quote-speaker': 0,
+  };
   private correctOfficialCount = 0;
   private correctSpectatorCount = 0;
   private scored = false;
@@ -70,7 +125,7 @@ export class VisualGuessMiniGameService {
     this.posterHistory = gameId === 'guess-movie' ? readPosterHistory(historyStorage) : emptyPosterHistory();
   }
 
-  beginTour(): void { this.tourUsedIds.clear(); this.clearActiveRound(); }
+  beginTour(): void { this.tourUsedIds.clear(); this.tourClueKindCounts.poster = 0; this.tourClueKindCounts.frame = 0; this.tourClueKindCounts.quote = 0; this.lastMovieVariant = null; for (const key of Object.keys(this.tourVariantCounts) as MovieRoundVariant[]) this.tourVariantCounts[key] = 0; this.clearActiveRound(); }
   startRound(roundNumber: number, seed = Date.now()): void {
     this.roundNumber = roundNumber;
     this.answers.clear();
@@ -78,7 +133,9 @@ export class VisualGuessMiniGameService {
     this.correctSpectatorCount = 0;
     this.scored = false;
     // A locally imported, permission-cleared photo is playable even if it had no remote URL.
-    const bank = getVisualGuessBank(this.gameId).filter(item => item.imageUrl.length > 0 || item.mediaApproval === 'user_supplied_local_rights_unverified' || item.mediaApproval === 'user_supplied_with_permission');
+    const bank = getVisualGuessBank(this.gameId).filter(item => this.gameId === 'guess-movie'
+      ? movieCluesFor(item).length > 0
+      : item.imageUrl.length > 0 || item.mediaApproval === 'user_supplied_local_rights_unverified' || item.mediaApproval === 'user_supplied_with_permission');
     if (bank.length < 4) throw new Error(`${this.gameId} needs at least four valid image entries`);
 
     // A predictable mode cadence guarantees that each variant actually gets played.
@@ -87,6 +144,8 @@ export class VisualGuessMiniGameService {
     const targetDifficulty = ROUND_DIFFICULTIES[(roundNumber - 1) % ROUND_DIFFICULTIES.length];
     const rng = seededRandom(seed + roundNumber * 811 + this.sessionUsedIds.size * 2713);
     let item: ImageItem;
+    let chosenVariant: MovieRoundVariant = 'poster';
+    let chosenClueKind: MovieClueKind = 'poster';
     if (this.gameId === 'guess-movie') {
       // V52: preserve each difficulty while prioritizing never-seen titles, even
       // after restarting Electron. Do not reuse any title within this tour until
@@ -96,9 +155,30 @@ export class VisualGuessMiniGameService {
       const withoutTourRepeats = tourFresh.length ? tourFresh : candidates;
       const minPlays = Math.min(...withoutTourRepeats.map(q => this.posterHistory.entries[q.id]?.plays ?? 0));
       let fairPool = withoutTourRepeats.filter(q => (this.posterHistory.entries[q.id]?.plays ?? 0) === minPlays);
+      // V54: treat Complete the Quote and Who Said It as two REAL random
+      // question formats, alongside Poster, Frame, and legacy Movie Quote.
+      // Only offer variants backed by user-supplied verified metadata.
+      const availableVariants = (['poster','frame','quote-complete','quote-speaker','quote-movie'] as MovieRoundVariant[])
+        .filter(variant => fairPool.some(film => movieCluesFor(film).some(clue => clueVariants(clue).includes(variant))));
+      const weights = availableVariants.map(variant => {
+        const kind = variantKind(variant);
+        // A previously played movie should prefer a different clue format on replay.
+        const repeatedInPool = fairPool.filter(film => this.posterHistory.entries[film.id]?.lastClueId?.endsWith(`#${variant}`)).length;
+        const novelty = 1 - (repeatedInPool / fairPool.length) * .7;
+        return novelty * (variant === this.lastMovieVariant ? .48 : 1)
+          / (1 + this.tourVariantCounts[variant] * .7)
+          / (1 + this.tourClueKindCounts[kind] * .25);
+      });
+      const randomWeight = rng() * weights.reduce((sum, weight) => sum + weight, 0);
+      let cumulative = 0;
+      chosenVariant = availableVariants.find((variant, index) => (cumulative += weights[index]) >= randomWeight)
+        ?? availableVariants[availableVariants.length - 1];
+      chosenClueKind = variantKind(chosenVariant);
+      fairPool = fairPool.filter(film => movieCluesFor(film).some(clue => clueVariants(clue).includes(chosenVariant)));
       if (minPlays > 0) {
-        // Least recently shown titles first; allow a small random choice among
-        // the oldest few so every session doesn't have a scripted order.
+        const freshFormat = fairPool.filter(film => !this.posterHistory.entries[film.id]?.lastClueId?.endsWith(`#${chosenVariant}`));
+        if (freshFormat.length) fairPool = freshFormat;
+        // The oldest eligible films first, with varied order inside the oldest four.
         const recency = (q: ImageItem) => this.posterHistory.entries[q.id]?.lastPlayedSeq ?? 0;
         fairPool = fairPool.sort((a, b) => recency(a) - recency(b))
           .slice(0, Math.min(4, fairPool.length));
@@ -121,7 +201,9 @@ export class VisualGuessMiniGameService {
 
     // Pick the reveal variant BEFORE the distractors, so wrong answers can
     // resemble the first visible poster area (zoom, spotlight, puzzle, colour).
-    const posterReveal = this.gameId === 'guess-movie'
+    const movieClue = this.gameId === 'guess-movie'
+      ? pickMovieClue(item, chosenVariant, this.posterHistory.entries[item.id]?.lastClueId, rng) : undefined;
+    const posterReveal = movieClue?.kind === 'poster'
       ? planPosterReveal(item.difficulty, seed + roundNumber * 911 + this.posterHistory.sequence * 41,
           this.posterHistory.entries[item.id], item.focus ?? { x: 50, y: 40 },
           item.titleMasks ?? (item.titleMask ? [item.titleMask] : []))
@@ -130,18 +212,40 @@ export class VisualGuessMiniGameService {
     // actor composition and editorial Egyptian-audience familiarity. Difficulty
     // controls HOW misleading the three options are, not just the poster.
     // The separate Guess the Star generator stays untouched.
-    const distractors = this.gameId === 'guess-movie'
-      ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal)
-      : pickGenericDistractors(item, bank, rng);
-    const choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
-      optionNumber: index + 1,
-      command: `!${index + 1}`,
-      label: entry.name.en,
-      value: entry.id,
-    }));
-    const correctOptionNumber = choices.find(choice => choice.value === item.id)?.optionNumber ?? 1;
-    this.round = { item, choices, correctOptionNumber, posterReveal };
-    if (posterReveal) rememberPosterPlay(this.posterHistory, item.id, posterReveal, this.historyStorage);
+    const quoteMode: QuoteChallengeMode | undefined = chosenClueKind !== 'quote' ? undefined
+      : chosenVariant === 'quote-complete' ? 'complete'
+      : chosenVariant === 'quote-speaker' ? 'speaker' : 'movie';
+    const quoteAnswers = quoteMode === 'complete' ? movieClue?.completion
+      : quoteMode === 'speaker' ? movieClue?.speaker : undefined;
+    let correctValue = item.id;
+    let localizedChoiceLabels: Record<string, I18n> | undefined;
+    let choices: VisualGuessChoice[];
+    if (quoteAnswers) {
+      // Correct answer is NOT the movie title in these two quote subgames.
+      // All four choices come from human-authored metadata; never invent actors
+      // or randomly sample unrelated endings.
+      correctValue = 'quote:correct';
+      localizedChoiceLabels = Object.fromEntries([quoteAnswers.answer, ...quoteAnswers.wrong]
+        .map((name, index) => [index === 0 ? correctValue : `quote:wrong:${index}`, name]));
+      choices = shuffle(Object.entries(localizedChoiceLabels), rng).map(([value, name], index) => ({
+        optionNumber: index + 1, command: `!${index + 1}`, label: name.en, value,
+      }));
+    } else {
+      const distractors = this.gameId === 'guess-movie'
+        ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal, chosenClueKind)
+        : pickGenericDistractors(item, bank, rng);
+      choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
+        optionNumber: index + 1, command: `!${index + 1}`, label: entry.name.en, value: entry.id,
+      }));
+    }
+    const correctOptionNumber = choices.find(choice => choice.value === correctValue)?.optionNumber ?? 1;
+    this.round = { item, choices, correctOptionNumber, correctValue, posterReveal, movieClue, quoteMode, localizedChoiceLabels };
+    if (movieClue) {
+      rememberPosterPlay(this.posterHistory, item.id, posterReveal ?? null, this.historyStorage, chosenClueKind, `${movieClue.id}#${chosenVariant}`);
+      this.tourClueKindCounts[chosenClueKind]++;
+      this.tourVariantCounts[chosenVariant]++;
+      this.lastMovieVariant = chosenVariant;
+    }
     this.status = 'intro';
     this.tourUsedIds.add(item.id);
     this.sessionUsedIds.add(item.id);
@@ -159,7 +263,7 @@ export class VisualGuessMiniGameService {
     if (!choice) return { ok: false, reason: 'closed' };
     const record: MiniGameAnswerRecord = {
       twitchUserId: citizen.twitchUserId, displayName: citizen.displayName,
-      role: citizen.role, answer, submittedAt: Date.now(), isCorrect: choice.value === this.round.item.id,
+      role: citizen.role, answer, submittedAt: Date.now(), isCorrect: choice.value === this.round.correctValue,
     };
     this.answers.set(citizen.twitchUserId, record);
     return { ok: true, record };
@@ -169,7 +273,7 @@ export class VisualGuessMiniGameService {
     this.correctOfficialCount = 0;
     this.correctSpectatorCount = 0;
     for (const [id, record] of this.answers) {
-      const correct = this.round.choices.find(c => `option-${c.optionNumber}` === record.answer)?.value === this.round.item.id;
+      const correct = this.round.choices.find(c => `option-${c.optionNumber}` === record.answer)?.value === this.round.correctValue;
       const updated = { ...record, isCorrect: correct };
       this.answers.set(id, updated);
       if (correct && record.role === 'official') this.correctOfficialCount++;
@@ -196,7 +300,7 @@ export class VisualGuessMiniGameService {
   }
   // Intentionally does NOT erase persistent poster history. Clear only this
   // runtime session; the player gets a fresher poster after relaunch too.
-  clear(): void { this.clearActiveRound(); this.tourUsedIds.clear(); this.sessionUsedIds.clear(); }
+  clear(): void { this.clearActiveRound(); this.tourUsedIds.clear(); this.sessionUsedIds.clear(); this.lastMovieVariant = null; for (const key of Object.keys(this.tourVariantCounts) as MovieRoundVariant[]) this.tourVariantCounts[key] = 0; this.tourClueKindCounts.poster = 0; this.tourClueKindCounts.frame = 0; this.tourClueKindCounts.quote = 0; }
   getSnapshot(locale: LocaleCode): MiniGameSnapshot {
     const item = this.round?.item;
     const reveal = this.status === 'resolved' || this.status === 'scored' || this.status === 'leaderboard';
@@ -207,7 +311,17 @@ export class VisualGuessMiniGameService {
         ? (locale === 'ar' ? 'اعرف الفيلم' : 'GUESS THE MOVIE')
         : (locale === 'ar' ? 'اعرف النجم' : 'GUESS THE STAR'),
       statement: item ? (this.gameId === 'guess-movie'
-        ? (locale === 'ar' ? 'الفيلم ده إيه؟' : 'WHICH MOVIE?')
+        ? (this.round?.quoteMode === 'complete'
+            ? (locale === 'ar' ? 'كمّل الجملة' : 'COMPLETE THE LINE')
+            : this.round?.quoteMode === 'speaker'
+              ? this.round.movieClue?.speaker?.role === 'character'
+                ? (locale === 'ar' ? 'أنهي شخصية قالت الجملة دي؟' : 'WHICH CHARACTER SAID THIS?')
+                : (locale === 'ar' ? 'مين الممثل اللي قال الجملة دي؟' : 'WHICH ACTOR SAID THIS?')
+              : this.round?.movieClue?.kind === 'quote'
+                ? (locale === 'ar' ? 'الجملة دي من فيلم إيه؟' : 'WHICH MOVIE IS THIS LINE FROM?')
+            : this.round?.movieClue?.kind === 'frame'
+              ? (locale === 'ar' ? 'المشهد ده من فيلم إيه؟' : 'WHICH MOVIE IS THIS SCENE FROM?')
+              : (locale === 'ar' ? 'الفيلم ده إيه؟' : 'WHICH MOVIE?'))
         : (locale === 'ar' ? 'مين النجم؟' : 'WHO IS THE STAR?')) : '',
       instruction: locale === 'ar' ? 'اختار من 1 إلى 4' : 'Pick 1–4',
       acceptsAnswers: this.status === 'answering',
@@ -230,8 +344,23 @@ export class VisualGuessMiniGameService {
       },
       visualGuess: this.round ? {
         mode: item!.mode,
-        imageUrl: `./assets/game/runtime/minigames/visual-guess/${item!.asset ?? `${item!.id}.jpg`}`,
-        fallbackImageUrl: item!.imageUrl,
+        imageUrl: this.round.movieClue
+          ? (this.round.movieClue.asset ? `./assets/game/runtime/minigames/visual-guess/${this.round.movieClue.asset}` : '')
+          : `./assets/game/runtime/minigames/visual-guess/${item!.asset ?? `${item!.id}.jpg`}`,
+        movieClueKind: this.round.movieClue?.kind ?? null,
+        movieQuoteMode: this.round.quoteMode ?? null,
+        // Completion must not reveal its answer while the timer is running.
+        movieQuoteText: this.round.quoteMode === 'complete'
+          ? this.round.movieClue?.completion?.prompt[locale] ?? null
+          : this.round.movieClue?.text?.[locale] ?? null,
+        movieQuoteCompletionAnswer: reveal && this.round.quoteMode === 'complete'
+          ? this.round.movieClue?.completion?.answer[locale] ?? null : null,
+        // V56 compatibility: older installs kept posters at visual-guess/ root.
+        // Prefer the V53 Posters/ layout, but still load the old local location
+        // if the user moved photos before applying the matching source update.
+        fallbackImageUrl: this.round.movieClue?.kind === 'poster'
+          ? `./assets/game/runtime/minigames/visual-guess/${item!.id}.${(item!.asset ?? '').split('.').pop() || 'jpg'}`
+          : this.round.movieClue ? '' : item!.imageUrl,
         focus: item!.focus ?? { x: 50, y: 40 },
         titleMask: item!.titleMask ?? null,
         titleMasks: item!.titleMasks ?? (item!.titleMask ? [item!.titleMask] : []),
@@ -239,12 +368,13 @@ export class VisualGuessMiniGameService {
         posterReveal: this.round.posterReveal ?? null,
         choices: this.round.choices.map(choice => ({
           ...choice,
-          label: bank.find(q => q.id === choice.value)?.name[locale]
+          label: this.round?.localizedChoiceLabels?.[choice.value]?.[locale]
+            ?? bank.find(q => q.id === choice.value)?.name[locale]
             ?? BANK.movieChoiceCatalog?.[choice.value]?.[locale]
             ?? choice.label,
         })),
         correctOptionNumber: reveal ? this.round.correctOptionNumber : null,
-        correctLabel: reveal ? item!.name[locale] : null,
+        correctLabel: reveal ? this.round.localizedChoiceLabels?.[this.round.correctValue]?.[locale] ?? item!.name[locale] : null,
       } : null,
     };
   }
@@ -258,7 +388,7 @@ function pickGenericDistractors(item: ImageItem, bank: readonly ImageItem[], rng
   ].slice(0, 3);
 }
 /**
- * Poster similarity never comes from generic movie genres alone: the 50-image
+ * Poster similarity never comes from generic movie genres alone: the initial 50-image
  * visual pack was reviewed for the number/placement of actors. Its 3x3 spatial
  * colors were calculated from the user's actual local images, not internet art.
  *
@@ -297,13 +427,23 @@ function spatialPaletteSimilarity(a: PosterVisualProfile, b: PosterVisualProfile
   return similarity / Math.max(1, regions.length);
 }
 
-function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number, plan?: PosterRevealPlan): ChoiceCandidate[] {
+function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number, plan?: PosterRevealPlan, kind: MovieClueKind = 'poster'): ChoiceCandidate[] {
   const catalog = new Map<string, ChoiceCandidate>(bank.map(({ id, name }) => [id, { id, name }]));
   for (const [id, name] of Object.entries(BANK.movieChoiceCatalog ?? {})) catalog.set(id, { id, name });
   const profile = POSTER_VISUAL_PROFILES[item.id];
-  if (!profile) throw new Error(`Poster ${item.id} is missing its verified visual profile`);
+  if (!profile && kind === 'poster') throw new Error(`Poster ${item.id} is missing its verified visual profile`);
 
   const culturalIds = item.distractorIds ?? [];
+  // A movie frame or a dialogue quote is NOT the movie's poster. Don't rank
+  // distractors by unrelated poster colors; use the reviewed Egyptian-film
+  // editorial relationships until actual frame metadata is supplied.
+  if (kind !== 'poster') {
+    const choices = culturalIds.map(id => catalog.get(id)).filter((c): c is ChoiceCandidate => Boolean(c));
+    const unique = choices.filter((c, index) => choices.findIndex(x => normalizeMovieTitle(x.name.ar) === normalizeMovieTitle(c.name.ar)) === index);
+    const sampled = kind === 'frame' && item.difficulty === 'hard' ? unique.slice(0, 4) : unique;
+    return shuffle(sampled, rng).slice(0, 3);
+  }
+  if (!profile) throw new Error(`Poster ${item.id} is missing its verified visual profile`);
   const visualIds = profile.visualNearIds;
   const visualScores = visualIds.map((id, index) => {
     const near = POSTER_VISUAL_PROFILES[id];

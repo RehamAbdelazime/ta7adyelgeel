@@ -1,0 +1,19 @@
+{
+  "ar": "عادي، إنت بتحبني ولا عادي؟",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمد ممدوح",
+    "wrong": [
+      "أحمد فتحي",
+      "أكرم حسني",
+      "محمد ثروت"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-039",
+    "source": "https://dhliz.com/film/bank_el_7azz/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

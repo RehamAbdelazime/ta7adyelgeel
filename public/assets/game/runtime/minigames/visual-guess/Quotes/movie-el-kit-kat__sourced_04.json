@@ -1,0 +1,19 @@
+{
+  "ar": "أنا أعمى يا غبي؟",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمود عبد العزيز",
+    "wrong": [
+      "نجاح الموجي",
+      "شريف منير",
+      "أحمد كمال"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-017",
+    "source": "https://www.youm7.online/story/2017/9/11/26-عامًا-على-فيلم-الكيت-كات-ولسه-الشيخ-حسنى-بيشوف/3408024",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "ar": "والله النمل طلعله سنان أهوه",
+  "speaker": {
+    "role": "character",
+    "correct": "الكينج",
+    "wrong": [
+      "مرزوق",
+      "بركات",
+      "ماهر"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-027",
+    "source": "https://dhliz.com/film/salam_ya_sa7by/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

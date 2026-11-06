@@ -1,0 +1,28 @@
+{
+  "ar": "كابتن، هو كله ضرب ضرب مفيش شتيمة؟",
+  "completion": {
+    "prompt": "كابتن، هو كله ضرب ضرب",
+    "answer": "مفيش شتيمة؟",
+    "wrong": [
+      "مفيش كلام؟",
+      "مفيش إنذار؟",
+      "مفيش تفاهم؟"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-003",
+    "source": "https://www.dostor.org/3304664",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

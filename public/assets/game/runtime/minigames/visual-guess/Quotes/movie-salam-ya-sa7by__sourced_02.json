@@ -1,0 +1,28 @@
+{
+  "ar": "يا نعيش عيشة فل، يا نموت احنا الكل",
+  "completion": {
+    "prompt": "يا نعيش عيشة فل",
+    "answer": "يا نموت احنا الكل",
+    "wrong": [
+      "يا نمشي ونريح دماغنا",
+      "يا نسيبها على الله",
+      "يا نعيشها على قدنا"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "عادل إمام",
+    "wrong": [
+      "سعيد صالح",
+      "مصطفى متولي",
+      "محمد الدفراوي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-025",
+    "source": "https://dhliz.com/film/salam_ya_sa7by/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

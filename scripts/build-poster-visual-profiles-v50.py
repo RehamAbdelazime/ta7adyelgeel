@@ -7,7 +7,7 @@ import numpy as np, json, csv
 root=Path(__file__).resolve().parents[1]
 bankpath=root/'src/game-core/minigames/visual-guess/visual-guess-questions.json'
 bank=json.loads(bankpath.read_text(encoding='utf-8'))
-movies=bank['movies']
+movies=bank['movies'][:50]  # Do NOT overwrite the 31 new V57 poster profiles.
 assert len(movies)==50
 # Cast pattern: solo / duo / trio / ensemble / collage; Placement: center / split / scattered / side
 # Palette names are editorial descriptors only; pixel-based palette has the authoritative image sample.
@@ -89,5 +89,9 @@ for idx,(m, (layout,placement,palette,close)) in enumerate(zip(movies, editorial
         'visualNearIds':[movies[n-1]['id'] for n in near_numbers],
     }
 path=bankpath.parent/'poster-visual-profiles-v50.json'
+# Legacy re-sampling must preserve V57's new 31 poster profiles.
+if path.exists():
+    latest=json.loads(path.read_text(encoding='utf-8'))
+    profiles.update({k:v for k,v in latest.get('profiles',{}).items() if k not in profiles})
 path.write_text(json.dumps({'version':1,'provenance':'Manual cast/placement/visually plausible associations from 50 user-supplied poster thumbnails; dominant and 3x3 regional RGB colors sampled from local assets. No external image sources.','profiles':profiles},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(f'wrote {path} with {len(profiles)} poster profiles')

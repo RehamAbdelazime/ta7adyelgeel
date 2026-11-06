@@ -1,0 +1,28 @@
+{
+  "ar": "راح النور يا حمار، مش عميت",
+  "completion": {
+    "prompt": "راح النور يا حمار",
+    "answer": "مش عميت",
+    "wrong": [
+      "مش اتخضيت",
+      "مش نسيت",
+      "مش رحت فين"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "محمود عبد العزيز",
+    "wrong": [
+      "نجاح الموجي",
+      "شريف منير",
+      "أحمد كمال"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-018",
+    "source": "https://dhliz.com/film/al_kit_kat/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

@@ -1,14 +1,6 @@
 /* Phase 12W final visual pass */
 .center-play-button,
 .play-choice-card,
-.host-action-grid button,
-.host-force-grid button,
-.host-inline-field button,
-.host-minigame-row button,
-.host-current-force button,
-.host-confirm-box button,
-.host-chaos-mode-list button,
-.host-panel-tabs button,
 .settings-segmented-row button,
 .settings-choice-button,
 .settings-secondary-button,
@@ -22,7 +14,7 @@
 .twitch-button-row button,
 .gameplay-scoreboard-back-button,
 .gameplay-intro-continue-button,
-.gameplay-choice-card {
+.gameplay-choice-card{
   --btn-a: #2df4ff;
   --btn-b: #ff4be7;
   --btn-c: #9a5cff;
@@ -69,14 +61,6 @@
 
 .center-play-button::before,
 .play-choice-card::before,
-.host-action-grid button::before,
-.host-force-grid button::before,
-.host-inline-field button::before,
-.host-minigame-row button::before,
-.host-current-force button::before,
-.host-confirm-box button::before,
-.host-chaos-mode-list button::before,
-.host-panel-tabs button::before,
 .settings-segmented-row button::before,
 .settings-choice-button::before,
 .settings-secondary-button::before,
@@ -90,7 +74,7 @@
 .twitch-button-row button::before,
 .gameplay-scoreboard-back-button::before,
 .gameplay-intro-continue-button::before,
-.gameplay-choice-card::before {
+.gameplay-choice-card::before{
   content: "" !important;
   position: absolute !important;
   inset: 4px !important;
@@ -117,14 +101,6 @@
 
 .center-play-button::after,
 .play-choice-card::after,
-.host-action-grid button::after,
-.host-force-grid button::after,
-.host-inline-field button::after,
-.host-minigame-row button::after,
-.host-current-force button::after,
-.host-confirm-box button::after,
-.host-chaos-mode-list button::after,
-.host-panel-tabs button::after,
 .settings-segmented-row button::after,
 .settings-choice-button::after,
 .settings-secondary-button::after,
@@ -138,7 +114,7 @@
 .twitch-button-row button::after,
 .gameplay-scoreboard-back-button::after,
 .gameplay-intro-continue-button::after,
-.gameplay-choice-card::after {
+.gameplay-choice-card::after{
   content: "" !important;
   position: absolute !important;
   inset: -6px !important;
@@ -194,14 +170,6 @@
 
 .center-play-button > *,
 .play-choice-card > *,
-.host-action-grid button > *,
-.host-force-grid button > *,
-.host-inline-field button > *,
-.host-minigame-row button > *,
-.host-current-force button > *,
-.host-confirm-box button > *,
-.host-chaos-mode-list button > *,
-.host-panel-tabs button > *,
 .settings-segmented-row button > *,
 .settings-choice-button > *,
 .settings-secondary-button > *,
@@ -215,21 +183,13 @@
 .twitch-button-row button > *,
 .gameplay-scoreboard-back-button > *,
 .gameplay-intro-continue-button > *,
-.gameplay-choice-card > * {
+.gameplay-choice-card > *{
   position: relative;
   z-index: 2;
 }
 
 .center-play-button:hover:not(:disabled),
 .play-choice-card:hover:not(:disabled),
-.host-action-grid button:hover:not(:disabled),
-.host-force-grid button:hover:not(:disabled),
-.host-inline-field button:hover:not(:disabled),
-.host-minigame-row button:hover:not(:disabled),
-.host-current-force button:hover:not(:disabled),
-.host-confirm-box button:hover:not(:disabled),
-.host-chaos-mode-list button:hover:not(:disabled),
-.host-panel-tabs button:hover:not(:disabled),
 .settings-segmented-row button:hover:not(:disabled),
 .settings-choice-button:hover:not(:disabled),
 .settings-secondary-button:hover:not(:disabled),
@@ -243,7 +203,7 @@
 .twitch-button-row button:hover:not(:disabled),
 .gameplay-scoreboard-back-button:hover:not(:disabled),
 .gameplay-intro-continue-button:hover:not(:disabled),
-.gameplay-choice-card:hover:not(:disabled) {
+.gameplay-choice-card:hover:not(:disabled){
   transform: translateY(-2px) scale(1.018) !important;
   filter: brightness(1.12) saturate(1.15) !important;
   box-shadow:
@@ -257,14 +217,6 @@
 
 .center-play-button:hover:not(:disabled)::after,
 .play-choice-card:hover:not(:disabled)::after,
-.host-action-grid button:hover:not(:disabled)::after,
-.host-force-grid button:hover:not(:disabled)::after,
-.host-inline-field button:hover:not(:disabled)::after,
-.host-minigame-row button:hover:not(:disabled)::after,
-.host-current-force button:hover:not(:disabled)::after,
-.host-confirm-box button:hover:not(:disabled)::after,
-.host-chaos-mode-list button:hover:not(:disabled)::after,
-.host-panel-tabs button:hover:not(:disabled)::after,
 .settings-segmented-row button:hover:not(:disabled)::after,
 .settings-choice-button:hover:not(:disabled)::after,
 .settings-secondary-button:hover:not(:disabled)::after,
@@ -278,21 +230,13 @@
 .twitch-button-row button:hover:not(:disabled)::after,
 .gameplay-scoreboard-back-button:hover:not(:disabled)::after,
 .gameplay-intro-continue-button:hover:not(:disabled)::after,
-.gameplay-choice-card:hover:not(:disabled)::after {
+.gameplay-choice-card:hover:not(:disabled)::after{
   opacity: 1 !important;
   transform: scale(1.02) !important;
 }
 
 .center-play-button:active:not(:disabled),
 .play-choice-card:active:not(:disabled),
-.host-action-grid button:active:not(:disabled),
-.host-force-grid button:active:not(:disabled),
-.host-inline-field button:active:not(:disabled),
-.host-minigame-row button:active:not(:disabled),
-.host-current-force button:active:not(:disabled),
-.host-confirm-box button:active:not(:disabled),
-.host-chaos-mode-list button:active:not(:disabled),
-.host-panel-tabs button:active:not(:disabled),
 .settings-segmented-row button:active:not(:disabled),
 .settings-choice-button:active:not(:disabled),
 .settings-secondary-button:active:not(:disabled),
@@ -306,21 +250,13 @@
 .twitch-button-row button:active:not(:disabled),
 .gameplay-scoreboard-back-button:active:not(:disabled),
 .gameplay-intro-continue-button:active:not(:disabled),
-.gameplay-choice-card:active:not(:disabled) {
+.gameplay-choice-card:active:not(:disabled){
   transform: translateY(2px) scale(0.99) !important;
   filter: brightness(0.96) saturate(1.04) !important;
 }
 
 .center-play-button:disabled,
 .play-choice-card:disabled,
-.host-action-grid button:disabled,
-.host-force-grid button:disabled,
-.host-inline-field button:disabled,
-.host-minigame-row button:disabled,
-.host-current-force button:disabled,
-.host-confirm-box button:disabled,
-.host-chaos-mode-list button:disabled,
-.host-panel-tabs button:disabled,
 .settings-segmented-row button:disabled,
 .settings-choice-button:disabled,
 .settings-secondary-button:disabled,
@@ -332,7 +268,7 @@
 .twitch-button-row button:disabled,
 .gameplay-scoreboard-back-button:disabled,
 .gameplay-intro-continue-button:disabled,
-.gameplay-choice-card:disabled {
+.gameplay-choice-card:disabled{
   opacity: 0.42 !important;
   filter: grayscale(0.2) saturate(0.65) !important;
   cursor: not-allowed !important;
@@ -356,9 +292,8 @@
 }
 
 .play-choice-card-tour,
-.host-panel-tabs .host-tab-active,
 .settings-choice-button.active,
-.settings-segmented-row button.active {
+.settings-segmented-row button.active{
   --btn-a: #ff4be7;
   --btn-b: #2df4ff;
   --btn-c: #9a5cff;
@@ -529,13 +464,6 @@
   border: 0 !important;
 }
 
-.host-action-grid button,
-.host-force-grid button,
-.host-inline-field button,
-.host-minigame-row button,
-.host-current-force button,
-.host-confirm-box button,
-.host-chaos-mode-list button,
 .settings-segmented-row button,
 .settings-choice-button,
 .settings-secondary-button,
@@ -547,13 +475,12 @@
 .twitch-button-row button,
 .gameplay-scoreboard-back-button,
 .gameplay-intro-continue-button,
-.gameplay-choice-card {
+.gameplay-choice-card{
   border-radius: 15px !important;
 }
 
-.host-panel-tabs button,
 .settings-close-button,
-.app-settings-gear {
+.app-settings-gear{
   border-radius: 999px !important;
 }
 
@@ -966,14 +893,6 @@
 /* cleaned legacy comment */
 .center-play-button,
 .play-choice-card,
-.host-action-grid button,
-.host-force-grid button,
-.host-inline-field button,
-.host-minigame-row button,
-.host-current-force button,
-.host-confirm-box button,
-.host-chaos-mode-list button,
-.host-panel-tabs button,
 .settings-segmented-row button,
 .settings-choice-button,
 .settings-secondary-button,
@@ -987,7 +906,7 @@
 .twitch-button-row button,
 .gameplay-scoreboard-back-button,
 .gameplay-intro-continue-button,
-.gameplay-choice-card {
+.gameplay-choice-card{
   --btn-a: #2df4ff;
   --btn-b: #8e5cff;
   --btn-c: #ff4be7;
@@ -1053,9 +972,8 @@
 }
 
 .play-choice-card-tour,
-.host-panel-tabs .host-tab-active,
 .settings-choice-button.active,
-.settings-segmented-row button.active {
+.settings-segmented-row button.active{
   --btn-a: #ff4be7 !important;
   --btn-b: #2df4ff !important;
   --btn-c: #9a5cff !important;
@@ -1093,14 +1011,6 @@
 
 .center-play-button::before,
 .play-choice-card::before,
-.host-action-grid button::before,
-.host-force-grid button::before,
-.host-inline-field button::before,
-.host-minigame-row button::before,
-.host-current-force button::before,
-.host-confirm-box button::before,
-.host-chaos-mode-list button::before,
-.host-panel-tabs button::before,
 .settings-segmented-row button::before,
 .settings-choice-button::before,
 .settings-secondary-button::before,
@@ -1114,7 +1024,7 @@
 .twitch-button-row button::before,
 .gameplay-scoreboard-back-button::before,
 .gameplay-intro-continue-button::before,
-.gameplay-choice-card::before {
+.gameplay-choice-card::before{
   content: "" !important;
   position: absolute !important;
   inset: 6px !important;
@@ -1140,14 +1050,6 @@
 
 .center-play-button::after,
 .play-choice-card::after,
-.host-action-grid button::after,
-.host-force-grid button::after,
-.host-inline-field button::after,
-.host-minigame-row button::after,
-.host-current-force button::after,
-.host-confirm-box button::after,
-.host-chaos-mode-list button::after,
-.host-panel-tabs button::after,
 .settings-segmented-row button::after,
 .settings-choice-button::after,
 .settings-secondary-button::after,
@@ -1161,7 +1063,7 @@
 .twitch-button-row button::after,
 .gameplay-scoreboard-back-button::after,
 .gameplay-intro-continue-button::after,
-.gameplay-choice-card::after {
+.gameplay-choice-card::after{
   content: "" !important;
   position: absolute !important;
   inset: -9px !important;
@@ -1181,14 +1083,6 @@
 
 .center-play-button > *,
 .play-choice-card > *,
-.host-action-grid button > *,
-.host-force-grid button > *,
-.host-inline-field button > *,
-.host-minigame-row button > *,
-.host-current-force button > *,
-.host-confirm-box button > *,
-.host-chaos-mode-list button > *,
-.host-panel-tabs button > *,
 .settings-segmented-row button > *,
 .settings-choice-button > *,
 .settings-secondary-button > *,
@@ -1202,21 +1096,13 @@
 .twitch-button-row button > *,
 .gameplay-scoreboard-back-button > *,
 .gameplay-intro-continue-button > *,
-.gameplay-choice-card > * {
+.gameplay-choice-card > *{
   position: relative !important;
   z-index: 2 !important;
 }
 
 .center-play-button:hover:not(:disabled),
 .play-choice-card:hover:not(:disabled),
-.host-action-grid button:hover:not(:disabled),
-.host-force-grid button:hover:not(:disabled),
-.host-inline-field button:hover:not(:disabled),
-.host-minigame-row button:hover:not(:disabled),
-.host-current-force button:hover:not(:disabled),
-.host-confirm-box button:hover:not(:disabled),
-.host-chaos-mode-list button:hover:not(:disabled),
-.host-panel-tabs button:hover:not(:disabled),
 .settings-segmented-row button:hover:not(:disabled),
 .settings-choice-button:hover:not(:disabled),
 .settings-secondary-button:hover:not(:disabled),
@@ -1230,7 +1116,7 @@
 .twitch-button-row button:hover:not(:disabled),
 .gameplay-scoreboard-back-button:hover:not(:disabled),
 .gameplay-intro-continue-button:hover:not(:disabled),
-.gameplay-choice-card:hover:not(:disabled) {
+.gameplay-choice-card:hover:not(:disabled){
   filter: brightness(1.1) saturate(1.16) !important;
   border-color: rgba(255, 255, 255, 0.88) !important;
   box-shadow:
@@ -1246,14 +1132,6 @@
 
 .center-play-button:hover:not(:disabled)::before,
 .play-choice-card:hover:not(:disabled)::before,
-.host-action-grid button:hover:not(:disabled)::before,
-.host-force-grid button:hover:not(:disabled)::before,
-.host-inline-field button:hover:not(:disabled)::before,
-.host-minigame-row button:hover:not(:disabled)::before,
-.host-current-force button:hover:not(:disabled)::before,
-.host-confirm-box button:hover:not(:disabled)::before,
-.host-chaos-mode-list button:hover:not(:disabled)::before,
-.host-panel-tabs button:hover:not(:disabled)::before,
 .settings-segmented-row button:hover:not(:disabled)::before,
 .settings-choice-button:hover:not(:disabled)::before,
 .settings-secondary-button:hover:not(:disabled)::before,
@@ -1267,20 +1145,12 @@
 .twitch-button-row button:hover:not(:disabled)::before,
 .gameplay-scoreboard-back-button:hover:not(:disabled)::before,
 .gameplay-intro-continue-button:hover:not(:disabled)::before,
-.gameplay-choice-card:hover:not(:disabled)::before {
+.gameplay-choice-card:hover:not(:disabled)::before{
   transform: translateX(112%) skewX(-12deg) !important;
 }
 
 .center-play-button:active:not(:disabled),
 .play-choice-card:active:not(:disabled),
-.host-action-grid button:active:not(:disabled),
-.host-force-grid button:active:not(:disabled),
-.host-inline-field button:active:not(:disabled),
-.host-minigame-row button:active:not(:disabled),
-.host-current-force button:active:not(:disabled),
-.host-confirm-box button:active:not(:disabled),
-.host-chaos-mode-list button:active:not(:disabled),
-.host-panel-tabs button:active:not(:disabled),
 .settings-segmented-row button:active:not(:disabled),
 .settings-choice-button:active:not(:disabled),
 .settings-secondary-button:active:not(:disabled),
@@ -1294,7 +1164,7 @@
 .twitch-button-row button:active:not(:disabled),
 .gameplay-scoreboard-back-button:active:not(:disabled),
 .gameplay-intro-continue-button:active:not(:disabled),
-.gameplay-choice-card:active:not(:disabled) {
+.gameplay-choice-card:active:not(:disabled){
   filter: brightness(0.92) saturate(1.05) !important;
 }
 

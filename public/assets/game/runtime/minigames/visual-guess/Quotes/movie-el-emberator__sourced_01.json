@@ -1,0 +1,28 @@
+{
+  "ar": "طول ما أنا باكدب بتسمعوني، ولما أقول الحقيقة بتزعلوا",
+  "completion": {
+    "prompt": "طول ما أنا باكدب بتسمعوني",
+    "answer": "ولما أقول الحقيقة بتزعلوا",
+    "wrong": [
+      "ولما أسكت بتسألوني",
+      "ولما أعتذر بتضحكوا",
+      "ولما أقول لأ بتتعصبوا"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "أحمد زكي",
+    "wrong": [
+      "محمود حميدة",
+      "أبو بكر عزت",
+      "حسين الشربيني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-036",
+    "source": "https://dhliz.com/film/al_embratour/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Deep source + asset audit. Produces FAIL/WARN/INFO without guessing that dynamic assets are unused. */
 import { readFile, readdir, stat, mkdir, writeFile } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, statSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
@@ -45,7 +45,7 @@ for(const p of tsfiles){
  for(const spec of imported){if(!spec.startsWith('.'))continue;const abs=path.resolve(path.dirname(p),spec);let found=null;
   const base=abs.replace(/\.js$/,''); // TypeScript emits .js from .ts imports on Electron side.
   const candidates=[abs,base+'.ts',base+'.tsx',base+'.cts',base+'.mts',abs+'.ts',abs+'.tsx',abs+'.cts',abs+'.js',abs+'.json',abs+'.css',abs+'/index.ts',abs+'/index.tsx'];
-  for(const candidate of candidates) if(existsSync(candidate)){found=candidate;break;}
+  for(const candidate of candidates) if(existsSync(candidate) && statSync(candidate).isFile()){found=candidate;break;}
   if(!found)reports.errors.push(`Unresolved import: ${relative(p)} → ${spec}`);
   else graph.get(p).push(found);
  }

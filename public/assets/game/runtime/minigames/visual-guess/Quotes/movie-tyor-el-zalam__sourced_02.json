@@ -1,0 +1,28 @@
+{
+  "ar": "أنا عمري ما أبص تحت رجلي، أنا بابص دايمًا لفوق",
+  "completion": {
+    "prompt": "أنا عمري ما أبص تحت رجلي",
+    "answer": "أنا بابص دايمًا لفوق",
+    "wrong": [
+      "أنا عارف رايح فين",
+      "أنا شايف اللي قدامي",
+      "أنا بحب أخد فرصتي"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "عادل إمام",
+    "wrong": [
+      "سعيد صالح",
+      "مصطفى متولي",
+      "محمد الدفراوي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-035",
+    "source": "https://dhliz.com/film/toyour_al_zalam/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

@@ -18,6 +18,9 @@ export type PosterPlayEntry = {
   lastPlayedSeq: number;
   lastMode?: PosterRevealMode;
   lastPattern?: number;
+  lastKind?: 'poster' | 'frame' | 'quote';
+  lastClueId?: string;
+  kindUses?: Partial<Record<'poster' | 'frame' | 'quote', number>>;
   modeUses?: Partial<Record<PosterRevealMode, number>>;
 };
 

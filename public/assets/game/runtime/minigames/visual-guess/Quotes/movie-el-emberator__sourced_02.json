@@ -1,0 +1,19 @@
+{
+  "ar": "جايين عندك الليلة، السهرة عندك الليلة",
+  "speaker": {
+    "role": "actor",
+    "correct": "أبو بكر عزت",
+    "wrong": [
+      "أحمد زكي",
+      "محمود حميدة",
+      "حسين الشربيني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-037",
+    "source": "https://dhliz.com/film/al_embratour/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

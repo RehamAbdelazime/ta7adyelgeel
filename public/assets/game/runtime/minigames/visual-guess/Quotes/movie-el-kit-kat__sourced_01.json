@@ -1,0 +1,28 @@
+{
+  "ar": "صح، بس هنكر",
+  "completion": {
+    "prompt": "صح",
+    "answer": "بس هنكر",
+    "wrong": [
+      "بس مش قصدي",
+      "بس تاني مرة",
+      "بس مش فاكر"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "نجاح الموجي",
+    "wrong": [
+      "محمود عبد العزيز",
+      "شريف منير",
+      "أحمد كمال"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-014",
+    "source": "https://www.masrawy.com/news/-/details/2017/9/25/1160645/في-ذكرى-رحيل-الهرم-والواد-مزيكا-5-إفيهات-خالدة-لنجاح-الموجي",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

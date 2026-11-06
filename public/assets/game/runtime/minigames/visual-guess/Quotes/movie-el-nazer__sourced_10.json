@@ -1,0 +1,19 @@
+{
+  "ar": "مفرقتش لولو من أبولو",
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-010",
+    "source": "https://www.elwatannews.com/news/details/5222898/",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

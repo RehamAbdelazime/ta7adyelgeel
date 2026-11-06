@@ -1,0 +1,19 @@
+{
+  "ar": "أمال يعني حماتي تطلع إيه؟",
+  "speaker": {
+    "role": "actor",
+    "correct": "شفيق نور الدين",
+    "wrong": [
+      "صلاح ذو الفقار",
+      "توفيق الدقن",
+      "عادل إمام"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-031",
+    "source": "https://dhliz.com/film/meraty_moudir_3am/quotes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

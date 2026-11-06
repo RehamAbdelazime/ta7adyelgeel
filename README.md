@@ -1,75 +1,58 @@
-# Ta7ady ElGeel — Release Candidate V48
+# Ta7ady ElGeel — V62 Quote Gameplay
 
-**Twitch party game for Windows** · Electron + React + TypeScript · Arabic / English
+**V62:** Guess the Movie quote UX: full speaker/completion prompts from the first frame, phrase-based completion choices, no media changes. See `docs/V62_QUOTE_GAMEPLAY_UX_AR.md`.
 
-## What is in the player-facing game?
+A bilingual Arabic/English Twitch party game for Windows, built with Electron, React and TypeScript.
 
-- Seven public mini-games: Food Origin, Shape Count, Maze Gates, Count the Beat, Lucky Cup, Guess the Movie, Guess the Star.
-- One Game and Full Tour modes, manual reveal/scoreboard transitions, official contestants and late-joining Spectators.
-- Persistent XP and levels, character reactions, scoreboards, Chaos and Golden Rewards.
-- Normal Settings screen, the animated stage host and the host's in-game answer controls remain.
-- **No Host Production Panel, F9 panel, QA bot buttons, or automated screenshot UI.** Those development features have been removed from the shipped UI. Test-only bot simulation remains under `tests/` for regression coverage.
+## Current game
 
-## Windows setup / development
+Seven public mini-games: Food Origin, Shape Count, Maze Gates, Count the Beat, Lucky Cup, **Guess the Movie**, and **Guess the Star**. Supports One Game / Full Tour, live chat answers (`!1`–`!4`), official players and spectators, scoreboards, persistent progression, and an animated host with private in-game answer controls. **No Host Panel or QA controls in the player-facing product.**
 
-Requires Node.js 22+ and npm.
+## Local Guess the Movie content
+
+The user-provided media under `public/assets/game/runtime/minigames/visual-guess/` is authoritative:
+
+| Directory | Included | Purpose |
+| --- | ---: | --- |
+| `Posters/` | 81 | Local movie posters, five reveal styles |
+| `Frame/` | 8 | Movie still / frame questions |
+| `Quotes/` | 40 | JSON movie dialogue, Complete the Line, Who Said It? |
+
+There are **88 registered film titles**, including **7 frame-only films** without fabricated posters. All names and files are linked via relative paths, not absolute Windows machine paths. To add more frames or quotes, use the same film ID as the question bank and run `npm run visuals:sync`. The legacy authoring formats are explained in `docs/V53_GUESS_MOVIE_FOLDERS_AR.md` and `docs/V54_RANDOM_QUOTE_GAMEPLAY_AR.md`.
+
+**Release limitations:** Guess the Star still has 20 remote-only portraits and therefore is not guaranteed offline. Third-party film images/quotes and celebrity photo rights have **not** been individually cleared for distribution or live broadcast.
+
+## Setup (Windows; Node.js 22+ / npm)
 
 ```cmd
 npm ci
+npm run visuals:sync
+npm run visuals:verify
 npm run dev
 ```
 
-The game needs a Twitch connection to run in its normal live mode. `npm run dev` opens Electron with the local Vite renderer.
+`npm run dev` launches the Vite+Electron development app; live mode needs a Twitch connection. To build, run `npm run build`, and for the Windows portable release run `npm run regression:final` then `npm run package:win`. The package command deliberately blocks release while required offline assets are missing. A green source check is **not** proof of a tested Windows EXE.
 
-## Last regression before distribution
+## Cleanup and verification
 
-On Windows, double-click **`RUN_FINAL_REGRESSION_WINDOWS.cmd`**, or run:
+| Command | Purpose |
+| --- | --- |
+| `npm run clean:preview` | Lists disposable build/QA outputs **without deleting** |
+| `npm run clean` | Removes only approved generated outputs; leaves source/media/settings untouched |
+| `npm run verify:cleanup` | Checks cleanup, CSS/asset integrity, stage and controls |
+| `npm run verify:all` | Full legacy and current source regression scripts |
+| `npm run visuals:verify` | Validates every Poster, Frame and Quote filename, format and generated link |
+| `npm run visuals:doctor` | Diagnoses missing local media |
+| `npm run audit:security` | Audits source and optionally writes `SECURITY_AUDIT.json` |
+| `npm run visuals:review` | Explicitly exports the V50 visual distractor editorial CSV |
 
-```cmd
-npm ci
-npm run regression:final
-```
+The V58 cleanup pruned **396 dead CSS selector branches**, removed four genuinely unused source modules and a superseded one-time V33 deletion tool with its manifest, fixed two stale V36 regressions, and indexed movie clues efficiently for larger quote libraries. It did not delete any user-provided Poster/Frame/Quote or dynamic sprite media. See `docs/V58_COMPREHENSIVE_CLEANUP_AR.md` for the full audit and patch instructions.
 
-This is the **last regression**, not a screenshot walkthrough. It checks release-only surfaces, source/asset integrity, legacy regressions, native Node game scenarios, Vitest, full TypeScript, Vite+Electron production build, and build outputs. It writes:
+## Documentation
 
-- `release-check/FINAL_REGRESSION_SUMMARY.txt`
-- `release-check/FINAL_REGRESSION_REPORT.json`
-- Per-step logs under `release-check/`
+Current authoring: `docs/V57_VISUAL_GUESS_FOLDER_SYNC_AR.md`, `docs/V53_GUESS_MOVIE_FOLDERS_AR.md`, `docs/V54_RANDOM_QUOTE_GAMEPLAY_AR.md`. Prior release and UX notes remain under `docs/` and `docs/history/` as historical references; the old README is saved at `docs/history/README_V57_PRE_CLEANUP.md`.
 
-The command returns a failure code if any check does not pass. It does **not** silently treat a skipped build as passing. It does not launch the old Host Panel or require Playwright.
+**Status:** source QA passed; **Windows/Electron production build and visual smoke test have not run in this environment.**
 
-To build a Windows portable executable after a **passing regression**:
 
-```cmd
-npm run package:win
-```
-
-> A successful source regression is not a substitute for a Windows executable smoke test or a human review of actual gameplay.
-
-## Media is intentionally deferred
-
-The user will supply real licensed film and celebrity images later. **They are NOT included here.** Currently the clean project contains 36 image references that use external URLs and 14 entries without usable sources; licensing and offline readiness remain unresolved. Film stills/posters need explicit reuse permission as appropriate. No generated drawings have been re-added.
-
-Supported content utilities:
-
-```cmd
-npm run visuals:status
-npm run visuals:cache
-npm run visuals:import -- <question-id> <local-image-path> <credit> <license>
-```
-
-The question bank lives at `src/game-core/minigames/visual-guess/visual-guess-questions.json`. Test the real images and broadcast permissions before enabling the media games in a release.
-
-## Technical notes
-
-- The Windows portable output is configured in `package.json` (`release-v2/`). No installer EXE is bundled in this source archive.
-- Saved Twitch profiles and settings use Electron's `userData/el-geel-city/` directory; replacing this source archive does not delete that directory.
-- Two internal QA-only minigames remain registered for testing but are **not selectable** from the public game picker.
-- The old V45 screenshot/BAT workflow is retired. Prior change notes are archived under `docs/history/`.
-- See `docs/RELEASE_READINESS_V48_AR.md` for the release checklist and limits of verification.
-
-**Status:** release-candidate source cleaned for distribution preparation; **not certified release-ready** until the full Windows regression/build, offline image assets/rights, and executable smoke test are verified.
-
-## V52 — Smart Poster Replay
-
-Offline movie posters now rotate five reveal styles (blur, zoom, spotlight, puzzle, grayscale/color) with difficulty-aware timing and initial-clue-aware distractors. Local-only viewing history survives relaunch and prioritizes unseen titles. For the Arabic QA notes see `docs/V52_SMART_POSTER_REPLAY_AR.md`; run `npm run verify:posters-v49`.
+V60 installation integrity check: `npm run verify:movie-install-v60`. See `docs/V60_INSTALL_AND_IMAGE_RECOVERY_AR.md` for clean recovery after a mixed/partial ZIP extraction.

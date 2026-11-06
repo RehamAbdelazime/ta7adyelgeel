@@ -4419,30 +4419,7 @@
   position: relative;
 }
 
-.play-mini-game-order-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 4;
-  min-width: 30px;
-  height: 30px;
-  padding: 0 9px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  background: rgba(255, 77, 216, 0.88);
-  box-shadow:
-    0 0 16px rgba(255, 77, 216, 0.55),
-    0 0 18px rgba(54, 232, 255, 0.32);
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 0.86rem;
-}
 
-[dir="rtl"] .play-mini-game-order-badge {
-  right: auto;
-  left: 10px;
-}
+
+
 

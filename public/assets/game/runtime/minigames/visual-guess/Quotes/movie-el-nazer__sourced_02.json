@@ -1,0 +1,19 @@
+{
+  "ar": "اعمل نفسك ميت",
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-002",
+    "source": "https://www.youm7.com/amp/2020/2/11/اعمل-نفسك-ميت-تعرف-على-أبرز-إيفهات-علاء-ولى-الدين/4626888",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

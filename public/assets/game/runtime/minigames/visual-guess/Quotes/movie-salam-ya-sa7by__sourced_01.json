@@ -1,0 +1,28 @@
+{
+  "ar": "صاحبي دراعي، وعمي قرشي",
+  "completion": {
+    "prompt": "صاحبي دراعي",
+    "answer": "وعمي قرشي",
+    "wrong": [
+      "وأنا ماشي",
+      "والدنيا ماشية",
+      "والحق عندي"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "عادل إمام",
+    "wrong": [
+      "سعيد صالح",
+      "مصطفى متولي",
+      "محمد الدفراوي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-024",
+    "source": "https://www.egypttelegraph.com/article/144281/أنا-مش-بشر-تراجيديا-وأقوال-مأثورة-في",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

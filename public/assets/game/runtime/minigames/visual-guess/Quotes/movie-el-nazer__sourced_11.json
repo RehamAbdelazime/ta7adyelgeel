@@ -1,0 +1,19 @@
+{
+  "ar": "أنا عاوزة أتجوز على مزاجي واحد مطأطأ كده",
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-011",
+    "source": "https://www.dostor.org/3304664",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

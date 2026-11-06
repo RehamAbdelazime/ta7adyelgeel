@@ -10,7 +10,7 @@ const checks = readdirSync(path.join(root, 'scripts'))
   .sort();
 const failures = [];
 for (const name of checks) {
-  const result = spawnSync(process.execPath, [path.join(root, 'scripts', name)], {
+  const result = spawnSync(process.execPath, [path.join(root, 'scripts', name), ...(name === 'verify-renderer-media-v59.mjs' ? ['--source-only'] : [])], {
     cwd: root,
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,

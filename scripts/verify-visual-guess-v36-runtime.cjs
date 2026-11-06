@@ -13,7 +13,7 @@ require.extensions['.ts'] = (module, filename) => {
 const root = path.resolve(__dirname, '..');
 const { VisualGuessMiniGameService, getVisualGuessBank } = require(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-service.ts'));
 const citizen = { twitchUserId: 'v36-citizen', displayName: 'Player V36', role: 'official' };
-const byMode = { 'guess-movie': ['poster','poster','poster','poster'], 'guess-star':['eyes','silhouette','zoom','reveal'] };
+const byMode = { 'guess-movie': [null,null,null,null], 'guess-star':['eyes','silhouette','zoom','reveal'] };
 let total = 0;
 for (const gameId of Object.keys(byMode)) {
   const service = new VisualGuessMiniGameService(gameId);
@@ -23,7 +23,12 @@ for (const gameId of Object.keys(byMode)) {
     service.startRound(roundIndex + 1, 405 + roundIndex);
     const intro = service.getSnapshot('ar');
     assert(intro.hasRound && !intro.acceptsAnswers && !intro.correctAnswer);
-    assert.equal(intro.visualGuess.mode, mode, `${gameId}: wrong visual mode in round ${roundIndex+1}`);
+    if (gameId === 'guess-movie') {
+      assert(['poster', 'scene'].includes(intro.visualGuess.mode), 'movie round must use a real poster or frame-only film');
+      assert(['poster', 'frame', 'quote'].includes(intro.visualGuess.movieClueKind), 'movie clue kind must be available');
+    } else {
+      assert.equal(intro.visualGuess.mode, mode, `${gameId}: wrong star visual mode in round ${roundIndex+1}`);
+    }
     assert(!used.has(intro.questionId), `${gameId}: duplicate visual clue before pool exhausted`);
     used.add(intro.questionId);
     assert.equal(intro.visualGuess.choices.length, 4);
@@ -74,6 +79,6 @@ for (const gameId of Object.keys(byMode)) {
   } finally { store.destroy(); }
   console.log(`[PASS] ${gameId}: real GameStore intro → prepare → answers → reveal`);
 }
-assert.equal(getVisualGuessBank('guess-movie').length,50);
+assert.equal(getVisualGuessBank('guess-movie').length,88);
 assert.equal(getVisualGuessBank('guess-star').length,20);
-console.log(`V36 visual-guess runtime PASS: ${total} modes/flows across both new mini-games.`);
+console.log(`Visual-guess runtime PASS: ${total} rounds/flows, V57 movie formats and original star modes.`);

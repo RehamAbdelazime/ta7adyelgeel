@@ -231,47 +231,17 @@ html body .gameplay-question-body-maze .gameplay-maze-exit-svg text {
 }
 
 /* ── Scoring guide ────────────────────────────────────────────────  */
-.ctb-scoring {
-  display: flex;
-  gap: clamp(6px, 0.5vw, 10px);
-  flex-shrink: 0;
-}
 
-.ctb-scoring-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  background: rgba(4, 12, 34, 0.88);
-  border: 1px solid rgba(45, 244, 255, 0.25);
-  border-radius: 8px;
-  padding: 5px 10px;
-  min-width: clamp(44px, 3.6vw, 66px);
-}
 
-.ctb-scoring-row span {
-  font-family: var(--display-font);
-  font-size: clamp(10px, 0.75vw, 14px);
-  color: rgba(180, 230, 255, 0.6);
-  letter-spacing: 0.03em;
-}
 
-.ctb-scoring-row strong {
-  font-family: var(--display-font);
-  font-size: clamp(12px, 0.9vw, 18px);
-  color: #ffe246;
-  text-shadow: 0 0 8px rgba(255, 226, 70, 0.4);
-  letter-spacing: 0.04em;
-}
 
-.ctb-scoring-exact {
-  border-color: rgba(102, 255, 153, 0.4);
-}
 
-.ctb-scoring-exact strong {
-  color: #afffcb;
-  text-shadow: 0 0 8px rgba(102, 255, 153, 0.5);
-}
+
+
+
+
+
+
 
 /* ── MODE-PICKER UI TWEAKS ──────────────────────────────────────────────────
    1. Shrink "What are we playing?" title
@@ -642,19 +612,11 @@ html body .gameplay-question-body-maze .gameplay-maze-full-solution {
 }
 
 /* Shared scoring guide for numeric count / estimate mini-games. */
-.ctb-scoring-partial {
-  border-color: rgba(255, 210, 75, 0.48);
-  background: rgba(42, 30, 8, 0.82);
-}
 
-.ctb-scoring-partial strong {
-  color: #ffd66b;
-  text-shadow: 0 0 8px rgba(255, 214, 107, 0.38);
-}
 
-.ctb-scoring-wrong {
-  border-color: rgba(255, 100, 120, 0.3);
-}
+
+
+
 
 .gameplay-memory-scoring {
   width: min(760px, 92%);

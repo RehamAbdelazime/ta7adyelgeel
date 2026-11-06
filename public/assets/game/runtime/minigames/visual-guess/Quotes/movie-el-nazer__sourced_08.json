@@ -1,0 +1,28 @@
+{
+  "ar": "جايب لي ورد وأنا مفطرتش من الصبح",
+  "completion": {
+    "prompt": "جايب لي ورد",
+    "answer": "وأنا مفطرتش من الصبح",
+    "wrong": [
+      "وأنا مستني العشا",
+      "وجايلي ضيوف كمان",
+      "ومش لاقي الفازة"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-008",
+    "source": "https://gate.ahram.org.eg/News/4063059.aspx",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

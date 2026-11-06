@@ -1000,46 +1000,13 @@ button {
   white-space: nowrap;
 }
 
-.twitch-connection-panel {
-  position: relative;
-  z-index: 80;
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
-  border: 1px solid rgba(145, 92, 255, 0.24);
-  border-radius: 13px;
-  background: linear-gradient(
-    135deg,
-    rgba(55, 20, 105, 0.34),
-    rgba(0, 0, 0, 0.28)
-  );
-  padding: 12px;
-  box-shadow: inset 0 0 18px rgba(145, 92, 255, 0.06);
-}
 
-.twitch-panel-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
 
-.twitch-panel-heading h3 {
-  margin: 0;
-  color: #d8c5ff;
-  font-size: 11px;
-  font-weight: 1000;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
 
-.twitch-panel-heading p {
-  margin: 5px 0 0;
-  color: rgba(255, 255, 255, 0.55);
-  font-size: 10px;
-  font-weight: 750;
-  line-height: 1.25;
-}
+
+
+
+
 
 .twitch-status-pill {
   flex: 0 0 auto;
@@ -3066,394 +3033,107 @@ button {
 
 
 
-.host-panel-header,
-.host-section-title,
-.host-current-force,
-.host-chaos-meter-note,
-.host-confirm-box > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.host-panel-header span,
-.host-section-title span,
-.host-panel-stats span,
-.host-field > span,
-.host-current-force span,
-.host-chaos-meter-note span,
-.host-confirm-box span {
-  color: rgba(234, 251, 255, 0.58);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.host-panel-header h2 {
-  margin: 4px 0 0;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 1000;
-  letter-spacing: -0.02em;
-}
-
-.host-panel-header > strong {
-  border: 1px solid rgba(255, 230, 109, 0.34);
-  border-radius: 999px;
-  background: rgba(255, 230, 109, 0.08);
-  color: #ffe66d;
-  padding: 7px 10px;
-  font-size: 10px;
-  font-weight: 1000;
-  letter-spacing: 0.12em;
-}
-
-.host-panel-stats {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.host-panel-stats div,
-.host-player-summary div,
-.host-chaos-meter-note,
-.host-confirm-box {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.22);
-  padding: 10px;
-}
-
-.host-panel-stats strong,
-.host-player-summary strong,
-.host-current-force strong,
-.host-chaos-meter-note strong {
-  display: block;
-  margin-top: 3px;
-  overflow: hidden;
-  color: #f2fbff;
-  font-size: 12px;
-  font-weight: 950;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.host-panel-tabs {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 6px;
-}
-
-.host-panel-tabs button,
-.host-action-grid button,
-.host-inline-field button,
-.host-minigame-row button,
-.host-current-force button,
-.host-force-grid button,
-.host-confirm-box button,
-.host-chaos-mode-list button {
-  cursor: pointer;
-  border: 1px solid rgba(0, 245, 255, 0.14);
-  border-radius: 13px;
-  background: rgba(0, 245, 255, 0.06);
-  color: rgba(242, 251, 255, 0.88);
-  font-weight: 950;
-  transition:
-    transform 120ms ease,
-    border-color 120ms ease,
-    background 120ms ease,
-    opacity 120ms ease;
-}
-
-.host-panel-tabs button {
-  display: grid;
-  min-height: 50px;
-  place-items: center;
-  padding: 7px 3px;
-  font-size: 9px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.host-panel-tabs button span {
-  display: block;
-  font-size: 14px;
-}
-
-.host-panel-tabs .host-tab-active,
-.host-chaos-mode-list .host-choice-active {
-  border-color: rgba(255, 94, 219, 0.62);
-  background: rgba(255, 94, 219, 0.13);
-  box-shadow: 0 0 18px rgba(255, 94, 219, 0.12);
-}
-
-.host-panel-body {
-  min-height: 240px;
-}
-
-.host-tab-panel {
-  display: grid;
-  gap: 12px;
-}
-
-.host-section-title strong {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 1000;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.host-subsection-title {
-  margin-top: 4px;
-}
-
-.host-action-grid,
-.host-force-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.host-action-grid button,
-.host-force-grid button,
-.host-inline-field button,
-.host-minigame-row button,
-.host-current-force button,
-.host-confirm-box button {
-  min-height: 38px;
-  padding: 8px 9px;
-  font-size: 11px;
-}
 
 
 
 
 
-.host-action-grid button:hover,
-.host-force-grid button:hover,
-.host-inline-field button:hover,
-.host-minigame-row button:hover,
-.host-current-force button:hover,
-.host-confirm-box button:hover,
-.host-chaos-mode-list button:hover,
-.host-panel-tabs button:hover {
-  transform: translateY(-1px);
-  border-color: rgba(0, 245, 255, 0.48);
-}
 
-.host-action-grid button:disabled,
-.host-inline-field button:disabled,
-.host-minigame-row button:disabled {
-  cursor: not-allowed;
-  opacity: 0.42;
-  transform: none;
-}
 
-.host-field {
-  display: grid;
-  gap: 7px;
-}
 
-.host-inline-field {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 94px;
-  gap: 8px;
-}
 
-.host-inline-field select {
-  border: 1px solid rgba(0, 245, 255, 0.2);
-  border-radius: 13px;
-  background: rgba(0, 0, 0, 0.25);
-  color: #f2fbff;
-  font-weight: 900;
-  padding: 0 10px;
-}
 
-.host-help-text {
-  margin: 0;
-  color: rgba(242, 251, 255, 0.54);
-  font-size: 11px;
-  font-weight: 760;
-  line-height: 1.35;
-}
 
-.host-minigame-list {
-  display: grid;
-  gap: 8px;
-  max-height: 330px;
-  overflow: auto;
-  padding-right: 2px;
-}
 
-.host-minigame-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 94px;
-  gap: 8px;
-  align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 9px;
-}
 
-.host-minigame-row label {
-  display: flex;
-  align-items: center;
-  min-width: 0;
-  gap: 9px;
-}
 
-.host-minigame-row input {
-  width: 17px;
-  height: 17px;
-  accent-color: #36e8ff;
-}
 
-.host-minigame-row strong,
-.host-minigame-row small,
-.host-chaos-mode-list strong,
-.host-chaos-mode-list small {
-  display: block;
-}
 
-.host-minigame-row strong {
-  color: #fff;
-  font-size: 12px;
-  font-weight: 950;
-}
 
-.host-minigame-row small,
-.host-chaos-mode-list small,
-.host-chaos-meter-note small {
-  color: rgba(242, 251, 255, 0.56);
-  font-size: 10px;
-  font-weight: 780;
-}
 
-.host-current-force {
-  border: 1px solid rgba(255, 230, 109, 0.18);
-  border-radius: 15px;
-  background: rgba(255, 230, 109, 0.07);
-  padding: 9px;
-}
 
-.host-current-force button {
-  min-height: 30px;
-}
 
-.host-chaos-mode-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
-}
 
-.host-chaos-mode-list button {
-  display: grid;
-  min-height: 72px;
-  align-content: center;
-  gap: 4px;
-  padding: 9px;
-  text-align: left;
-}
 
-.host-player-summary {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
 
-.host-player-summary div {
-  text-align: center;
-}
 
-.host-player-summary strong {
-  font-size: 18px;
-}
 
-.host-confirm-box {
-  display: grid;
-  gap: 8px;
-}
 
-.host-confirm-box > strong {
-  color: #fff;
-  font-size: 13px;
-  font-weight: 1000;
-}
 
-.host-confirm-box > div {
-  justify-content: flex-end;
-}
 
-[dir="rtl"] .host-panel-header span,
-[dir="rtl"] .host-section-title span,
-[dir="rtl"] .host-panel-tabs button,
-[dir="rtl"] .host-section-title strong {
-  letter-spacing: 0.02em;
-  text-transform: none;
-}
 
-.host-asset-summary {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 8px;
-}
 
-.host-asset-summary div,
-.host-asset-row {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 15px;
-  background: rgba(0, 0, 0, 0.22);
-  padding: 9px;
-}
 
-.host-asset-summary span,
-.host-asset-row small {
-  display: block;
-  color: rgba(234, 251, 255, 0.58);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 
-.host-asset-summary strong,
-.host-asset-row strong {
-  display: block;
-  overflow: hidden;
-  margin-top: 4px;
-  color: #f2fbff;
-  font-size: 11px;
-  font-weight: 950;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
-.host-asset-list {
-  display: grid;
-  max-height: 340px;
-  gap: 8px;
-  overflow: auto;
-  padding-right: 2px;
-}
 
-.host-asset-row {
-  display: grid;
-  grid-template-columns: 54px minmax(0, 1fr);
-  align-items: center;
-  gap: 10px;
-}
 
-.host-asset-row img {
-  width: 54px;
-  height: 42px;
-  object-fit: contain;
-  border-radius: 10px;
-  background: rgba(0, 245, 255, 0.05);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* cleaned legacy comment */
 .visual-world-layer {
@@ -3959,7 +3639,20 @@ button {
 }
 
 /* cleaned legacy comment */
-.gameplay-main-screen-lobby h1,.gameplay-main-screen-lobby strong,.gameplay-intro-card h2,.gameplay-prepare-card h2,.gameplay-prepare-card strong,.gameplay-shape-layout h2,.gameplay-food-layout h2,.gameplay-memory-layout h2,.gameplay-falling-layout h2,.gameplay-maze-layout h2,.gameplay-top-three-board h2,.gameplay-tour-complete h2,.host-panel-title,.host-panel h2,.brand-title,.brand-wordmark{
+.gameplay-main-screen-lobby h1,
+.gameplay-main-screen-lobby strong,
+.gameplay-intro-card h2,
+.gameplay-prepare-card h2,
+.gameplay-prepare-card strong,
+.gameplay-shape-layout h2,
+.gameplay-food-layout h2,
+.gameplay-memory-layout h2,
+.gameplay-falling-layout h2,
+.gameplay-maze-layout h2,
+.gameplay-top-three-board h2,
+.gameplay-tour-complete h2,
+.brand-title,
+.brand-wordmark{
   font-family: var(--display-font);
   letter-spacing: 0.08em;
   font-weight: 400;

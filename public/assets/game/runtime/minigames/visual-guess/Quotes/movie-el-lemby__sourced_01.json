@@ -1,0 +1,19 @@
+{
+  "ar": "بحبك يا نوسة",
+  "speaker": {
+    "role": "actor",
+    "correct": "محمد سعد",
+    "wrong": [
+      "علاء ولي الدين",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-040",
+    "source": "https://www.youm7.com/story/2017/9/23/محمد-سعد-فى-حوار-لـ-اليوم-السابع-الكنز-حقق-أعلى/3425421",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

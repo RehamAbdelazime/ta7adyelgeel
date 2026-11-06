@@ -1,0 +1,19 @@
+{
+  "ar": "لا يا بركتة، بلاش الدم",
+  "speaker": {
+    "role": "actor",
+    "correct": "عادل إمام",
+    "wrong": [
+      "سعيد صالح",
+      "مصطفى متولي",
+      "محمد الدفراوي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-030",
+    "source": "https://dhliz.com/film/salam_ya_sa7by/memes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "hard",
+    "note": ""
+  }
+}

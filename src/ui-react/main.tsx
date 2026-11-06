@@ -67,6 +67,8 @@ import './styles/progression-finale-v41.css';
 import './styles/character-progression-v42.css';
 // V46 visual polish: scoreboard, winner banner, shape shading, nameplates.
 import './styles/visual-polish-v46.css';
+// V61: frames stay sharp; longer movie answers fit fully inside their cards.
+import './styles/visual-guess-readability-v61.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

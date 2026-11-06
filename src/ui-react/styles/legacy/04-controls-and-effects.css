@@ -2,11 +2,9 @@
 .center-play-button,
 .gameplay-intro-continue-button,
 .gameplay-scoreboard-back-button,
-.host-action-button,
-.host-tab-button,
 .settings-apply-button,
 .settings-secondary-button,
-.settings-choice-button {
+.settings-choice-button{
   filter: saturate(1.08) contrast(1.03);
 }
 
@@ -2562,13 +2560,11 @@ button,
 .settings-secondary-button,
 .settings-apply-button,
 .settings-danger-button,
-.twitch-connection-panel button,
-.host-action-button,
 button[class*="host-"],
 button[class*="play-"],
 button[class*="settings-"],
 button[class*="gameplay-"],
-button[class*="auth-"] {
+button[class*="auth-"]{
   --neon-a: var(--egc-neon-btn-cyan);
   --neon-b: var(--egc-neon-btn-purple);
   --neon-text: #f8fdff;
@@ -2820,8 +2816,7 @@ button[class*="host-"]:hover:not(:disabled){
 .play-choice-modal,
 .play-mini-game-picker,
 .settings-modal,
-.auth-card,
-.twitch-connection-panel{
+.auth-card{
   background: rgba(2, 4, 18, 0.54) !important;
   border: 1px solid rgba(69, 242, 255, 0.28) !important;
   box-shadow:

@@ -1,0 +1,19 @@
+{
+  "ar": "أحبك، أعبدك، أموت في هواك",
+  "completion": {
+    "prompt": "أحبك، أعبدك",
+    "answer": "أموت في هواك",
+    "wrong": [
+      "وأعيش في رضاك",
+      "وأستناك من بعيد",
+      "وأنسى اللي سواك"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-023",
+    "source": "https://dhliz.com/film/esha3et_7ob/?page=2&panel=memes",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": "المشهد يقوم على تقليد صوت هند رستم؛ نتجنب سؤال الممثل منعًا للبس بين الصوت والمؤدي."
+  }
+}

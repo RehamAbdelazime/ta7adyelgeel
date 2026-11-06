@@ -1,0 +1,28 @@
+{
+  "ar": "يا عيني على الحلو لما تبهدله الأيام",
+  "completion": {
+    "prompt": "يا عيني على الحلو",
+    "answer": "لما تبهدله الأيام",
+    "wrong": [
+      "لما ينسى صحابه",
+      "لما يزعل من الناس",
+      "لما تخونه الأحلام"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-009",
+    "source": "https://www.altreeq.com/article/518152",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

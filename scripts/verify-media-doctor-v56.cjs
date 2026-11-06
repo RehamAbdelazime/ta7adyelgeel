@@ -1,0 +1,47 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const cp = require('node:child_process');
+const root = path.join(__dirname, '..');
+const bank = JSON.parse(fs.readFileSync(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-questions.json'), 'utf8'));
+const publicVisual = path.join(root, 'public/assets/game/runtime/minigames/visual-guess');
+const source = fs.readFileSync(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-service.ts'), 'utf8');
+const screen = fs.readFileSync(path.join(root, 'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'), 'utf8');
+const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'ta7ady-v56-media-'));
+try {
+  const mockBank = { movies: bank.movies.slice(0, 2), stars: bank.stars.slice(0, 1) };
+  const bankDir = path.join(temp, 'src/game-core/minigames/visual-guess');
+  const mediaDir = path.join(temp, 'public/assets/game/runtime/minigames/visual-guess');
+  fs.mkdirSync(bankDir, { recursive: true });
+  fs.mkdirSync(mediaDir, { recursive: true });
+  fs.writeFileSync(path.join(bankDir, 'visual-guess-questions.json'), JSON.stringify(mockBank));
+  const first = mockBank.movies[0];
+  const legacyFilename = path.basename(first.asset);
+  fs.writeFileSync(path.join(mediaDir, legacyFilename), Buffer.alloc(2000, 1));
+  const run = (...args) => cp.spawnSync(process.execPath,
+    [path.join(root,'scripts/doctor-visual-media-v56.mjs'), '--root', temp, ...args], { encoding: 'utf8' });
+  const missing = run();
+  assert.equal(missing.status, 1);
+  assert(missing.stdout.includes('POSTERS: 0/2'));
+  const repaired = run('--repair-legacy');
+  assert.equal(repaired.status, 1, 'second movie still missing');
+  assert(repaired.stdout.includes('RESTORED 1 legacy posters'));
+  assert(fs.existsSync(path.join(mediaDir, first.asset)));
+  const second = mockBank.movies[1];
+  fs.mkdirSync(path.join(mediaDir, path.dirname(second.asset)), { recursive: true });
+  fs.writeFileSync(path.join(mediaDir, second.asset), Buffer.alloc(2200, 1));
+  const ready = run();
+  assert.equal(ready.status, 0, ready.stderr);
+  assert(ready.stdout.includes('POSTERS: 2/2'));
+  assert(ready.stdout.includes('STARS: 0/1 local; 1 require internet'));
+  const offline = run('--strict-offline');
+  assert.equal(offline.status, 1, 'package must not silently ship missing star images');
+  const noDist = run('--check-dist');
+  assert.equal(noDist.status, 1);
+  assert(noDist.stdout.includes('DIST: 2 referenced images absent'));
+  assert(source.includes('this.round.movieClue?.kind === \'poster\''), 'poster fallback must remain');
+  assert(screen.includes("console.warn('[VisualGuess] Image failed:'"), 'image error must report the path');
+  for (const movie of bank.movies.filter(movie=>movie.asset)) assert(fs.existsSync(path.join(publicVisual, movie.asset)), `poster absent: ${movie.id}`);
+  console.log('V56 media doctor PASS: 81 real poster paths, safe legacy migration, missing-image diagnostics, no silent offline star packaging.');
+} finally { fs.rmSync(temp, { recursive: true, force: true }); }

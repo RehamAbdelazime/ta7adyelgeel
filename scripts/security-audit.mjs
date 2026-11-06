@@ -4,7 +4,7 @@ import { readdir, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = process.cwd();
-const skipDirs = new Set(['node_modules', '.git', 'release', 'dist', 'dist-electron']);
+const skipDirs = new Set(['node_modules', '.git', 'release', 'release-v2', 'release-check', 'dist', 'dist-electron', 'coverage', 'qa-artifacts']);
 const textExtensions = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.json', '.html', '.css', '.svg']);
 const findings = [];
 
@@ -94,13 +94,19 @@ if (secretMatches.length) fail('secret-scan', 'Potential hard-coded secret/token
 else pass('secret-scan', 'No hard-coded access tokens, refresh tokens, passwords, or client secrets detected.');
 
 const publicDir = path.join(root, 'public');
-const sourceText = textFiles.map((file) => read(file)).join('\n');
+// Audit executable source and shipped config only. Historical release manifests
+// intentionally contain moved V49-era paths and are not runtime references.
+const runtimeFiles = textFiles.filter(file => {
+  const name = rel(file).replaceAll('\\', '/');
+  return name.startsWith('src/') || name.startsWith('public/') || name === 'index.html';
+});
+const sourceText = runtimeFiles.map((file) => read(file)).join('\n');
 const assetRefs = [...sourceText.matchAll(/[.\/]assets\/game\/runtime\/[^'\")\s`,]+/g)]
   .map((match) => match[0].replace(/^\.\//, '').replace(/^\//, ''));
 const missingAssets = [];
 for (const assetRef of new Set(assetRefs)) {
   const normalized = assetRef.replace(/\$\{[^}]+\}/g, '*');
-  if (normalized.includes('*')) continue;
+  if (normalized.includes('*') || /[$`{}]/.test(assetRef)) continue; // template literals are verified by catalog checks
   if (!existsSync(path.join(publicDir, normalized))) missingAssets.push(assetRef);
 }
 if (missingAssets.length) fail('asset-reference-scan', 'Static asset references are missing.', missingAssets.slice(0, 12).join(', '));
@@ -120,7 +126,7 @@ const result = {
   findings,
 };
 
-writeFileSync(path.join(root, 'SECURITY_AUDIT.json'), `${JSON.stringify(result, null, 2)}\n`);
+if (process.argv.includes('--write-report')) writeFileSync(path.join(root, 'SECURITY_AUDIT.json'), `${JSON.stringify(result, null, 2)}\n`);
 
 if (result.summary.failed > 0) {
   console.error(JSON.stringify(result.summary, null, 2));

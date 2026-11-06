@@ -5,6 +5,24 @@ import { useGame } from '../../../context/GameContext';
 import { QuestionScreenShell } from '../shared/question-shell';
 import { getPosterBlurPx, getPosterRevealProgress } from './poster-reveal-curve';
 import { getSpotlightPoint, puzzleOrder, type PosterRevealMode } from '../../../../game-core/minigames/visual-guess/poster-mystery';
+import { visibleQuoteWordCount } from './quote-display-policy';
+import movieMediaFallbacks from '../../../../game-core/minigames/visual-guess/media-fallbacks.generated.json';
+
+/** Bundled directly into the renderer, so a stale/copy-incomplete public folder
+ * does not turn a valid question into the 'image unavailable' screen.
+ * Entries are generated from the user's real local movie images, never invented.
+ */
+function fallbackMovieImage(url: string): string | null {
+  const pathPart = url.split('?')[0]?.split('#')[0] ?? '';
+  const key = pathPart.includes('/visual-guess/') ? pathPart.split('/visual-guess/').pop() : null;
+  if (!key || !/^(Posters|Frame)\/[\w.-]+\.(jpg|jpeg|png|webp|avif)$/i.test(key)) return null;
+  return (movieMediaFallbacks.assets as Record<string, { dataUrl: string }>)[key]?.dataUrl ?? null;
+}
+
+const MOVIE_CLUE_LABELS = {
+  frame: { ar: 'لقطة من الفيلم', en: 'MOVIE FRAME' },
+  quote: { ar: 'جملة من فيلم', en: 'MOVIE QUOTE' },
+};
 
 const MODE_LABELS = {
   poster: { ar: 'بوستر', en: 'POSTER' },
@@ -28,10 +46,11 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
   const data = miniGame.visualGuess;
   const [imageError, setImageError] = useState(false);
   const [useRemoteMedia, setUseRemoteMedia] = useState(false);
+  const [useBundledFallback, setUseBundledFallback] = useState(false);
   const [clock, setClock] = useState(() => Date.now());
   const showingResult = tourPhase === 'scoring';
 
-  useEffect(() => { setImageError(false); setUseRemoteMedia(false); }, [data?.imageUrl]);
+  useEffect(() => { setImageError(false); setUseRemoteMedia(false); setUseBundledFallback(false); }, [data?.imageUrl]);
   useEffect(() => {
     if (!data || !['reveal', 'poster'].includes(data.mode) || tourPhase !== 'answer_window_open') return undefined;
     const id = window.setInterval(() => setClock(Date.now()), 100);
@@ -68,15 +87,39 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
 
   if (!data) return null;
   const isAr = snapshot.locale === 'ar';
-  const modeText = (miniGame.id === 'guess-movie'
-    ? POSTER_VARIANT_LABELS[data.posterReveal?.mode ?? 'blur']
+  const movieKind = miniGame.id === 'guess-movie' ? data.movieClueKind ?? 'poster' : null;
+  const embeddedImage = miniGame.id === 'guess-movie' && data.imageUrl
+    ? fallbackMovieImage(data.imageUrl) : null;
+  const displayedImageUrl = useBundledFallback && embeddedImage ? embeddedImage
+    : useRemoteMedia ? data.fallbackImageUrl : data.imageUrl;
+  const modeText = (movieKind === 'quote' && data.movieQuoteMode === 'complete'
+    ? { ar: 'كمّل الجملة', en: 'COMPLETE THE LINE' }
+    : movieKind === 'quote' && data.movieQuoteMode === 'speaker'
+      ? { ar: 'مين قالها؟', en: 'WHO SAID IT?' }
+      : movieKind === 'frame' || movieKind === 'quote'
+    ? MOVIE_CLUE_LABELS[movieKind]
+    : miniGame.id === 'guess-movie' ? POSTER_VARIANT_LABELS[data.posterReveal?.mode ?? 'blur']
     : MODE_LABELS[data.mode])[isAr ? 'ar' : 'en'];
   const focus = data.focus;
   const isPortrait = miniGame.id === 'guess-star';
-  const isPoster = data.mode === 'poster';
+  const isPoster = data.mode === 'poster' && movieKind === 'poster';
+  const isFrame = movieKind === 'frame';
+  const isMovieQuote = movieKind === 'quote';
+  const isQuoteText = isMovieQuote && Boolean(data.movieQuoteText) && !data.imageUrl;
   const isEyes = data.mode === 'eyes';
   const isZoom = data.mode === 'zoom';
   const posterPlan = isPoster ? data.posterReveal : null;
+  const quoteWords = isQuoteText ? (data.movieQuoteText ?? '').trim().split(/\s+/) : [];
+  const startingShare = miniGame.questionDifficulty === 'easy' ? .35 : miniGame.questionDifficulty === 'hard' ? .13 : .24;
+  // A quote used to identify a speaker or complete an ending is fully readable
+  // immediately; only "Which film?" keeps the gradual word reveal.
+  const quoteVisibleWords = visibleQuoteWordCount(
+    data.movieQuoteMode, quoteWords.length, startingShare, posterProgress, showingResult, remainingMs, tourPhase,
+  );
+  const visibleQuote = quoteWords.slice(0, quoteVisibleWords).join(' ');
+  // Quotes may reveal gradually only in movie-identification mode; frames stay crisp.
+  const quoteImageBlur = showingResult || (tourPhase === 'answer_window_open' && remainingMs <= 1000)
+    ? 0 : getPosterBlurPx(revealDuration, remainingMs, miniGame.questionDifficulty);
   const posterMode = posterPlan?.mode ?? 'blur';
   const posterFinished = showingResult || (tourPhase === 'answer_window_open' && remainingMs <= 1000);
   const posterMysteryActive = isPoster && !posterFinished;
@@ -109,35 +152,57 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
     }
   }
 
+  // Long Egyptian movie titles and dialogue endings need larger cards and
+  // smaller type, without truncating their answer text.
+  const longestChoice = Math.max(0, ...data.choices.map(choice => Array.from(choice.label).length));
+  const answerSizeClass = longestChoice > 45 ? 'v61-visual-answers-xl'
+    : longestChoice > 25 ? 'v61-visual-answers-long' : 'v61-visual-answers-normal';
+
   return <QuestionScreenShell
     miniGame={miniGame}
     tourPhase={tourPhase}
     helperText=""
     choices={data.choices.map(c => ({ command: c.command, label: c.label, tone: 'cyan' as const }))}
     layout="choice"
-    shellClassName="v36-visual-shell"
+    shellClassName={`v36-visual-shell ${answerSizeClass} ${data.movieQuoteMode === 'complete' ? 'v54-quote-complete-shell' : ''}`}
     bodyClassName="v36-visual-body"
   >
     <div className={`v36-visual-stage v36-visual-stage-${data.mode} ${showingResult ? 'v36-visual-revealed' : ''}`}>
-      <div className={`v36-visual-frame ${isPoster ? 'v36-visual-frame-poster' : ''} ${isPortrait ? 'v36-visual-frame-portrait' : ''}`}
+      <div className={`v36-visual-frame ${isPoster ? 'v36-visual-frame-poster' : ''} ${isPortrait ? 'v36-visual-frame-portrait' : ''} ${isFrame || isMovieQuote ? 'v53-movie-wide-frame' : ''} ${isQuoteText ? 'v53-movie-text-frame' : ''}`}
         style={isPoster && (data.posterAspectRatio ?? 0) > 1 ? { width: 'min(100%, 850px)' } : undefined}>
-        <div className={`v36-visual-canvas ${isEyes && !showingResult ? 'v44-eyes-crop' : ''} ${isPoster ? 'v49-poster-canvas' : ''}`}
+        <div className={`v36-visual-canvas ${isEyes && !showingResult ? 'v44-eyes-crop' : ''} ${isPoster ? 'v49-poster-canvas' : ''} ${isQuoteText ? 'v53-movie-quote-canvas' : ''}`}
           style={isPoster ? { '--poster-aspect': String(data.posterAspectRatio ?? 2 / 3) } as CSSProperties : undefined}>
-          {!imageError ? <img
-            src={useRemoteMedia ? data.fallbackImageUrl : data.imageUrl}
+          {isQuoteText ? <div className="v53-movie-quote" lang={isAr ? 'ar' : 'en'} dir={isAr ? 'rtl' : 'ltr'}>
+            <span className="v53-movie-quote-glyph" aria-hidden="true">❝</span>
+            <p>{visibleQuote}{quoteVisibleWords < quoteWords.length ? <span className="v53-movie-quote-cursor" aria-hidden="true">…</span> : null}
+              {data.movieQuoteMode === 'complete' ? <span className="v54-quote-missing" aria-label={isAr ? 'الجزء الناقص' : 'Missing ending'}>
+                {showingResult && data.movieQuoteCompletionAnswer ? ` ${data.movieQuoteCompletionAnswer}` : ' ____'}
+              </span> : null}
+            </p>
+          </div> : !imageError ? <img
+            src={displayedImageUrl}
             className={imageClass}
             alt={isAr ? 'صورة تحدي من غير الكشف عن الإجابة' : 'Mystery picture clue'}
             draggable={false}
             loading="eager"
-            style={isPoster ? posterImageStyle : showingResult && isZoom
+            style={isPoster ? posterImageStyle : isFrame ? { filter: 'none' }
+              : isMovieQuote ? { filter: quoteImageBlur > 0 ? `blur(${quoteImageBlur.toFixed(2)}px)` : 'none' } : showingResult && isZoom
               ? { objectPosition: `${focus.x}% ${focus.y}%` } : imageStyle}
-            onError={() => { if (!useRemoteMedia && data.fallbackImageUrl) setUseRemoteMedia(true); else setImageError(true); }}
+            onError={() => {
+              // A missing dist/ asset or old build must never spoil a movie round:
+              // first recover the exact same poster/frame from the renderer bundle.
+              console.warn('[VisualGuess] Image failed:', { gameId: miniGame.id, clueKind: movieKind,
+                url: useBundledFallback ? '[embedded offline fallback]' : displayedImageUrl });
+              if (!useBundledFallback && embeddedImage) setUseBundledFallback(true);
+              else if (!useRemoteMedia && !useBundledFallback && data.fallbackImageUrl && data.fallbackImageUrl !== data.imageUrl) setUseRemoteMedia(true);
+              else setImageError(true);
+            }}
           /> : <div role="status" className="v36-visual-media-error">
             <b aria-hidden="true">⚠</b>
-            <span>{isAr ? 'الصورة مش متاحة في ملفات اللعبة' : 'Local image is unavailable'}</span>
+            <span>{isAr ? (miniGame.id === 'guess-star' ? 'صورة النجم مش متاحة — محتاجة صورة محلية أو إنترنت' : 'صورة الفيلم مش موجودة في نسخة اللعبة') : (miniGame.id === 'guess-star' ? 'Star photo unavailable (local file / internet)' : 'Movie image missing from this game build')}</span>
           </div>}
           {posterMysteryActive && posterMode === 'spotlight' && !imageError && posterPlan ? (
-            <img src={useRemoteMedia ? data.fallbackImageUrl : data.imageUrl}
+            <img src={displayedImageUrl}
               alt="" aria-hidden="true" draggable={false}
               className="v36-visual-image v52-poster-spotlight-image"
               style={{ clipPath: `circle(${(17 + 128 * posterProgress).toFixed(2)}% at ${spotlightPoint.x.toFixed(2)}% ${spotlightPoint.y.toFixed(2)}%)` }} />
@@ -148,7 +213,7 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
                 className={order.indexOf(region) < puzzleVisibleCount ? 'v52-poster-puzzle-tile-clear' : ''} />)}
             </div>
           ) : null}
-          {data.mode === 'reveal' && !showingResult && !imageError ? (
+          {data.mode === 'reveal' && !isFrame && !showingResult && !imageError ? (
             <div className="v36-visual-reveal-grid" aria-hidden="true">
               {tileOrder.map(({ index, order }) => <span
                 key={index}
@@ -162,3 +227,4 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
     </div>
   </QuestionScreenShell>;
 }
+

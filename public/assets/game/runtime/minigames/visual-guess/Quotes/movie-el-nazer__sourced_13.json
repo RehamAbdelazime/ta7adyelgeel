@@ -1,0 +1,19 @@
+{
+  "ar": "أنا عايز أبقى صايع يا عاطف، صيعني يا عاطف",
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-013",
+    "source": "https://www.dostor.org/2054990",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": ""
+  }
+}

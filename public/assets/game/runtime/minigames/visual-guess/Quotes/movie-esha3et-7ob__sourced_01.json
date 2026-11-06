@@ -1,0 +1,19 @@
+{
+  "ar": "كده برضه يا سونة يا خاين",
+  "completion": {
+    "prompt": "كده برضه يا سونة",
+    "answer": "يا خاين",
+    "wrong": [
+      "يا قلبي",
+      "يا حبيبي",
+      "يا قاسي"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-019",
+    "source": "https://www.masrawy.com/arts/zoom/details/2014/11/17/390527/في-ذكري-وفاته-أشهر-أفيهات-الكوميديان-عبد-المنعم-إبراهيم",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "easy",
+    "note": "المشهد يقوم على تقليد صوت هند رستم؛ نتجنب سؤال الممثل منعًا للبس بين الصوت والمؤدي."
+  }
+}

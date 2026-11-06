@@ -1,0 +1,28 @@
+{
+  "ar": "ممكن نقف 50 دقيقة حداد على روح بابا؟",
+  "completion": {
+    "prompt": "ممكن نقف 50 دقيقة",
+    "answer": "حداد على روح بابا؟",
+    "wrong": [
+      "ونرجع ناخد راحة؟",
+      "لحد ما نلاقي حل؟",
+      "ونكمل الاجتماع بكرة؟"
+    ]
+  },
+  "speaker": {
+    "role": "actor",
+    "correct": "علاء ولي الدين",
+    "wrong": [
+      "محمد سعد",
+      "أحمد حلمي",
+      "حسن حسني"
+    ]
+  },
+  "researchMeta": {
+    "id": "MQ-004",
+    "source": "https://www.youm7.com/amp/2020/2/11/اعمل-نفسك-ميت-تعرف-على-أبرز-إيفهات-علاء-ولى-الدين/4626888",
+    "status": "news_or_database_sourced_needs_scene_and_rights_review",
+    "difficultySuggestion": "medium",
+    "note": ""
+  }
+}

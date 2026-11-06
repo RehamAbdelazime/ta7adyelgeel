@@ -33,19 +33,17 @@ for (const id of qaOnlyIds) {
   assert(!config.tour.miniGameRotation.includes(id), "QA-only game must not be in public Tour rotation: " + id);
 }
 
+// Only assert the actually mounted lobby flow. The retired PlayLauncher looked
+// correct in tests but never rendered, hiding regressions in the real UI.
 const mainScreen = read("src/ui-react/components/play/MainScreenPlayFlow.tsx");
-const playLauncher = read("src/ui-react/components/play/PlayLauncher.tsx");
-for (const file of [["MainScreenPlayFlow", mainScreen], ["PlayLauncher", playLauncher]]) {
-  for (const id of qaOnlyIds) {
-    assert(!file[1].includes("id: " + JSON.stringify(id).replaceAll("\"", "\x27")), file[0] + " exposes disabled minigame: " + id);
-  }
-  assert(file[1].includes("useState<MiniGameId[]>([])"), file[0] + " must start tour selection empty");
-  assert(file[1].includes("return unchanged ? currentSelected : stillAvailable;"), file[0] + " must preserve a manual empty tour selection without creating render loops");
-  assert(file[1].includes("selectedTourMiniGames.length === 0"), file[0] + " must disable Start Tour when empty");
+for (const id of qaOnlyIds) {
+  assert(!mainScreen.includes("id: " + JSON.stringify(id).replaceAll("\"", "\x27")), "MainScreenPlayFlow exposes disabled minigame: " + id);
 }
-
-assert(playLauncher.includes("selectedOrder = selectedTourMiniGames.indexOf"), "PlayLauncher must show tour selection order");
-assert(playLauncher.includes("play-mini-game-order-badge"), "PlayLauncher order badge missing");
+assert(mainScreen.includes("useState<MiniGameId[]>([])"), "Tour selection must start empty");
+assert(mainScreen.includes("return unchanged ? currentSelected : stillAvailable;"), "Empty tour selection must remain stable");
+assert(mainScreen.includes("selectedTourMiniGames.length === 0"), "Start Tour must be disabled when empty");
+assert(mainScreen.includes("selectedMiniGames.indexOf(miniGame.id) + 1"), "Current lobby must display selection order");
+assert(mainScreen.includes("main-screen-mini-card-order"), "Current lobby order badge missing");
 
 const overlay = read("src/ui-react/components/gameplay/GameplayOverlay.tsx");
 assert(overlay.includes("RoundScoreBoard"), "Round score screen missing");

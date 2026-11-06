@@ -208,4 +208,4 @@ html body #root .gameplay-question-memory-count .gameplay-memory-scoring {
   background:rgba(4,15,36,.94)!important;
   pointer-events:none!important;
 }
-html body #root .gameplay-question-memory-count .gameplay-memory-scoring .ctb-scoring-row {min-height:0!important;padding:3px 7px!important;font-size:clamp(10px,.75vw,14px)!important;}
+
