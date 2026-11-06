@@ -9,6 +9,7 @@ import rawBank from './visual-guess-questions.json';
 import rawPosterProfiles from './poster-visual-profiles-v50.json';
 import rawMovieClues from './movie-clues.generated.json';
 import { planPosterReveal, type PosterRevealPlan } from './poster-mystery';
+import { chooseQuoteWrongAnswers, choiceHistoryKey, readQuoteChoiceHistory, rememberQuoteChoice, shuffleQuoteAnswerPositions, type QuoteChoiceHistory } from './quote-choice-rotation';
 import { browserPosterStorage, emptyPosterHistory, readPosterHistory, rememberPosterPlay, type PosterHistory, type PosterHistoryStorage } from './poster-history';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import type { LocaleCode } from '../../localization/locale-types';
@@ -120,9 +121,11 @@ export class VisualGuessMiniGameService {
   private correctSpectatorCount = 0;
   private scored = false;
   private readonly posterHistory: PosterHistory;
+  private readonly quoteChoiceHistory: QuoteChoiceHistory;
 
   constructor(readonly gameId: VisualGuessGameId, private readonly historyStorage: PosterHistoryStorage | null = browserPosterStorage()) {
     this.posterHistory = gameId === 'guess-movie' ? readPosterHistory(historyStorage) : emptyPosterHistory();
+    this.quoteChoiceHistory = gameId === 'guess-movie' ? readQuoteChoiceHistory(historyStorage) : {};
   }
 
   beginTour(): void { this.tourUsedIds.clear(); this.tourClueKindCounts.poster = 0; this.tourClueKindCounts.frame = 0; this.tourClueKindCounts.quote = 0; this.lastMovieVariant = null; for (const key of Object.keys(this.tourVariantCounts) as MovieRoundVariant[]) this.tourVariantCounts[key] = 0; this.clearActiveRound(); }
@@ -221,15 +224,30 @@ export class VisualGuessMiniGameService {
     let localizedChoiceLabels: Record<string, I18n> | undefined;
     let choices: VisualGuessChoice[];
     if (quoteAnswers) {
-      // Correct answer is NOT the movie title in these two quote subgames.
-      // All four choices come from human-authored metadata; never invent actors
-      // or randomly sample unrelated endings.
+      // V63: rotate the *actual wrong answers*, not merely their 1–4 positions.
+      // Prefer plausible film/era peers for actors and hand-edited endings for
+      // completions. The true speaker/ending always comes from the original
+      // user quote; no invented attribution ever becomes the correct choice.
       correctValue = 'quote:correct';
-      localizedChoiceLabels = Object.fromEntries([quoteAnswers.answer, ...quoteAnswers.wrong]
+      const context = {
+        clueId: movieClue!.id, movieId: item.id,
+        mode: quoteMode! as 'speaker' | 'complete',
+        role: movieClue?.speaker?.role,
+        difficulty: item.difficulty,
+        correct: quoteAnswers.answer, authoredWrong: quoteAnswers.wrong,
+      };
+      const historyKey = choiceHistoryKey(context);
+      const recent = this.quoteChoiceHistory[historyKey];
+      const wrong = chooseQuoteWrongAnswers(context, rng, recent?.recent);
+      localizedChoiceLabels = Object.fromEntries([quoteAnswers.answer, ...wrong]
         .map((name, index) => [index === 0 ? correctValue : `quote:wrong:${index}`, name]));
-      choices = shuffle(Object.entries(localizedChoiceLabels), rng).map(([value, name], index) => ({
-        optionNumber: index + 1, command: `!${index + 1}`, label: name.en, value,
-      }));
+      choices = shuffleQuoteAnswerPositions(Object.entries(localizedChoiceLabels)
+        .map(([value, name]) => ({ value, name })), rng, recent?.lastCorrectSlot)
+        .map(({value, name}, index) => ({
+          optionNumber: index + 1, command: `!${index + 1}`, label: name.en, value,
+        }));
+      rememberQuoteChoice(this.quoteChoiceHistory, this.historyStorage, historyKey,
+        wrong, choices.find(choice => choice.value === correctValue)!.optionNumber);
     } else {
       const distractors = this.gameId === 'guess-movie'
         ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal, chosenClueKind)

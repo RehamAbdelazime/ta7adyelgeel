@@ -23,11 +23,11 @@ const asI18n = value => typeof value === 'string' && value.trim()
 const normalize = value => value.normalize('NFKC').replace(/[\u064B-\u065F\u0670]/g, '')
   .replace(/[إأآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^\p{L}\p{N}]/gu, '').toLowerCase();
 function validAnswerSet(correct, wrong) {
-  if (!correct || !Array.isArray(wrong) || wrong.length !== 3) return false;
+  if (!correct || !Array.isArray(wrong) || (wrong.length < 3 || wrong.length > 24)) return false;
   const values = [correct, ...wrong];
   if (values.some(value => !value || value.ar.length > 120 || value.en.length > 120)) return false;
-  return new Set(values.map(value => normalize(value.ar))).size === 4
-    && new Set(values.map(value => normalize(value.en))).size === 4;
+  return new Set(values.map(value => normalize(value.ar))).size === values.length
+    && new Set(values.map(value => normalize(value.en))).size === values.length;
 }
 // V62 playability rule: "Complete the line" is a memory/recognition challenge,
 // not an unreadable or one-word trick question. The player gets a substantial
@@ -97,7 +97,7 @@ for (const [folder, kind] of [['Frame', 'frame'], ['Quotes', 'quote']]) {
                 editorialSkips.push(`${folder}/${name}`);
               }
               if (!text) text = prompt;
-            } else warnings.push(`Invalid completion (requires prompt, answer, 3 distinct wrong endings): ${folder}/${name}`);
+            } else warnings.push(`Invalid completion (requires prompt, answer, 3–24 distinct wrong endings): ${folder}/${name}`);
           }
           if (parsed.speaker !== undefined) {
             const part = parsed.speaker;
@@ -105,7 +105,7 @@ for (const [folder, kind] of [['Frame', 'frame'], ['Quotes', 'quote']]) {
             const wrong = Array.isArray(part?.wrong) ? part.wrong.map(asI18n) : null;
             const role = part?.role === 'character' ? 'character' : 'actor';
             if (text && validAnswerSet(answer, wrong)) clue.speaker = { answer, wrong, role };
-            else warnings.push(`Invalid speaker (requires quote text, correct name, 3 distinct wrong names): ${folder}/${name}`);
+            else warnings.push(`Invalid speaker (requires quote text, correct name, 3–24 distinct wrong names): ${folder}/${name}`);
           }
         }
       }

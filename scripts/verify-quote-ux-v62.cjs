@@ -44,7 +44,7 @@ for (const entry of withCompletion) {
     assert([c.answer, ...c.wrong].every(choice => words(choice[lang]) >= 2), `${entry.id}: one-word ending is not a full choice`);
     assert(!c.prompt[lang].includes(c.answer[lang]), `${entry.id}: prompt leaks answer`);
   }
-  assert.equal(entry.completion.wrong.length, 3);
+  assert(entry.completion.wrong.length >= 3);
 }
 assert(quoteClues.every(x => x.text && x.text.ar && x.text.en), 'Never delete actual quote text');
 console.log(`[V62] PASS: speaker/completion prompts fully visible immediately; legacy quote-movie gradual; ${withCompletion.length} phrase-based completions / ${withSpeaker.length} speaker rounds / ${quoteClues.length} preserved quotes; completion answers hidden until manual reveal.`);

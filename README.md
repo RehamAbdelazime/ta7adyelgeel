@@ -56,3 +56,8 @@ Current authoring: `docs/V57_VISUAL_GUESS_FOLDER_SYNC_AR.md`, `docs/V53_GUESS_MO
 
 
 V60 installation integrity check: `npm run verify:movie-install-v60`. See `docs/V60_INSTALL_AND_IMAGE_RECOVERY_AR.md` for clean recovery after a mixed/partial ZIP extraction.
+
+
+## V63 — Smart Quote Choices
+
+يتم تبديل اختيارات «كمّل الجملة» و«مين قالها؟» من بنوك بدائل مع منع تكرار نفس الثلاثة ومكان الإجابة عبر الجولات. للمزيد راجع `docs/V63_SMART_CHOICES_ROTATION_AR.md`. اختبار: `npm run verify:quote-variety-v63`. لا تغيير على مجلدات `Posters` / `Frame` / `Quotes`.
