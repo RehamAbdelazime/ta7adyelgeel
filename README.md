@@ -69,3 +69,7 @@ The question bank lives at `src/game-core/minigames/visual-guess/visual-guess-qu
 - See `docs/RELEASE_READINESS_V48_AR.md` for the release checklist and limits of verification.
 
 **Status:** release-candidate source cleaned for distribution preparation; **not certified release-ready** until the full Windows regression/build, offline image assets/rights, and executable smoke test are verified.
+
+## V52 — Smart Poster Replay
+
+Offline movie posters now rotate five reveal styles (blur, zoom, spotlight, puzzle, grayscale/color) with difficulty-aware timing and initial-clue-aware distractors. Local-only viewing history survives relaunch and prioritizes unseen titles. For the Arabic QA notes see `docs/V52_SMART_POSTER_REPLAY_AR.md`; run `npm run verify:posters-v49`.

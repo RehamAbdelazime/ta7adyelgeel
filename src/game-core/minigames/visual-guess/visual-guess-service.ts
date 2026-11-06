@@ -7,6 +7,8 @@
  */
 import rawBank from './visual-guess-questions.json';
 import rawPosterProfiles from './poster-visual-profiles-v50.json';
+import { planPosterReveal, type PosterRevealPlan } from './poster-mystery';
+import { browserPosterStorage, emptyPosterHistory, readPosterHistory, rememberPosterPlay, type PosterHistory, type PosterHistoryStorage } from './poster-history';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionDifficulty } from '../../questions/question-types';
@@ -36,7 +38,7 @@ type ImageItem = {
   mediaApproval?: string;
   attribution: { source: string; license: string };
 };
-type ActiveRound = { item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number };
+type ActiveRound = { item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number; posterReveal?: PosterRevealPlan };
 const BANK = rawBank as { movies: ImageItem[]; stars: ImageItem[]; movieChoiceCatalog?: Record<string, I18n> };
 const MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['poster'],
@@ -62,8 +64,11 @@ export class VisualGuessMiniGameService {
   private correctOfficialCount = 0;
   private correctSpectatorCount = 0;
   private scored = false;
+  private readonly posterHistory: PosterHistory;
 
-  constructor(readonly gameId: VisualGuessGameId) {}
+  constructor(readonly gameId: VisualGuessGameId, private readonly historyStorage: PosterHistoryStorage | null = browserPosterStorage()) {
+    this.posterHistory = gameId === 'guess-movie' ? readPosterHistory(historyStorage) : emptyPosterHistory();
+  }
 
   beginTour(): void { this.tourUsedIds.clear(); this.clearActiveRound(); }
   startRound(roundNumber: number, seed = Date.now()): void {
@@ -80,30 +85,53 @@ export class VisualGuessMiniGameService {
     // Avoid repeated photos across a tour, then a session, until the pack is exhausted.
     const scheduledMode = ROUND_MODES[this.gameId][(roundNumber - 1) % ROUND_MODES[this.gameId].length];
     const targetDifficulty = ROUND_DIFFICULTIES[(roundNumber - 1) % ROUND_DIFFICULTIES.length];
-    const eligible = bank.filter(item => item.mode === scheduledMode && item.difficulty === targetDifficulty);
-    const difficultyOnly = bank.filter(item => item.difficulty === targetDifficulty);
-    // Difficulty cannot be reduced just because a mode had fewer available photos.
-    // Only reset the non-repeating pools when a complete pack has been exhausted.
-    const selectFresh = (candidates: readonly ImageItem[]) =>
-      candidates.filter(item => !this.tourUsedIds.has(item.id) && !this.sessionUsedIds.has(item.id));
-    const selectTourFresh = (candidates: readonly ImageItem[]) =>
-      candidates.filter(item => !this.tourUsedIds.has(item.id));
-    const groups = [
-      selectFresh(eligible), selectTourFresh(eligible),
-      selectFresh(difficultyOnly), selectTourFresh(difficultyOnly),
-      eligible, difficultyOnly,
-    ];
-    const pool = groups.find(items => items.length > 0) ?? bank;
     const rng = seededRandom(seed + roundNumber * 811 + this.sessionUsedIds.size * 2713);
-    const item = pool[Math.floor(rng() * pool.length)];
+    let item: ImageItem;
+    if (this.gameId === 'guess-movie') {
+      // V52: preserve each difficulty while prioritizing never-seen titles, even
+      // after restarting Electron. Do not reuse any title within this tour until
+      // its difficulty pack is completely exhausted.
+      const candidates = bank.filter(q => q.difficulty === targetDifficulty);
+      const tourFresh = candidates.filter(q => !this.tourUsedIds.has(q.id));
+      const withoutTourRepeats = tourFresh.length ? tourFresh : candidates;
+      const minPlays = Math.min(...withoutTourRepeats.map(q => this.posterHistory.entries[q.id]?.plays ?? 0));
+      let fairPool = withoutTourRepeats.filter(q => (this.posterHistory.entries[q.id]?.plays ?? 0) === minPlays);
+      if (minPlays > 0) {
+        // Least recently shown titles first; allow a small random choice among
+        // the oldest few so every session doesn't have a scripted order.
+        const recency = (q: ImageItem) => this.posterHistory.entries[q.id]?.lastPlayedSeq ?? 0;
+        fairPool = fairPool.sort((a, b) => recency(a) - recency(b))
+          .slice(0, Math.min(4, fairPool.length));
+      }
+      item = fairPool[Math.floor(rng() * fairPool.length)];
+    } else {
+      // Preserve Guess the Star's original mode cadence and session rotation.
+      const eligible = bank.filter(q => q.mode === scheduledMode && q.difficulty === targetDifficulty);
+      const difficultyOnly = bank.filter(q => q.difficulty === targetDifficulty);
+      const selectFresh = (candidates: readonly ImageItem[]) =>
+        candidates.filter(q => !this.tourUsedIds.has(q.id) && !this.sessionUsedIds.has(q.id));
+      const selectTourFresh = (candidates: readonly ImageItem[]) =>
+        candidates.filter(q => !this.tourUsedIds.has(q.id));
+      const groups = [selectFresh(eligible), selectTourFresh(eligible),
+        selectFresh(difficultyOnly), selectTourFresh(difficultyOnly), eligible, difficultyOnly];
+      const pool = groups.find(items => items.length > 0) ?? bank;
+      item = pool[Math.floor(rng() * pool.length)];
+    }
     if (!item) throw new Error(`${this.gameId} has no playable media content`);
 
+    // Pick the reveal variant BEFORE the distractors, so wrong answers can
+    // resemble the first visible poster area (zoom, spotlight, puzzle, colour).
+    const posterReveal = this.gameId === 'guess-movie'
+      ? planPosterReveal(item.difficulty, seed + roundNumber * 911 + this.posterHistory.sequence * 41,
+          this.posterHistory.entries[item.id], item.focus ?? { x: 50, y: 40 },
+          item.titleMasks ?? (item.titleMask ? [item.titleMask] : []))
+      : undefined;
     // V50: choose cinematic lookalikes using real local-poster color samples,
     // actor composition and editorial Egyptian-audience familiarity. Difficulty
     // controls HOW misleading the three options are, not just the poster.
     // The separate Guess the Star generator stays untouched.
     const distractors = this.gameId === 'guess-movie'
-      ? selectEgyptianMovieDistractors(item, bank, rng)
+      ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal)
       : pickGenericDistractors(item, bank, rng);
     const choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
       optionNumber: index + 1,
@@ -112,7 +140,8 @@ export class VisualGuessMiniGameService {
       value: entry.id,
     }));
     const correctOptionNumber = choices.find(choice => choice.value === item.id)?.optionNumber ?? 1;
-    this.round = { item, choices, correctOptionNumber };
+    this.round = { item, choices, correctOptionNumber, posterReveal };
+    if (posterReveal) rememberPosterPlay(this.posterHistory, item.id, posterReveal, this.historyStorage);
     this.status = 'intro';
     this.tourUsedIds.add(item.id);
     this.sessionUsedIds.add(item.id);
@@ -165,6 +194,8 @@ export class VisualGuessMiniGameService {
     this.round = null; this.status = 'idle'; this.roundNumber = 0; this.answers.clear();
     this.correctOfficialCount = 0; this.correctSpectatorCount = 0; this.scored = false;
   }
+  // Intentionally does NOT erase persistent poster history. Clear only this
+  // runtime session; the player gets a fresher poster after relaunch too.
   clear(): void { this.clearActiveRound(); this.tourUsedIds.clear(); this.sessionUsedIds.clear(); }
   getSnapshot(locale: LocaleCode): MiniGameSnapshot {
     const item = this.round?.item;
@@ -205,6 +236,7 @@ export class VisualGuessMiniGameService {
         titleMask: item!.titleMask ?? null,
         titleMasks: item!.titleMasks ?? (item!.titleMask ? [item!.titleMask] : []),
         posterAspectRatio: item!.posterAspectRatio ?? null,
+        posterReveal: this.round.posterReveal ?? null,
         choices: this.round.choices.map(choice => ({
           ...choice,
           label: bank.find(q => q.id === choice.value)?.name[locale]
@@ -247,21 +279,25 @@ type PosterVisualProfile = {
 };
 const POSTER_VISUAL_PROFILES = (rawPosterProfiles as { profiles: Record<string, PosterVisualProfile> }).profiles;
 
-function spatialPaletteSimilarity(a: PosterVisualProfile, b: PosterVisualProfile): number {
+function spatialPaletteSimilarity(a: PosterVisualProfile, b: PosterVisualProfile, regions: readonly number[], gray = false): number {
   let similarity = 0;
   // Same-position colors matter: a blue sky above two figures is a stronger
   // visual match than an unrelated blue detail in the bottom-left corner.
-  for (let region = 0; region < 9; region++) {
+  for (const region of regions) {
     const left = a.spatialPaletteRGB[region];
     const right = b.spatialPaletteRGB[region];
     if (!left || !right) continue;
-    const channelDiff = Math.hypot(left[0] - right[0], left[1] - right[1], left[2] - right[2]);
-    similarity += Math.max(0, 1 - channelDiff / (Math.sqrt(3) * 255));
+    // Grayscale clues should compare luminance, not colours players cannot see.
+    const luminance = (rgb: number[]) => rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722;
+    const difference = gray
+      ? Math.abs(luminance(left) - luminance(right)) / 255
+      : Math.hypot(left[0] - right[0], left[1] - right[1], left[2] - right[2]) / (Math.sqrt(3) * 255);
+    similarity += Math.max(0, 1 - difference);
   }
-  return similarity / 9;
+  return similarity / Math.max(1, regions.length);
 }
 
-function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number): ChoiceCandidate[] {
+function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number, plan?: PosterRevealPlan): ChoiceCandidate[] {
   const catalog = new Map<string, ChoiceCandidate>(bank.map(({ id, name }) => [id, { id, name }]));
   for (const [id, name] of Object.entries(BANK.movieChoiceCatalog ?? {})) catalog.set(id, { id, name });
   const profile = POSTER_VISUAL_PROFILES[item.id];
@@ -272,14 +308,20 @@ function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageIte
   const visualScores = visualIds.map((id, index) => {
     const near = POSTER_VISUAL_PROFILES[id];
     if (!near || !catalog.has(id)) throw new Error(`Poster ${item.id}: unknown visual match ${id}`);
-    const color = spatialPaletteSimilarity(profile, near);
+    const regionClue = spatialPaletteSimilarity(profile, near, plan?.initialRegions ?? [0, 1, 2, 3, 4, 5, 6, 7, 8], plan?.mode === 'color');
+    const wholePoster = spatialPaletteSimilarity(profile, near, [0, 1, 2, 3, 4, 5, 6, 7, 8]);
     const composition = near.castLayout === profile.castLayout ? 1 : 0;
     const placement = near.heroPlacement === profile.heroPlacement ? 1 : 0;
     const culturalIndex = culturalIds.indexOf(id);
     // Manual visual-neighbor shortlist is a gate, not an autopicked 50-film
     // color sort. It ensures options are recognizable and plausibly related.
-    const score = (5 - index) * 1.5 + color * 3 + composition * 2 + placement
-      + (culturalIndex >= 0 ? (5 - culturalIndex) * 0.35 : 0);
+    // The poster's FIRST visible clue is weighted more heavily than its
+    // eventual full-poster palette, especially on Hard. An early zoom on a
+    // turquoise corner should prefer other posters with turquoise THERE.
+    const clueWeight = item.difficulty === 'hard' ? 8 : item.difficulty === 'medium' ? 6 : 3.5;
+    const score = (5 - index) * .9 + regionClue * clueWeight + wholePoster * 1.5
+      + composition * 2 + placement
+      + (culturalIndex >= 0 ? (5 - culturalIndex) * .35 : 0);
     return { id, score };
   }).sort((a, b) => b.score - a.score);
 

@@ -1,5 +1,6 @@
 import type { CitizenRole, CitizenRuntime } from '../citizens/citizen-types';
 import type { QuestionBankStats, QuestionCategory, QuestionDifficulty } from '../questions/question-types';
+import type { PosterRevealPlan } from './visual-guess/poster-mystery';
 
 
 export type ShapeCountShapeId = 'circle' | 'square' | 'triangle' | 'star' | 'diamond' | 'hexagon';
@@ -240,6 +241,7 @@ export type MiniGameSnapshot = {
     titleMask: { x: number; y: number; w: number; h: number } | null;
     titleMasks: { x: number; y: number; w: number; h: number }[];
     posterAspectRatio: number | null;
+    posterReveal?: PosterRevealPlan | null;
     choices: VisualGuessChoice[];
     correctOptionNumber: number | null;
     correctLabel: string | null;

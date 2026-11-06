@@ -11,7 +11,6 @@
 .v36-visual-image-silhouette:not(.v36-visual-revealed .v36-visual-image) { filter: grayscale(1) brightness(.28) contrast(2.3); }
 .v36-visual-revealed .v36-visual-image { filter: none; transform: none !important; }
 .v36-visual-mode-badge { position: absolute; top: 16px; left: 16px; padding: 7px 16px; font: 700 clamp(12px,.85vw,15px) var(--display-font), sans-serif; border-radius: 999px; background: rgba(5,17,41,.9); border: 1px solid rgba(74,228,247,.5); box-shadow: 0 0 18px #0008; color: #e4fbff; z-index: 4; pointer-events: none; }
-.v36-visual-poster-mask { position: absolute; z-index: 2; display: grid; place-items: center; overflow: hidden; border-radius: 6px; background: rgba(5,10,23,.64); backdrop-filter: blur(24px); -webkit-backdrop-filter:blur(24px); color: rgba(113,246,255,.7); font-size: clamp(14px,2.5vw,27px); letter-spacing: 1em; pointer-events:none; }
 .v36-visual-reveal-grid { position: absolute; inset: 0; z-index: 3; display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); grid-template-rows: repeat(4,minmax(0,1fr)); }
 .v36-visual-reveal-grid > span { background: linear-gradient(135deg,#2e165c,#092a51); border: 1px solid #6c5ab079; box-shadow: inset 0 0 14px rgba(0,0,0,.35); opacity: 1; transition: opacity .28s ease; }
 .v36-visual-reveal-grid > .v36-visual-tile-gone { opacity:0; }
@@ -72,26 +71,9 @@ html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img 
   max-width: 100%;
 }
 .v49-poster-canvas .v36-visual-image-poster { object-fit: fill; }
-/* Soft extra protection over the actors' central faces; never a tiled game. */
-.v49-poster-face-blur {
-  position: absolute;
-  z-index: 2;
-  left: 3%; top: 13%; width: 94%; height: 70%;
-  backdrop-filter: blur(var(--face-blur, 12px));
-  -webkit-backdrop-filter: blur(var(--face-blur, 12px));
-  mask-image: radial-gradient(ellipse at center, black 34%, transparent 73%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 34%, transparent 73%);
-  pointer-events: none;
-}
-.v49-poster-canvas .v36-visual-poster-mask.v49-poster-title-secret {
-  z-index: 3;
-  background: rgba(5, 12, 32, .56);
-  border: 1px solid rgba(100, 226, 246, .11);
-  backdrop-filter: blur(38px) saturate(.6);
-  -webkit-backdrop-filter: blur(38px) saturate(.6);
-  border-radius: 9px;
-}
-
+/* V51: a single uniform progressive blur on the image itself.
+   No box or region-specific mask: posters have different title placements.
+   The blur reaches zero during the final second of answering. */
 /* Egyptian film titles can be long: never cut away meaningful choice text. */
 html body .gameplay-question-shell.v36-visual-shell.qshell-v20 .qshell-choices .gameplay-choice-card > span:not(.qshell-vote-count) {
   white-space: normal !important;
@@ -100,4 +82,26 @@ html body .gameplay-question-shell.v36-visual-shell.qshell-v20 .qshell-choices .
   overflow: visible !important;
   font-size: clamp(12px, 1.05vw, 20px) !important;
   line-height: 1.16 !important;
+}
+
+/* V52 — five replayable poster discovery styles. These are NOT title masks.
+   Zoom/puzzle/spotlight are driven by the pause-aware tour clock in React. */
+.v49-poster-canvas > .v52-poster-spotlight-image {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill;
+  z-index: 2; pointer-events: none; user-select: none;
+}
+.v52-poster-puzzle-tiles {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; grid-template-columns: repeat(3, minmax(0,1fr));
+  grid-template-rows: repeat(3, minmax(0,1fr)); pointer-events: none;
+}
+.v52-poster-puzzle-tiles > span {
+  background: linear-gradient(150deg, #181c45, #091a37 65%, #12304e);
+  box-shadow: inset 0 0 12px #070d28;
+  border: 1px solid rgba(110, 198, 255, .22);
+  transition: opacity 180ms ease; opacity: 1;
+}
+.v52-poster-puzzle-tiles > span.v52-poster-puzzle-tile-clear { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .v52-poster-puzzle-tiles > span { transition: none; }
 }
