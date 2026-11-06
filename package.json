@@ -3,7 +3,7 @@
   "productName": "Ta7ady ElGeel",
   "version": "2.0.0",
   "private": true,
-  "description": "Ta7ady ElGeel Electron + React (V44 real visual-photo candidates and QA test bots).",
+  "description": "Ta7ady ElGeel: bilingual Twitch party game for Windows (release candidate, final verification required).",
   "type": "module",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -11,11 +11,11 @@
     "build": "npm run verify:integrity && npm run verify:experience-v32 && npm run verify:assets && npm run verify:css && npm run verify:quality-v38 && npm run verify:spectators-v39 && npm run verify:chaos-v40 && npm run verify:progression-v41 && npm run verify:characters-v42 && npm run verify:visual-content-v43 && npm run verify:media-qa-v44 && npm run typecheck && vite build && npm run build:electron",
     "build:electron": "node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && tsc -p tsconfig.electron.json",
     "start": "npm run build:electron && electron .",
-    "test": "npm run verify:integrity && npm run verify:localization-contract && npm run verify:assets && npm run verify:css && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && npm run verify:experience-v32 && npm run verify:quality-v38 && npm run verify:spectators-v39 && npm run verify:chaos-v40 && npm run verify:progression-v41 && npm run verify:characters-v42 && npm run verify:visual-content-v43 && vitest run",
+    "test": "npm run verify:integrity && npm run verify:localization-contract && npm run verify:assets && npm run verify:css && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && npm run verify:experience-v32 && npm run verify:quality-v38 && npm run verify:spectators-v39 && npm run verify:chaos-v40 && npm run verify:progression-v41 && npm run verify:characters-v42 && npm run verify:visual-content-v43 && npm run test:unit",
     "test:watch": "vitest",
     "typecheck": "npm run verify:localization-contract && node scripts/generate-runtime-game-config.mjs && node scripts/verify-v2-minigame-baseline.mjs && node scripts/verify-v2-minigame-grid.mjs && node scripts/verify-v2-scoring-policy.mjs && node scripts/verify-landing-experience.mjs && tsc --noEmit",
     "lint": "npm run verify:integrity && npm run typecheck && eslint \"scripts/**/*.{mjs,cjs}\" eslint.config.js",
-    "package:win": "npm run build && electron-builder --win portable",
+    "package:win": "npm run regression:final && electron-builder --win portable",
     "package:clean": "npm run package:win",
     "check:localization": "npm run verify:localization-contract && node scripts/check-localization-hardcoded-text.mjs",
     "audit:release": "node scripts/audit-release-package.mjs",
@@ -61,7 +61,14 @@
     "verify:visual-content-v43": "node scripts/verify-visual-content-v43.cjs",
     "visuals:import": "node scripts/import-visual-media.mjs",
     "visuals:status": "node scripts/check-visual-media.mjs",
-    "verify:media-qa-v44": "node scripts/verify-qa-bots-v44.cjs && node scripts/verify-qa-pause-v44.cjs && node scripts/verify-qa-load-v44.cjs && node scripts/verify-visual-content-v43.cjs"
+    "verify:media-qa-v44": "node scripts/verify-qa-bots-v44.cjs && node scripts/verify-qa-pause-v44.cjs && node scripts/verify-qa-load-v44.cjs && node scripts/verify-visual-content-v43.cjs",
+    "qa:unit": "node --test --experimental-test-coverage tests/qa/core-scenarios.test.cjs tests/qa/state-and-progression.test.cjs",
+    "qa:static": "node scripts/qa/static-audit.mjs && node scripts/qa/verify-stabilization-v47.mjs",
+    "test:unit": "vitest run",
+    "verify:stabilization-v47": "node scripts/qa/verify-stabilization-v47.mjs",
+    "verify:release-contract": "node scripts/release/verify-release-contract.mjs",
+    "regression:final": "node scripts/release/final-regression.mjs",
+    "verify:posters-v49": "node scripts/verify-egyptian-posters-v49.cjs"
   },
   "dependencies": {
     "@fontsource-variable/alexandria": "5.3.0",

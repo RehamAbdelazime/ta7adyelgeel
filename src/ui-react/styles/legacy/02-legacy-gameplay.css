@@ -339,7 +339,6 @@
 }
 
 .center-play-button-ready,
-.host-action-grid .host-primary,
 .settings-apply-button,
 .auth-primary-button,
 .gameplay-scoreboard-back-button,
@@ -501,7 +500,6 @@
 
 [dir="rtl"] .center-play-core,
 [dir="rtl"] .play-choice-card strong,
-[dir="rtl"] .host-action-grid .host-primary,
 [dir="rtl"] .gameplay-intro-continue-button,
 [dir="rtl"] .gameplay-scoreboard-back-button {
   letter-spacing: 0.02em !important;
@@ -1038,7 +1036,6 @@
 }
 
 .center-play-button-ready,
-.host-action-grid .host-primary,
 .settings-apply-button,
 .auth-primary-button,
 .gameplay-scoreboard-back-button,
@@ -1064,7 +1061,7 @@
   --btn-c: #9a5cff !important;
 }
 
-.host-danger,
+
 .settings-danger-button,
 .auth-danger-button {
   --btn-a: #ff4d7d !important;

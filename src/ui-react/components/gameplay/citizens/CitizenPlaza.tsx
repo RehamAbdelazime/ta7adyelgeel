@@ -43,22 +43,12 @@ export function CitizenPlazaOverlay({
   const { status } = useTwitchConnection();
   const streamerUserId = status.accountUserId;
   const choiceSpotlights = buildChoiceSpotlights(miniGame);
-  // Keep responders in their answer lanes for the 4.8s correct-answer reveal.
-  // When the scoreboard replaces the reveal, move everyone back to the wing.
-  // Other legacy games retain their previous movement timing.
+  // Keep the audience in their chosen answer lanes for the entire reveal,
+  // including long manual host pauses. Return them only when the host opens
+  // the scoreboard (phase leaves `scoring`).
   const usesModernQuestion = usesModernQuestionUi(miniGame.id);
-  const [showScoringAudience, setShowScoringAudience] = useState(true);
-  useEffect(() => {
-    if (phase !== 'scoring' || !usesModernQuestion) {
-      setShowScoringAudience(true);
-      return undefined;
-    }
-    setShowScoringAudience(true);
-    const timer = window.setTimeout(() => setShowScoringAudience(false), 4800);
-    return () => window.clearTimeout(timer);
-  }, [phase, usesModernQuestion, miniGame.questionId]);
   const shouldUseAnswerPlacement = miniGame.hasRound && (shouldUseCitizenAnswerPlacement(phase)
-    || (usesModernQuestion && phase === 'scoring' && showScoringAudience));
+    || (usesModernQuestion && phase === 'scoring'));
   const answerOptionByUserId = shouldUseAnswerPlacement ? getAnswerOptionByUserId(miniGame) : new Map<string, number>();
   const isMiniGameSceneActive = phase !== 'lobby_open' && phase !== 'cleanup';
   const activeAnswerUserIds = new Set([...miniGame.answerRecords.map((answer) => answer.twitchUserId), ...activeActions.keys()]);
@@ -363,7 +353,7 @@ export function CitizenCard({
   const spriteAssetPath = SPRITE_FRAME_ALIASES[spriteFramePath] ?? spriteFramePath;
   return (
     <article
-      className={`gameplay-citizen-card gameplay-citizen-${roleClass} ${(citizen.twitchUserId.startsWith('qa_') || citizen.twitchUserId.startsWith('__ta7ady_qa_bot__')) ? 'gameplay-citizen-qa-bot' : ''} gameplay-citizen-character-${characterId} gameplay-citizen-idle-life-${idleLifePhase} ${isLivingIdle ? 'gameplay-citizen-living-idle' : ''} ${shouldAnimateSprite && !isEntering ? 'gameplay-citizen-body-animated' : ''} ${renderedPlacement?.kind === 'choice' ? `gameplay-citizen-answer-moving gameplay-citizen-choice-${renderedPlacement.tone} gameplay-citizen-answer-${renderedPlacement.resultState}` : ''} ${renderedPlacement?.kind === 'side' ? `gameplay-citizen-stage-side gameplay-citizen-stage-side-${renderedPlacement.side}` : ''} ${renderedPlacement?.kind === 'champion' ? 'gameplay-citizen-final-champion' : ''} ${animationName === 'dead' ? 'gameplay-citizen-dead-hold' : ''} ${isWalkingToPlacement ? 'gameplay-citizen-walk-translate' : ''} ${isFinalChampionVictoryLooping ? 'gameplay-citizen-final-victory-loop' : ''} ${isEntering ? 'gameplay-citizen-entering' : ''} ${isChampionCelebrating && !isEntering ? `gameplay-citizen-level10-champion gameplay-champion-stage-${celebrationStage}` : ''} ${action && !isEntering ? `gameplay-citizen-action-v42 citizen-action-${action.kind.replace('_','-')}-v42` : ''}`}
+      className={`gameplay-citizen-card gameplay-citizen-${roleClass} gameplay-citizen-character-${characterId} gameplay-citizen-idle-life-${idleLifePhase} ${isLivingIdle ? 'gameplay-citizen-living-idle' : ''} ${shouldAnimateSprite && !isEntering ? 'gameplay-citizen-body-animated' : ''} ${renderedPlacement?.kind === 'choice' ? `gameplay-citizen-answer-moving gameplay-citizen-choice-${renderedPlacement.tone} gameplay-citizen-answer-${renderedPlacement.resultState}` : ''} ${renderedPlacement?.kind === 'side' ? `gameplay-citizen-stage-side gameplay-citizen-stage-side-${renderedPlacement.side}` : ''} ${renderedPlacement?.kind === 'champion' ? 'gameplay-citizen-final-champion' : ''} ${animationName === 'dead' ? 'gameplay-citizen-dead-hold' : ''} ${isWalkingToPlacement ? 'gameplay-citizen-walk-translate' : ''} ${isFinalChampionVictoryLooping ? 'gameplay-citizen-final-victory-loop' : ''} ${isEntering ? 'gameplay-citizen-entering' : ''} ${isChampionCelebrating && !isEntering ? `gameplay-citizen-level10-champion gameplay-champion-stage-${celebrationStage}` : ''} ${action && !isEntering ? `gameplay-citizen-action-v42 citizen-action-${action.kind.replace('_','-')}-v42` : ''}`}
       style={{ ...floorStyle, '--citizen-walk-facing': String(isWalkingToPlacement ? walkFacing : (floorStyle as Record<string, unknown>)['--citizen-walk-facing'] ?? 1), '--citizen-life-delay': `${idleLifePhase * -0.43}s`, '--citizen-visual-scale': String(getCitizenVisualScale(characterId)) } as CSSProperties}
     >
       <div className="gameplay-citizen-nameplate" title={citizen.displayName}>

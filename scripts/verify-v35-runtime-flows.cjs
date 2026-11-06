@@ -3,7 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
-const ts = require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript');
+const ts = require('typescript');
 require.extensions['.ts'] = (module, filename) => {
   const source = fs.readFileSync(filename, 'utf8');
   const compiled = ts.transpileModule(source, {
@@ -100,6 +100,9 @@ try {
   cross.skipPhase(); cross.skipPhase(); cross.skipPhase();
   assert.equal(cross.getSnapshot().tour.phase,'scoring');
   cross.setForcedNextMiniGame('memory-count');
+  cross.skipPhase();
+  const intro=cross.getSnapshot();
+  assert.equal(intro.tour.phase,'mini_game_intro', 'Different game must show the illustrated how-to');
   cross.skipPhase();
   const next=cross.getSnapshot();
   assert.equal(next.tour.phase,'tour_starting');

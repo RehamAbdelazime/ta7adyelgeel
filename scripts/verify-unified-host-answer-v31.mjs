@@ -17,7 +17,7 @@ const srcDir = resolve(root, 'src/ui-react');
 const require = createRequire(import.meta.url);
 const ts = (() => {
   try { return require('typescript'); }
-  catch { return require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript'); }
+  catch { return require('typescript'); }
 })();
 
 assert.doesNotMatch(app, /PrivateStreamerAnswerDock|usesModernQuestionUi/, 'App must not render the old separate floating host-answer dock');

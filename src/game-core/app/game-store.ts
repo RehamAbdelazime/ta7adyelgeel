@@ -163,6 +163,8 @@ export class GameStore {
       resolvePhaseDurationMs: (definition) => this.resolveTourPhaseDurationMs(definition.phase, definition.durationMs),
       onPhaseChanged: (tour, previousPhase) => this.handleTourPhaseChanged(tour, previousPhase),
       onTourCompleted: (tour) => this.handleTourCompleted(tour),
+      shouldShowIntroForNextRound: (nextRound) =>
+        this.selectMiniGameForRound(nextRound, this.tourStateMachine.getSnapshot().tourNumber) !== this.activeMiniGameId,
     });
 
     this.twitchCommandRouter = new TwitchCommandRouter({
@@ -2175,7 +2177,7 @@ export class GameStore {
     // Rank bonuses reward success without granting free XP for a join-only
     // entry. Spectators never enter the XP pool or placement calculation.
     const officialRanking = this.getOfficialCitizens()
-      .filter(citizen => participants.has(citizen.twitchUserId) && citizen.score > 0)
+      .filter(citizen => !citizen.twitchUserId.startsWith('__ta7ady_qa_bot__') && participants.has(citizen.twitchUserId) && citizen.score > 0)
       .sort((a, b) => b.score - a.score || a.twitchUserId.localeCompare(b.twitchUserId));
     const placeBonuses = this.activeSessionMode === 'tour' ? [15, 8, 4] : [8, 4, 2];
     officialRanking.slice(0, 3).forEach((citizen, index) => {
@@ -2187,7 +2189,7 @@ export class GameStore {
       const citizen = this.citizens.get(id);
       // Role is fixed for each accepted round; the Official-only pending map
       // ensures that late-joining Spectators can never acquire progression XP.
-      if (!citizen || citizen.role !== 'official') continue;
+      if (!citizen || citizen.role !== 'official' || id.startsWith('__ta7ady_qa_bot__')) continue;
       const xpEarned = (totals.get(id) ?? 0) + (this.activeSessionMode === 'tour'
         ? this.runtimeConfig.scoring.tourParticipationXp
         : this.runtimeConfig.scoring.singleGameParticipationXp);

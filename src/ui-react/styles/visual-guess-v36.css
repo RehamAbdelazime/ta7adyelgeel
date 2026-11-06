@@ -62,3 +62,42 @@ html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img 
 .v36-visual-canvas.v44-eyes-crop > img { width: 100%; height: 100%; object-fit: cover; object-fit: cover; transform: scale(1.45); }
 .v36-visual-stage-eyes:not(.v36-visual-revealed) .v36-visual-frame-portrait { border: 0; background: transparent; box-shadow: none; }
 @media (max-height: 720px) { .v36-visual-canvas.v44-eyes-crop { max-height: 112px; } }
+
+/* V49 — the user's 50 Egyptian film posters, no remote movie art.
+   Preserve native image aspect ratios, including one landscape poster. */
+.v36-visual-frame-poster .v36-visual-canvas.v49-poster-canvas {
+  aspect-ratio: var(--poster-aspect, .666667);
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+}
+.v49-poster-canvas .v36-visual-image-poster { object-fit: fill; }
+/* Soft extra protection over the actors' central faces; never a tiled game. */
+.v49-poster-face-blur {
+  position: absolute;
+  z-index: 2;
+  left: 3%; top: 13%; width: 94%; height: 70%;
+  backdrop-filter: blur(var(--face-blur, 12px));
+  -webkit-backdrop-filter: blur(var(--face-blur, 12px));
+  mask-image: radial-gradient(ellipse at center, black 34%, transparent 73%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 34%, transparent 73%);
+  pointer-events: none;
+}
+.v49-poster-canvas .v36-visual-poster-mask.v49-poster-title-secret {
+  z-index: 3;
+  background: rgba(5, 12, 32, .56);
+  border: 1px solid rgba(100, 226, 246, .11);
+  backdrop-filter: blur(38px) saturate(.6);
+  -webkit-backdrop-filter: blur(38px) saturate(.6);
+  border-radius: 9px;
+}
+
+/* Egyptian film titles can be long: never cut away meaningful choice text. */
+html body .gameplay-question-shell.v36-visual-shell.qshell-v20 .qshell-choices .gameplay-choice-card > span:not(.qshell-vote-count) {
+  white-space: normal !important;
+  text-overflow: clip !important;
+  overflow-wrap: anywhere !important;
+  overflow: visible !important;
+  font-size: clamp(12px, 1.05vw, 20px) !important;
+  line-height: 1.16 !important;
+}

@@ -12,7 +12,7 @@ const shell = read('src/ui-react/components/gameplay/minigames/VisualGuessScreen
 const picker = read('src/ui-react/styles/visual-guess-v36.css');
 const styles = read('src/ui-react/main.tsx');
 const store = read('src/game-core/app/game-store.ts');
-for (const [key,id,modes] of [['movies','guess-movie',['scene','poster']],['stars','guess-star',['eyes','silhouette','zoom','reveal']]]) {
+for (const [key,id,modes] of [['movies','guess-movie',['poster']],['stars','guess-star',['eyes','silhouette','zoom','reveal']]]) {
   assert(registry.includes(`id: '${id}'`));
   assert(config.tour.enabledMiniGames.includes(id));
   assert.equal(config.tour.singleMiniGameRoundCounts[id],4);
@@ -41,4 +41,4 @@ assert(read('src/ui-react/components/gameplay/shared/answer-helpers.ts').include
 assert(read('src/ui-react/components/gameplay/minigames/minigame-screen-registry.tsx').includes("'guess-star':"));
 const require = createRequire(import.meta.url);
 require('./verify-visual-guess-v36-runtime.cjs');
-console.log('V36 visual-guess structural verification PASS: 2 games / 6 modes / 7 public cards.');
+console.log('V36 visual-guess structural verification PASS: 2 games / poster-only movies + 4 star modes / 7 public cards.');

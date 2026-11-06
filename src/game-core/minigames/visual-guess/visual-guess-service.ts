@@ -6,6 +6,7 @@
  * copyrighted image into its UI or silently substitutes a fake celebrity.
  */
 import rawBank from './visual-guess-questions.json';
+import rawPosterProfiles from './poster-visual-profiles-v50.json';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import type { LocaleCode } from '../../localization/locale-types';
 import type { QuestionDifficulty } from '../../questions/question-types';
@@ -29,17 +30,21 @@ type ImageItem = {
   category: string;
   focus?: { x: number; y: number };
   titleMask?: { x: number; y: number; w: number; h: number };
+  titleMasks?: { x: number; y: number; w: number; h: number }[];
+  posterAspectRatio?: number;
+  distractorIds?: string[];
+  mediaApproval?: string;
   attribution: { source: string; license: string };
 };
 type ActiveRound = { item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number };
-const BANK = rawBank as { movies: ImageItem[]; stars: ImageItem[] };
+const BANK = rawBank as { movies: ImageItem[]; stars: ImageItem[]; movieChoiceCatalog?: Record<string, I18n> };
 const MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
-  'guess-movie': ['scene', 'poster'],
+  'guess-movie': ['poster'],
   'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
 };
 const ROUND_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard', 'hard'];
 const ROUND_MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
-  'guess-movie': ['scene', 'poster', 'scene', 'poster'],
+  'guess-movie': ['poster', 'poster', 'poster', 'poster'],
   'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
 };
 
@@ -68,7 +73,7 @@ export class VisualGuessMiniGameService {
     this.correctSpectatorCount = 0;
     this.scored = false;
     // A locally imported, permission-cleared photo is playable even if it had no remote URL.
-    const bank = getVisualGuessBank(this.gameId).filter(item => item.imageUrl.length > 0 || (item as ImageItem & { mediaApproval?: string }).mediaApproval === 'user_supplied_with_permission');
+    const bank = getVisualGuessBank(this.gameId).filter(item => item.imageUrl.length > 0 || item.mediaApproval === 'user_supplied_local_rights_unverified' || item.mediaApproval === 'user_supplied_with_permission');
     if (bank.length < 4) throw new Error(`${this.gameId} needs at least four valid image entries`);
 
     // A predictable mode cadence guarantees that each variant actually gets played.
@@ -93,11 +98,13 @@ export class VisualGuessMiniGameService {
     const item = pool[Math.floor(rng() * pool.length)];
     if (!item) throw new Error(`${this.gameId} has no playable media content`);
 
-    // Distinct distractors, never reveal the real answer until the scoring phase.
-    const optionsPool = bank.filter(q => q.id !== item.id);
-    const sameCategory = shuffle(optionsPool.filter(q => q.category === item.category), rng);
-    const alternate = shuffle(optionsPool.filter(q => q.category !== item.category), rng);
-    const distractors = [...sameCategory, ...alternate].slice(0, 3);
+    // V50: choose cinematic lookalikes using real local-poster color samples,
+    // actor composition and editorial Egyptian-audience familiarity. Difficulty
+    // controls HOW misleading the three options are, not just the poster.
+    // The separate Guess the Star generator stays untouched.
+    const distractors = this.gameId === 'guess-movie'
+      ? selectEgyptianMovieDistractors(item, bank, rng)
+      : pickGenericDistractors(item, bank, rng);
     const choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
       optionNumber: index + 1,
       command: `!${index + 1}`,
@@ -196,14 +203,144 @@ export class VisualGuessMiniGameService {
         fallbackImageUrl: item!.imageUrl,
         focus: item!.focus ?? { x: 50, y: 40 },
         titleMask: item!.titleMask ?? null,
+        titleMasks: item!.titleMasks ?? (item!.titleMask ? [item!.titleMask] : []),
+        posterAspectRatio: item!.posterAspectRatio ?? null,
         choices: this.round.choices.map(choice => ({
-          ...choice, label: bank.find(q => q.id === choice.value)?.name[locale] ?? choice.label,
+          ...choice,
+          label: bank.find(q => q.id === choice.value)?.name[locale]
+            ?? BANK.movieChoiceCatalog?.[choice.value]?.[locale]
+            ?? choice.label,
         })),
         correctOptionNumber: reveal ? this.round.correctOptionNumber : null,
         correctLabel: reveal ? item!.name[locale] : null,
       } : null,
     };
   }
+}
+type ChoiceCandidate = { id: string; name: I18n };
+function pickGenericDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number): ChoiceCandidate[] {
+  const other = bank.filter(q => q.id !== item.id);
+  return [
+    ...shuffle(other.filter(q => q.category === item.category), rng),
+    ...shuffle(other.filter(q => q.category !== item.category), rng),
+  ].slice(0, 3);
+}
+/**
+ * Poster similarity never comes from generic movie genres alone: the 50-image
+ * visual pack was reviewed for the number/placement of actors. Its 3x3 spatial
+ * colors were calculated from the user's actual local images, not internet art.
+ *
+ * Difficulty strategy:
+ *   easy   = 2 culturally plausible + 1 modest visual lookalike;
+ *   medium = 2 strong visual lookalikes + 1 familiar cinematic association;
+ *   hard   = 3 close visual lookalikes (colors/actor layout), with shuffled order.
+ * Only the image serving as the question needs a poster; written options may
+ * include famous catalog titles for which no image has been supplied.
+ */
+type PosterVisualProfile = {
+  castLayout: string;
+  heroPlacement: string;
+  paletteLabel: string;
+  posterPaletteRGB: number[];
+  spatialPaletteRGB: number[][];
+  visualNearIds: string[];
+};
+const POSTER_VISUAL_PROFILES = (rawPosterProfiles as { profiles: Record<string, PosterVisualProfile> }).profiles;
+
+function spatialPaletteSimilarity(a: PosterVisualProfile, b: PosterVisualProfile): number {
+  let similarity = 0;
+  // Same-position colors matter: a blue sky above two figures is a stronger
+  // visual match than an unrelated blue detail in the bottom-left corner.
+  for (let region = 0; region < 9; region++) {
+    const left = a.spatialPaletteRGB[region];
+    const right = b.spatialPaletteRGB[region];
+    if (!left || !right) continue;
+    const channelDiff = Math.hypot(left[0] - right[0], left[1] - right[1], left[2] - right[2]);
+    similarity += Math.max(0, 1 - channelDiff / (Math.sqrt(3) * 255));
+  }
+  return similarity / 9;
+}
+
+function selectEgyptianMovieDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number): ChoiceCandidate[] {
+  const catalog = new Map<string, ChoiceCandidate>(bank.map(({ id, name }) => [id, { id, name }]));
+  for (const [id, name] of Object.entries(BANK.movieChoiceCatalog ?? {})) catalog.set(id, { id, name });
+  const profile = POSTER_VISUAL_PROFILES[item.id];
+  if (!profile) throw new Error(`Poster ${item.id} is missing its verified visual profile`);
+
+  const culturalIds = item.distractorIds ?? [];
+  const visualIds = profile.visualNearIds;
+  const visualScores = visualIds.map((id, index) => {
+    const near = POSTER_VISUAL_PROFILES[id];
+    if (!near || !catalog.has(id)) throw new Error(`Poster ${item.id}: unknown visual match ${id}`);
+    const color = spatialPaletteSimilarity(profile, near);
+    const composition = near.castLayout === profile.castLayout ? 1 : 0;
+    const placement = near.heroPlacement === profile.heroPlacement ? 1 : 0;
+    const culturalIndex = culturalIds.indexOf(id);
+    // Manual visual-neighbor shortlist is a gate, not an autopicked 50-film
+    // color sort. It ensures options are recognizable and plausibly related.
+    const score = (5 - index) * 1.5 + color * 3 + composition * 2 + placement
+      + (culturalIndex >= 0 ? (5 - culturalIndex) * 0.35 : 0);
+    return { id, score };
+  }).sort((a, b) => b.score - a.score);
+
+  const used = new Set<string>([item.id]);
+  const labels = new Set<string>([normalizeMovieTitle(item.name.ar)]);
+  const result: ChoiceCandidate[] = [];
+  const useCandidate = (id: string): boolean => {
+    const candidate = catalog.get(id);
+    if (!candidate) return false;
+    const normalized = normalizeMovieTitle(candidate.name.ar);
+    if (used.has(id) || labels.has(normalized)) return false;
+    used.add(id); labels.add(normalized); result.push(candidate);
+    return true;
+  };
+
+  // Rank weights are intentionally probabilistic: seeded gameplay varies, but
+  // easy still favors accessible recognition and hard stays genuinely visual.
+  const pickOne = (candidates: { id: string; weight: number }[]) => {
+    const possible = candidates.filter(c => !used.has(c.id) && catalog.has(c.id));
+    if (!possible.length) return false;
+    const total = possible.reduce((sum, c) => sum + Math.max(0.01, c.weight), 0);
+    let sample = rng() * total;
+    for (const c of possible) {
+      sample -= Math.max(0.01, c.weight);
+      if (sample < 0) return useCandidate(c.id);
+    }
+    return useCandidate(possible[possible.length - 1].id);
+  };
+  const cultural = culturalIds.map((id, index) => ({ id, weight: 6 - index }));
+  const visual = visualScores.map(({ id, score }, index) => ({ id, weight: Math.max(0.5, score) ** 2 / (1 + index * 0.25) }));
+
+  if (item.difficulty === 'easy') {
+    // One color/layout-based decoy, but the other two are familiar cinematic
+    // associations; intentionally avoid stacking three near-identical posters.
+    pickOne(visual.filter(c => visualScores.findIndex(v => v.id === c.id) >= 2));
+    pickOne(cultural);
+    pickOne(cultural);
+  } else if (item.difficulty === 'medium') {
+    pickOne(visual);
+    pickOne(visual);
+    pickOne(cultural);
+  } else {
+    // Hard: at least three visually grounded (color AND actor positioning)
+    // decoys, with one rank-weighted random combination per game seed.
+    pickOne(visual);
+    pickOne(visual);
+    pickOne(visual);
+  }
+
+  // Closed editorial pool fallback, never generic Egyptian random movie names.
+  for (const id of [...visualScores.map(c => c.id), ...culturalIds]) {
+    if (result.length === 3) break;
+    useCandidate(id);
+  }
+  if (result.length !== 3) throw new Error(`Poster ${item.id} is missing three high-quality movie distractors`);
+  return result;
+}
+function normalizeMovieTitle(value: string): string {
+  return value.normalize('NFKC').replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[إأآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه')
+    .replace(/[^\p{L}\p{N}]/gu, '').toLocaleLowerCase();
 }
 function seededRandom(seed: number) {
   let state = seed >>> 0;

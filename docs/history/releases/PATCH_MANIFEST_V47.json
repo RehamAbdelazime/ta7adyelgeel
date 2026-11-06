@@ -1,0 +1,74 @@
+{
+  "artifact": "Ta7ady ElGeel — V47 Technical Stabilization",
+  "base": "V46 Visual QA final source (NOT V45)",
+  "apply": "Copy patch files OVER exact V46 source root, overwriting same-name files.",
+  "changed_file_count_excluding_manifest": 16,
+  "changedFiles": [
+    {
+      "path": "PATCH_README_V47_AR.md",
+      "sha256": "bd866725dc4eee9e3485c09872425cccf4ebbd5269dd9b516c588dedb3e0dbc1"
+    },
+    {
+      "path": "QA_TECHNICAL_V47_AR.md",
+      "sha256": "bd866725dc4eee9e3485c09872425cccf4ebbd5269dd9b516c588dedb3e0dbc1"
+    },
+    {
+      "path": "package.json",
+      "sha256": "b94dbdbeb473f58d634b0e72e0bb508970186dff6b7e7c9ba1c5a8148b94f9fb"
+    },
+    {
+      "path": "scripts/qa/full-runner.mjs",
+      "sha256": "36e23303128ce666180f3e7ef85d452f69a0f2333d9706620e81d37f5fb6159a"
+    },
+    {
+      "path": "scripts/qa/verify-stabilization-v47.mjs",
+      "sha256": "74138ad692ba042c5e97096d16e943c0c8411bc75c82f34fa365062606eca2db"
+    },
+    {
+      "path": "scripts/qa/visual-sweep.mjs",
+      "sha256": "aea932dbc4cad5f8fac7f509b5dd1ea61608b837313b5d87404464ef844785b6"
+    },
+    {
+      "path": "scripts/verify-gameplay-clarity-v34.mjs",
+      "sha256": "594284f049f227c04bdfb6fed605d3c2fcd741d6f64eaf5fbbc3d34dc6e542e4"
+    },
+    {
+      "path": "src/desktop-electron/bridge-contract.ts",
+      "sha256": "a266412e94d6a0410d223c027d876f5a015d59ab7da91ff45c7e62abec642bdc"
+    },
+    {
+      "path": "src/desktop-electron/preload.cts",
+      "sha256": "cdce93ecdde7ff9f1814852500a6c2fcdbdad479e318f31d4972be0ce10dc37c"
+    },
+    {
+      "path": "src/game-core/config/runtime-game-config.test.ts",
+      "sha256": "74fe7323529ee1aeb0985c7677b8fa484b3acc21b17453ce465da422896887bb"
+    },
+    {
+      "path": "src/ui-react/components/gameplay/minigames/CountTheBeatScreen.tsx",
+      "sha256": "d31509b3e0af18e0305ed1e231e267f3ca67c4267b819ec82eb634de8d5c8cbc"
+    },
+    {
+      "path": "src/ui-react/components/gameplay/shared/answer-helpers.test.ts",
+      "sha256": "d1ff65825da0f6108b43557d64c55a4e452e35b938eef225a381241ca0244f1f"
+    },
+    {
+      "path": "src/ui-react/components/settings/AppSettingsButton.tsx",
+      "sha256": "ae5be4ad82cc7adeade4b11b9d8b9aa002b7ca3e0f18346fb29cfa753e4eb16b"
+    },
+    {
+      "path": "src/ui-react/context/TwitchConnectionContext.tsx",
+      "sha256": "00f1aed9e6818eb722eb9569873976264af50bd0ed7c0f989c64b336d247a5e9"
+    },
+    {
+      "path": "src/ui-react/types/electron.d.ts",
+      "sha256": "e617992724c4a52741a99e5bcae2c821bc90ae0177f739dc2b7a98d5d89b4dfc"
+    },
+    {
+      "path": "vitest.config.ts",
+      "sha256": "7898e86dbb97bd15787ffd09f5703dcb5d4bb37e1f4e58083f27735593845ca3"
+    }
+  ],
+  "deletedFiles": [],
+  "important": "No image licenses or Windows Electron GUI test are implied by this source patch."
+}

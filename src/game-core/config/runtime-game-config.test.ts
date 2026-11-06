@@ -51,7 +51,7 @@ describe('runtime mini-game configuration', () => {
     });
 
     expect(normalized.tour.enabledMiniGames).toEqual(DEFAULT_RUNTIME_GAME_CONFIG.tour.enabledMiniGames);
-    expect(normalized.tour.miniGameRotation).toEqual(DEFAULT_RUNTIME_GAME_CONFIG.tour.miniGameRotation);
+    expect(normalized.tour.miniGameRotation).toEqual(normalized.tour.enabledMiniGames);
   });
 
   it('preserves an explicit zero phase override', () => {

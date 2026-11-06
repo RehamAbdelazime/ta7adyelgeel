@@ -16,7 +16,7 @@ export function setRuntimeTranslations(overrides: RuntimeTranslationOverrides): 
 export const translations: Record<LocaleCode, Record<TranslationKey, string>> = {
   en: {
     'minigame.guessMovie.title': "GUESS THE MOVIE",
-    'minigame.guessMovie.note': "Guess the movie from a scene or poster.",
+    'minigame.guessMovie.note': "Guess the movie from a poster as its blur fades.",
     'minigame.guessMovie.started': "GUESS THE MOVIE started.",
     'minigame.guessMovie.answerWindowOpen': "Pick !1, !2, !3, or !4.",
     'minigame.guessMovie.answerWindowLocked': "Answer window closed.",
@@ -31,7 +31,7 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     'minigame.guessStar.resultFeed': "Correct answer: {answer}. Officials: {official}. Spectators: {spectator}.",
     'minigame.guessStar.noAnswers': "No answers this round.",
     'minigame.guessStar.scoringApplied': "Scores applied.",
-    'gameplay.intro.movie.step1': "See the scene or poster",
+    'gameplay.intro.movie.step1': "Watch the blurred poster",
     'gameplay.intro.movie.step2': "Guess the film",
     'gameplay.intro.movie.step3': "Reply !1 to !4",
     'gameplay.intro.star.step1': "Spot the eyes or silhouette",
@@ -427,7 +427,7 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
   },
   ar: {
     'minigame.guessMovie.title': "اعرف الفيلم",
-    'minigame.guessMovie.note': "اعرف الفيلم من مشهد أو بوستر.",
+    'minigame.guessMovie.note': "اعرف الفيلم من بوستر بيبان تدريجيًا.",
     'minigame.guessMovie.started': "بدأت لعبة اعرف الفيلم.",
     'minigame.guessMovie.answerWindowOpen': "جاوب !1 أو !2 أو !3 أو !4.",
     'minigame.guessMovie.answerWindowLocked': "انتهى وقت الإجابة.",
@@ -442,7 +442,7 @@ export const translations: Record<LocaleCode, Record<TranslationKey, string>> = 
     'minigame.guessStar.resultFeed': "الإجابة: {answer}. اللاعبين: {official}. المشاهدين: {spectator}.",
     'minigame.guessStar.noAnswers': "مفيش إجابات في الجولة.",
     'minigame.guessStar.scoringApplied': "تم احتساب النقاط.",
-    'gameplay.intro.movie.step1': "بص على المشهد أو البوستر",
+    'gameplay.intro.movie.step1': "شوف البوستر والـ Blur بيقل",
     'gameplay.intro.movie.step2': "خمن اسم الفيلم",
     'gameplay.intro.movie.step3': "جاوب من !1 إلى !4",
     'gameplay.intro.star.step1': "ركز في العيون أو الظل",

@@ -1,0 +1,78 @@
+/* V46 final stage polish: scoreboard density, winner highlight, readable players. */
+/* Show a denser yet legible 16-player page as two columns instead of eight
+   isolated narrow rows in the middle of a mostly empty full-size screen. */
+html body #root .show-scoreboard-v21 .show-scoreboard-body {
+  width: min(95%, 1180px) !important;
+  gap: clamp(7px,.6vw,12px) !important;
+}
+html body #root .show-scoreboard-v21 .show-score-ranking {
+  display: grid !important;
+  grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+  grid-auto-flow: row !important;
+  grid-auto-rows: minmax(35px,auto) !important;
+  gap: clamp(4px,.4vw,8px) clamp(9px,.85vw,16px) !important;
+  overflow: visible !important;
+}
+html body #root .show-scoreboard-v21 .show-score-ranking-row {
+  min-width: 0 !important;
+  min-height: clamp(35px,3.05vw,49px) !important;
+  grid-template-columns: clamp(39px,3.2vw,53px) minmax(0,1fr) clamp(43px,3.3vw,60px) !important;
+  padding-inline: clamp(7px,.7vw,12px) !important;
+}
+html body #root .show-scoreboard-v21 .show-score-ranking-row span {font-size:clamp(12px,.94vw,17px) !important;}
+html body #root .show-scoreboard-v21.show-scoreboard-crowded .show-score-leader {
+  min-height: clamp(68px,6.1vw,95px) !important;
+}
+html body #root .show-scoreboard-v21 .show-scoreboard-surface {min-height:0 !important; overflow:hidden !important;}
+html body #root .show-scoreboard-v21 .show-scoreboard-body {max-height:100% !important;overflow:hidden!important;}
+html body #root .show-scoreboard-v21 .show-score-ranking {min-height:0 !important;}
+/* Winner is a readable announcement above the board, not merely #1 in the table. */
+html body #root .show-score-winner-banner-v46 {
+  display:flex; align-items:center; justify-content:center; gap:clamp(8px,.9vw,16px);
+  width:max-content; max-width:92%; margin:0 auto; padding:clamp(5px,.55vw,10px) clamp(16px,1.5vw,30px);
+  border:1px solid rgba(255,218,113,.64); border-radius:99px;
+  background:linear-gradient(110deg,rgba(91,53,12,.95),rgba(32,38,76,.96),rgba(80,38,95,.9));
+  box-shadow:0 0 18px rgba(255,210,94,.16); color:#ffe7a4;
+  font:800 clamp(14px,1.35vw,22px)/1.2 var(--font-game-ui,sans-serif);
+}
+html body #root .show-score-winner-banner-v46 b {color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:37vw;}
+/* Keep names readable for small crowds; let dense-crowd styling decide
+   visibility for 100+ actual viewers rather than painting illegible names. */
+html body .gameplay-citizen-plaza:not(.gameplay-citizen-plaza-packed) .gameplay-citizen-card .gameplay-citizen-nameplate {
+  display:grid !important;visibility:visible !important;opacity:1 !important;
+}
+/* Remove meaningless small green pads / marker halos seen at the bottom of
+   the reveal while retaining the coloured lane wash and real avatars. */
+html body #root .gameplay-choice-spotlight::before,
+html body #root .gameplay-choice-spotlight::after,
+html body #root .gameplay-choice-spotlight-floor {display:none!important;}
+/* Keep SHOW LEADERBOARD close to the screen, clear of audience heads and
+   independent of the four answer positions. */
+html body #root .game-scene-stage > .qshell-reveal-stage-action {
+  bottom:clamp(108px,13%,156px) !important;
+  min-height:clamp(52px,4.6vw,67px) !important;
+  min-width:clamp(190px,18vw,290px) !important;
+  z-index:240 !important;
+}
+/* Soft premium shading enhances shape legibility without altering counts. */
+html body #root .gameplay-question-shape-count .gameplay-shape-grid .gameplay-shape-circle,
+html body #root .gameplay-question-shape-count .gameplay-shape-grid .gameplay-shape-hexagon {
+  box-shadow:inset -5px -6px 0 rgba(4,16,38,.17),inset 3px 4px 0 rgba(255,255,255,.19),0 5px 9px rgba(0,0,0,.23) !important;
+}
+@media(max-width:1300px){
+ html body #root .show-scoreboard-v21 .show-score-ranking {grid-auto-rows:minmax(30px,auto)!important;gap:3px 8px!important;}
+ html body #root .show-scoreboard-v21 .show-score-ranking-row {min-height:30px!important;}
+ html body #root .show-scoreboard-v21 .show-score-leader {min-height:60px!important;}
+ html body #root .game-scene-stage > .qshell-reveal-stage-action {bottom:12% !important;}
+}
+/* Extra explicit Winner row sits between role tabs and the ranking surface. */
+html body #root .show-scoreboard-v21:has(.show-score-winner-banner-v46) {
+  grid-template-rows: auto auto auto minmax(0,1fr) auto !important;
+  gap: clamp(4px,.42vw,8px) !important;
+}
+/* Screenshot-identified source: empty bright-green round badges are the legacy
+   correct-answer ::after on each citizen; there is no glyph/content inside. */
+html body #root .gameplay-citizen-answer-correct:not(.gameplay-citizen-entering)::after {
+  display:none !important;
+  content:none !important;
+}

@@ -2563,14 +2563,8 @@ button,
 .settings-apply-button,
 .settings-danger-button,
 .twitch-connection-panel button,
-.host-production-panel button,
 .host-action-button,
-.host-primary,
-.host-danger,
-.developer-qa-panel button,
-.qa-panel button,
 button[class*="host-"],
-button[class*="qa-"],
 button[class*="play-"],
 button[class*="settings-"],
 button[class*="gameplay-"],
@@ -2639,14 +2633,8 @@ button[class*="auth-"] {
 .settings-apply-button::after,
 .settings-danger-button::before,
 .settings-danger-button::after,
-.host-production-panel button::before,
-.host-production-panel button::after,
-.developer-qa-panel button::before,
-.developer-qa-panel button::after,
 button[class*="host-"]::before,
-button[class*="host-"]::after,
-button[class*="qa-"]::before,
-button[class*="qa-"]::after {
+button[class*="host-"]::after{
   background: transparent !important;
   background-image: none !important;
   box-shadow: none !important;
@@ -2672,10 +2660,7 @@ button[class*="qa-"]::after {
 .settings-secondary-button:hover:not(:disabled),
 .settings-apply-button:hover:not(:disabled),
 .settings-danger-button:hover:not(:disabled),
-.host-production-panel button:hover:not(:disabled),
-.developer-qa-panel button:hover:not(:disabled),
-button[class*="host-"]:hover:not(:disabled),
-button[class*="qa-"]:hover:not(:disabled) {
+button[class*="host-"]:hover:not(:disabled){
   transform: translateY(-1px) scale(1.015) !important;
   border-color: color-mix(in srgb, var(--neon-a) 74%, white 26%) !important;
   box-shadow:
@@ -2701,9 +2686,7 @@ button[class*="qa-"]:hover:not(:disabled) {
 .settings-choice-button:active:not(:disabled),
 .settings-secondary-button:active:not(:disabled),
 .settings-apply-button:active:not(:disabled),
-.settings-danger-button:active:not(:disabled),
-.host-production-panel button:active:not(:disabled),
-.developer-qa-panel button:active:not(:disabled) {
+.settings-danger-button:active:not(:disabled){
   transform: translateY(1px) scale(0.985) !important;
 }
 
@@ -2722,9 +2705,7 @@ button[class*="qa-"]:hover:not(:disabled) {
 .settings-choice-button:disabled,
 .settings-secondary-button:disabled,
 .settings-apply-button:disabled,
-.settings-danger-button:disabled,
-.host-production-panel button:disabled,
-.developer-qa-panel button:disabled {
+.settings-danger-button:disabled{
   opacity: 0.38 !important;
   color: rgba(215, 225, 255, 0.58) !important;
   border-color: rgba(145, 160, 205, 0.42) !important;
@@ -2806,7 +2787,6 @@ button[class*="qa-"]:hover:not(:disabled) {
 .gameplay-scoreboard-back-button,
 .gameplay-intro-continue-button,
 .auth-primary-button,
-.host-primary,
 .play-start-selected-tour {
   --neon-a: #44f4ff;
   --neon-b: #a66bff;
@@ -2821,9 +2801,7 @@ button[class*="qa-"]:hover:not(:disabled) {
   --neon-b: #a66bff;
 }
 
-.settings-danger-button,
-.host-danger,
-button.host-danger {
+.settings-danger-button{
   --neon-a: #ff5f8d;
   --neon-b: #ffb05c;
 }
@@ -2843,9 +2821,7 @@ button.host-danger {
 .play-mini-game-picker,
 .settings-modal,
 .auth-card,
-.twitch-connection-panel,
-.host-production-panel,
-.developer-qa-panel {
+.twitch-connection-panel{
   background: rgba(2, 4, 18, 0.54) !important;
   border: 1px solid rgba(69, 242, 255, 0.28) !important;
   box-shadow:
@@ -2876,12 +2852,7 @@ button.host-danger {
 }
 
 /* Host/QA compact buttons need smaller outlines. */
-.host-production-panel button,
-.developer-qa-panel button {
-  border-width: 1.5px !important;
-  outline-offset: 2px !important;
-  border-radius: 12px !important;
-}
+
 
 /* cleaned legacy comment */
 .center-play-button,
@@ -3152,9 +3123,7 @@ button.host-danger {
 }
 
 /* cleaned legacy comment */
-.gameplay-citizen-qa-bot .gameplay-citizen-nameplate {
-  display: none !important;
-}
+
 
 /* cleaned legacy comment */
 .visual-world-layer-concert {

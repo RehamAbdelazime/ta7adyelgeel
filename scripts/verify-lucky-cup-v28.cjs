@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const ts = (() => { try { return require('typescript'); } catch { return require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript'); } })();
+const ts = (() => { try { return require('typescript'); } catch { return require('typescript'); } })();
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const has = (file, phrase) => assert.ok(read(file).includes(phrase), `${file} missing: ${phrase}`);

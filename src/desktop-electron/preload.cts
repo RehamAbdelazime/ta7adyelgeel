@@ -2,15 +2,10 @@ import { contextBridge, ipcRenderer } from 'electron';
 import type { TwitchAuthStatus } from './twitch/TwitchAuthService.js';
 import type { TwitchIrcChatMessage } from './twitch/TwitchIrcClient.js';
 
-export type DisplayMode = 'fullscreen' | 'windowed' | 'borderless';
-export type ResolutionPreset = '1920x1080' | '1600x900' | '1366x768' | '1280x720';
+import type { DisplaySettings, ElGeelDesktopApi, ElGeelTwitchApi } from './bridge-contract.js';
+export type { DisplayMode, ResolutionPreset, DisplaySettings, ElGeelDesktopApi, ElGeelTwitchApi } from './bridge-contract.js';
 
-export type DisplaySettings = {
-  displayMode: DisplayMode;
-  resolution: ResolutionPreset;
-};
-
-const twitchApi = {
+const twitchApi: ElGeelTwitchApi = {
   startAuth: () => ipcRenderer.invoke('twitch:startAuth') as Promise<TwitchAuthStatus>,
   reconnect: () => ipcRenderer.invoke('twitch:reconnect') as Promise<TwitchAuthStatus>,
   disconnect: () => ipcRenderer.invoke('twitch:disconnect') as Promise<TwitchAuthStatus>,
@@ -27,7 +22,7 @@ const twitchApi = {
   },
 };
 
-const api = {
+const api: ElGeelDesktopApi = {
   window: {
     minimize: () => ipcRenderer.send('window:minimize'),
     close: () => ipcRenderer.send('window:close'),
@@ -62,5 +57,4 @@ contextBridge.exposeInMainWorld('desktopTwitch', twitchApi);
 contextBridge.exposeInMainWorld('twitchBridge', twitchApi);
 contextBridge.exposeInMainWorld('__TA7ADY_PRELOAD_READY__', true);
 
-export type ElGeelDesktopApi = typeof api;
-export type ElGeelTwitchApi = typeof twitchApi;
+

@@ -238,6 +238,8 @@ export type MiniGameSnapshot = {
     imageUrl: string;
     focus: { x: number; y: number };
     titleMask: { x: number; y: number; w: number; h: number } | null;
+    titleMasks: { x: number; y: number; w: number; h: number }[];
+    posterAspectRatio: number | null;
     choices: VisualGuessChoice[];
     correctOptionNumber: number | null;
     correctLabel: string | null;

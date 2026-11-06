@@ -100,6 +100,7 @@ describe('shared answer helpers', () => {
         targetLabel: 'music notes',
         targetGlyph: '♪',
         targetCount: 12,
+        bpm: 108,
         items: [],
         scoring: { exact: 100, partial: 25, partialTolerance: 1, incorrect: 0 },
       },
@@ -140,6 +141,8 @@ describe('shared answer helpers', () => {
           { optionNumber: 2, command: '!2', label: 'Triangle', shape: 'triangle' },
         ],
         counts: { triangle: 4 },
+        mode: 'majority',
+        targetCount: null,
       },
     });
     expect(getCorrectOptionNumber(shapes)).toBe(2);

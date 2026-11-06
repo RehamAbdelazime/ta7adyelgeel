@@ -1,635 +1,2029 @@
 {
-  "schemaVersion": 3,
-  "mediaPolicy": "Real photography only. Celebrities: Wikimedia Commons actual portraits with file-specific licenses and required attribution. Movie image candidates: genuine film stills/posters with third-party copyright NOT cleared for public streaming or redistribution; license/permission REQUIRED before use. No original-art substitute. Never claim that a URL alone grants rights. Missing files must show an explicit error, not imaginary artwork.",
+  "schemaVersion": 4,
+  "mediaPolicy": "Movie posters are exclusively the 50 user-supplied local assets. No movie URLs are used. Rights for broadcast/distribution are not independently verified. Star media remains unchanged.",
   "difficultyPolicy": {
     "audience": "Egyptian Arabic Twitch viewers",
-    "source": "editorial familiarity estimate, informed by Egyptian cinema popularity and local cultural context; NOT a statistical survey",
+    "source": "editorial mainstream popularity estimate; validate with real Egyptian players",
     "schedule": [
       "easy",
       "medium",
       "hard",
       "hard"
     ],
-    "lastVerified": "2026-11-04"
+    "lastVerified": "2026-11-06"
   },
   "movies": [
     {
+      "id": "movie-ebn-el-7ag-a7mad",
+      "name": {
+        "ar": "ابن الحاج أحمد",
+        "en": "Ibn El Hagg Ahmed"
+      },
+      "asset": "movie-ebn-el-7ag-a7mad.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71429,
+      "titleMask": {
+        "x": 8,
+        "y": 4,
+        "w": 88,
+        "h": 32
+      },
+      "titleMasks": [
+        {
+          "x": 8,
+          "y": 4,
+          "w": 88,
+          "h": 32
+        }
+      ],
+      "distractorIds": [
+        "movie-ana-w-ebn-5alty",
+        "movie-bait-el-roby",
+        "movie-abo-nasab",
+        "movie-siko-siko",
+        "title-abood"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-3amel-0",
+      "name": {
+        "ar": "العميل صفر",
+        "en": "Agent Zero"
+      },
+      "asset": "movie-el-3amel-0.jpeg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.77684,
+      "titleMask": {
+        "x": 42,
+        "y": 48,
+        "w": 51,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 42,
+          "y": 48,
+          "w": 51,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-el-5alya",
+        "movie-el-5eta-el-3ayma",
+        "movie-3esabet-el-max",
+        "title-basha",
+        "movie-bank-el-7az"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-5alya",
+      "name": {
+        "ar": "الخلية",
+        "en": "El Khaleya"
+      },
+      "asset": "movie-el-5alya.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.69216,
+      "titleMask": {
+        "x": 24,
+        "y": 46,
+        "w": 65,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 24,
+          "y": 46,
+          "w": 65,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-el-3amel-0",
+        "title-welad",
+        "title-gazeera",
+        "movie-darwesh",
+        "movie-kira-w-el-gen"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-5eta-el-3ayma",
+      "name": {
+        "ar": "الخطة العايمة",
+        "en": "El Khetta El Aayma"
+      },
+      "asset": "movie-el-5eta-el-3ayma.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71588,
+      "titleMask": {
+        "x": 4,
+        "y": 8,
+        "w": 93,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 4,
+          "y": 8,
+          "w": 93,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "movie-bank-el-7az",
+        "movie-el-3amel-0",
+        "movie-3esabet-el-max",
+        "movie-3esabet-3azima",
+        "movie-abo-nasab"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el7aref",
+      "name": {
+        "ar": "الحريف",
+        "en": "El Hareef"
+      },
+      "asset": "movie-el7aref.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.66667,
+      "titleMask": {
+        "x": 27,
+        "y": 68,
+        "w": 67,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 27,
+          "y": 68,
+          "w": 67,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-el-emberator",
+        "title-ibrahim",
+        "movie-salam-ya-sa7by",
+        "movie-el-halfot",
+        "movie-el-kit-kat"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-bata-el-safra",
+      "name": {
+        "ar": "البطة الصفرا",
+        "en": "El Batta El Safra"
+      },
+      "asset": "movie-el-bata-el-safra.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71429,
+      "titleMask": {
+        "x": 5,
+        "y": 5,
+        "w": 90,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 5,
+          "y": 5,
+          "w": 90,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-taslem-ahaly",
+        "movie-3esabet-3azima",
+        "movie-siko-siko",
+        "movie-abo-nasab",
+        "movie-rocky-el-8alaba"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-bo3bo3",
+      "name": {
+        "ar": "البعبع",
+        "en": "El BoaBoa"
+      },
+      "asset": "movie-el-bo3bo3.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71436,
+      "titleMask": {
+        "x": 20,
+        "y": 8,
+        "w": 69,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 20,
+          "y": 8,
+          "w": 69,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-lylet-hana-w-sror",
+        "movie-3esabet-el-max",
+        "movie-darwesh",
+        "movie-ga7im-fe-el-hend",
+        "movie-rocky-el-8alaba"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-emberator",
+      "name": {
+        "ar": "الإمبراطور",
+        "en": "El Embrator"
+      },
+      "asset": "movie-el-emberator.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.73535,
+      "titleMask": {
+        "x": 20,
+        "y": 73,
+        "w": 75,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 20,
+          "y": 73,
+          "w": 75,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-el-5alya",
+        "movie-el7aref",
+        "title-gazeera",
+        "movie-salam-ya-sa7by",
+        "movie-darwesh"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-halfot",
+      "name": {
+        "ar": "الحلفوت",
+        "en": "El Halfout"
+      },
+      "asset": "movie-el-halfot.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7235,
+      "titleMask": {
+        "x": 8,
+        "y": 7,
+        "w": 88,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 8,
+          "y": 7,
+          "w": 88,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-salam-ya-sa7by",
+        "movie-tyor-el-zalam",
+        "title-erhab",
+        "movie-el7aref",
+        "movie-sh3ban-t7t-el-sefr"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-kit-kat",
+      "name": {
+        "ar": "الكيت كات",
+        "en": "El Kit Kat"
+      },
+      "asset": "movie-el-kit-kat.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.70605,
+      "titleMask": {
+        "x": 15,
+        "y": 8,
+        "w": 79,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 15,
+          "y": 8,
+          "w": 79,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-el7aref",
+        "movie-el-halfot",
+        "title-mansy",
+        "movie-Eskendria-leh",
+        "movie-salam-ya-sa7by"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-el-lemby",
+      "name": {
+        "ar": "اللمبي",
+        "en": "El Limby"
+      },
+      "asset": "movie-el-lemby.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.6959,
+      "titleMask": {
+        "x": 27,
+        "y": 4,
+        "w": 68,
+        "h": 31
+      },
+      "titleMasks": [
+        {
+          "x": 27,
+          "y": 4,
+          "w": 68,
+          "h": 31
+        }
+      ],
+      "distractorIds": [
+        "title-limby2",
+        "title-okal",
+        "title-boha",
+        "movie-el-nazer",
+        "movie-3askar-fe-el-mo3skar"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
       "id": "movie-el-nazer",
       "name": {
-        "en": "El Nazer",
-        "ar": "الناظر"
+        "ar": "الناظر",
+        "en": "El Nazer"
       },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-el-nazer.jpg",
-      "imageUrl": "https://media0093.elcinema.com/uploads/_640x_98d6ce58836df9ea41450c5cda0f4b89da996d6672d4bcba5b8e704055272f6f.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://elcinema.com/work/1001525/gallery/123504697/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://elcinema.com/work/1001525/gallery/123504697/",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-el-limby",
-      "name": {
-        "en": "El Limby",
-        "ar": "اللمبي"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-el-limby.jpg",
-      "imageUrl": "https://mediaaws-live.almasryalyoum.com/AMAYLivePictures/portalimages/news/original/2022/11/11/1943469_0.jpeg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.almasryalyoum.com/news/details/2739016",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.almasryalyoum.com/news/details/2739016",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-asal-eswed",
-      "name": {
-        "en": "Assal Eswed",
-        "ar": "عسل إسود"
-      },
+      "asset": "movie-el-nazer.webp",
+      "imageUrl": "",
       "mode": "poster",
       "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-asal-eswed.jpg",
-      "imageUrl": "https://www.mafab.hu/static/profiles/2014/293/00/6580_9.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://www.mafab.hu/movies/--6580.html",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "https://www.mafab.hu/movies/--6580.html",
-      "mediaApproval": "pending_rights_review",
+      "posterAspectRatio": 0.70485,
       "titleMask": {
-        "x": 2,
-        "y": 77,
-        "w": 96,
-        "h": 23
-      }
+        "x": 10,
+        "y": 73,
+        "w": 88,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 10,
+          "y": 73,
+          "w": 88,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "title-abood",
+        "title-saeedy",
+        "title-hamam",
+        "movie-el-lemby",
+        "movie-film-skafy"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-x-large",
+      "id": "movie-elzoga-13",
       "name": {
-        "en": "X-Large",
-        "ar": "إكس لارج"
+        "ar": "الزوجة 13",
+        "en": "El Zawga 13"
       },
-      "mode": "poster",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-x-large.jpg",
-      "imageUrl": "https://image.tmdb.org/t/p/w440_and_h660_face/dBK3YVsY27F7VYWXdSrXqot947K.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.themoviedb.org/movie/103376",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.themoviedb.org/movie/103376",
-      "mediaApproval": "pending_rights_review",
-      "titleMask": {
-        "x": 0,
-        "y": 0,
-        "w": 100,
-        "h": 30
-      }
-    },
-    {
-      "id": "movie-el-feel-el-azraq",
-      "name": {
-        "en": "The Blue Elephant",
-        "ar": "الفيل الأزرق"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-el-feel-el-azraq.jpg",
-      "imageUrl": "https://media0095.elcinema.com/uploads/_640x_624cd76e871a5282c45e609ed7000ff4bfa6c2bed65add181ed64860d9e8cacb.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://elcinema.com/work/2019662/gallery/124126132/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://elcinema.com/work/2019662/gallery/124126132/",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-welad-rezk",
-      "name": {
-        "en": "Welad Rizk",
-        "ar": "ولاد رزق"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-welad-rezk.jpg",
-      "imageUrl": "https://cdn-ar-1.alwasat.ly/uploads/articles/75225.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://alwasat.ly/news/art-culture/50937",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://alwasat.ly/news/art-culture/50937",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-saeedi-amc",
-      "name": {
-        "en": "Saidi in the American University",
-        "ar": "صعيدي في الجامعة الأمريكية"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-saeedi-amc.jpg",
-      "imageUrl": "https://media0098.elcinema.com/uploads/_640x_b0d3d6324701bf90e1962ea78748597b9dfee6f8b8e02d73994deb3146d520f9.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://elcinema.com/work/1008760/gallery/123516066/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://elcinema.com/work/1008760/gallery/123516066/",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-keda-reda",
-      "name": {
-        "en": "Keda Reda",
-        "ar": "كده رضا"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "egyptian",
-      "asset": "movie-keda-reda.jpg",
-      "imageUrl": "https://image.tmdb.org/t/p/w1066_and_h600_face/qJyIO2Ies3icSZDg5YaZOLrxwNt.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.themoviedb.org/movie/43405",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.themoviedb.org/movie/43405",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-titanic",
-      "name": {
-        "en": "Titanic",
-        "ar": "تيتانيك"
-      },
-      "mode": "scene",
-      "difficulty": "easy",
-      "category": "international",
-      "asset": "movie-titanic.jpg",
+      "asset": "movie-elzoga-13.jpg",
       "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-home-alone",
-      "name": {
-        "en": "Home Alone",
-        "ar": "وحدي في المنزل"
-      },
-      "mode": "poster",
-      "difficulty": "easy",
-      "category": "international",
-      "asset": "movie-home-alone.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-terrorism-kebab",
-      "name": {
-        "en": "Terrorism and Kebab",
-        "ar": "الإرهاب والكباب"
-      },
-      "mode": "scene",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-terrorism-kebab.jpg",
-      "imageUrl": "https://m.media-amazon.com/images/M/MV5BYmMyMWRhZTctMmJjYi00YWVmLWIyOWMtMWFmOGY4NWJiNTUxXkEyXkFqcGc%40._V1_QL75_UX670_.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.imdb.com/title/tt0107227/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.imdb.com/title/tt0107227/",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-samir-shahir-bahir",
-      "name": {
-        "en": "Samir, Shahir and Bahir",
-        "ar": "سمير وشهير وبهير"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-samir-shahir-bahir.jpg",
-      "imageUrl": "https://images.justwatch.com/poster/305296579/s718/smyr-wshhyr-wbhyr.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.justwatch.com/eg/movie/smyr-wshhyr-wbhyr",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.justwatch.com/eg/movie/smyr-wshhyr-wbhyr",
-      "mediaApproval": "pending_rights_review",
-      "titleMask": {
-        "x": 0,
-        "y": 0,
-        "w": 100,
-        "h": 27
-      }
-    },
-    {
-      "id": "movie-zaki-chan",
-      "name": {
-        "en": "Zaki Chan",
-        "ar": "زكي شان"
-      },
-      "mode": "scene",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-zaki-chan.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-tayer-ent",
-      "name": {
-        "en": "Tayer Ent",
-        "ar": "طير إنت"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-tayer-ent.jpg",
-      "imageUrl": "https://m.media-amazon.com/images/M/MV5BNDA5ZTVjYmMtMWYxNS00ZGQ5LWE0ZmEtYzc1ZjY1ZTBkZDRhXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.imdb.com/title/tt1699195/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.imdb.com/title/tt1699195/",
-      "mediaApproval": "pending_rights_review",
-      "titleMask": {
-        "x": 0,
-        "y": 80,
-        "w": 100,
-        "h": 20
-      }
-    },
-    {
-      "id": "movie-1000-mabrook",
-      "name": {
-        "en": "1000 Mabrook",
-        "ar": "1000 مبروك"
-      },
-      "mode": "scene",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-1000-mabrook.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-la-taragoe",
-      "name": {
-        "en": "No Retreat, No Surrender",
-        "ar": "لا تراجع ولا استسلام"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-la-taragoe.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-el-gazeera",
-      "name": {
-        "en": "El Gezira",
-        "ar": "الجزيرة"
-      },
-      "mode": "scene",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-el-gazeera.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-el-mamar",
-      "name": {
-        "en": "The Passage",
-        "ar": "الممر"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-el-mamar.jpg",
-      "imageUrl": "https://m.media-amazon.com/images/M/MV5BYTM4MDMwNWQtZTcwYy00NTgzLWJhOWMtOGU2MjA1ZGRmMTU4XkEyXkFqcGc%40._V1_.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.imdb.com/title/tt10443808/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.imdb.com/title/tt10443808/",
-      "mediaApproval": "pending_rights_review",
-      "titleMask": {
-        "x": 0,
-        "y": 0,
-        "w": 100,
-        "h": 27
-      }
-    },
-    {
-      "id": "movie-kira-wel-gen",
-      "name": {
-        "en": "Kira & El Gin",
-        "ar": "كيرة والجن"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "egyptian",
-      "asset": "movie-kira-wel-gen.jpg",
-      "imageUrl": "https://img.youm7.com/ArticleImgs/2022/12/16/211649-%D9%81%D9%8A%D9%84%D9%85-%D9%83%D9%8A%D8%B1%D8%A9-%D9%88%D8%A7%D9%84%D8%AC%D9%86.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.youm7.com/story/2022/12/19/6012497",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.youm7.com/story/2022/12/19/6012497",
-      "mediaApproval": "pending_rights_review",
-      "titleMask": {
-        "x": 0,
-        "y": 0,
-        "w": 100,
-        "h": 30
-      }
-    },
-    {
-      "id": "movie-harry-potter",
-      "name": {
-        "en": "Harry Potter and the Philosopher’s Stone",
-        "ar": "هاري بوتر وحجر الفيلسوف"
-      },
-      "mode": "poster",
-      "difficulty": "medium",
-      "category": "international",
-      "asset": "movie-harry-potter.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-eshtbak",
-      "name": {
-        "en": "Clash",
-        "ar": "اشتباك"
-      },
-      "mode": "scene",
-      "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-eshtbak.jpg",
-      "imageUrl": "https://images.dailynewsegypt.com/2018/09/8-1-2.jpeg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://www.dailynewsegypt.com/2016/05/14/after-opening-un-certain-regard-at-cannes-eshtebak-receives-international-standing-ovation/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
-      },
-      "sourcePage": "https://www.dailynewsegypt.com/2016/05/14/after-opening-un-certain-regard-at-cannes-eshtebak-receives-international-standing-ovation/",
-      "mediaApproval": "pending_rights_review"
-    },
-    {
-      "id": "movie-678",
-      "name": {
-        "en": "678",
-        "ar": "678"
-      },
       "mode": "poster",
       "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-678.jpg",
-      "imageUrl": "https://m.media-amazon.com/images/M/MV5BZThmMGZkYjctZWE5OS00YjAwLWFhYTMtMjdmN2YyNzdmNWZiXkEyXkFqcGc%40._V1_.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://www.imdb.com/title/tt1764141/",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "https://www.imdb.com/title/tt1764141/",
-      "mediaApproval": "pending_rights_review",
+      "posterAspectRatio": 0.7002,
       "titleMask": {
-        "x": 0,
+        "x": 22,
         "y": 75,
-        "w": 100,
-        "h": 25
-      }
+        "w": 71,
+        "h": 22
+      },
+      "titleMasks": [
+        {
+          "x": 22,
+          "y": 75,
+          "w": 71,
+          "h": 22
+        }
+      ],
+      "distractorIds": [
+        "movie-esha3et-7ob",
+        "movie-meraty-moder-3am",
+        "title-zoga2",
+        "title-soghayer",
+        "movie-sh3ban-t7t-el-sefr"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-fatat-el-masnaa",
+      "id": "movie-esha3et-7ob",
       "name": {
-        "en": "Factory Girl",
-        "ar": "فتاة المصنع"
+        "ar": "إشاعة حب",
+        "en": "Eshaeat Hob"
       },
-      "mode": "scene",
-      "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-fatat-el-masnaa.jpg",
+      "asset": "movie-esha3et-7ob.jpg",
       "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.69832,
+      "titleMask": {
+        "x": 14,
+        "y": 71,
+        "w": 76,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 14,
+          "y": 71,
+          "w": 76,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-elzoga-13",
+        "movie-meraty-moder-3am",
+        "title-ghazal",
+        "title-soghayer",
+        "title-be7s"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-yom-lel-setat",
+      "id": "movie-Eskendria-leh",
       "name": {
-        "en": "A Day for Women",
-        "ar": "يوم للستات"
+        "ar": "إسكندرية ليه؟",
+        "en": "Alexandria... Why?"
       },
+      "asset": "movie-Eskendria-leh.webp",
+      "imageUrl": "",
       "mode": "poster",
       "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-yom-lel-setat.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.70729,
+      "titleMask": {
+        "x": 8,
+        "y": 73,
+        "w": 88,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 8,
+          "y": 73,
+          "w": 88,
+          "h": 24
+        },
+        {
+          "x": 12,
+          "y": 57,
+          "w": 83,
+          "h": 16
+        }
+      ],
+      "distractorIds": [
+        "movie-fe-sh2t-masr-el-gdeda",
+        "title-bab7",
+        "movie-el-kit-kat",
+        "movie-asmaa",
+        "movie-re7la-404"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-torab-el-mas",
+      "id": "movie-fasel-mn-el-la7azat-el-laziza",
       "name": {
-        "en": "Diamond Dust",
-        "ar": "تراب الماس"
+        "ar": "فاصل من اللحظات اللذيذة",
+        "en": "Fasel Men El Lahazat El Laziza"
       },
-      "mode": "scene",
-      "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-torab-el-mas.jpg",
+      "asset": "movie-fasel-mn-el-la7azat-el-laziza.jpg",
       "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.79839,
+      "titleMask": {
+        "x": 10,
+        "y": 67,
+        "w": 87,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 10,
+          "y": 67,
+          "w": 87,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-7amel-el-lakab",
+        "movie-shalaby",
+        "movie-siko-siko",
+        "movie-bait-el-roby",
+        "movie-wa2fet-regala"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-fe-sh2t-masr-el-gdeda",
+      "name": {
+        "ar": "في شقة مصر الجديدة",
+        "en": "Fi Shaqqat Masr El Gedida"
+      },
+      "asset": "movie-fe-sh2t-masr-el-gdeda.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.672,
+      "titleMask": {
+        "x": 5,
+        "y": 64,
+        "w": 88,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 5,
+          "y": 64,
+          "w": 88,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-re7la-404",
+        "movie-asmaa",
+        "title-3arous",
+        "movie-kedbt-kol-youm",
+        "movie-Eskendria-leh"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-film-skafy",
+      "name": {
+        "ar": "فيلم ثقافي",
+        "en": "Film Thaqafi"
+      },
+      "asset": "movie-film-skafy.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.65147,
+      "titleMask": {
+        "x": 7,
+        "y": 0,
+        "w": 86,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 7,
+          "y": 0,
+          "w": 86,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "title-abood",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-3li-spicy"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-ga7im-fe-el-hend",
+      "name": {
+        "ar": "جحيم في الهند",
+        "en": "Gaheem Fi El Hind"
+      },
+      "asset": "movie-ga7im-fe-el-hend.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.80328,
+      "titleMask": {
+        "x": 12,
+        "y": 75,
+        "w": 86,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 12,
+          "y": 75,
+          "w": 86,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "title-world3",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-kira-w-el-gen",
+        "movie-lylet-hana-w-sror",
+        "movie-3esabet-el-max"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-kedbt-kol-youm",
+      "name": {
+        "ar": "كدبة كل يوم",
+        "en": "Kedba Kol Youm"
+      },
+      "asset": "movie-kedbt-kol-youm.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71354,
+      "titleMask": {
+        "x": 11,
+        "y": 3,
+        "w": 89,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 11,
+          "y": 3,
+          "w": 89,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-tesba7-3ala-5er",
+        "movie-taslem-ahaly",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-wa2fet-regala",
+        "movie-bait-el-roby"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-kira-w-el-gen",
+      "name": {
+        "ar": "كيرة والجن",
+        "en": "Kira & El Gen"
+      },
+      "asset": "movie-kira-w-el-gen.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.6468,
+      "titleMask": {
+        "x": 8,
+        "y": 73,
+        "w": 87,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 8,
+          "y": 73,
+          "w": 87,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "title-welad",
+        "title-mamar",
+        "movie-el-5alya",
+        "title-gazeera",
+        "movie-darwesh"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-lylet-hana-w-sror",
+      "name": {
+        "ar": "ليلة هنا وسرور",
+        "en": "Leilet Hana We Sorour"
+      },
+      "asset": "movie-lylet-hana-w-sror.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71456,
+      "titleMask": {
+        "x": 21,
+        "y": 73,
+        "w": 77,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 21,
+          "y": 73,
+          "w": 77,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "movie-el-bo3bo3",
+        "movie-3esabet-el-max",
+        "movie-tesba7-3ala-5er",
+        "movie-ga7im-fe-el-hend",
+        "movie-taslem-ahaly"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-meraty-moder-3am",
+      "name": {
+        "ar": "مراتي مدير عام",
+        "en": "Merati Moudir Aam"
+      },
+      "asset": "movie-meraty-moder-3am.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.69767,
+      "titleMask": {
+        "x": 19,
+        "y": 57,
+        "w": 77,
+        "h": 28
+      },
+      "titleMasks": [
+        {
+          "x": 19,
+          "y": 57,
+          "w": 77,
+          "h": 28
+        }
+      ],
+      "distractorIds": [
+        "movie-elzoga-13",
+        "movie-esha3et-7ob",
+        "title-zoga2",
+        "title-be7s",
+        "movie-sh3ban-t7t-el-sefr"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-mousa",
+      "name": {
+        "ar": "موسى",
+        "en": "Mousa"
+      },
+      "asset": "movie-mousa.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.70681,
+      "titleMask": {
+        "x": 23,
+        "y": 71,
+        "w": 71,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 23,
+          "y": 71,
+          "w": 71,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-el-5alya",
+        "movie-el-bo3bo3",
+        "movie-kira-w-el-gen",
+        "title-filmfeel",
+        "movie-darwesh"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-re7la-404",
+      "name": {
+        "ar": "رحلة 404",
+        "en": "Flight 404"
+      },
+      "asset": "movie-re7la-404.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.8,
+      "titleMask": {
+        "x": 19,
+        "y": 64,
+        "w": 76,
+        "h": 23
+      },
+      "titleMasks": [
+        {
+          "x": 19,
+          "y": 64,
+          "w": 76,
+          "h": 23
+        }
+      ],
+      "distractorIds": [
+        "movie-asmaa",
+        "title-fatah",
+        "movie-fe-sh2t-masr-el-gdeda",
+        "movie-youm-w-lyla",
+        "title-tarab"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-rocky-el-8alaba",
+      "name": {
+        "ar": "روكي الغلابة",
+        "en": "Rocky El Ghalaba"
+      },
+      "asset": "movie-rocky-el-8alaba.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.78508,
+      "titleMask": {
+        "x": 12,
+        "y": 73,
+        "w": 85,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 12,
+          "y": 73,
+          "w": 85,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-taslem-ahaly",
+        "movie-3esabet-3azima",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-wa2fet-regala",
+        "movie-siko-siko"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-salam-ya-sa7by",
+      "name": {
+        "ar": "سلام يا صاحبي",
+        "en": "Salam Ya Sahby"
+      },
+      "asset": "movie-salam-ya-sa7by.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.74571,
+      "titleMask": {
+        "x": 13,
+        "y": 8,
+        "w": 83,
+        "h": 22
+      },
+      "titleMasks": [
+        {
+          "x": 13,
+          "y": 8,
+          "w": 83,
+          "h": 22
+        }
+      ],
+      "distractorIds": [
+        "movie-tyor-el-zalam",
+        "movie-el-halfot",
+        "title-erhab",
+        "title-l3b",
+        "movie-el-emberator"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-samir-abo-el-nile",
+      "name": {
+        "ar": "سمير أبو النيل",
+        "en": "Samir Abu El Nil"
+      },
+      "asset": "movie-samir-abo-el-nile.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71508,
+      "titleMask": {
+        "x": 10,
+        "y": 77,
+        "w": 88,
+        "h": 22
+      },
+      "titleMasks": [
+        {
+          "x": 10,
+          "y": 77,
+          "w": 88,
+          "h": 22
+        }
+      ],
+      "distractorIds": [
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "title-okal",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-3li-spicy"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-sh3ban-t7t-el-sefr",
+      "name": {
+        "ar": "شعبان تحت الصفر",
+        "en": "Shaaban Taht El Sefr"
+      },
+      "asset": "movie-sh3ban-t7t-el-sefr.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71667,
+      "titleMask": {
+        "x": 43,
+        "y": 3,
+        "w": 55,
+        "h": 24
+      },
+      "titleMasks": [
+        {
+          "x": 43,
+          "y": 3,
+          "w": 55,
+          "h": 24
+        }
+      ],
+      "distractorIds": [
+        "movie-el-halfot",
+        "movie-meraty-moder-3am",
+        "movie-elzoga-13",
+        "movie-esha3et-7ob",
+        "movie-3esabet-7amada-w-toto"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-shalaby",
+      "name": {
+        "ar": "شلبي",
+        "en": "Shalaby"
+      },
+      "asset": "movie-shalaby.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71918,
+      "titleMask": {
+        "x": 25,
+        "y": 73,
+        "w": 69,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 25,
+          "y": 73,
+          "w": 69,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-7amel-el-lakab",
+        "movie-siko-siko",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-bait-el-roby",
+        "movie-wa2fet-regala"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-siko-siko",
+      "name": {
+        "ar": "سيكو سيكو",
+        "en": "Siko Siko"
+      },
+      "asset": "movie-siko-siko.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.79968,
+      "titleMask": {
+        "x": 6,
+        "y": 4,
+        "w": 92,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 6,
+          "y": 4,
+          "w": 92,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-shalaby",
+        "movie-7amel-el-lakab",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "title-samir3",
+        "movie-bank-el-7az"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-taslem-ahaly",
+      "name": {
+        "ar": "تسليم أهالي",
+        "en": "Tasleem Ahali"
+      },
+      "asset": "movie-taslem-ahaly.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 1.0,
+      "titleMask": {
+        "x": 14,
+        "y": 5,
+        "w": 84,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 14,
+          "y": 5,
+          "w": 84,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "movie-rocky-el-8alaba",
+        "movie-tesba7-3ala-5er",
+        "movie-3esabet-3azima",
+        "movie-el-bo3bo3",
+        "movie-wa2fet-regala"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-tesba7-3ala-5er",
+      "name": {
+        "ar": "تصبح على خير",
+        "en": "Tesbah Ala Kheir"
+      },
+      "asset": "movie-tesba7-3ala-5er.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.67507,
+      "titleMask": {
+        "x": 18,
+        "y": 48,
+        "w": 80,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 18,
+          "y": 48,
+          "w": 80,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-taslem-ahaly",
+        "movie-lylet-hana-w-sror",
+        "title-baheb",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-kedbt-kol-youm"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-tyor-el-zalam",
+      "name": {
+        "ar": "طيور الظلام",
+        "en": "Toyour El Zalam"
+      },
+      "asset": "movie-tyor-el-zalam.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.46253,
+      "titleMask": {
+        "x": 4,
+        "y": 65,
+        "w": 94,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 4,
+          "y": 65,
+          "w": 94,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-salam-ya-sa7by",
+        "title-l3b",
+        "title-erhab",
+        "movie-el-halfot",
+        "movie-el-emberator"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-wa2fet-regala",
+      "name": {
+        "ar": "وقفة رجالة",
+        "en": "Waqfet Regala"
+      },
+      "asset": "movie-wa2fet-regala.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7064,
+      "titleMask": {
+        "x": 13,
+        "y": 72,
+        "w": 83,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 13,
+          "y": 72,
+          "w": 83,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-bait-el-roby",
+        "movie-ana-w-ebn-5alty",
+        "movie-shalaby",
+        "movie-3esabet-3azima",
+        "movie-fasel-mn-el-la7azat-el-laziza"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-youm-w-lyla",
+      "name": {
+        "ar": "يوم وليلة",
+        "en": "Youm We Leila"
+      },
+      "asset": "movie-youm-w-lyla.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 1.38969,
+      "titleMask": {
+        "x": 13,
+        "y": 56,
+        "w": 77,
+        "h": 31
+      },
+      "titleMasks": [
+        {
+          "x": 13,
+          "y": 56,
+          "w": 77,
+          "h": 31
+        }
+      ],
+      "distractorIds": [
+        "movie-re7la-404",
+        "movie-asmaa",
+        "title-678",
+        "movie-tyor-el-zalam",
+        "movie-fe-sh2t-masr-el-gdeda"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-3askar-fe-el-mo3skar",
+      "name": {
+        "ar": "عسكر في المعسكر",
+        "en": "Askar Fi El Moaskar"
+      },
+      "asset": "movie-3askar-fe-el-mo3skar.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.69945,
+      "titleMask": {
+        "x": 8,
+        "y": 73,
+        "w": 89,
+        "h": 25
+      },
+      "titleMasks": [
+        {
+          "x": 8,
+          "y": 73,
+          "w": 89,
+          "h": 25
+        }
+      ],
+      "distractorIds": [
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "title-saeedy",
+        "title-basha",
+        "movie-film-skafy"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-3esabet-3azima",
+      "name": {
+        "ar": "عصابة عظيمة",
+        "en": "Esabet Azima"
+      },
+      "asset": "movie-3esabet-3azima.jpeg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.8,
+      "titleMask": {
+        "x": 29,
+        "y": 2,
+        "w": 67,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 29,
+          "y": 2,
+          "w": 67,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-3esabet-7amada-w-toto",
+        "movie-3esabet-el-max",
+        "movie-bank-el-7az",
+        "movie-taslem-ahaly",
+        "movie-rocky-el-8alaba"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-3esabet-7amada-w-toto",
+      "name": {
+        "ar": "عصابة حمادة وتوتو",
+        "en": "Esabet Hamada We Toto"
+      },
+      "asset": "movie-3esabet-7amada-w-toto.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7025,
+      "titleMask": {
+        "x": 15,
+        "y": 70,
+        "w": 82,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 15,
+          "y": 70,
+          "w": 82,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-3esabet-3azima",
+        "movie-3esabet-el-max",
+        "movie-bank-el-7az",
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-meraty-moder-3am"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-3esabet-el-max",
+      "name": {
+        "ar": "عصابة الماكس",
+        "en": "Esabet El Max"
+      },
+      "asset": "movie-3esabet-el-max.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.71429,
+      "titleMask": {
+        "x": 10,
+        "y": 76,
+        "w": 87,
+        "h": 23
+      },
+      "titleMasks": [
+        {
+          "x": 10,
+          "y": 76,
+          "w": 87,
+          "h": 23
+        }
+      ],
+      "distractorIds": [
+        "movie-3esabet-3azima",
+        "movie-3esabet-7amada-w-toto",
+        "movie-el-bo3bo3",
+        "movie-bank-el-7az",
+        "movie-el-3amel-0"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-3li-spicy",
+      "name": {
+        "ar": "علي سبايسي",
+        "en": "Ali Spicy"
+      },
+      "asset": "movie-3li-spicy.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.75,
+      "titleMask": {
+        "x": 20,
+        "y": 1,
+        "w": 77,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 20,
+          "y": 1,
+          "w": 77,
+          "h": 26
+        },
+        {
+          "x": 7,
+          "y": 79,
+          "w": 84,
+          "h": 20
+        }
+      ],
+      "distractorIds": [
+        "movie-film-skafy",
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "title-okal",
+        "movie-samir-abo-el-nile"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-7amel-el-lakab",
+      "name": {
+        "ar": "حامل اللقب",
+        "en": "Hamel El Laqab"
+      },
+      "asset": "movie-7amel-el-lakab.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.79641,
+      "titleMask": {
+        "x": 14,
+        "y": 4,
+        "w": 83,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 14,
+          "y": 4,
+          "w": 83,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-shalaby",
+        "movie-siko-siko",
+        "movie-bait-el-roby",
+        "movie-wa2fet-regala"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-a7mad-w-a7mad",
+      "name": {
+        "ar": "أحمد وأحمد",
+        "en": "Ahmed We Ahmed"
+      },
+      "asset": "movie-a7mad-w-a7mad.webp",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7998,
+      "titleMask": {
+        "x": 11,
+        "y": 5,
+        "w": 84,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 11,
+          "y": 5,
+          "w": 84,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-ana-w-ebn-5alty",
+        "movie-abo-nasab",
+        "movie-bait-el-roby",
+        "movie-wa2fet-regala",
+        "movie-siko-siko"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-abo-nasab",
+      "name": {
+        "ar": "أبو نسب",
+        "en": "Abo Nasab"
+      },
+      "asset": "movie-abo-nasab.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7002,
+      "titleMask": {
+        "x": 14,
+        "y": 7,
+        "w": 82,
+        "h": 30
+      },
+      "titleMasks": [
+        {
+          "x": 14,
+          "y": 7,
+          "w": 82,
+          "h": 30
+        }
+      ],
+      "distractorIds": [
+        "movie-a7mad-w-a7mad",
+        "movie-ana-w-ebn-5alty",
+        "movie-bait-el-roby",
+        "movie-lylet-hana-w-sror",
+        "movie-taslem-ahaly"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-ana-w-ebn-5alty",
+      "name": {
+        "ar": "أنا وابن خالتي",
+        "en": "Ana We Ibn Khalti"
+      },
+      "asset": "movie-ana-w-ebn-5alty.jpeg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.70022,
+      "titleMask": {
+        "x": 12,
+        "y": 4,
+        "w": 85,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 12,
+          "y": 4,
+          "w": 85,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-a7mad-w-a7mad",
+        "movie-abo-nasab",
+        "movie-wa2fet-regala",
+        "movie-bait-el-roby",
+        "movie-bank-el-7az"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
       "id": "movie-asmaa",
       "name": {
-        "en": "Asmaa",
-        "ar": "أسماء"
+        "ar": "أسماء",
+        "en": "Asmaa"
       },
-      "mode": "poster",
-      "difficulty": "hard",
-      "category": "egyptian",
       "asset": "movie-asmaa.jpg",
-      "imageUrl": "https://images.plex.tv/photo?size=large-1280&url=https%3A%2F%2Fmetadata-static.plex.tv%2Fc%2Fgracenote%2Fcdd4ef2256d71caa89124693d8a279a7.jpg",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "hard",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://watch.plex.tv/movie/asmaa",
-        "license": "Copyright / permission NOT confirmed; prototype candidate only"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "https://watch.plex.tv/movie/asmaa",
-      "mediaApproval": "pending_rights_review",
+      "posterAspectRatio": 0.6994,
       "titleMask": {
-        "x": 0,
-        "y": 75,
-        "w": 100,
-        "h": 25
-      }
+        "x": 9,
+        "y": 69,
+        "w": 86,
+        "h": 28
+      },
+      "titleMasks": [
+        {
+          "x": 9,
+          "y": 69,
+          "w": 86,
+          "h": 28
+        }
+      ],
+      "distractorIds": [
+        "movie-re7la-404",
+        "title-678",
+        "title-fatah",
+        "movie-fe-sh2t-masr-el-gdeda",
+        "title-tarab"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-nawara",
+      "id": "movie-bait-el-roby",
       "name": {
-        "en": "Nawara",
-        "ar": "نوارة"
+        "ar": "بيت الروبي",
+        "en": "Beit El Ruby"
       },
-      "mode": "scene",
-      "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-nawara.jpg",
+      "asset": "movie-bait-el-roby.png",
       "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mode": "poster",
+      "difficulty": "easy",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.71429,
+      "titleMask": {
+        "x": 20,
+        "y": 4,
+        "w": 74,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 20,
+          "y": 4,
+          "w": 74,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-wa2fet-regala",
+        "movie-ana-w-ebn-5alty",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-abo-nasab",
+        "movie-tesba7-3ala-5er"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-akher-ayyam-el-madina",
+      "id": "movie-bank-el-7az",
       "name": {
-        "en": "In the Last Days of the City",
-        "ar": "آخر أيام المدينة"
+        "ar": "بنك الحظ",
+        "en": "Bank El Haz"
       },
+      "asset": "movie-bank-el-7az.jpg",
+      "imageUrl": "",
+      "mode": "poster",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
+      },
+      "posterAspectRatio": 0.7002,
+      "titleMask": {
+        "x": 13,
+        "y": 6,
+        "w": 84,
+        "h": 29
+      },
+      "titleMasks": [
+        {
+          "x": 13,
+          "y": 6,
+          "w": 84,
+          "h": 29
+        }
+      ],
+      "distractorIds": [
+        "movie-3esabet-3azima",
+        "movie-3esabet-7amada-w-toto",
+        "movie-3esabet-el-max",
+        "movie-el-3amel-0",
+        "movie-el-5eta-el-3ayma"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
+    },
+    {
+      "id": "movie-bershama",
+      "name": {
+        "ar": "برشامة",
+        "en": "Bershama"
+      },
+      "asset": "movie-bershama.jpg",
+      "imageUrl": "",
       "mode": "poster",
       "difficulty": "hard",
-      "category": "egyptian",
-      "asset": "movie-akher-ayyam-el-madina.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.66667,
+      "titleMask": {
+        "x": 12,
+        "y": 72,
+        "w": 84,
+        "h": 27
+      },
+      "titleMasks": [
+        {
+          "x": 12,
+          "y": 72,
+          "w": 84,
+          "h": 27
+        }
+      ],
+      "distractorIds": [
+        "movie-film-skafy",
+        "movie-3li-spicy",
+        "movie-siko-siko",
+        "movie-7amel-el-lakab",
+        "movie-bank-el-7az"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     },
     {
-      "id": "movie-interstellar",
+      "id": "movie-darwesh",
       "name": {
-        "en": "Interstellar",
-        "ar": "إنترستيلر"
+        "ar": "درويش",
+        "en": "Darwish"
       },
-      "mode": "scene",
-      "difficulty": "hard",
-      "category": "international",
-      "asset": "movie-interstellar.jpg",
+      "asset": "movie-darwesh.jpg",
       "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
-      },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
-    },
-    {
-      "id": "movie-inception",
-      "name": {
-        "en": "Inception",
-        "ar": "إنسبشن"
-      },
       "mode": "poster",
-      "difficulty": "hard",
-      "category": "international",
-      "asset": "movie-inception.jpg",
-      "imageUrl": "",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "difficulty": "medium",
+      "category": "egyptian-cinema",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "Awaiting official licensed film still or poster",
-        "license": "None"
+        "source": "User-supplied visual-guess.zip",
+        "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "sourcePage": "",
-      "mediaApproval": "missing_authorized_still"
+      "posterAspectRatio": 0.78023,
+      "titleMask": {
+        "x": 21,
+        "y": 73,
+        "w": 73,
+        "h": 26
+      },
+      "titleMasks": [
+        {
+          "x": 21,
+          "y": 73,
+          "w": 73,
+          "h": 26
+        }
+      ],
+      "distractorIds": [
+        "movie-el-5alya",
+        "movie-el-emberator",
+        "movie-kira-w-el-gen",
+        "title-gazeera",
+        "movie-el-bo3bo3"
+      ],
+      "audienceBasis": "Egyptian mainstream recognition; editorial draft. No survey or playtest claimed."
     }
   ],
   "stars": [
@@ -1133,5 +2527,163 @@
       },
       "mediaApproval": "commons_license_reviewed_per_file"
     }
-  ]
+  ],
+  "movieChoiceCatalog": {
+    "title-limby2": {
+      "ar": "اللي بالي بالك",
+      "en": "Elli Bali Balak"
+    },
+    "title-okal": {
+      "ar": "عوكل",
+      "en": "Okal"
+    },
+    "title-boha": {
+      "ar": "بوحة",
+      "en": "Boha"
+    },
+    "title-abood": {
+      "ar": "عبود على الحدود",
+      "en": "Aboud Ala El Hodoud"
+    },
+    "title-saeedy": {
+      "ar": "صعيدي في الجامعة الأمريكية",
+      "en": "Saidi in American University"
+    },
+    "title-hamam": {
+      "ar": "همام في أمستردام",
+      "en": "Hamam in Amsterdam"
+    },
+    "title-zaki": {
+      "ar": "زكي شان",
+      "en": "Zaki Chan"
+    },
+    "title-asal": {
+      "ar": "عسل أسود",
+      "en": "Assal Eswed"
+    },
+    "title-xlarge": {
+      "ar": "إكس لارج",
+      "en": "X-Large"
+    },
+    "title-1000": {
+      "ar": "1000 مبروك",
+      "en": "1000 Mabrouk"
+    },
+    "title-keda": {
+      "ar": "كده رضا",
+      "en": "Keda Reda"
+    },
+    "title-basha": {
+      "ar": "الباشا تلميذ",
+      "en": "El Basha Telmiz"
+    },
+    "title-world3": {
+      "ar": "الحرب العالمية الثالثة",
+      "en": "World War III"
+    },
+    "title-samir3": {
+      "ar": "سمير وشهير وبهير",
+      "en": "Samir & Shahir & Bahir"
+    },
+    "title-welad": {
+      "ar": "ولاد رزق",
+      "en": "Welad Rizk"
+    },
+    "title-filmfeel": {
+      "ar": "الفيل الأزرق",
+      "en": "The Blue Elephant"
+    },
+    "title-gazeera": {
+      "ar": "الجزيرة",
+      "en": "El Gezira"
+    },
+    "title-mamar": {
+      "ar": "الممر",
+      "en": "El Mamar"
+    },
+    "title-ibrahim": {
+      "ar": "إبراهيم الأبيض",
+      "en": "Ibrahim El Abyad"
+    },
+    "title-erhab": {
+      "ar": "الإرهاب والكباب",
+      "en": "Terrorism and Kebab"
+    },
+    "title-l3b": {
+      "ar": "اللعب مع الكبار",
+      "en": "Playing with the Big Boys"
+    },
+    "title-nawm": {
+      "ar": "النوم في العسل",
+      "en": "Sleeping in Honey"
+    },
+    "title-safara": {
+      "ar": "السفارة في العمارة",
+      "en": "The Embassy in the Building"
+    },
+    "title-mansy": {
+      "ar": "المنسي",
+      "en": "El Mansi"
+    },
+    "title-fawda": {
+      "ar": "هي فوضى",
+      "en": "Chaos"
+    },
+    "title-678": {
+      "ar": "678",
+      "en": "678"
+    },
+    "title-fatah": {
+      "ar": "فتاة المصنع",
+      "en": "Factory Girl"
+    },
+    "title-tarab": {
+      "ar": "تراب الماس",
+      "en": "Diamond Dust"
+    },
+    "title-zahra": {
+      "ar": "زهرة الصبار",
+      "en": "Cactus Flower"
+    },
+    "title-ghazal": {
+      "ar": "غزل البنات",
+      "en": "Ghazal El Banat"
+    },
+    "title-soghayer": {
+      "ar": "صغيرة على الحب",
+      "en": "Soghayer Ala El Hob"
+    },
+    "title-be7s": {
+      "ar": "البحث عن فضيحة",
+      "en": "Searching for a Scandal"
+    },
+    "title-zoga2": {
+      "ar": "الزوجة الثانية",
+      "en": "The Second Wife"
+    },
+    "title-bab7": {
+      "ar": "باب الحديد",
+      "en": "Cairo Station"
+    },
+    "title-3arous": {
+      "ar": "عروستي",
+      "en": "Arousty"
+    },
+    "title-baheb": {
+      "ar": "بحبك",
+      "en": "Bahebak"
+    },
+    "title-sheb": {
+      "ar": "شبه منحرف",
+      "en": "Shebh Monharef"
+    },
+    "title-horm": {
+      "ar": "حرامية في كي جي تو",
+      "en": "Thieves in Kindergarten"
+    },
+    "title-saf2a": {
+      "ar": "صفقة العمر",
+      "en": "Lifetime Deal"
+    }
+  }
 }

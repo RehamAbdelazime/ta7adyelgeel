@@ -1,0 +1,30 @@
+{
+  "base": "V45 QA StrictMode Fix 3",
+  "date": "2026-11-04",
+  "changes": {
+    "scripts/verify-five-game-quality-v38.cjs": "2143edfd5f1d1b48b2697e13786fbba08767b2e61018f9f9f4e08402c06aed30",
+    "scripts/verify-qa-portability-v45.cjs": "26e7ce5bf61c4f50560cd4b68f438ed6148c4ded1cd0fe1879a3157640d615a7",
+    "scripts/verify-qa-bots-v44.cjs": "0f3a39cf876c8768becbff62ed09a28d63cf6371fc3aac49a0c64b524d4b5f73",
+    "scripts/verify-qa-pause-v44.cjs": "4f8462d1f8e6db68963edd1e560f6af28f97400d56a0b5016153a3f45124b48c",
+    "scripts/verify-visual-content-v43.cjs": "03fc6af827c89c43a762a3a39749fb70df95840ea44faaf022d245716763f3cb",
+    "scripts/verify-progression-v41.cjs": "8d20f7fe714be024c465a3371a4cb1eb74c3ef49c3112d14ce77ff74241507ee",
+    "scripts/verify-character-progression-v42.cjs": "1b06b9b93d6e1cf2ded680e09a80bccc2be20623d7eab90ed5cc0d745e4768da",
+    "scripts/verify-lucky-cup-v30.cjs": "c1881c3e0b2dca387f80033ab03c17929e135ff454ff3ec5ae14f3a1752c67f1",
+    "scripts/verify-v35-runtime-flows.cjs": "09c171e1d5f5db3363a792dca02bcdf2712e97faa41eeead4268eaf97a37813b",
+    "scripts/verify-spectator-experience-v39.cjs": "e46f92a39d15d221619ccb58b7c8a12f43cf8c43deba97ef8d8aea577fe80efb",
+    "scripts/verify-unified-host-answer-v31.mjs": "ad7c62835dc4e30bdbdf932ad554be5751431ff390bb9e23e2bc1eee7b44b088",
+    "scripts/verify-lucky-cup-v28.cjs": "b1863e452df60fcdf94cf386064710572bf48e0f47e31ceccb28b2bc091a73ee",
+    "scripts/verify-visual-guess-v36-runtime.cjs": "0eeac497af490a247c91789923316a404f7e13d6343b6e20ce0e00299cb10bad",
+    "scripts/verify-chaos-v40.cjs": "6329d57da5498d19b032e8152fc580c7aea114169ee3db329423cc72cef0c892",
+    "scripts/verify-qa-load-v44.cjs": "df32c83f5c6351db67f7a5415c35e5a1028424cb67720dedecf887265c8e8355",
+    "scripts/verify-lucky-cup-v29.cjs": "89a160c89c824beca373899bf0fbca803fa8f48adc91cb2977d7f91c1bfac9ba",
+    "scripts/verify-lobby-final-polish.mjs": "8c49041184ae47d65ef013ba82f25ee5c4f046d52cd1e7d1f6686ded1bcaecf4",
+    "scripts/verify-lucky-cup-v27.cjs": "9466d3606d73d34b59e51cb94fc4cedf2150fb111d32e294b63d347900a5c49f",
+    "scripts/qa/static-audit.mjs": "1bbb01b2b7061a0be6930faa9e05df95d395c73d18a23fdf80e9e0b55b8238a7",
+    "scripts/qa/full-runner.mjs": "2a384dc8eedeccbc8f3c00ac1d4ada75db11e28f7b0d64e09d04a8f4000f69c7",
+    "scripts/qa/visual-sweep.mjs": "7ba5ce0cbfa1794ebaf585e836da3b23fce68543af46c9a4c9625d75d2320230",
+    "QA_FIX4_README_AR.md": "422b851035f7f998c97e36ea65f066b503193d9b635b1e1e97ae45cc10d89796"
+  },
+  "deleted": [],
+  "instructions": "Extract PATCH over exactly V45 QA StrictMode Fix 3, or use FULL SOURCE in an empty folder. Run RUN_FULL_QA_WINDOWS.bat."
+}

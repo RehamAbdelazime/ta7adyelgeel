@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const ts = require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript');
+const ts = require('typescript');
 require.extensions['.ts'] = (module, filename) => {
   const code = ts.transpileModule(fs.readFileSync(filename,'utf8'),{fileName:filename,
     compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true}}).outputText;
@@ -127,7 +127,7 @@ try {
   check(store.getSnapshot().chaosRewards.length===0,'Rewards leaked to next Tour');
 } finally {store.destroy();}
 // TSX + CSS and UI bindings
-for(const file of ['src/ui-react/components/gameplay/GameplayOverlay.tsx','src/ui-react/components/gameplay/scoreboard/Scoreboard.tsx','src/ui-react/components/streamer/HostProductionPanel.tsx']){
+for(const file of ['src/ui-react/components/gameplay/GameplayOverlay.tsx','src/ui-react/components/gameplay/scoreboard/Scoreboard.tsx','src/ui-react/components/visual/GameSceneStage.tsx']){
   const code=fs.readFileSync(path.join(root,file),'utf8');
   const diagnostics=ts.transpileModule(code,{fileName:file,compilerOptions:{jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022},reportDiagnostics:true}).diagnostics ?? [];
   check(!diagnostics.some(d=>d.category===ts.DiagnosticCategory.Error),`TSX syntax failure: ${file}`);

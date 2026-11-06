@@ -52,3 +52,10 @@ SECURITY_AUDIT.json
 LOCALIZATION_REPORT.json
 .coverage/
 coverage/
+
+# Release regression output (never include in source or installer)
+release-check/
+
+# Obsolete Playwright local cache from earlier development
+.qa-tools/
+qa-artifacts/

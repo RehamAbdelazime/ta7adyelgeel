@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { createRequire } = require('node:module');
 const ts = (() => {
-  try { return require('typescript'); } catch { return require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript'); }
+  try { return require('typescript'); } catch { return require('typescript'); }
 })();
 require.extensions['.ts'] = (module, filename) => {
   const source = fs.readFileSync(filename, 'utf8');
@@ -85,6 +85,9 @@ const { GameEventBus } = require(path.join(root, 'src/game-core/events/game-even
     store.skipPhase();
     check(store.getSnapshot().tour.phase === 'scoring', 'food round scoring missing');
     store.forcedNextMiniGameId = 'lucky-cup';
+    store.skipPhase();
+    const intro = store.getSnapshot();
+    check(intro.tour.phase === 'mini_game_intro', 'new game must show illustrated instructions');
     store.skipPhase();
     const switched = store.getSnapshot();
     check(switched.miniGame.id === 'lucky-cup', 'force-next did not select Lucky Cup');

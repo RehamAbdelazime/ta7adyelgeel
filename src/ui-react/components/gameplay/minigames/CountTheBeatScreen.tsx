@@ -27,7 +27,13 @@ function BeatItem({ item, paused, elapsedMs }: { item: CountTheBeatItemSnapshot;
     '--ctb-rotate': `${item.rotate}deg`,
     '--v38-duration': `${item.durationMs}ms`,
     '--v38-delay': `${item.delayMs - elapsedMs}ms`,
-    animation: `ctb-pop ${item.durationMs}ms ease-in-out ${item.delayMs - elapsedMs}ms both`,
+    // Never mix the animation shorthand with animationPlayState: React 19
+    // warns on rerender and the shorthand can reset the paused state.
+    animationName: 'ctb-pop',
+    animationDuration: `${item.durationMs}ms`,
+    animationTimingFunction: 'ease-in-out',
+    animationDelay: `${item.delayMs - elapsedMs}ms`,
+    animationFillMode: 'both',
     animationPlayState: paused ? 'paused' : 'running',
     filter: item.isTarget
       ? `drop-shadow(0 0 8px ${colour}) drop-shadow(0 0 14px ${colour}88)`

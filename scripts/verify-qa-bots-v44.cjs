@@ -3,14 +3,14 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const ts = require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript');
+const ts = require('typescript');
 require.extensions['.ts'] = (module, file) => module._compile(ts.transpileModule(fs.readFileSync(file, 'utf8'), {
   compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true,resolveJsonModule:true},fileName:file
 }).outputText,file);
 const root=path.resolve(__dirname,'..');
 const { GameStore }=require(path.join(root,'src/game-core/app/game-store.ts'));
 const { GameEventBus }=require(path.join(root,'src/game-core/events/game-event-bus.ts'));
-const { QaBotController, QA_BOT_PREFIX, qaAnswerOptions }=require(path.join(root,'src/ui-react/services/qa-bot-controller.ts'));
+const { QaBotController, QA_BOT_PREFIX, qaAnswerOptions }=require(path.join(root,'tests/helpers/qa-bot-controller.ts'));
 const store = new GameStore(new GameEventBus());
 const bot = new QaBotController({store});
 try {

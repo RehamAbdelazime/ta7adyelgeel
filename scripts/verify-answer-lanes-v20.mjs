@@ -22,7 +22,7 @@ check(/getCorrectOptionNumber/.test(floor) && /gameplay-choice-spotlight-\$\{res
 check(/ANSWER_STAGE_LAYOUT/.test(floor) && /ANSWER_STAGE_LAYOUT/.test(position), 'floor and citizens share stage coordinates');
 check(/leftPercent: 13/.test(stage) && /widthPercent: 74/.test(stage),'all four lane centers stay inside spectator safe area');
 check(/optionGroupSizes/.test(citizen) && /groupSize: optionGroupSizes/.test(citizen),'crowd density is measured per answer');
-check(/showScoringAudience/.test(citizen) && /4800/.test(citizen),'crowd remains for reveal before reset');
+check(/phase === 'scoring'/.test(citizen) && !/setTimeout\(\(\) => setShowScoringAudience/.test(citizen),'crowd holds at their answer until host opens scoreboard');
 check(/grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/.test(css),'four horizontal equal answers');
 check(/direction: ltr !important; \/\* choice 1/.test(css),'RTL does not flip Twitch numbering');
 check(/grid-template-rows: minmax\(0,1fr\) clamp/.test(css),'challenge gets larger flexible vertical space');

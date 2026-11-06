@@ -1,38 +1,43 @@
-/** V44 supersedes V43's drawn-art contract. Preserve 30/20 question records,
- * but NEVER accept synthesized movie clues; require an actual film media source
- * for every playable candidate. Copyright approval is tracked separately. */
+/** V49 supersedes the old V44 30 remote movie clues: all 50 local user posters. */
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const bank = JSON.parse(fs.readFileSync(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-questions.json'), 'utf8'));
-assert.equal(bank.movies.length, 30);
+assert.equal(bank.movies.length, 50);
 assert.equal(bank.stars.length, 20);
-const playable = bank.movies.filter(item => Boolean(item.imageUrl));
-assert(playable.length >= 12, 'real film image candidates missing');
-assert(bank.movies.every(item => !item.asset.endsWith('.svg') && item.mediaApproval && item.attribution.source));
-assert(bank.movies.some(item => item.mediaApproval === 'missing_authorized_still'), 'missing-licenses must not silently be hidden');
-for (const item of playable) {
-  const url = new URL(item.imageUrl);
-  assert.equal(url.protocol, 'https:');
-  assert(['scene', 'poster'].includes(item.mode));
-  assert(item.mediaApproval !== 'cleared_for_broadcast', 'never imply copyright cleared for external press images');
+const ids = new Set(bank.movies.map(item => item.id));
+assert.equal(ids.size, 50);
+const artwork = path.join(root, 'public/assets/game/runtime/minigames/visual-guess');
+for (const item of bank.movies) {
+  assert.equal(item.mode, 'poster');
+  assert.equal(item.imageUrl, '', 'Movie poster must never use internet fallback');
+  assert.equal(item.mediaApproval, 'user_supplied_local_rights_unverified');
+  assert(fs.statSync(path.join(artwork, item.asset)).size > 1500, `Missing local poster ${item.id}`);
+  assert(Number.isFinite(item.posterAspectRatio) && item.posterAspectRatio > .4);
+  assert(item.titleMasks?.length > 0, `Missing film-name mask ${item.id}`);
+  for (const mask of item.titleMasks) {
+    assert(mask.w > 0 && mask.h > 0 && mask.x >= 0 && mask.y >= 0);
+    assert(mask.x + mask.w <= 100 && mask.y + mask.h <= 100);
+  }
+  assert(item.distractorIds?.length >= 5, `Insufficient curated film neighbors ${item.id}`);
+  for (const id of item.distractorIds) {
+    assert(ids.has(id) || bank.movieChoiceCatalog[id], `Unknown local/extra film title ${id}`);
+    assert.notEqual(id, item.id);
+  }
 }
-for (const mode of ['scene', 'poster']) for (const difficulty of ['easy', 'medium', 'hard']) {
-  assert(playable.some(item => item.mode === mode && item.difficulty === difficulty), `${mode}/${difficulty} lacks an actual image candidate`);
-}
+for (const diff of ['easy','medium','hard']) assert(bank.movies.some(item => item.difficulty === diff));
 for (const item of bank.stars) {
   assert(item.imageUrl.startsWith('https://commons.wikimedia.org/wiki/Special:FilePath/'));
   assert(item.attribution.source.startsWith('https://commons.wikimedia.org/wiki/File:'));
   assert(item.asset && !item.asset.endsWith('.svg'));
   assert(Number.isFinite(item.focus.x) && Number.isFinite(item.focus.y));
 }
-const artwork = path.join(root, 'public/assets/game/runtime/minigames/visual-guess');
-assert.equal(fs.readdirSync(artwork).filter(name => /^movie-.*\.svg$/.test(name)).length, 0, 'fake film artwork must be removed');
-const ts = require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript');
+assert.equal(fs.readdirSync(artwork).filter(name => /^movie-.*\.svg$/.test(name)).length, 0);
+const ts = require('typescript');
 require.extensions['.ts'] = (module, file) => module._compile(ts.transpileModule(fs.readFileSync(file, 'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true,resolveJsonModule:true},fileName:file}).outputText, file);
 const {VisualGuessMiniGameService} = require(path.join(root,'src/game-core/minigames/visual-guess/visual-guess-service.ts'));
-const modeSchedule = {'guess-movie':['scene','poster','scene','poster'], 'guess-star':['eyes','silhouette','zoom','reveal']};
+const modeSchedule = {'guess-movie':['poster','poster','poster','poster'], 'guess-star':['eyes','silhouette','zoom','reveal']};
 for (const id of Object.keys(modeSchedule)) {
   for(let seed = 0; seed < 45; seed++) {
     const svc = new VisualGuessMiniGameService(id);
@@ -49,4 +54,4 @@ for (const id of Object.keys(modeSchedule)) {
     }
   }
 }
-console.log(`V44 genuine-media + content regression PASS: ${playable.length}/30 real movie image candidates, 20 Commons stars, 90 seeded tours.`);
+console.log(`V49 user-poster media + content regression PASS: 50/50 local movie posters, 20 Commons stars, 90 seeded tours.`);

@@ -16,9 +16,6 @@ export function App() {
   }
 
   return (
-    // FIX: provider order is now GameConfig → Motion → Audio so config changes
-    // only cascade into the layers that actually need them, not the reverse.
-    // Indentation corrected throughout.
     <GameConfigProvider>
       <MotionTuningProvider>
         <AudioTuningProvider>

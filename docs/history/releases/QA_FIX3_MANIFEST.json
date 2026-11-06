@@ -1,0 +1,28 @@
+{
+  "baseline": "ta7adyelgeel_v45_QA_HOST_RECOVERY_SOURCE.zip",
+  "fix": "StrictMode bot lifecycle + QA browser isolation and debug",
+  "modified": [
+    "src/ui-react/services/qa-bot-controller.ts",
+    "src/ui-react/context/GameContext.tsx",
+    "scripts/qa/visual-sweep.mjs",
+    "tests/qa/core-scenarios.test.cjs"
+  ],
+  "added": [
+    "docs/V45_QA_RUNNER_STRICTMODE_FIX_AR.md",
+    "QA_FIX3_README_AR.md"
+  ],
+  "files": {
+    "src/ui-react/services/qa-bot-controller.ts": "d186adcd0912cfdebaa6bd65b60d090f8f04a0e335c5408f3d2a7dd1b887d929",
+    "src/ui-react/context/GameContext.tsx": "7c1c403e6fd49e7d3ce2fe327ef43211242c5c3d2e85eb7de7027306b82d5b88",
+    "scripts/qa/visual-sweep.mjs": "98d73d6358113a14f118c9824175d0fa7b145af235961cdc86cf07e0442429c9",
+    "tests/qa/core-scenarios.test.cjs": "f00ac2bfeeb47e86c00695ff2388e1d2b0feaa5bc3340d4f28924f00a8177f67",
+    "docs/V45_QA_RUNNER_STRICTMODE_FIX_AR.md": "45c7c98feeb7b605023cfd10dcce4c5e3fc7d62384a4f0f12af47727cc336447",
+    "QA_FIX3_README_AR.md": "4de7fd5c226945044a87da8fa435ee0e0f8372d7392e7b22c73720cf7ccaa99a"
+  },
+  "verified": {
+    "qa_unit_integration": "71/71 PASS",
+    "core_tsc": "PASS",
+    "qa_bot_v44_scripts": "3/3 PASS",
+    "visual_browser_on_windows": "NOT RUN HERE"
+  }
+}

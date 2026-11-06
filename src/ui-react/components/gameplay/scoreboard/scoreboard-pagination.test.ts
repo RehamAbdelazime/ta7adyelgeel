@@ -39,19 +39,19 @@ describe('scoreboard pagination behavior', () => {
       .not.toBe(getScoreboardParticipantSignature(initial));
   });
 
-  it('calculates page counts in groups of eight', () => {
+  it('calculates page counts in groups of sixteen', () => {
     expect(getScoreboardPageCount(0)).toBe(1);
     expect(getScoreboardPageCount(8)).toBe(1);
-    expect(getScoreboardPageCount(9)).toBe(2);
-    expect(getScoreboardPageCount(17)).toBe(3);
+    expect(getScoreboardPageCount(9)).toBe(1);
+    expect(getScoreboardPageCount(17)).toBe(2);
   });
 
-  it('returns the correct eight-player slice for each page', () => {
+  it('returns the correct sixteen-player slice for each page', () => {
     const rows = Array.from({ length: 17 }, (_, index) => ({ id: index + 1 }));
 
-    expect(getScoreboardPageRows(rows, 0).map((row) => row.id)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
-    expect(getScoreboardPageRows(rows, 1).map((row) => row.id)).toEqual([9, 10, 11, 12, 13, 14, 15, 16]);
-    expect(getScoreboardPageRows(rows, 2).map((row) => row.id)).toEqual([17]);
+    expect(getScoreboardPageRows(rows, 0).map((row) => row.id)).toEqual(Array.from({ length: 16 }, (_, index) => index + 1));
+    expect(getScoreboardPageRows(rows, 1).map((row) => row.id)).toEqual([17]);
+    expect(getScoreboardPageRows(rows, 2).map((row) => row.id)).toEqual([]);
   });
 
   it('clamps the current page when the number of participants shrinks', () => {

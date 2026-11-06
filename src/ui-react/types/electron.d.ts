@@ -1,4 +1,4 @@
-import type { ElGeelDesktopApi, ElGeelTwitchApi } from '../../desktop-electron/preload';
+import type { ElGeelDesktopApi, ElGeelTwitchApi } from '../../desktop-electron/bridge-contract';
 
 declare global {
   interface Window {

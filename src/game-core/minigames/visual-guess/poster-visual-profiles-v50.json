@@ -1,0 +1,3206 @@
+{
+  "version": 1,
+  "provenance": "Manual cast/placement/visually plausible associations from 50 user-supplied poster thumbnails; dominant and 3x3 regional RGB colors sampled from local assets. No external image sources.",
+  "profiles": {
+    "movie-ebn-el-7ag-a7mad": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "cyan",
+      "posterPaletteRGB": [
+        56,
+        224,
+        168
+      ],
+      "spatialPaletteRGB": [
+        [
+          48,
+          216,
+          224
+        ],
+        [
+          160,
+          184,
+          48
+        ],
+        [
+          48,
+          232,
+          240
+        ],
+        [
+          56,
+          232,
+          248
+        ],
+        [
+          96,
+          120,
+          96
+        ],
+        [
+          56,
+          232,
+          248
+        ],
+        [
+          224,
+          224,
+          144
+        ],
+        [
+          248,
+          232,
+          128
+        ],
+        [
+          200,
+          232,
+          144
+        ]
+      ],
+      "visualNearIds": [
+        "movie-ana-w-ebn-5alty",
+        "movie-7amel-el-lakab",
+        "movie-taslem-ahaly",
+        "movie-bait-el-roby",
+        "movie-shalaby"
+      ]
+    },
+    "movie-el-3amel-0": {
+      "castLayout": "ensemble",
+      "heroPlacement": "center",
+      "paletteLabel": "brown",
+      "posterPaletteRGB": [
+        128,
+        88,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          136,
+          104,
+          80
+        ],
+        [
+          144,
+          104,
+          72
+        ],
+        [
+          168,
+          128,
+          96
+        ],
+        [
+          128,
+          96,
+          72
+        ],
+        [
+          112,
+          80,
+          64
+        ],
+        [
+          72,
+          32,
+          32
+        ],
+        [
+          48,
+          32,
+          32
+        ],
+        [
+          56,
+          48,
+          40
+        ],
+        [
+          160,
+          120,
+          72
+        ]
+      ],
+      "visualNearIds": [
+        "movie-3esabet-3azima",
+        "movie-bank-el-7az",
+        "movie-3esabet-el-max",
+        "movie-darwesh",
+        "movie-ga7im-fe-el-hend"
+      ]
+    },
+    "movie-el-5alya": {
+      "castLayout": "trio",
+      "heroPlacement": "center",
+      "paletteLabel": "navy",
+      "posterPaletteRGB": [
+        112,
+        80,
+        72
+      ],
+      "spatialPaletteRGB": [
+        [
+          56,
+          64,
+          96
+        ],
+        [
+          96,
+          88,
+          104
+        ],
+        [
+          96,
+          80,
+          80
+        ],
+        [
+          136,
+          96,
+          64
+        ],
+        [
+          88,
+          72,
+          64
+        ],
+        [
+          120,
+          104,
+          96
+        ],
+        [
+          32,
+          24,
+          24
+        ],
+        [
+          48,
+          40,
+          40
+        ],
+        [
+          32,
+          24,
+          24
+        ]
+      ],
+      "visualNearIds": [
+        "movie-mousa",
+        "movie-el-bo3bo3",
+        "movie-darwesh",
+        "movie-youm-w-lyla",
+        "movie-kira-w-el-gen"
+      ]
+    },
+    "movie-el-5eta-el-3ayma": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "teal",
+      "posterPaletteRGB": [
+        56,
+        88,
+        72
+      ],
+      "spatialPaletteRGB": [
+        [
+          80,
+          160,
+          168
+        ],
+        [
+          120,
+          168,
+          168
+        ],
+        [
+          72,
+          144,
+          160
+        ],
+        [
+          56,
+          104,
+          104
+        ],
+        [
+          64,
+          104,
+          104
+        ],
+        [
+          56,
+          96,
+          96
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          32,
+          40,
+          40
+        ]
+      ],
+      "visualNearIds": [
+        "movie-bank-el-7az",
+        "movie-siko-siko",
+        "movie-3esabet-3azima",
+        "movie-3esabet-el-max",
+        "movie-darwesh"
+      ]
+    },
+    "movie-el7aref": {
+      "castLayout": "solo",
+      "heroPlacement": "side",
+      "paletteLabel": "cream-blue",
+      "posterPaletteRGB": [
+        24,
+        160,
+        192
+      ],
+      "spatialPaletteRGB": [
+        [
+          72,
+          192,
+          224
+        ],
+        [
+          24,
+          168,
+          216
+        ],
+        [
+          48,
+          176,
+          224
+        ],
+        [
+          8,
+          176,
+          224
+        ],
+        [
+          24,
+          40,
+          48
+        ],
+        [
+          144,
+          184,
+          232
+        ],
+        [
+          240,
+          240,
+          240
+        ],
+        [
+          240,
+          232,
+          240
+        ],
+        [
+          248,
+          248,
+          248
+        ]
+      ],
+      "visualNearIds": [
+        "movie-tyor-el-zalam",
+        "movie-el-halfot",
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-el-emberator",
+        "movie-el-kit-kat"
+      ]
+    },
+    "movie-el-bata-el-safra": {
+      "castLayout": "duo",
+      "heroPlacement": "center",
+      "paletteLabel": "teal",
+      "posterPaletteRGB": [
+        128,
+        136,
+        96
+      ],
+      "spatialPaletteRGB": [
+        [
+          112,
+          152,
+          112
+        ],
+        [
+          88,
+          128,
+          104
+        ],
+        [
+          80,
+          144,
+          112
+        ],
+        [
+          200,
+          192,
+          144
+        ],
+        [
+          88,
+          32,
+          32
+        ],
+        [
+          208,
+          224,
+          200
+        ],
+        [
+          72,
+          80,
+          64
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          80,
+          88,
+          72
+        ]
+      ],
+      "visualNearIds": [
+        "movie-taslem-ahaly",
+        "movie-7amel-el-lakab",
+        "movie-ana-w-ebn-5alty",
+        "movie-bait-el-roby",
+        "movie-siko-siko"
+      ]
+    },
+    "movie-el-bo3bo3": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "blue-orange",
+      "posterPaletteRGB": [
+        184,
+        136,
+        104
+      ],
+      "spatialPaletteRGB": [
+        [
+          144,
+          176,
+          184
+        ],
+        [
+          128,
+          160,
+          184
+        ],
+        [
+          136,
+          144,
+          152
+        ],
+        [
+          224,
+          152,
+          104
+        ],
+        [
+          64,
+          32,
+          40
+        ],
+        [
+          184,
+          144,
+          112
+        ],
+        [
+          80,
+          56,
+          48
+        ],
+        [
+          56,
+          40,
+          40
+        ],
+        [
+          40,
+          32,
+          24
+        ]
+      ],
+      "visualNearIds": [
+        "movie-mousa",
+        "movie-el-5alya",
+        "movie-darwesh",
+        "movie-kira-w-el-gen",
+        "movie-shalaby"
+      ]
+    },
+    "movie-el-emberator": {
+      "castLayout": "collage",
+      "heroPlacement": "center",
+      "paletteLabel": "cream-red",
+      "posterPaletteRGB": [
+        192,
+        96,
+        80
+      ],
+      "spatialPaletteRGB": [
+        [
+          240,
+          216,
+          208
+        ],
+        [
+          128,
+          72,
+          64
+        ],
+        [
+          144,
+          80,
+          72
+        ],
+        [
+          168,
+          120,
+          104
+        ],
+        [
+          184,
+          112,
+          96
+        ],
+        [
+          160,
+          88,
+          64
+        ],
+        [
+          200,
+          176,
+          160
+        ],
+        [
+          208,
+          168,
+          152
+        ],
+        [
+          216,
+          152,
+          136
+        ]
+      ],
+      "visualNearIds": [
+        "movie-salam-ya-sa7by",
+        "movie-el-halfot",
+        "movie-elzoga-13",
+        "movie-esha3et-7ob",
+        "movie-sh3ban-t7t-el-sefr"
+      ]
+    },
+    "movie-el-halfot": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "cream-gold",
+      "posterPaletteRGB": [
+        200,
+        136,
+        136
+      ],
+      "spatialPaletteRGB": [
+        [
+          224,
+          208,
+          192
+        ],
+        [
+          208,
+          152,
+          144
+        ],
+        [
+          192,
+          168,
+          168
+        ],
+        [
+          216,
+          192,
+          184
+        ],
+        [
+          184,
+          128,
+          128
+        ],
+        [
+          200,
+          176,
+          168
+        ],
+        [
+          208,
+          192,
+          176
+        ],
+        [
+          192,
+          112,
+          112
+        ],
+        [
+          184,
+          120,
+          120
+        ]
+      ],
+      "visualNearIds": [
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-el-kit-kat",
+        "movie-salam-ya-sa7by",
+        "movie-el-emberator",
+        "movie-elzoga-13"
+      ]
+    },
+    "movie-el-kit-kat": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "cream-black",
+      "posterPaletteRGB": [
+        160,
+        144,
+        120
+      ],
+      "spatialPaletteRGB": [
+        [
+          176,
+          152,
+          160
+        ],
+        [
+          200,
+          152,
+          144
+        ],
+        [
+          216,
+          208,
+          208
+        ],
+        [
+          144,
+          144,
+          112
+        ],
+        [
+          160,
+          136,
+          104
+        ],
+        [
+          152,
+          168,
+          184
+        ],
+        [
+          104,
+          64,
+          48
+        ],
+        [
+          136,
+          104,
+          96
+        ],
+        [
+          112,
+          104,
+          112
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-halfot",
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-meraty-moder-3am",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-el-lemby": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "white-blue",
+      "posterPaletteRGB": [
+        216,
+        176,
+        168
+      ],
+      "spatialPaletteRGB": [
+        [
+          240,
+          240,
+          240
+        ],
+        [
+          240,
+          232,
+          232
+        ],
+        [
+          192,
+          176,
+          192
+        ],
+        [
+          224,
+          192,
+          184
+        ],
+        [
+          216,
+          192,
+          184
+        ],
+        [
+          136,
+          112,
+          120
+        ],
+        [
+          240,
+          240,
+          240
+        ],
+        [
+          224,
+          216,
+          224
+        ],
+        [
+          224,
+          104,
+          120
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-nazer",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-film-skafy",
+        "movie-3li-spicy",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-el-nazer": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "white-red",
+      "posterPaletteRGB": [
+        96,
+        80,
+        88
+      ],
+      "spatialPaletteRGB": [
+        [
+          256,
+          256,
+          256
+        ],
+        [
+          176,
+          120,
+          112
+        ],
+        [
+          256,
+          256,
+          256
+        ],
+        [
+          128,
+          88,
+          96
+        ],
+        [
+          48,
+          64,
+          80
+        ],
+        [
+          232,
+          216,
+          216
+        ],
+        [
+          168,
+          136,
+          136
+        ],
+        [
+          128,
+          104,
+          104
+        ],
+        [
+          224,
+          216,
+          216
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-lemby",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-film-skafy",
+        "movie-3li-spicy",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-elzoga-13": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "cream-gold",
+      "posterPaletteRGB": [
+        200,
+        120,
+        80
+      ],
+      "spatialPaletteRGB": [
+        [
+          224,
+          192,
+          80
+        ],
+        [
+          240,
+          208,
+          80
+        ],
+        [
+          224,
+          192,
+          80
+        ],
+        [
+          192,
+          112,
+          64
+        ],
+        [
+          208,
+          128,
+          80
+        ],
+        [
+          208,
+          128,
+          80
+        ],
+        [
+          240,
+          216,
+          120
+        ],
+        [
+          240,
+          216,
+          88
+        ],
+        [
+          240,
+          224,
+          96
+        ]
+      ],
+      "visualNearIds": [
+        "movie-esha3et-7ob",
+        "movie-meraty-moder-3am",
+        "movie-3esabet-7amada-w-toto",
+        "movie-salam-ya-sa7by",
+        "movie-el-halfot"
+      ]
+    },
+    "movie-esha3et-7ob": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "cream-blue",
+      "posterPaletteRGB": [
+        200,
+        168,
+        168
+      ],
+      "spatialPaletteRGB": [
+        [
+          240,
+          240,
+          240
+        ],
+        [
+          248,
+          248,
+          248
+        ],
+        [
+          208,
+          168,
+          152
+        ],
+        [
+          240,
+          248,
+          248
+        ],
+        [
+          176,
+          112,
+          96
+        ],
+        [
+          192,
+          144,
+          112
+        ],
+        [
+          80,
+          144,
+          152
+        ],
+        [
+          72,
+          104,
+          120
+        ],
+        [
+          64,
+          112,
+          128
+        ]
+      ],
+      "visualNearIds": [
+        "movie-elzoga-13",
+        "movie-meraty-moder-3am",
+        "movie-3esabet-7amada-w-toto",
+        "movie-el-emberator",
+        "movie-salam-ya-sa7by"
+      ]
+    },
+    "movie-Eskendria-leh": {
+      "castLayout": "solo",
+      "heroPlacement": "side",
+      "paletteLabel": "black-white",
+      "posterPaletteRGB": [
+        104,
+        88,
+        88
+      ],
+      "spatialPaletteRGB": [
+        [
+          168,
+          192,
+          184
+        ],
+        [
+          112,
+          112,
+          112
+        ],
+        [
+          80,
+          80,
+          72
+        ],
+        [
+          112,
+          96,
+          96
+        ],
+        [
+          112,
+          96,
+          96
+        ],
+        [
+          80,
+          64,
+          64
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          40,
+          40,
+          48
+        ],
+        [
+          8,
+          8,
+          16
+        ]
+      ],
+      "visualNearIds": [
+        "movie-fe-sh2t-masr-el-gdeda",
+        "movie-asmaa",
+        "movie-youm-w-lyla",
+        "movie-re7la-404",
+        "movie-el7aref"
+      ]
+    },
+    "movie-fasel-mn-el-la7azat-el-laziza": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "pink-blue",
+      "posterPaletteRGB": [
+        208,
+        152,
+        152
+      ],
+      "spatialPaletteRGB": [
+        [
+          128,
+          120,
+          128
+        ],
+        [
+          176,
+          176,
+          176
+        ],
+        [
+          176,
+          160,
+          168
+        ],
+        [
+          176,
+          144,
+          160
+        ],
+        [
+          224,
+          168,
+          160
+        ],
+        [
+          168,
+          128,
+          96
+        ],
+        [
+          216,
+          120,
+          144
+        ],
+        [
+          208,
+          128,
+          144
+        ],
+        [
+          168,
+          128,
+          128
+        ]
+      ],
+      "visualNearIds": [
+        "movie-kedbt-kol-youm",
+        "movie-wa2fet-regala",
+        "movie-siko-siko",
+        "movie-taslem-ahaly",
+        "movie-rocky-el-8alaba"
+      ]
+    },
+    "movie-fe-sh2t-masr-el-gdeda": {
+      "castLayout": "solo",
+      "heroPlacement": "side",
+      "paletteLabel": "black-gold",
+      "posterPaletteRGB": [
+        16,
+        16,
+        16
+      ],
+      "spatialPaletteRGB": [
+        [
+          104,
+          112,
+          80
+        ],
+        [
+          24,
+          16,
+          16
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          16,
+          8
+        ],
+        [
+          16,
+          16,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          16,
+          16,
+          8
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "visualNearIds": [
+        "movie-asmaa",
+        "movie-re7la-404",
+        "movie-Eskendria-leh",
+        "movie-youm-w-lyla",
+        "movie-tesba7-3ala-5er"
+      ]
+    },
+    "movie-film-skafy": {
+      "castLayout": "trio",
+      "heroPlacement": "scattered",
+      "paletteLabel": "white-red",
+      "posterPaletteRGB": [
+        232,
+        168,
+        88
+      ],
+      "spatialPaletteRGB": [
+        [
+          216,
+          200,
+          200
+        ],
+        [
+          232,
+          216,
+          216
+        ],
+        [
+          232,
+          224,
+          216
+        ],
+        [
+          240,
+          192,
+          72
+        ],
+        [
+          232,
+          160,
+          80
+        ],
+        [
+          240,
+          192,
+          144
+        ],
+        [
+          240,
+          232,
+          232
+        ],
+        [
+          208,
+          144,
+          88
+        ],
+        [
+          248,
+          240,
+          232
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "movie-3li-spicy",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-ga7im-fe-el-hend": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "brown-orange",
+      "posterPaletteRGB": [
+        112,
+        72,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          160,
+          120,
+          112
+        ],
+        [
+          136,
+          72,
+          56
+        ],
+        [
+          192,
+          160,
+          152
+        ],
+        [
+          128,
+          88,
+          72
+        ],
+        [
+          88,
+          64,
+          56
+        ],
+        [
+          136,
+          96,
+          72
+        ],
+        [
+          112,
+          72,
+          48
+        ],
+        [
+          120,
+          64,
+          48
+        ],
+        [
+          136,
+          88,
+          56
+        ]
+      ],
+      "visualNearIds": [
+        "movie-3esabet-el-max",
+        "movie-darwesh",
+        "movie-kira-w-el-gen",
+        "movie-lylet-hana-w-sror",
+        "movie-rocky-el-8alaba"
+      ]
+    },
+    "movie-kedbt-kol-youm": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "sky-blue",
+      "posterPaletteRGB": [
+        200,
+        168,
+        160
+      ],
+      "spatialPaletteRGB": [
+        [
+          128,
+          216,
+          240
+        ],
+        [
+          144,
+          200,
+          232
+        ],
+        [
+          144,
+          216,
+          240
+        ],
+        [
+          176,
+          152,
+          120
+        ],
+        [
+          176,
+          192,
+          208
+        ],
+        [
+          232,
+          176,
+          152
+        ],
+        [
+          232,
+          184,
+          176
+        ],
+        [
+          240,
+          224,
+          224
+        ],
+        [
+          256,
+          248,
+          248
+        ]
+      ],
+      "visualNearIds": [
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-taslem-ahaly",
+        "movie-7amel-el-lakab",
+        "movie-wa2fet-regala",
+        "movie-ana-w-ebn-5alty"
+      ]
+    },
+    "movie-kira-w-el-gen": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "cream-red",
+      "posterPaletteRGB": [
+        104,
+        48,
+        24
+      ],
+      "spatialPaletteRGB": [
+        [
+          152,
+          120,
+          96
+        ],
+        [
+          168,
+          160,
+          152
+        ],
+        [
+          160,
+          136,
+          120
+        ],
+        [
+          136,
+          48,
+          24
+        ],
+        [
+          112,
+          72,
+          32
+        ],
+        [
+          96,
+          64,
+          48
+        ],
+        [
+          40,
+          16,
+          16
+        ],
+        [
+          48,
+          16,
+          16
+        ],
+        [
+          40,
+          16,
+          16
+        ]
+      ],
+      "visualNearIds": [
+        "movie-darwesh",
+        "movie-el-emberator",
+        "movie-salam-ya-sa7by",
+        "movie-3esabet-el-max",
+        "movie-ga7im-fe-el-hend"
+      ]
+    },
+    "movie-lylet-hana-w-sror": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "orange-pink",
+      "posterPaletteRGB": [
+        176,
+        136,
+        112
+      ],
+      "spatialPaletteRGB": [
+        [
+          232,
+          144,
+          112
+        ],
+        [
+          208,
+          136,
+          112
+        ],
+        [
+          208,
+          128,
+          128
+        ],
+        [
+          168,
+          144,
+          112
+        ],
+        [
+          152,
+          112,
+          104
+        ],
+        [
+          208,
+          144,
+          120
+        ],
+        [
+          64,
+          40,
+          40
+        ],
+        [
+          88,
+          56,
+          40
+        ],
+        [
+          56,
+          32,
+          32
+        ]
+      ],
+      "visualNearIds": [
+        "movie-3esabet-el-max",
+        "movie-darwesh",
+        "movie-ga7im-fe-el-hend",
+        "movie-rocky-el-8alaba",
+        "movie-el-bo3bo3"
+      ]
+    },
+    "movie-meraty-moder-3am": {
+      "castLayout": "trio",
+      "heroPlacement": "scattered",
+      "paletteLabel": "cream-red",
+      "posterPaletteRGB": [
+        240,
+        232,
+        232
+      ],
+      "spatialPaletteRGB": [
+        [
+          248,
+          248,
+          232
+        ],
+        [
+          248,
+          248,
+          240
+        ],
+        [
+          240,
+          200,
+          216
+        ],
+        [
+          256,
+          256,
+          240
+        ],
+        [
+          256,
+          256,
+          256
+        ],
+        [
+          248,
+          240,
+          224
+        ],
+        [
+          232,
+          232,
+          224
+        ],
+        [
+          232,
+          224,
+          224
+        ],
+        [
+          184,
+          168,
+          192
+        ]
+      ],
+      "visualNearIds": [
+        "movie-elzoga-13",
+        "movie-esha3et-7ob",
+        "movie-3esabet-7amada-w-toto",
+        "movie-el-halfot",
+        "movie-salam-ya-sa7by"
+      ]
+    },
+    "movie-mousa": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "navy",
+      "posterPaletteRGB": [
+        80,
+        88,
+        96
+      ],
+      "spatialPaletteRGB": [
+        [
+          152,
+          208,
+          208
+        ],
+        [
+          80,
+          112,
+          120
+        ],
+        [
+          80,
+          120,
+          128
+        ],
+        [
+          64,
+          64,
+          72
+        ],
+        [
+          72,
+          80,
+          88
+        ],
+        [
+          152,
+          184,
+          192
+        ],
+        [
+          8,
+          16,
+          24
+        ],
+        [
+          24,
+          40,
+          56
+        ],
+        [
+          40,
+          64,
+          72
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-5alya",
+        "movie-el-bo3bo3",
+        "movie-youm-w-lyla",
+        "movie-darwesh",
+        "movie-re7la-404"
+      ]
+    },
+    "movie-re7la-404": {
+      "castLayout": "solo",
+      "heroPlacement": "side",
+      "paletteLabel": "sand-blue",
+      "posterPaletteRGB": [
+        152,
+        128,
+        96
+      ],
+      "spatialPaletteRGB": [
+        [
+          48,
+          96,
+          128
+        ],
+        [
+          40,
+          72,
+          72
+        ],
+        [
+          104,
+          136,
+          152
+        ],
+        [
+          184,
+          176,
+          176
+        ],
+        [
+          144,
+          120,
+          96
+        ],
+        [
+          176,
+          192,
+          192
+        ],
+        [
+          88,
+          56,
+          40
+        ],
+        [
+          104,
+          72,
+          48
+        ],
+        [
+          104,
+          72,
+          48
+        ]
+      ],
+      "visualNearIds": [
+        "movie-asmaa",
+        "movie-fe-sh2t-masr-el-gdeda",
+        "movie-youm-w-lyla",
+        "movie-kira-w-el-gen",
+        "movie-darwesh"
+      ]
+    },
+    "movie-rocky-el-8alaba": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "olive-gold",
+      "posterPaletteRGB": [
+        152,
+        128,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          136,
+          152,
+          176
+        ],
+        [
+          120,
+          152,
+          176
+        ],
+        [
+          128,
+          152,
+          176
+        ],
+        [
+          176,
+          136,
+          88
+        ],
+        [
+          144,
+          120,
+          56
+        ],
+        [
+          168,
+          152,
+          120
+        ],
+        [
+          88,
+          80,
+          56
+        ],
+        [
+          112,
+          96,
+          40
+        ],
+        [
+          120,
+          96,
+          32
+        ]
+      ],
+      "visualNearIds": [
+        "movie-ga7im-fe-el-hend",
+        "movie-3esabet-el-max",
+        "movie-lylet-hana-w-sror",
+        "movie-el-bata-el-safra",
+        "movie-wa2fet-regala"
+      ]
+    },
+    "movie-salam-ya-sa7by": {
+      "castLayout": "collage",
+      "heroPlacement": "scattered",
+      "paletteLabel": "cream-orange",
+      "posterPaletteRGB": [
+        232,
+        168,
+        120
+      ],
+      "spatialPaletteRGB": [
+        [
+          248,
+          232,
+          192
+        ],
+        [
+          248,
+          168,
+          88
+        ],
+        [
+          248,
+          224,
+          192
+        ],
+        [
+          240,
+          136,
+          96
+        ],
+        [
+          240,
+          192,
+          144
+        ],
+        [
+          224,
+          168,
+          112
+        ],
+        [
+          144,
+          112,
+          96
+        ],
+        [
+          248,
+          240,
+          216
+        ],
+        [
+          248,
+          232,
+          216
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-emberator",
+        "movie-el-halfot",
+        "movie-3esabet-7amada-w-toto",
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-elzoga-13"
+      ]
+    },
+    "movie-samir-abo-el-nile": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "white-red",
+      "posterPaletteRGB": [
+        152,
+        96,
+        112
+      ],
+      "spatialPaletteRGB": [
+        [
+          224,
+          232,
+          224
+        ],
+        [
+          224,
+          208,
+          224
+        ],
+        [
+          224,
+          224,
+          224
+        ],
+        [
+          128,
+          112,
+          104
+        ],
+        [
+          128,
+          120,
+          128
+        ],
+        [
+          64,
+          48,
+          48
+        ],
+        [
+          232,
+          224,
+          224
+        ],
+        [
+          224,
+          216,
+          216
+        ],
+        [
+          232,
+          224,
+          224
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-lemby",
+        "movie-el-nazer",
+        "movie-film-skafy",
+        "movie-3li-spicy",
+        "movie-3askar-fe-el-mo3skar"
+      ]
+    },
+    "movie-sh3ban-t7t-el-sefr": {
+      "castLayout": "collage",
+      "heroPlacement": "center",
+      "paletteLabel": "cream-blue",
+      "posterPaletteRGB": [
+        232,
+        184,
+        128
+      ],
+      "spatialPaletteRGB": [
+        [
+          144,
+          112,
+          64
+        ],
+        [
+          232,
+          192,
+          120
+        ],
+        [
+          240,
+          176,
+          128
+        ],
+        [
+          248,
+          200,
+          120
+        ],
+        [
+          232,
+          184,
+          128
+        ],
+        [
+          248,
+          200,
+          136
+        ],
+        [
+          168,
+          112,
+          72
+        ],
+        [
+          192,
+          144,
+          112
+        ],
+        [
+          208,
+          152,
+          96
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-halfot",
+        "movie-el-emberator",
+        "movie-salam-ya-sa7by",
+        "movie-3esabet-7amada-w-toto",
+        "movie-el-kit-kat"
+      ]
+    },
+    "movie-shalaby": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "blue-gold",
+      "posterPaletteRGB": [
+        96,
+        96,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          32,
+          24,
+          16
+        ],
+        [
+          120,
+          72,
+          40
+        ],
+        [
+          48,
+          24,
+          16
+        ],
+        [
+          40,
+          64,
+          80
+        ],
+        [
+          80,
+          120,
+          144
+        ],
+        [
+          80,
+          56,
+          56
+        ],
+        [
+          8,
+          0,
+          0
+        ],
+        [
+          56,
+          48,
+          32
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "visualNearIds": [
+        "movie-ebn-el-7ag-a7mad",
+        "movie-el-bo3bo3",
+        "movie-7amel-el-lakab",
+        "movie-rocky-el-8alaba",
+        "movie-mousa"
+      ]
+    },
+    "movie-siko-siko": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "teal",
+      "posterPaletteRGB": [
+        112,
+        104,
+        96
+      ],
+      "spatialPaletteRGB": [
+        [
+          96,
+          144,
+          144
+        ],
+        [
+          104,
+          144,
+          128
+        ],
+        [
+          88,
+          128,
+          128
+        ],
+        [
+          120,
+          104,
+          96
+        ],
+        [
+          104,
+          104,
+          104
+        ],
+        [
+          96,
+          128,
+          120
+        ],
+        [
+          88,
+          64,
+          40
+        ],
+        [
+          104,
+          80,
+          64
+        ],
+        [
+          128,
+          96,
+          80
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-5eta-el-3ayma",
+        "movie-wa2fet-regala",
+        "movie-bank-el-7az",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-3esabet-3azima"
+      ]
+    },
+    "movie-taslem-ahaly": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "sky-blue",
+      "posterPaletteRGB": [
+        104,
+        160,
+        160
+      ],
+      "spatialPaletteRGB": [
+        [
+          72,
+          184,
+          232
+        ],
+        [
+          56,
+          176,
+          224
+        ],
+        [
+          40,
+          176,
+          224
+        ],
+        [
+          120,
+          200,
+          232
+        ],
+        [
+          112,
+          144,
+          152
+        ],
+        [
+          112,
+          200,
+          240
+        ],
+        [
+          72,
+          80,
+          96
+        ],
+        [
+          120,
+          144,
+          152
+        ],
+        [
+          72,
+          176,
+          224
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-bata-el-safra",
+        "movie-7amel-el-lakab",
+        "movie-ana-w-ebn-5alty",
+        "movie-a7mad-w-a7mad",
+        "movie-kedbt-kol-youm"
+      ]
+    },
+    "movie-tesba7-3ala-5er": {
+      "castLayout": "trio",
+      "heroPlacement": "center",
+      "paletteLabel": "beige-orange",
+      "posterPaletteRGB": [
+        200,
+        152,
+        112
+      ],
+      "spatialPaletteRGB": [
+        [
+          224,
+          192,
+          168
+        ],
+        [
+          192,
+          152,
+          120
+        ],
+        [
+          216,
+          192,
+          168
+        ],
+        [
+          224,
+          192,
+          184
+        ],
+        [
+          184,
+          144,
+          96
+        ],
+        [
+          224,
+          136,
+          104
+        ],
+        [
+          176,
+          120,
+          80
+        ],
+        [
+          144,
+          96,
+          80
+        ],
+        [
+          152,
+          96,
+          80
+        ]
+      ],
+      "visualNearIds": [
+        "movie-kedbt-kol-youm",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-lylet-hana-w-sror",
+        "movie-bait-el-roby",
+        "movie-ana-w-ebn-5alty"
+      ]
+    },
+    "movie-tyor-el-zalam": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "cream-blue",
+      "posterPaletteRGB": [
+        200,
+        160,
+        160
+      ],
+      "spatialPaletteRGB": [
+        [
+          184,
+          184,
+          200
+        ],
+        [
+          184,
+          184,
+          192
+        ],
+        [
+          184,
+          184,
+          200
+        ],
+        [
+          176,
+          168,
+          208
+        ],
+        [
+          208,
+          128,
+          120
+        ],
+        [
+          184,
+          144,
+          144
+        ],
+        [
+          176,
+          184,
+          200
+        ],
+        [
+          176,
+          184,
+          200
+        ],
+        [
+          176,
+          184,
+          200
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el7aref",
+        "movie-el-kit-kat",
+        "movie-el-halfot",
+        "movie-sh3ban-t7t-el-sefr",
+        "movie-el-emberator"
+      ]
+    },
+    "movie-wa2fet-regala": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "turquoise",
+      "posterPaletteRGB": [
+        152,
+        168,
+        144
+      ],
+      "spatialPaletteRGB": [
+        [
+          128,
+          200,
+          240
+        ],
+        [
+          144,
+          192,
+          240
+        ],
+        [
+          104,
+          192,
+          216
+        ],
+        [
+          176,
+          176,
+          136
+        ],
+        [
+          168,
+          136,
+          88
+        ],
+        [
+          144,
+          128,
+          120
+        ],
+        [
+          104,
+          200,
+          232
+        ],
+        [
+          128,
+          200,
+          224
+        ],
+        [
+          104,
+          200,
+          232
+        ]
+      ],
+      "visualNearIds": [
+        "movie-siko-siko",
+        "movie-kedbt-kol-youm",
+        "movie-fasel-mn-el-la7azat-el-laziza",
+        "movie-3esabet-3azima",
+        "movie-film-skafy"
+      ]
+    },
+    "movie-youm-w-lyla": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "dark-green",
+      "posterPaletteRGB": [
+        80,
+        80,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          152,
+          176,
+          152
+        ],
+        [
+          88,
+          80,
+          64
+        ],
+        [
+          96,
+          128,
+          112
+        ],
+        [
+          112,
+          120,
+          104
+        ],
+        [
+          72,
+          64,
+          48
+        ],
+        [
+          104,
+          96,
+          96
+        ],
+        [
+          104,
+          112,
+          112
+        ],
+        [
+          24,
+          24,
+          24
+        ],
+        [
+          88,
+          88,
+          88
+        ]
+      ],
+      "visualNearIds": [
+        "movie-darwesh",
+        "movie-re7la-404",
+        "movie-el-5alya",
+        "movie-asmaa",
+        "movie-fe-sh2t-masr-el-gdeda"
+      ]
+    },
+    "movie-3askar-fe-el-mo3skar": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "cream-white",
+      "posterPaletteRGB": [
+        160,
+        104,
+        80
+      ],
+      "spatialPaletteRGB": [
+        [
+          240,
+          224,
+          208
+        ],
+        [
+          216,
+          176,
+          144
+        ],
+        [
+          232,
+          216,
+          192
+        ],
+        [
+          128,
+          112,
+          120
+        ],
+        [
+          96,
+          56,
+          48
+        ],
+        [
+          168,
+          96,
+          120
+        ],
+        [
+          192,
+          152,
+          128
+        ],
+        [
+          176,
+          144,
+          104
+        ],
+        [
+          224,
+          208,
+          192
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-nazer",
+        "movie-film-skafy",
+        "movie-el-lemby",
+        "movie-samir-abo-el-nile",
+        "movie-3li-spicy"
+      ]
+    },
+    "movie-3esabet-3azima": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "green-blue",
+      "posterPaletteRGB": [
+        152,
+        136,
+        120
+      ],
+      "spatialPaletteRGB": [
+        [
+          192,
+          176,
+          144
+        ],
+        [
+          152,
+          120,
+          112
+        ],
+        [
+          144,
+          120,
+          120
+        ],
+        [
+          136,
+          152,
+          120
+        ],
+        [
+          104,
+          80,
+          96
+        ],
+        [
+          160,
+          144,
+          160
+        ],
+        [
+          80,
+          96,
+          80
+        ],
+        [
+          88,
+          64,
+          64
+        ],
+        [
+          128,
+          104,
+          96
+        ]
+      ],
+      "visualNearIds": [
+        "movie-siko-siko",
+        "movie-el-5eta-el-3ayma",
+        "movie-3esabet-el-max",
+        "movie-wa2fet-regala",
+        "movie-bank-el-7az"
+      ]
+    },
+    "movie-3esabet-7amada-w-toto": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "cream-blue",
+      "posterPaletteRGB": [
+        192,
+        152,
+        136
+      ],
+      "spatialPaletteRGB": [
+        [
+          224,
+          216,
+          216
+        ],
+        [
+          224,
+          216,
+          216
+        ],
+        [
+          224,
+          224,
+          224
+        ],
+        [
+          192,
+          184,
+          192
+        ],
+        [
+          176,
+          104,
+          96
+        ],
+        [
+          200,
+          200,
+          184
+        ],
+        [
+          208,
+          192,
+          192
+        ],
+        [
+          208,
+          192,
+          192
+        ],
+        [
+          216,
+          216,
+          208
+        ]
+      ],
+      "visualNearIds": [
+        "movie-meraty-moder-3am",
+        "movie-esha3et-7ob",
+        "movie-elzoga-13",
+        "movie-salam-ya-sa7by",
+        "movie-el-halfot"
+      ]
+    },
+    "movie-3esabet-el-max": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "gold-orange",
+      "posterPaletteRGB": [
+        144,
+        80,
+        48
+      ],
+      "spatialPaletteRGB": [
+        [
+          208,
+          96,
+          16
+        ],
+        [
+          200,
+          112,
+          32
+        ],
+        [
+          184,
+          88,
+          32
+        ],
+        [
+          136,
+          72,
+          40
+        ],
+        [
+          152,
+          88,
+          48
+        ],
+        [
+          168,
+          112,
+          64
+        ],
+        [
+          104,
+          40,
+          24
+        ],
+        [
+          160,
+          80,
+          24
+        ],
+        [
+          144,
+          64,
+          32
+        ]
+      ],
+      "visualNearIds": [
+        "movie-darwesh",
+        "movie-ga7im-fe-el-hend",
+        "movie-lylet-hana-w-sror",
+        "movie-rocky-el-8alaba",
+        "movie-kira-w-el-gen"
+      ]
+    },
+    "movie-3li-spicy": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "white-red",
+      "posterPaletteRGB": [
+        200,
+        128,
+        128
+      ],
+      "spatialPaletteRGB": [
+        [
+          232,
+          216,
+          216
+        ],
+        [
+          232,
+          176,
+          160
+        ],
+        [
+          232,
+          216,
+          208
+        ],
+        [
+          160,
+          128,
+          128
+        ],
+        [
+          208,
+          128,
+          136
+        ],
+        [
+          176,
+          136,
+          136
+        ],
+        [
+          216,
+          144,
+          136
+        ],
+        [
+          232,
+          208,
+          200
+        ],
+        [
+          176,
+          128,
+          128
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-nazer",
+        "movie-el-lemby",
+        "movie-film-skafy",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-7amel-el-lakab": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "sky-blue",
+      "posterPaletteRGB": [
+        160,
+        176,
+        176
+      ],
+      "spatialPaletteRGB": [
+        [
+          136,
+          176,
+          184
+        ],
+        [
+          144,
+          160,
+          160
+        ],
+        [
+          152,
+          184,
+          192
+        ],
+        [
+          128,
+          176,
+          208
+        ],
+        [
+          200,
+          168,
+          184
+        ],
+        [
+          152,
+          184,
+          208
+        ],
+        [
+          88,
+          96,
+          64
+        ],
+        [
+          136,
+          128,
+          128
+        ],
+        [
+          112,
+          112,
+          72
+        ]
+      ],
+      "visualNearIds": [
+        "movie-taslem-ahaly",
+        "movie-el-bata-el-safra",
+        "movie-ana-w-ebn-5alty",
+        "movie-a7mad-w-a7mad",
+        "movie-kedbt-kol-youm"
+      ]
+    },
+    "movie-a7mad-w-a7mad": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "sky-blue",
+      "posterPaletteRGB": [
+        96,
+        120,
+        144
+      ],
+      "spatialPaletteRGB": [
+        [
+          16,
+          64,
+          128
+        ],
+        [
+          24,
+          88,
+          136
+        ],
+        [
+          16,
+          72,
+          136
+        ],
+        [
+          104,
+          136,
+          168
+        ],
+        [
+          120,
+          136,
+          184
+        ],
+        [
+          144,
+          160,
+          192
+        ],
+        [
+          40,
+          32,
+          32
+        ],
+        [
+          56,
+          40,
+          32
+        ],
+        [
+          64,
+          56,
+          40
+        ]
+      ],
+      "visualNearIds": [
+        "movie-ana-w-ebn-5alty",
+        "movie-7amel-el-lakab",
+        "movie-taslem-ahaly",
+        "movie-bait-el-roby",
+        "movie-el-bata-el-safra"
+      ]
+    },
+    "movie-abo-nasab": {
+      "castLayout": "duo",
+      "heroPlacement": "center",
+      "paletteLabel": "brown-cream",
+      "posterPaletteRGB": [
+        104,
+        80,
+        64
+      ],
+      "spatialPaletteRGB": [
+        [
+          184,
+          144,
+          112
+        ],
+        [
+          216,
+          184,
+          152
+        ],
+        [
+          192,
+          144,
+          112
+        ],
+        [
+          72,
+          64,
+          56
+        ],
+        [
+          112,
+          80,
+          64
+        ],
+        [
+          192,
+          128,
+          88
+        ],
+        [
+          40,
+          32,
+          32
+        ],
+        [
+          64,
+          32,
+          32
+        ],
+        [
+          72,
+          32,
+          32
+        ]
+      ],
+      "visualNearIds": [
+        "movie-ana-w-ebn-5alty",
+        "movie-a7mad-w-a7mad",
+        "movie-bait-el-roby",
+        "movie-7amel-el-lakab",
+        "movie-tesba7-3ala-5er"
+      ]
+    },
+    "movie-ana-w-ebn-5alty": {
+      "castLayout": "duo",
+      "heroPlacement": "split",
+      "paletteLabel": "turquoise",
+      "posterPaletteRGB": [
+        168,
+        160,
+        136
+      ],
+      "spatialPaletteRGB": [
+        [
+          104,
+          168,
+          208
+        ],
+        [
+          144,
+          160,
+          200
+        ],
+        [
+          96,
+          168,
+          208
+        ],
+        [
+          160,
+          152,
+          152
+        ],
+        [
+          168,
+          112,
+          104
+        ],
+        [
+          200,
+          192,
+          168
+        ],
+        [
+          96,
+          80,
+          72
+        ],
+        [
+          112,
+          88,
+          80
+        ],
+        [
+          184,
+          136,
+          112
+        ]
+      ],
+      "visualNearIds": [
+        "movie-a7mad-w-a7mad",
+        "movie-7amel-el-lakab",
+        "movie-taslem-ahaly",
+        "movie-bait-el-roby",
+        "movie-el-bata-el-safra"
+      ]
+    },
+    "movie-asmaa": {
+      "castLayout": "solo",
+      "heroPlacement": "center",
+      "paletteLabel": "black-white",
+      "posterPaletteRGB": [
+        8,
+        8,
+        8
+      ],
+      "spatialPaletteRGB": [
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          56,
+          64,
+          48
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          16,
+          16,
+          16
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          8,
+          8,
+          8
+        ],
+        [
+          24,
+          16,
+          16
+        ],
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "visualNearIds": [
+        "movie-fe-sh2t-masr-el-gdeda",
+        "movie-re7la-404",
+        "movie-Eskendria-leh",
+        "movie-youm-w-lyla",
+        "movie-tyor-el-zalam"
+      ]
+    },
+    "movie-bait-el-roby": {
+      "castLayout": "duo",
+      "heroPlacement": "center",
+      "paletteLabel": "sky-blue",
+      "posterPaletteRGB": [
+        104,
+        160,
+        176
+      ],
+      "spatialPaletteRGB": [
+        [
+          64,
+          128,
+          184
+        ],
+        [
+          96,
+          152,
+          152
+        ],
+        [
+          72,
+          136,
+          184
+        ],
+        [
+          80,
+          160,
+          208
+        ],
+        [
+          88,
+          96,
+          72
+        ],
+        [
+          136,
+          176,
+          216
+        ],
+        [
+          80,
+          144,
+          200
+        ],
+        [
+          40,
+          40,
+          48
+        ],
+        [
+          72,
+          152,
+          208
+        ]
+      ],
+      "visualNearIds": [
+        "movie-a7mad-w-a7mad",
+        "movie-ana-w-ebn-5alty",
+        "movie-7amel-el-lakab",
+        "movie-taslem-ahaly",
+        "movie-wa2fet-regala"
+      ]
+    },
+    "movie-bank-el-7az": {
+      "castLayout": "trio",
+      "heroPlacement": "center",
+      "paletteLabel": "dark-teal",
+      "posterPaletteRGB": [
+        72,
+        72,
+        80
+      ],
+      "spatialPaletteRGB": [
+        [
+          120,
+          80,
+          88
+        ],
+        [
+          136,
+          128,
+          112
+        ],
+        [
+          80,
+          96,
+          80
+        ],
+        [
+          128,
+          104,
+          96
+        ],
+        [
+          64,
+          72,
+          96
+        ],
+        [
+          88,
+          88,
+          72
+        ],
+        [
+          32,
+          32,
+          32
+        ],
+        [
+          32,
+          32,
+          40
+        ],
+        [
+          40,
+          32,
+          24
+        ]
+      ],
+      "visualNearIds": [
+        "movie-el-5eta-el-3ayma",
+        "movie-siko-siko",
+        "movie-3esabet-3azima",
+        "movie-el-3amel-0",
+        "movie-3esabet-el-max"
+      ]
+    },
+    "movie-bershama": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "cream-yellow",
+      "posterPaletteRGB": [
+        128,
+        80,
+        48
+      ],
+      "spatialPaletteRGB": [
+        [
+          176,
+          112,
+          64
+        ],
+        [
+          200,
+          136,
+          96
+        ],
+        [
+          192,
+          144,
+          104
+        ],
+        [
+          112,
+          56,
+          32
+        ],
+        [
+          144,
+          96,
+          64
+        ],
+        [
+          96,
+          72,
+          56
+        ],
+        [
+          40,
+          24,
+          16
+        ],
+        [
+          32,
+          16,
+          8
+        ],
+        [
+          40,
+          24,
+          16
+        ]
+      ],
+      "visualNearIds": [
+        "movie-film-skafy",
+        "movie-el-nazer",
+        "movie-3askar-fe-el-mo3skar",
+        "movie-3li-spicy",
+        "movie-samir-abo-el-nile"
+      ]
+    },
+    "movie-darwesh": {
+      "castLayout": "ensemble",
+      "heroPlacement": "scattered",
+      "paletteLabel": "orange-brown",
+      "posterPaletteRGB": [
+        136,
+        80,
+        48
+      ],
+      "spatialPaletteRGB": [
+        [
+          208,
+          192,
+          168
+        ],
+        [
+          192,
+          152,
+          120
+        ],
+        [
+          216,
+          192,
+          184
+        ],
+        [
+          136,
+          88,
+          64
+        ],
+        [
+          128,
+          72,
+          48
+        ],
+        [
+          184,
+          96,
+          64
+        ],
+        [
+          104,
+          64,
+          40
+        ],
+        [
+          88,
+          64,
+          40
+        ],
+        [
+          88,
+          56,
+          40
+        ]
+      ],
+      "visualNearIds": [
+        "movie-3esabet-el-max",
+        "movie-ga7im-fe-el-hend",
+        "movie-kira-w-el-gen",
+        "movie-lylet-hana-w-sror",
+        "movie-el-5alya"
+      ]
+    }
+  }
+}

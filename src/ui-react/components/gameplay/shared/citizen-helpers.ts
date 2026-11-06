@@ -61,9 +61,6 @@ export function getCitizenVisualScale(characterId: CharacterId): number {
 }
 
 export function getCharacterId(twitchUserId: string, _index: number): CharacterId {
-  // Explicit sprite selection is only supported for namespaced local QA identities.
-  const qaSprite = CHARACTER_IDS.find(id => twitchUserId.startsWith(`__ta7ady_qa_bot__qa_${id}_`));
-  if (qaSprite) return qaSprite;
   const hash = hashString(`character-v42:${twitchUserId}`) >>> 0;
   return CHARACTER_IDS[hash % CHARACTER_IDS.length];
 }

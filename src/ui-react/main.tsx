@@ -65,6 +65,8 @@ import './styles/chaos-v40.css';
 import './styles/progression-finale-v41.css';
 // V42: stage character reactions, stable avatars, and finale level-up animations.
 import './styles/character-progression-v42.css';
+// V46 visual polish: scoreboard, winner banner, shape shading, nameplates.
+import './styles/visual-polish-v46.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
@@ -77,4 +79,3 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     </GameProvider>
   </StrictMode>,
 );
-

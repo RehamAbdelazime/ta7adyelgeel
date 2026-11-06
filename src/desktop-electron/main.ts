@@ -28,7 +28,7 @@ function resolveElectronPreloadPath(): string {
 
 const SAFE_STORAGE_FILES = new Set(['profiles.json', 'settings.json', 'tour-history.json']);
 const MAX_STORAGE_JSON_BYTES = 1_500_000;
-const ENABLE_DEVTOOLS = !app.isPackaged || process.env.ELGEEL_ENABLE_DEVTOOLS === '1';
+const ENABLE_DEVTOOLS = !app.isPackaged;
 
 type DisplayMode = 'fullscreen' | 'windowed' | 'borderless';
 type ResolutionPreset = '1920x1080' | '1600x900' | '1366x768' | '1280x720';
@@ -310,7 +310,8 @@ async function createMainWindow(): Promise<void> {
   mainWindow = win;
   applyDisplaySettings(win, initialDisplaySettings);
 
-  const devServerUrl = process.env.VITE_DEV_SERVER_URL;
+  // Untrusted environment variables must never redirect a packaged game to a dev server.
+  const devServerUrl = app.isPackaged ? undefined : process.env.VITE_DEV_SERVER_URL;
 
   win.on('closed', () => {
     if (mainWindow === win) {

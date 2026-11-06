@@ -2,7 +2,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
-const ts = require('/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript');
+const ts = require('typescript');
 require.extensions['.ts'] = (module, filename) => {
   const code = ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true, resolveJsonModule: true },
@@ -13,7 +13,7 @@ require.extensions['.ts'] = (module, filename) => {
 const root = path.resolve(__dirname, '..');
 const { VisualGuessMiniGameService, getVisualGuessBank } = require(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-service.ts'));
 const citizen = { twitchUserId: 'v36-citizen', displayName: 'Player V36', role: 'official' };
-const byMode = { 'guess-movie': ['scene','poster','scene','poster'], 'guess-star':['eyes','silhouette','zoom','reveal'] };
+const byMode = { 'guess-movie': ['poster','poster','poster','poster'], 'guess-star':['eyes','silhouette','zoom','reveal'] };
 let total = 0;
 for (const gameId of Object.keys(byMode)) {
   const service = new VisualGuessMiniGameService(gameId);
@@ -74,6 +74,6 @@ for (const gameId of Object.keys(byMode)) {
   } finally { store.destroy(); }
   console.log(`[PASS] ${gameId}: real GameStore intro → prepare → answers → reveal`);
 }
-assert.equal(getVisualGuessBank('guess-movie').length,30);
+assert.equal(getVisualGuessBank('guess-movie').length,50);
 assert.equal(getVisualGuessBank('guess-star').length,20);
 console.log(`V36 visual-guess runtime PASS: ${total} modes/flows across both new mini-games.`);

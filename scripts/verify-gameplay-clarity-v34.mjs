@@ -20,7 +20,7 @@ check(shell.includes("miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-
 check(shell.includes('onClick={continueToLeaderboard ?? actions.skipPhase}'), 'Reveal is controlled manually by host');
 check(food.includes('layout="choice"') && food.includes('<MediaCard'), 'Food artwork and selected choice remain intact');
 check(css.includes('game-scene-stage > .qshell-reveal-stage-action') && css.includes('bottom: clamp('), 'Large action anchored in safe stage apron');
-check(beat.includes('animation: `ctb-pop') && css.includes('@keyframes ctb-pop'), 'Beat icon animation MUST have live keyframes');
+check((beat.includes('animation: `ctb-pop') || beat.includes("animationName: 'ctb-pop'")) && css.includes('@keyframes ctb-pop'), 'Beat icon animation MUST have live keyframes');
 check(css.includes('opacity: 1; transform: translate(-50%,-50%)'), 'Beat icons must reach visible state');
 check(beat.includes('ctb-reveal-glyph') && beat.includes('ctb-reveal-count'), 'Beat reveal displays glyph + number in playfield');
 check(!beat.includes('<ScoringGuide') && !beat.includes('ctb-instruction'), 'Beat screen stripped of redundant instructional/scoring text');

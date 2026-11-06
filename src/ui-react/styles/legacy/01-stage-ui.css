@@ -440,8 +440,7 @@
   pointer-events: auto;
 }
 
-.gameplay-scoreboard-back-button,
-.host-action-grid .host-primary {
+.gameplay-scoreboard-back-button{
   min-width: 220px;
   min-height: 54px;
   border: 2px solid rgba(238, 247, 255, 0.92);
@@ -484,8 +483,7 @@
   pointer-events: auto;
 }
 
-.gameplay-scoreboard-back-button:hover,
-.host-action-grid .host-primary:hover:not(:disabled) {
+.gameplay-scoreboard-back-button:hover{
   transform: translateY(-3px) scale(1.035);
   filter: brightness(1.09) saturate(1.12);
   box-shadow:
@@ -498,8 +496,7 @@
     inset 0 -8px 0 rgba(33, 11, 78, 0.42);
 }
 
-.gameplay-scoreboard-back-button:active,
-.host-action-grid .host-primary:active:not(:disabled) {
+.gameplay-scoreboard-back-button:active{
   transform: translateY(4px) scale(0.99);
   box-shadow:
     0 0 0 4px rgba(12, 5, 40, 0.72),
@@ -514,24 +511,12 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.right-streamer-stack {
-  right: clamp(10px, 1.45vw, 24px);
-  top: clamp(76px, 7.2vw, 118px);
-  width: clamp(228px, 18vw, 292px);
-  max-height: calc(100vh - clamp(96px, 8vw, 140px));
-}
 
-.host-production-panel {
-  max-height: inherit;
-  overflow: auto;
-  scrollbar-width: thin;
-}
+
+
 
 @media (max-width: 1180px) {
-  .right-streamer-stack {
-    width: clamp(210px, 23vw, 260px);
-    transform-origin: top right;
-  }
+  
 
   .host-panel-tabs button {
     min-height: 42px;
@@ -544,13 +529,7 @@
 }
 
 @media (max-aspect-ratio: 4 / 3) {
-  .right-streamer-stack {
-    top: auto;
-    right: 10px;
-    bottom: 10px;
-    width: min(360px, calc(100vw - 20px));
-    max-height: 38vh;
-  }
+  
 
   .host-panel-header,
   .host-panel-stats,
@@ -573,8 +552,7 @@
 
 [dir="rtl"] .center-play-core,
 [dir="rtl"] .play-choice-card strong,
-[dir="rtl"] .gameplay-scoreboard-back-button,
-[dir="rtl"] .host-action-grid .host-primary {
+[dir="rtl"] .gameplay-scoreboard-back-button{
   letter-spacing: 0.01em;
 }
 
@@ -851,12 +829,7 @@
     padding: 14px 20px !important;
   }
 
-  .right-streamer-stack {
-    right: 12px;
-    top: 82px;
-    width: min(282px, 24vw);
-    max-height: calc(100vh - 112px);
-  }
+  
 }
 
 @media (max-aspect-ratio: 16 / 9) {
@@ -1315,7 +1288,7 @@
   transform: none;
 }
 
-.host-action-grid .host-primary,
+
 .settings-apply-button,
 .auth-primary-button,
 .twitch-button-row button:first-child,
@@ -1342,7 +1315,7 @@
     inset 0 -8px 0 rgba(3, 4, 25, 0.36);
 }
 
-.host-danger,
+
 .settings-danger-button,
 .auth-danger-button,
 .twitch-button-row button:last-child {
@@ -2969,7 +2942,7 @@
   opacity: 0.3 !important;
 }
 
-.host-action-grid .host-primary,
+
 .settings-apply-button,
 .auth-primary-button,
 .twitch-button-row button:first-child,
@@ -2980,7 +2953,7 @@
   --line-c: var(--egc-thread-purple);
 }
 
-.host-danger,
+
 .settings-danger-button,
 .auth-danger-button,
 .twitch-button-row button:last-child {
@@ -3000,7 +2973,6 @@
 }
 
 .play-choice-card-tour,
-.host-action-grid button:not(.host-danger):not(.host-primary),
 .settings-secondary-button,
 .settings-close-button,
 .host-panel-tabs button {
@@ -3075,7 +3047,6 @@
 .play-choice-card strong,
 .gameplay-scoreboard-back-button,
 .gameplay-intro-continue-button,
-.host-action-grid .host-primary,
 .settings-apply-button {
   font-family: var(--display-font) !important;
   letter-spacing: 0.08em !important;
@@ -3157,7 +3128,6 @@
 [dir="rtl"] .play-choice-card strong,
 [dir="rtl"] .gameplay-scoreboard-back-button,
 [dir="rtl"] .gameplay-intro-continue-button,
-[dir="rtl"] .host-action-grid .host-primary,
 [dir="rtl"] .settings-apply-button {
   letter-spacing: 0.02em !important;
 }

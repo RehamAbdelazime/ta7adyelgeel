@@ -6,6 +6,8 @@ type TourStateMachineOptions = {
   resolvePhaseDurationMs?: (definition: TourPhaseDefinition) => number;
   onPhaseChanged?: (snapshot: TourSnapshot, previousPhase: TourPhase) => void;
   onTourCompleted?: (snapshot: TourSnapshot) => void;
+  /** Show instructions when the next round changes mini-game (not every question). */
+  shouldShowIntroForNextRound?: (nextRound: number) => boolean;
 };
 
 const MIN_TOUR_ROUNDS = 1;
@@ -16,6 +18,7 @@ export class TourStateMachine {
   private readonly resolvePhaseDurationMs?: (definition: TourPhaseDefinition) => number;
   private readonly onPhaseChanged?: (snapshot: TourSnapshot, previousPhase: TourPhase) => void;
   private readonly onTourCompleted?: (snapshot: TourSnapshot) => void;
+  private readonly shouldShowIntroForNextRound?: (nextRound: number) => boolean;
   private tourId: string | null = null;
   private currentDefinition: TourPhaseDefinition = LOBBY_PHASE_DEFINITION;
   private phaseStartedAt: number | null = null;
@@ -32,6 +35,7 @@ export class TourStateMachine {
     this.resolvePhaseDurationMs = options.resolvePhaseDurationMs;
     this.onPhaseChanged = options.onPhaseChanged;
     this.onTourCompleted = options.onTourCompleted;
+    this.shouldShowIntroForNextRound = options.shouldShowIntroForNextRound;
   }
 
   getSnapshot(): TourSnapshot {
@@ -290,9 +294,10 @@ export class TourStateMachine {
     if (currentPhase === 'scoring') {
       if (this.roundIndex < this.totalRounds) {
         this.roundIndex += 1;
-        // Continue directly into the countdown for the next question. The explanation screen is
-        // shown only once at the start of the selected mini-game/tour, not between questions.
-        this.activeSequenceIndex = this.getPhaseIndex('tour_starting');
+        // Show illustrated instructions whenever the next game changes. Same-game
+        // follow-up questions skip redundant instructions but keep the timer.
+        const showIntro = this.shouldShowIntroForNextRound?.(this.roundIndex) ?? true;
+        this.activeSequenceIndex = this.getPhaseIndex(showIntro ? 'mini_game_intro' : 'tour_starting');
         this.enterDefinition(TOUR_PHASE_SEQUENCE[this.activeSequenceIndex]);
         return;
       }

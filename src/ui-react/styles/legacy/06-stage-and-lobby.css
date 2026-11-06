@@ -457,27 +457,7 @@
 }
 
 /* Keep production panel visually compatible but secondary. */
-.host-production-panel,
-.streamer-controls-panel,
-.developer-qa-panel {
-  border-color: rgba(45, 244, 255, 0.32) !important;
-  border-right-color: rgba(255, 75, 231, 0.38) !important;
-  background:
-    radial-gradient(
-      circle at 20% 0%,
-      rgba(45, 244, 255, 0.08),
-      transparent 36%
-    ),
-    radial-gradient(
-      circle at 80% 0%,
-      rgba(255, 75, 231, 0.09),
-      transparent 36%
-    ),
-    rgba(4, 4, 22, 0.82) !important;
-  box-shadow:
-    0 0 18px rgba(45, 244, 255, 0.12),
-    inset 0 0 22px rgba(0, 0, 0, 0.35) !important;
-}
+
 
 /* Responsive guardrails for the 16:9 stage screen. */
 @media (max-width: 1400px) {
@@ -1554,14 +1534,7 @@
 }
 
 /* cleaned legacy comment */
-.right-streamer-stack,
-.host-production-panel,
-.streamer-controls-panel,
-.developer-qa-panel {
-  display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-}
+
 
 /* Keep every selection screen element inside the baked LED panel. */
 .gameplay-overlay-lobby-scene .gameplay-main-screen-lobby,

@@ -1,43 +1,71 @@
-> **V42 — Character actions and final Level Up:** see `docs/CHARACTER_PROGRESSION_V42_AR.md`.
+# Ta7ady ElGeel — Release Candidate V48
 
-**V41:** XP is committed only on the final scoreboard (at the end of a Full Tour or a single MiniGame session). The Coins economy was removed. Older `profiles.json` files retain their XP, Level and wins; obsolete currency fields are ignored and not written back. See `docs/PROGRESSION_V41_AR.md`.
+**Twitch party game for Windows** · Electron + React + TypeScript · Arabic / English
 
-## V39 — Spectator joining and scoreboards
+## What is in the player-facing game?
 
-Official joins remain open until the **first actual question** begins. After that, late viewers join as Spectators with a separate score and no XP. Intermission and final scoreboards now have independent **Players / Spectators** tabs. Score resets each new Tour (persistent progression stays). See `docs/SPECTATOR_EXPERIENCE_V39_AR.md` for full Arabic rules and testing.
+- Seven public mini-games: Food Origin, Shape Count, Maze Gates, Count the Beat, Lucky Cup, Guess the Movie, Guess the Star.
+- One Game and Full Tour modes, manual reveal/scoreboard transitions, official contestants and late-joining Spectators.
+- Persistent XP and levels, character reactions, scoreboards, Chaos and Golden Rewards.
+- Normal Settings screen, the animated stage host and the host's in-game answer controls remain.
+- **No Host Production Panel, F9 panel, QA bot buttons, or automated screenshot UI.** Those development features have been removed from the shipped UI. Test-only bot simulation remains under `tests/` for regression coverage.
 
-# Ta7ady ElGeel — V37
+## Windows setup / development
 
-Electron + React + TypeScript party game for interactive Twitch shows.
+Requires Node.js 22+ and npm.
 
-## Mini-games
-
-**Public (7):** Food Origin, Shape Count, Maze Gates, Count the Beat, Lucky Cup, Guess the Movie, Guess the Star.
-
-**QA-only (2):** Memory Count, Couple or Siblings. These are registered but not public.
-
-Four retired games were completely removed from **code, content, assets, screen registries, configuration, styles, translation entries, and tests**. This version starts from the V36 source.
-
-## Run locally
-
-```bash
+```cmd
 npm ci
 npm run dev
 ```
 
-Check: `npm run verify:all`, `npm run test`, `npm run build`.
+The game needs a Twitch connection to run in its normal live mode. `npm run dev` opens Electron with the local Vite renderer.
 
-The Visual Guess image bank includes remote sample image references. When online, `npm run visuals:cache` can cache the media locally. The media licenses must be reviewed before broadcast.
+## Last regression before distribution
 
-For the full deletion rationale and installation instructions, see `docs/REMOVED_MINIGAMES_V37_AR.md`.
+On Windows, double-click **`RUN_FINAL_REGRESSION_WINDOWS.cmd`**, or run:
 
-## V38 Gameplay Quality Pass
+```cmd
+npm ci
+npm run regression:final
+```
 
-خمس تحسينات للألعاب الحالية (Count the Beat / Maze Gates / Shape Count / Food Origin / Lucky Cup). التفاصيل ومعايير التحقق في `docs/GAMEPLAY_QUALITY_V38_AR.md`.
+This is the **last regression**, not a screenshot walkthrough. It checks release-only surfaces, source/asset integrity, legacy regressions, native Node game scenarios, Vitest, full TypeScript, Vite+Electron production build, and build outputs. It writes:
 
-شغّل `npm run verify:quality-v38` (يتطلب Node وTypeScript)، أو `node scripts/verify-five-game-quality-v38.cjs` لاختبارات اللعب المنطقية.
+- `release-check/FINAL_REGRESSION_SUMMARY.txt`
+- `release-check/FINAL_REGRESSION_REPORT.json`
+- Per-step logs under `release-check/`
 
+The command returns a failure code if any check does not pass. It does **not** silently treat a skipped build as passing. It does not launch the old Host Panel or require Playwright.
 
-## V43 — Egyptian Visual Guess content
+To build a Windows portable executable after a **passing regression**:
 
-The Guess the Movie bank contains 30 OFFLINE original SVG visual clues (not actual copyrighted film posters/stills), and the Guess the Star bank contains 20 Commons portrait references with license credits. Portrait files are not bundled; run `npm run visuals:cache` while online before streaming. More info: `docs/V43_EGYPTIAN_VISUAL_BANK_AR.md` and `docs/V43_VISUAL_MEDIA_ATTRIBUTION.csv`.
+```cmd
+npm run package:win
+```
+
+> A successful source regression is not a substitute for a Windows executable smoke test or a human review of actual gameplay.
+
+## Media is intentionally deferred
+
+The user will supply real licensed film and celebrity images later. **They are NOT included here.** Currently the clean project contains 36 image references that use external URLs and 14 entries without usable sources; licensing and offline readiness remain unresolved. Film stills/posters need explicit reuse permission as appropriate. No generated drawings have been re-added.
+
+Supported content utilities:
+
+```cmd
+npm run visuals:status
+npm run visuals:cache
+npm run visuals:import -- <question-id> <local-image-path> <credit> <license>
+```
+
+The question bank lives at `src/game-core/minigames/visual-guess/visual-guess-questions.json`. Test the real images and broadcast permissions before enabling the media games in a release.
+
+## Technical notes
+
+- The Windows portable output is configured in `package.json` (`release-v2/`). No installer EXE is bundled in this source archive.
+- Saved Twitch profiles and settings use Electron's `userData/el-geel-city/` directory; replacing this source archive does not delete that directory.
+- Two internal QA-only minigames remain registered for testing but are **not selectable** from the public game picker.
+- The old V45 screenshot/BAT workflow is retired. Prior change notes are archived under `docs/history/`.
+- See `docs/RELEASE_READINESS_V48_AR.md` for the release checklist and limits of verification.
+
+**Status:** release-candidate source cleaned for distribution preparation; **not certified release-ready** until the full Windows regression/build, offline image assets/rights, and executable smoke test are verified.

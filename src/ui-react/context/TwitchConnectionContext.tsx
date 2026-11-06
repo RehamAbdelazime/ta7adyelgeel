@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useGame } from './GameContext';
-import type { ElGeelTwitchApi } from '../../desktop-electron/preload';
+import type { ElGeelTwitchApi } from '../../desktop-electron/bridge-contract';
 import type { TwitchChatMessage } from '../../game-core/twitch/twitch-message-types';
 
 type DesktopTwitchApi = ElGeelTwitchApi;

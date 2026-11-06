@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type CSSProperties } from 'react';
 import type { LocaleCode } from '../../../game-core/localization/locale-types';
-import type { DisplayMode, DisplaySettings, ResolutionPreset } from '../../../desktop-electron/preload';
+import type { DisplayMode, DisplaySettings, ResolutionPreset } from '../../../desktop-electron/bridge-contract';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
 import { useAudioTuning } from '../../context/AudioTuningContext';

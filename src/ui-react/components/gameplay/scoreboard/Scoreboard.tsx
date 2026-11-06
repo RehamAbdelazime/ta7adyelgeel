@@ -378,13 +378,8 @@ export function ReusableScoreboard({
   useEffect(() => {
     setPage((currentPage) => clampScoreboardPage(currentPage, pageCount));
   }, [pageCount]);
-  // For large Twitch crowds, cycle through pages on stream without requiring
-  // the host to manually click eight pages. The controls remain available.
-  useEffect(() => {
-    if (pageCount <= 1 || isLoading) return undefined;
-    const id = window.setInterval(() => setPage((currentPage) => (currentPage + 1) % pageCount), 8500);
-    return () => window.clearInterval(id);
-  }, [isLoading, pageCount, participantSignature]);
+  // The host owns scoreboard pagination. Never change pages automatically;
+  // spectators need time to find their name and read their score.
 
   const visibleRows = getScoreboardPageRows(displayedRows, safePage, SCOREBOARD_PAGE_SIZE);
   const pageStart = safePage * SCOREBOARD_PAGE_SIZE;
@@ -404,6 +399,11 @@ export function ReusableScoreboard({
           {isArabic ? 'المتفرجين' : 'Spectators'} <span>{spectatorRows.length}</span>
         </button>
       </nav>
+      {isFinal && !isEndedEarly && selectedBoard === 'official' && rows[0] && rows[0].total > 0 ? (
+        <div className="show-score-winner-banner-v46" role="status" aria-label={isArabic ? `الفائز ${rows[0].displayName}` : `Winner ${rows[0].displayName}`}>
+          <span aria-hidden="true">🏆</span><strong>{isArabic ? 'الفائز' : 'WINNER'}</strong><b title={rows[0].displayName}>{rows[0].displayName}</b>
+        </div>
+      ) : null}
       <div className="show-scoreboard-surface">
         {isLoading ? (
           <div className="show-score-loading" role="status"><strong>{loadingTitle}</strong><small>{loadingSubtitle}</small></div>
