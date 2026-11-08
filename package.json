@@ -67,7 +67,7 @@
     "verify:stabilization-v47": "node scripts/qa/verify-stabilization-v47.mjs",
     "verify:release-contract": "node scripts/release/verify-release-contract.mjs",
     "regression:final": "node scripts/release/final-regression.mjs",
-    "verify:posters-v49": "node scripts/verify-egyptian-posters-v49.cjs && node scripts/verify-poster-visual-difficulty-v50.cjs && node scripts/verify-poster-reveal-v51.cjs && npm run verify:poster-replay-v52 && node scripts/verify-movie-clues-v53.cjs && node scripts/verify-quote-modes-v54.cjs && npm run verify:visual-media-v57 && npm run verify:quote-ux-v62 && npm run verify:quote-variety-v63",
+    "verify:posters-v49": "node scripts/verify-egyptian-posters-v49.cjs && node scripts/verify-poster-visual-difficulty-v50.cjs && node scripts/verify-poster-reveal-v51.cjs && npm run verify:poster-replay-v52 && node scripts/verify-movie-clues-v53.cjs && node scripts/verify-quote-modes-v54.cjs && npm run verify:visual-media-v57 && npm run verify:quote-ux-v62 && npm run verify:quote-variety-v63 && npm run verify:bank-variety-v64",
     "verify:poster-replay-v52": "node scripts/verify-poster-replay-v52.cjs",
     "visuals:sync": "npm run verify:movie-install-v60 && node scripts/generate-movie-clues-v53.mjs && node scripts/generate-movie-fallback-v59.mjs",
     "verify:movie-clues-v53": "npm run visuals:sync && node scripts/verify-movie-clues-v53.cjs",
@@ -87,7 +87,9 @@
     "verify:movie-install-v60": "node scripts/verify-movie-install-v60.mjs",
     "verify:visual-readability-v61": "node scripts/verify-visual-guess-readability-v61.mjs",
     "verify:quote-ux-v62": "node scripts/verify-quote-ux-v62.cjs",
-    "verify:quote-variety-v63": "node scripts/verify-quote-variety-v63.cjs"
+    "verify:quote-variety-v63": "node scripts/verify-quote-variety-v63.cjs",
+    "verify:bank-variety-v64": "node scripts/verify-all-banks-variety-v64.cjs",
+    "verify:food-v65": "node scripts/verify-food-origin-v65.cjs"
   },
   "dependencies": {
     "@fontsource-variable/alexandria": "5.3.0",

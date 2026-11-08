@@ -1,4 +1,5 @@
 import { QuestionMemory } from './question-memory';
+import type { ChoiceVariety } from './choice-variety';
 import { QuestionSelector } from './question-selector';
 import type { GameQuestionBase, QuestionBankStats, QuestionDifficulty, QuestionSelectionResult } from './question-types';
 
@@ -7,7 +8,7 @@ export class QuestionBankService<TQuestion extends GameQuestionBase<string>> {
   private readonly selector = new QuestionSelector<TQuestion>();
   private lastFirstRoundQuestionId: string | null = null;
 
-  constructor(private readonly questions: readonly TQuestion[]) {
+  constructor(private readonly questions: readonly TQuestion[], private readonly history?: ChoiceVariety) {
     if (questions.length === 0) {
       throw new Error('QuestionBankService requires at least one question.');
     }
@@ -23,6 +24,7 @@ export class QuestionBankService<TQuestion extends GameQuestionBase<string>> {
       memory: this.memory,
       roundNumber,
       preferredDifficulty,
+      getPlayCount: this.history ? question => this.history!.getPlays(question.id) : undefined,
     });
 
     // First impressions matter on stream: avoid opening a fresh run with the exact same
@@ -35,6 +37,7 @@ export class QuestionBankService<TQuestion extends GameQuestionBase<string>> {
         roundNumber,
         preferredDifficulty,
         excludedQuestionIds: new Set([this.lastFirstRoundQuestionId]),
+        getPlayCount: this.history ? question => this.history!.getPlays(question.id) : undefined,
       });
 
       if (reroll.question.id !== result.question.id) {
@@ -43,6 +46,7 @@ export class QuestionBankService<TQuestion extends GameQuestionBase<string>> {
     }
 
     this.memory.record(result.question);
+    this.history?.rememberQuestion(result.question.id);
     if (roundNumber === 1) {
       this.lastFirstRoundQuestionId = result.question.id;
     }

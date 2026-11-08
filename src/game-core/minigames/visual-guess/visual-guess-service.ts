@@ -9,6 +9,7 @@ import rawBank from './visual-guess-questions.json';
 import rawPosterProfiles from './poster-visual-profiles-v50.json';
 import rawMovieClues from './movie-clues.generated.json';
 import { planPosterReveal, type PosterRevealPlan } from './poster-mystery';
+import { ChoiceVariety } from '../../questions/choice-variety';
 import { chooseQuoteWrongAnswers, choiceHistoryKey, readQuoteChoiceHistory, rememberQuoteChoice, shuffleQuoteAnswerPositions, type QuoteChoiceHistory } from './quote-choice-rotation';
 import { browserPosterStorage, emptyPosterHistory, readPosterHistory, rememberPosterPlay, type PosterHistory, type PosterHistoryStorage } from './poster-history';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
@@ -122,8 +123,10 @@ export class VisualGuessMiniGameService {
   private scored = false;
   private readonly posterHistory: PosterHistory;
   private readonly quoteChoiceHistory: QuoteChoiceHistory;
+  private readonly choiceVariety: ChoiceVariety;
 
   constructor(readonly gameId: VisualGuessGameId, private readonly historyStorage: PosterHistoryStorage | null = browserPosterStorage()) {
+    this.choiceVariety = new ChoiceVariety(gameId, historyStorage);
     this.posterHistory = gameId === 'guess-movie' ? readPosterHistory(historyStorage) : emptyPosterHistory();
     this.quoteChoiceHistory = gameId === 'guess-movie' ? readQuoteChoiceHistory(historyStorage) : {};
   }
@@ -198,7 +201,8 @@ export class VisualGuessMiniGameService {
       const groups = [selectFresh(eligible), selectTourFresh(eligible),
         selectFresh(difficultyOnly), selectTourFresh(difficultyOnly), eligible, difficultyOnly];
       const pool = groups.find(items => items.length > 0) ?? bank;
-      item = pool[Math.floor(rng() * pool.length)];
+      const freshAcrossLaunches = this.choiceVariety.leastPlayed(pool);
+      item = freshAcrossLaunches[Math.floor(rng() * freshAcrossLaunches.length)];
     }
     if (!item) throw new Error(`${this.gameId} has no playable media content`);
 
@@ -249,10 +253,18 @@ export class VisualGuessMiniGameService {
       rememberQuoteChoice(this.quoteChoiceHistory, this.historyStorage, historyKey,
         wrong, choices.find(choice => choice.value === correctValue)!.optionNumber);
     } else {
-      const distractors = this.gameId === 'guess-movie'
-        ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal, chosenClueKind)
-        : pickGenericDistractors(item, bank, rng);
-      choices = shuffle([item, ...distractors], rng).map((entry, index) => ({
+      // Same shared variety policy for film titles (Poster/Frame/Quote Movie)
+      // and Guess the Star: difficulty-specific candidate factories remain
+      // responsible for plausible and distinct wrong answers.
+      const chosen = this.choiceVariety.chooseFour<ChoiceCandidate>({
+        questionId: `${item.id}:${this.gameId === 'guess-movie' ? chosenVariant : scheduledMode}`,
+        correct: { id: item.id, name: item.name },
+        generateWrong: () => this.gameId === 'guess-movie'
+          ? selectEgyptianMovieDistractors(item, bank, rng, posterReveal, chosenClueKind)
+          : pickGenericDistractors(item, bank, rng),
+        rng,
+      });
+      choices = chosen.map((entry, index) => ({
         optionNumber: index + 1, command: `!${index + 1}`, label: entry.name.en, value: entry.id,
       }));
     }
@@ -267,6 +279,7 @@ export class VisualGuessMiniGameService {
     this.status = 'intro';
     this.tourUsedIds.add(item.id);
     this.sessionUsedIds.add(item.id);
+    if (this.gameId === 'guess-star') this.choiceVariety.rememberQuestion(item.id);
   }
   setStatus(status: MiniGameStatus): void { if (this.round || status === 'idle') this.status = status; }
   getAnswerByOptionNumber(number: number): `option-${1|2|3|4}` | null {
@@ -398,12 +411,25 @@ export class VisualGuessMiniGameService {
   }
 }
 type ChoiceCandidate = { id: string; name: I18n };
+/** Star IDs have explicit editorial categories (actor/singer/athlete).
+ * Easy has recognizable cross-category options, Medium has two close peers,
+ * Hard uses three from the same category whenever possible. Never assign a
+ * false identity: each option is another real catalog entry.
+ */
 function pickGenericDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number): ChoiceCandidate[] {
   const other = bank.filter(q => q.id !== item.id);
-  return [
-    ...shuffle(other.filter(q => q.category === item.category), rng),
-    ...shuffle(other.filter(q => q.category !== item.category), rng),
-  ].slice(0, 3);
+  const same = shuffle(other.filter(q => q.category === item.category), rng);
+  const different = shuffle(other.filter(q => q.category !== item.category), rng);
+  const target = item.difficulty === 'easy' ? 1 : item.difficulty === 'medium' ? 2 : 3;
+  const chosen = [...same.slice(0, target)];
+  // If a tiny category cannot support three close peers, use remaining known
+  // faces rather than repeating an option or fabricating an identity.
+  for (const candidate of [...different, ...same.slice(target)]) {
+    if (chosen.length === 3) break;
+    if (!chosen.some(c => c.id === candidate.id)) chosen.push(candidate);
+  }
+  if (chosen.length !== 3) throw new Error(`${item.id}: fewer than four known stars`);
+  return shuffle(chosen, rng).map(({ id, name }) => ({ id, name }));
 }
 /**
  * Poster similarity never comes from generic movie genres alone: the initial 50-image

@@ -61,3 +61,7 @@ V60 installation integrity check: `npm run verify:movie-install-v60`. See `docs/
 ## V63 — Smart Quote Choices
 
 يتم تبديل اختيارات «كمّل الجملة» و«مين قالها؟» من بنوك بدائل مع منع تكرار نفس الثلاثة ومكان الإجابة عبر الجولات. للمزيد راجع `docs/V63_SMART_CHOICES_ROTATION_AR.md`. اختبار: `npm run verify:quote-variety-v63`. لا تغيير على مجلدات `Posters` / `Frame` / `Quotes`.
+
+## V64 — بنوك الأسئلة والتكرار
+
+أصبح لألعاب الاختيارات المنشورة سياسة مشتركة لمنع تكرار نفس البدائل، مع مراعاة الصعوبة. تفاصيل جميع الألعاب في `docs/V64_ALL_QUESTION_BANKS_VARIETY_AR.md`. للتأكد: `npm run verify:bank-variety-v64`.

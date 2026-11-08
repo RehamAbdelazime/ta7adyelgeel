@@ -2,6 +2,7 @@ import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import { QuestionBankService } from '../../questions/question-bank-service';
+import { ChoiceVariety } from '../../questions/choice-variety';
 import type {
   CoupleOrSiblingsAnswer,
   CoupleOrSiblingsChoice,
@@ -15,7 +16,10 @@ import { COUPLE_OR_SIBLINGS_QUESTIONS, type PairGuessAnswerKind, type PairGuessQ
 
 
 export class CoupleOrSiblingsMiniGameService {
-  private readonly questionBank = new QuestionBankService<PairGuessQuestion>(COUPLE_OR_SIBLINGS_QUESTIONS);
+  // QA-only binary game: cannot invent a third answer, so replay diversity
+  // comes from rotating real questions, not manufactured choices.
+  private readonly questionHistory = new ChoiceVariety('couple-or-siblings');
+  private readonly questionBank = new QuestionBankService<PairGuessQuestion>(COUPLE_OR_SIBLINGS_QUESTIONS, this.questionHistory);
   private question: PairGuessQuestion | null = null;
   private status: MiniGameStatus = 'idle';
   private roundNumber = 0;

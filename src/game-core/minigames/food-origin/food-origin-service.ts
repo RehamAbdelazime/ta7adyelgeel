@@ -2,6 +2,7 @@ import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore, FOOD_ORIGIN_HINT_SCORE_MULTIPLIER } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
 import { QuestionBankService } from '../../questions/question-bank-service';
+import { ChoiceVariety, type ChoiceStorage } from '../../questions/choice-variety';
 import type {
   CountryChoice,
   FoodOriginAnswer,
@@ -34,7 +35,12 @@ const FOOD_ORIGIN_REVIEW_IDS = new Set([
 ]);
 const FOOD_ORIGIN_PLAYABLE_QUESTIONS = FOOD_ORIGIN_QUESTIONS.filter(q => !FOOD_ORIGIN_REVIEW_IDS.has(q.id));
 export class FoodOriginMiniGameService {
-  private readonly questionBank = new QuestionBankService<FoodOriginQuestion>(FOOD_ORIGIN_PLAYABLE_QUESTIONS);
+  private readonly choicesHistory: ChoiceVariety;
+  private readonly questionBank: QuestionBankService<FoodOriginQuestion>;
+  constructor(storage?: ChoiceStorage | null) {
+    this.choicesHistory = new ChoiceVariety('food-origin', storage);
+    this.questionBank = new QuestionBankService<FoodOriginQuestion>(FOOD_ORIGIN_PLAYABLE_QUESTIONS, this.choicesHistory);
+  }
   private question: FoodOriginQuestion | null = null;
   private activeChoices: FoodOriginQuestion['choices'] = [];
   private status: MiniGameStatus = 'idle';
@@ -58,12 +64,22 @@ export class FoodOriginMiniGameService {
     this.roundNumber = roundNumber;
     this.question = selection.question;
     this.choiceGenerationCounter += 1;
-    this.activeChoices = buildDynamicFoodOriginChoices({
-      question: selection.question,
-      allQuestions: FOOD_ORIGIN_PLAYABLE_QUESTIONS,
-      seed: createFoodOriginChoiceSeed(selection.question.id, roundNumber, this.choiceGenerationCounter),
-      targetCount: 4,
-    });
+    const correct = selection.question.choices.find(choice => choice.countryCode === selection.question.answer);
+    if (!correct) throw new Error(`${selection.question.id}: missing correct country label`);
+    let attemptSeed = createFoodOriginChoiceSeed(selection.question.id, roundNumber, this.choiceGenerationCounter);
+    // The same dish keeps its true answer, but the other THREE countries rotate
+    // with region-aware difficulty and cross-launch memory of recent groups.
+    this.activeChoices = this.choicesHistory.chooseFour({
+      questionId: selection.question.id,
+      correct: { id: correct.countryCode, choice: correct },
+      generateWrong: () => buildDynamicFoodOriginChoices({
+        question: selection.question,
+        allQuestions: FOOD_ORIGIN_PLAYABLE_QUESTIONS,
+        seed: attemptSeed++,
+      }).filter(choice => choice.countryCode !== selection.question.answer)
+        .map(choice => ({ id: choice.countryCode, choice })),
+      rng: createFoodOriginChoiceRandom(attemptSeed),
+    }).map(entry => entry.choice);
     this.status = 'intro';
     this.answers.clear();
     this.correctOfficialCount = 0;
@@ -272,4 +288,9 @@ function createFoodOriginChoiceSeed(questionId: string, roundNumber: number, cou
 
 function createSafeFoodOriginImageName(similarityGroup: string): string {
   return similarityGroup.replace(/[^a-zA-Z0-9_-]+/g, '_').replace(/^_+|_+$/g, '') || 'food_origin';
+}
+
+function createFoodOriginChoiceRandom(seed: number): () => number {
+  let state = seed >>> 0;
+  return () => ((state = (Math.imul(state, 1664525) + 1013904223) >>> 0) / 0x100000000);
 }

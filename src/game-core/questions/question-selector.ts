@@ -12,6 +12,8 @@ export type QuestionSelectorOptions<TQuestion extends GameQuestionBase<string>> 
   roundNumber: number;
   preferredDifficulty?: QuestionDifficulty;
   excludedQuestionIds?: ReadonlySet<string>;
+  /** Cross-launch replay counts, applied only AFTER difficulty/category eligibility. */
+  getPlayCount?: (question: TQuestion) => number;
 };
 
 type DifficultyWeight = {
@@ -31,7 +33,7 @@ export class QuestionSelector<TQuestion extends GameQuestionBase<string>> {
       options,
     );
 
-    const strict = this.pickRandom(strictCandidates);
+    const strict = this.pickRandom(strictCandidates, options);
     if (strict) {
       return {
         question: strict,
@@ -42,7 +44,7 @@ export class QuestionSelector<TQuestion extends GameQuestionBase<string>> {
     }
 
     const sessionRelaxedCandidates = this.applyDifficultyAndCategoryPreference(baseCandidates, options);
-    const sessionRelaxed = this.pickRandom(sessionRelaxedCandidates);
+    const sessionRelaxed = this.pickRandom(sessionRelaxedCandidates, options);
     if (sessionRelaxed) {
       return {
         question: sessionRelaxed,
@@ -52,7 +54,7 @@ export class QuestionSelector<TQuestion extends GameQuestionBase<string>> {
       };
     }
 
-    const categoryRelaxed = this.pickRandom(this.applyDifficultyPreference(baseCandidates, options));
+    const categoryRelaxed = this.pickRandom(this.applyDifficultyPreference(baseCandidates, options), options);
     if (categoryRelaxed) {
       return {
         question: categoryRelaxed,
@@ -62,7 +64,7 @@ export class QuestionSelector<TQuestion extends GameQuestionBase<string>> {
       };
     }
 
-    const exhaustedFallback = this.pickRandom(eligibleQuestions.length > 0 ? [...eligibleQuestions] : [...options.questions]);
+    const exhaustedFallback = this.pickRandom(eligibleQuestions.length > 0 ? [...eligibleQuestions] : [...options.questions], options);
     if (!exhaustedFallback) {
       throw new Error('Question bank is empty.');
     }
@@ -188,11 +190,11 @@ export class QuestionSelector<TQuestion extends GameQuestionBase<string>> {
     return DIFFICULTY_ORDER.filter((difficulty) => difficulty !== preferredDifficulty);
   }
 
-  private pickRandom(candidates: TQuestion[]): TQuestion | null {
-    if (candidates.length === 0) {
-      return null;
-    }
-
-    return candidates[randomIntExclusive(candidates.length)];
+  private pickRandom(candidates: TQuestion[], options: QuestionSelectorOptions<TQuestion>): TQuestion | null {
+    if (candidates.length === 0) return null;
+    if (!options.getPlayCount) return candidates[randomIntExclusive(candidates.length)];
+    const least = Math.min(...candidates.map(question => options.getPlayCount!(question)));
+    const fair = candidates.filter(question => options.getPlayCount!(question) === least);
+    return fair[randomIntExclusive(fair.length)];
   }
 }

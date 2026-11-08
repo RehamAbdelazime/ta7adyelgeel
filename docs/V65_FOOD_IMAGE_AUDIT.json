@@ -1,0 +1,5918 @@
+{
+  "version": "V65",
+  "uploaded_image_files": 186,
+  "uploaded_misc_files": 1,
+  "playable_uploaded_images": 104,
+  "new_questions": 93,
+  "already_in_source": 11,
+  "review_images": 83,
+  "total_bank": 104,
+  "selected": [
+    {
+      "rel": "Easy/China_Peking-Duck.jpg",
+      "dishEn": "Peking Duck",
+      "dishAr": "بط بكين",
+      "country": "CN",
+      "difficulty": "easy",
+      "family": "meat",
+      "id": "food_new_peking_duck_cn",
+      "imageFile": "food_new_peking_duck_cn.jpg",
+      "near": [
+        "KR",
+        "JP",
+        "TW",
+        "MN",
+        "VN",
+        "PH",
+        "TH",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Easy/Egypt_Koshary.jpg",
+      "dishEn": "Koshary",
+      "dishAr": "كشري",
+      "country": "EG",
+      "difficulty": "easy",
+      "family": "rice",
+      "id": "food_new_koshary_eg",
+      "imageFile": "food_new_koshary_eg.jpg",
+      "near": [
+        "LY",
+        "TN",
+        "MA",
+        "SD",
+        "SA",
+        "DZ",
+        "JO",
+        "LB",
+        "SY",
+        "PS",
+        "IQ",
+        "TR"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Easy/France_Bouillabaisse.jpg",
+      "dishEn": "Bouillabaisse",
+      "dishAr": "بويابيس",
+      "country": "FR",
+      "difficulty": "medium",
+      "family": "seafood",
+      "id": "food_new_bouillabaisse_fr",
+      "imageFile": "food_new_bouillabaisse_fr.jpg",
+      "near": [
+        "BE",
+        "DE",
+        "CH",
+        "IT",
+        "ES",
+        "NL",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "TH",
+        "EG",
+        "PT",
+        "KR",
+        "PH",
+        "VN",
+        "US",
+        "IN"
+      ]
+    },
+    {
+      "rel": "Easy/india_Khichdi.jpg",
+      "dishEn": "Khichdi",
+      "dishAr": "خيتشدي",
+      "country": "IN",
+      "difficulty": "medium",
+      "family": "rice",
+      "id": "food_new_khichdi_in",
+      "imageFile": "food_new_khichdi_in.jpg",
+      "near": [
+        "PK",
+        "BD",
+        "NP",
+        "LK",
+        "AF",
+        "BT",
+        "MV",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "IR"
+      ],
+      "far": [
+        "TR",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Easy/Italy_Carbonara.jpg",
+      "dishEn": "Carbonara",
+      "dishAr": "كاربونارا",
+      "country": "IT",
+      "difficulty": "easy",
+      "family": "pasta",
+      "near": [
+        "FR",
+        "CH",
+        "ES",
+        "GR",
+        "MT",
+        "PT",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "EG",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "MX",
+        "BR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY",
+        "JO",
+        "IQ",
+        "AE",
+        "YE"
+      ]
+    },
+    {
+      "rel": "Easy/Korea_Bimibap.jpg",
+      "dishEn": "Bibimbap",
+      "dishAr": "بيبيمباب",
+      "country": "KR",
+      "difficulty": "easy",
+      "family": "rice",
+      "near": [
+        "JP",
+        "CN",
+        "TW",
+        "MN",
+        "VN",
+        "PH",
+        "TH",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "TR",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY",
+        "JO",
+        "IQ"
+      ]
+    },
+    {
+      "rel": "Easy/Korea_Kimichi.jpg",
+      "dishEn": "Kimchi",
+      "dishAr": "كيمتشي",
+      "country": "KR",
+      "difficulty": "easy",
+      "family": "vegetables",
+      "id": "food_new_kimchi_kr",
+      "imageFile": "food_new_kimchi_kr.jpg",
+      "near": [
+        "JP",
+        "CN",
+        "TW",
+        "MN",
+        "VN",
+        "PH",
+        "TH",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN"
+      ],
+      "far": [
+        "EG",
+        "IN",
+        "TR",
+        "GR",
+        "IT",
+        "MA",
+        "FR",
+        "ES",
+        "GB",
+        "US"
+      ]
+    },
+    {
+      "rel": "Easy/Pho_Vietnam.jpg.jpeg",
+      "dishEn": "Pho",
+      "dishAr": "فو",
+      "country": "VN",
+      "difficulty": "easy",
+      "family": "noodles",
+      "near": [
+        "PH",
+        "TH",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ"
+      ]
+    },
+    {
+      "rel": "Easy/UK_Fish-and-chips.jpg",
+      "dishEn": "Fish and Chips",
+      "dishAr": "فيش آند تشيبس",
+      "country": "GB",
+      "difficulty": "easy",
+      "family": "seafood",
+      "id": "food_new_fish_and_chips_gb",
+      "imageFile": "food_new_fish_and_chips_gb.jpg",
+      "near": [
+        "FR",
+        "DE",
+        "BE",
+        "NL",
+        "CH",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "EG",
+        "PT",
+        "KR",
+        "PH",
+        "VN"
+      ]
+    },
+    {
+      "rel": "Easy/USA_Burger.jpg",
+      "dishEn": "American-style Burger",
+      "dishAr": "برجر أمريكي",
+      "country": "US",
+      "difficulty": "easy",
+      "family": "sandwich",
+      "id": "food_new_american_style_burger_us",
+      "imageFile": "food_new_american_style_burger_us.jpg",
+      "near": [
+        "MX",
+        "GT",
+        "HN",
+        "SV",
+        "NI",
+        "CR",
+        "PA",
+        "CO",
+        "CU"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "EG",
+        "GR",
+        "GB",
+        "IT",
+        "AR",
+        "FR",
+        "ES",
+        "IN"
+      ]
+    },
+    {
+      "rel": "Hard/Georgia_Chakhokhbili.jpeg",
+      "dishEn": "Chakhokhbili",
+      "dishAr": "تشاخوخبيلي",
+      "country": "GE",
+      "difficulty": "hard",
+      "family": "stew",
+      "near": [
+        "AM",
+        "AZ",
+        "TR",
+        "RU",
+        "IR",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "AF"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY"
+      ]
+    },
+    {
+      "rel": "Hard/Hungry_Gulyás.jpg",
+      "dishEn": "Gulyás",
+      "dishAr": "جولاش مجري",
+      "country": "HU",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_gulyas_hu",
+      "imageFile": "food_new_gulyas_hu.jpg",
+      "near": [
+        "PL",
+        "UA",
+        "RU",
+        "BY",
+        "SK",
+        "CZ",
+        "RO",
+        "LT",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Hard/Mixico_Mole-Poblano.jpg",
+      "dishEn": "Mole Poblano",
+      "dishAr": "مولي بوبلانو",
+      "country": "MX",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_mole_poblano_mx",
+      "imageFile": "food_new_mole_poblano_mx.jpg",
+      "near": [
+        "GT",
+        "US",
+        "CO",
+        "PE",
+        "CR",
+        "HN",
+        "SV",
+        "NI",
+        "PA",
+        "CU"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Hard/Poland_Pierogi.jpg",
+      "dishEn": "Pierogi",
+      "dishAr": "بيروجي",
+      "country": "PL",
+      "difficulty": "medium",
+      "family": "dumplings",
+      "id": "food_new_pierogi_pl",
+      "imageFile": "food_new_pierogi_pl.jpg",
+      "near": [
+        "CZ",
+        "SK",
+        "UA",
+        "DE",
+        "LT",
+        "RU",
+        "BY",
+        "HU",
+        "RO",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "CN",
+        "JP",
+        "TR",
+        "IT",
+        "GE",
+        "KR",
+        "IN",
+        "EG",
+        "FR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Hard/Portugal_Bacalhau-a-Gomes-de-Sá.jpeg",
+      "dishEn": "Bacalhau à Gomes de Sá",
+      "dishAr": "باكالاو جوميش دي سا",
+      "country": "PT",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_bacalhau_a_gomes_de_sa_pt",
+      "imageFile": "food_new_bacalhau_a_gomes_de_sa_pt.jpeg",
+      "near": [
+        "ES",
+        "FR",
+        "IT",
+        "GR",
+        "MA",
+        "MT",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "JP",
+        "TH",
+        "EG",
+        "KR",
+        "GB",
+        "PH",
+        "VN",
+        "US",
+        "IN",
+        "CN"
+      ]
+    },
+    {
+      "rel": "Hard/Tinola_Philippines.jpeg",
+      "dishEn": "Tinola",
+      "dishAr": "تينولا",
+      "country": "PH",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_tinola_ph",
+      "imageFile": "food_new_tinola_ph.jpeg",
+      "near": [
+        "MY",
+        "ID",
+        "TH",
+        "VN",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "RU",
+        "KR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Hard/Ukraine_Borscht.jpeg",
+      "dishEn": "Ukrainian Borscht",
+      "dishAr": "بورش أوكراني",
+      "country": "UA",
+      "difficulty": "medium",
+      "family": "soup",
+      "id": "food_new_ukrainian_borscht_ua",
+      "imageFile": "food_new_ukrainian_borscht_ua.jpeg",
+      "near": [
+        "PL",
+        "RU",
+        "BY",
+        "SK",
+        "CZ",
+        "HU",
+        "RO",
+        "LT",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "KR"
+      ]
+    },
+    {
+      "rel": "Hard/Uruguay_Chivito.jpeg",
+      "dishEn": "Chivito",
+      "dishAr": "تشيفيتو",
+      "country": "UY",
+      "difficulty": "hard",
+      "family": "sandwich",
+      "near": [
+        "AR",
+        "BR",
+        "PY",
+        "CL",
+        "BO",
+        "PE",
+        "EC",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY"
+      ]
+    },
+    {
+      "rel": "Hard/Uzbekis0tan_Dimlama.jpeg",
+      "dishEn": "Dimlama",
+      "dishAr": "ديملاما",
+      "country": "UZ",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_dimlama_uz",
+      "imageFile": "food_new_dimlama_uz.jpeg",
+      "near": [
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "AF",
+        "IR",
+        "GE",
+        "AM",
+        "AZ",
+        "TR",
+        "RU"
+      ],
+      "far": [
+        "EG",
+        "MA",
+        "IN",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA",
+        "IT",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Hard/Venezuela_Pabellón Criollo.jpeg",
+      "dishEn": "Pabellón Criollo",
+      "dishAr": "بابيون كريولو",
+      "country": "VE",
+      "difficulty": "hard",
+      "family": "rice",
+      "near": [
+        "BR",
+        "AR",
+        "UY",
+        "PY",
+        "BO",
+        "CL",
+        "PE",
+        "EC",
+        "CO"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY"
+      ]
+    },
+    {
+      "rel": "Medium/Brazil_Brigadeiros.jpeg",
+      "dishEn": "Brigadeiros",
+      "dishAr": "بريجاديرو",
+      "country": "BR",
+      "difficulty": "easy",
+      "family": "dessert",
+      "near": [
+        "AR",
+        "UY",
+        "PY",
+        "BO",
+        "CL",
+        "PE",
+        "EC",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY"
+      ]
+    },
+    {
+      "rel": "Medium/Denmark_Stegt-Flæsk.jpeg",
+      "dishEn": "Stegt Flæsk",
+      "dishAr": "ستجت فلاسك",
+      "country": "DK",
+      "difficulty": "hard",
+      "family": "meat",
+      "near": [
+        "SE",
+        "NO",
+        "FI",
+        "IS",
+        "NL",
+        "DE",
+        "FR",
+        "BE",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "EG",
+        "IT",
+        "ES",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY",
+        "JO"
+      ]
+    },
+    {
+      "rel": "Medium/France_Pot-Au-Feu.jpg",
+      "dishEn": "Pot-au-feu",
+      "dishAr": "بوت أو فو",
+      "country": "FR",
+      "difficulty": "medium",
+      "family": "stew",
+      "near": [
+        "BE",
+        "DE",
+        "CH",
+        "IT",
+        "ES",
+        "NL",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "EG",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY",
+        "JO",
+        "IQ",
+        "AE"
+      ]
+    },
+    {
+      "rel": "Medium/India_Pani-Puri.jpg",
+      "dishEn": "Pani Puri",
+      "dishAr": "باني بوري",
+      "country": "IN",
+      "difficulty": "medium",
+      "family": "snack",
+      "id": "food_new_pani_puri_in",
+      "imageFile": "food_new_pani_puri_in.jpg",
+      "near": [
+        "PK",
+        "BD",
+        "NP",
+        "LK",
+        "AF",
+        "BT",
+        "MV",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "IR"
+      ],
+      "far": [
+        "TR",
+        "MX",
+        "TH",
+        "EG",
+        "FR",
+        "IT",
+        "JP",
+        "BR",
+        "CN",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Medium/Jamaica_Ackee-and-Saltfish.jpeg",
+      "dishEn": "Ackee and Saltfish",
+      "dishAr": "آكي وسمك مملح",
+      "country": "JM",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_ackee_and_saltfish_jm",
+      "imageFile": "food_new_ackee_and_saltfish_jm.jpeg",
+      "near": [
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "BB",
+        "LC",
+        "VC",
+        "GD",
+        "AG",
+        "GY",
+        "SR",
+        "TT"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "FR",
+        "EG",
+        "PT",
+        "KR",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Medium/New-Zealand_Hāngī.jpg",
+      "dishEn": "Hāngī",
+      "dishAr": "هانجي",
+      "country": "NZ",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_hangi_nz",
+      "imageFile": "food_new_hangi_nz.jpg",
+      "near": [
+        "AU",
+        "FJ",
+        "TO",
+        "WS",
+        "VU",
+        "PG",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Medium/Peru_Ceviche.jpg",
+      "dishEn": "Peruvian Ceviche",
+      "dishAr": "سيفيتشي بيروفي",
+      "country": "PE",
+      "difficulty": "medium",
+      "family": "seafood",
+      "near": [
+        "EC",
+        "CO",
+        "CL",
+        "BO",
+        "MX",
+        "BR",
+        "AR",
+        "UY",
+        "PY",
+        "VE"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ",
+        "LY",
+        "JO"
+      ]
+    },
+    {
+      "rel": "Medium/Philippines_Adobo.jpg",
+      "dishEn": "Filipino Adobo",
+      "dishAr": "أدوبو فلبيني",
+      "country": "PH",
+      "difficulty": "medium",
+      "family": "stew",
+      "near": [
+        "MY",
+        "ID",
+        "TH",
+        "VN",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "EG",
+        "FR",
+        "IT",
+        "ES",
+        "GB",
+        "US",
+        "IN",
+        "CN",
+        "KR",
+        "JP",
+        "TR",
+        "MX",
+        "BR",
+        "GR",
+        "SA",
+        "MA",
+        "TN",
+        "DZ"
+      ]
+    },
+    {
+      "rel": "Medium/Spain_Paella.jpg",
+      "dishEn": "Paella",
+      "dishAr": "باييا",
+      "country": "ES",
+      "difficulty": "easy",
+      "family": "rice",
+      "id": "food_new_paella_es",
+      "imageFile": "food_new_paella_es.jpg",
+      "near": [
+        "IT",
+        "PT",
+        "FR",
+        "GR",
+        "MT",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN"
+      ]
+    },
+    {
+      "rel": "Medium/Tajine Zitoune_Algeria.jpeg",
+      "dishEn": "Tajine Zitoune",
+      "dishAr": "طاجين زيتون جزائري",
+      "country": "DZ",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_tajine_zitoune_dz",
+      "imageFile": "food_new_tajine_zitoune_dz.jpeg",
+      "near": [
+        "TN",
+        "MA",
+        "LY",
+        "EG",
+        "FR",
+        "SD",
+        "JO",
+        "LB",
+        "SY",
+        "PS",
+        "IQ",
+        "TR"
+      ],
+      "far": [
+        "TR",
+        "IN",
+        "IR",
+        "GR",
+        "YE",
+        "PK",
+        "SA",
+        "IT",
+        "BR",
+        "TH"
+      ]
+    },
+    {
+      "rel": "Ajdovi-Žganci-Pečenica_Slovenia.jpg.jpeg",
+      "dishEn": "Ajdovi Žganci with Pečenica",
+      "dishAr": "عصيدة الحنطة السلوفينية بالسجق",
+      "country": "SI",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_ajdovi_zganci_with_pecenica_si",
+      "imageFile": "food_new_ajdovi_zganci_with_pecenica_si.jpeg",
+      "near": [
+        "HR",
+        "AT",
+        "IT",
+        "HU",
+        "RS",
+        "AL",
+        "MK",
+        "BA",
+        "ME",
+        "BG",
+        "GR",
+        "RO"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Ajiaco_Colombia.jpg.jpeg",
+      "dishEn": "Colombian Ajiaco",
+      "dishAr": "أخياكو كولومبي",
+      "country": "CO",
+      "difficulty": "medium",
+      "family": "soup",
+      "id": "food_new_colombian_ajiaco_co",
+      "imageFile": "food_new_colombian_ajiaco_co.jpeg",
+      "near": [
+        "BR",
+        "AR",
+        "UY",
+        "PY",
+        "BO",
+        "CL",
+        "PE",
+        "EC",
+        "VE"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "RU"
+      ]
+    },
+    {
+      "rel": "Barbagiuan_Monaco.jpg.jpeg",
+      "dishEn": "Barbagiuan",
+      "dishAr": "بارباجوان",
+      "country": "MC",
+      "difficulty": "hard",
+      "family": "pastry",
+      "id": "food_new_barbagiuan_mc",
+      "imageFile": "food_new_barbagiuan_mc.jpeg",
+      "near": [
+        "FR",
+        "IT",
+        "ES",
+        "CH",
+        "PT",
+        "GR",
+        "MT",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "EG",
+        "IN",
+        "MA",
+        "DZ",
+        "GB",
+        "US",
+        "CN",
+        "KR",
+        "JP",
+        "MX"
+      ]
+    },
+    {
+      "rel": "Batar-Da’an_East-timor.jpeg",
+      "dishEn": "Batar Da'an",
+      "dishAr": "باتار دا آن",
+      "country": "TL",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_batar_da_an_tl",
+      "imageFile": "food_new_batar_da_an_tl.jpeg",
+      "near": [
+        "ID",
+        "PH",
+        "MY",
+        "AU",
+        "PG",
+        "TH",
+        "VN",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Beef-Bourguignon_France.jpg.jpeg",
+      "dishEn": "Beef Bourguignon",
+      "dishAr": "بوف بورجينيون",
+      "country": "FR",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_beef_bourguignon_fr",
+      "imageFile": "food_new_beef_bourguignon_fr.jpeg",
+      "near": [
+        "BE",
+        "DE",
+        "CH",
+        "IT",
+        "ES",
+        "NL",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "GR",
+        "YE",
+        "PK",
+        "SA",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Bigos Stew_Poland.jpeg",
+      "dishEn": "Bigos",
+      "dishAr": "بيجوس",
+      "country": "PL",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_bigos_pl",
+      "imageFile": "food_new_bigos_pl.jpeg",
+      "near": [
+        "CZ",
+        "SK",
+        "UA",
+        "DE",
+        "LT",
+        "RU",
+        "BY",
+        "HU",
+        "RO",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Bobotie_South-Africa.jpeg",
+      "dishEn": "Bobotie",
+      "dishAr": "بوبوتي",
+      "country": "ZA",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_bobotie_za",
+      "imageFile": "food_new_bobotie_za.jpeg",
+      "near": [
+        "BW",
+        "ZM",
+        "ZW",
+        "MZ",
+        "NA",
+        "LS",
+        "SZ",
+        "MW",
+        "AO"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "AR"
+      ]
+    },
+    {
+      "rel": "Bryndzove-Halusky_Slovakia.jpeg",
+      "dishEn": "Bryndzové Halušky",
+      "dishAr": "بريندزوفي هالوشكي",
+      "country": "SK",
+      "difficulty": "hard",
+      "family": "dumplings",
+      "id": "food_new_bryndzove_halusky_sk",
+      "imageFile": "food_new_bryndzove_halusky_sk.jpeg",
+      "near": [
+        "PL",
+        "UA",
+        "RU",
+        "BY",
+        "CZ",
+        "HU",
+        "RO",
+        "LT",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "CN",
+        "JP",
+        "TR",
+        "IT",
+        "GE",
+        "KR",
+        "IN",
+        "EG",
+        "FR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Cafriela-de-Frango_Guinea-Bissau.jpeg",
+      "dishEn": "Cafriela de Frango",
+      "dishAr": "كافريلا دجاج",
+      "country": "GW",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_cafriela_de_frango_gw",
+      "imageFile": "food_new_cafriela_de_frango_gw.jpeg",
+      "near": [
+        "SN",
+        "GM",
+        "GN",
+        "CI",
+        "GH",
+        "NG",
+        "TG",
+        "BJ",
+        "NE",
+        "ML",
+        "LR",
+        "SL"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Calulu-De-Peixe_Sao-Tome-and-Principe.jpeg",
+      "dishEn": "Calulu de Peixe",
+      "dishAr": "كالولو سمك",
+      "country": "ST",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_calulu_de_peixe_st",
+      "imageFile": "food_new_calulu_de_peixe_st.jpeg",
+      "near": [
+        "CG",
+        "CM",
+        "AO",
+        "CD",
+        "GQ",
+        "GA",
+        "CF",
+        "TD",
+        "ZM"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "FR",
+        "EG",
+        "PT",
+        "KR",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Chicken-Sekuwa_Nepal.jpeg",
+      "dishEn": "Chicken Sekuwa",
+      "dishAr": "سيكوا دجاج",
+      "country": "NP",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_chicken_sekuwa_np",
+      "imageFile": "food_new_chicken_sekuwa_np.jpeg",
+      "near": [
+        "IN",
+        "BT",
+        "PK",
+        "CN",
+        "BD",
+        "LK",
+        "AF",
+        "MV"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "FR",
+        "ZA",
+        "AR"
+      ]
+    },
+    {
+      "rel": "Dejaj-Salona_United-Arab-Emirates.jpeg",
+      "dishEn": "Dejaj Salona",
+      "dishAr": "صالونة دجاج",
+      "country": "AE",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_dejaj_salona_ae",
+      "imageFile": "food_new_dejaj_salona_ae.jpeg",
+      "near": [
+        "SA",
+        "OM",
+        "QA",
+        "KW",
+        "BH",
+        "YE",
+        "IQ",
+        "JO"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "PK",
+        "IT",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Digaag-Duban_Somalia.jpg.jpeg",
+      "dishEn": "Digaag Duban",
+      "dishAr": "دجاج دوبان صومالي",
+      "country": "SO",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_digaag_duban_so",
+      "imageFile": "food_new_digaag_duban_so.jpeg",
+      "near": [
+        "KE",
+        "TZ",
+        "UG",
+        "RW",
+        "BI",
+        "DJ",
+        "ET",
+        "ER",
+        "SD"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Dounguouri-Soko_Niger.jpeg",
+      "dishEn": "Dounguouri Soko",
+      "dishAr": "دونجوري سوكو",
+      "country": "NE",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_dounguouri_soko_ne",
+      "imageFile": "food_new_dounguouri_soko_ne.jpeg",
+      "near": [
+        "NG",
+        "GH",
+        "SN",
+        "GM",
+        "CI",
+        "TG",
+        "BJ",
+        "GN",
+        "GW",
+        "ML",
+        "LR",
+        "SL"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Ema-datshi_Bhutan.jpg.jpeg",
+      "dishEn": "Ema Datshi",
+      "dishAr": "إيما داتشي",
+      "country": "BT",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_ema_datshi_bt",
+      "imageFile": "food_new_ema_datshi_bt.jpeg",
+      "near": [
+        "NP",
+        "IN",
+        "BD",
+        "CN",
+        "PK",
+        "LK",
+        "AF",
+        "MV"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "SA",
+        "IT",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Fritada de chancho_Ecuador.jpeg",
+      "dishEn": "Fritada de Chancho",
+      "dishAr": "فريتادا خنزير",
+      "country": "EC",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_fritada_de_chancho_ec",
+      "imageFile": "food_new_fritada_de_chancho_ec.jpeg",
+      "near": [
+        "BR",
+        "AR",
+        "UY",
+        "PY",
+        "BO",
+        "CL",
+        "PE",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "US",
+        "IN",
+        "FR",
+        "ZA",
+        "MX"
+      ]
+    },
+    {
+      "rel": "Fungee-and-pepperpot_Antigua-and-Barbuda.jpeg",
+      "dishEn": "Fungee and Pepperpot",
+      "dishAr": "فونجي وببر بوت",
+      "country": "AG",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_fungee_and_pepperpot_ag",
+      "imageFile": "food_new_fungee_and_pepperpot_ag.jpeg",
+      "near": [
+        "BB",
+        "LC",
+        "VC",
+        "GD",
+        "JM",
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "GY",
+        "SR",
+        "TT"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Fårikål_Norway.jpg.jpeg",
+      "dishEn": "Fårikål",
+      "dishAr": "فوريكول",
+      "country": "NO",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_farikal_no",
+      "imageFile": "food_new_farikal_no.jpeg",
+      "near": [
+        "DK",
+        "SE",
+        "FI",
+        "IS",
+        "NL",
+        "DE",
+        "FR",
+        "BE",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "GR",
+        "YE",
+        "PK",
+        "SA",
+        "IT"
+      ]
+    },
+    {
+      "rel": "Gboma-Dessi_Togo.jpg.jpeg",
+      "dishEn": "Gboma Dessi",
+      "dishAr": "جبوما ديسي",
+      "country": "TG",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_gboma_dessi_tg",
+      "imageFile": "food_new_gboma_dessi_tg.jpeg",
+      "near": [
+        "NG",
+        "GH",
+        "SN",
+        "GM",
+        "CI",
+        "BJ",
+        "GN",
+        "GW",
+        "NE",
+        "ML",
+        "LR",
+        "SL"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Gers-ogaily_Kuwait.jpeg",
+      "dishEn": "Gers Ogaily",
+      "dishAr": "قرص عقيلي",
+      "country": "KW",
+      "difficulty": "medium",
+      "family": "dessert",
+      "id": "food_new_gers_ogaily_kw",
+      "imageFile": "food_new_gers_ogaily_kw.jpeg",
+      "near": [
+        "SA",
+        "IQ",
+        "AE",
+        "QA",
+        "BH",
+        "YE",
+        "OM",
+        "JO"
+      ],
+      "far": [
+        "FR",
+        "IT",
+        "TR",
+        "EG",
+        "BE",
+        "US",
+        "GR",
+        "IN",
+        "BR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Green-Fig-and-Saltfish-Salad_Saint-Lucia.jpg.jpeg",
+      "dishEn": "Green Fig and Saltfish",
+      "dishAr": "موز أخضر وسمك مملح",
+      "country": "LC",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_green_fig_and_saltfish_lc",
+      "imageFile": "food_new_green_fig_and_saltfish_lc.jpeg",
+      "near": [
+        "VC",
+        "GD",
+        "BB",
+        "AG",
+        "JM",
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "GY",
+        "SR",
+        "TT"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "FR",
+        "EG",
+        "PT",
+        "KR",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Griot_Haiti.jpg.jpeg",
+      "dishEn": "Haitian Griot",
+      "dishAr": "جريو هايتي",
+      "country": "HT",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_haitian_griot_ht",
+      "imageFile": "food_new_haitian_griot_ht.jpeg",
+      "near": [
+        "DO",
+        "JM",
+        "CU",
+        "BS",
+        "TT",
+        "BB",
+        "LC",
+        "VC",
+        "GD",
+        "AG",
+        "GY",
+        "SR"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Imqarrun il-forn_Malta.jpeg",
+      "dishEn": "Imqarrun il-Forn",
+      "dishAr": "مكرونة مالطية بالفرن",
+      "country": "MT",
+      "difficulty": "hard",
+      "family": "pasta",
+      "id": "food_new_imqarrun_il_forn_mt",
+      "imageFile": "food_new_imqarrun_il_forn_mt.jpeg",
+      "near": [
+        "IT",
+        "ES",
+        "PT",
+        "FR",
+        "GR",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "US",
+        "CN",
+        "JP",
+        "DE",
+        "GB",
+        "EG",
+        "IN",
+        "KR",
+        "MX",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Kabuli-palaw_Afghanistan.jpeg",
+      "dishEn": "Kabuli Palaw",
+      "dishAr": "كابولي بلاو",
+      "country": "AF",
+      "difficulty": "medium",
+      "family": "rice",
+      "id": "food_new_kabuli_palaw_af",
+      "imageFile": "food_new_kabuli_palaw_af.jpeg",
+      "near": [
+        "PK",
+        "IR",
+        "IN",
+        "UZ",
+        "TJ",
+        "BD",
+        "LK",
+        "NP",
+        "BT",
+        "MV"
+      ],
+      "far": [
+        "TR",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Kapisi-Pulu_Tonga.jpeg",
+      "dishEn": "Kapisi Pulu",
+      "dishAr": "كابيسي بولو",
+      "country": "TO",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_kapisi_pulu_to",
+      "imageFile": "food_new_kapisi_pulu_to.jpeg",
+      "near": [
+        "WS",
+        "FJ",
+        "VU",
+        "NZ",
+        "AU",
+        "PG",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Kedjenou_Côte-d’Ivoire.jpeg",
+      "dishEn": "Kedjenou",
+      "dishAr": "كيدجينو",
+      "country": "CI",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_kedjenou_ci",
+      "imageFile": "food_new_kedjenou_ci.jpeg",
+      "near": [
+        "NG",
+        "GH",
+        "SN",
+        "GM",
+        "TG",
+        "BJ",
+        "GN",
+        "GW",
+        "NE",
+        "ML",
+        "LR",
+        "SL"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Khoresh-e-ghormeh-sabzi_Iran.jpg.jpeg",
+      "dishEn": "Ghormeh Sabzi",
+      "dishAr": "قورمه سبزي",
+      "country": "IR",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_ghormeh_sabzi_ir",
+      "imageFile": "food_new_ghormeh_sabzi_ir.jpeg",
+      "near": [
+        "IQ",
+        "AF",
+        "TR",
+        "AZ",
+        "AM",
+        "GE",
+        "RU",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ"
+      ],
+      "far": [
+        "EG",
+        "MA",
+        "IN",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA",
+        "IT",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Kikomando_Uganda.jpg.jpeg",
+      "dishEn": "Kikomando",
+      "dishAr": "كيكوماندو",
+      "country": "UG",
+      "difficulty": "hard",
+      "family": "snack",
+      "id": "food_new_kikomando_ug",
+      "imageFile": "food_new_kikomando_ug.jpeg",
+      "near": [
+        "KE",
+        "TZ",
+        "RW",
+        "BI",
+        "SO",
+        "DJ",
+        "ET",
+        "ER",
+        "SD"
+      ],
+      "far": [
+        "IN",
+        "TR",
+        "MX",
+        "TH",
+        "EG",
+        "FR",
+        "IT",
+        "JP",
+        "BR",
+        "CN"
+      ]
+    },
+    {
+      "rel": "Kjötsúpa_Iceland.jpg.jpeg",
+      "dishEn": "Kjötsúpa",
+      "dishAr": "شوربة لحم آيسلندية",
+      "country": "IS",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_kjotsupa_is",
+      "imageFile": "food_new_kjotsupa_is.jpeg",
+      "near": [
+        "DK",
+        "SE",
+        "NO",
+        "FI",
+        "NL",
+        "DE",
+        "FR",
+        "BE",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "IT",
+        "TH",
+        "RU",
+        "KR"
+      ]
+    },
+    {
+      "rel": "Klepe_Bosnia-and-Herzegovina.jpeg",
+      "dishEn": "Klepe",
+      "dishAr": "كليبي",
+      "country": "BA",
+      "difficulty": "hard",
+      "family": "dumplings",
+      "id": "food_new_klepe_ba",
+      "imageFile": "food_new_klepe_ba.jpeg",
+      "near": [
+        "RS",
+        "HR",
+        "ME",
+        "SI",
+        "AL",
+        "MK",
+        "BG",
+        "GR",
+        "RO",
+        "XK"
+      ],
+      "far": [
+        "CN",
+        "JP",
+        "TR",
+        "RU",
+        "PL",
+        "IT",
+        "GE",
+        "KR",
+        "IN",
+        "EG"
+      ]
+    },
+    {
+      "rel": "Kottu Roti_Sri-Lanka.jpeg",
+      "dishEn": "Kottu Roti",
+      "dishAr": "كوتو روتي",
+      "country": "LK",
+      "difficulty": "medium",
+      "family": "snack",
+      "id": "food_new_kottu_roti_lk",
+      "imageFile": "food_new_kottu_roti_lk.jpeg",
+      "near": [
+        "IN",
+        "PK",
+        "BD",
+        "NP",
+        "BT",
+        "AF",
+        "MV",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "IR"
+      ],
+      "far": [
+        "TR",
+        "MX",
+        "TH",
+        "EG",
+        "FR",
+        "IT",
+        "JP",
+        "BR",
+        "CN",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Köttbullar_Sweden.jpg.jpeg",
+      "dishEn": "Swedish Meatballs",
+      "dishAr": "كرات اللحم السويدية",
+      "country": "SE",
+      "difficulty": "easy",
+      "family": "meat",
+      "id": "food_new_swedish_meatballs_se",
+      "imageFile": "food_new_swedish_meatballs_se.jpeg",
+      "near": [
+        "DK",
+        "NO",
+        "FI",
+        "IS",
+        "NL",
+        "DE",
+        "FR",
+        "BE",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "TR",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "ZA",
+        "AR",
+        "MX"
+      ]
+    },
+    {
+      "rel": "La-bandera_Dominican-Republic.jpeg",
+      "dishEn": "La Bandera",
+      "dishAr": "لا بانديرا",
+      "country": "DO",
+      "difficulty": "hard",
+      "family": "rice",
+      "id": "food_new_la_bandera_do",
+      "imageFile": "food_new_la_bandera_do.jpeg",
+      "near": [
+        "HT",
+        "CU",
+        "JM",
+        "PR",
+        "BS",
+        "BB",
+        "LC",
+        "VC",
+        "GD",
+        "AG",
+        "GY",
+        "SR"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH"
+      ]
+    },
+    {
+      "rel": "Lamingtons_Australia.jpeg",
+      "dishEn": "Lamingtons",
+      "dishAr": "لامينجتون",
+      "country": "AU",
+      "difficulty": "medium",
+      "family": "dessert",
+      "id": "food_new_lamingtons_au",
+      "imageFile": "food_new_lamingtons_au.jpeg",
+      "near": [
+        "NZ",
+        "FJ",
+        "PG",
+        "VU",
+        "TO",
+        "WS",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "FR",
+        "IT",
+        "TR",
+        "EG",
+        "BE",
+        "US",
+        "GR",
+        "IN",
+        "BR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Lap-Lap_Vanuatu.jpeg",
+      "dishEn": "Lap Lap",
+      "dishAr": "لاب لاب",
+      "country": "VU",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_lap_lap_vu",
+      "imageFile": "food_new_lap_lap_vu.jpeg",
+      "near": [
+        "FJ",
+        "TO",
+        "WS",
+        "PG",
+        "AU",
+        "NZ",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Locro_Argentina.jpeg",
+      "dishEn": "Argentine Locro",
+      "dishAr": "لوكرو أرجنتيني",
+      "country": "AR",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_argentine_locro_ar",
+      "imageFile": "food_new_argentine_locro_ar.jpeg",
+      "near": [
+        "BR",
+        "UY",
+        "PY",
+        "BO",
+        "CL",
+        "PE",
+        "EC",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Makayabu_Congo-Republic.jpeg",
+      "dishEn": "Makayabu",
+      "dishAr": "ماكايابو",
+      "country": "CG",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_makayabu_cg",
+      "imageFile": "food_new_makayabu_cg.jpeg",
+      "near": [
+        "CD",
+        "CM",
+        "AO",
+        "GA",
+        "CF",
+        "TD",
+        "ST",
+        "GQ",
+        "ZM"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "FR",
+        "EG",
+        "PT",
+        "KR",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Mandi_Yemen.jpeg",
+      "dishEn": "Mandi",
+      "dishAr": "مندي",
+      "country": "YE",
+      "difficulty": "easy",
+      "family": "rice",
+      "id": "food_new_mandi_ye",
+      "imageFile": "food_new_mandi_ye.jpeg",
+      "near": [
+        "SA",
+        "OM",
+        "AE",
+        "JO",
+        "IQ",
+        "KW",
+        "QA",
+        "BH"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN"
+      ]
+    },
+    {
+      "rel": "Mansaf_Jordan.jpeg",
+      "dishEn": "Mansaf",
+      "dishAr": "منسف",
+      "country": "JO",
+      "difficulty": "medium",
+      "family": "rice",
+      "id": "food_new_mansaf_jo",
+      "imageFile": "food_new_mansaf_jo.jpeg",
+      "near": [
+        "SY",
+        "LB",
+        "PS",
+        "IQ",
+        "SA",
+        "TR",
+        "EG",
+        "YE",
+        "AE",
+        "OM",
+        "KW",
+        "QA",
+        "BH"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH",
+        "VN",
+        "BR",
+        "GR"
+      ]
+    },
+    {
+      "rel": "Maori-Boil-Up_New-Zealand.jpeg",
+      "dishEn": "Māori Boil-Up",
+      "dishAr": "بول آب ماوري",
+      "country": "NZ",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_maori_boil_up_nz",
+      "imageFile": "food_new_maori_boil_up_nz.jpeg",
+      "near": [
+        "AU",
+        "FJ",
+        "TO",
+        "WS",
+        "VU",
+        "PG",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "RU"
+      ]
+    },
+    {
+      "rel": "Masgouf_Iraq.jpg.jpeg",
+      "dishEn": "Masgouf",
+      "dishAr": "مسكوف",
+      "country": "IQ",
+      "difficulty": "medium",
+      "family": "seafood",
+      "id": "food_new_masgouf_iq",
+      "imageFile": "food_new_masgouf_iq.jpeg",
+      "near": [
+        "IR",
+        "SY",
+        "JO",
+        "TR",
+        "SA",
+        "LB",
+        "PS",
+        "EG"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "TH",
+        "FR",
+        "PT",
+        "KR",
+        "GB",
+        "PH"
+      ]
+    },
+    {
+      "rel": "Mohinga_Myanmar.jpeg",
+      "dishEn": "Mohinga",
+      "dishAr": "موهينجا",
+      "country": "MM",
+      "difficulty": "hard",
+      "family": "noodles",
+      "id": "food_new_mohinga_mm",
+      "imageFile": "food_new_mohinga_mm.jpeg",
+      "near": [
+        "PH",
+        "TH",
+        "VN",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "CN",
+        "JP",
+        "IT",
+        "KR",
+        "IN",
+        "US",
+        "EG",
+        "FR",
+        "ES",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Mousaka_Greece.jpg.jpeg",
+      "dishEn": "Greek Moussaka",
+      "dishAr": "مسقعة يونانية",
+      "country": "GR",
+      "difficulty": "medium",
+      "family": "stew",
+      "id": "food_new_greek_moussaka_gr",
+      "imageFile": "food_new_greek_moussaka_gr.jpeg",
+      "near": [
+        "IT",
+        "TR",
+        "CY",
+        "AL",
+        "BG",
+        "ES",
+        "PT",
+        "FR",
+        "MT",
+        "HR"
+      ],
+      "far": [
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "YE",
+        "PK",
+        "SA",
+        "BR",
+        "DZ",
+        "TH"
+      ]
+    },
+    {
+      "rel": "Muamba-De-Galinha_Angola1.jpeg",
+      "dishEn": "Muamba de Galinha",
+      "dishAr": "موامبا دجاج",
+      "country": "AO",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_muamba_de_galinha_ao",
+      "imageFile": "food_new_muamba_de_galinha_ao.jpeg",
+      "near": [
+        "ZA",
+        "BW",
+        "NA",
+        "ZW",
+        "LS",
+        "SZ",
+        "MW",
+        "MZ",
+        "ZM"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Mumu_New-Guinea.jpg.jpeg",
+      "dishEn": "Mumu",
+      "dishAr": "مومو غينيا الجديدة",
+      "country": "PG",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_mumu_pg",
+      "imageFile": "food_new_mumu_pg.jpeg",
+      "near": [
+        "FJ",
+        "VU",
+        "AU",
+        "NZ",
+        "SB",
+        "WS",
+        "TO",
+        "KI",
+        "MH",
+        "FM"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA"
+      ]
+    },
+    {
+      "rel": "Nasi-Katok_Brunei.jpeg",
+      "dishEn": "Nasi Katok",
+      "dishAr": "ناسي كاتوك",
+      "country": "BN",
+      "difficulty": "hard",
+      "family": "rice",
+      "id": "food_new_nasi_katok_bn",
+      "imageFile": "food_new_nasi_katok_bn.jpeg",
+      "near": [
+        "MY",
+        "ID",
+        "SG",
+        "TH",
+        "PH",
+        "VN",
+        "KH",
+        "LA",
+        "MM",
+        "TL"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "SA",
+        "EG",
+        "JP",
+        "CN",
+        "BR",
+        "GR",
+        "AE"
+      ]
+    },
+    {
+      "rel": "Nihari_India.jpeg",
+      "dishEn": "Nihari",
+      "dishAr": "نهاري",
+      "country": "IN",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_nihari_in",
+      "imageFile": "food_new_nihari_in.jpeg",
+      "near": [
+        "PK",
+        "BD",
+        "NP",
+        "LK",
+        "AF",
+        "BT",
+        "MV",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "IR"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "SA",
+        "IT",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Oil-Down_Grenada.jpeg",
+      "dishEn": "Oil Down",
+      "dishAr": "أويل داون",
+      "country": "GD",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_oil_down_gd",
+      "imageFile": "food_new_oil_down_gd.jpeg",
+      "near": [
+        "JM",
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "BB",
+        "LC",
+        "VC",
+        "AG",
+        "GY",
+        "SR",
+        "TT"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Pad-Thai_Thailand.jpg.jpeg",
+      "dishEn": "Pad Thai",
+      "dishAr": "باد تاي",
+      "country": "TH",
+      "difficulty": "easy",
+      "family": "noodles",
+      "id": "food_new_pad_thai_th",
+      "imageFile": "food_new_pad_thai_th.jpeg",
+      "near": [
+        "PH",
+        "VN",
+        "ID",
+        "MY",
+        "SG",
+        "KH",
+        "LA",
+        "MM",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "CN",
+        "JP",
+        "IT",
+        "KR",
+        "IN",
+        "US",
+        "EG",
+        "FR",
+        "ES",
+        "GB"
+      ]
+    },
+    {
+      "rel": "Pani-Popo_Samoa.jpg.jpeg",
+      "dishEn": "Pani Popo",
+      "dishAr": "باني بوبو",
+      "country": "WS",
+      "difficulty": "hard",
+      "family": "dessert",
+      "id": "food_new_pani_popo_ws",
+      "imageFile": "food_new_pani_popo_ws.jpeg",
+      "near": [
+        "AU",
+        "NZ",
+        "FJ",
+        "TO",
+        "VU",
+        "PG",
+        "KI",
+        "MH",
+        "FM",
+        "SB"
+      ],
+      "far": [
+        "FR",
+        "IT",
+        "TR",
+        "EG",
+        "BE",
+        "US",
+        "GR",
+        "IN",
+        "BR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Pepian_Guatemala.jpg.jpeg",
+      "dishEn": "Pepián",
+      "dishAr": "بيبيان",
+      "country": "GT",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_pepian_gt",
+      "imageFile": "food_new_pepian_gt.jpeg",
+      "near": [
+        "MX",
+        "HN",
+        "SV",
+        "NI",
+        "CR",
+        "PA",
+        "CO",
+        "CU"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Pepperpot_Guyana.jpg.jpeg",
+      "dishEn": "Guyanese Pepperpot",
+      "dishAr": "ببر بوت جوياني",
+      "country": "GY",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_guyanese_pepperpot_gy",
+      "imageFile": "food_new_guyanese_pepperpot_gy.jpeg",
+      "near": [
+        "SR",
+        "BR",
+        "VE",
+        "TT",
+        "JM",
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "BB",
+        "LC",
+        "VC"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Pljeskavica_Serbia.jpg.jpeg",
+      "dishEn": "Pljeskavica",
+      "dishAr": "بليسكافيتسا",
+      "country": "RS",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_pljeskavica_rs",
+      "imageFile": "food_new_pljeskavica_rs.jpeg",
+      "near": [
+        "BA",
+        "HR",
+        "MK",
+        "BG",
+        "RO",
+        "AL",
+        "SI",
+        "ME",
+        "GR",
+        "XK"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA",
+        "AR"
+      ]
+    },
+    {
+      "rel": "Pom_Suriname.jpg.jpeg",
+      "dishEn": "Pom",
+      "dishAr": "بوم",
+      "country": "SR",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_pom_sr",
+      "imageFile": "food_new_pom_sr.jpeg",
+      "near": [
+        "GY",
+        "VE",
+        "BR",
+        "TT",
+        "JM",
+        "HT",
+        "DO",
+        "CU",
+        "BS",
+        "BB",
+        "LC",
+        "VC"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Potjiekos_South-Africa.jpeg",
+      "dishEn": "Potjiekos",
+      "dishAr": "بوتجيكوس",
+      "country": "ZA",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_potjiekos_za",
+      "imageFile": "food_new_potjiekos_za.jpeg",
+      "near": [
+        "BW",
+        "ZM",
+        "ZW",
+        "MZ",
+        "NA",
+        "LS",
+        "SZ",
+        "MW",
+        "AO"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Qurutob_Tajikistan.jpeg",
+      "dishEn": "Qurutob",
+      "dishAr": "قوروتوب",
+      "country": "TJ",
+      "difficulty": "hard",
+      "family": "snack",
+      "id": "food_new_qurutob_tj",
+      "imageFile": "food_new_qurutob_tj.jpeg",
+      "near": [
+        "UZ",
+        "KG",
+        "AF",
+        "TM",
+        "KZ",
+        "IR",
+        "GE",
+        "AM",
+        "AZ",
+        "TR",
+        "RU"
+      ],
+      "far": [
+        "IN",
+        "MX",
+        "TH",
+        "EG",
+        "FR",
+        "IT",
+        "JP",
+        "BR",
+        "CN",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Ragu-alla-Bolognese_Italy.jpg.jpeg",
+      "dishEn": "Ragù alla Bolognese",
+      "dishAr": "راجو بولونيز",
+      "country": "IT",
+      "difficulty": "medium",
+      "family": "pasta",
+      "id": "food_new_ragu_alla_bolognese_it",
+      "imageFile": "food_new_ragu_alla_bolognese_it.jpeg",
+      "near": [
+        "FR",
+        "CH",
+        "ES",
+        "GR",
+        "MT",
+        "PT",
+        "CY",
+        "TR",
+        "HR"
+      ],
+      "far": [
+        "US",
+        "CN",
+        "JP",
+        "DE",
+        "GB",
+        "EG",
+        "IN",
+        "KR",
+        "MX",
+        "BR"
+      ]
+    },
+    {
+      "rel": "Rosolje-Estonia.jpeg",
+      "dishEn": "Rosolje",
+      "dishAr": "روسولييه",
+      "country": "EE",
+      "difficulty": "hard",
+      "family": "salad",
+      "id": "food_new_rosolje_ee",
+      "imageFile": "food_new_rosolje_ee.jpeg",
+      "near": [
+        "LV",
+        "LT",
+        "FI",
+        "RU",
+        "SE",
+        "PL",
+        "UA",
+        "BY",
+        "SK",
+        "CZ",
+        "HU",
+        "RO"
+      ],
+      "far": [
+        "EG",
+        "GR",
+        "IT",
+        "TR",
+        "FR",
+        "DE",
+        "ES",
+        "GB",
+        "US",
+        "IN"
+      ]
+    },
+    {
+      "rel": "Rösti_Switzerland.jpeg",
+      "dishEn": "Rösti",
+      "dishAr": "روستي",
+      "country": "CH",
+      "difficulty": "medium",
+      "family": "snack",
+      "id": "food_new_rosti_ch",
+      "imageFile": "food_new_rosti_ch.jpeg",
+      "near": [
+        "FR",
+        "DE",
+        "BE",
+        "NL",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "IN",
+        "TR",
+        "MX",
+        "TH",
+        "EG",
+        "IT",
+        "JP",
+        "BR",
+        "CN",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Salteñas_-Bolivia.jpg",
+      "dishEn": "Salteñas",
+      "dishAr": "سالتيناس",
+      "country": "BO",
+      "difficulty": "hard",
+      "family": "pastry",
+      "id": "food_new_saltenas_bo",
+      "imageFile": "food_new_saltenas_bo.jpg",
+      "near": [
+        "BR",
+        "AR",
+        "UY",
+        "PY",
+        "CL",
+        "PE",
+        "EC",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "FR",
+        "TR",
+        "IT",
+        "GR",
+        "EG",
+        "IN",
+        "ES",
+        "PT",
+        "MA",
+        "DZ"
+      ]
+    },
+    {
+      "rel": "Sauerbraten_Germany.jpeg",
+      "dishEn": "Sauerbraten",
+      "dishAr": "ساوربراتن",
+      "country": "DE",
+      "difficulty": "medium",
+      "family": "meat",
+      "id": "food_new_sauerbraten_de",
+      "imageFile": "food_new_sauerbraten_de.jpeg",
+      "near": [
+        "FR",
+        "BE",
+        "NL",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "TR",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "ZA",
+        "AR",
+        "MX"
+      ]
+    },
+    {
+      "rel": "Schnitzel_Austria.jpeg",
+      "dishEn": "Wiener Schnitzel",
+      "dishAr": "شنيتزل فيينا",
+      "country": "AT",
+      "difficulty": "medium",
+      "family": "meat",
+      "id": "food_new_wiener_schnitzel_at",
+      "imageFile": "food_new_wiener_schnitzel_at.jpeg",
+      "near": [
+        "FR",
+        "DE",
+        "BE",
+        "NL",
+        "CH",
+        "GB",
+        "IE",
+        "LU"
+      ],
+      "far": [
+        "TR",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "ZA",
+        "AR",
+        "MX"
+      ]
+    },
+    {
+      "rel": "Sesswa_Botswana.jpeg",
+      "dishEn": "Seswaa",
+      "dishAr": "سيسوا",
+      "country": "BW",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_seswaa_bw",
+      "imageFile": "food_new_seswaa_bw.jpeg",
+      "near": [
+        "ZA",
+        "NA",
+        "ZM",
+        "ZW",
+        "LS",
+        "SZ",
+        "MW",
+        "MZ",
+        "AO"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "GR",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "AR"
+      ]
+    },
+    {
+      "rel": "Shchi_Russia.jpg.jpeg",
+      "dishEn": "Shchi",
+      "dishAr": "شي شوربة روسية",
+      "country": "RU",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_shchi_ru",
+      "imageFile": "food_new_shchi_ru.jpeg",
+      "near": [
+        "PL",
+        "UA",
+        "BY",
+        "SK",
+        "CZ",
+        "HU",
+        "RO",
+        "LT",
+        "LV",
+        "EE",
+        "MD"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "KR"
+      ]
+    },
+    {
+      "rel": "Skoudehkaris_Djibouti.jpeg",
+      "dishEn": "Skoudehkaris",
+      "dishAr": "سكوديكاريس",
+      "country": "DJ",
+      "difficulty": "hard",
+      "family": "rice",
+      "id": "food_new_skoudehkaris_dj",
+      "imageFile": "food_new_skoudehkaris_dj.jpeg",
+      "near": [
+        "SO",
+        "ET",
+        "ER",
+        "KE",
+        "SD",
+        "TZ",
+        "UG",
+        "RW",
+        "BI"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH"
+      ]
+    },
+    {
+      "rel": "Snkapur_Armenia.jpeg",
+      "dishEn": "Snkapur",
+      "dishAr": "سنكابور",
+      "country": "AM",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_snkapur_am",
+      "imageFile": "food_new_snkapur_am.jpeg",
+      "near": [
+        "GE",
+        "AZ",
+        "TR",
+        "IR",
+        "RU",
+        "UZ",
+        "KG",
+        "TJ",
+        "TM",
+        "KZ",
+        "AF"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "KR",
+        "ES"
+      ]
+    },
+    {
+      "rel": "Sopa-Paraguaya_Paraguay.jpeg",
+      "dishEn": "Sopa Paraguaya",
+      "dishAr": "سوبا باراجوايا",
+      "country": "PY",
+      "difficulty": "hard",
+      "family": "pastry",
+      "id": "food_new_sopa_paraguaya_py",
+      "imageFile": "food_new_sopa_paraguaya_py.jpeg",
+      "near": [
+        "BR",
+        "AR",
+        "UY",
+        "BO",
+        "CL",
+        "PE",
+        "EC",
+        "CO",
+        "VE"
+      ],
+      "far": [
+        "FR",
+        "TR",
+        "IT",
+        "GR",
+        "EG",
+        "IN",
+        "ES",
+        "PT",
+        "MA",
+        "DZ"
+      ]
+    },
+    {
+      "rel": "Stamppot _Netherlands.jpeg",
+      "dishEn": "Stamppot",
+      "dishAr": "ستامبوت",
+      "country": "NL",
+      "difficulty": "medium",
+      "family": "vegetables",
+      "id": "food_new_stamppot_nl",
+      "imageFile": "food_new_stamppot_nl.jpeg",
+      "near": [
+        "FR",
+        "DE",
+        "BE",
+        "CH",
+        "GB",
+        "IE",
+        "LU",
+        "AT"
+      ],
+      "far": [
+        "EG",
+        "IN",
+        "TR",
+        "GR",
+        "IT",
+        "CN",
+        "KR",
+        "JP",
+        "TH",
+        "MA"
+      ]
+    },
+    {
+      "rel": "Tavë kosi_Albania.jpeg",
+      "dishEn": "Tavë Kosi",
+      "dishAr": "تافي كوسي",
+      "country": "AL",
+      "difficulty": "hard",
+      "family": "meat",
+      "id": "food_new_tave_kosi_al",
+      "imageFile": "food_new_tave_kosi_al.jpeg",
+      "near": [
+        "GR",
+        "MK",
+        "RS",
+        "ME",
+        "IT",
+        "BA",
+        "HR",
+        "SI",
+        "BG",
+        "RO",
+        "XK"
+      ],
+      "far": [
+        "TR",
+        "DE",
+        "EG",
+        "SA",
+        "BR",
+        "US",
+        "IN",
+        "FR",
+        "ZA",
+        "AR"
+      ]
+    },
+    {
+      "rel": "Thieboudienne_Senegal.jpg.jpeg",
+      "dishEn": "Thiéboudienne",
+      "dishAr": "تيبوديين",
+      "country": "SN",
+      "difficulty": "hard",
+      "family": "rice",
+      "id": "food_new_thieboudienne_sn",
+      "imageFile": "food_new_thieboudienne_sn.jpeg",
+      "near": [
+        "NG",
+        "GH",
+        "GM",
+        "CI",
+        "TG",
+        "BJ",
+        "GN",
+        "GW",
+        "NE",
+        "ML",
+        "LR",
+        "SL"
+      ],
+      "far": [
+        "IN",
+        "PK",
+        "TR",
+        "SA",
+        "EG",
+        "ID",
+        "MY",
+        "JP",
+        "CN",
+        "TH"
+      ]
+    },
+    {
+      "rel": "Trey-Amok_Congo-Cambodia.jpeg",
+      "dishEn": "Fish Amok (Trey Amok)",
+      "dishAr": "سمك أموك كمبودي",
+      "country": "KH",
+      "difficulty": "hard",
+      "family": "seafood",
+      "id": "food_new_fish_amok_trey_amok_kh",
+      "imageFile": "food_new_fish_amok_trey_amok_kh.jpeg",
+      "near": [
+        "PH",
+        "TH",
+        "VN",
+        "ID",
+        "MY",
+        "SG",
+        "LA",
+        "MM",
+        "BN",
+        "TL"
+      ],
+      "far": [
+        "JP",
+        "GR",
+        "IT",
+        "ES",
+        "FR",
+        "EG",
+        "PT",
+        "KR",
+        "GB",
+        "US"
+      ]
+    },
+    {
+      "rel": "Zeama_Moldova.jpeg",
+      "dishEn": "Zeamă",
+      "dishAr": "زياما",
+      "country": "MD",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_zeama_md",
+      "imageFile": "food_new_zeama_md.jpeg",
+      "near": [
+        "UA",
+        "RO",
+        "RU",
+        "BG",
+        "PL",
+        "BY",
+        "SK",
+        "CZ",
+        "HU",
+        "LT",
+        "LV",
+        "EE"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "KR"
+      ]
+    },
+    {
+      "rel": "kuku-wa-kupaka-Kenya.jpg.jpeg",
+      "dishEn": "Kuku wa Kupaka",
+      "dishAr": "كوكو وا كوبّاكا",
+      "country": "KE",
+      "difficulty": "hard",
+      "family": "stew",
+      "id": "food_new_kuku_wa_kupaka_ke",
+      "imageFile": "food_new_kuku_wa_kupaka_ke.jpeg",
+      "near": [
+        "TZ",
+        "UG",
+        "RW",
+        "BI",
+        "SO",
+        "DJ",
+        "ET",
+        "ER",
+        "SD"
+      ],
+      "far": [
+        "TR",
+        "EG",
+        "MA",
+        "IN",
+        "IR",
+        "FR",
+        "GR",
+        "YE",
+        "PK",
+        "SA"
+      ]
+    },
+    {
+      "rel": "Šaltibarščiai_Lithuania.jpeg",
+      "dishEn": "Šaltibarščiai",
+      "dishAr": "شالتيبارشتشاي",
+      "country": "LT",
+      "difficulty": "hard",
+      "family": "soup",
+      "id": "food_new_saltibarsciai_lt",
+      "imageFile": "food_new_saltibarsciai_lt.jpeg",
+      "near": [
+        "LV",
+        "EE",
+        "PL",
+        "RU",
+        "BY",
+        "UA",
+        "SK",
+        "CZ",
+        "HU",
+        "RO",
+        "MD"
+      ],
+      "far": [
+        "VN",
+        "CN",
+        "TR",
+        "JP",
+        "EG",
+        "IN",
+        "FR",
+        "IT",
+        "TH",
+        "KR"
+      ]
+    }
+  ],
+  "audit": [
+    {
+      "file": "Ajdovi-Žganci-Pečenica_Slovenia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "SI",
+      "dish": "عصيدة الحنطة السلوفينية بالسجق",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Ajiaco_Colombia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "CO",
+      "dish": "أخياكو كولومبي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Barbagiuan_Monaco.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "MC",
+      "dish": "بارباجوان",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Batar-Da’an_East-timor.jpeg",
+      "status": "PLAYABLE",
+      "country": "TL",
+      "dish": "باتار دا آن",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Beef-Bourguignon_France.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "FR",
+      "dish": "بوف بورجينيون",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Bigos Stew_Poland.jpeg",
+      "status": "PLAYABLE",
+      "country": "PL",
+      "dish": "بيجوس",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Bobotie_South-Africa.jpeg",
+      "status": "PLAYABLE",
+      "country": "ZA",
+      "dish": "بوبوتي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Bryndzove-Halusky_Slovakia.jpeg",
+      "status": "PLAYABLE",
+      "country": "SK",
+      "dish": "بريندزوفي هالوشكي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Cafriela-de-Frango_Guinea-Bissau.jpeg",
+      "status": "PLAYABLE",
+      "country": "GW",
+      "dish": "كافريلا دجاج",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Calulu-De-Peixe_Sao-Tome-and-Principe.jpeg",
+      "status": "PLAYABLE",
+      "country": "ST",
+      "dish": "كالولو سمك",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Chicken-Sekuwa_Nepal.jpeg",
+      "status": "PLAYABLE",
+      "country": "NP",
+      "dish": "سيكوا دجاج",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Chicken-Tikka-Masala_Scotland.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "قصة نشأة الدجاج تيكا ماسالا في جلاسكو محل جدل؛ غير مناسب كسؤال منشأ واحد."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Bahamas.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Belarus.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Belgium.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Benin.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Brunei.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Bulgaria.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Central-African-Republic.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Chile.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-China.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Congo-Cabo-Verde.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Congo-Cameroon.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Congo-Chad.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Congo-Comoros.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Croatia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Cyprus.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Czech-Republic.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Dominica.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-El-Salvador-1.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Eritrea.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Eswatini.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Ethiopia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Fiji.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Gambia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Guinea.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Honduras.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Hungary.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Indonesia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Japan.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Kazakhstan.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Korea-South.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Kosovo.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Laos.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Latvia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Lebanon2.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Lesotho.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Liberia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Liechtenstein.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Luxembourg.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Madagascar.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Malawi.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Malaysia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Maldives.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Mali.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Marshall-Islands.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Mauritania.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "Cooking-a-dish-from-every-country-in-the-world-Micronesia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف فيه بلد فقط، ومش بنفترض اسم الأكلة ولا بلد منشئها من شكل الطبق."
+    },
+    {
+      "file": "CousCous_Tunisia.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الكسكسي تراث مغاربي مشترك، موثّق في اليونسكو لأربع دول."
+    },
+    {
+      "file": "Dejaj-Salona_United-Arab-Emirates.jpeg",
+      "status": "PLAYABLE",
+      "country": "AE",
+      "dish": "صالونة دجاج",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Digaag-Duban_Somalia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "SO",
+      "dish": "دجاج دوبان صومالي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Dounguouri-Soko_Niger.jpeg",
+      "status": "PLAYABLE",
+      "country": "NE",
+      "dish": "دونجوري سوكو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/China_Peking-Duck.jpg",
+      "status": "PLAYABLE",
+      "country": "CN",
+      "dish": "بط بكين",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Egypt_Koshary.jpg",
+      "status": "PLAYABLE",
+      "country": "EG",
+      "dish": "كشري",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/France_Bouillabaisse.jpg",
+      "status": "PLAYABLE",
+      "country": "FR",
+      "dish": "بويابيس",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Italy_Carbonara.jpg",
+      "status": "PLAYABLE",
+      "country": "IT",
+      "dish": "كاربونارا",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Korea_Bimibap.jpg",
+      "status": "PLAYABLE",
+      "country": "KR",
+      "dish": "بيبيمباب",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Korea_Kimichi.jpg",
+      "status": "PLAYABLE",
+      "country": "KR",
+      "dish": "كيمتشي",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Libya_Shakshuka.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "شكشوكة طبق مغاربي متنازع على نسبته لدولة واحدة؛ لا إجابة وحيدة عادلة."
+    },
+    {
+      "file": "Easy/Pho_Vietnam.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "VN",
+      "dish": "فو",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/UK_Fish-and-chips.jpg",
+      "status": "PLAYABLE",
+      "country": "GB",
+      "dish": "فيش آند تشيبس",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/USA_Burger.jpg",
+      "status": "PLAYABLE",
+      "country": "US",
+      "dish": "برجر أمريكي",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Easy/Yemen_Makboos.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "المكبوس/المجبوس أكلة خليجية منتشرة في أكثر من بلد؛ نسبة حصريّة لليمن غير آمنة."
+    },
+    {
+      "file": "Easy/india_Khichdi.jpg",
+      "status": "PLAYABLE",
+      "country": "IN",
+      "dish": "خيتشدي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Ema-datshi_Bhutan.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "BT",
+      "dish": "إيما داتشي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Fishcakes_Saint-Vincent-and-Grenadines.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "فطائر السمك موجودة في عدة جزر كاريبية؛ الصورة وحدها لا تحدد جزيرة."
+    },
+    {
+      "file": "Fritada de chancho_Ecuador.jpeg",
+      "status": "PLAYABLE",
+      "country": "EC",
+      "dish": "فريتادا خنزير",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Fungee-and-pepperpot_Antigua-and-Barbuda.jpeg",
+      "status": "PLAYABLE",
+      "country": "AG",
+      "dish": "فونجي وببر بوت",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Fårikål_Norway.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "NO",
+      "dish": "فوريكول",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Gallo-pinto_Costa-Rica.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الطبق مشترك بين كوستاريكا ونيكاراجوا."
+    },
+    {
+      "file": "Gboma-Dessi_Togo.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "TG",
+      "dish": "جبوما ديسي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Gers-ogaily_Kuwait.jpeg",
+      "status": "PLAYABLE",
+      "country": "KW",
+      "dish": "قرص عقيلي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Green-Fig-and-Saltfish-Salad_Saint-Lucia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "LC",
+      "dish": "موز أخضر وسمك مملح",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Griot_Haiti.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "HT",
+      "dish": "جريو هايتي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Groundnut_Senegal.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "يخنة الفول السوداني منتشرة ببلدان متعددة بغرب أفريقيا؛ البلد الواحد محل التباس."
+    },
+    {
+      "file": "Hard/Georgia_Chakhokhbili.jpeg",
+      "status": "PLAYABLE",
+      "country": "GE",
+      "dish": "تشاخوخبيلي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Hungry_Gulyás.jpg",
+      "status": "PLAYABLE",
+      "country": "HU",
+      "dish": "جولاش مجري",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Indonisia_Bobotie.jpg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الملف منسوب لإندونيسيا لكن البوبوتي مرتبط بجنوب أفريقيا؛ صورة بديلة مكررة محجوزة."
+    },
+    {
+      "file": "Hard/Macedonia_Zelnik.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الزيلنيك موجود في دول بلقانية متعددة؛ لا ننسبه لمقدونيا وحدها."
+    },
+    {
+      "file": "Hard/Mixico_Mole-Poblano.jpg",
+      "status": "PLAYABLE",
+      "country": "MX",
+      "dish": "مولي بوبلانو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Nigiria_Jollof-Rice.jpg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الجولوف مرتبط بمطبخ غرب أفريقيا وله جدل في المنشأ؛ التصنيف النيجيري ليس منشأ فريدًا."
+    },
+    {
+      "file": "Hard/Poland_Pierogi.jpg",
+      "status": "PLAYABLE",
+      "country": "PL",
+      "dish": "بيروجي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Portugal_Bacalhau-a-Gomes-de-Sá.jpeg",
+      "status": "PLAYABLE",
+      "country": "PT",
+      "dish": "باكالاو جوميش دي سا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Spain_Ropa-Vieja.jpg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "روبا فييخا طبق يرتبط بكوبا وله جذور إسبانية؛ السؤال أحادي الإجابة مُلتبس."
+    },
+    {
+      "file": "Hard/Tinola_Philippines.jpeg",
+      "status": "PLAYABLE",
+      "country": "PH",
+      "dish": "تينولا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Ukraine_Borscht.jpeg",
+      "status": "PLAYABLE",
+      "country": "UA",
+      "dish": "بورش أوكراني",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Uruguay_Chivito.jpeg",
+      "status": "PLAYABLE",
+      "country": "UY",
+      "dish": "تشيفيتو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Uzbekis0tan_Dimlama.jpeg",
+      "status": "PLAYABLE",
+      "country": "UZ",
+      "dish": "ديملاما",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/Venezuela_Pabellón Criollo.jpeg",
+      "status": "PLAYABLE",
+      "country": "VE",
+      "dish": "بابيون كريولو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Hard/desktop.ini",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "ملف نظام وليس صورة."
+    },
+    {
+      "file": "Ifisashi-and-Nshima_Zambia.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الطبق أو نسبته لدولة واحدة يحتاج مراجعة أو الصورة مكررة/غير دقيقة."
+    },
+    {
+      "file": "Imqarrun il-forn_Malta.jpeg",
+      "status": "PLAYABLE",
+      "country": "MT",
+      "dish": "مكرونة مالطية بالفرن",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Jollof_Nigeria.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الجولوف مرتبط بمطبخ غرب أفريقيا؛ لا نعرض سؤال دولة واحدة."
+    },
+    {
+      "file": "Kabuli-palaw_Afghanistan.jpeg",
+      "status": "PLAYABLE",
+      "country": "AF",
+      "dish": "كابولي بلاو",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Kapisi-Pulu_Tonga.jpeg",
+      "status": "PLAYABLE",
+      "country": "TO",
+      "dish": "كابيسي بولو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Kedjenou_Côte-d’Ivoire.jpeg",
+      "status": "PLAYABLE",
+      "country": "CI",
+      "dish": "كيدجينو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "KeleweleOrAloco-Ghana.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "اسم الملف يجمع كيليويلي وألوكو وهما تسميتان/نسختان من مطابخ مختلفة."
+    },
+    {
+      "file": "Khichdi-India.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "صورة ثانية لنفس الأكلة؛ احتفظنا بنسخة واحدة لتقليل التكرار."
+    },
+    {
+      "file": "Khoresh-e-ghormeh-sabzi_Iran.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "IR",
+      "dish": "قورمه سبزي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Kibbeh-Bil-Sanieh_.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "لا يوجد بلد في اسم الملف؛ الكبة بالصينية منتشرة بالشام."
+    },
+    {
+      "file": "Kikomando_Uganda.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "UG",
+      "dish": "كيكوماندو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Kjötsúpa_Iceland.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "IS",
+      "dish": "شوربة لحم آيسلندية",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Klepe_Bosnia-and-Herzegovina.jpeg",
+      "status": "PLAYABLE",
+      "country": "BA",
+      "dish": "كليبي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Kottu Roti_Sri-Lanka.jpeg",
+      "status": "PLAYABLE",
+      "country": "LK",
+      "dish": "كوتو روتي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Köttbullar_Sweden.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "SE",
+      "dish": "كرات اللحم السويدية",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "La-bandera_Dominican-Republic.jpeg",
+      "status": "PLAYABLE",
+      "country": "DO",
+      "dish": "لا بانديرا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Lamingtons_Australia.jpeg",
+      "status": "PLAYABLE",
+      "country": "AU",
+      "dish": "لامينجتون",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Lap-Lap_Vanuatu.jpeg",
+      "status": "PLAYABLE",
+      "country": "VU",
+      "dish": "لاب لاب",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Locro_Argentina.jpeg",
+      "status": "PLAYABLE",
+      "country": "AR",
+      "dish": "لوكرو أرجنتيني",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Macaroni-Pie_Barbados.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "ماكاروني باي منتشر في جزر كاريبية أخرى، وليس حكرًا على باربادوس."
+    },
+    {
+      "file": "Makayabu_Congo-Republic.jpeg",
+      "status": "PLAYABLE",
+      "country": "CG",
+      "dish": "ماكايابو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Mandi_Yemen.jpeg",
+      "status": "PLAYABLE",
+      "country": "YE",
+      "dish": "مندي",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Mansaf_Jordan.jpeg",
+      "status": "PLAYABLE",
+      "country": "JO",
+      "dish": "منسف",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Maori-Boil-Up_New-Zealand.jpeg",
+      "status": "PLAYABLE",
+      "country": "NZ",
+      "dish": "بول آب ماوري",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Masgouf_Iraq.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "IQ",
+      "dish": "مسكوف",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Brazil_Brigadeiros.jpeg",
+      "status": "PLAYABLE",
+      "country": "BR",
+      "dish": "بريجاديرو",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Denmark_Stegt-Flæsk.jpeg",
+      "status": "PLAYABLE",
+      "country": "DK",
+      "dish": "ستجت فلاسك",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/France_Pot-Au-Feu.jpg",
+      "status": "PLAYABLE",
+      "country": "FR",
+      "dish": "بوت أو فو",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/India_Pani-Puri.jpg",
+      "status": "PLAYABLE",
+      "country": "IN",
+      "dish": "باني بوري",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Jamaica_Ackee-and-Saltfish.jpeg",
+      "status": "PLAYABLE",
+      "country": "JM",
+      "dish": "آكي وسمك مملح",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/New-Zealand_Hāngī.jpg",
+      "status": "PLAYABLE",
+      "country": "NZ",
+      "dish": "هانجي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Peru_Ceviche.jpg",
+      "status": "PLAYABLE",
+      "country": "PE",
+      "dish": "سيفيتشي بيروفي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Philippines_Adobo.jpg",
+      "status": "PLAYABLE",
+      "country": "PH",
+      "dish": "أدوبو فلبيني",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Spain_Paella.jpg",
+      "status": "PLAYABLE",
+      "country": "ES",
+      "dish": "باييا",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Medium/Tajine Zitoune_Algeria.jpeg",
+      "status": "PLAYABLE",
+      "country": "DZ",
+      "dish": "طاجين زيتون جزائري",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Moambe_Congo-Democratic-Republic-Of.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "دجاج موامبي له نسخ في عدة مطابخ وسط أفريقيا؛ الإجابة الواحدة محل التباس."
+    },
+    {
+      "file": "Mohinga_Myanmar.jpeg",
+      "status": "PLAYABLE",
+      "country": "MM",
+      "dish": "موهينجا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Mole_Mexico.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "مولي عام، تم اعتماد صورة مولي بوبلانو الأكثر تحديدًا بدلًا منها."
+    },
+    {
+      "file": "Mousaka_Greece.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "GR",
+      "dish": "مسقعة يونانية",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Muamba-De-Galinha_Angola1.jpeg",
+      "status": "PLAYABLE",
+      "country": "AO",
+      "dish": "موامبا دجاج",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Mumu_New-Guinea.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "PG",
+      "dish": "مومو غينيا الجديدة",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Nasi-Katok_Brunei.jpeg",
+      "status": "PLAYABLE",
+      "country": "BN",
+      "dish": "ناسي كاتوك",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Nihari_India.jpeg",
+      "status": "PLAYABLE",
+      "country": "IN",
+      "dish": "نهاري",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Nyama_Kenya.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "نياما كلمة عامة للحوم وليس اسم طبق محدد."
+    },
+    {
+      "file": "Oil-Down_Grenada.jpeg",
+      "status": "PLAYABLE",
+      "country": "GD",
+      "dish": "أويل داون",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Pad-Thai_Thailand.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "TH",
+      "dish": "باد تاي",
+      "difficulty": "easy",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Palusami_Kiribati.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الطبق أو نسبته لدولة واحدة يحتاج مراجعة أو الصورة مكررة/غير دقيقة."
+    },
+    {
+      "file": "Pani-Popo_Samoa.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "WS",
+      "dish": "باني بوبو",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Pepian_Guatemala.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "GT",
+      "dish": "بيبيان",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Pepperpot_Guyana.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "GY",
+      "dish": "ببر بوت جوياني",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Piri Piri Chicken_Mozambique.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الدجاج بيري بيري يرتبط بموزمبيق والبرتغال؛ نسبة منشأ واحدة ملتبسة."
+    },
+    {
+      "file": "Pljeskavica_Serbia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "RS",
+      "dish": "بليسكافيتسا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Plov_Kyrgystan.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "البلوف مشترك بين مطابخ آسيا الوسطى؛ صورة واسم الطبق لا يحسمان قيرغيزستان."
+    },
+    {
+      "file": "Poisson Salé_Mauritius.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "السمك المملح معروف في عدة مطابخ كريولية؛ صورة الطبق عامة."
+    },
+    {
+      "file": "Pom_Suriname.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "SR",
+      "dish": "بوم",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Potjiekos_South-Africa.jpeg",
+      "status": "PLAYABLE",
+      "country": "ZA",
+      "dish": "بوتجيكوس",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Qurutob_Tajikistan.jpeg",
+      "status": "PLAYABLE",
+      "country": "TJ",
+      "dish": "قوروتوب",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Ragu-alla-Bolognese_Italy.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "IT",
+      "dish": "راجو بولونيز",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Ropa-Vieja_Spain.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "روبا فييخا ليس اختيارًا محسومًا لإسبانيا؛ غالبًا يرتبط بكوبا."
+    },
+    {
+      "file": "Rosolje-Estonia.jpeg",
+      "status": "PLAYABLE",
+      "country": "EE",
+      "dish": "روسولييه",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Rougail-Saucisse_Seychelles.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "روغاي السجق مرتبط خصوصًا بجزيرة ريونيون، ونسبة الطبق للسيشل وحدها غير مؤكدة."
+    },
+    {
+      "file": "Rösti_Switzerland.jpeg",
+      "status": "PLAYABLE",
+      "country": "CH",
+      "dish": "روستي",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Salteñas_-Bolivia.jpg",
+      "status": "PLAYABLE",
+      "country": "BO",
+      "dish": "سالتيناس",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Saltfish-and-Plantains_Jamaica.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "السمك المملح والموز النباتي معروفان بأكثر من جزيرة كاريبية."
+    },
+    {
+      "file": "Sancocho_Panama.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "سانكوتشو معروف في عدة دول لاتينية وكاريبية."
+    },
+    {
+      "file": "Sarmale_Romania.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "سارمالي منتشرة بأكثر من دولة في البلقان وشرق أوروبا."
+    },
+    {
+      "file": "Sauerbraten_Germany.jpeg",
+      "status": "PLAYABLE",
+      "country": "DE",
+      "dish": "ساوربراتن",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Schnitzel_Austria.jpeg",
+      "status": "PLAYABLE",
+      "country": "AT",
+      "dish": "شنيتزل فيينا",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Sesswa_Botswana.jpeg",
+      "status": "PLAYABLE",
+      "country": "BW",
+      "dish": "سيسوا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Shchi_Russia.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "RU",
+      "dish": "شي شوربة روسية",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Shurpa-Soup_Turkmenistan.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "شوربا/شوربة منتشرة في آسيا الوسطى؛ غير محددة بالاسم لتركمانستان."
+    },
+    {
+      "file": "Skoudehkaris_Djibouti.jpeg",
+      "status": "PLAYABLE",
+      "country": "DJ",
+      "dish": "سكوديكاريس",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Snkapur_Armenia.jpeg",
+      "status": "PLAYABLE",
+      "country": "AM",
+      "dish": "سنكابور",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Sopa-Paraguaya_Paraguay.jpeg",
+      "status": "PLAYABLE",
+      "country": "PY",
+      "dish": "سوبا باراجوايا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Stamppot _Netherlands.jpeg",
+      "status": "PLAYABLE",
+      "country": "NL",
+      "dish": "ستامبوت",
+      "difficulty": "medium",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Succotash-Equatorial_Guinea.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "سكوتاش طبق مرتبط بأمريكا الشمالية وليس غينيا الاستوائية."
+    },
+    {
+      "file": "Swallows-Nest's_China.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الصورة تشبه وجبة حلزونات مخبوزة ولا تطابق حساء عش الطائر؛ تطابق الصورة والاسم غير مؤكد."
+    },
+    {
+      "file": "Tapas_Spain.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "تاباس اسم فئة/طريقة تقديم وليس طبقًا واحدًا محددًا."
+    },
+    {
+      "file": "Tavë kosi_Albania.jpeg",
+      "status": "PLAYABLE",
+      "country": "AL",
+      "dish": "تافي كوسي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Thareed_Saudi-Arabia.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الثريد معروف في أكثر من بلد عربي، ومش مناسب لسؤال بلد واحدة."
+    },
+    {
+      "file": "Thieboudienne_Senegal.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "SN",
+      "dish": "تيبوديين",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Trey-Amok_Congo-Cambodia.jpeg",
+      "status": "PLAYABLE",
+      "country": "KH",
+      "dish": "سمك أموك كمبودي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Trinxat_Andorra.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "ترينشات موجودة أيضًا في المطبخ الكتالوني الإسباني، فلا ننسبها لدولة واحدة."
+    },
+    {
+      "file": "Ugali_Tanzania.jpg.jpeg",
+      "status": "REVIEW",
+      "country": "",
+      "dish": "",
+      "difficulty": "",
+      "reason": "الأوجالي عنصر غذائي مشترك في شرق أفريقيا، لا دولة وحيدة."
+    },
+    {
+      "file": "Zeama_Moldova.jpeg",
+      "status": "PLAYABLE",
+      "country": "MD",
+      "dish": "زياما",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "kuku-wa-kupaka-Kenya.jpg.jpeg",
+      "status": "PLAYABLE",
+      "country": "KE",
+      "dish": "كوكو وا كوبّاكا",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    },
+    {
+      "file": "Šaltibarščiai_Lithuania.jpeg",
+      "status": "PLAYABLE",
+      "country": "LT",
+      "dish": "شالتيبارشتشاي",
+      "difficulty": "hard",
+      "reason": "اسم الطبق محدد ويُعرف بارتباط مطبخي واضح بهذه الدولة، وليس ادعاء اختراع حصري."
+    }
+  ],
+  "countryLabels": {
+    "AD": {
+      "en": "Andorra",
+      "ar": "أندورا"
+    },
+    "AE": {
+      "en": "United Arab Emirates",
+      "ar": "الإمارات"
+    },
+    "AF": {
+      "en": "Afghanistan",
+      "ar": "أفغانستان"
+    },
+    "AG": {
+      "en": "Antigua & Barbuda",
+      "ar": "أنتيغوا وبربودا"
+    },
+    "AL": {
+      "en": "Albania",
+      "ar": "ألبانيا"
+    },
+    "AM": {
+      "en": "Armenia",
+      "ar": "أرمينيا"
+    },
+    "AO": {
+      "en": "Angola",
+      "ar": "أنغولا"
+    },
+    "AR": {
+      "en": "Argentina",
+      "ar": "الأرجنتين"
+    },
+    "AT": {
+      "en": "Austria",
+      "ar": "النمسا"
+    },
+    "AU": {
+      "en": "Australia",
+      "ar": "أستراليا"
+    },
+    "AZ": {
+      "en": "Azerbaijan",
+      "ar": "أذربيجان"
+    },
+    "BA": {
+      "en": "Bosnia & Herzegovina",
+      "ar": "البوسنة والهرسك"
+    },
+    "BB": {
+      "en": "Barbados",
+      "ar": "بربادوس"
+    },
+    "BD": {
+      "en": "Bangladesh",
+      "ar": "بنغلاديش"
+    },
+    "BE": {
+      "en": "Belgium",
+      "ar": "بلجيكا"
+    },
+    "BG": {
+      "en": "Bulgaria",
+      "ar": "بلغاريا"
+    },
+    "BH": {
+      "en": "Bahrain",
+      "ar": "البحرين"
+    },
+    "BI": {
+      "en": "Burundi",
+      "ar": "بوروندي"
+    },
+    "BJ": {
+      "en": "Benin",
+      "ar": "بنين"
+    },
+    "BN": {
+      "en": "Brunei",
+      "ar": "بروناي"
+    },
+    "BO": {
+      "en": "Bolivia",
+      "ar": "بوليفيا"
+    },
+    "BR": {
+      "en": "Brazil",
+      "ar": "البرازيل"
+    },
+    "BS": {
+      "en": "Bahamas",
+      "ar": "جزر البهاما"
+    },
+    "BT": {
+      "en": "Bhutan",
+      "ar": "بوتان"
+    },
+    "BW": {
+      "en": "Botswana",
+      "ar": "بوتسوانا"
+    },
+    "BY": {
+      "en": "Belarus",
+      "ar": "بيلاروسيا"
+    },
+    "CD": {
+      "en": "DR Congo",
+      "ar": "الكونغو الديمقراطية"
+    },
+    "CF": {
+      "en": "Central African Republic",
+      "ar": "جمهورية أفريقيا الوسطى"
+    },
+    "CG": {
+      "en": "Republic of the Congo",
+      "ar": "الكونغو"
+    },
+    "CH": {
+      "en": "Switzerland",
+      "ar": "سويسرا"
+    },
+    "CI": {
+      "en": "Côte d’Ivoire",
+      "ar": "ساحل العاج"
+    },
+    "CL": {
+      "en": "Chile",
+      "ar": "تشيلي"
+    },
+    "CM": {
+      "en": "Cameroon",
+      "ar": "الكاميرون"
+    },
+    "CN": {
+      "en": "China",
+      "ar": "الصين"
+    },
+    "CO": {
+      "en": "Colombia",
+      "ar": "كولومبيا"
+    },
+    "CR": {
+      "en": "Costa Rica",
+      "ar": "كوستاريكا"
+    },
+    "CU": {
+      "en": "Cuba",
+      "ar": "كوبا"
+    },
+    "CY": {
+      "en": "Cyprus",
+      "ar": "قبرص"
+    },
+    "CZ": {
+      "en": "Czechia",
+      "ar": "التشيك"
+    },
+    "DE": {
+      "en": "Germany",
+      "ar": "ألمانيا"
+    },
+    "DJ": {
+      "en": "Djibouti",
+      "ar": "جيبوتي"
+    },
+    "DK": {
+      "en": "Denmark",
+      "ar": "الدانمرك"
+    },
+    "DO": {
+      "en": "Dominican Republic",
+      "ar": "جمهورية الدومينيكان"
+    },
+    "DZ": {
+      "en": "Algeria",
+      "ar": "الجزائر"
+    },
+    "EC": {
+      "en": "Ecuador",
+      "ar": "الإكوادور"
+    },
+    "EE": {
+      "en": "Estonia",
+      "ar": "إستونيا"
+    },
+    "EG": {
+      "en": "Egypt",
+      "ar": "مصر"
+    },
+    "ER": {
+      "en": "Eritrea",
+      "ar": "إريتريا"
+    },
+    "ES": {
+      "en": "Spain",
+      "ar": "إسبانيا"
+    },
+    "ET": {
+      "en": "Ethiopia",
+      "ar": "إثيوبيا"
+    },
+    "FI": {
+      "en": "Finland",
+      "ar": "فنلندا"
+    },
+    "FJ": {
+      "en": "Fiji",
+      "ar": "فيجي"
+    },
+    "FM": {
+      "en": "Micronesia",
+      "ar": "ميكرونيزيا"
+    },
+    "FR": {
+      "en": "France",
+      "ar": "فرنسا"
+    },
+    "GA": {
+      "en": "Gabon",
+      "ar": "الغابون"
+    },
+    "GB": {
+      "en": "United Kingdom",
+      "ar": "بريطانيا"
+    },
+    "GD": {
+      "en": "Grenada",
+      "ar": "غرينادا"
+    },
+    "GE": {
+      "en": "Georgia",
+      "ar": "جورجيا"
+    },
+    "GH": {
+      "en": "Ghana",
+      "ar": "غانا"
+    },
+    "GM": {
+      "en": "Gambia",
+      "ar": "غامبيا"
+    },
+    "GN": {
+      "en": "Guinea",
+      "ar": "غينيا"
+    },
+    "GQ": {
+      "en": "Equatorial Guinea",
+      "ar": "غينيا الاستوائية"
+    },
+    "GR": {
+      "en": "Greece",
+      "ar": "اليونان"
+    },
+    "GT": {
+      "en": "Guatemala",
+      "ar": "غواتيمالا"
+    },
+    "GW": {
+      "en": "Guinea-Bissau",
+      "ar": "غينيا بيساو"
+    },
+    "GY": {
+      "en": "Guyana",
+      "ar": "غيانا"
+    },
+    "HN": {
+      "en": "Honduras",
+      "ar": "هندوراس"
+    },
+    "HR": {
+      "en": "Croatia",
+      "ar": "كرواتيا"
+    },
+    "HT": {
+      "en": "Haiti",
+      "ar": "هايتي"
+    },
+    "HU": {
+      "en": "Hungary",
+      "ar": "هنغاريا"
+    },
+    "ID": {
+      "en": "Indonesia",
+      "ar": "إندونيسيا"
+    },
+    "IE": {
+      "en": "Ireland",
+      "ar": "أيرلندا"
+    },
+    "IN": {
+      "en": "India",
+      "ar": "الهند"
+    },
+    "IQ": {
+      "en": "Iraq",
+      "ar": "العراق"
+    },
+    "IR": {
+      "en": "Iran",
+      "ar": "إيران"
+    },
+    "IS": {
+      "en": "Iceland",
+      "ar": "آيسلندا"
+    },
+    "IT": {
+      "en": "Italy",
+      "ar": "إيطاليا"
+    },
+    "JM": {
+      "en": "Jamaica",
+      "ar": "جامايكا"
+    },
+    "JO": {
+      "en": "Jordan",
+      "ar": "الأردن"
+    },
+    "JP": {
+      "en": "Japan",
+      "ar": "اليابان"
+    },
+    "KE": {
+      "en": "Kenya",
+      "ar": "كينيا"
+    },
+    "KG": {
+      "en": "Kyrgyzstan",
+      "ar": "قيرغيزستان"
+    },
+    "KH": {
+      "en": "Cambodia",
+      "ar": "كمبوديا"
+    },
+    "KI": {
+      "en": "Kiribati",
+      "ar": "كيريباتي"
+    },
+    "KR": {
+      "en": "South Korea",
+      "ar": "كوريا الجنوبية"
+    },
+    "KW": {
+      "en": "Kuwait",
+      "ar": "الكويت"
+    },
+    "KZ": {
+      "en": "Kazakhstan",
+      "ar": "كازاخستان"
+    },
+    "LA": {
+      "en": "Laos",
+      "ar": "لاوس"
+    },
+    "LB": {
+      "en": "Lebanon",
+      "ar": "لبنان"
+    },
+    "LC": {
+      "en": "St. Lucia",
+      "ar": "سانت لوسيا"
+    },
+    "LK": {
+      "en": "Sri Lanka",
+      "ar": "سريلانكا"
+    },
+    "LR": {
+      "en": "Liberia",
+      "ar": "ليبيريا"
+    },
+    "LS": {
+      "en": "Lesotho",
+      "ar": "ليسوتو"
+    },
+    "LT": {
+      "en": "Lithuania",
+      "ar": "ليتوانيا"
+    },
+    "LU": {
+      "en": "Luxembourg",
+      "ar": "لوكسمبورغ"
+    },
+    "LV": {
+      "en": "Latvia",
+      "ar": "لاتفيا"
+    },
+    "LY": {
+      "en": "Libya",
+      "ar": "ليبيا"
+    },
+    "MA": {
+      "en": "Morocco",
+      "ar": "المغرب"
+    },
+    "MC": {
+      "en": "Monaco",
+      "ar": "موناكو"
+    },
+    "MD": {
+      "en": "Moldova",
+      "ar": "مولدوفا"
+    },
+    "ME": {
+      "en": "Montenegro",
+      "ar": "الجبل الأسود"
+    },
+    "MG": {
+      "en": "Madagascar",
+      "ar": "مدغشقر"
+    },
+    "MH": {
+      "en": "Marshall Islands",
+      "ar": "جزر مارشال"
+    },
+    "MK": {
+      "en": "North Macedonia",
+      "ar": "مقدونيا الشمالية"
+    },
+    "ML": {
+      "en": "Mali",
+      "ar": "مالي"
+    },
+    "MM": {
+      "en": "Myanmar (Burma)",
+      "ar": "ميانمار (بورما)"
+    },
+    "MN": {
+      "en": "Mongolia",
+      "ar": "منغوليا"
+    },
+    "MT": {
+      "en": "Malta",
+      "ar": "مالطا"
+    },
+    "MU": {
+      "en": "Mauritius",
+      "ar": "موريشيوس"
+    },
+    "MV": {
+      "en": "Maldives",
+      "ar": "جزر المالديف"
+    },
+    "MW": {
+      "en": "Malawi",
+      "ar": "ملاوي"
+    },
+    "MX": {
+      "en": "Mexico",
+      "ar": "المكسيك"
+    },
+    "MY": {
+      "en": "Malaysia",
+      "ar": "ماليزيا"
+    },
+    "MZ": {
+      "en": "Mozambique",
+      "ar": "موزمبيق"
+    },
+    "NA": {
+      "en": "Namibia",
+      "ar": "ناميبيا"
+    },
+    "NE": {
+      "en": "Niger",
+      "ar": "النيجر"
+    },
+    "NG": {
+      "en": "Nigeria",
+      "ar": "نيجيريا"
+    },
+    "NI": {
+      "en": "Nicaragua",
+      "ar": "نيكاراغوا"
+    },
+    "NL": {
+      "en": "Netherlands",
+      "ar": "هولندا"
+    },
+    "NO": {
+      "en": "Norway",
+      "ar": "النرويج"
+    },
+    "NP": {
+      "en": "Nepal",
+      "ar": "نيبال"
+    },
+    "NZ": {
+      "en": "New Zealand",
+      "ar": "نيوزيلندا"
+    },
+    "OM": {
+      "en": "Oman",
+      "ar": "عُمان"
+    },
+    "PA": {
+      "en": "Panama",
+      "ar": "بنما"
+    },
+    "PE": {
+      "en": "Peru",
+      "ar": "بيرو"
+    },
+    "PG": {
+      "en": "Papua New Guinea",
+      "ar": "بابوا غينيا الجديدة"
+    },
+    "PH": {
+      "en": "Philippines",
+      "ar": "الفلبين"
+    },
+    "PK": {
+      "en": "Pakistan",
+      "ar": "باكستان"
+    },
+    "PL": {
+      "en": "Poland",
+      "ar": "بولندا"
+    },
+    "PR": {
+      "en": "Puerto Rico",
+      "ar": "بورتوريكو"
+    },
+    "PS": {
+      "en": "Palestine",
+      "ar": "فلسطين"
+    },
+    "PT": {
+      "en": "Portugal",
+      "ar": "البرتغال"
+    },
+    "PY": {
+      "en": "Paraguay",
+      "ar": "باراغواي"
+    },
+    "QA": {
+      "en": "Qatar",
+      "ar": "قطر"
+    },
+    "RO": {
+      "en": "Romania",
+      "ar": "رومانيا"
+    },
+    "RS": {
+      "en": "Serbia",
+      "ar": "صربيا"
+    },
+    "RU": {
+      "en": "Russia",
+      "ar": "روسيا"
+    },
+    "RW": {
+      "en": "Rwanda",
+      "ar": "رواندا"
+    },
+    "SA": {
+      "en": "Saudi Arabia",
+      "ar": "المملكة العربية السعودية"
+    },
+    "SB": {
+      "en": "Solomon Islands",
+      "ar": "جزر سليمان"
+    },
+    "SC": {
+      "en": "Seychelles",
+      "ar": "سيشل"
+    },
+    "SD": {
+      "en": "Sudan",
+      "ar": "السودان"
+    },
+    "SE": {
+      "en": "Sweden",
+      "ar": "السويد"
+    },
+    "SG": {
+      "en": "Singapore",
+      "ar": "سنغافورة"
+    },
+    "SI": {
+      "en": "Slovenia",
+      "ar": "سلوفينيا"
+    },
+    "SK": {
+      "en": "Slovakia",
+      "ar": "سلوفاكيا"
+    },
+    "SL": {
+      "en": "Sierra Leone",
+      "ar": "سيراليون"
+    },
+    "SN": {
+      "en": "Senegal",
+      "ar": "السنغال"
+    },
+    "SO": {
+      "en": "Somalia",
+      "ar": "الصومال"
+    },
+    "SR": {
+      "en": "Suriname",
+      "ar": "سورينام"
+    },
+    "ST": {
+      "en": "São Tomé and Príncipe",
+      "ar": "ساو تومي وبرينسيبي"
+    },
+    "SV": {
+      "en": "El Salvador",
+      "ar": "السلفادور"
+    },
+    "SY": {
+      "en": "Syria",
+      "ar": "سوريا"
+    },
+    "SZ": {
+      "en": "Eswatini",
+      "ar": "إسواتيني"
+    },
+    "TD": {
+      "en": "Chad",
+      "ar": "تشاد"
+    },
+    "TG": {
+      "en": "Togo",
+      "ar": "توغو"
+    },
+    "TH": {
+      "en": "Thailand",
+      "ar": "تايلاند"
+    },
+    "TJ": {
+      "en": "Tajikistan",
+      "ar": "طاجيكستان"
+    },
+    "TL": {
+      "en": "Timor-Leste",
+      "ar": "تيمور الشرقية"
+    },
+    "TM": {
+      "en": "Turkmenistan",
+      "ar": "تركمانستان"
+    },
+    "TN": {
+      "en": "Tunisia",
+      "ar": "تونس"
+    },
+    "TO": {
+      "en": "Tonga",
+      "ar": "تونغا"
+    },
+    "TR": {
+      "en": "Türkiye",
+      "ar": "تركيا"
+    },
+    "TT": {
+      "en": "Trinidad & Tobago",
+      "ar": "ترينيداد وتوباغو"
+    },
+    "TW": {
+      "en": "Taiwan",
+      "ar": "تايوان"
+    },
+    "TZ": {
+      "en": "Tanzania",
+      "ar": "تنزانيا"
+    },
+    "UA": {
+      "en": "Ukraine",
+      "ar": "أوكرانيا"
+    },
+    "UG": {
+      "en": "Uganda",
+      "ar": "أوغندا"
+    },
+    "US": {
+      "en": "United States",
+      "ar": "أمريكا"
+    },
+    "UY": {
+      "en": "Uruguay",
+      "ar": "أورغواي"
+    },
+    "UZ": {
+      "en": "Uzbekistan",
+      "ar": "أوزبكستان"
+    },
+    "VC": {
+      "en": "St. Vincent & Grenadines",
+      "ar": "سانت فنسنت وجزر غرينادين"
+    },
+    "VE": {
+      "en": "Venezuela",
+      "ar": "فنزويلا"
+    },
+    "VN": {
+      "en": "Vietnam",
+      "ar": "فيتنام"
+    },
+    "VU": {
+      "en": "Vanuatu",
+      "ar": "فانواتو"
+    },
+    "WS": {
+      "en": "Samoa",
+      "ar": "ساموا"
+    },
+    "XK": {
+      "en": "Kosovo",
+      "ar": "كوسوفو"
+    },
+    "YE": {
+      "en": "Yemen",
+      "ar": "اليمن"
+    },
+    "ZA": {
+      "en": "South Africa",
+      "ar": "جنوب أفريقيا"
+    },
+    "ZM": {
+      "en": "Zambia",
+      "ar": "زامبيا"
+    },
+    "ZW": {
+      "en": "Zimbabwe",
+      "ar": "زيمبابوي"
+    }
+  },
+  "known_shared_or_wrong": {
+    "Easy/Libya_Shakshuka.jpeg": "شكشوكة طبق مغاربي متنازع على نسبته لدولة واحدة؛ لا إجابة وحيدة عادلة.",
+    "Easy/Yemen_Makboos.jpeg": "المكبوس/المجبوس أكلة خليجية منتشرة في أكثر من بلد؛ نسبة حصريّة لليمن غير آمنة.",
+    "Hard/Macedonia_Zelnik.jpeg": "الزيلنيك موجود في دول بلقانية متعددة؛ لا ننسبه لمقدونيا وحدها.",
+    "Hard/Indonisia_Bobotie.jpg": "الملف منسوب لإندونيسيا لكن البوبوتي مرتبط بجنوب أفريقيا؛ صورة بديلة مكررة محجوزة.",
+    "Hard/Nigiria_Jollof-Rice.jpg": "الجولوف مرتبط بمطبخ غرب أفريقيا وله جدل في المنشأ؛ التصنيف النيجيري ليس منشأ فريدًا.",
+    "Jollof_Nigeria.jpeg": "الجولوف مرتبط بمطبخ غرب أفريقيا؛ لا نعرض سؤال دولة واحدة.",
+    "Hard/Spain_Ropa-Vieja.jpg": "روبا فييخا طبق يرتبط بكوبا وله جذور إسبانية؛ السؤال أحادي الإجابة مُلتبس.",
+    "Ropa-Vieja_Spain.jpeg": "روبا فييخا ليس اختيارًا محسومًا لإسبانيا؛ غالبًا يرتبط بكوبا.",
+    "CousCous_Tunisia.jpg.jpeg": "الكسكسي تراث مغاربي مشترك، موثّق في اليونسكو لأربع دول.",
+    "Groundnut_Senegal.jpeg": "يخنة الفول السوداني منتشرة ببلدان متعددة بغرب أفريقيا؛ البلد الواحد محل التباس.",
+    "Hard/desktop.ini": "ملف نظام وليس صورة.",
+    "Chicken-Tikka-Masala_Scotland.jpeg": "قصة نشأة الدجاج تيكا ماسالا في جلاسكو محل جدل؛ غير مناسب كسؤال منشأ واحد.",
+    "Kibbeh-Bil-Sanieh_.jpeg": "لا يوجد بلد في اسم الملف؛ الكبة بالصينية منتشرة بالشام.",
+    "Gallo-pinto_Costa-Rica.jpeg": "الطبق مشترك بين كوستاريكا ونيكاراجوا.",
+    "Mole_Mexico.jpg.jpeg": "مولي عام، تم اعتماد صورة مولي بوبلانو الأكثر تحديدًا بدلًا منها.",
+    "Khichdi-India.jpeg": "صورة ثانية لنفس الأكلة؛ احتفظنا بنسخة واحدة لتقليل التكرار.",
+    "Sancocho_Panama.jpg.jpeg": "سانكوتشو معروف في عدة دول لاتينية وكاريبية.",
+    "Ugali_Tanzania.jpg.jpeg": "الأوجالي عنصر غذائي مشترك في شرق أفريقيا، لا دولة وحيدة.",
+    "Nyama_Kenya.jpeg": "نياما كلمة عامة للحوم وليس اسم طبق محدد.",
+    "Piri Piri Chicken_Mozambique.jpeg": "الدجاج بيري بيري يرتبط بموزمبيق والبرتغال؛ نسبة منشأ واحدة ملتبسة.",
+    "Tapas_Spain.jpeg": "تاباس اسم فئة/طريقة تقديم وليس طبقًا واحدًا محددًا.",
+    "Swallows-Nest's_China.jpeg": "الصورة تشبه وجبة حلزونات مخبوزة ولا تطابق حساء عش الطائر؛ تطابق الصورة والاسم غير مؤكد.",
+    "Succotash-Equatorial_Guinea.jpeg": "سكوتاش طبق مرتبط بأمريكا الشمالية وليس غينيا الاستوائية.",
+    "Sarmale_Romania.jpg.jpeg": "سارمالي منتشرة بأكثر من دولة في البلقان وشرق أوروبا.",
+    "Thareed_Saudi-Arabia.jpeg": "الثريد معروف في أكثر من بلد عربي، ومش مناسب لسؤال بلد واحدة.",
+    "Rougail-Saucisse_Seychelles.jpg.jpeg": "روغاي السجق مرتبط خصوصًا بجزيرة ريونيون، ونسبة الطبق للسيشل وحدها غير مؤكدة.",
+    "Moambe_Congo-Democratic-Republic-Of.jpg.jpeg": "دجاج موامبي له نسخ في عدة مطابخ وسط أفريقيا؛ الإجابة الواحدة محل التباس.",
+    "Fishcakes_Saint-Vincent-and-Grenadines.jpeg": "فطائر السمك موجودة في عدة جزر كاريبية؛ الصورة وحدها لا تحدد جزيرة.",
+    "Poisson Salé_Mauritius.jpeg": "السمك المملح معروف في عدة مطابخ كريولية؛ صورة الطبق عامة.",
+    "Saltfish-and-Plantains_Jamaica.jpeg": "السمك المملح والموز النباتي معروفان بأكثر من جزيرة كاريبية.",
+    "KeleweleOrAloco-Ghana.jpeg": "اسم الملف يجمع كيليويلي وألوكو وهما تسميتان/نسختان من مطابخ مختلفة.",
+    "Shurpa-Soup_Turkmenistan.jpeg": "شوربا/شوربة منتشرة في آسيا الوسطى؛ غير محددة بالاسم لتركمانستان.",
+    "Plov_Kyrgystan.jpg.jpeg": "البلوف مشترك بين مطابخ آسيا الوسطى؛ صورة واسم الطبق لا يحسمان قيرغيزستان.",
+    "Trinxat_Andorra.jpeg": "ترينشات موجودة أيضًا في المطبخ الكتالوني الإسباني، فلا ننسبها لدولة واحدة.",
+    "Macaroni-Pie_Barbados.jpeg": "ماكاروني باي منتشر في جزر كاريبية أخرى، وليس حكرًا على باربادوس."
+  }
+}

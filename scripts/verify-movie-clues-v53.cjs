@@ -105,7 +105,9 @@ for(let tour=0;tour<65;tour++){
 assert.equal(kinds.size,3, 'must show all three clue kinds when content exists');
 assert.equal(encountered.size,bank.movies.length,'history favors all films before repeats');
 for(const kind of kinds)assert(types[kind]>=30,`${kind} rarely selected: ${JSON.stringify(types)}`);
-const stored=JSON.parse([...saved.values()][0]);
+// Additional per-question choice histories may also be present in storage.
+// Select the movie-play history explicitly rather than relying on insertion order.
+const stored=JSON.parse(storage.getItem('ta7ady:movie-poster-history:v1')); 
 assert(stored.entries && Object.values(stored.entries).some(entry=>entry.lastClueId && entry.kindUses?.quote));
 injected.clues=originals;
 const screen=fs.readFileSync(path.join(root,'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'),'utf8');
