@@ -1,11 +1,8 @@
-/**
- * V51: One clean full-poster blur. The last second is an intentional final hint:
- * the complete original artwork (including the printed title) becomes sharp.
- * Unlike the former rectangular masks, no overlay can float over the wrong text.
- */
+/** Poster reveal clock: safe puzzle cells open by the last second, but title cells stay closed.
+ * Legacy getPosterBlurPx is retained only for text-image quote compatibility. */
 export type PosterDifficulty = 'easy' | 'medium' | 'hard' | null;
 
-/** All variants reach full unfiltered artwork for the final 1000ms. */
+/** The puzzle reaches full *safe-cell* reveal for the final 1000ms. */
 export function getPosterRevealProgress(durationMs: number, remainingMs: number, difficulty: PosterDifficulty): number {
   const duration = Math.max(1, durationMs);
   if (remainingMs <= 1000 || duration <= 1000) return 1;

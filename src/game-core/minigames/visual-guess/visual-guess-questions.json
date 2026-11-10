@@ -31,17 +31,17 @@
       },
       "posterAspectRatio": 0.71429,
       "titleMask": {
-        "x": 8,
-        "y": 4,
-        "w": 88,
-        "h": 32
+        "x": 4,
+        "y": 1,
+        "w": 92,
+        "h": 36
       },
       "titleMasks": [
         {
-          "x": 8,
-          "y": 4,
-          "w": 88,
-          "h": 32
+          "x": 4,
+          "y": 1,
+          "w": 92,
+          "h": 36
         }
       ],
       "distractorIds": [
@@ -71,17 +71,17 @@
       },
       "posterAspectRatio": 0.77684,
       "titleMask": {
-        "x": 42,
-        "y": 48,
-        "w": 51,
-        "h": 24
+        "x": 34,
+        "y": 60,
+        "w": 64,
+        "h": 23
       },
       "titleMasks": [
         {
-          "x": 42,
-          "y": 48,
-          "w": 51,
-          "h": 24
+          "x": 34,
+          "y": 60,
+          "w": 64,
+          "h": 23
         }
       ],
       "distractorIds": [
@@ -111,16 +111,16 @@
       },
       "posterAspectRatio": 0.69216,
       "titleMask": {
-        "x": 24,
-        "y": 46,
-        "w": 65,
+        "x": 27,
+        "y": 51,
+        "w": 63,
         "h": 27
       },
       "titleMasks": [
         {
-          "x": 24,
-          "y": 46,
-          "w": 65,
+          "x": 27,
+          "y": 51,
+          "w": 63,
           "h": 27
         }
       ],
@@ -151,17 +151,17 @@
       },
       "posterAspectRatio": 0.71588,
       "titleMask": {
-        "x": 4,
-        "y": 8,
-        "w": 93,
-        "h": 25
+        "x": 5,
+        "y": 4,
+        "w": 95,
+        "h": 35
       },
       "titleMasks": [
         {
-          "x": 4,
-          "y": 8,
-          "w": 93,
-          "h": 25
+          "x": 5,
+          "y": 4,
+          "w": 95,
+          "h": 35
         }
       ],
       "distractorIds": [
@@ -191,17 +191,17 @@
       },
       "posterAspectRatio": 0.66667,
       "titleMask": {
-        "x": 27,
-        "y": 68,
-        "w": 67,
-        "h": 24
+        "x": 14,
+        "y": 75,
+        "w": 86,
+        "h": 25
       },
       "titleMasks": [
         {
-          "x": 27,
-          "y": 68,
-          "w": 67,
-          "h": 24
+          "x": 14,
+          "y": 75,
+          "w": 86,
+          "h": 25
         }
       ],
       "distractorIds": [
@@ -231,17 +231,17 @@
       },
       "posterAspectRatio": 0.71429,
       "titleMask": {
-        "x": 5,
-        "y": 5,
-        "w": 90,
-        "h": 26
+        "x": 3,
+        "y": 6,
+        "w": 96,
+        "h": 29
       },
       "titleMasks": [
         {
-          "x": 5,
-          "y": 5,
-          "w": 90,
-          "h": 26
+          "x": 3,
+          "y": 6,
+          "w": 96,
+          "h": 29
         }
       ],
       "distractorIds": [
@@ -271,17 +271,17 @@
       },
       "posterAspectRatio": 0.71436,
       "titleMask": {
-        "x": 20,
-        "y": 8,
-        "w": 69,
-        "h": 26
+        "x": 18,
+        "y": 1,
+        "w": 70,
+        "h": 31
       },
       "titleMasks": [
         {
-          "x": 20,
-          "y": 8,
-          "w": 69,
-          "h": 26
+          "x": 18,
+          "y": 1,
+          "w": 70,
+          "h": 31
         }
       ],
       "distractorIds": [
@@ -311,17 +311,17 @@
       },
       "posterAspectRatio": 0.73535,
       "titleMask": {
-        "x": 20,
-        "y": 73,
-        "w": 75,
-        "h": 24
+        "x": 6,
+        "y": 65,
+        "w": 92,
+        "h": 28
       },
       "titleMasks": [
         {
-          "x": 20,
-          "y": 73,
-          "w": 75,
-          "h": 24
+          "x": 6,
+          "y": 65,
+          "w": 92,
+          "h": 28
         }
       ],
       "distractorIds": [
@@ -351,17 +351,17 @@
       },
       "posterAspectRatio": 0.7235,
       "titleMask": {
-        "x": 8,
-        "y": 7,
-        "w": 88,
-        "h": 29
+        "x": 3,
+        "y": 3,
+        "w": 96,
+        "h": 38
       },
       "titleMasks": [
         {
-          "x": 8,
-          "y": 7,
-          "w": 88,
-          "h": 29
+          "x": 3,
+          "y": 3,
+          "w": 96,
+          "h": 38
         }
       ],
       "distractorIds": [
@@ -391,17 +391,17 @@
       },
       "posterAspectRatio": 0.70605,
       "titleMask": {
-        "x": 15,
-        "y": 8,
-        "w": 79,
-        "h": 26
+        "x": 5,
+        "y": 0,
+        "w": 95,
+        "h": 39
       },
       "titleMasks": [
         {
-          "x": 15,
-          "y": 8,
-          "w": 79,
-          "h": 26
+          "x": 5,
+          "y": 0,
+          "w": 95,
+          "h": 39
         }
       ],
       "distractorIds": [
@@ -431,17 +431,17 @@
       },
       "posterAspectRatio": 0.6959,
       "titleMask": {
-        "x": 27,
-        "y": 4,
-        "w": 68,
-        "h": 31
+        "x": 28,
+        "y": 3,
+        "w": 71,
+        "h": 35
       },
       "titleMasks": [
         {
-          "x": 27,
-          "y": 4,
-          "w": 68,
-          "h": 31
+          "x": 28,
+          "y": 3,
+          "w": 71,
+          "h": 35
         }
       ],
       "distractorIds": [
@@ -471,17 +471,17 @@
       },
       "posterAspectRatio": 0.70485,
       "titleMask": {
-        "x": 10,
-        "y": 73,
-        "w": 88,
-        "h": 24
+        "x": 3,
+        "y": 69,
+        "w": 97,
+        "h": 31
       },
       "titleMasks": [
         {
-          "x": 10,
-          "y": 73,
-          "w": 88,
-          "h": 24
+          "x": 3,
+          "y": 69,
+          "w": 97,
+          "h": 31
         }
       ],
       "distractorIds": [
@@ -511,17 +511,17 @@
       },
       "posterAspectRatio": 0.7002,
       "titleMask": {
-        "x": 22,
+        "x": 20,
         "y": 75,
-        "w": 71,
-        "h": 22
+        "w": 78,
+        "h": 24
       },
       "titleMasks": [
         {
-          "x": 22,
+          "x": 20,
           "y": 75,
-          "w": 71,
-          "h": 22
+          "w": 78,
+          "h": 24
         }
       ],
       "distractorIds": [
@@ -551,17 +551,17 @@
       },
       "posterAspectRatio": 0.69832,
       "titleMask": {
-        "x": 14,
-        "y": 71,
-        "w": 76,
-        "h": 24
+        "x": 6,
+        "y": 63,
+        "w": 90,
+        "h": 37
       },
       "titleMasks": [
         {
-          "x": 14,
-          "y": 71,
-          "w": 76,
-          "h": 24
+          "x": 6,
+          "y": 63,
+          "w": 90,
+          "h": 37
         }
       ],
       "distractorIds": [
@@ -591,23 +591,17 @@
       },
       "posterAspectRatio": 0.70729,
       "titleMask": {
-        "x": 8,
-        "y": 73,
-        "w": 88,
-        "h": 24
+        "x": 5,
+        "y": 64,
+        "w": 93,
+        "h": 33
       },
       "titleMasks": [
         {
-          "x": 8,
-          "y": 73,
-          "w": 88,
-          "h": 24
-        },
-        {
-          "x": 12,
-          "y": 57,
-          "w": 83,
-          "h": 16
+          "x": 5,
+          "y": 64,
+          "w": 93,
+          "h": 33
         }
       ],
       "distractorIds": [
@@ -637,17 +631,17 @@
       },
       "posterAspectRatio": 0.79839,
       "titleMask": {
-        "x": 10,
-        "y": 67,
-        "w": 87,
-        "h": 27
+        "x": 9,
+        "y": 62,
+        "w": 90,
+        "h": 35
       },
       "titleMasks": [
         {
-          "x": 10,
-          "y": 67,
-          "w": 87,
-          "h": 27
+          "x": 9,
+          "y": 62,
+          "w": 90,
+          "h": 35
         }
       ],
       "distractorIds": [
@@ -677,17 +671,17 @@
       },
       "posterAspectRatio": 0.672,
       "titleMask": {
-        "x": 5,
-        "y": 64,
-        "w": 88,
-        "h": 24
+        "x": 0,
+        "y": 51,
+        "w": 100,
+        "h": 38
       },
       "titleMasks": [
         {
-          "x": 5,
-          "y": 64,
-          "w": 88,
-          "h": 24
+          "x": 0,
+          "y": 51,
+          "w": 100,
+          "h": 38
         }
       ],
       "distractorIds": [
@@ -717,17 +711,17 @@
       },
       "posterAspectRatio": 0.65147,
       "titleMask": {
-        "x": 7,
+        "x": 0,
         "y": 0,
-        "w": 86,
-        "h": 25
+        "w": 92,
+        "h": 28
       },
       "titleMasks": [
         {
-          "x": 7,
+          "x": 0,
           "y": 0,
-          "w": 86,
-          "h": 25
+          "w": 92,
+          "h": 28
         }
       ],
       "distractorIds": [
@@ -757,17 +751,17 @@
       },
       "posterAspectRatio": 0.80328,
       "titleMask": {
-        "x": 12,
-        "y": 75,
-        "w": 86,
-        "h": 24
+        "x": 0,
+        "y": 69,
+        "w": 100,
+        "h": 30
       },
       "titleMasks": [
         {
-          "x": 12,
-          "y": 75,
-          "w": 86,
-          "h": 24
+          "x": 0,
+          "y": 69,
+          "w": 100,
+          "h": 30
         }
       ],
       "distractorIds": [
@@ -797,17 +791,17 @@
       },
       "posterAspectRatio": 0.71354,
       "titleMask": {
-        "x": 11,
-        "y": 3,
+        "x": 8,
+        "y": 0,
         "w": 89,
-        "h": 29
+        "h": 36
       },
       "titleMasks": [
         {
-          "x": 11,
-          "y": 3,
+          "x": 8,
+          "y": 0,
           "w": 89,
-          "h": 29
+          "h": 36
         }
       ],
       "distractorIds": [
@@ -837,17 +831,17 @@
       },
       "posterAspectRatio": 0.6468,
       "titleMask": {
-        "x": 8,
-        "y": 73,
-        "w": 87,
-        "h": 25
+        "x": 6,
+        "y": 71,
+        "w": 93,
+        "h": 28
       },
       "titleMasks": [
         {
-          "x": 8,
-          "y": 73,
-          "w": 87,
-          "h": 25
+          "x": 6,
+          "y": 71,
+          "w": 93,
+          "h": 28
         }
       ],
       "distractorIds": [
@@ -877,17 +871,17 @@
       },
       "posterAspectRatio": 0.71456,
       "titleMask": {
-        "x": 21,
-        "y": 73,
-        "w": 77,
-        "h": 25
+        "x": 14,
+        "y": 78,
+        "w": 84,
+        "h": 22
       },
       "titleMasks": [
         {
-          "x": 21,
-          "y": 73,
-          "w": 77,
-          "h": 25
+          "x": 14,
+          "y": 78,
+          "w": 84,
+          "h": 22
         }
       ],
       "distractorIds": [
@@ -917,17 +911,17 @@
       },
       "posterAspectRatio": 0.69767,
       "titleMask": {
-        "x": 19,
-        "y": 57,
-        "w": 77,
-        "h": 28
+        "x": 18,
+        "y": 49,
+        "w": 80,
+        "h": 38
       },
       "titleMasks": [
         {
-          "x": 19,
-          "y": 57,
-          "w": 77,
-          "h": 28
+          "x": 18,
+          "y": 49,
+          "w": 80,
+          "h": 38
         }
       ],
       "distractorIds": [
@@ -957,17 +951,17 @@
       },
       "posterAspectRatio": 0.70681,
       "titleMask": {
-        "x": 23,
-        "y": 71,
-        "w": 71,
-        "h": 24
+        "x": 8,
+        "y": 66,
+        "w": 88,
+        "h": 31
       },
       "titleMasks": [
         {
-          "x": 23,
-          "y": 71,
-          "w": 71,
-          "h": 24
+          "x": 8,
+          "y": 66,
+          "w": 88,
+          "h": 31
         }
       ],
       "distractorIds": [
@@ -997,17 +991,17 @@
       },
       "posterAspectRatio": 0.8,
       "titleMask": {
-        "x": 19,
-        "y": 64,
+        "x": 22,
+        "y": 60,
         "w": 76,
-        "h": 23
+        "h": 33
       },
       "titleMasks": [
         {
-          "x": 19,
-          "y": 64,
+          "x": 22,
+          "y": 60,
           "w": 76,
-          "h": 23
+          "h": 33
         }
       ],
       "distractorIds": [
@@ -1037,17 +1031,17 @@
       },
       "posterAspectRatio": 0.78508,
       "titleMask": {
-        "x": 12,
-        "y": 73,
-        "w": 85,
-        "h": 26
+        "x": 5,
+        "y": 65,
+        "w": 95,
+        "h": 34
       },
       "titleMasks": [
         {
-          "x": 12,
-          "y": 73,
-          "w": 85,
-          "h": 26
+          "x": 5,
+          "y": 65,
+          "w": 95,
+          "h": 34
         }
       ],
       "distractorIds": [
@@ -1077,17 +1071,17 @@
       },
       "posterAspectRatio": 0.74571,
       "titleMask": {
-        "x": 13,
-        "y": 8,
-        "w": 83,
-        "h": 22
+        "x": 43,
+        "y": 54,
+        "w": 57,
+        "h": 24
       },
       "titleMasks": [
         {
-          "x": 13,
-          "y": 8,
-          "w": 83,
-          "h": 22
+          "x": 43,
+          "y": 54,
+          "w": 57,
+          "h": 24
         }
       ],
       "distractorIds": [
@@ -1117,17 +1111,17 @@
       },
       "posterAspectRatio": 0.71508,
       "titleMask": {
-        "x": 10,
-        "y": 77,
-        "w": 88,
-        "h": 22
+        "x": 8,
+        "y": 57,
+        "w": 92,
+        "h": 39
       },
       "titleMasks": [
         {
-          "x": 10,
-          "y": 77,
-          "w": 88,
-          "h": 22
+          "x": 8,
+          "y": 57,
+          "w": 92,
+          "h": 39
         }
       ],
       "distractorIds": [
@@ -1157,17 +1151,17 @@
       },
       "posterAspectRatio": 0.71667,
       "titleMask": {
-        "x": 43,
-        "y": 3,
-        "w": 55,
-        "h": 24
+        "x": 39,
+        "y": 0,
+        "w": 61,
+        "h": 56
       },
       "titleMasks": [
         {
-          "x": 43,
-          "y": 3,
-          "w": 55,
-          "h": 24
+          "x": 39,
+          "y": 0,
+          "w": 61,
+          "h": 56
         }
       ],
       "distractorIds": [
@@ -1197,17 +1191,17 @@
       },
       "posterAspectRatio": 0.71918,
       "titleMask": {
-        "x": 25,
-        "y": 73,
+        "x": 29,
+        "y": 62,
         "w": 69,
-        "h": 26
+        "h": 36
       },
       "titleMasks": [
         {
-          "x": 25,
-          "y": 73,
+          "x": 29,
+          "y": 62,
           "w": 69,
-          "h": 26
+          "h": 36
         }
       ],
       "distractorIds": [
@@ -1237,17 +1231,17 @@
       },
       "posterAspectRatio": 0.79968,
       "titleMask": {
-        "x": 6,
-        "y": 4,
-        "w": 92,
-        "h": 29
+        "x": 8,
+        "y": 3,
+        "w": 89,
+        "h": 36
       },
       "titleMasks": [
         {
-          "x": 6,
-          "y": 4,
-          "w": 92,
-          "h": 29
+          "x": 8,
+          "y": 3,
+          "w": 89,
+          "h": 36
         }
       ],
       "distractorIds": [
@@ -1275,19 +1269,19 @@
         "source": "User-supplied visual-guess.zip",
         "license": "User-supplied for this project; distribution/broadcast rights not verified"
       },
-      "posterAspectRatio": 1.0,
+      "posterAspectRatio": 1,
       "titleMask": {
-        "x": 14,
-        "y": 5,
-        "w": 84,
-        "h": 25
+        "x": 5,
+        "y": 3,
+        "w": 93,
+        "h": 33
       },
       "titleMasks": [
         {
-          "x": 14,
-          "y": 5,
-          "w": 84,
-          "h": 25
+          "x": 5,
+          "y": 3,
+          "w": 93,
+          "h": 33
         }
       ],
       "distractorIds": [
@@ -1317,17 +1311,17 @@
       },
       "posterAspectRatio": 0.67507,
       "titleMask": {
-        "x": 18,
-        "y": 48,
-        "w": 80,
-        "h": 29
+        "x": 0,
+        "y": 52,
+        "w": 83,
+        "h": 48
       },
       "titleMasks": [
         {
-          "x": 18,
-          "y": 48,
-          "w": 80,
-          "h": 29
+          "x": 0,
+          "y": 52,
+          "w": 83,
+          "h": 48
         }
       ],
       "distractorIds": [
@@ -1357,17 +1351,17 @@
       },
       "posterAspectRatio": 0.46253,
       "titleMask": {
-        "x": 4,
-        "y": 65,
-        "w": 94,
-        "h": 27
+        "x": 7,
+        "y": 72,
+        "w": 91,
+        "h": 28
       },
       "titleMasks": [
         {
-          "x": 4,
-          "y": 65,
-          "w": 94,
-          "h": 27
+          "x": 7,
+          "y": 72,
+          "w": 91,
+          "h": 28
         }
       ],
       "distractorIds": [
@@ -1397,17 +1391,17 @@
       },
       "posterAspectRatio": 0.7064,
       "titleMask": {
-        "x": 13,
-        "y": 72,
-        "w": 83,
-        "h": 26
+        "x": 28,
+        "y": 68,
+        "w": 71,
+        "h": 32
       },
       "titleMasks": [
         {
-          "x": 13,
-          "y": 72,
-          "w": 83,
-          "h": 26
+          "x": 28,
+          "y": 68,
+          "w": 71,
+          "h": 32
         }
       ],
       "distractorIds": [
@@ -1437,17 +1431,17 @@
       },
       "posterAspectRatio": 1.38969,
       "titleMask": {
-        "x": 13,
-        "y": 56,
-        "w": 77,
-        "h": 31
+        "x": 12,
+        "y": 61,
+        "w": 86,
+        "h": 30
       },
       "titleMasks": [
         {
-          "x": 13,
-          "y": 56,
-          "w": 77,
-          "h": 31
+          "x": 12,
+          "y": 61,
+          "w": 86,
+          "h": 30
         }
       ],
       "distractorIds": [
@@ -1477,17 +1471,17 @@
       },
       "posterAspectRatio": 0.69945,
       "titleMask": {
-        "x": 8,
-        "y": 73,
-        "w": 89,
-        "h": 25
+        "x": 0,
+        "y": 63,
+        "w": 97,
+        "h": 29
       },
       "titleMasks": [
         {
-          "x": 8,
-          "y": 73,
-          "w": 89,
-          "h": 25
+          "x": 0,
+          "y": 63,
+          "w": 97,
+          "h": 29
         }
       ],
       "distractorIds": [
@@ -1517,17 +1511,17 @@
       },
       "posterAspectRatio": 0.8,
       "titleMask": {
-        "x": 29,
-        "y": 2,
+        "x": 22,
+        "y": 0,
         "w": 67,
-        "h": 29
+        "h": 34
       },
       "titleMasks": [
         {
-          "x": 29,
-          "y": 2,
+          "x": 22,
+          "y": 0,
           "w": 67,
-          "h": 29
+          "h": 34
         }
       ],
       "distractorIds": [
@@ -1557,17 +1551,17 @@
       },
       "posterAspectRatio": 0.7025,
       "titleMask": {
-        "x": 15,
-        "y": 70,
-        "w": 82,
-        "h": 27
+        "x": 24,
+        "y": 45,
+        "w": 76,
+        "h": 32
       },
       "titleMasks": [
         {
-          "x": 15,
-          "y": 70,
-          "w": 82,
-          "h": 27
+          "x": 24,
+          "y": 45,
+          "w": 76,
+          "h": 32
         }
       ],
       "distractorIds": [
@@ -1597,17 +1591,17 @@
       },
       "posterAspectRatio": 0.71429,
       "titleMask": {
-        "x": 10,
-        "y": 76,
+        "x": 12,
+        "y": 68,
         "w": 87,
-        "h": 23
+        "h": 32
       },
       "titleMasks": [
         {
-          "x": 10,
-          "y": 76,
+          "x": 12,
+          "y": 68,
           "w": 87,
-          "h": 23
+          "h": 32
         }
       ],
       "distractorIds": [
@@ -1637,23 +1631,23 @@
       },
       "posterAspectRatio": 0.75,
       "titleMask": {
-        "x": 20,
-        "y": 1,
-        "w": 77,
-        "h": 26
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 27
       },
       "titleMasks": [
         {
-          "x": 20,
-          "y": 1,
-          "w": 77,
-          "h": 26
+          "x": 0,
+          "y": 0,
+          "w": 100,
+          "h": 27
         },
         {
-          "x": 7,
-          "y": 79,
-          "w": 84,
-          "h": 20
+          "x": 0,
+          "y": 75,
+          "w": 100,
+          "h": 25
         }
       ],
       "distractorIds": [
@@ -1683,17 +1677,17 @@
       },
       "posterAspectRatio": 0.79641,
       "titleMask": {
-        "x": 14,
-        "y": 4,
-        "w": 83,
-        "h": 27
+        "x": 0,
+        "y": 1,
+        "w": 100,
+        "h": 30
       },
       "titleMasks": [
         {
-          "x": 14,
-          "y": 4,
-          "w": 83,
-          "h": 27
+          "x": 0,
+          "y": 1,
+          "w": 100,
+          "h": 30
         }
       ],
       "distractorIds": [
@@ -1723,17 +1717,17 @@
       },
       "posterAspectRatio": 0.7998,
       "titleMask": {
-        "x": 11,
-        "y": 5,
-        "w": 84,
-        "h": 27
+        "x": 3,
+        "y": 3,
+        "w": 95,
+        "h": 34
       },
       "titleMasks": [
         {
-          "x": 11,
-          "y": 5,
-          "w": 84,
-          "h": 27
+          "x": 3,
+          "y": 3,
+          "w": 95,
+          "h": 34
         }
       ],
       "distractorIds": [
@@ -1763,17 +1757,17 @@
       },
       "posterAspectRatio": 0.7002,
       "titleMask": {
-        "x": 14,
-        "y": 7,
-        "w": 82,
-        "h": 30
+        "x": 1,
+        "y": 2,
+        "w": 98,
+        "h": 39
       },
       "titleMasks": [
         {
-          "x": 14,
-          "y": 7,
-          "w": 82,
-          "h": 30
+          "x": 1,
+          "y": 2,
+          "w": 98,
+          "h": 39
         }
       ],
       "distractorIds": [
@@ -1803,17 +1797,17 @@
       },
       "posterAspectRatio": 0.70022,
       "titleMask": {
-        "x": 12,
-        "y": 4,
-        "w": 85,
-        "h": 26
+        "x": 8,
+        "y": 5,
+        "w": 90,
+        "h": 32
       },
       "titleMasks": [
         {
-          "x": 12,
-          "y": 4,
-          "w": 85,
-          "h": 26
+          "x": 8,
+          "y": 5,
+          "w": 90,
+          "h": 32
         }
       ],
       "distractorIds": [
@@ -1843,17 +1837,17 @@
       },
       "posterAspectRatio": 0.6994,
       "titleMask": {
-        "x": 9,
-        "y": 69,
-        "w": 86,
-        "h": 28
+        "x": 10,
+        "y": 67,
+        "w": 88,
+        "h": 33
       },
       "titleMasks": [
         {
-          "x": 9,
-          "y": 69,
-          "w": 86,
-          "h": 28
+          "x": 10,
+          "y": 67,
+          "w": 88,
+          "h": 33
         }
       ],
       "distractorIds": [
@@ -1883,17 +1877,17 @@
       },
       "posterAspectRatio": 0.71429,
       "titleMask": {
-        "x": 20,
-        "y": 4,
-        "w": 74,
-        "h": 27
+        "x": 6,
+        "y": 3,
+        "w": 93,
+        "h": 35
       },
       "titleMasks": [
         {
-          "x": 20,
-          "y": 4,
-          "w": 74,
-          "h": 27
+          "x": 6,
+          "y": 3,
+          "w": 93,
+          "h": 35
         }
       ],
       "distractorIds": [
@@ -1923,17 +1917,17 @@
       },
       "posterAspectRatio": 0.7002,
       "titleMask": {
-        "x": 13,
-        "y": 6,
-        "w": 84,
-        "h": 29
+        "x": 2,
+        "y": 0,
+        "w": 97,
+        "h": 38
       },
       "titleMasks": [
         {
-          "x": 13,
-          "y": 6,
-          "w": 84,
-          "h": 29
+          "x": 2,
+          "y": 0,
+          "w": 97,
+          "h": 38
         }
       ],
       "distractorIds": [
@@ -1963,17 +1957,17 @@
       },
       "posterAspectRatio": 0.66667,
       "titleMask": {
-        "x": 12,
-        "y": 72,
-        "w": 84,
-        "h": 27
+        "x": 13,
+        "y": 67,
+        "w": 80,
+        "h": 32
       },
       "titleMasks": [
         {
-          "x": 12,
-          "y": 72,
-          "w": 84,
-          "h": 27
+          "x": 13,
+          "y": 67,
+          "w": 80,
+          "h": 32
         }
       ],
       "distractorIds": [
@@ -2003,17 +1997,17 @@
       },
       "posterAspectRatio": 0.78023,
       "titleMask": {
-        "x": 21,
-        "y": 73,
-        "w": 73,
-        "h": 26
+        "x": 27,
+        "y": 54,
+        "w": 60,
+        "h": 33
       },
       "titleMasks": [
         {
-          "x": 21,
-          "y": 73,
-          "w": 73,
-          "h": 26
+          "x": 27,
+          "y": 54,
+          "w": 60,
+          "h": 33
         }
       ],
       "distractorIds": [
@@ -2049,7 +2043,21 @@
         "movie-ana-mesh-ma3ahom",
         "movie-mn-agl-ziko"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 23,
+          "y": 55,
+          "w": 66,
+          "h": 36
+        }
+      ],
+      "titleMask": {
+        "x": 23,
+        "y": 55,
+        "w": 66,
+        "h": 36
+      }
     },
     {
       "id": "movie-3asal-eswed",
@@ -2075,7 +2083,21 @@
         "movie-la-trago3-wala-esteslam",
         "movie-el-nazer"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 49,
+          "y": 36,
+          "w": 51,
+          "h": 32
+        }
+      ],
+      "titleMask": {
+        "x": 49,
+        "y": 36,
+        "w": 51,
+        "h": 32
+      }
     },
     {
       "id": "movie-5at-dam",
@@ -2101,7 +2123,27 @@
         "movie-7dogs",
         "movie-el-les-w-el-kelab"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 16,
+          "y": 38,
+          "w": 77,
+          "h": 29
+        },
+        {
+          "x": 25,
+          "y": 78,
+          "w": 63,
+          "h": 17
+        }
+      ],
+      "titleMask": {
+        "x": 16,
+        "y": 38,
+        "w": 77,
+        "h": 29
+      }
     },
     {
       "id": "movie-7amlet-freezer",
@@ -2127,7 +2169,21 @@
         "movie-el-matared",
         "movie-wa7ed-tany"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 30,
+          "y": 1,
+          "w": 67,
+          "h": 24
+        }
+      ],
+      "titleMask": {
+        "x": 30,
+        "y": 1,
+        "w": 67,
+        "h": 24
+      }
     },
     {
       "id": "movie-amir-el-be7ar",
@@ -2153,7 +2209,21 @@
         "movie-el-nazer",
         "movie-katkot"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 38,
+          "y": 40,
+          "w": 62,
+          "h": 31
+        }
+      ],
+      "titleMask": {
+        "x": 38,
+        "y": 40,
+        "w": 62,
+        "h": 31
+      }
     },
     {
       "id": "movie-ana-mesh-ma3ahom",
@@ -2179,7 +2249,21 @@
         "movie-el-nazer",
         "movie-teer-enta"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 1,
+          "y": 75,
+          "w": 99,
+          "h": 25
+        }
+      ],
+      "titleMask": {
+        "x": 1,
+        "y": 75,
+        "w": 99,
+        "h": 25
+      }
     },
     {
       "id": "movie-bashtry-ragel",
@@ -2205,7 +2289,21 @@
         "movie-youm-malosh-lazma",
         "movie-ana-w-ebn-5alty"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 17,
+          "y": 71,
+          "w": 80,
+          "h": 28
+        }
+      ],
+      "titleMask": {
+        "x": 17,
+        "y": 71,
+        "w": 80,
+        "h": 28
+      }
     },
     {
       "id": "movie-egy-best",
@@ -2231,7 +2329,21 @@
         "movie-group-el-mammyz",
         "movie-matlob-3a2lyan"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 16,
+          "y": 10,
+          "w": 82,
+          "h": 26
+        }
+      ],
+      "titleMask": {
+        "x": 16,
+        "y": 10,
+        "w": 82,
+        "h": 26
+      }
     },
     {
       "id": "movie-el-8sala",
@@ -2257,7 +2369,21 @@
         "movie-mn-agl-ziko",
         "movie-bank-el-7az"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 6,
+          "y": 68,
+          "w": 92,
+          "h": 31
+        }
+      ],
+      "titleMask": {
+        "x": 6,
+        "y": 68,
+        "w": 92,
+        "h": 31
+      }
     },
     {
       "id": "movie-el-anesa-mammy",
@@ -2283,7 +2409,21 @@
         "movie-gawaza-mery",
         "movie-bait-el-roby"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 6,
+          "y": 67,
+          "w": 92,
+          "h": 33
+        }
+      ],
+      "titleMask": {
+        "x": 6,
+        "y": 67,
+        "w": 92,
+        "h": 33
+      }
     },
     {
       "id": "movie-el-kahera-30",
@@ -2309,7 +2449,21 @@
         "movie-el7aref",
         "movie-esha3et-7ob"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 2,
+          "y": 0,
+          "w": 85,
+          "h": 20
+        }
+      ],
+      "titleMask": {
+        "x": 2,
+        "y": 0,
+        "w": 85,
+        "h": 20
+      }
     },
     {
       "id": "movie-el-les-w-el-kelab",
@@ -2335,7 +2489,21 @@
         "movie-el7aref",
         "movie-esha3et-7ob"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 1,
+          "y": 46,
+          "w": 98,
+          "h": 33
+        }
+      ],
+      "titleMask": {
+        "x": 1,
+        "y": 46,
+        "w": 98,
+        "h": 33
+      }
     },
     {
       "id": "movie-el-matared",
@@ -2361,7 +2529,21 @@
         "movie-tamase7-el-nile",
         "movie-wa2fet-regala"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 17,
+          "y": 4,
+          "w": 72,
+          "h": 27
+        }
+      ],
+      "titleMask": {
+        "x": 17,
+        "y": 4,
+        "w": 72,
+        "h": 27
+      }
     },
     {
       "id": "movie-gawaza-mery",
@@ -2387,7 +2569,21 @@
         "movie-laf-w-dawaran",
         "movie-el-anesa-mammy"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 39,
+          "y": 49,
+          "w": 61,
+          "h": 42
+        }
+      ],
+      "titleMask": {
+        "x": 39,
+        "y": 49,
+        "w": 61,
+        "h": 42
+      }
     },
     {
       "id": "movie-group-el-mammyz",
@@ -2413,7 +2609,21 @@
         "movie-matlob-3a2lyan",
         "movie-wa2fet-regala"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 16,
+          "y": 0,
+          "w": 82,
+          "h": 39
+        }
+      ],
+      "titleMask": {
+        "x": 16,
+        "y": 0,
+        "w": 82,
+        "h": 39
+      }
     },
     {
       "id": "movie-katkot",
@@ -2439,7 +2649,21 @@
         "movie-3asal-eswed",
         "movie-la-trago3-wala-esteslam"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 9,
+          "y": 65,
+          "w": 87,
+          "h": 34
+        }
+      ],
+      "titleMask": {
+        "x": 9,
+        "y": 65,
+        "w": 87,
+        "h": 34
+      }
     },
     {
       "id": "movie-la-mo2a5za",
@@ -2465,7 +2689,21 @@
         "movie-w-feha-eh-ya3ni",
         "movie-ana-w-ebn-5alty"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 1,
+          "y": 0,
+          "w": 94,
+          "h": 33
+        }
+      ],
+      "titleMask": {
+        "x": 1,
+        "y": 0,
+        "w": 94,
+        "h": 33
+      }
     },
     {
       "id": "movie-la-trago3-wala-esteslam",
@@ -2491,7 +2729,21 @@
         "movie-amir-el-be7ar",
         "movie-ana-mesh-ma3ahom"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 13,
+          "y": 57,
+          "w": 86,
+          "h": 39
+        }
+      ],
+      "titleMask": {
+        "x": 13,
+        "y": 57,
+        "w": 86,
+        "h": 39
+      }
     },
     {
       "id": "movie-laf-w-dawaran",
@@ -2517,7 +2769,21 @@
         "movie-tesba7-3ala-5er",
         "movie-ana-w-ebn-5alty"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 31,
+          "y": 0,
+          "w": 63,
+          "h": 39
+        }
+      ],
+      "titleMask": {
+        "x": 31,
+        "y": 0,
+        "w": 63,
+        "h": 39
+      }
     },
     {
       "id": "movie-mar3y-el-primo",
@@ -2543,7 +2809,21 @@
         "movie-tamase7-el-nile",
         "movie-katkot"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 20,
+          "y": 0,
+          "w": 79,
+          "h": 28
+        }
+      ],
+      "titleMask": {
+        "x": 20,
+        "y": 0,
+        "w": 79,
+        "h": 28
+      }
     },
     {
       "id": "movie-matlob-3a2lyan",
@@ -2569,7 +2849,21 @@
         "movie-ana-w-ebn-5alty",
         "movie-el-anesa-mammy"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 2,
+          "y": 0,
+          "w": 96,
+          "h": 29
+        }
+      ],
+      "titleMask": {
+        "x": 2,
+        "y": 0,
+        "w": 96,
+        "h": 29
+      }
     },
     {
       "id": "movie-mn-agl-ziko",
@@ -2595,7 +2889,21 @@
         "movie-w-feha-eh-ya3ni",
         "movie-group-el-mammyz"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 19,
+          "y": 1,
+          "w": 75,
+          "h": 35
+        }
+      ],
+      "titleMask": {
+        "x": 19,
+        "y": 1,
+        "w": 75,
+        "h": 35
+      }
     },
     {
       "id": "movie-samer-w-shaher-w-baher",
@@ -2621,7 +2929,21 @@
         "movie-ana-mesh-ma3ahom",
         "movie-teer-enta"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 5,
+          "y": 0,
+          "w": 93,
+          "h": 38
+        }
+      ],
+      "titleMask": {
+        "x": 5,
+        "y": 0,
+        "w": 93,
+        "h": 38
+      }
     },
     {
       "id": "movie-shabab-emr2a",
@@ -2647,7 +2969,21 @@
         "movie-esha3et-7ob",
         "movie-meraty-moder-3am"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 1,
+          "y": 69,
+          "w": 99,
+          "h": 31
+        }
+      ],
+      "titleMask": {
+        "x": 1,
+        "y": 69,
+        "w": 99,
+        "h": 31
+      }
     },
     {
       "id": "movie-tag",
@@ -2673,7 +3009,21 @@
         "movie-el-5alya",
         "movie-tesba7-3ala-5er"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 17,
+          "y": 48,
+          "w": 80,
+          "h": 41
+        }
+      ],
+      "titleMask": {
+        "x": 17,
+        "y": 48,
+        "w": 80,
+        "h": 41
+      }
     },
     {
       "id": "movie-tamase7-el-nile",
@@ -2699,7 +3049,21 @@
         "movie-wa2fet-regala",
         "movie-7amlet-freezer"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 12,
+          "y": 0,
+          "w": 83,
+          "h": 37
+        }
+      ],
+      "titleMask": {
+        "x": 12,
+        "y": 0,
+        "w": 83,
+        "h": 37
+      }
     },
     {
       "id": "movie-teer-enta",
@@ -2725,7 +3089,21 @@
         "movie-amir-el-be7ar",
         "movie-la-trago3-wala-esteslam"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 25,
+          "y": 54,
+          "w": 63,
+          "h": 42
+        }
+      ],
+      "titleMask": {
+        "x": 25,
+        "y": 54,
+        "w": 63,
+        "h": 42
+      }
     },
     {
       "id": "movie-w-feha-eh-ya3ni",
@@ -2751,7 +3129,21 @@
         "movie-ana-w-ebn-5alty",
         "movie-wa2fet-regala"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 4,
+          "y": 0,
+          "w": 93,
+          "h": 25
+        }
+      ],
+      "titleMask": {
+        "x": 4,
+        "y": 0,
+        "w": 93,
+        "h": 25
+      }
     },
     {
       "id": "movie-wa7ed-tany",
@@ -2777,7 +3169,21 @@
         "movie-bank-el-7az",
         "movie-siko-siko"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 7,
+          "y": 5,
+          "w": 79,
+          "h": 39
+        }
+      ],
+      "titleMask": {
+        "x": 7,
+        "y": 5,
+        "w": 79,
+        "h": 39
+      }
     },
     {
       "id": "movie-youm-malosh-lazma",
@@ -2803,7 +3209,21 @@
         "movie-ana-w-ebn-5alty",
         "movie-tesba7-3ala-5er"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 5,
+          "y": 73,
+          "w": 91,
+          "h": 27
+        }
+      ],
+      "titleMask": {
+        "x": 5,
+        "y": 73,
+        "w": 91,
+        "h": 27
+      }
     },
     {
       "id": "movie-zaza",
@@ -2829,7 +3249,21 @@
         "movie-katkot",
         "movie-ana-mesh-ma3ahom"
       ],
-      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested."
+      "audienceBasis": "Editorially curated by title/genre and poster layout; not audience-tested.",
+      "titleMasks": [
+        {
+          "x": 1,
+          "y": 0,
+          "w": 99,
+          "h": 37
+        }
+      ],
+      "titleMask": {
+        "x": 1,
+        "y": 0,
+        "w": 99,
+        "h": 37
+      }
     },
     {
       "id": "movie-3fret-el-nahar",
@@ -3009,504 +3443,1365 @@
   ],
   "stars": [
     {
-      "id": "star-adel-imam",
+      "id": "star-uploaded-01",
+      "personKey": "dina-el-sherbiny",
       "name": {
-        "en": "Adel Emam",
-        "ar": "عادل إمام"
+        "ar": "دينا الشربيني",
+        "en": "Dina El Sherbiny"
       },
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
-      "asset": "star-adel-imam.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Adel%20Imam%202009%20cropped.jpg?width=900",
+      "asset": "Stars/Full/uploaded-01.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-01.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-01",
+          "asset": "Stars/Full/uploaded-01.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-01.jpg"
+        },
+        {
+          "id": "star-uploaded-44",
+          "asset": "Stars/Full/uploaded-44.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-44.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 32
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Adel_Imam_2009_cropped.jpg",
-        "license": "CC BY 2.0",
-        "creator": "daly3d (Daly3d)",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-mohamed-salah",
+      "id": "star-uploaded-02",
+      "personKey": "mena-massoud",
       "name": {
-        "en": "Mohamed Salah",
-        "ar": "محمد صلاح"
-      },
-      "mode": "eyes",
-      "difficulty": "easy",
-      "category": "athletes",
-      "asset": "star-mohamed-salah.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Salah%202018.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 26
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Salah_2018.jpg",
-        "license": "CC BY-SA 3.0",
-        "creator": "Anna Nessi / soccer.ru",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-ahmed-helmy",
-      "name": {
-        "en": "Ahmed Helmy",
-        "ar": "أحمد حلمي"
+        "ar": "مينا مسعود",
+        "en": "Mena Massoud"
       },
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
-      "asset": "star-ahmed-helmy.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Helmy%202014.jpg?width=900",
+      "asset": "Stars/Full/uploaded-02.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-02.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-02",
+          "asset": "Stars/Full/uploaded-02.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-02.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 32
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Helmy_2014.jpg",
-        "license": "CC BY 3.0",
-        "creator": "Akhbar El yom TV",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-mohamed-henedy",
+      "id": "star-uploaded-03",
+      "personKey": "nour-el-nabawy",
       "name": {
-        "en": "Mohamed Henedy",
-        "ar": "محمد هنيدي"
+        "ar": "نور النبوي",
+        "en": "Nour El Nabawy"
       },
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
-      "asset": "star-mohamed-henedy.png",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Henedy.png?width=900",
+      "asset": "Stars/Full/uploaded-03.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-03.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-03",
+          "asset": "Stars/Full/uploaded-03.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-03.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 32
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Henedy.png",
-        "license": "CC BY 3.0",
-        "creator": "Riyadh Season",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-cristiano-ronaldo",
+      "id": "star-uploaded-04",
+      "personKey": "hend-sabry",
       "name": {
-        "en": "Cristiano Ronaldo",
-        "ar": "كريستيانو رونالدو"
+        "ar": "هند صبري",
+        "en": "Hend Sabry"
       },
       "mode": "eyes",
       "difficulty": "easy",
-      "category": "athletes",
-      "asset": "star-cristiano-ronaldo.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Cristiano%20Ronaldo%202018.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 28
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Cristiano_Ronaldo_2018.jpg",
-        "license": "CC BY-SA 3.0",
-        "creator": "Anna Nessi / soccer.ru",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-tamer-hosny",
-      "name": {
-        "en": "Tamer Hosny",
-        "ar": "تامر حسني"
-      },
-      "mode": "silhouette",
-      "difficulty": "easy",
-      "category": "singers",
-      "asset": "star-tamer-hosny.png",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Tamer%20Hosny.png?width=900",
-      "focus": {
-        "x": 50,
-        "y": 27
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Tamer_Hosny.png",
-        "license": "CC BY 3.0",
-        "creator": "MENA News Agency",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-amr-diab",
-      "name": {
-        "en": "Amr Diab",
-        "ar": "عمرو دياب"
-      },
-      "mode": "silhouette",
-      "difficulty": "easy",
-      "category": "singers",
-      "asset": "star-amr-diab.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Amr%20Abdul%20Baset%20Diab.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 25
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Amr_Abdul_Baset_Diab.jpg",
-        "license": "CC BY-SA 3.0",
-        "creator": "Kareem Nour",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-ahmed-ezz",
-      "name": {
-        "en": "Ahmed Ezz",
-        "ar": "أحمد عز"
-      },
-      "mode": "silhouette",
-      "difficulty": "medium",
       "category": "actors",
-      "asset": "star-ahmed-ezz.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Ezz%20in%20Dubai%20-%20ElMaslaha%20Premiere.jpg?width=900",
+      "asset": "Stars/Full/uploaded-04.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-04.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-04",
+          "asset": "Stars/Full/uploaded-04.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-04.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 33
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Ezz_in_Dubai_-_ElMaslaha_Premiere.jpg",
-        "license": "CC BY 2.0",
-        "creator": "The Ahmed Ezz",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-ahmed-el-sakka",
+      "id": "star-uploaded-05",
+      "personKey": "hany-ramzy",
       "name": {
-        "en": "Ahmed El-Sakka",
-        "ar": "أحمد السقا"
+        "ar": "هاني رمزي",
+        "en": "Hany Ramzy"
       },
-      "mode": "silhouette",
-      "difficulty": "medium",
-      "category": "actors",
-      "asset": "star-ahmed-el-sakka.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ahmed%20Elsaqa%20in%20Dubai%20-%20ElMaslaha%20Premiere.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 30
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Ahmed_Elsaqa_in_Dubai_-_ElMaslaha_Premiere.jpg",
-        "license": "CC BY 2.0",
-        "creator": "The Ahmed Ezz",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-lionel-messi",
-      "name": {
-        "en": "Lionel Messi",
-        "ar": "ليونيل ميسي"
-      },
-      "mode": "silhouette",
-      "difficulty": "easy",
-      "category": "athletes",
-      "asset": "star-lionel-messi.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Lionel%20Messi%20Argentina%20v%20Egypt%207%20July%202026-316.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 30
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Lionel_Messi_Argentina_v_Egypt_7_July_2026-316.jpg",
-        "license": "CC BY-SA 4.0",
-        "creator": "Bryan Berlin",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-mohamed-ramadan",
-      "name": {
-        "en": "Mohamed Ramadan",
-        "ar": "محمد رمضان"
-      },
-      "mode": "zoom",
+      "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
-      "asset": "star-mohamed-ramadan.png",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Ramadan.png?width=900",
+      "asset": "Stars/Full/uploaded-05.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-05.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-05",
+          "asset": "Stars/Full/uploaded-05.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-05.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 30
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Ramadan.png",
-        "license": "CC BY 3.0",
-        "creator": "Akhbar El yom TV",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-yousra",
+      "id": "star-uploaded-06",
+      "personKey": "hala-sedky",
       "name": {
-        "en": "Yousra",
-        "ar": "يسرا"
+        "ar": "هالة صدقي",
+        "en": "Hala Sedky"
       },
-      "mode": "zoom",
-      "difficulty": "medium",
-      "category": "actors",
-      "asset": "star-yousra.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Youssra.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 30
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Youssra.jpg",
-        "license": "CC BY 2.0",
-        "creator": "daly3d abd",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-mohamed-mounir",
-      "name": {
-        "en": "Mohamed Mounir",
-        "ar": "محمد منير"
-      },
-      "mode": "zoom",
-      "difficulty": "medium",
-      "category": "singers",
-      "asset": "star-mohamed-mounir.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Mohamed%20Mounir.jpg?width=900",
-      "focus": {
-        "x": 45,
-        "y": 38
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Mohamed_Mounir.jpg",
-        "license": "CC BY-SA 4.0",
-        "creator": "Alaa Helaly",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-bahaa-sultan",
-      "name": {
-        "en": "Bahaa Sultan",
-        "ar": "بهاء سلطان"
-      },
-      "mode": "zoom",
-      "difficulty": "hard",
-      "category": "singers",
-      "asset": "star-bahaa-sultan.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Bahaa%20Sultan.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 40
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Bahaa_Sultan.jpg",
-        "license": "CC BY 3.0",
-        "creator": "Egyptian TV CH1 (Al Oula)",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-elvis-presley",
-      "name": {
-        "en": "Elvis Presley",
-        "ar": "إلفيس بريسلي"
-      },
-      "mode": "zoom",
-      "difficulty": "hard",
-      "category": "singers",
-      "asset": "star-elvis-presley.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Elvis%20Presley%201960.jpg?width=900",
-      "focus": {
-        "x": 50,
-        "y": 32
-      },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
-      "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Elvis_Presley_1960.jpg",
-        "license": "Public domain (U.S.; jurisdiction check)",
-        "creator": "Bob East / Dell Publishing",
-        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
-    },
-    {
-      "id": "star-umm-kulthum",
-      "name": {
-        "en": "Umm Kulthum",
-        "ar": "أم كلثوم"
-      },
-      "mode": "reveal",
+      "mode": "eyes",
       "difficulty": "easy",
-      "category": "singers",
-      "asset": "star-umm-kulthum.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Umm%20Kulthum%20in%201939.jpg?width=900",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-06.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-06.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-06",
+          "asset": "Stars/Full/uploaded-06.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-06.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 40
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Umm_Kulthum_in_1939.jpg",
-        "license": "Public domain (Egypt; verify other jurisdictions)",
-        "creator": "Photographer unknown",
-        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-nelly-karim",
+      "id": "star-uploaded-07",
+      "personKey": "mayan-el-sayed",
       "name": {
-        "en": "Nelly Karim",
-        "ar": "نيللي كريم"
+        "ar": "ميان السيد",
+        "en": "Mayan El Sayed"
       },
-      "mode": "reveal",
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-07.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-07.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-07",
+          "asset": "Stars/Full/uploaded-07.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-07.jpg"
+        },
+        {
+          "id": "star-uploaded-12",
+          "asset": "Stars/Full/uploaded-12.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-12.jpg"
+        },
+        {
+          "id": "star-uploaded-54",
+          "asset": "Stars/Full/uploaded-54.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-54.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-08",
+      "personKey": "dorra",
+      "name": {
+        "ar": "درة",
+        "en": "Dorra"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-08.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-08.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-08",
+          "asset": "Stars/Full/uploaded-08.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-08.jpg"
+        },
+        {
+          "id": "star-uploaded-11",
+          "asset": "Stars/Full/uploaded-11.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-11.jpg"
+        },
+        {
+          "id": "star-uploaded-25",
+          "asset": "Stars/Full/uploaded-25.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-25.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-09",
+      "personKey": "elham-shahin",
+      "name": {
+        "ar": "إلهام شاهين",
+        "en": "Elham Shaheen"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-09.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-09.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-09",
+          "asset": "Stars/Full/uploaded-09.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-09.jpg"
+        },
+        {
+          "id": "star-uploaded-48",
+          "asset": "Stars/Full/uploaded-48.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-48.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-10",
+      "personKey": "bassant-shawky",
+      "name": {
+        "ar": "بسنت شوقي",
+        "en": "Bassant Shawky"
+      },
+      "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
-      "asset": "star-nelly-karim.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Nelly%20Karim.jpg?width=900",
+      "asset": "Stars/Full/uploaded-10.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-10.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-10",
+          "asset": "Stars/Full/uploaded-10.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-10.jpg"
+        },
+        {
+          "id": "star-uploaded-22",
+          "asset": "Stars/Full/uploaded-22.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-22.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 34
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Nelly_Karim.jpg",
-        "license": "CC BY 3.0",
-        "creator": "El Adl Group",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-ali-rabee",
+      "id": "star-uploaded-13",
+      "personKey": "mohamed-farag",
       "name": {
-        "en": "Ali Rabee",
-        "ar": "علي ربيع"
+        "ar": "محمد فراج",
+        "en": "Mohamed Farrag"
       },
-      "mode": "reveal",
+      "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
-      "asset": "star-ali-rabee.png",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Ali%20Rabee.png?width=900",
+      "asset": "Stars/Full/uploaded-13.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-13.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-13",
+          "asset": "Stars/Full/uploaded-13.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-13.jpg"
+        },
+        {
+          "id": "star-uploaded-26",
+          "asset": "Stars/Full/uploaded-26.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-26.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 32
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Ali_Rabee.png",
-        "license": "CC BY 3.0",
-        "creator": "Akhbar El yom TV",
-        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-rami-malek",
+      "id": "star-uploaded-14",
+      "personKey": "leila-elwi",
       "name": {
-        "en": "Rami Malek",
-        "ar": "رامي مالك"
+        "ar": "ليلى علوي",
+        "en": "Leila Elwi"
       },
-      "mode": "reveal",
-      "difficulty": "hard",
+      "mode": "eyes",
+      "difficulty": "easy",
       "category": "actors",
-      "asset": "star-rami-malek.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Rami%20Malek%20at%20the%202026%20Cannes%20Film%20Festival-69279.jpg?width=900",
+      "asset": "Stars/Full/uploaded-14.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-14.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-14",
+          "asset": "Stars/Full/uploaded-14.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-14.jpg"
+        },
+        {
+          "id": "star-uploaded-35",
+          "asset": "Stars/Full/uploaded-35.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-35.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 30
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Rami_Malek_at_the_2026_Cannes_Film_Festival-69279.jpg",
-        "license": "CC BY-SA 4.0",
-        "creator": "Harald Krichel",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/"
-      },
-      "mediaApproval": "commons_license_reviewed_per_file"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     },
     {
-      "id": "star-omar-sharif",
+      "id": "star-uploaded-15",
+      "personKey": "lebleba",
       "name": {
-        "en": "Omar Sharif",
-        "ar": "عمر الشريف"
+        "ar": "لبلبة",
+        "en": "Lebleba"
       },
-      "mode": "reveal",
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-15.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-15.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-15",
+          "asset": "Stars/Full/uploaded-15.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-15.jpg"
+        },
+        {
+          "id": "star-uploaded-30",
+          "asset": "Stars/Full/uploaded-30.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-30.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-16",
+      "personKey": "ahmed-el-tohamy",
+      "name": {
+        "ar": "أحمد التهامي",
+        "en": "Ahmed El Tohamy"
+      },
+      "mode": "eyes",
       "difficulty": "hard",
       "category": "actors",
-      "asset": "star-omar-sharif.jpg",
-      "imageUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/Omar%20Sharif%2001.jpg?width=900",
+      "asset": "Stars/Full/uploaded-16.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-16.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-16",
+          "asset": "Stars/Full/uploaded-16.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-16.jpg"
+        }
+      ],
+      "imageUrl": "",
       "focus": {
         "x": 50,
-        "y": 36
+        "y": 50
       },
-      "mediaType": "real_photo_wikimedia_commons",
-      "egyptAudienceBasis": "editorial recognizability estimate; validate with Egyptian playtest",
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
       "attribution": {
-        "source": "https://commons.wikimedia.org/wiki/File:Omar_Sharif_01.jpg",
-        "license": "CC BY-SA 3.0",
-        "creator": "Gorup de Besanez",
-        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/"
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-17",
+      "personKey": "dalia-el-behery",
+      "name": {
+        "ar": "داليا البحيري",
+        "en": "Dalia El Behery"
       },
-      "mediaApproval": "commons_license_reviewed_per_file"
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-17.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-17.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-17",
+          "asset": "Stars/Full/uploaded-17.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-17.jpg"
+        },
+        {
+          "id": "star-uploaded-55",
+          "asset": "Stars/Full/uploaded-55.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-55.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-18",
+      "personKey": "arwa-gouda",
+      "name": {
+        "ar": "أروى جودة",
+        "en": "Arwa Gouda"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-18.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-18.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-18",
+          "asset": "Stars/Full/uploaded-18.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-18.jpg"
+        },
+        {
+          "id": "star-uploaded-24",
+          "asset": "Stars/Full/uploaded-24.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-24.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-19",
+      "personKey": "asser-yassin",
+      "name": {
+        "ar": "آسر ياسين",
+        "en": "Asser Yassin"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-19.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-19.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-19",
+          "asset": "Stars/Full/uploaded-19.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-19.jpg"
+        },
+        {
+          "id": "star-uploaded-39",
+          "asset": "Stars/Full/uploaded-39.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-39.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-20",
+      "personKey": "hana-shiha",
+      "name": {
+        "ar": "هنا شيحة",
+        "en": "Hana Shiha"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-20.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-20.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-20",
+          "asset": "Stars/Full/uploaded-20.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-20.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-21",
+      "personKey": "saba-mubarak",
+      "name": {
+        "ar": "صبا مبارك",
+        "en": "Saba Mubarak"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-21.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-21.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-21",
+          "asset": "Stars/Full/uploaded-21.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-21.jpg"
+        },
+        {
+          "id": "star-uploaded-47",
+          "asset": "Stars/Full/uploaded-47.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-47.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-23",
+      "personKey": "karim-abdelaziz",
+      "name": {
+        "ar": "كريم عبد العزيز",
+        "en": "Karim Abdelaziz"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-23.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-23.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-23",
+          "asset": "Stars/Full/uploaded-23.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-23.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-27",
+      "personKey": "rania-youssef",
+      "name": {
+        "ar": "رانيا يوسف",
+        "en": "Rania Youssef"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-27.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-27.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-27",
+          "asset": "Stars/Full/uploaded-27.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-27.jpg"
+        },
+        {
+          "id": "star-uploaded-56",
+          "asset": "Stars/Full/uploaded-56.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-56.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-28",
+      "personKey": "amir-el-masry",
+      "name": {
+        "ar": "أمير المصري",
+        "en": "Amir El Masry"
+      },
+      "mode": "eyes",
+      "difficulty": "hard",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-28.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-28.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-28",
+          "asset": "Stars/Full/uploaded-28.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-28.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-29",
+      "personKey": "hazem-samir",
+      "name": {
+        "ar": "حازم سمير",
+        "en": "Hazem Samir"
+      },
+      "mode": "eyes",
+      "difficulty": "hard",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-29.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-29.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-29",
+          "asset": "Stars/Full/uploaded-29.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-29.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-31",
+      "personKey": "mahmoud-el-laithy",
+      "name": {
+        "ar": "محمود الليثي",
+        "en": "Mahmoud El Laithy"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "singers",
+      "asset": "Stars/Full/uploaded-31.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-31.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-31",
+          "asset": "Stars/Full/uploaded-31.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-31.jpg"
+        },
+        {
+          "id": "star-uploaded-36",
+          "asset": "Stars/Full/uploaded-36.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-36.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-32",
+      "personKey": "ahmed-magdy",
+      "name": {
+        "ar": "أحمد مجدي",
+        "en": "Ahmed Magdy"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-32.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-32.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-32",
+          "asset": "Stars/Full/uploaded-32.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-32.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-33",
+      "personKey": "bushra",
+      "name": {
+        "ar": "بشرى",
+        "en": "Bushra"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-33.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-33.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-33",
+          "asset": "Stars/Full/uploaded-33.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-33.jpg"
+        },
+        {
+          "id": "star-uploaded-61",
+          "asset": "Stars/Full/uploaded-61.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-61.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-34",
+      "personKey": "angham",
+      "name": {
+        "ar": "أنغام",
+        "en": "Angham"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "singers",
+      "asset": "Stars/Full/uploaded-34.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-34.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-34",
+          "asset": "Stars/Full/uploaded-34.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-34.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-37",
+      "personKey": "ahmed-zaki",
+      "name": {
+        "ar": "أحمد زكي",
+        "en": "Ahmed Zaki"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-37.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-37.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-37",
+          "asset": "Stars/Full/uploaded-37.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-37.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-38",
+      "personKey": "mahmoud-el-gendy",
+      "name": {
+        "ar": "محمود الجندي",
+        "en": "Mahmoud El Gendy"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-38.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-38.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-38",
+          "asset": "Stars/Full/uploaded-38.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-38.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-40",
+      "personKey": "yasmine-sabri",
+      "name": {
+        "ar": "ياسمين صبري",
+        "en": "Yasmine Sabri"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-40.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-40.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-40",
+          "asset": "Stars/Full/uploaded-40.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-40.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-41",
+      "personKey": "monther-rayahneh",
+      "name": {
+        "ar": "منذر رياحنة",
+        "en": "Monther Rayahneh"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-41.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-41.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-41",
+          "asset": "Stars/Full/uploaded-41.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-41.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-42",
+      "personKey": "khaled-el-sawy",
+      "name": {
+        "ar": "خالد الصاوي",
+        "en": "Khaled El Sawy"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-42.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-42.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-42",
+          "asset": "Stars/Full/uploaded-42.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-42.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-43",
+      "personKey": "mona-zaki",
+      "name": {
+        "ar": "منى زكي",
+        "en": "Mona Zaki"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-43.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-43.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-43",
+          "asset": "Stars/Full/uploaded-43.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-43.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-45",
+      "personKey": "rogina",
+      "name": {
+        "ar": "روجينا",
+        "en": "Rogina"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-45.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-45.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-45",
+          "asset": "Stars/Full/uploaded-45.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-45.jpg"
+        },
+        {
+          "id": "star-uploaded-46",
+          "asset": "Stars/Full/uploaded-46.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-46.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-49",
+      "personKey": "mohamed-sallam",
+      "name": {
+        "ar": "محمد سلام",
+        "en": "Mohamed Sallam"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-49.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-49.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-49",
+          "asset": "Stars/Full/uploaded-49.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-49.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-50",
+      "personKey": "ramez-galal",
+      "name": {
+        "ar": "رامز جلال",
+        "en": "Ramez Galal"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-50.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-50.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-50",
+          "asset": "Stars/Full/uploaded-50.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-50.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-51",
+      "personKey": "ahmed-salah-hosny",
+      "name": {
+        "ar": "أحمد صلاح حسني",
+        "en": "Ahmed Salah Hosny"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-51.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-51.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-51",
+          "asset": "Stars/Full/uploaded-51.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-51.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-57",
+      "personKey": "ahmed-malek",
+      "name": {
+        "ar": "أحمد مالك",
+        "en": "Ahmed Malek"
+      },
+      "mode": "eyes",
+      "difficulty": "medium",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-57.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-57.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-57",
+          "asset": "Stars/Full/uploaded-57.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-57.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-58",
+      "personKey": "hany-salama",
+      "name": {
+        "ar": "هاني سلامة",
+        "en": "Hany Salama"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-58.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-58.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-58",
+          "asset": "Stars/Full/uploaded-58.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-58.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-59",
+      "personKey": "mohamed-karim",
+      "name": {
+        "ar": "محمد كريم",
+        "en": "Mohamed Karim"
+      },
+      "mode": "eyes",
+      "difficulty": "hard",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-59.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-59.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-59",
+          "asset": "Stars/Full/uploaded-59.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-59.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
+    },
+    {
+      "id": "star-uploaded-60",
+      "personKey": "mohamed-ramadan",
+      "name": {
+        "ar": "محمد رمضان",
+        "en": "Mohamed Ramadan"
+      },
+      "mode": "eyes",
+      "difficulty": "easy",
+      "category": "actors",
+      "asset": "Stars/Full/uploaded-60.jpg",
+      "eyesAsset": "Stars/Eyes/uploaded-60.jpg",
+      "photoVariants": [
+        {
+          "id": "star-uploaded-60",
+          "asset": "Stars/Full/uploaded-60.jpg",
+          "eyesAsset": "Stars/Eyes/uploaded-60.jpg"
+        }
+      ],
+      "imageUrl": "",
+      "focus": {
+        "x": 50,
+        "y": 50
+      },
+      "mediaType": "real_photo_user_supplied",
+      "mediaApproval": "user_supplied_local_rights_unverified",
+      "attribution": {
+        "source": "User supplied: named star photos (grouped by personKey)",
+        "license": "Distribution rights not verified"
+      }
     }
   ],
   "movieChoiceCatalog": {

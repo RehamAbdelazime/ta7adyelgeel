@@ -4,6 +4,7 @@ import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
 import { normalizeRuntimeAssetUrl, getPhaseHelper } from '../shared/overlay-types';
 import { QuestionScreenShell, MediaCard } from '../shared/question-shell';
+import { FoodOriginHintPill } from './FoodOriginHintPill';
 
 export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
   const t = useTranslation();
@@ -58,11 +59,7 @@ export function FoodOriginScreen({ miniGame, tourPhase }: { miniGame: MiniGameSn
         fallbackIcon="🍽️"
         objectFit="cover"
         caption={
-          <div className="gameplay-food-hint-slot" aria-live="polite">
-            <strong className={isDishHintVisible ? 'gameplay-dish-hint-revealed' : 'gameplay-dish-hint-countdown'}>
-              {dishHintLabel}
-            </strong>
-          </div>
+          <FoodOriginHintPill label={dishHintLabel} revealed={isDishHintVisible} />
         }
       />
     </QuestionScreenShell>

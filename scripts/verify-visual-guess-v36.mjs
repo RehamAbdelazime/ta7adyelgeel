@@ -12,18 +12,21 @@ const shell = read('src/ui-react/components/gameplay/minigames/VisualGuessScreen
 const picker = read('src/ui-react/styles/visual-guess-v36.css');
 const styles = read('src/ui-react/main.tsx');
 const store = read('src/game-core/app/game-store.ts');
-for (const [key,id,modes] of [['movies','guess-movie',['poster','scene']],['stars','guess-star',['eyes','silhouette','zoom','reveal']]]) {
+for (const [key,id,modes] of [['movies','guess-movie',['poster','scene']],['stars','guess-star',['eyes']]]) {
   assert(registry.includes(`id: '${id}'`));
   assert(config.tour.enabledMiniGames.includes(id));
   assert.equal(config.tour.singleMiniGameRoundCounts[id],4);
   assert.equal(new Set(bank[key].map(item=>item.id)).size,bank[key].length);
-  assert(bank[key].length >= 2*modes.length,'at least two questions for every visual mode');
+  assert(bank[key].length >= (id==='guess-star'?4:2*modes.length), 'not enough visually labeled questions');
   for(const mode of modes) assert(bank[key].filter(item=>item.mode===mode).length>=2,`no mode content: ${mode}`);
   for (const item of bank[key]) {
     assert(item.name.en && item.name.ar && item.attribution.source && item.attribution.license);
     if (key === 'stars') {
-      assert(item.imageUrl.startsWith('https://commons.wikimedia.org/wiki/Special:FilePath/'));
-      assert(typeof item.asset === 'string' && item.asset.length > 6);
+      assert.equal(item.imageUrl, '', 'V66: no celebrity images from the internet');
+      assert(item.asset?.startsWith('Stars/Full/'));
+      assert(item.eyesAsset?.startsWith('Stars/Eyes/'));
+      for(const asset of [item.asset,item.eyesAsset])
+        assert(existsSync(resolve(root,'public/assets/game/runtime/minigames/visual-guess',asset)),`missing ${asset}`);
     } else {
       assert(item.mediaApproval && item.imageUrl === '');
       if (item.mode === 'poster') {
@@ -51,4 +54,4 @@ assert(read('src/ui-react/components/gameplay/shared/answer-helpers.ts').include
 assert(read('src/ui-react/components/gameplay/minigames/minigame-screen-registry.tsx').includes("'guess-star':"));
 const require = createRequire(import.meta.url);
 require('./verify-visual-guess-v36-runtime.cjs');
-console.log('Visual-guess structural verification PASS: 88 movie titles (poster or frame-only), 20 stars, 7 public cards.');
+console.log(`Visual-guess structural verification PASS: 88 movie titles (poster or frame-only), ${bank.stars.length} offline stars, 7 public cards.`);

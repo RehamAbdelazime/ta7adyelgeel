@@ -31,10 +31,11 @@ assert.equal(getPosterBlurPx(duration, -1, 'easy'), 0);
 const screen = fs.readFileSync(path.join(root, 'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'), 'utf8');
 const css = fs.readFileSync(path.join(root, 'src/ui-react/styles/visual-guess-v36.css'), 'utf8');
 assert(screen.includes('getPosterBlurPx'));
-assert(screen.includes("filter: posterBlur > 0 ? `blur(${posterBlur.toFixed(2)}px)` : 'none'"));
+assert(screen.includes('<PosterPuzzleOverlay'), 'V73 must protect printed titles with safe puzzle tiles');
+assert(screen.includes("isPoster ? { objectPosition: 'center', filter: 'none', transform: 'none' }"));
 assert(screen.includes('phaseEndsAt') && screen.includes('isPaused'), 'pause/resume must not advance the picture blur');
 for (const removed of ['v36-visual-poster-mask', 'v49-poster-title-secret', 'v49-poster-face-blur']) {
   assert(!screen.includes(removed), `${removed} rendered a wrong-placed rectangle`);
   assert(!css.includes(`.${removed}`), `${removed} legacy CSS still in use`);
 }
-console.log('V51 compatibility PASS: full-poster blur still reaches 0px in final second, no rectangular masks, pause-aware timing.');
+console.log('V51 legacy blur curve remains valid for quote-image clues; V73 posters use pause-aware, title-safe puzzle cells with no rectangular mask.');

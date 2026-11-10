@@ -7,7 +7,7 @@ const bank = JSON.parse(fs.readFileSync(path.join(root, 'src/game-core/minigames
 assert.equal(bank.movies.length, 88);
 const posters = bank.movies.filter(item => item.asset?.startsWith('Posters/'));
 assert.equal(posters.length, 81);
-assert.equal(bank.stars.length, 20);
+assert(bank.stars.length >= 4, 'Need at least four labeled offline star photos');
 const ids = new Set(bank.movies.map(item => item.id));
 assert.equal(ids.size, bank.movies.length);
 const artwork = path.join(root, 'public/assets/game/runtime/minigames/visual-guess');
@@ -35,16 +35,18 @@ for (const frameOnly of bank.movies.filter(item => !item.asset)) {
 }
 for (const diff of ['easy','medium','hard']) assert(bank.movies.some(item => item.difficulty === diff));
 for (const item of bank.stars) {
-  assert(item.imageUrl.startsWith('https://commons.wikimedia.org/wiki/Special:FilePath/'));
-  assert(item.attribution.source.startsWith('https://commons.wikimedia.org/wiki/File:'));
-  assert(item.asset && !item.asset.endsWith('.svg'));
-  assert(Number.isFinite(item.focus.x) && Number.isFinite(item.focus.y));
+  assert.equal(item.imageUrl, '', 'V66 stars must not load from the internet');
+  assert.equal(item.mode, 'eyes');
+  assert(item.asset?.startsWith('Stars/Full/') && item.eyesAsset?.startsWith('Stars/Eyes/'));
+  for (const asset of [item.asset, item.eyesAsset])
+    assert(fs.statSync(path.join(artwork, asset)).size > 1500, `Missing ${asset}`);
+  assert(item.attribution.source.startsWith('User supplied:'));
 }
 assert.equal(fs.readdirSync(artwork).filter(name => /^movie-.*\.svg$/.test(name)).length, 0);
 const ts = require('typescript');
 require.extensions['.ts'] = (module, file) => module._compile(ts.transpileModule(fs.readFileSync(file, 'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022,esModuleInterop:true,resolveJsonModule:true},fileName:file}).outputText, file);
 const {VisualGuessMiniGameService} = require(path.join(root,'src/game-core/minigames/visual-guess/visual-guess-service.ts'));
-const modeSchedule = {'guess-movie':['poster','poster','poster','poster'], 'guess-star':['eyes','silhouette','zoom','reveal']};
+const modeSchedule = {'guess-movie':['poster','poster','poster','poster'], 'guess-star':['eyes','eyes','eyes','eyes']};
 for (const id of Object.keys(modeSchedule)) {
   for(let seed = 0; seed < 45; seed++) {
     const svc = new VisualGuessMiniGameService(id);
@@ -62,4 +64,4 @@ for (const id of Object.keys(modeSchedule)) {
     }
   }
 }
-console.log(`V49 user-poster media + content regression PASS: 81/81 local movie posters + 7 frame-only titles, 20 Commons stars, 90 seeded tours.`);
+console.log(`V49 user-poster media + content regression PASS: 81/81 local movie posters + 7 frame-only titles, ${bank.stars.length} offline user stars, 90 seeded tours.`);

@@ -10,7 +10,7 @@ const clues = JSON.parse(fs.readFileSync(path.join(root,'src/game-core/minigames
 const ui = fs.readFileSync(path.join(root,'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'),'utf8');
 const pkg = JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 assert.equal(pkg.scripts.start, 'npm run build && electron .','npm start MUST rebuild the renderer, not just Electron');
-assert.match(pkg.scripts.build,/vite build && npm run verify:renderer-media-v59 && npm run build:electron/);
+assert.match(pkg.scripts.build,/vite build && npm run verify:renderer-media-v59 && npm run verify:stars-v66 -- --check-dist && npm run build:electron/);
 assert.match(pkg.scripts['visuals:sync'],/generate-movie-fallback-v59/);
 assert.match(ui,/if \(!useBundledFallback && embeddedImage\) setUseBundledFallback\(true\)/);
 assert.match(ui,/src=\{displayedImageUrl\}/);

@@ -11,7 +11,10 @@ const service = read('src/game-core/minigames/visual-guess/visual-guess-service.
 // A frame should never inherit blur from the progressive poster/quote effect.
 assert.match(screen, /isFrame\s*\?\s*\{\s*filter:\s*'none'\s*\}/);
 assert.match(screen, /isMovieQuote\s*\?\s*\{\s*filter:\s*quoteImageBlur/);
-assert.match(screen, /isPoster\s*\?\s*posterImageStyle/);
+// V73 replaced the old posterImageStyle/zoom with the reusable no-blur puzzle.
+assert.match(screen, /isPoster\s*\?\s*\{\s*objectPosition:\s*'center',\s*filter:\s*'none',\s*transform:\s*'none'\s*\}/);
+assert.match(screen, /<PosterPuzzleOverlay[\s\S]*?titleMasks=[\s\S]*?progress=[\s\S]*?difficulty=/);
+assert.doesNotMatch(screen, /isPoster\s*\?\s*posterImageStyle/);
 assert.match(screen, /data\.mode\s*===\s*'reveal'\s*&&\s*!isFrame/);
 assert.match(service, /المشهد ده من فيلم إيه؟/);
 
@@ -29,4 +32,4 @@ assert.match(screen, /const longestChoice = Math\.max/);
 assert.match(imports, /import '\.\/styles\/visual-guess-readability-v61\.css';/);
 assert(imports.indexOf("import './styles/visual-guess-readability-v61.css';") > imports.indexOf("import './styles/visual-guess-v36.css';"), 'V61 overrides must be after the legacy choice rules');
 
-console.log('[V61] PASS: frame never blurred; poster/quote effects retained; long answers wrap with reserved height and responsive layout.');
+console.log('[V61+V73] PASS: frame unblurred; poster uses safe title-masked puzzle; quotes keep their mode rules; long answers wrap.');

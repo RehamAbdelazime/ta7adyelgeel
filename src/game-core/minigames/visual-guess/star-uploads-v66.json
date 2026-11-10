@@ -1,0 +1,924 @@
+{
+  "schemaVersion": 1,
+  "source": "User supplied New folder(1).zip; identity labels from filenames only, no image-based person recognition.",
+  "photos": [
+    {
+      "id": "star-uploaded-01",
+      "photo": "Stars/Full/uploaded-01.jpg",
+      "eyes": "Stars/Eyes/uploaded-01.jpg",
+      "originalFilename": "dina-elsherbeny.jpg",
+      "name": {
+        "ar": "دينا الشربيني",
+        "en": "Dina El Sherbiny"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "dina-el-sherbiny",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-02",
+      "photo": "Stars/Full/uploaded-02.jpg",
+      "eyes": "Stars/Eyes/uploaded-02.jpg",
+      "originalFilename": "mina-mas3od.png",
+      "name": {
+        "ar": "مينا مسعود",
+        "en": "Mena Massoud"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mena-massoud",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-03",
+      "photo": "Stars/Full/uploaded-03.jpg",
+      "eyes": "Stars/Eyes/uploaded-03.jpg",
+      "originalFilename": "nour-el-nabawy.webp",
+      "name": {
+        "ar": "نور النبوي",
+        "en": "Nour El Nabawy"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "nour-el-nabawy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-04",
+      "photo": "Stars/Full/uploaded-04.jpg",
+      "eyes": "Stars/Eyes/uploaded-04.jpg",
+      "originalFilename": "hend-sabry.jpg",
+      "name": {
+        "ar": "هند صبري",
+        "en": "Hend Sabry"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "hend-sabry",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-05",
+      "photo": "Stars/Full/uploaded-05.jpg",
+      "eyes": "Stars/Eyes/uploaded-05.jpg",
+      "originalFilename": "hany-ramzy.jpg",
+      "name": {
+        "ar": "هاني رمزي",
+        "en": "Hany Ramzy"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "hany-ramzy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-06",
+      "photo": "Stars/Full/uploaded-06.jpg",
+      "eyes": "Stars/Eyes/uploaded-06.jpg",
+      "originalFilename": "hala-sedki.jpg",
+      "name": {
+        "ar": "هالة صدقي",
+        "en": "Hala Sedky"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "hala-sedky",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-07",
+      "photo": "Stars/Full/uploaded-07.jpg",
+      "eyes": "Stars/Eyes/uploaded-07.jpg",
+      "originalFilename": "mayan-el-sayed.png",
+      "name": {
+        "ar": "ميان السيد",
+        "en": "Mayan El Sayed"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "mayan-el-sayed",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-08",
+      "photo": "Stars/Full/uploaded-08.jpg",
+      "eyes": "Stars/Eyes/uploaded-08.jpg",
+      "originalFilename": "dora.jpeg",
+      "name": {
+        "ar": "درة",
+        "en": "Dorra"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "manual",
+      "personKey": "dorra",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-09",
+      "photo": "Stars/Full/uploaded-09.jpg",
+      "eyes": "Stars/Eyes/uploaded-09.jpg",
+      "originalFilename": "elham-shahin.jpg",
+      "name": {
+        "ar": "إلهام شاهين",
+        "en": "Elham Shaheen"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "elham-shahin",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-10",
+      "photo": "Stars/Full/uploaded-10.jpg",
+      "eyes": "Stars/Eyes/uploaded-10.jpg",
+      "originalFilename": "bassant-shawky.webp",
+      "name": {
+        "ar": "بسنت شوقي",
+        "en": "Bassant Shawky"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "bassant-shawky",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-11",
+      "photo": "Stars/Full/uploaded-11.jpg",
+      "eyes": "Stars/Eyes/uploaded-11.jpg",
+      "originalFilename": "dora-3.jpg",
+      "name": {
+        "ar": "درة",
+        "en": "Dorra"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "dorra",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-12",
+      "photo": "Stars/Full/uploaded-12.jpg",
+      "eyes": "Stars/Eyes/uploaded-12.jpg",
+      "originalFilename": "mayan-el-sayed.jpg",
+      "name": {
+        "ar": "ميان السيد",
+        "en": "Mayan El Sayed"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "manual",
+      "personKey": "mayan-el-sayed",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-13",
+      "photo": "Stars/Full/uploaded-13.jpg",
+      "eyes": "Stars/Eyes/uploaded-13.jpg",
+      "originalFilename": "mohamed-farag-2.jpg",
+      "name": {
+        "ar": "محمد فراج",
+        "en": "Mohamed Farrag"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mohamed-farag",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-14",
+      "photo": "Stars/Full/uploaded-14.jpg",
+      "eyes": "Stars/Eyes/uploaded-14.jpg",
+      "originalFilename": "layla-3elwy-2.jpg",
+      "name": {
+        "ar": "ليلى علوي",
+        "en": "Leila Elwi"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "leila-elwi",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-15",
+      "photo": "Stars/Full/uploaded-15.jpg",
+      "eyes": "Stars/Eyes/uploaded-15.jpg",
+      "originalFilename": "lebleba.jpg",
+      "name": {
+        "ar": "لبلبة",
+        "en": "Lebleba"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "manual",
+      "personKey": "lebleba",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-16",
+      "photo": "Stars/Full/uploaded-16.jpg",
+      "eyes": "Stars/Eyes/uploaded-16.jpg",
+      "originalFilename": "ahmed-el-tohamy.webp",
+      "name": {
+        "ar": "أحمد التهامي",
+        "en": "Ahmed El Tohamy"
+      },
+      "category": "actors",
+      "difficulty": "hard",
+      "cropReview": "auto-visual-review",
+      "personKey": "ahmed-el-tohamy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-17",
+      "photo": "Stars/Full/uploaded-17.jpg",
+      "eyes": "Stars/Eyes/uploaded-17.jpg",
+      "originalFilename": "dalia-el-behery.jpg",
+      "name": {
+        "ar": "داليا البحيري",
+        "en": "Dalia El Behery"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "dalia-el-behery",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-18",
+      "photo": "Stars/Full/uploaded-18.jpg",
+      "eyes": "Stars/Eyes/uploaded-18.jpg",
+      "originalFilename": "arwa-gouda.webp",
+      "name": {
+        "ar": "أروى جودة",
+        "en": "Arwa Gouda"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "arwa-gouda",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-19",
+      "photo": "Stars/Full/uploaded-19.jpg",
+      "eyes": "Stars/Eyes/uploaded-19.jpg",
+      "originalFilename": "asser-yasin-2.jpg",
+      "name": {
+        "ar": "آسر ياسين",
+        "en": "Asser Yassin"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "asser-yassin",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-20",
+      "photo": "Stars/Full/uploaded-20.jpg",
+      "eyes": "Stars/Eyes/uploaded-20.jpg",
+      "originalFilename": "hanna-sheha.webp",
+      "name": {
+        "ar": "هنا شيحة",
+        "en": "Hana Shiha"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "hana-shiha",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-21",
+      "photo": "Stars/Full/uploaded-21.jpg",
+      "eyes": "Stars/Eyes/uploaded-21.jpg",
+      "originalFilename": "saba-mubarak.jpg",
+      "name": {
+        "ar": "صبا مبارك",
+        "en": "Saba Mubarak"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "saba-mubarak",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-22",
+      "photo": "Stars/Full/uploaded-22.jpg",
+      "eyes": "Stars/Eyes/uploaded-22.jpg",
+      "originalFilename": "bassant-shaw2y.webp",
+      "name": {
+        "ar": "بسنت شوقي",
+        "en": "Bassant Shawky"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "bassant-shawky",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-23",
+      "photo": "Stars/Full/uploaded-23.jpg",
+      "eyes": "Stars/Eyes/uploaded-23.jpg",
+      "originalFilename": "karim-abd-el-aziz.jpg",
+      "name": {
+        "ar": "كريم عبد العزيز",
+        "en": "Karim Abdelaziz"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "karim-abdelaziz",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-24",
+      "photo": "Stars/Full/uploaded-24.jpg",
+      "eyes": "Stars/Eyes/uploaded-24.jpg",
+      "originalFilename": "arwa-gouda.jpg",
+      "name": {
+        "ar": "أروى جودة",
+        "en": "Arwa Gouda"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "arwa-gouda",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-25",
+      "photo": "Stars/Full/uploaded-25.jpg",
+      "eyes": "Stars/Eyes/uploaded-25.jpg",
+      "originalFilename": "dora.jpg",
+      "name": {
+        "ar": "درة",
+        "en": "Dorra"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "dorra",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-26",
+      "photo": "Stars/Full/uploaded-26.jpg",
+      "eyes": "Stars/Eyes/uploaded-26.jpg",
+      "originalFilename": "mohamed-farag.webp",
+      "name": {
+        "ar": "محمد فراج",
+        "en": "Mohamed Farrag"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mohamed-farag",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-27",
+      "photo": "Stars/Full/uploaded-27.jpg",
+      "eyes": "Stars/Eyes/uploaded-27.jpg",
+      "originalFilename": "rania-youssef-2.jpg",
+      "name": {
+        "ar": "رانيا يوسف",
+        "en": "Rania Youssef"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "rania-youssef",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-28",
+      "photo": "Stars/Full/uploaded-28.jpg",
+      "eyes": "Stars/Eyes/uploaded-28.jpg",
+      "originalFilename": "amir-el-masry.jpg",
+      "name": {
+        "ar": "أمير المصري",
+        "en": "Amir El Masry"
+      },
+      "category": "actors",
+      "difficulty": "hard",
+      "cropReview": "auto-visual-review",
+      "personKey": "amir-el-masry",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-29",
+      "photo": "Stars/Full/uploaded-29.jpg",
+      "eyes": "Stars/Eyes/uploaded-29.jpg",
+      "originalFilename": "hazzem-samir.webp",
+      "name": {
+        "ar": "حازم سمير",
+        "en": "Hazem Samir"
+      },
+      "category": "actors",
+      "difficulty": "hard",
+      "cropReview": "auto-visual-review",
+      "personKey": "hazem-samir",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-30",
+      "photo": "Stars/Full/uploaded-30.jpg",
+      "eyes": "Stars/Eyes/uploaded-30.jpg",
+      "originalFilename": "lebleba-2.jpg",
+      "name": {
+        "ar": "لبلبة",
+        "en": "Lebleba"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "lebleba",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-31",
+      "photo": "Stars/Full/uploaded-31.jpg",
+      "eyes": "Stars/Eyes/uploaded-31.jpg",
+      "originalFilename": "mahmoud-el-laithy.jpg",
+      "name": {
+        "ar": "محمود الليثي",
+        "en": "Mahmoud El Laithy"
+      },
+      "category": "singers",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mahmoud-el-laithy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-32",
+      "photo": "Stars/Full/uploaded-32.jpg",
+      "eyes": "Stars/Eyes/uploaded-32.jpg",
+      "originalFilename": "Ahmed-Magdy.jpg",
+      "name": {
+        "ar": "أحمد مجدي",
+        "en": "Ahmed Magdy"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "ahmed-magdy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-33",
+      "photo": "Stars/Full/uploaded-33.jpg",
+      "eyes": "Stars/Eyes/uploaded-33.jpg",
+      "originalFilename": "Bo-Shra1.jpg",
+      "name": {
+        "ar": "بشرى",
+        "en": "Bushra"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "bushra",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-34",
+      "photo": "Stars/Full/uploaded-34.jpg",
+      "eyes": "Stars/Eyes/uploaded-34.jpg",
+      "originalFilename": "an8am.jpg",
+      "name": {
+        "ar": "أنغام",
+        "en": "Angham"
+      },
+      "category": "singers",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "angham",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-35",
+      "photo": "Stars/Full/uploaded-35.jpg",
+      "eyes": "Stars/Eyes/uploaded-35.jpg",
+      "originalFilename": "layla-3elwy.jpg",
+      "name": {
+        "ar": "ليلى علوي",
+        "en": "Leila Elwi"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "leila-elwi",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-36",
+      "photo": "Stars/Full/uploaded-36.jpg",
+      "eyes": "Stars/Eyes/uploaded-36.jpg",
+      "originalFilename": "mahmoud-el-laithey.jpg",
+      "name": {
+        "ar": "محمود الليثي",
+        "en": "Mahmoud El Laithy"
+      },
+      "category": "singers",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mahmoud-el-laithy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-37",
+      "photo": "Stars/Full/uploaded-37.jpg",
+      "eyes": "Stars/Eyes/uploaded-37.jpg",
+      "originalFilename": "ahmed-zaky.jpg",
+      "name": {
+        "ar": "أحمد زكي",
+        "en": "Ahmed Zaki"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "ahmed-zaki",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-38",
+      "photo": "Stars/Full/uploaded-38.jpg",
+      "eyes": "Stars/Eyes/uploaded-38.jpg",
+      "originalFilename": "mahmoud-el-gendy.jpg",
+      "name": {
+        "ar": "محمود الجندي",
+        "en": "Mahmoud El Gendy"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "mahmoud-el-gendy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-39",
+      "photo": "Stars/Full/uploaded-39.jpg",
+      "eyes": "Stars/Eyes/uploaded-39.jpg",
+      "originalFilename": "asser-yassien.jpg",
+      "name": {
+        "ar": "آسر ياسين",
+        "en": "Asser Yassin"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "asser-yassin",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-40",
+      "photo": "Stars/Full/uploaded-40.jpg",
+      "eyes": "Stars/Eyes/uploaded-40.jpg",
+      "originalFilename": "yassmine-sabry.jpg",
+      "name": {
+        "ar": "ياسمين صبري",
+        "en": "Yasmine Sabri"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "yasmine-sabri",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-41",
+      "photo": "Stars/Full/uploaded-41.jpg",
+      "eyes": "Stars/Eyes/uploaded-41.jpg",
+      "originalFilename": "monzer-ry7ana.jpg",
+      "name": {
+        "ar": "منذر رياحنة",
+        "en": "Monther Rayahneh"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "monther-rayahneh",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-42",
+      "photo": "Stars/Full/uploaded-42.jpg",
+      "eyes": "Stars/Eyes/uploaded-42.jpg",
+      "originalFilename": "5ales-el-sawy.jpg",
+      "name": {
+        "ar": "خالد الصاوي",
+        "en": "Khaled El Sawy"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "khaled-el-sawy",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-43",
+      "photo": "Stars/Full/uploaded-43.jpg",
+      "eyes": "Stars/Eyes/uploaded-43.jpg",
+      "originalFilename": "mona-zaki.jpg",
+      "name": {
+        "ar": "منى زكي",
+        "en": "Mona Zaki"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "mona-zaki",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-44",
+      "photo": "Stars/Full/uploaded-44.jpg",
+      "eyes": "Stars/Eyes/uploaded-44.jpg",
+      "originalFilename": "dina-el-sherbiny-2.jpg",
+      "name": {
+        "ar": "دينا الشربيني",
+        "en": "Dina El Sherbiny"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "dina-el-sherbiny",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-45",
+      "photo": "Stars/Full/uploaded-45.jpg",
+      "eyes": "Stars/Eyes/uploaded-45.jpg",
+      "originalFilename": "rojina-2.jpg",
+      "name": {
+        "ar": "روجينا",
+        "en": "Rogina"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "rogina",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-46",
+      "photo": "Stars/Full/uploaded-46.jpg",
+      "eyes": "Stars/Eyes/uploaded-46.jpg",
+      "originalFilename": "rojina.jpg",
+      "name": {
+        "ar": "روجينا",
+        "en": "Rogina"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "rogina",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-47",
+      "photo": "Stars/Full/uploaded-47.jpg",
+      "eyes": "Stars/Eyes/uploaded-47.jpg",
+      "originalFilename": "saba-mubarak-2.jpg",
+      "name": {
+        "ar": "صبا مبارك",
+        "en": "Saba Mubarak"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "saba-mubarak",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-48",
+      "photo": "Stars/Full/uploaded-48.jpg",
+      "eyes": "Stars/Eyes/uploaded-48.jpg",
+      "originalFilename": "elham-shahin-2.jpeg",
+      "name": {
+        "ar": "إلهام شاهين",
+        "en": "Elham Shaheen"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "elham-shahin",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-49",
+      "photo": "Stars/Full/uploaded-49.jpg",
+      "eyes": "Stars/Eyes/uploaded-49.jpg",
+      "originalFilename": "mohamed-sallam.jpg",
+      "name": {
+        "ar": "محمد سلام",
+        "en": "Mohamed Sallam"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "mohamed-sallam",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-50",
+      "photo": "Stars/Full/uploaded-50.jpg",
+      "eyes": "Stars/Eyes/uploaded-50.jpg",
+      "originalFilename": "ramez-galal.jpg",
+      "name": {
+        "ar": "رامز جلال",
+        "en": "Ramez Galal"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "ramez-galal",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-51",
+      "photo": "Stars/Full/uploaded-51.jpg",
+      "eyes": "Stars/Eyes/uploaded-51.jpg",
+      "originalFilename": "ahmed-salah-housny.jpg",
+      "name": {
+        "ar": "أحمد صلاح حسني",
+        "en": "Ahmed Salah Hosny"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "ahmed-salah-hosny",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-52",
+      "photo": "Stars/Full/uploaded-52.jpg",
+      "eyes": "Stars/Eyes/uploaded-52.jpg",
+      "originalFilename": "M_Yacoub.jpg",
+      "name": {
+        "ar": "",
+        "en": ""
+      },
+      "category": "",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "note": "اسم الملف لا يحدد هوية كاملة يمكن الاعتماد عليها؛ يرجى التأكيد يدويًا.",
+      "personKey": "",
+      "labelSource": "pending_user_label"
+    },
+    {
+      "id": "star-uploaded-53",
+      "photo": "Stars/Full/uploaded-53.jpg",
+      "eyes": "Stars/Eyes/uploaded-53.jpg",
+      "originalFilename": "ResizeImage-24.webp",
+      "name": {
+        "ar": "",
+        "en": ""
+      },
+      "category": "",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "note": "اسم الملف لا يحدد هوية كاملة يمكن الاعتماد عليها؛ يرجى التأكيد يدويًا.",
+      "personKey": "",
+      "labelSource": "pending_user_label"
+    },
+    {
+      "id": "star-uploaded-54",
+      "photo": "Stars/Full/uploaded-54.jpg",
+      "eyes": "Stars/Eyes/uploaded-54.jpg",
+      "originalFilename": "mayan-el-sayed-2.jpg",
+      "name": {
+        "ar": "ميان السيد",
+        "en": "Mayan El Sayed"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "manual",
+      "personKey": "mayan-el-sayed",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-55",
+      "photo": "Stars/Full/uploaded-55.jpg",
+      "eyes": "Stars/Eyes/uploaded-55.jpg",
+      "originalFilename": "dalia-el-behery-2.jpg",
+      "name": {
+        "ar": "داليا البحيري",
+        "en": "Dalia El Behery"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "dalia-el-behery",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-56",
+      "photo": "Stars/Full/uploaded-56.jpg",
+      "eyes": "Stars/Eyes/uploaded-56.jpg",
+      "originalFilename": "rania-youssef.jpg",
+      "name": {
+        "ar": "رانيا يوسف",
+        "en": "Rania Youssef"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "rania-youssef",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-57",
+      "photo": "Stars/Full/uploaded-57.jpg",
+      "eyes": "Stars/Eyes/uploaded-57.jpg",
+      "originalFilename": "ahmed-malek.jpg",
+      "name": {
+        "ar": "أحمد مالك",
+        "en": "Ahmed Malek"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "ahmed-malek",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-58",
+      "photo": "Stars/Full/uploaded-58.jpg",
+      "eyes": "Stars/Eyes/uploaded-58.jpg",
+      "originalFilename": "hany-salama.webp",
+      "name": {
+        "ar": "هاني سلامة",
+        "en": "Hany Salama"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "hany-salama",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-59",
+      "photo": "Stars/Full/uploaded-59.jpg",
+      "eyes": "Stars/Eyes/uploaded-59.jpg",
+      "originalFilename": "mohamed-karim.webp",
+      "name": {
+        "ar": "محمد كريم",
+        "en": "Mohamed Karim"
+      },
+      "category": "actors",
+      "difficulty": "hard",
+      "cropReview": "auto-visual-review",
+      "personKey": "mohamed-karim",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-60",
+      "photo": "Stars/Full/uploaded-60.jpg",
+      "eyes": "Stars/Eyes/uploaded-60.jpg",
+      "originalFilename": "mohamed-ramadan.jpg",
+      "name": {
+        "ar": "محمد رمضان",
+        "en": "Mohamed Ramadan"
+      },
+      "category": "actors",
+      "difficulty": "easy",
+      "cropReview": "auto-visual-review",
+      "personKey": "mohamed-ramadan",
+      "labelSource": "user_filename"
+    },
+    {
+      "id": "star-uploaded-61",
+      "photo": "Stars/Full/uploaded-61.jpg",
+      "eyes": "Stars/Eyes/uploaded-61.jpg",
+      "originalFilename": "bushra.jpg",
+      "name": {
+        "ar": "بشرى",
+        "en": "Bushra"
+      },
+      "category": "actors",
+      "difficulty": "medium",
+      "cropReview": "auto-visual-review",
+      "personKey": "bushra",
+      "labelSource": "user_filename"
+    }
+  ],
+  "description": "Same personKey may have many DISTINCT full/eye photo variants; movie choices remain one per person."
+}

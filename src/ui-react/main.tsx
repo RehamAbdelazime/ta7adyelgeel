@@ -54,6 +54,7 @@ import './styles/gameplay-clarity-v34.css';
 import './styles/gameplay-review-v35.css';
 // V36: two visual trivia modes sharing the existing question HUD and host controls.
 import './styles/visual-guess-v36.css';
+import './styles/poster-puzzle-v73.css';
 // V38: count/maze/shape gameplay quality without changing shared layouts.
 import './styles/gameplay-quality-v38.css';
 // V39: spectator leaderboard and join policy visual polish.
@@ -69,6 +70,9 @@ import './styles/character-progression-v42.css';
 import './styles/visual-polish-v46.css';
 // V61: frames stay sharp; longer movie answers fit fully inside their cards.
 import './styles/visual-guess-readability-v61.css';
+// V68: photographic, navigable pre-round game tutorials.
+import './styles/intro-walkthrough-v68.css';
+import './styles/intro-all-games-v72.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>

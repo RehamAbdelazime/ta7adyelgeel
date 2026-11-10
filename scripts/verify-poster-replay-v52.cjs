@@ -13,6 +13,7 @@ require.extensions['.ts'] = (mod, filename) => {
 };
 const { VisualGuessMiniGameService } = require('../src/game-core/minigames/visual-guess/visual-guess-service.ts');
 const { planPosterReveal, puzzleOrder, getSpotlightPoint, availablePosterModes } = require('../src/game-core/minigames/visual-guess/poster-mystery.ts');
+const { initialPuzzleRegions } = require('../src/game-core/minigames/visual-guess/poster-puzzle.ts');
 const { POSTER_HISTORY_KEY, readPosterHistory, rememberPosterPlay } = require('../src/game-core/minigames/visual-guess/poster-history.ts');
 const { getPosterRevealProgress } = require('../src/ui-react/components/gameplay/minigames/poster-reveal-curve.ts');
 const bank = require('../src/game-core/minigames/visual-guess/visual-guess-questions.json');
@@ -24,7 +25,7 @@ const firstSeen = { easy: new Set(), medium: new Set(), hard: new Set() };
 const perFilm = new Map();
 let rounds = 0;
 let repeat = 0;
-let changedReveal = 0;
+let changedPattern = 0;
 let contextualDiff = 0;
 // Simulate reopening Electron before every tour to confirm actual storage survives.
 for (let tour = 0; tour < 48; tour++) {
@@ -65,7 +66,7 @@ for (let tour = 0; tour < 48; tour++) {
     const prior = perFilm.get(film.id);
     if (prior && plan && prior.plan) {
       repeat++;
-      if (prior.plan.mode !== plan.mode) changedReveal++;
+      if (prior.plan.pattern !== plan.pattern) changedPattern++;
       assert.notEqual(plan.pattern, prior.plan.pattern, 'changed variant pattern on replay');
     }
     perFilm.set(film.id, {plan});
@@ -74,8 +75,7 @@ for (let tour = 0; tour < 48; tour++) {
     assert(plan.focus.y > 0 && plan.focus.y < 100);
     assert(plan.initialRegions.every(x => Number.isInteger(x) && x >= 0 && x < 9));
     if (plan.mode === 'puzzle') {
-      assert.equal(plan.initialRegions.length, 2);
-      assert.deepEqual(plan.initialRegions, puzzleOrder(plan.pattern).slice(0,2));
+      assert.deepEqual(plan.initialRegions, initialPuzzleRegions(plan.pattern, film.titleMasks ?? [], difficulty));
     }
     const spotlight = getSpotlightPoint(plan, .4);
     assert(spotlight.x >= 0 && spotlight.x <=100 && spotlight.y >= 0 && spotlight.y <=100);
@@ -89,7 +89,7 @@ for (let tour = 0; tour < 48; tour++) {
 assert.equal(memory.has(POSTER_HISTORY_KEY), true);
 assert.deepEqual(Object.fromEntries(Object.entries(firstSeen).map(([k,v])=>[k,v.size])), tiers);
 assert.equal(perFilm.size, bank.movies.length, 'must expose all 88 films before repeats');
-if (repeat > 0) assert(changedReveal > 0, 'repeat reveals should vary');
+if (repeat > 0) assert(changedPattern > 0, 'repeat tile orders should vary');
 const history = readPosterHistory(storage);
 assert.equal(Object.keys(history.entries).length, bank.movies.length);
 assert.equal(history.sequence, rounds);
@@ -122,11 +122,10 @@ assert.equal(readPosterHistory(blocked).sequence, 0);
 // Static integration check: every reveal variant is wired to image elements;
 // pause timing is based on the tour clock, never independent CSS keyframes.
 const screen = fs.readFileSync(path.join(root,'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'),'utf8');
-for(const mode of ['blur','zoom','spotlight','puzzle','color']) assert(screen.includes(`posterMode === '${mode}'`), `missing mode UI ${mode}`);
-assert(screen.includes('posterFinished') && screen.includes('remainingMs <= 1000'));
+assert(screen.includes('<PosterPuzzleOverlay'), 'every poster uses puzzle overlay');
 assert(screen.includes('snapshot.tour.phaseEndsAt') && screen.includes('snapshot.tour.isPaused'));
-assert(screen.includes('getPosterRevealProgress') && screen.includes('getSpotlightPoint'));
+assert(screen.includes('getPosterRevealProgress') && !screen.includes('getSpotlightPoint'), 'spotlight animation removed from live poster mode');
 assert(!screen.includes('v49-poster-title-secret'));
 const types=fs.readFileSync(path.join(root,'src/game-core/minigames/minigame-types.ts'),'utf8');
 assert(types.includes('posterReveal?: PosterRevealPlan | null'));
-console.log(`V52 PASS: ${rounds} rounds over 48 app relaunches; all 88 film titles covered; ${repeat} repeats (${changedReveal} different reveal modes); per-difficulty fairness, context-aware options, all 5 visuals, final-second full image, localized answers, storage fallbacks.`);
+console.log(`V52/V73 PASS: ${rounds} rounds over 48 app relaunches; 88 films; ${repeat} repeats (${changedPattern} changed tile patterns); one puzzle mode; title cells always hidden, localized answers and replay history.`);

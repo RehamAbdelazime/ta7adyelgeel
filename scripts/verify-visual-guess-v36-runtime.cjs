@@ -13,7 +13,7 @@ require.extensions['.ts'] = (module, filename) => {
 const root = path.resolve(__dirname, '..');
 const { VisualGuessMiniGameService, getVisualGuessBank } = require(path.join(root, 'src/game-core/minigames/visual-guess/visual-guess-service.ts'));
 const citizen = { twitchUserId: 'v36-citizen', displayName: 'Player V36', role: 'official' };
-const byMode = { 'guess-movie': [null,null,null,null], 'guess-star':['eyes','silhouette','zoom','reveal'] };
+const byMode = { 'guess-movie': [null,null,null,null], 'guess-star':['eyes','eyes','eyes','eyes'] };
 let total = 0;
 for (const gameId of Object.keys(byMode)) {
   const service = new VisualGuessMiniGameService(gameId);
@@ -80,5 +80,5 @@ for (const gameId of Object.keys(byMode)) {
   console.log(`[PASS] ${gameId}: real GameStore intro → prepare → answers → reveal`);
 }
 assert.equal(getVisualGuessBank('guess-movie').length,88);
-assert.equal(getVisualGuessBank('guess-star').length,20);
-console.log(`Visual-guess runtime PASS: ${total} rounds/flows, V57 movie formats and original star modes.`);
+assert(getVisualGuessBank('guess-star').length >= 4);
+console.log(`Visual-guess runtime PASS: ${total} rounds/flows, V57 movie formats and V66 eyes-only local star mode.`);

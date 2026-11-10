@@ -25,7 +25,7 @@ assert.match(stage, /<HostMascotLayer scene=\{renderedScene\}/, 'stage must rend
 assert.equal((mascot.match(/<PrivateStreamerAnswerDock\s*\/>/g) ?? []).length, 1, 'only one host-answer mount in mascot layer');
 assert.match(mascot, /\{isQuestionHostActive\s*\?\s*\(\s*<div className="qshell-host-bubble-v20">/, 'dock should be active only during an answer window');
 assert.doesNotMatch(mascot, /usesModernQuestionUi|MODERN_QUESTION_GAME_IDS/, 'all mini-games must share one host answer location');
-assert.doesNotMatch(dock, /embedded\s*\?|embedded\s*=\s*false|HOST ONLY|الل?هوست فقط|letter \/ word/, 'obsolete standalone host-answer variant must be removed');
+assert.doesNotMatch(dock, /embedded\s*\?|embedded\s*=\s*false|HOST ONLY|الل?صبوح فقط|letter \/ word/, 'obsolete standalone host-answer variant must be removed');
 assert.match(dock, /private-streamer-answer-embedded/, 'new unified design must be used');
 assert.match(dock, /snapshot\.privateStreamerAnswerSubmitted/, 'private answer must remain locked after acceptance');
 assert.match(dock, /submitPrivateStreamerAnswer/, 'host submission must use the existing game-store command');

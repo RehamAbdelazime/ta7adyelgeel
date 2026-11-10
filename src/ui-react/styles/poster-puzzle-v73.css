@@ -1,0 +1,22 @@
+/* V73: one puzzle discovery mode for posters, with title-safe permanent cells.
+   Same dark tiles for title and unrevealed cells; no floating gray title box. */
+.v49-poster-canvas .v73-poster-puzzle,
+.howto-v72-poster .v73-poster-puzzle {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(9, minmax(0, 1fr));
+  pointer-events: none;
+  overflow: hidden;
+}
+.v73-poster-puzzle > span {
+  background: linear-gradient(155deg,#211f51,#0b1a37 68%,#0e2d4d);
+  border: 1px solid rgba(111, 208, 247, .15);
+  box-shadow: inset 0 0 7px rgba(0,0,0,.44);
+  opacity: 1;
+  transition: opacity 210ms ease;
+}
+.v73-poster-puzzle > span.v73-puzzle-tile-clear { opacity: 0; }
+@media(prefers-reduced-motion:reduce){.v73-poster-puzzle > span{transition:none}}

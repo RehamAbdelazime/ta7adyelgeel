@@ -60,10 +60,9 @@ export function PrivateStreamerAnswerDock() {
   };
 
   return (
-    <aside className={`private-streamer-answer private-streamer-answer-embedded private-streamer-answer-${statusTone}`} aria-label={isArabic ? 'إجابة الهوست الخاصة' : 'Host private answer'}>
+    <aside className={`private-streamer-answer private-streamer-answer-embedded private-streamer-answer-${statusTone}`} aria-label={isArabic ? 'إجابة الصبوح الخاصة' : 'Host private answer'}>
       <div className="private-streamer-answer-header">
-        <span className="qshell-host-private-tag">{isArabic ? 'خاص • HOST' : 'PRIVATE • HOST'}</span>
-        <strong>{isArabic ? 'اختيار الهوست' : 'Host pick'}</strong>
+        <strong>{isArabic ? 'اختيار الصبوح' : 'Host pick'}</strong>
       </div>
 
       <form
@@ -85,7 +84,7 @@ export function PrivateStreamerAnswerDock() {
           value={value}
           onChange={(event) => setValue(event.target.value.replace(isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
           placeholder={isCountAnswer ? '0–999' : `1 – ${choiceCount}`}
-          aria-label={isArabic ? 'اكتب إجابة الهوست' : 'Type host answer'}
+          aria-label={isArabic ? 'اكتب إجابة الصبوح' : 'Type host answer'}
         />
         <button type="submit" disabled={!isValidAnswer}>{isArabic ? 'إرسال' : 'SEND'}</button>
       </form>

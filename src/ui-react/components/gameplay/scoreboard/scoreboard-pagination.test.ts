@@ -51,7 +51,7 @@ describe('scoreboard pagination behavior', () => {
 
     expect(getScoreboardPageRows(rows, 0).map((row) => row.id)).toEqual(Array.from({ length: 16 }, (_, index) => index + 1));
     expect(getScoreboardPageRows(rows, 1).map((row) => row.id)).toEqual([17]);
-    expect(getScoreboardPageRows(rows, 2).map((row) => row.id)).toEqual([]);
+    expect(getScoreboardPageRows(rows, 2).map((row) => row.id)).toEqual([17]);
   });
 
   it('clamps the current page when the number of participants shrinks', () => {

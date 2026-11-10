@@ -31,17 +31,23 @@ try {
   const second = mockBank.movies[1];
   fs.mkdirSync(path.join(mediaDir, path.dirname(second.asset)), { recursive: true });
   fs.writeFileSync(path.join(mediaDir, second.asset), Buffer.alloc(2200, 1));
+  const missingStar = run();
+  assert.equal(missingStar.status, 1, 'A missing local star cannot be silently ignored');
+  assert(missingStar.stderr.includes('MISSING STAR:'));
+  const star = mockBank.stars[0];
+  fs.mkdirSync(path.join(mediaDir, path.dirname(star.asset)), { recursive: true });
+  fs.copyFileSync(path.join(publicVisual, star.asset), path.join(mediaDir, star.asset));
   const ready = run();
   assert.equal(ready.status, 0, ready.stderr);
   assert(ready.stdout.includes('POSTERS: 2/2'));
-  assert(ready.stdout.includes('STARS: 0/1 local; 1 require internet'));
+  assert(ready.stdout.includes('STARS: 1/1 local; 0 require internet'));
   const offline = run('--strict-offline');
-  assert.equal(offline.status, 1, 'package must not silently ship missing star images');
+  assert.equal(offline.status, 0, 'package is offline-ready once its local star photo is present');
   const noDist = run('--check-dist');
   assert.equal(noDist.status, 1);
-  assert(noDist.stdout.includes('DIST: 2 referenced images absent'));
+  assert(noDist.stdout.includes('DIST: 3 referenced images absent'));
   assert(source.includes('this.round.movieClue?.kind === \'poster\''), 'poster fallback must remain');
   assert(screen.includes("console.warn('[VisualGuess] Image failed:'"), 'image error must report the path');
   for (const movie of bank.movies.filter(movie=>movie.asset)) assert(fs.existsSync(path.join(publicVisual, movie.asset)), `poster absent: ${movie.id}`);
-  console.log('V56 media doctor PASS: 81 real poster paths, safe legacy migration, missing-image diagnostics, no silent offline star packaging.');
+  console.log('V56 media doctor PASS: 81 real poster paths, safe legacy migration, missing-image diagnostics, offline star packaging verified.');
 } finally { fs.rmSync(temp, { recursive: true, force: true }); }

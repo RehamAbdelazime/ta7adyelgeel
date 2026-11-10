@@ -1,0 +1,389 @@
+{
+  "base": "Ta7adyElgeel V73 POSTER_SAFE_PUZZLE",
+  "files": [
+    {
+      "path": "docs/V74_TIGHT_EYES_QUALITY_AR.md",
+      "before": null,
+      "after": "6e5d2c2d62f08049fc55a423c69c4286b7b685975bc24d0880c3b24df3564b09",
+      "bytes": 2553
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-01.jpg",
+      "before": "60317789c933d762051326cd5b4cb0b76dc7328000773a4a356c1dccc9ab959a",
+      "after": "0a12dbd6dbaf5e2d591848cb0f041e959eebddda92b8b3930c2181e923a2eb0c",
+      "bytes": 8343
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-02.jpg",
+      "before": "dacf920fab5a47f9065cda7c77f7513075da01cc0e6cc21c7b943c92d7f9fdb6",
+      "after": "98b05923f858942fb96671caafad31914f3d16d9ecbaf96c6932a9c35c366584",
+      "bytes": 15300
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-03.jpg",
+      "before": "61184700b2284b190fd2113bc67589570d844b6fc9cc5c1705fc3d98c17504f7",
+      "after": "342191447de9bda4e5ab7c2ad89c372516a3a2a9daacee9720fd66654daa1467",
+      "bytes": 17753
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-04.jpg",
+      "before": "98d94a8709ecb88042d138a4ffa5d100b80626207c4a2233a0ab37e79fa29608",
+      "after": "586b2f7de39142a04e05c2caa74e8ed40cf0f438ebc08adab797f77d5373b71b",
+      "bytes": 7957
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-05.jpg",
+      "before": "9ef9d0fcd07aa8b327e741a122bbbe7837374ed9ee4042e72266dfe19ccd2258",
+      "after": "4c2e5b2aa09e54c1f9fcd9306c7a822598cff3ab9bbd442b47adfa8ace2044e0",
+      "bytes": 32019
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-06.jpg",
+      "before": "0009c7d368ba66a1ade2eca7f4c36addc0c4362209c7ad26d7d596fc1bd35ac9",
+      "after": "ea4eb3a69a8c05889ed3b0311b9626c62c993b2017b3f87d3b874fe64125a58c",
+      "bytes": 31869
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-07.jpg",
+      "before": "9fba489a1ed92ba7831fdb39c298f01d7c1d6e2be7742f985630c878e4435f57",
+      "after": "241fd6bf1df0834622eaaf4f2d1ebe39969149985449d8a437a59b1474bcdd57",
+      "bytes": 34531
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-08.jpg",
+      "before": "49a836d2a729ab54da2b76cfbde33ef01f2ec65ce6c9bf8423847db29070359a",
+      "after": "cf1ad09788278dd4344ffaa6b5a3a135c4ad287f4abed5b62cf95fda45f31df8",
+      "bytes": 5927
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-09.jpg",
+      "before": "f03ddb2adf0d74eee6ae672a1b21163250256c8f3f7ef82297c421dc185bcd3a",
+      "after": "5191ff654af9ae63a30485a4e3543d984e6fb8fac34ad13f7d4fedef3116c4ef",
+      "bytes": 14092
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-10.jpg",
+      "before": "a01f99b0630d346d687a79ef94c3686438dfbc7801fd804dbb6af433a8fed17b",
+      "after": "c85b239d25ebbaadfd9ac35548971b13c0944b933addccdbe29e1c3adb7ce08c",
+      "bytes": 25497
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-11.jpg",
+      "before": "a50e80e8759655fd31d8ec3de51ac3e23f195ca739fa8335ee23c02742018636",
+      "after": "5f6f0e5499f27070bcf358c7c61b4f862b977d7e6bff5174c49c5b303868e49a",
+      "bytes": 32665
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-12.jpg",
+      "before": "88ca6a0c28f9455eb2537242ae7da5201c09005f6bffddf3308f6ecd6b7f8c6c",
+      "after": "f58f6c883cd72d58e35232512054e071b6a82232a09f7c36743a7556f153c36e",
+      "bytes": 8486
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-13.jpg",
+      "before": "b65a8c29b867b9a831931f5e97cdab1333fda90977838b0089a72d0a524a4aac",
+      "after": "1c4205cf7f4387e011b7addbbbb6e51cf4326e8e5e32f82d39613e146b5d96e3",
+      "bytes": 26859
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-14.jpg",
+      "before": "a6725df02fd04b37340dcf47495969bb44264cd8db6b81e3db4083b449482347",
+      "after": "93ec25c4ad2b52fbe2c8db7549a865c427bd58bc5c1c30ea89e378b2d97577c0",
+      "bytes": 6820
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-15.jpg",
+      "before": "b4fb7eed2bf78f1e47782985f8fe5d4808fb59587293c68baf33bbf3fd7592e1",
+      "after": "a79d43561b521e4f8a26a9011096a4027dc54bf9b171f031bdb423e93c135bf2",
+      "bytes": 7332
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-16.jpg",
+      "before": "256ca9a75efc4c88bc1de868cac49e669fdd00cf8d7a6d53d98db8a5dd8e3b0d",
+      "after": "55c453e6f2735b52dbc7b6071544cd3559606e9c8396e1b6f99eca2d57af744f",
+      "bytes": 15341
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-17.jpg",
+      "before": "a1df1b72b2f6e7ae7dd6de81fe56587429b24fb0cce7a55e10d0e5f0195e175f",
+      "after": "bc80a5c8bed62cc1e9ae5eb7210706936e2d7c5e08a55efbbe8adebbe25b26e3",
+      "bytes": 25219
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-18.jpg",
+      "before": "06ae705a236afed7cc791df3c802d36df2ce94273d0a591f231e3a1acbce07df",
+      "after": "b947159096339928835f84c95651bc3c1987280b352ddbb9e3f653d01c4fd551",
+      "bytes": 16864
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-19.jpg",
+      "before": "9e416a5b867dee2912d86256cf6697c433b0a0d2b6ab31c795ec5aa4dc0c83a6",
+      "after": "7d30c18b6ef0acae9fdf2990548c7737d73b9ca08908c64fe29abf3dd96d1b92",
+      "bytes": 9338
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-20.jpg",
+      "before": "58f16155a50a1752fe765a8e49ccf423f9ed79291abbd1f71732d6c394ae91a6",
+      "after": "2bb2c981941e482e83cc7f16a289edd45ac1346a38b5f97d2a16f0479a2e38ee",
+      "bytes": 9481
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-21.jpg",
+      "before": "9f0f5aae00611afb6790b5ef064284b17716847314739338dce0fa72ade5b5e0",
+      "after": "1a886b8c68f188f0808ea9ddd6aa928392932e33392613a65986b41abeb68ad2",
+      "bytes": 32686
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-22.jpg",
+      "before": "cd339093dccb213615b6cf3284e3119f27444ae3332cab20d898c4cc464f7525",
+      "after": "8e3f27586fcff6a0494096429662e01ca0397c4dcfaee5a9c4e42533464dd0ce",
+      "bytes": 15357
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-23.jpg",
+      "before": "d61cff63458934ead651d3a38ca8b81988de93957401ca79de4a8ab29aa616a6",
+      "after": "2889ad0a5b788f8c61abd5a5feb48969d8614d2a28721eaa91d20f954d4e9261",
+      "bytes": 9900
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-24.jpg",
+      "before": "aa65bdcbca085c7022596eb85f83ce06953e1096f26b8f90695be60bdc34d277",
+      "after": "4840f7fd54e22fe306d90859f2446f0961f2b3ee7e4ca35241ba31adc8103b9c",
+      "bytes": 8206
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-25.jpg",
+      "before": "8c3b0a9d839aef369dcf6949117ed1b781053c0bcf5105cd887a4ee41bc1a9ed",
+      "after": "4ed41d0b067177eaba094a8ddea6f3235effa19eb5eea54a4d607cd001c08c36",
+      "bytes": 32079
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-26.jpg",
+      "before": "48e37bff22fbadcd2cd4c34f016778ba2d5aecd2dc82e4e919771bab287806c9",
+      "after": "a962de1845c87fef6d946e46ac5126b487456b25de799f21712cc36eb0e715b0",
+      "bytes": 7330
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-27.jpg",
+      "before": "dcd53753d5e6b5c529a800a1c0159acf83901e86c8e70ebf17985a9bd9c1a38a",
+      "after": "036965304e351dab4ac9f9bd42b85d2c4e01292ff8967c424e093332d553dc1f",
+      "bytes": 11491
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-28.jpg",
+      "before": "5efc2ac842534f21e01a1c4783db255dfc4a90a5b48ec6fe315beb55207a12b0",
+      "after": "ffbf5065adec0977eb80440b4e66887d34d6e1ca6cba251a57afa702f24def3a",
+      "bytes": 11418
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-29.jpg",
+      "before": "f84b161e66fff07be82edc5649eb205ce08c94f3f0ae076ca7b9325878c83a87",
+      "after": "c57226da0a4a368504cff5037fccaf25cdfa3cb7ffa58dc08961127030406858",
+      "bytes": 14680
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-30.jpg",
+      "before": "e49fd049482ac04f28cbfc373af777406a02f1c6322a8b6afcc32e055ba6c518",
+      "after": "6c933e8b28d7bb83278f3f07466a655ca3432383fdfcfdf83c45e33fa97644b2",
+      "bytes": 20844
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-31.jpg",
+      "before": "db597f46929f73a7cf3a6dc824dcd3351caa532df6895a9c8619bbb51964b9d6",
+      "after": "97170765763052cbe8390ec83cad1cb98c6676d94ff4318c41f7bbbf022e6a85",
+      "bytes": 10376
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-32.jpg",
+      "before": "bb2d4133282b7d77b25236f1763900a6730b8b24b9176b09d5ef17e508108be8",
+      "after": "6e56ba2203ddab0597db461d0e43e29b6430be338e85cea364b01a0a91bd1190",
+      "bytes": 6543
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-33.jpg",
+      "before": "3a98f0d6a50bc7ba19848d8b07adf32ff347c210e8240d9a0f9369d19234d44d",
+      "after": "7bdc016c11481a32965f573530c4a96f2d27267469cc9ec29356c06cb2e785b5",
+      "bytes": 8147
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-34.jpg",
+      "before": "a8d516a5b85ae43e0d5fd8bed3f96aed9cee8c1dd19a1d0f7b4ead3e3ed5c9fd",
+      "after": "19f3e392f402bc33884bb881f82544c05b0e014d5488e5b6789ac5a2fc1db2c3",
+      "bytes": 6648
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-35.jpg",
+      "before": "56e51562e9987a03c687fd08d3a8d8e2ac23224ab7c60ef2f7893c10346bf507",
+      "after": "45c9e135e8c9bb7ceec181c03d2e4b0787f30e51d23aa63dbd88a5a96b1a32ae",
+      "bytes": 5958
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-36.jpg",
+      "before": "38721e01c976dad995091e7d823e6a745fdf8f4995850a8cc20a774c080b632d",
+      "after": "e3bafbbee6d5d6105d96a4eed581d3322b7926dbc2d33577d87ffed01799c786",
+      "bytes": 5589
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-37.jpg",
+      "before": "12329bd6af07d3ccb5eb1f9580c58f7d97863e0c7b9993d3129a989d93e32367",
+      "after": "249d63ad4ede233db83e7c6d2bd7a6df65713d16f3f13302a8c4bd4c6efbf015",
+      "bytes": 13015
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-38.jpg",
+      "before": "54725b1a40e7eb69240031ed5405d8bc012676ad27b74527ed668309ccde46b0",
+      "after": "e51b4a9620fa5810a2ef48418339782d13d2efc8ffd0bfa9e0ff4b246c2ab94b",
+      "bytes": 11118
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-39.jpg",
+      "before": "97e2847ef6139a5b34fd673849d56f3bfa772899f2efa23dc02ae8e3b23bdc4c",
+      "after": "1d4802fb6a935755e37470c8049c68a4802940454f8cee8aaccacb7a27f1eada",
+      "bytes": 9496
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-40.jpg",
+      "before": "e66c6b804e9232aa3cfb63c4622b890231290df791155f937a1d816b4aff6ce7",
+      "after": "0de51f58c9a9425336b81a9d892d99c54c1ef2ba16ba52931da2895628f62d19",
+      "bytes": 12627
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-41.jpg",
+      "before": "c5474a6ec67324681b6e4827512f78ef90f459d77ce5313664453df37bf8e75f",
+      "after": "7ff039da033f842c6c66ba4f7efe7c0a0fe9a70b51a4a6642904004ec265c5ba",
+      "bytes": 8150
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-42.jpg",
+      "before": "c8b52458775c857d897eec29fac92d8f1890ab2776d4a509e14e819a6e73b08f",
+      "after": "d8fe0e4ee84a417e766cc904b393f828c535b3dfaf4ce971b1e06682f0002946",
+      "bytes": 4969
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-43.jpg",
+      "before": "9515c95f9472e26c81af394fc488e45f31959e7bbe6cc7de7da04e28e214e0cf",
+      "after": "49324ee8fdc9fcb30c9d842368930afe69f221b45974544e1c1e3fb8e06df79d",
+      "bytes": 6919
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-44.jpg",
+      "before": "a1c2b703ec5c1e456150f0cbfe366732263fe120981291976e8a85218830b402",
+      "after": "92e327f331b026af22bf120026dbe8364ec2aee3f60921ec9b2b45a8a2b46e04",
+      "bytes": 6603
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-45.jpg",
+      "before": "7a4a59bba85405649567216ee927f48ab34d7441e447a3d18de5f46e23d2c0c5",
+      "after": "208565387eb47dc1128ce00f46bdd2a13f9b9726006b96205ac05394b60c3f28",
+      "bytes": 15914
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-46.jpg",
+      "before": "714b1ec7de2b08b3c465e3d30464f048a18fa47bcd0c65dbdff66e596e81c2fc",
+      "after": "13f04c881df8a93940f1c715b4deb11fe12f048e29765e30d7809a85f0fb5bcc",
+      "bytes": 9090
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-47.jpg",
+      "before": "a6b025dd17dd0972ddbdae6927aa10af2dce3ec999cdf7afd03bcb70855b6c1e",
+      "after": "81f4d77f1ae6a37c342cc76196ecebfcba87d2ef9f307cb50ef137dbdc0baead",
+      "bytes": 8165
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-48.jpg",
+      "before": "e97858a7ef9484037c48940a611eeb2f6ef072d423789e4cfdf659b130dc45d6",
+      "after": "1d64fbeea433da4f34dd88abc84582e9f5cf2f1909d7109b809e039193737470",
+      "bytes": 7457
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-49.jpg",
+      "before": "eca1aadc6038b9ac15a1d13ae33b3dc1f5fbc80fc94608d7ef412dc3a5158f68",
+      "after": "8ab367cc12affb97f402d3494360ac9bafa7953c74886dde72f743bafb09f63f",
+      "bytes": 6967
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-50.jpg",
+      "before": "9a367ca4699e97c81e763abe990dfda7b3052ef1a169895e5dec4d887297b511",
+      "after": "364bdbf4364eefe39c3014ebd188c2c6c2b95daae4d7b8de48d4762596310f3e",
+      "bytes": 23817
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-51.jpg",
+      "before": "5dcbb388baffa6edd5313510eb5781a4e92982ab02f3f94f1a98b5569a6fbacf",
+      "after": "8b11ac3155c87182a9a2e9dc6f531e7496e56e07bba00ecf42761a41a7ea7921",
+      "bytes": 20926
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-52.jpg",
+      "before": "3aa230b2eb1ad5f072f5b7724ae75a11d3152789e319d21f3fc1c76ea5762ce6",
+      "after": "c61effcea43e71d6692609e322cfe78927c42c13ad17f6b136ccd2c1737ff2a6",
+      "bytes": 22657
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-53.jpg",
+      "before": "646c7d932dc363f71a415caaff1b2f895248bf8507bce5749b28fc0e093563e5",
+      "after": "2217e27a6594f0be7b2b443d40283fa8a38dbce48ba52812ea03f1079cc3a0d7",
+      "bytes": 16146
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-54.jpg",
+      "before": "ca5755705711b2d580f5e1c1a3c16cc299b8656758d5c4740cbee2e84555a3e1",
+      "after": "5f995669771e9379380a6afc0c130a4ceb8f1703e6a2c7207aebc62f6b699dd1",
+      "bytes": 11276
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-55.jpg",
+      "before": "139c445640bdc3ca513146c0559256b3d902d05f4e0be43ef16ef7ece5fdbbd1",
+      "after": "9c9f4faff73813845f695e89bbf106e8d547ac1d3cdf35810ca39cf0a7c17571",
+      "bytes": 19638
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-56.jpg",
+      "before": "400537a9273162a790918b61dbf1a2d94f11a05d6551ef2e20604b160dc6d646",
+      "after": "fbd107f641d63303bb8210ec460428d588e3e5dab07636412fc0505ca7abbd49",
+      "bytes": 8862
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-57.jpg",
+      "before": "092d40d670d4e794af49c9aeee4401eeaa45d32e9a28ac8fb16a3a86d7c85620",
+      "after": "b91ef7c9fad366757612d52598776e17bfebd352a04fee42cf44b1412ddb40bc",
+      "bytes": 10688
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-58.jpg",
+      "before": "408d12c32ff4d4bc5e497e71a4f18d56335d3fcfb45e7508f6abdff1e86e36d0",
+      "after": "5c94e58830dd032cfd061483070a495b91eb5754664f28d4fdbccd054ed74fa8",
+      "bytes": 13630
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-59.jpg",
+      "before": "dd60dbe2ed85fe49ea2fecbc4b7a3d53c0522d2afc7a8f7632cd70ab6e4f1a58",
+      "after": "5d9819498e258c12091353b7d52c2da27d9c7e42bdc3ca1a042749df37203c08",
+      "bytes": 22432
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-60.jpg",
+      "before": "d4ec34bc756e675cf5775194d50a92a38ab77f956789739f0e14c3c6c03af35e",
+      "after": "0cf848e796780f95fbb2663e9bcec6f61f77b0e4f860fda48c9655647dd96fc2",
+      "bytes": 26711
+    },
+    {
+      "path": "public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-61.jpg",
+      "before": "04ea793199380753440b992fc288fb0e440bbe07b174627a9a7f700333023643",
+      "after": "81a6641959881cb4e6d2c60cfdce5cb927bc64b7057340ce49247ec9d6eabe51",
+      "bytes": 9286
+    },
+    {
+      "path": "scripts/verify-star-eyes-v74.mjs",
+      "before": null,
+      "after": "d1c9005471ab68dab9820404cd5ca8d64c8187bfefe3e35616c6630105f9d380",
+      "bytes": 2479
+    },
+    {
+      "path": "src/ui-react/styles/visual-guess-v36.css",
+      "before": "597c15ca3d79b8ffa3862e74f0ed22b337b18f71df948ac433b3f458cabf5302",
+      "after": "23d9d89d38a816705603b7b26ff81f927b317d35f0d01e1001bfda76760a3568",
+      "bytes": 11572
+    }
+  ]
+}

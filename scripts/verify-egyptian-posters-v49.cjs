@@ -90,7 +90,7 @@ assert(appeared.size >= 70, `At least 70 distinct film titles should be reached 
 assert.equal(positions.size, 4, 'Every correct-answer position must be reachable');
 const screen = fs.readFileSync(path.join(root,'src/ui-react/components/gameplay/minigames/VisualGuessScreen.tsx'),'utf8');
 const css = fs.readFileSync(path.join(root,'src/ui-react/styles/visual-guess-v36.css'),'utf8');
-assert(screen.includes('posterBlur') && screen.includes('getPosterBlurPx'));
+assert(screen.includes('PosterPuzzleOverlay') && screen.includes('getPosterRevealProgress')); // V73 replaced full-poster blur with title-safe puzzle
 assert(!screen.includes('v49-poster-title-secret') && !screen.includes('v49-poster-face-blur'));
 assert(!css.includes('.v49-poster-title-secret') && !css.includes('.v49-poster-face-blur'));
 console.log(`V49+V50 PASS: ${movies.length} user-supplied posters, ${Object.keys(catalog).length} familiar title-only alternatives, ${rounds} playable seeded movie rounds; all 4 correct answer positions; no unrelated choices.`);

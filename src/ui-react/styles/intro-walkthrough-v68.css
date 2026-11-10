@@ -1,0 +1,708 @@
+/* V69 — focused, scale-safe game walkthrough. This stylesheet deliberately
+   replaces V68's floating mask/labels with ONE aligned mini-stage and one guide.
+   Scope: only the pre-round intro. No changes to real game HUD or scoring. */
+html body #root .gameplay-phase-mini_game_intro .gameplay-intro-card-v68 {
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  padding: clamp(10px, 1.1vw, 19px) !important;
+  gap: clamp(7px, .8vh, 13px) !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: linear-gradient(150deg, #0a1732, #0a1028 70%, #140c36) !important;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 {
+  gap: clamp(6px, .8vw, 12px) !important;
+  padding-bottom: 3px;
+  min-height: 0;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 > span {font-size:clamp(22px,2vw,34px)!important;}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 h2 {font-size:clamp(21px,1.8vw,31px)!important;}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 small {font-size:clamp(10px,.8vw,13px)!important;}
+html body #root .howto-v69,
+html body #root .howto-v69 * {box-sizing:border-box;}
+html body #root .howto-v69 {
+  --demo-aqua: #69e8ed;
+  --demo-mint: #75e5be;
+  width:100%;height:100%;min-width:0;min-height:0;
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;
+  gap:clamp(8px,1.2vh,15px);
+  font-family:var(--font-game-ui,'Alexandria',sans-serif);
+  color:#f4f9ff;
+}
+html body #root .howto-v69-steps {
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(4px,.8vw,12px);min-width:0;
+}
+html body #root .howto-v69-step {
+  border:1px solid rgba(123,164,200,.25);border-radius:999px;
+  background:rgba(16,36,66,.64);color:#93abc7;
+  display:flex;gap:clamp(6px,.8vw,12px);align-items:center;justify-content:center;
+  min-width:0;min-height:clamp(30px,3.5vh,44px);flex:0 1 174px;
+  font:750 clamp(11px,.92vw,15px)/1.15 var(--font-game-ui,sans-serif);
+  padding:5px 9px;cursor:pointer;transition:background .15s,border-color .15s,color .15s;
+}
+html body #root .howto-v69-step-circle {
+  display:grid;place-items:center;border-radius:50%;flex:none;width:clamp(19px,1.5vw,24px);height:clamp(19px,1.5vw,24px);
+  background:#1b3151;color:#b5c9e6;font:900 clamp(11px,.86vw,14px)/1 var(--font-game-ui,sans-serif);
+}
+html body #root .howto-v69-step b {min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+html body #root .howto-v69-step.active {border-color:#66dce6;background:#163b59;color:white;box-shadow:0 0 0 1px #56dcea44,0 5px 18px #35b9d71c;}
+html body #root .howto-v69-step.active .howto-v69-step-circle {background:#75e7e9;color:#082b41;}
+html body #root .howto-v69-step.visited .howto-v69-step-circle {background:#245c61;color:#7df3d9;}
+html body #root .howto-v68-layout.howto-v69-layout {
+  display:grid;grid-template-columns:minmax(0, 2.25fr) minmax(225px, .88fr);
+  align-items:center;justify-content:center;justify-items:stretch;
+  gap:clamp(13px,1.7vw,30px);
+  min-width:0;min-height:0;height:100%;width:100%;
+}
+/* The stage photo is the user's REAL game capture. Zoom to the central
+   scoreboard/canvas, removing the outdated QA/host side controls from view. */
+html body #root .howto-v69-preview {
+  position:relative;display:block;isolation:isolate;
+  width:100%;max-width:100%;height:auto;max-height:100%;
+  aspect-ratio:16/9;justify-self:center;
+  overflow:hidden;border:1px solid #466681;border-radius:13px;
+  background:#080e23;box-shadow:0 14px 28px #0007,0 0 0 1px #50b3e515;
+}
+
+/* Modern Electron supports container height query units. The preview is
+   constrained by BOTH grid-column width and available row height, preserving
+   its real 16:9 screenshot aspect ratio instead of stretching at 720p. */
+@supports (width: 100cqh) {
+  html body #root .howto-v69-layout {container-type:size;}
+  html body #root .howto-v69-preview {width:min(100%,177.777cqh);height:auto;max-height:100%;}
+}
+html body #root .howto-v69-photo {
+  position:absolute;inset:-12.5%;width:125%;height:125%;max-width:none;
+  object-fit:fill;filter:brightness(.62) saturate(.92);
+  pointer-events:none;user-select:none;
+}
+/* Exact board footprint of the cropped real screenshot. All original quote
+   content is covered, so no unrelated question/text is visible underneath. */
+html body #root .howto-v69-stage {
+  position:absolute;inset:1.9% 4.4% 11.6%;
+  display:grid;grid-template-rows:auto 3px auto minmax(0,1fr) auto;
+  gap:clamp(3px,.45vw,9px);
+  min-width:0;min-height:0;overflow:hidden;
+  padding:clamp(7px,.85vw,14px);
+  background:linear-gradient(130deg,#071127,#0e1733);
+  border:1px solid #35597c;border-radius:7px;
+}
+html body #root .howto-v69-hud {
+  display:flex;gap:6px;align-items:center;justify-content:center;
+  color:#8cecff;font:800 clamp(10px,.83vw,15px)/1.15 var(--font-game-ui,sans-serif);
+}
+html body #root .howto-v69-hud span {max-width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+html body #root .howto-v69-hud small {
+  color:#f3f9ff;font-size:.75em;background:#113757;padding:3px 7px;border-radius:6px;
+  white-space:nowrap;
+}
+html body #root .howto-v69-timer {height:3px;width:100%;background:#1c4364;border-radius:9px;overflow:hidden;}
+html body #root .howto-v69-timer span {display:block;height:100%;width:58%;background:linear-gradient(90deg,#39f0e8,#cd7ffc);}
+html body #root .howto-v69-clue-title {
+  color:white;text-align:center;
+  font:850 clamp(11px,1vw,17px)/1.15 var(--font-game-title,var(--font-game-ui));
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html body #root .howto-v69-clue-focus {
+  position:relative;min-width:0;min-height:0;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto;width:min(100%, 76%);
+  border:1px solid #345d7c;border-radius:10px;
+  background:radial-gradient(ellipse at 47% 15%,#1b2f56,#0b152e 82%);
+  overflow:hidden;
+  transition:border-color .16s,box-shadow .16s;
+}
+html body #root .howto-v69-phase-watch .howto-v69-clue-focus {
+  border-color:#73eef1;box-shadow:0 0 0 2px #4bd8e14d,0 0 20px #35deec40;
+}
+html body #root .howto-v69-phase-reveal .howto-v69-clue-focus {border-color:#69dcac;}
+html body #root .howto-demo-image {width:100%;height:100%;min-height:0;max-width:100%;max-height:100%;object-fit:contain;display:block;}
+html body #root .howto-demo-food {object-fit:cover;}
+html body #root .howto-demo-poster {object-fit:contain;filter:blur(4px);}
+html body #root .howto-demo-poster.is-revealed {filter:none;}
+html body #root .howto-demo-eyes {object-fit:contain;height:auto;max-height:80%;width:90%;}
+html body #root .howto-demo-face {object-fit:contain;}
+html body #root .howto-demo-cups {
+  display:flex;width:92%;height:90%;gap:3%;align-items:end;justify-content:space-around;
+}
+html body #root .howto-demo-cup {width:30%;height:100%;display:flex;align-items:center;justify-content:end;flex-direction:column;position:relative;}
+html body #root .howto-demo-cup-art {width:100%;height:80%;object-fit:contain;position:relative;z-index:2;}
+html body #root .howto-demo-cup-art.is-lifted {transform:translateY(-22%);}
+html body #root .howto-demo-ball {width:29%;height:25%;object-fit:contain;position:absolute;bottom:15%;z-index:1;}
+html body #root .howto-demo-cup b {color:#80e4f3;font:850 clamp(11px,1vw,17px)/1.1 sans-serif;}
+html body #root .howto-demo-shapes {width:90%;height:90%;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;place-items:center;color:#d8e9ff;font-size:clamp(16px,2.15vw,39px);}
+html body #root .howto-demo-shapes span:nth-child(3n+2) {color:#d885ec;}
+html body #root .howto-demo-shapes .is-answer {color:#77f5b1;text-shadow:0 0 10px #43f4ae88;}
+html body #root .howto-demo-maze {width:95%;height:94%;}
+html body #root .howto-demo-grid {fill:none;stroke:#335376;stroke-width:1.5;}
+html body #root .howto-demo-path {fill:none;stroke:#9eb6cf;stroke-width:5;stroke-linejoin:round;stroke-linecap:round;}
+html body #root .howto-demo-correct-path {fill:none;stroke:#6af4b5;stroke-width:7;stroke-linejoin:round;stroke-linecap:round;}
+html body #root .howto-demo-gate {fill:#164473;stroke:#7adfea;stroke-width:2;}
+html body #root .howto-demo-beat {width:94%;text-align:center;color:#d89bf9;display:flex;flex-direction:column;align-items:center;gap:8px;}
+html body #root .howto-demo-beat b {color:#7ce4ec;font-size:clamp(24px,2.4vw,42px);}
+html body #root .howto-demo-beat span {font-size:clamp(13px,1.7vw,30px);line-height:1.4;}
+html body #root .howto-demo-beat .howto-demo-number {font:900 clamp(30px,3.2vw,55px)/1 var(--font-game-title);color:#8effce;}
+html body #root .howto-demo-memory {font-size:clamp(18px,1.9vw,33px);line-height:1.6;text-align:center;}
+html body #root .howto-demo-pair img {width:100%;height:100%;object-fit:contain;}
+html body #root .howto-demo-pair {width:94%;height:100%;}
+html body #root .howto-v68-answer-strip.howto-v69-answers {
+  position:relative;inset:auto;min-width:0;width:100%;height:auto;
+  display:flex;flex-direction:row;gap:clamp(3px,.4vw,8px);
+  justify-content:stretch;align-items:stretch;
+}
+html body #root .howto-v69-choice {
+  min-width:0;min-height:clamp(31px,3.9vw,55px);flex:1 1 0;
+  display:flex;align-items:center;gap:clamp(3px,.45vw,8px);
+  padding:clamp(3px,.4vw,7px);
+  border-radius:6px;border:1px solid #345f86;
+  background:linear-gradient(120deg,#152943,#0e1f3d);
+  color:#eaf8ff;
+}
+html body #root .howto-v69-choice-id {
+  display:grid;place-items:center;flex:none;align-self:stretch;
+  min-width:clamp(20px,2vw,31px);border-radius:5px;
+  font:900 clamp(10px,.95vw,16px)/1.1 var(--font-game-ui,sans-serif);
+  color:#79eeff;background:#0e3e57;
+}
+html body #root .howto-v69-choice span {
+  flex:1;min-width:0;overflow-wrap:anywhere;
+  font:800 clamp(9px,.85vw,14px)/1.3 var(--font-game-ui,sans-serif);
+  text-align:center;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
+}
+html body #root .howto-v69-phase-answer .howto-v69-answers {
+  border-radius:8px;box-shadow:0 0 0 2px #62eeed,0 0 17px #4cf2ee6b;
+}
+html body #root .howto-v69-choice.howto-v69-choice-correct {
+  border-color:#92ffbc;background:linear-gradient(105deg,#145741,#1b7858);
+  box-shadow:inset 0 0 0 1px #5effad55,0 0 12px #50eab666;
+}
+html body #root .howto-v69-choice-correct .howto-v69-choice-id {background:#12855c;color:white;}
+html body #root .howto-v69-answer-hint {
+  position:relative;display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:clamp(29px,3.7vw,45px);
+  color:#9bd7e8;font:800 clamp(10px,.87vw,14px)/1.2 var(--font-game-ui);
+}
+html body #root .howto-v69-answer-hint strong {color:#90f9c4;font-size:1.45em;}
+html body #root .howto-v69-phase-answer .howto-v69-answer-hint {border:1px solid #61e9e2;border-radius:6px;}
+html body #root .howto-v69-success {
+  position:absolute;z-index:4;top:15%;left:8%;
+  color:#baffdc;background:#124c3fe9;border:1px solid #60e7aa;
+  border-radius:7px;padding:4px 8px;
+  font:850 clamp(9px,.86vw,13px)/1.2 var(--font-game-ui);
+}
+/* A tiny anchored annotation. It never covers the question or answer card. */
+html body #root .howto-v69-target-label {
+  position:absolute;z-index:5;
+  display:inline-flex;align-items:center;gap:4px;
+  max-width:38%;padding:4px 8px;border-radius:7px;
+  border:1px solid #79eaf1;background:#083a53e8;
+  box-shadow:0 4px 15px #0006;
+  color:white;font:850 clamp(9px,.86vw,13px)/1.1 var(--font-game-ui);
+  white-space:nowrap;pointer-events:none;
+}
+html body #root .howto-v69-target-watch {top:31%;left:5%;}
+/* Answer and reveal labels live on the photographed stage FLOOR, below all
+   answer cards, with a small upwards pointer. They never cover text. */
+html body #root .howto-v69-target-answer {bottom:1.5%;left:38%;}
+html body #root .howto-v69-target-reveal {bottom:1.5%;left:7%;border-color:#91f8b8;background:#135b47ed;}
+html body #root .howto-v69-target-watch::after {
+  content:'';position:absolute;top:50%;left:100%;width:clamp(11px,1.5vw,25px);
+  border-top:2px solid #79eaf1;transform:rotate(18deg);transform-origin:left center;
+}
+html body #root .howto-v69-target-answer::after,
+html body #root .howto-v69-target-reveal::after {
+  content:'';position:absolute;bottom:100%;left:50%;height:clamp(6px,1vw,14px);
+  border-left:2px solid currentColor;
+}
+html body #root .howto-v69-explain {
+  min-width:0;min-height:0;
+  display:flex;flex-direction:column;justify-content:center;
+  align-items:stretch;gap:clamp(8px,1.5vh,22px);
+  padding:clamp(7px,1vw,16px);
+}
+html body #root .howto-v69-count {color:#8ccbe3;font:800 clamp(11px,.93vw,16px)/1.1 var(--font-game-ui);display:flex;gap:11px;align-items:center;}
+html body #root .howto-v69-count strong {color:#76f6ef;font-size:1.4em;letter-spacing:1px;}
+html body #root .howto-v69-explain h3 {margin:0;color:white;font:900 clamp(22px,2.2vw,39px)/1.22 var(--font-game-title,var(--font-game-ui))!important;text-wrap:balance;}
+html body #root .howto-v69-explain p {margin:0;color:#cde1f1;font:700 clamp(13px,1.07vw,19px)/1.6 var(--font-game-ui,sans-serif);text-wrap:pretty;}
+html body #root .howto-v69-example {
+  display:flex;flex-direction:column;align-items:flex-start;gap:clamp(5px,.8vh,12px);
+  padding:clamp(10px,1vw,18px);
+  border:1px solid #406780;border-radius:12px;
+  background:linear-gradient(135deg,#122a46,#123749);
+}
+html body #root .howto-v69-example>span {color:#8ef2e4;font:750 clamp(10px,.82vw,14px)/1.1 var(--font-game-ui);}
+html body #root .howto-v69-example b {color:#efffff;font:900 clamp(14px,1.15vw,21px)/1.35 var(--font-game-ui,sans-serif);overflow-wrap:anywhere;}
+html body #root .howto-v69-example i {font-style:normal;color:#63e8de;padding:0 3px;}
+html body #root .howto-v69-preview-note {color:#7794b1;font:650 clamp(10px,.77vw,13px)/1.4 var(--font-game-ui);}
+html body #root .howto-v69-footer {
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:4px 1px 0;min-width:0;
+  border-top:1px solid #294061;
+}
+html body #root .howto-v69-navigation {display:flex;align-items:center;gap:clamp(7px,.9vw,14px);min-width:0;}
+html body #root .howto-v69-footer button {cursor:pointer;font:800 clamp(12px,.98vw,17px)/1.1 var(--font-game-ui,sans-serif);}
+html body #root .howto-v69-prev,
+html body #root .howto-v69-next {
+  display:flex;justify-content:center;align-items:center;gap:10px;
+  min-height:clamp(36px,4.1vh,50px);
+  border-radius:10px;padding:8px clamp(12px,1vw,20px);
+  white-space:nowrap;
+}
+html body #root .howto-v69-prev {color:#dcebf4;background:#142945;border:1px solid #50718d;}
+html body #root .howto-v69-prev:disabled {opacity:.34;cursor:default;}
+html body #root .howto-v69-next {
+  min-width:clamp(115px,10vw,180px);border:1px solid #68e8d1;
+  color:#071e2a;background:linear-gradient(110deg,#7cf4e3,#62d4eb);
+  box-shadow:0 2px 15px #48dec533;
+}
+html body #root .howto-v69-prev span:first-child,
+html body #root .howto-v69-next span:last-child {font-size:1.45em;line-height:.7;}
+html body #root .howto-v69-dots {display:flex;align-items:center;gap:5px;}
+html body #root .howto-v69-dots button {width:9px;height:9px;padding:0;border-radius:20px;background:#516988;border:0;}
+html body #root .howto-v69-dots button.active {width:24px;background:#71eddf;}
+html body #root .howto-v69-skip {border:0;background:transparent;color:#9aaeca;text-decoration:underline;text-underline-offset:4px;padding:5px 2px;}
+html body #root .howto-v69 button:focus-visible {outline:2px solid #ffe17e;outline-offset:3px;}
+html body #root .howto-v69 button:not(:disabled):hover {filter:brightness(1.13);}
+/* Keep the frame and navigation inside 720p and small-window gameplay. */
+@media (max-width:1050px), (max-height:660px) {
+ html body #root .howto-v68-layout.howto-v69-layout {grid-template-columns:minmax(0,1.9fr) minmax(185px,.85fr);gap:8px;}
+ html body #root .howto-v69 {gap:5px;}
+ html body #root .howto-v69-explain {padding:3px;gap:6px;}
+ html body #root .howto-v69-explain h3 {font-size:clamp(17px,1.9vw,27px)!important;}
+ html body #root .howto-v69-explain p {font-size:clamp(11px,.95vw,15px);line-height:1.4;}
+ html body #root .howto-v69-example {padding:7px;gap:4px;}
+ html body #root .howto-v69-example b {font-size:clamp(12px,1vw,16px);}
+ html body #root .howto-v69-preview-note {font-size:10px;}
+}
+@media (max-width:780px) {
+ html body #root .howto-v68-layout.howto-v69-layout {grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:5px;}
+ html body #root .howto-v69-preview {height:100%;width:auto;max-width:100%;}
+ html body #root .howto-v69-explain {align-items:center;text-align:center;padding:1px;gap:3px;}
+ html body #root .howto-v69-count,html body #root .howto-v69-preview-note,html body #root .howto-v69-example {display:none;}
+ html body #root .howto-v69-explain h3 {font-size:17px!important;}
+ html body #root .howto-v69-explain p {font-size:11px;line-height:1.25;}
+ html body #root .howto-v69-footer {padding:1px 0 0;}
+ html body #root .howto-v69-skip {font-size:10px;}
+}
+@media (max-height:530px) {
+ html body #root .howto-v69-step {min-height:24px;padding:2px 4px;}
+ html body #root .howto-v69-example {display:none;}
+ html body #root .howto-v69-preview-note {display:none;}
+ html body #root .howto-v69-prev,html body #root .howto-v69-next {min-height:30px;}
+}
+@media (prefers-reduced-motion:reduce) {html body #root .howto-v69 * {transition:none!important;animation:none!important;}}
+
+/* V70 — Food Origin walkthrough. A genuine game example sits LEFT;
+   all guidance sits RIGHT in one readable card. Scope: tutorial only. */
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 {
+  align-items:center!important;
+  gap:clamp(10px,1.3vw,22px)!important;
+  margin-block:0 clamp(4px,.5vh,10px)!important;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 h2 {
+  font-size:clamp(30px,2.8vw,52px)!important;
+  font-weight:950!important;
+  line-height:1.13!important;
+  letter-spacing:-.035em;
+  text-shadow:0 3px 18px rgba(0,0,0,.5),0 0 26px rgba(99,218,229,.15)!important;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 small {
+  font-size:clamp(12px,1.06vw,18px)!important;
+  margin-bottom:3px!important;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 > span {
+  font-size:clamp(30px,2.7vw,49px)!important;
+}
+html body #root .howto-v69-layout.howto-v70-food-layout {
+  direction:ltr!important;
+  display:grid!important;
+  grid-template-columns:minmax(0, 1.78fr) minmax(320px, 1fr)!important;
+  gap:clamp(13px,1.6vw,29px)!important;
+  align-items:center;
+}
+html body #root .howto-v70-food-layout .howto-v69-preview {grid-column:1;grid-row:1;}
+html body #root .howto-v70-food-layout .howto-v70-food-guide {grid-column:2;grid-row:1;}
+html body #root .howto-v70-food-guide {
+  width:100%;height:100%;min-height:0;min-width:0;
+  direction:rtl;
+  margin:0;padding:0;
+  display:flex;flex-direction:column;justify-content:center;
+  text-align:start;
+}
+html body #root .howto-v70-guide-card {
+  min-width:0;max-height:100%;width:100%;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(14px,1.4vw,27px);
+  gap:clamp(12px,1.35vh,19px);
+  background:linear-gradient(150deg,rgba(20,40,72,.94),rgba(11,26,53,.96));
+  border:1px solid rgba(104,186,216,.42);border-radius:18px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 30px rgba(0,0,0,.20);
+}
+html body #root .howto-v70-guide-kicker {
+  color:#83dfe7;font:800 clamp(11px,.82vw,15px)/1.25 var(--font-game-ui,sans-serif);
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+}
+html body #root .howto-v70-guide-kicker strong {
+  font:950 clamp(12px,1vw,17px)/1.2 var(--font-game-ui,sans-serif);
+  color:#a3f9df;background:#133f4a;border:1px solid #3c868b;
+  padding:5px 9px;border-radius:8px;
+}
+html body #root .howto-v70-guide-card h3 {
+  font:950 clamp(25px,2.15vw,38px)/1.22 var(--font-game-title,var(--font-game-ui))!important;
+  color:#fff;margin:0;white-space:normal;text-wrap:balance;
+}
+html body #root .howto-v70-guide-points {display:grid;gap:clamp(12px,1.45vh,19px);}
+html body #root .howto-v70-guide-points p {
+  margin:0;display:grid;grid-template-columns:clamp(28px,2.25vw,38px) minmax(0,1fr);
+  gap:clamp(10px,.9vw,16px);align-items:start;
+  font:750 clamp(15px,1.16vw,20px)/1.65 var(--font-game-ui,sans-serif)!important;
+  color:#e5f3ff;overflow-wrap:break-word;
+}
+html body #root .howto-v70-guide-points b {
+  font:900 clamp(11px,.93vw,15px)/1 var(--font-game-ui,sans-serif);
+  display:grid;place-items:center;margin-top:3px;
+  width:clamp(28px,2.25vw,38px);height:clamp(28px,2.25vw,38px);
+  border:1px solid #3a7c93;border-radius:10px;
+  color:#78edf2;background:#0d3a53;
+}
+html body #root .howto-v70-guide-points span {min-width:0;}
+html body #root .howto-v70-chat-example {
+  border:1px solid rgba(109,237,228,.65);border-radius:13px;
+  background:linear-gradient(120deg,#0b1a33,#143d49);
+  padding:clamp(10px,.95vw,16px);
+  display:flex;flex-direction:column;gap:9px;
+  box-shadow:0 0 20px rgba(75,229,204,.1);
+}
+html body #root .howto-v70-chat-top {
+  display:flex;align-items:center;gap:8px;font:900 clamp(11px,.81vw,14px)/1.2 var(--font-game-ui,sans-serif);
+  color:#8be9ef;
+}
+html body #root .howto-v70-chat-dot {width:8px;height:8px;border-radius:50%;background:#71ebbb;box-shadow:0 0 9px #4be5a3;}
+html body #root .howto-v70-chat-sent {margin-inline-start:auto;color:#8ff2c0;}
+html body #root .howto-v70-chat-row {
+  display:flex;align-items:center;gap:10px;direction:ltr;
+  background:#051326;border:1px solid #345d78;border-radius:9px;
+  padding:8px 11px;min-width:0;
+}
+html body #root .howto-v70-chat-name {color:#a7bfd0;font:800 clamp(10px,.85vw,14px)/1.1 sans-serif;}
+html body #root .howto-v70-chat-row strong {
+  margin-inline:auto;color:#fff;font:950 clamp(22px,2vw,35px)/1 var(--font-game-ui,sans-serif);
+  letter-spacing:.05em;
+}
+html body #root .howto-v70-chat-send {
+  display:grid;place-items:center;background:#70ede1;color:#061b2b;
+  width:34px;height:31px;border-radius:8px;font-size:17px;
+}
+html body #root .howto-v70-chat-example small {font:750 clamp(12px,.93vw,16px)/1.55 var(--font-game-ui,sans-serif);color:#bfeced;}
+html body #root .howto-v70-score-note {
+  border:1px solid #75dbaf;border-radius:13px;
+  padding:clamp(10px,.95vw,17px);
+  background:linear-gradient(130deg,rgba(15,72,61,.68),rgba(10,55,58,.62));
+  display:flex;flex-direction:column;gap:6px;
+}
+html body #root .howto-v70-score-note strong {color:#a2ffcc;font:900 clamp(14px,1.1vw,18px)/1.4 var(--font-game-ui,sans-serif);}
+html body #root .howto-v70-score-note span {color:#e2fff0;font:750 clamp(12px,.95vw,16px)/1.55 var(--font-game-ui,sans-serif);}
+html body #root .howto-v70-food-visual {
+  display:flex;flex-direction:column;width:100%;height:100%;min-height:0;overflow:hidden;
+}
+html body #root .howto-v70-food-visual .howto-demo-food {flex:1 1 auto;min-height:0;height:0;width:100%;object-fit:cover;}
+html body #root .howto-v70-food-hint {
+  flex:none;display:grid;place-items:center;min-height:clamp(21px,2.2vw,35px);
+  color:#a2bdd6;font:850 clamp(9px,.79vw,13px)/1.2 var(--font-game-ui,sans-serif);
+  background:rgba(8,20,41,.98);text-align:center;padding:3px 6px;
+}
+html body #root .howto-v70-food-hint.is-visible {color:#87f6d1;background:#11443c;}
+html body #root .howto-v70-food-timer {height:5px!important;}
+html body #root .howto-v70-food-layout .howto-v69-choice {
+  gap:3px;flex-wrap:nowrap;
+}
+html body #root .howto-v70-food-layout .howto-v69-choice-id {white-space:nowrap;}
+html body #root .howto-v70-food-layout .howto-v70-selected-choice {
+  border-color:#6ef0e1;box-shadow:0 0 0 2px rgba(111,237,225,.70);
+  background:linear-gradient(120deg,#134b64,#143d57);
+}
+html body #root .howto-v70-food-layout .howto-v69-target-hint {
+  top:63%;bottom:auto;left:5%;border-color:#89eec8;background:#0b5449ed;
+}
+html body #root .howto-v70-food-layout .howto-v69-target-hint::after {
+  content:'';position:absolute;left:100%;top:50%;width:clamp(12px,1.5vw,25px);
+  border-top:2px solid #88f4c9;transform:rotate(-15deg);transform-origin:left;
+}
+/* The tutorial is a slide deck, not a scrolling document: shrink typography
+   moderately at 720p while keeping every line and the Send example visible. */
+@media (max-width: 1279px), (max-height: 735px) {
+  html body #root .howto-v69-layout.howto-v70-food-layout {grid-template-columns:minmax(0,1.65fr) minmax(265px,1fr)!important;gap:12px!important;}
+  html body #root .howto-v70-guide-card {padding:clamp(10px,1vw,15px);gap:9px;}
+  html body #root .howto-v70-guide-card h3 {font-size:clamp(22px,2.1vw,30px)!important;}
+  html body #root .howto-v70-guide-points {gap:7px;}
+  html body #root .howto-v70-guide-points p {font-size:clamp(12px,1.1vw,16px)!important;line-height:1.46;grid-template-columns:27px minmax(0,1fr);gap:8px;}
+  html body #root .howto-v70-guide-points b {width:27px;height:27px;font-size:10px;}
+  html body #root .howto-v70-chat-example {padding:8px;gap:5px;}
+  html body #root .howto-v70-chat-example small {font-size:11px;line-height:1.35;}
+  html body #root .howto-v70-chat-row strong {font-size:22px;}
+  html body #root .howto-v70-score-note {padding:8px;gap:4px;}
+  html body #root .howto-v70-score-note span {font-size:12px;line-height:1.4;}
+}
+@media (max-width: 780px) {
+  html body #root .howto-v69-layout.howto-v70-food-layout {grid-template-columns:1fr!important;grid-template-rows:minmax(0,1fr) auto;}
+  html body #root .howto-v70-food-layout .howto-v69-preview {grid-column:1;grid-row:1;}
+  html body #root .howto-v70-food-layout .howto-v70-food-guide {grid-column:1;grid-row:2;}
+  html body #root .howto-v70-guide-card {padding:5px 8px;gap:3px;}
+  html body #root .howto-v70-guide-card h3 {font-size:16px!important;}
+  html body #root .howto-v70-guide-points {gap:3px;}
+  html body #root .howto-v70-guide-points p {font-size:11px!important;line-height:1.3;}
+  html body #root .howto-v70-guide-kicker {display:none;}
+  html body #root .howto-v70-chat-row strong {font-size:14px;}
+  html body #root .howto-v70-chat-row {padding:3px 7px;}
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-v68 small {
+  color:#92edf5!important;text-shadow:0 2px 10px #052338;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   V71 · Food Origin lesson only. One clean header, two pages, and the EXACT
+   FoodOriginHintPill shared with the live game. No made-up green caption strip.
+   All styles are scoped to the intro — zero live-game style overrides.
+   ─────────────────────────────────────────────────────────────────────────── */
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-food-v71 {
+  justify-content:center!important;
+  margin:0!important;padding:0!important;
+  min-height:0!important;
+}
+html body #root .gameplay-phase-mini_game_intro .howto-intro-header-food-v71 h2 {
+  margin:0!important;padding:0!important;
+  font:950 clamp(30px,3.25vw,51px)/1.14 var(--font-game-title,var(--font-game-ui))!important;
+  color:#fff!important;text-align:center!important;letter-spacing:0!important;
+  text-shadow:0 3px 18px #0009!important;
+}
+html body #root .howto-v71-food,
+html body #root .howto-v71-food * {box-sizing:border-box;}
+html body #root .howto-v71-food {
+  min-width:0;min-height:0;width:100%;height:100%;
+  display:grid;grid-template-rows:minmax(0,1fr) auto;
+  gap:clamp(8px,1.1vh,14px);color:#eff9ff;
+  font-family:var(--font-game-ui,'Alexandria',sans-serif);
+}
+html body #root .howto-v71-main {
+  min-width:0;min-height:0;display:grid;direction:ltr;
+  grid-template-columns:minmax(0,1.78fr) minmax(310px,.92fr);
+  align-items:center;gap:clamp(14px,1.6vw,28px);
+}
+html body #root .howto-v71-preview {
+  position:relative;isolation:isolate;display:block;
+  min-width:0;width:min(100%,177.778cqh);height:auto;max-height:100%;
+  aspect-ratio:16/9;overflow:hidden;
+  background:#0a1026;border:1px solid #31557b;border-radius:12px;
+  box-shadow:0 12px 26px #0008;
+  container-type:inline-size;
+}
+html body #root .howto-v71-background {
+  position:absolute;inset:-12.5%;width:125%;height:125%;max-width:none;
+  object-fit:fill;filter:brightness(.55) saturate(.83);pointer-events:none;
+}
+html body #root .howto-v71-board {
+  position:absolute;inset:1.9% 4.4% 11.6%;
+  display:grid;grid-template-rows:auto auto auto minmax(0,1fr) auto;
+  gap:clamp(3px,.53cqw,8px);
+  background:linear-gradient(145deg,#071127,#0c1730);
+  border:1px solid #365a7a;border-radius:7px;
+  padding:clamp(7px,1.05cqw,14px);
+  overflow:hidden;min-width:0;min-height:0;
+}
+html body #root .howto-v71-question-meta {
+  display:flex;justify-content:center;align-items:center;gap:8px;
+  white-space:nowrap;color:#a3edff;
+  font:850 clamp(10px,1.4cqw,17px)/1.1 var(--font-game-ui);
+}
+html body #root .howto-v71-question-meta .gameplay-question-meta {
+  position:static!important;transform:none!important;margin:0!important;
+  width:auto!important;min-width:0!important;padding:1px 5px!important;
+  border-radius:5px!important;background:#153b58!important;
+  font:800 clamp(9px,1.2cqw,14px)/1.1 var(--font-game-ui)!important;
+}
+html body #root .howto-v71-question-meta .gameplay-question-meta span {
+  font-size:inherit!important;color:#f0f8ff!important;
+}
+html body #root .howto-v71-preview .gameplay-question-timer.howto-v71-timer {
+  display:flex!important;position:static!important;transform:none!important;
+  width:100%!important;height:clamp(15px,2.2cqw,25px)!important;
+  min-width:0!important;max-width:none!important;
+  padding:0!important;margin:0!important;background:none!important;
+  border:0!important;box-shadow:none!important;
+  flex-direction:row!important;align-items:center!important;gap:6px!important;
+}
+html body #root .howto-v71-timer .gameplay-question-timer-icon {
+  position:static!important;flex:none!important;width:clamp(9px,1.65cqw,17px)!important;
+  height:clamp(9px,1.65cqw,17px)!important;
+}
+html body #root .howto-v71-timer .gameplay-question-timer-track {
+  display:block!important;flex:1!important;width:auto!important;min-width:0!important;
+  height:clamp(3px,.52cqw,6px)!important;position:relative!important;overflow:hidden!important;
+  background:#16415b!important;border:1px solid #216385!important;border-radius:9px!important;
+}
+html body #root .howto-v71-timer .gameplay-question-timer-fill {
+  position:absolute!important;left:0!important;top:0!important;height:100%!important;
+  width:var(--timer-progress)!important;max-width:100%!important;
+  transform:none!important;background:linear-gradient(90deg,#4cdeed,#db6bde)!important;
+}
+html body #root .howto-v71-timer > strong {
+  min-width:2.2ch!important;font:900 clamp(11px,1.55cqw,18px)/1 var(--font-game-ui)!important;
+  color:#ecffff!important;white-space:nowrap!important;
+}
+html body #root .howto-v71-question {
+  margin:0!important;padding:0!important;position:static!important;
+  color:#fff!important;text-align:center!important;
+  font:900 clamp(12px,1.85cqw,21px)/1.1 var(--font-game-title,var(--font-game-ui))!important;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+html body #root .howto-v71-media {
+  min-height:0;min-width:0;width:min(100%,77%);
+  height:100%;margin-inline:auto;display:grid;grid-template-rows:minmax(0,1fr);
+}
+/* MediaCard is the same component used by FoodOriginScreen. No invented hint. */
+html body #root .howto-v71-media > div {min-height:0!important;gap:clamp(3px,.5cqw,7px)!important;}
+html body #root .howto-v71-media .qshell-media-frame {
+  min-height:0!important;max-height:none!important;border-radius:8px!important;
+  border:1px solid rgba(34,231,255,.48)!important;
+  box-shadow:0 0 11px rgba(34,231,255,.12)!important;
+}
+html body #root .howto-v71-media .qshell-media-img {width:100%!important;height:100%!important;object-fit:cover!important;}
+html body #root .howto-v71-media .gameplay-food-hint-slot {
+  min-height:clamp(25px,3.8cqw,42px)!important;display:flex!important;
+  width:100%!important;align-items:center!important;justify-content:center!important;
+  overflow:visible!important;
+}
+/* Scale ONLY the hint's typography/size to the mini-screen. Its live design
+   tokens, markup, class and revealed state are untouched and shared. */
+html body #root .howto-v71-media .gameplay-food-hint-slot strong {
+  position:static!important;inset:auto!important;transform:none!important;
+  max-width:100%!important;min-height:clamp(24px,3.4cqw,38px)!important;
+  border:2px solid rgba(255,230,109,.92)!important;
+  border-radius:999px!important;
+  background:rgba(8,5,24,.96)!important;
+  color:#ffe66d!important;
+  padding:clamp(4px,.8cqw,8px) clamp(11px,1.6cqw,20px)!important;
+  box-shadow:0 0 14px rgba(255,230,109,.22)!important;
+  font:950 clamp(11px,1.4cqw,18px)/1.1 var(--font-game-title,var(--font-game-ui))!important;
+  text-shadow:0 0 9px rgba(255,230,109,.44)!important;
+  overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important;
+}
+html body #root .howto-v71-choices {
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(3px,.55cqw,7px);min-height:clamp(35px,6.5cqw,71px);
+}
+/* Original ChoiceCard markup: !number, answer label and vote count. The
+   original oversized vh fonts are proportionally scaled to the preview. */
+html body #root .howto-v71-choices .gameplay-choice-card {
+  display:grid!important;grid-template-columns:clamp(24px,4.5cqw,44px) minmax(0,1fr)!important;
+  grid-template-rows:1fr auto!important;align-items:center!important;
+  justify-content:stretch!important;direction:ltr!important;
+  padding:clamp(4px,.65cqw,9px)!important;gap:clamp(3px,.55cqw,7px)!important;
+  border:1px solid #315f86!important;border-radius:7px!important;
+  background:linear-gradient(120deg,#152943,#0e1f3d)!important;
+  min-width:0!important;min-height:0!important;
+}
+html body #root .howto-v71-choices .gameplay-choice-card > strong {
+  grid-row:1/3;grid-column:1;display:grid!important;place-items:center!important;
+  width:100%!important;min-width:0!important;height:100%!important;min-height:0!important;
+  font:950 clamp(12px,1.65cqw,19px)/1 var(--font-game-ui)!important;
+  border-radius:5px!important;color:#79eeff!important;background:#0e3e57!important;
+  border:1px solid #377590!important;
+}
+html body #root .howto-v71-choices .gameplay-choice-card > span:not(.qshell-vote-count) {
+  grid-column:2;grid-row:1;min-width:0!important;text-align:center!important;
+  font:850 clamp(11px,1.65cqw,18px)/1.2 var(--font-game-ui)!important;
+  color:#eaf8ff!important;white-space:normal!important;overflow-wrap:anywhere!important;
+}
+html body #root .howto-v71-choices .gameplay-choice-card > .qshell-vote-count {
+  grid-column:2;grid-row:2;justify-self:center!important;
+  margin:0!important;padding:0!important;min-height:0!important;
+  font:750 clamp(8px,.9cqw,11px)/1 var(--font-game-ui)!important;
+  color:#8ba6c0!important;background:none!important;border:none!important;
+}
+html body #root .howto-v71-info {direction:rtl;min-width:0;min-height:0;width:100%;max-height:100%;display:flex;align-items:center;}
+html body #root .howto-v71-guide {
+  min-width:0;width:100%;max-height:100%;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;align-items:stretch;
+  gap:clamp(10px,1.6vh,19px);
+  padding:clamp(17px,1.7vw,29px);
+  background:linear-gradient(140deg,#152d49f5,#0d1d38f5);
+  border:1px solid #426b89;border-radius:15px;
+  box-shadow:inset 0 1px 0 #ffffff10,0 10px 23px #0003;
+}
+html body #root .howto-v71-guide h3 {
+  margin:0!important;color:#fff;
+  font:950 clamp(22px,2.05vw,36px)/1.3 var(--font-game-title,var(--font-game-ui))!important;
+}
+html body #root .howto-v71-guide p {
+  margin:0;color:#dbeaf7;
+  font:750 clamp(14px,1.13vw,19px)/1.68 var(--font-game-ui)!important;
+  text-wrap:pretty;
+}
+html body #root .howto-v71-chat {
+  display:flex;flex-direction:column;gap:8px;padding-top:clamp(3px,.4vh,7px);
+  border-top:1px solid #365d74;
+}
+html body #root .howto-v71-chat > span {font:850 clamp(12px,.94vw,16px)/1.2 var(--font-game-ui);color:#8ce7ee;}
+html body #root .howto-v71-chat-input {
+  display:flex;align-items:center;gap:12px;min-height:clamp(47px,5.5vh,68px);
+  padding:7px 9px 7px 14px;background:#06172b;
+  border-radius:10px;border:1px solid #42718a;
+}
+html body #root .howto-v71-chat-input span {font:850 clamp(10px,.8vw,13px)/1.2 sans-serif;color:#85a5b8;}
+html body #root .howto-v71-chat-input strong {flex:1;text-align:center;color:white;font:950 clamp(26px,2.4vw,42px)/1 var(--font-game-ui)!important;}
+html body #root .howto-v71-chat-input b {
+  display:grid;place-items:center;min-width:clamp(33px,2.8vw,46px);
+  min-height:clamp(31px,3.5vh,44px);background:#64eadc;border-radius:8px;color:#072334;
+  font:900 21px/1 sans-serif;
+}
+html body #root .howto-v71-chat small,
+html body #root .howto-v71-note {font:750 clamp(11px,.86vw,15px)/1.45 var(--font-game-ui);color:#adcada;}
+html body #root .howto-v71-score {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+html body #root .howto-v71-score > div {
+  min-width:0;display:flex;flex-direction:column;gap:5px;
+  background:#103d3c;border:1px solid #347b72;border-radius:11px;padding:clamp(10px,.85vw,14px);
+}
+html body #root .howto-v71-score > div:last-child {background:#332a36;border-color:#765d68;}
+html body #root .howto-v71-score small {font:750 clamp(10px,.85vw,14px)/1.3 var(--font-game-ui);color:#a3ded6;}
+html body #root .howto-v71-score strong {font:900 clamp(14px,1.1vw,19px)/1.4 var(--font-game-ui);color:#b6ffda;}
+html body #root .howto-v71-score > div:last-child strong {color:#ffdaac;}
+html body #root .howto-v71-footer {
+  border-top:1px solid #294061;padding-top:clamp(6px,.7vh,10px);
+  display:flex;align-items:center;justify-content:space-between;min-width:0;gap:10px;
+}
+html body #root .howto-v71-footer button {
+  cursor:pointer;font:850 clamp(12px,.96vw,16px)/1.1 var(--font-game-ui);
+  padding:9px 13px;min-height:clamp(36px,4.4vh,48px);border-radius:10px;
+}
+html body #root .howto-v71-skip {background:transparent;border:0;color:#a2b9d0;text-decoration:underline;text-underline-offset:4px;}
+html body #root .howto-v71-controls {display:flex;align-items:center;gap:clamp(6px,.8vw,13px);}
+html body #root .howto-v71-pagenum {font:900 clamp(11px,.9vw,16px)/1.2 var(--font-game-ui);color:#a8cfe0;white-space:nowrap;}
+html body #root .howto-v71-back {display:flex;align-items:center;gap:8px;background:#162944;border:1px solid #416482;color:#c4d5e4;}
+html body #root .howto-v71-back:disabled {opacity:.30;cursor:default;}
+html body #root .howto-v71-next {
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  min-width:clamp(110px,11vw,174px);background:#68e7dd;color:#082438;border:1px solid #86f4eb;
+  box-shadow:0 3px 12px #33cfb74a;
+}
+html body #root .howto-v71-food button:focus-visible {outline:2px solid #ffe880;outline-offset:3px;}
+@media (max-width:1199px),(max-height:750px) {
+  html body #root .howto-v71-main {grid-template-columns:minmax(0,1.60fr) minmax(270px,.92fr);gap:11px;}
+  html body #root .howto-v71-guide {padding:clamp(11px,1.2vw,19px);gap:clamp(7px,1.2vh,12px);}
+  html body #root .howto-v71-guide p {font-size:clamp(12px,1.02vw,16px)!important;line-height:1.5;}
+  html body #root .howto-v71-score strong {font-size:clamp(12px,1.05vw,16px);}
+  html body #root .howto-v71-chat-input strong {font-size:clamp(21px,2vw,29px)!important;}
+}
+@media (max-width:740px) {
+  html body #root .howto-v71-main {grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;gap:7px;}
+  html body #root .howto-v71-preview {width:auto;height:100%;max-width:100%;justify-self:center;}
+  html body #root .howto-v71-guide {padding:8px 12px;gap:4px;}
+  html body #root .howto-v71-guide h3 {font-size:16px!important;}
+  html body #root .howto-v71-guide p {font-size:11px!important;line-height:1.2;}
+  html body #root .howto-v71-chat-input {min-height:29px;padding:3px 7px;}
+  html body #root .howto-v71-chat-input strong {font-size:19px!important;}
+}
+@media (prefers-reduced-motion:reduce) {
+  html body #root .howto-v71-food *,html body #root .howto-v71-food *::before {animation:none!important;transition:none!important;}
+}

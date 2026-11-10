@@ -4,7 +4,6 @@ import type { ChaosEventSnapshot } from '../../../game-core/chaos/chaos-types';
 import type { CitizenRuntime } from '../../../game-core/citizens/citizen-types';
 import type { MiniGameScoreAward, MiniGameSnapshot } from '../../../game-core/minigames/minigame-types';
 import type { TourPhase, TourSnapshot } from '../../../game-core/tours/tour-types';
-import type { TranslationKey } from '../../../game-core/localization/locale-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
 import { MainScreenPlayFlow } from '../play/MainScreenPlayFlow';
@@ -13,12 +12,11 @@ import { formatAnswerParticipation } from './shared/answer-helpers';
 import { ChoiceSpotlights } from './citizens/ChoiceSpotlights';
 import { CitizenPlazaOverlay } from './citizens/CitizenPlaza';
 import { RoundScoreBoard, TourCompleteSummary } from './scoreboard/Scoreboard';
-import { MINI_GAME_BY_ID } from '../../../game-core/minigames/minigame-registry';
 import { MINI_GAME_SCREENS } from './minigames/minigame-screen-registry';
 import { resolveGameplayOverlayMode } from './gameplay-overlay-mode';
 import { RoundRevealProvider } from './shared/RoundRevealContext';
 import { getScoringRevealKey, useRoundRevealCompletion } from './shared/RoundRevealCompletionContext';
-import { MiniGameIntroIllustration, INTRO_STEP_ICONS } from './shared/MiniGameIntroIllustration';
+import { MiniGameIntroDemonstration } from './shared/MiniGameIntroDemonstration';
 
 export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | 'minigame' } = {}) {
   const { snapshot } = useGame();
@@ -87,19 +85,10 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
 function MiniGameIntro({ miniGame, chaosEvent }: { miniGame: MiniGameSnapshot; chaosEvent: ChaosEventSnapshot }) {
   const { actions, snapshot } = useGame();
   const locale = snapshot.locale;
-  const t = useTranslation();
-  const fallbackSteps: TranslationKey[] = [
-    'gameplay.intro.shape.step1',
-    'gameplay.intro.shape.step2',
-    'gameplay.intro.shape.step3',
-  ];
-  const steps: TranslationKey[] = [...(MINI_GAME_BY_ID[miniGame.id]?.introSteps ?? fallbackSteps)];
-
   return (
-    <div className="gameplay-intro-card">
-      <header className="howto-intro-header">
-        <span>{MINI_GAME_BY_ID[miniGame.id].icon}</span>
-        <div><small>{locale === 'ar' ? 'إزاي نلعب؟' : 'HOW TO PLAY'}</small><h2>{miniGame.title}</h2></div>
+    <div className="gameplay-intro-card gameplay-intro-card-v68">
+      <header className="howto-intro-header howto-intro-header-v68 howto-intro-header-food-v71">
+        <h2>{locale === 'ar' ? 'طريقة اللعب' : 'HOW TO PLAY'}</h2>
         {chaosEvent.active ? (
           <aside className="howto-chaos-v40" aria-label={chaosEvent.title}>
             <small>⚡ CHAOS!</small>
@@ -108,19 +97,7 @@ function MiniGameIntro({ miniGame, chaosEvent }: { miniGame: MiniGameSnapshot; c
           </aside>
         ) : null}
       </header>
-      <MiniGameIntroIllustration gameId={miniGame.id} />
-      <div className="gameplay-intro-steps">
-        {steps.map((step, index) => (
-          <article className="howto-step" key={step}>
-            <span className="howto-step-icon" aria-hidden="true">{INTRO_STEP_ICONS[miniGame.id][index]}</span>
-            <b>{index + 1}</b>
-            <p>{t(step)}</p>
-          </article>
-        ))}
-      </div>
-      <button className="gameplay-intro-continue-button" type="button" onClick={actions.skipPhase}>
-        {t('ui.startRound')}
-      </button>
+      <MiniGameIntroDemonstration gameId={miniGame.id} locale={locale} onStart={actions.skipPhase} />
     </div>
   );
 }

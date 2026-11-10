@@ -9,6 +9,7 @@ import rawBank from './visual-guess-questions.json';
 import rawPosterProfiles from './poster-visual-profiles-v50.json';
 import rawMovieClues from './movie-clues.generated.json';
 import { planPosterReveal, type PosterRevealPlan } from './poster-mystery';
+import { pickStarPhotoVariant, type StarPhotoVariant } from './star-photo-rotation';
 import { ChoiceVariety } from '../../questions/choice-variety';
 import { chooseQuoteWrongAnswers, choiceHistoryKey, readQuoteChoiceHistory, rememberQuoteChoice, shuffleQuoteAnswerPositions, type QuoteChoiceHistory } from './quote-choice-rotation';
 import { browserPosterStorage, emptyPosterHistory, readPosterHistory, rememberPosterPlay, type PosterHistory, type PosterHistoryStorage } from './poster-history';
@@ -58,6 +59,10 @@ type ImageItem = {
   name: I18n;
   imageUrl: string;
   asset?: string;
+  eyesAsset?: string;
+  /** One quiz identity; may own several locally labeled photos of that person. */
+  personKey?: string;
+  photoVariants?: StarPhotoVariant[];
   mode: VisualGuessMode;
   difficulty: QuestionDifficulty;
   category: string;
@@ -71,7 +76,7 @@ type ImageItem = {
 };
 type ActiveRound = {
   item: ImageItem; choices: VisualGuessChoice[]; correctOptionNumber: number; correctValue: string;
-  posterReveal?: PosterRevealPlan; movieClue?: MovieClue;
+  posterReveal?: PosterRevealPlan; movieClue?: MovieClue; starPhoto?: StarPhotoVariant;
   quoteMode?: QuoteChallengeMode; localizedChoiceLabels?: Record<string, I18n>;
 };
 function movieCluesFor(item: ImageItem): readonly MovieClue[] {
@@ -94,12 +99,12 @@ function pickMovieClue(item: ImageItem, variant: MovieRoundVariant, priorId: str
 const BANK = rawBank as { movies: ImageItem[]; stars: ImageItem[]; movieChoiceCatalog?: Record<string, I18n> };
 const MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['poster'],
-  'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
+  'guess-star': ['eyes'],
 };
 const ROUND_DIFFICULTIES: QuestionDifficulty[] = ['easy', 'medium', 'hard', 'hard'];
 const ROUND_MODES: Record<VisualGuessGameId, VisualGuessMode[]> = {
   'guess-movie': ['poster', 'poster', 'poster', 'poster'],
-  'guess-star': ['eyes', 'silhouette', 'zoom', 'reveal'],
+  'guess-star': ['eyes'],
 };
 
 export function getVisualGuessBank(gameId: VisualGuessGameId): readonly ImageItem[] {
@@ -138,10 +143,11 @@ export class VisualGuessMiniGameService {
     this.correctOfficialCount = 0;
     this.correctSpectatorCount = 0;
     this.scored = false;
-    // A locally imported, permission-cleared photo is playable even if it had no remote URL.
+    // V66: only named, offline user-provided photographs and matching eye strips
+    // can enter Guess the Star. No Commons requests, no progress reveal.
     const bank = getVisualGuessBank(this.gameId).filter(item => this.gameId === 'guess-movie'
       ? movieCluesFor(item).length > 0
-      : item.imageUrl.length > 0 || item.mediaApproval === 'user_supplied_local_rights_unverified' || item.mediaApproval === 'user_supplied_with_permission');
+      : Boolean(item.asset?.startsWith('Stars/Full/') && item.eyesAsset?.startsWith('Stars/Eyes/')));
     if (bank.length < 4) throw new Error(`${this.gameId} needs at least four valid image entries`);
 
     // A predictable mode cadence guarantees that each variant actually gets played.
@@ -191,7 +197,7 @@ export class VisualGuessMiniGameService {
       }
       item = fairPool[Math.floor(rng() * fairPool.length)];
     } else {
-      // Preserve Guess the Star's original mode cadence and session rotation.
+      // Stars: eyes-only at every difficulty, with local question rotation.
       const eligible = bank.filter(q => q.mode === scheduledMode && q.difficulty === targetDifficulty);
       const difficultyOnly = bank.filter(q => q.difficulty === targetDifficulty);
       const selectFresh = (candidates: readonly ImageItem[]) =>
@@ -210,6 +216,11 @@ export class VisualGuessMiniGameService {
     // resemble the first visible poster area (zoom, spotlight, puzzle, colour).
     const movieClue = this.gameId === 'guess-movie'
       ? pickMovieClue(item, chosenVariant, this.posterHistory.entries[item.id]?.lastClueId, rng) : undefined;
+    const starPhoto = this.gameId === 'guess-star'
+      ? pickStarPhotoVariant(item.personKey ?? item.id,
+          item.photoVariants ?? [{ id: item.id, asset: item.asset!, eyesAsset: item.eyesAsset! }],
+          rng, this.historyStorage)
+      : undefined;
     const posterReveal = movieClue?.kind === 'poster'
       ? planPosterReveal(item.difficulty, seed + roundNumber * 911 + this.posterHistory.sequence * 41,
           this.posterHistory.entries[item.id], item.focus ?? { x: 50, y: 40 },
@@ -269,7 +280,7 @@ export class VisualGuessMiniGameService {
       }));
     }
     const correctOptionNumber = choices.find(choice => choice.value === correctValue)?.optionNumber ?? 1;
-    this.round = { item, choices, correctOptionNumber, correctValue, posterReveal, movieClue, quoteMode, localizedChoiceLabels };
+    this.round = { item, choices, correctOptionNumber, correctValue, posterReveal, movieClue, starPhoto, quoteMode, localizedChoiceLabels };
     if (movieClue) {
       rememberPosterPlay(this.posterHistory, item.id, posterReveal ?? null, this.historyStorage, chosenClueKind, `${movieClue.id}#${chosenVariant}`);
       this.tourClueKindCounts[chosenClueKind]++;
@@ -374,10 +385,12 @@ export class VisualGuessMiniGameService {
         sessionUsedSimilarityGroups: this.sessionUsedIds.size,
       },
       visualGuess: this.round ? {
-        mode: item!.mode,
+        mode: this.gameId === 'guess-star' ? 'eyes' : item!.mode,
+        eyesImageUrl: this.gameId === 'guess-star' && this.round.starPhoto
+          ? `./assets/game/runtime/minigames/visual-guess/${this.round.starPhoto.eyesAsset}` : null,
         imageUrl: this.round.movieClue
           ? (this.round.movieClue.asset ? `./assets/game/runtime/minigames/visual-guess/${this.round.movieClue.asset}` : '')
-          : `./assets/game/runtime/minigames/visual-guess/${item!.asset ?? `${item!.id}.jpg`}`,
+          : `./assets/game/runtime/minigames/visual-guess/${this.round.starPhoto?.asset ?? item!.asset ?? `${item!.id}.jpg`}`,
         movieClueKind: this.round.movieClue?.kind ?? null,
         movieQuoteMode: this.round.quoteMode ?? null,
         // Completion must not reveal its answer while the timer is running.
@@ -391,7 +404,7 @@ export class VisualGuessMiniGameService {
         // if the user moved photos before applying the matching source update.
         fallbackImageUrl: this.round.movieClue?.kind === 'poster'
           ? `./assets/game/runtime/minigames/visual-guess/${item!.id}.${(item!.asset ?? '').split('.').pop() || 'jpg'}`
-          : this.round.movieClue ? '' : item!.imageUrl,
+          : this.round.movieClue ? '' : (this.gameId === 'guess-star' ? '' : item!.imageUrl),
         focus: item!.focus ?? { x: 50, y: 40 },
         titleMask: item!.titleMask ?? null,
         titleMasks: item!.titleMasks ?? (item!.titleMask ? [item!.titleMask] : []),

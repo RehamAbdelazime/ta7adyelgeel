@@ -4,6 +4,7 @@
  * Variant/initial regions are planned before choosing its answer options.
  */
 import type { QuestionDifficulty } from '../../questions/question-types';
+import { initialPuzzleRegions } from './poster-puzzle';
 
 export type PosterRevealMode = 'blur' | 'zoom' | 'spotlight' | 'puzzle' | 'color';
 export type PosterRevealPlan = {
@@ -24,11 +25,11 @@ export type PosterPlayEntry = {
   modeUses?: Partial<Record<PosterRevealMode, number>>;
 };
 
-export const POSTER_REVEAL_MODES: readonly PosterRevealMode[] = ['blur', 'zoom', 'spotlight', 'puzzle', 'color'];
+// Only puzzle is eligible. Keep historic mode names in the type so old saved
+// localStorage entries deserialize safely, but never select them again.
+export const POSTER_REVEAL_MODES: readonly PosterRevealMode[] = ['puzzle'];
 const MODE_BY_DIFFICULTY: Record<QuestionDifficulty, readonly PosterRevealMode[]> = {
-  easy: ['blur', 'zoom', 'color'],
-  medium: ['blur', 'zoom', 'spotlight', 'puzzle', 'color'],
-  hard: ['zoom', 'spotlight', 'puzzle', 'color'],
+  easy: ['puzzle'], medium: ['puzzle'], hard: ['puzzle'],
 };
 export function availablePosterModes(difficulty: QuestionDifficulty): readonly PosterRevealMode[] {
   return MODE_BY_DIFFICULTY[difficulty];
@@ -70,31 +71,10 @@ export function planPosterReveal(
   // Pattern changes even when the same mode eventually returns.
   let pattern = Math.floor(random() * 1_000_000);
   if (pattern === prior?.lastPattern) pattern++;
-  const shuffledRegions = shuffled([0, 1, 2, 3, 4, 5, 6, 7, 8], pattern + 193);
-  const avoidPrintedTitle = (region: number) => {
-    const p = posterRegionCenter(region);
-    return !titleMasks.some(mask => p.x >= mask.x - 6 && p.x <= mask.x + mask.w + 6 && p.y >= mask.y - 6 && p.y <= mask.y + mask.h + 6);
-  };
-  // Zoom in on a meaningful subject neighbourhood, without aligning exactly
-  // on the printed title: no ugly rectangle or masking layer is necessary.
-  const safeRegions = shuffledRegions.filter(avoidPrintedTitle);
-  const regions = safeRegions.length ? safeRegions : shuffledRegions;
-  const nearActor = [...regions].sort((a, b) => {
-    const centerA = posterRegionCenter(a); const centerB = posterRegionCenter(b);
-    const score = (p: { x: number; y: number }) => Math.hypot((p.x - sourceFocus.x) / 100, (p.y - sourceFocus.y) / 100);
-    return score(centerA) - score(centerB);
-  });
-  // Some variation per poster, rather than always zooming the exact same face.
-  const zoomRegion = nearActor[Math.floor(random() * Math.min(3, nearActor.length))];
-  const mainRegion = mode === 'zoom' ? zoomRegion : regions[0];
-  const focus = posterRegionCenter(mainRegion);
-  const initialRegions = mode === 'puzzle'
-    ? puzzleOrder(pattern).slice(0, 2)
-    : mode === 'zoom'
-      ? [zoomRegion]
-      : mode === 'spotlight'
-        ? [mainRegion, ...(regions.filter(r => r !== mainRegion).slice(0, 1))]
-        : Array.from({ length: 9 }, (_, n) => n);
+  // Plan only the visible (non-title) areas for the choice engine too.
+  // The actual 6x9 tile pattern changes on repeated plays.
+  const initialRegions = initialPuzzleRegions(pattern, titleMasks, difficulty);
+  const focus = sourceFocus;
   return { mode, pattern, focus, initialRegions };
 }
 

@@ -237,6 +237,8 @@ export type MiniGameSnapshot = {
     fallbackImageUrl: string;
     mode: 'scene' | 'poster' | 'eyes' | 'silhouette' | 'zoom' | 'reveal';
     imageUrl: string;
+    /** Locally pre-cropped eyes-only image; full face remains hidden until reveal. */
+    eyesImageUrl?: string | null;
     focus: { x: number; y: number };
     titleMask: { x: number; y: number; w: number; h: number } | null;
     titleMasks: { x: number; y: number; w: number; h: number }[];
