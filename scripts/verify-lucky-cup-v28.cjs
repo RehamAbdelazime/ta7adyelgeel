@@ -31,7 +31,6 @@ has('src/ui-react/styles/host-answer-pod-v28.css', '.qshell-host-bubble-v20');
 has('src/ui-react/components/gameplay/minigames/LuckyCupScreen.tsx','getLuckyCupInitialLift(elapsed)');
 has('src/ui-react/components/gameplay/minigames/LuckyCupScreen.tsx','lucky-v28-prompt');
 has('src/ui-react/components/gameplay/minigames/LuckyCupScreen.tsx','showInitialBall');
-has('src/ui-react/components/streamer/PrivateStreamerAnswerDock.tsx','qshell-host-private-tag');
 const motion = read('src/game-core/minigames/lucky-cup/lucky-cup-motion.ts');
 const hold = Number(motion.match(/LUCKY_CUP_OPEN_HOLD_MS = (\d+);/)[1]);
 assert.ok(hold >= 1600, 'preview should be long enough to see ball');

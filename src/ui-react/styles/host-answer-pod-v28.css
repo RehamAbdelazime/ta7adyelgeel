@@ -27,18 +27,6 @@ html body #root .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answ
   padding: 0 !important;
   direction: ltr !important;
 }
-html body #root .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-header .qshell-host-private-tag {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  padding: 4px 6px !important;
-  border: 1px solid rgba(255,209,113,.38) !important;
-  border-radius: 6px !important;
-  background: rgba(125,78,33,.23) !important;
-  font: 850 clamp(9px,.63vw,12px)/1 var(--font-game-ui,sans-serif) !important;
-  color: #ffe0a3 !important;
-  white-space: nowrap !important;
-}
 html body #root .game-scene-stage .qshell-host-bubble-v20 .private-streamer-answer-header strong {
   color: #eafdff !important;
   font: 850 clamp(13px,.92vw,17px)/1.15 var(--font-game-ui,sans-serif) !important;
