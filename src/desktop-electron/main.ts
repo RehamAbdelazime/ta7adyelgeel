@@ -352,6 +352,9 @@ async function createMainWindow(): Promise<void> {
   await win.loadFile(getRendererEntry());
 }
 
+// Match the Windows taskbar identity to the packaged executable.
+if (process.platform === 'win32') app.setAppUserModelId('com.ta7ady.elgeel');
+
 app.whenReady().then(async () => {
   configureSessionSecurity();
   await ensureStorageDirectory();

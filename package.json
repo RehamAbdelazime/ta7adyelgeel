@@ -124,7 +124,8 @@
     "appId": "com.ta7ady.elgeel",
     "productName": "Ta7ady ElGeel",
     "directories": {
-      "output": "release-v2"
+      "output": "release-v2",
+      "buildResources": "build"
     },
     "files": [
       "dist/**/*",
@@ -134,7 +135,8 @@
     "asar": true,
     "win": {
       "target": "portable",
-      "icon": "public/favicon.ico"
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": true
     }
   }
 }
