@@ -27,6 +27,7 @@ import {
 import type { CoupleOrSiblingsAnswer, FoodOriginAnswer, MazeGateAnswer, MemoryCountAnswer, MiniGameId, MiniGameScoreAward, ShapeCountAnswer, ShapeCountShapeId } from '../minigames/minigame-types';
 import { CountTheBeatMiniGameService } from '../minigames/count-the-beat/count-the-beat-service';
 import { LuckyCupMiniGameService, getLuckyCupPreparationMsForRound } from '../minigames/lucky-cup/lucky-cup-service';
+import { LaserChallengeMiniGameService } from '../minigames/laser-challenge/laser-challenge-service';
 import { enforceMiniGameScoreAwardPolicy, getAwardScoreOutcome } from '../minigames/scoring-policy';
 import { ProfileService } from '../profiles/profile-service';
 import { ProgressionService } from '../progression/progression-service';
@@ -89,6 +90,7 @@ export class GameStore {
   private readonly shapeCountMiniGame = new ShapeCountMiniGameService();
   private readonly countTheBeatMiniGame = new CountTheBeatMiniGameService();
   private readonly luckyCupMiniGame = new LuckyCupMiniGameService();
+  private readonly laserChallengeMiniGame = new LaserChallengeMiniGameService();
   private readonly memoryCountMiniGame = new MemoryCountMiniGameService();
   private readonly foodOriginMiniGame = new FoodOriginMiniGameService();
   private readonly coupleOrSiblingsMiniGame = new CoupleOrSiblingsMiniGameService();
@@ -481,6 +483,7 @@ export class GameStore {
     this.guessMovieMiniGame.beginTour();
     this.guessStarMiniGame.beginTour();
     this.mazeGatesMiniGame.beginTour();
+    this.laserChallengeMiniGame.beginTour();
 
     this.activeSessionMode = sessionMode;
     const result = this.tourStateMachine.startTour(plannedRoundCount);
@@ -999,6 +1002,9 @@ export class GameStore {
     if (this.activeMiniGameId === 'lucky-cup') {
       return this.handleLuckyCupAnswerCommand(citizen, command);
     }
+    if (this.activeMiniGameId === 'laser-challenge') {
+      return this.handleLaserChallengeAnswerCommand(citizen, command);
+    }
 
     // Every registered game has an explicit handler above.
     const response = this.locale === 'ar' ? 'اللعبة غير مدعومة.' : 'Unsupported mini-game.';
@@ -1070,6 +1076,30 @@ export class GameStore {
     this.eventBus.emit({ type: 'minigame.answer.accepted', twitchUserId: citizen.twitchUserId, answer });
     this.notifyChanged();
 
+    return { ok: true, command, message: response };
+  }
+
+  private handleLaserChallengeAnswerCommand(citizen: CitizenRuntime, command: ParsedTwitchCommand) {
+    const answer = this.getNumericAnswerFromCommand(command);
+    if (answer === null || answer < 1 || answer > 4) {
+      const response = translate(this.locale, 'minigame.laserChallenge.invalidAnswer', { name: citizen.displayName });
+      this.addFeed(response);
+      return { ok: false, command, message: response };
+    }
+    const result = this.laserChallengeMiniGame.submitAnswer(citizen, answer);
+    if (!result.ok) {
+      const response = translate(this.locale,
+        result.reason === 'already_answered' ? 'minigame.laserChallenge.alreadyAnswered'
+          : 'minigame.laserChallenge.answerWindowClosed', { name: citizen.displayName });
+      this.addFeed(response);
+      return { ok: false, command, message: response };
+    }
+    const response = translate(this.locale, 'minigame.laserChallenge.answerAccepted', {
+      name: citizen.displayName, answer: String(answer),
+    });
+    this.addFeed(response);
+    this.eventBus.emit({ type: 'minigame.answer.accepted', twitchUserId: citizen.twitchUserId, answer });
+    this.notifyChanged();
     return { ok: true, command, message: response };
   }
 
@@ -1536,7 +1566,7 @@ export class GameStore {
     return queue.slice(0, roundCount);
   }
 
-  private getActiveMiniGameService(): ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | CoupleOrSiblingsMiniGameService | VisualGuessMiniGameService | MazeGatesMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService {
+  private getActiveMiniGameService(): ShapeCountMiniGameService | MemoryCountMiniGameService | FoodOriginMiniGameService | CoupleOrSiblingsMiniGameService | VisualGuessMiniGameService | MazeGatesMiniGameService | CountTheBeatMiniGameService | LuckyCupMiniGameService | LaserChallengeMiniGameService {
     switch (this.activeMiniGameId) {
       case 'shape-count':
         return this.shapeCountMiniGame;
@@ -1544,6 +1574,8 @@ export class GameStore {
         return this.countTheBeatMiniGame;
       case 'lucky-cup':
         return this.luckyCupMiniGame;
+      case 'laser-challenge':
+        return this.laserChallengeMiniGame;
       case 'memory-count':
         return this.memoryCountMiniGame;
       case 'food-origin':
@@ -1717,6 +1749,9 @@ export class GameStore {
 
     if (miniGame.id === 'lucky-cup') {
       return miniGame.luckyCup?.correctCupNumber ? `!${miniGame.luckyCup.correctCupNumber}` : '-';
+    }
+    if (miniGame.id === 'laser-challenge') {
+      return miniGame.laserChallenge?.correctTarget ? `!${miniGame.laserChallenge.correctTarget}` : '-';
     }
 
     return '-';

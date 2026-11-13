@@ -18,8 +18,8 @@ const finish = store => { for (let i = 0; i < 35 && store.getSnapshot().tour.pha
 
 test('catalog: every game ID unique; public/QA partition stable; deleted titles absent', () => {
   assert.equal(new Set(MINI_GAME_IDS).size, MINI_GAME_IDS.length);
-  assert.equal(PUBLIC_MINI_GAME_IDS.length, 7);
-  assert.equal(MINI_GAME_IDS.length, 9);
+  assert.equal(PUBLIC_MINI_GAME_IDS.length, 8);
+  assert.equal(MINI_GAME_IDS.length, 10);
   for (const id of ['true-fake', 'before-after', 'guess-logo', 'hangman']) assert.ok(!MINI_GAME_IDS.includes(id));
 });
 

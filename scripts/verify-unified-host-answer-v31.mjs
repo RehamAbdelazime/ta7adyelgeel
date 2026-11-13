@@ -36,7 +36,7 @@ assert.match(podCss, /bottom:\s*39%\s*!important/, 'new left-stage position must
 assert.match(podCss, /private-streamer-answer-form button/, 'new host-answer styles must cover the submit control');
 assert.match(main, /import '\.\/styles\/host-answer-pod-v28\.css'/, 'new design must stay imported');
 const miniGames = [...registry.matchAll(/^\s*id: '(.*?)',/gm)].map(m => m[1]);
-assert.equal(miniGames.length, 9, 'verify retained public and QA-only game catalog');
+assert.equal(miniGames.length, 10, 'verify retained public and QA-only game catalog');
 const allUiComponents = [
   resolve(srcDir, 'App.tsx'),
   resolve(srcDir, 'components/visual/HostMascotLayer.tsx'),

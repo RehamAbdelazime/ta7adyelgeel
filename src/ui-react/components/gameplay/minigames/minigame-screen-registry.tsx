@@ -18,6 +18,7 @@ import { ShapeCountScreen } from './ShapeCountScreen';
 import { MazeGatesScreen } from './MazeGatesScreen';
 import { VisualGuessScreen } from './VisualGuessScreen';
 import { LuckyCupScreen } from './LuckyCupScreen';
+import { LaserChallengeScreen } from './LaserChallengeScreen';
 import { MemoryCountScreen } from './MemoryCountScreen';
 import { CoupleOrSiblingsScreen } from './CoupleOrSiblingsScreen';
 import { CountTheBeatScreen } from './CountTheBeatScreen';
@@ -38,6 +39,7 @@ export const MINI_GAME_SCREENS: Record<MiniGameId, ComponentType<MiniGameScreenP
   'guess-movie':        VisualGuessScreen,
   'guess-star':         VisualGuessScreen,
   'lucky-cup':          LuckyCupScreen,
+  'laser-challenge':    LaserChallengeScreen,
   'memory-count':       MemoryCountScreen,
   'couple-or-siblings': CoupleOrSiblingsScreen,
   'count-the-beat':       CountTheBeatScreen,

@@ -28,8 +28,9 @@ export type CoupleOrSiblingsAnswer = `option-${1 | 2}`;
 export type CountTheBeatAnswer = number;
 
 export type LuckyCupAnswer = number;
+export type LaserChallengeAnswer = number;
 
-export type MiniGameAnswer = ShapeCountAnswer | MemoryCountAnswer | FoodOriginAnswer | VisualGuessAnswer | MazeGateAnswer | CoupleOrSiblingsAnswer | CountTheBeatAnswer | LuckyCupAnswer;
+export type MiniGameAnswer = ShapeCountAnswer | MemoryCountAnswer | FoodOriginAnswer | VisualGuessAnswer | MazeGateAnswer | CoupleOrSiblingsAnswer | CountTheBeatAnswer | LuckyCupAnswer | LaserChallengeAnswer;
 
 export type { MiniGameId } from './minigame-registry';
 import type { MiniGameId } from './minigame-registry';
@@ -263,6 +264,7 @@ export type MiniGameSnapshot = {
   } | null;
   countTheBeat?: CountTheBeatSnapshot | null;
   luckyCup?: LuckyCupSnapshot | null;
+  laserChallenge?: LaserChallengeSnapshot | null;
   coupleOrSiblings?: {
     imageUrl: string;
     imageAlt: string;
@@ -306,6 +308,15 @@ export type CountTheBeatSnapshot = {
   };
 };
 
+
+export type LaserChallengeSnapshot = {
+  source: { x: number; y: number };
+  mirrors: { id: string; x: number; y: number; slash: '/' | '\\' }[];
+  targetYs: number[];
+  /** The correct target and ray are completely absent until host reveal. */
+  correctTarget: number | null;
+  revealedPath: { x: number; y: number }[] | null;
+};
 
 export type LuckyCupSnapshot = {
   initialBallCupId: number;

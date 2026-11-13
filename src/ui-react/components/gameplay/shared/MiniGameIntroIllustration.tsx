@@ -51,6 +51,9 @@ function IllustrationContent({ gameId, locale }: { gameId: MiniGameId; locale: L
     case 'lucky-cup':
       return <><div className="howto-cups-demo" dir="ltr">{[0,1,2].map(i => <div className="howto-demo-cup" key={i}><img src={CUP} alt="" draggable={false} />{i===1 ? <img className="howto-demo-ball" src={BALL} alt="" draggable={false} /> : null}<b>↔</b></div>)}</div>
         <div className="howto-demo-tag"><L locale={locale} ar="راقب الكورة وبعدين اختار الكوباية" en="Track the ball, then pick a cup" /></div></>;
+    case 'laser-challenge':
+      return <><div className="howto-demo-tag"><L locale={locale} ar="اتبع المرايات لحد الهدف" en="Trace the mirrors to a target" /></div>
+        <SampleChoices labels={['1','2','3','4']} highlight={1}/></>;
     case 'memory-count':
       return <><div className="howto-memory-demo"><div className="howto-memory-items">{'🍎 🍋 🍎 🍇 🍎 🍋'.split(' ').map((v,i) => <span key={i}>{v}</span>)}</div><div className="howto-memory-cover">?</div></div><div className="howto-count-result"><span><L locale={locale} ar="كام تفاحة؟" en="How many apples?" /></span><strong dir="ltr">!3</strong></div></>;
     case 'couple-or-siblings':
@@ -61,7 +64,7 @@ function IllustrationContent({ gameId, locale }: { gameId: MiniGameId; locale: L
 
 const EXAMPLE_ANSWERS: Record<MiniGameId, string> = {
   'food-origin': '!1', 'shape-count': '!1', 'maze-gates': '!1', 'count-the-beat': '!4',
-  'lucky-cup': '!2', 'guess-movie': '!2', 'guess-star': '!2', 'memory-count': '!3', 'couple-or-siblings': '!2',
+  'lucky-cup': '!2', 'laser-challenge': '!2', 'guess-movie': '!2', 'guess-star': '!2', 'memory-count': '!3', 'couple-or-siblings': '!2',
 };
 
 /** Pure decorative example — never shows the real round answer. */
@@ -85,6 +88,7 @@ export const INTRO_STEP_ICONS: Record<MiniGameId, readonly [string, string, stri
   'guess-star': ['👀','✨','💬'],
   'count-the-beat': ['♫','🔢','💬'],
   'lucky-cup': ['🥇','🔀','💬'],
+  'laser-challenge': ['🔴','🪞','💬'],
   'memory-count': ['👁️','🧠','💬'],
   'couple-or-siblings': ['👥','❤️','💬'],
 };

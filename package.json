@@ -97,7 +97,8 @@
     "verify:howto-v70": "node scripts/verify-howto-v68.mjs && node scripts/verify-howto-layout-v69.mjs && node scripts/verify-howto-food-v70.mjs",
     "verify:howto-v71": "npm run verify:howto-v68 && npm run verify:howto-v69 && node scripts/verify-howto-food-v71.mjs",
     "verify:howto-v72": "npm run verify:howto-v71 && node scripts/verify-all-tutorials-v72.mjs",
-    "verify:poster-puzzle-v73": "node scripts/verify-poster-puzzle-v73.cjs"
+    "verify:poster-puzzle-v73": "node scripts/verify-poster-puzzle-v73.cjs",
+    "verify:laser-v75": "node scripts/verify-laser-challenge-v75.cjs"
   },
   "dependencies": {
     "@fontsource-variable/alexandria": "5.3.0",

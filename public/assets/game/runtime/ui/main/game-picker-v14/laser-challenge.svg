@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="390" viewBox="0 0 560 390">
+ <defs>
+  <linearGradient id="board" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0d2144"/><stop offset="1" stop-color="#21163f"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ffcc97"/><stop offset="1" stop-color="#ff3c77"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ </defs>
+ <rect x="12" y="12" width="536" height="366" rx="30" fill="url(#board)" stroke="#4c749e" stroke-width="4"/>
+ <g opacity=".11" stroke="#8beeff" stroke-width="1"><path d="M35 85H520M35 150H520M35 215H520M35 280H520M85 35V350M170 35V350M255 35V350M340 35V350M425 35V350"/></g>
+ <g fill="#15365f" stroke="#71c5ec" stroke-width="3"><circle cx="83" cy="265" r="30"/><rect x="50" y="245" width="55" height="40" rx="9"/><path d="M100 256h28v17h-28z" fill="#bf6385"/></g>
+ <g stroke="#a8f7ff" stroke-width="9" stroke-linecap="round" filter="url(#glow)"><path d="M204 278l29 -29"/><path d="M204 154l29 -29"/><path d="M347 137l29 -29"/><path d="M347 271l29 -29"/></g>
+ <path d="M120 265H219V140H360V255H478" fill="none" stroke="#ff5f8e" stroke-width="21" opacity=".2" filter="url(#glow)"/>
+ <path d="M120 265H219V140H360V255H478" fill="none" stroke="url(#beam)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+ <g font-family="Arial,sans-serif" text-anchor="middle" font-size="24" font-weight="bold" stroke-width="3">
+ <rect x="466" y="79" width="57" height="52" rx="15" fill="#1d3458" stroke="#78b3dd"/><text x="495" y="112" fill="white">1</text>
+ <rect x="466" y="145" width="57" height="52" rx="15" fill="#1d3458" stroke="#78b3dd"/><text x="495" y="179" fill="white">2</text>
+ <rect x="466" y="230" width="57" height="52" rx="15" fill="#16634d" stroke="#87ffc6" filter="url(#glow)"/><text x="495" y="263" fill="white">3</text>
+ <rect x="466" y="299" width="57" height="52" rx="15" fill="#1d3458" stroke="#78b3dd"/><text x="495" y="333" fill="white">4</text>
+ </g>
+</svg>

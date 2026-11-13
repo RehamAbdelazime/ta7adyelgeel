@@ -162,7 +162,7 @@ export function QuestionScreenShell({
   // Choice cards already highlight the correct answer. A second announcement
   // covers the artwork and forces the viewer to read the same result twice.
   const showRevealBanner = isAnswerReveal && !hasChoices
-    && miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates'
+    && miniGame.id !== 'count-the-beat' && miniGame.id !== 'maze-gates' && miniGame.id !== 'laser-challenge'
 ;
   const stageElement = typeof document !== 'undefined'
     ? document.querySelector('.game-scene-stage') : null;

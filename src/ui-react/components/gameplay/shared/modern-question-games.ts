@@ -1,7 +1,7 @@
 import type { MiniGameId } from '../../../../game-core/minigames/minigame-types';
 
 /**
- * All 9 registered games now use the same question HUD (V32).
+ * All 10 registered games now use the same question HUD (V32).
  * Choice-based rounds use a bottom answer row; numeric challenges use a
  * full-focus artwork panel, but share header/timer/reveal/footer geometry.
  * Citizen movement follows the same per-game answer-zone configuration.
@@ -15,6 +15,7 @@ const MODERN_QUESTION_GAME_IDS: ReadonlySet<MiniGameId> = new Set<MiniGameId>([
   'guess-star',
   'couple-or-siblings',
   'lucky-cup',
+  'laser-challenge',
   'count-the-beat',
   'memory-count',
 ]);

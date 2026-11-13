@@ -1,0 +1,28 @@
+/* V75 — all lasers and mirrors are SVG geometry, no external image content. */
+html body #root .laser-v75-shell .laser-v75-question-body {display:flex;justify-content:center;align-items:center;min-height:0;padding:clamp(4px,.55vw,10px) 0!important;}
+.laser-v75-board {position:relative;width:min(100%,1010px);min-width:0;margin:auto;aspect-ratio:890/458;isolation:isolate;}
+.laser-v75-svg {display:block;width:100%;height:100%;overflow:visible;}
+.laser-v75-emitter>rect:first-of-type {fill:#445677;stroke:#94aacc;stroke-width:3;}
+.laser-v75-source-ring {fill:#162641;stroke:#67ebf4;stroke-width:2;stroke-dasharray:4 9;}
+.laser-v75-nozzle {fill:#e2bdd4;stroke:#ff8dab;stroke-width:2;}
+.laser-v75-source-core {fill:#ff476f;filter:url(#laserV75Glow);}
+.laser-v75-mirror-base {fill:#122846;stroke:#4779a1;stroke-width:2;}
+.laser-v75-mirror-metal {fill:none;stroke:#4382a7;stroke-width:10;stroke-linecap:round;}
+.laser-v75-mirror-glass {fill:none;stroke:#c6fbff;stroke-width:5;stroke-linecap:round;filter:url(#laserV75Glow);}
+.laser-v75-targets rect {fill:#142b49;stroke:#5890b5;stroke-width:2;}
+.laser-v75-targets circle {fill:#0f1e38;stroke:#91bbd7;stroke-width:2;}
+.laser-v75-targets text {font-family:Fredoka,Alexandria,sans-serif;font-weight:800;font-size:19px;fill:#e4f7ff;}
+.laser-v75-target-win rect {fill:#18614c!important;stroke:#79ffb6!important;filter:url(#laserV75Glow);}
+.laser-v75-target-win circle {fill:#146a50!important;stroke:#c3ffbc!important;}
+.laser-v75-beam,.laser-v75-beam-glow {fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:laser-v75-fire 2.15s cubic-bezier(.42,.01,.45,.99) forwards;}
+.laser-v75-beam {stroke:url(#laserV75Beam);stroke-width:6;filter:url(#laserV75Glow);}
+.laser-v75-beam-glow {stroke:#ff547e;stroke-width:17;opacity:.28;}
+.laser-v75-beam-spark {fill:#fff0bb;filter:url(#laserV75Glow);opacity:0;animation:laser-v75-spark .38s ease 2.2s forwards;}
+@keyframes laser-v75-fire {to{stroke-dashoffset:0;}}
+@keyframes laser-v75-spark {to{opacity:1;}}
+.laser-v75-caption {position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:10px;color:#95bed3;font-family:Alexandria,sans-serif;font-size:clamp(10px,.92vw,14px);line-height:1.2;font-weight:700;letter-spacing:.02em;}
+.laser-v75-caption-dot {width:7px;height:7px;border-radius:50%;background:#4debe8;box-shadow:0 0 12px #4debe8;}
+.laser-v75-revealed .laser-v75-caption-dot {background:#ff698c;box-shadow:0 0 12px #ff698c;}
+.howto-v72 .laser-v75-board {width:100%;aspect-ratio:890/458;height:auto;max-width:100%;}
+.howto-v72 .laser-v75-caption {font-size:clamp(9px,.8vw,11px);}
+@media (prefers-reduced-motion:reduce){.laser-v75-beam,.laser-v75-beam-glow{animation:none;stroke-dashoffset:0}.laser-v75-beam-spark{animation:none;opacity:1}}

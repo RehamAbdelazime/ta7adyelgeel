@@ -9,7 +9,8 @@
       "shape-count",
       "maze-gates",
       "count-the-beat",
-      "lucky-cup"
+      "lucky-cup",
+      "laser-challenge"
     ],
     "enabledMiniGames": [
       "food-origin",
@@ -17,6 +18,7 @@
       "maze-gates",
       "count-the-beat",
       "lucky-cup",
+      "laser-challenge",
       "guess-movie",
       "guess-star"
     ],
@@ -37,7 +39,8 @@
       "count-the-beat": 3,
       "lucky-cup": 3,
       "guess-movie": 4,
-      "guess-star": 4
+      "guess-star": 4,
+      "laser-challenge": 3
     }
   },
   "scoring": {

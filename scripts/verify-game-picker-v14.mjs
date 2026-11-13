@@ -4,7 +4,7 @@ const flow = fs.readFileSync('src/ui-react/components/play/MainScreenPlayFlow.ts
 const css = fs.readFileSync('src/ui-react/styles/game-picker-v14.css','utf8');
 const entry = fs.readFileSync('src/ui-react/main.tsx','utf8');
 const i18n = fs.readFileSync('src/game-core/localization/translations.ts','utf8');
-const idList = ['food-origin','shape-count','maze-gates','count-the-beat','lucky-cup','guess-movie','guess-star'];
+const idList = ['food-origin','shape-count','maze-gates','count-the-beat','lucky-cup','laser-challenge','guess-movie','guess-star'];
 for(const id of idList) {
   const artwork = fs.readFileSync(`public/assets/game/runtime/ui/main/game-picker-v14/${id}.svg`,'utf8');
   assert.match(artwork, /^<svg xmlns="http:\/\/www.w3.org\/2000\/svg"/);

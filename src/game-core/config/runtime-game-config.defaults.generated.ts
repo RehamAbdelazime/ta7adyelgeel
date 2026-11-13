@@ -14,7 +14,8 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
       "shape-count",
       "maze-gates",
       "count-the-beat",
-      "lucky-cup"
+      "lucky-cup",
+      "laser-challenge"
     ],
     "enabledMiniGames": [
       "food-origin",
@@ -22,6 +23,7 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
       "maze-gates",
       "count-the-beat",
       "lucky-cup",
+      "laser-challenge",
       "guess-movie",
       "guess-star"
     ],
@@ -42,7 +44,8 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
       "count-the-beat": 3,
       "lucky-cup": 3,
       "guess-movie": 4,
-      "guess-star": 4
+      "guess-star": 4,
+      "laser-challenge": 3
     }
   },
   "scoring": {

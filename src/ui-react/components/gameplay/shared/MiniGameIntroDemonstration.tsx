@@ -67,6 +67,13 @@ const LESSONS: Record<MiniGameId, Lesson> = {
     reveal: { ar: 'الكوباية الصح تترفع، والكورة تظهر ونتيجة الإجابات تتحسب.', en: 'The winning cup lifts, the ball appears, and points are awarded.' },
     example: ['1', '2', '3', '4'], correct: 1,
   },
+  'laser-challenge': {
+    title:{ar:'الليزر هيوصل لأنهي هدف؟', en:'Which target will the laser hit?'},
+    watch:{ar:'تابع مسار الليزر بعينك من المدفع والمرايات.',en:'Trace the ray from the emitter across the mirrors.'},
+    answer:{ar:'اختار رقم الهدف من 1 لـ 4.',en:'Pick target 1 through 4.'},
+    reveal:{ar:'بعد كشف الصبوح، الليزر هينطلق ويبين الطريق الصح.',en:'The beam fires after host reveal.'},
+    example:['1','2','3','4'],correct:1,
+  },
   'guess-movie': {
     title: { ar: 'الفيلم ده إيه؟', en: 'Name that movie' },
     watch: { ar: 'ممكن تشوف بوستر بيتكشف، أو مشهد واضح، أو قفشة من الفيلم.', en: 'You may get a revealing poster, a sharp frame, or a movie quote.' },
@@ -107,6 +114,7 @@ const GAME_BADGES: Record<MiniGameId, Copy> = {
   'maze-gates': { ar: 'المتاهة', en: 'MAZE GATES' },
   'count-the-beat': { ar: 'عدّ الإيقاع', en: 'COUNT THE BEAT' },
   'lucky-cup': { ar: 'الكوباية المحظوظة', en: 'LUCKY CUP' },
+  'laser-challenge': { ar: 'تحدي الليزر', en: 'LASER CHALLENGE' },
   'guess-movie': { ar: 'اعرف الفيلم', en: 'GUESS THE MOVIE' },
   'guess-star': { ar: 'اعرف المشهور', en: 'GUESS THE STAR' },
   'memory-count': { ar: 'اختبار الذاكرة', en: 'MEMORY COUNT' },

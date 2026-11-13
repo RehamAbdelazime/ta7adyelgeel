@@ -1,4 +1,4 @@
-/** V64 — exercise all seven public games, plus the QA-only content bank. */
+/** V64 — exercise all eight public games, plus the QA-only content bank. */
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
@@ -16,7 +16,7 @@ const { FOOD_ORIGIN_QUESTIONS } = load('minigames/food-origin/food-origin-conten
 const { VisualGuessMiniGameService, getVisualGuessBank } = load('minigames/visual-guess/visual-guess-service.ts');
 const { MINI_GAME_REGISTRY } = load('minigames/minigame-registry.ts');
 const allIds = new Set(MINI_GAME_REGISTRY.filter(entry => entry.availability === 'public').map(entry => entry.id));
-assert.deepEqual([...allIds].sort(), ['count-the-beat','food-origin','guess-movie','guess-star','lucky-cup','maze-gates','shape-count'].sort());
+assert.deepEqual([...allIds].sort(), ['count-the-beat','food-origin','guess-movie','guess-star','lucky-cup','laser-challenge','maze-gates','shape-count'].sort());
 function memoryStore() {const values=new Map();return {getItem:key=>values.get(key)??null,setItem:(key,val)=>values.set(key,val)};}
 function seq(seed) {let x=seed>>>0;return ()=>((x=(Math.imul(x,1664525)+1013904223)>>>0)/0x100000000);}
 function uniqueFour(correct, choices) {
@@ -129,4 +129,4 @@ for(const [id,className] of procedural){
   }
 }
 assert.equal(MINI_GAME_REGISTRY.filter(x=>x.availability==='qa-only').length,2);
-console.log(`[V64] PASS: 7 public games audited, 2 QA-only games classified; Food ${foodSeen.size} dishes with varied countries, Star ${starRounds} rounds, Movie ${filmRounds} film-title rounds, ${sameIdGroups.size} distinct test decoy groups; difficulty and replay policies verified.`);
+console.log(`[V64] PASS: 8 public games audited, 2 QA-only games classified; Food ${foodSeen.size} dishes with varied countries, Star ${starRounds} rounds, Movie ${filmRounds} film-title rounds, ${sameIdGroups.size} distinct test decoy groups; difficulty and replay policies verified.`);

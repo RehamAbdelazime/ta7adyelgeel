@@ -5,6 +5,8 @@ import { MediaCard, ChoiceCard, ShapeMark } from './question-shell';
 import { BeatIcon } from '../minigames/BeatIcon';
 import { PosterPuzzleOverlay } from '../minigames/PosterPuzzleOverlay';
 import movieCatalog from '../../../../game-core/minigames/visual-guess/visual-guess-questions.json';
+import { generateLaserPuzzle } from '../../../../game-core/minigames/laser-challenge/laser-puzzle';
+import { LaserBoard } from '../minigames/LaserBoard';
 
 /** V72: two concise illustrated pages for the other eight games.
  * Everything here is local, deterministic sample data. The photo/eye assets,
@@ -80,6 +82,19 @@ const GAMES: Record<Exclude<MiniGameId,'food-origin'>, Lesson> = {
       ]},
     ],choices:{ar:['شمال','وسط','يمين'],en:['Left','Center','Right']},command:'!2',correctIndex:1,
   },
+  'laser-challenge': {
+    question: { ar:'الليزر هيوصل لأنهي هدف؟', en:'Which target will the laser hit?' },
+    pages: [
+      { heading:{ar:'اتبع الانعكاسات',en:'Trace the reflections'}, lines:[
+        {ar:'المدفع على الشمال، وأربع أهداف مرقمة على اليمين.',en:'The emitter is on the left; four numbered targets are on the right.'},
+        {ar:'تخيل الشعاع ماشي، وكل مراية مائلة بتغير اتجاهه.',en:'Follow the ray mentally: each tilted mirror changes its direction.'},
+      ]},
+      { heading:{ar:'اختار الهدف',en:'Pick the target'}, lines:[
+        {ar:'قبل الوقت ما يخلص، ابعت ! ورقم الهدف اللي الليزر هيوصله.',en:'Before time runs out, send ! and the target number in chat.'},
+        {ar:'لما الصبوح يكشف، الليزر هينطلق ويوضح المسار الصح.',en:'On host reveal, the beam fires and shows the actual path.'},
+      ]},
+    ], choices:{ar:[],en:[]},command:'!1',
+  },
   'guess-movie': {
     question:{ar:'الفيلم ده إيه؟',en:'Which movie is it?'},
     pages:[
@@ -139,6 +154,7 @@ const GAME_NAMES: Record<Exclude<MiniGameId,'food-origin'>, Copy> = {
   'maze-gates': {ar:'المتاهة', en:'MAZE GATES'},
   'count-the-beat': {ar:'عدّ الإيقاع', en:'COUNT THE BEAT'},
   'lucky-cup': {ar:'الكوباية المحظوظة', en:'LUCKY CUP'},
+  'laser-challenge': {ar:'تحدي الليزر', en:'LASER CHALLENGE'},
   'guess-movie': {ar:'اعرف الفيلم', en:'GUESS THE MOVIE'},
   'guess-star': {ar:'اعرف المشهور', en:'GUESS THE STAR'},
   'memory-count': {ar:'اختبار الذاكرة', en:'MEMORY COUNT'},
@@ -197,6 +213,16 @@ function GameClue({ gameId, page, locale }: { gameId: Exclude<MiniGameId,'food-o
             : <div className="howto-v72-beat-items">{['note','disc','note','wave','note','note','disc'].map((v,i)=><span key={i} style={{color:i%2?'#f5a7ec':'#83f5e6'}}><BeatIcon icon={v}/></span>)}</div>}
         </div>
       </div>;
+    case 'laser-challenge': {
+      const example = generateLaserPuzzle('medium', 70261);
+      return <div className="howto-v72-clue howto-v75-laser">
+        <LaserBoard compact locale={locale} plan={{
+          source: example.source, mirrors: example.mirrors, targetYs: example.targetYs,
+          correctTarget: second ? example.correctTarget : null,
+          revealedPath: second ? example.solution : null,
+        }}/>
+      </div>;
+    }
     case 'lucky-cup':
       return <div className="howto-v72-clue howto-v72-cup-row" dir="ltr">
         {[1,2,3].map(n=><div className="howto-v72-cup" key={n}>
@@ -249,8 +275,8 @@ export function AllGamesTwoPageIntro({ gameId, locale, onStart }: {
 
   const labels = lesson.choices[locale];
   const hasCards = labels.length > 0;
-  const numberOnly = gameId === 'maze-gates'||gameId === 'count-the-beat';
-  const isPostReveal = second && ['guess-star','shape-count','count-the-beat','maze-gates'].includes(gameId);
+  const numberOnly = gameId === 'maze-gates'||gameId === 'count-the-beat'||gameId === 'laser-challenge';
+  const isPostReveal = second && ['guess-star','shape-count','count-the-beat','maze-gates','laser-challenge'].includes(gameId);
   const timerLabel = isPostReveal ? '0s' : second && gameId === 'guess-movie' ? '1s' : second ? '8s' : '18s';
   const useShapeCards = gameId==='shape-count';
   const sampleDisplayQuestion = gameId==='memory-count' && second

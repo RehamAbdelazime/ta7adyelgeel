@@ -23,6 +23,7 @@ export const MINI_GAME_BASE_POINTS: Record<MiniGameId, Record<QuestionDifficulty
   'guess-star': { easy: 60, medium: 110, hard: 170 },
   'count-the-beat': { easy: 120, medium: 180, hard: 240 },
   'lucky-cup': { easy: 120, medium: 180, hard: 240 },
+  'laser-challenge': { easy: 100, medium: 160, hard: 220 },
   'memory-count': { easy: 60, medium: 120, hard: 180 },
   'couple-or-siblings': { easy: 70, medium: 120, hard: 180 },
 };

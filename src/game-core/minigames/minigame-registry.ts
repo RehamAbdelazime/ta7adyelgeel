@@ -93,6 +93,16 @@ export const MINI_GAME_REGISTRY = [
     availability: 'public',
   },
   {
+    id: 'laser-challenge',
+    icon: '🔴',
+    titleKey: 'minigame.laserChallenge.title',
+    noteKey: 'minigame.laserChallenge.note',
+    descriptionKey: 'minigame.laserChallenge.note',
+    introSteps: ['gameplay.intro.laser.step1','gameplay.intro.laser.step2','gameplay.intro.laser.step3'],
+    speed: 'Normal',
+    availability: 'public',
+  },
+  {
     id: 'guess-movie', icon: '🎬', titleKey: 'minigame.guessMovie.title',
     noteKey: 'minigame.guessMovie.note', descriptionKey: 'minigame.guessMovie.note',
     introSteps: ['gameplay.intro.movie.step1', 'gameplay.intro.movie.step2', 'gameplay.intro.movie.step3'],

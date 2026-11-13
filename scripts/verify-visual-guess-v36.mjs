@@ -43,7 +43,7 @@ for (const [key,id,modes] of [['movies','guess-movie',['poster','scene']],['star
   const art = read(`public/assets/game/runtime/ui/main/game-picker-v14/${id}.svg`);
   assert(art.startsWith('<svg') && art.length>500);
 }
-assert.equal(config.tour.enabledMiniGames.length,7);
+assert.equal(config.tour.enabledMiniGames.length,8);
 assert(picker.includes('grid-template-columns: repeat(4, minmax(0, 1fr)) !important'));
 assert(styles.includes("import './styles/visual-guess-v36.css';"));
 assert(shell.includes('<QuestionScreenShell') && shell.includes('layout="choice"'));
@@ -54,4 +54,4 @@ assert(read('src/ui-react/components/gameplay/shared/answer-helpers.ts').include
 assert(read('src/ui-react/components/gameplay/minigames/minigame-screen-registry.tsx').includes("'guess-star':"));
 const require = createRequire(import.meta.url);
 require('./verify-visual-guess-v36-runtime.cjs');
-console.log(`Visual-guess structural verification PASS: 88 movie titles (poster or frame-only), ${bank.stars.length} offline stars, 7 public cards.`);
+console.log(`Visual-guess structural verification PASS: 88 movie titles (poster or frame-only), ${bank.stars.length} offline stars, 8 public cards.`);

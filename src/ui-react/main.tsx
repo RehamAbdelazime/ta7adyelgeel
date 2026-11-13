@@ -72,6 +72,7 @@ import './styles/visual-polish-v46.css';
 import './styles/visual-guess-readability-v61.css';
 // V68: photographic, navigable pre-round game tutorials.
 import './styles/intro-walkthrough-v68.css';
+import './styles/laser-challenge-v75.css';
 import './styles/intro-all-games-v72.css';
 
 createRoot(document.getElementById('root') as HTMLElement).render(

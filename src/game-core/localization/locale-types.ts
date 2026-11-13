@@ -2,6 +2,21 @@ export type LocaleCode = 'en' | 'ar';
 export type TextDirection = 'ltr' | 'rtl';
 
 export type TranslationKey =
+  | 'minigame.laserChallenge.title'
+  | 'minigame.laserChallenge.note'
+  | 'minigame.laserChallenge.started'
+  | 'minigame.laserChallenge.answerWindowOpen'
+  | 'minigame.laserChallenge.answerWindowLocked'
+  | 'minigame.laserChallenge.resultFeed'
+  | 'minigame.laserChallenge.noAnswers'
+  | 'minigame.laserChallenge.scoringApplied'
+  | 'minigame.laserChallenge.invalidAnswer'
+  | 'minigame.laserChallenge.alreadyAnswered'
+  | 'minigame.laserChallenge.answerWindowClosed'
+  | 'minigame.laserChallenge.answerAccepted'
+  | 'gameplay.intro.laser.step1'
+  | 'gameplay.intro.laser.step2'
+  | 'gameplay.intro.laser.step3'
   | 'minigame.guessMovie.title'
   | 'minigame.guessMovie.note'
   | 'minigame.guessMovie.started'

@@ -37,6 +37,11 @@ export function getOptionNumberForAnswer(
   answer: MiniGameSnapshot['answerRecords'][number]['answer'],
 ): number | null {
 
+  if (miniGame.id === 'laser-challenge') {
+    const option = Number(answer);
+    return Number.isInteger(option) && option >= 1 && option <= 4 ? option : null;
+  }
+
   if (miniGame.id === 'lucky-cup') {
     const optionNumber = Number(answer);
     return Number.isInteger(optionNumber) && optionNumber >= 1 && optionNumber <= 3
@@ -86,6 +91,9 @@ export function getCorrectOptionNumber(miniGame: MiniGameSnapshot): number | nul
   }
   if (miniGame.id === 'maze-gates') {
     return miniGame.mazeGates?.correctOptionNumber ?? null;
+  }
+  if (miniGame.id === 'laser-challenge') {
+    return miniGame.laserChallenge?.correctTarget ?? null;
   }
   if (miniGame.id === 'lucky-cup') {
     return miniGame.luckyCup?.correctCupNumber ?? null;
@@ -169,6 +177,12 @@ export function buildChoiceSpotlights(miniGame: MiniGameSnapshot): ChoiceSpotlig
     return miniGame.mazeGates.choices.map((c, i) => ({
       optionNumber: c.optionNumber, command: c.command, label: c.label,
       tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[i] ?? 'cyan', icon: '→',
+    }));
+  }
+  if (miniGame.id === 'laser-challenge' && miniGame.laserChallenge) {
+    return miniGame.laserChallenge.targetYs.map((_, index) => ({
+      optionNumber: index + 1, command: `!${index + 1}`, label: String(index + 1),
+      tone: (['cyan', 'pink', 'yellow', 'purple'] as ChoiceTone[])[index]!, icon: '✦',
     }));
   }
   if (miniGame.id === 'lucky-cup' && miniGame.luckyCup) {

@@ -30,8 +30,8 @@ assert(
   'the picker must not retain carousel paging state or controls',
 );
 assert(
-  Array.isArray(enabledMiniGames) && enabledMiniGames.length === 7,
-  'the public mini-game list must contain exactly 7 games for the two-row layout',
+  Array.isArray(enabledMiniGames) && enabledMiniGames.length === 8,
+  'the public mini-game list must contain exactly 8 games for the two-row layout',
 );
 assert(enabledMiniGames.every((id) => (read('src/game-core/minigames/minigame-registry.ts').includes(`id: '${id}'`))), 'All public games must be in the canonical registry.');
 

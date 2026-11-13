@@ -155,6 +155,8 @@ export function getCorrectAnswerText(miniGame: MiniGameSnapshot, t?: TranslateFn
         : '-';
     case 'lucky-cup':
       return miniGame.luckyCup?.correctCupNumber ? `!${miniGame.luckyCup.correctCupNumber}` : '-';
+    case 'laser-challenge':
+      return miniGame.laserChallenge?.correctTarget ? `!${miniGame.laserChallenge.correctTarget}` : '-';
     default: {
       const exhaustiveCheck: never = miniGame.id;
       return exhaustiveCheck;
