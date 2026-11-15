@@ -68,7 +68,12 @@ for (const crowd of [1, 5, 25, 72]) {
       for(let i = 0; i < crowd; i++) assert.ok(store.submitTwitchChatMessage(make(`${QA_BOT_PREFIX}${i}`, '!join')).ok);
       store.startTour(1, ['food-origin'], 'mini-game');
       assert.equal(store.getSnapshot().citizens.filter(c=>c.role==='official').length, crowd);
-      assert.ok(store.submitTwitchChatMessage(make('pre_answer', '!join')).ok, 'Signup before first question must be allowed');
+      assert.ok(store.submitTwitchChatMessage(make('intro_joiner', '!join')).ok, 'Signup during first intro must be allowed');
+      assert.equal(store.getSnapshot().citizens.find(c=>c.twitchUserId==='intro_joiner').role,'official');
+      store.skipPhase(); // host starts the first challenge; roster must lock before countdown/preview
+      assert.ok(store.submitTwitchChatMessage(make('pre_answer', '!join')).ok);
+      assert.equal(store.getSnapshot().citizens.find(c=>c.twitchUserId==='pre_answer').role,'spectator',
+        'New entrants after Start Challenge must be Spectators, even before answers open');
       enterAnswers(store);
       assert.ok(store.submitTwitchChatMessage(make('late_viewer', '!join')).ok);
       const s = store.getSnapshot();
@@ -206,4 +211,105 @@ test('Release GameProvider never exposes developer QA commands, bot controller o
   const app = fs.readFileSync(path.join(__dirname, '../../src/ui-react/App.tsx'), 'utf8');
   assert.ok(!source.includes('__TA7ADY_QA__') && !source.includes('QaBotController'));
   assert.ok(!app.includes('HostPanelToggle') && !app.includes('HostProductionPanel'));
+});
+
+// V92: the roster must close when the host STARTS the first challenge, not
+// when its answer timer eventually opens. Applies to both session modes.
+for (const sessionMode of ['mini-game','tour']) {
+  test(`V92 ${sessionMode}: first intro allows Official, starting first challenge locks until session ends`, () => {
+    const store=create();
+    const role=id=>store.getSnapshot().citizens.find(c=>c.twitchUserId===id)?.role;
+    try {
+      assert.equal(store.submitTwitchChatMessage(make('early','!join')).ok,true);
+      const games=sessionMode==='tour' ? ['food-origin','shape-count'] : ['food-origin'];
+      store.startTour(sessionMode==='tour' ? 2 : 1,games,sessionMode);
+      assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+      store.submitTwitchChatMessage(make('intro','!join'));
+      assert.equal(role('intro'),'official','first mini-game intro still accepts officials');
+      store.skipPhase(); // Click Start: countdown / visual preview, no answer yet.
+      assert.equal(store.getSnapshot().tour.phase,'tour_starting');
+      assert.equal(store.getSnapshot().tour.acceptsAnswers,false);
+      store.submitTwitchChatMessage(make('preview','!join'));
+      assert.equal(role('preview'),'spectator','preview must not admit new Officials');
+      // A previously registered Official stays Official even after rejoining.
+      store.submitTwitchChatMessage(make('intro','!join'));
+      assert.equal(role('intro'),'official');
+      store.pauseTour();
+      store.submitTwitchChatMessage(make('paused','!join'));
+      assert.equal(role('paused'),'spectator','pause must not reopen the roster');
+      store.resumeTour();
+      enterAnswers(store);
+      store.submitTwitchChatMessage(make('answer','!join'));
+      assert.equal(role('answer'),'spectator');
+      store.skipPhase(); // scoring
+      if(sessionMode==='tour') {
+        store.skipPhase(); // next mini-game intro
+        assert.equal(store.getSnapshot().tour.roundNumber,2);
+        assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+        store.submitTwitchChatMessage(make('next_game','!join'));
+        assert.equal(role('next_game'),'spectator','new mini-game intro must not reopen the roster');
+      }
+      finish(store);
+      store.submitTwitchChatMessage(make('final','!join'));
+      assert.equal(role('final'),'spectator','final scoreboard must not reopen the roster');
+      store.backToStage();
+      assert.equal(store.getSnapshot().tour.phase,'lobby_open');
+      store.submitTwitchChatMessage(make('next_session','!join'));
+      assert.equal(role('next_session'),'official','next session can register new Officials');
+    } finally {store.destroy();}
+  });
+}
+
+test('V92: Chaos cinematic locks signup before preview and timer, even on first question',()=>{
+  const store=create();
+  const role=id=>store.getSnapshot().citizens.find(c=>c.twitchUserId===id)?.role;
+  try {
+    store.submitTwitchChatMessage(make('early','!join'));
+    store.forceNextChaosEvent('double_score');
+    store.startTour(1,['food-origin'],'mini-game');
+    assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+    store.submitTwitchChatMessage(make('intro','!join'));
+    assert.equal(role('intro'),'official');
+    store.skipPhase();
+    assert.equal(store.getSnapshot().tour.phase,'chaos_announcement');
+    assert.equal(store.getSnapshot().tour.acceptsAnswers,false);
+    store.submitTwitchChatMessage(make('chaos','!join'));
+    assert.equal(role('chaos'),'spectator','Chaos cinematic is AFTER the Start button');
+    store.skipPhase();
+    assert.equal(store.getSnapshot().tour.phase,'tour_starting');
+    store.submitTwitchChatMessage(make('preview','!join'));
+    assert.equal(role('preview'),'spectator');
+  } finally {store.destroy();}
+});
+
+test('V92: skipping first question or restarting first intro never reopens Official signup',()=>{
+  const store=create();
+  const role=id=>store.getSnapshot().citizens.find(c=>c.twitchUserId===id)?.role;
+  try {
+    store.submitTwitchChatMessage(make('early','!join'));
+    store.startTour(3,['food-origin','shape-count'],'tour');
+    store.skipPhase(); // first challenge has started
+    store.restartRound();
+    assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+    store.submitTwitchChatMessage(make('restart','!join'));
+    assert.equal(role('restart'),'spectator','restart must not reopen signup');
+    store.skipRound(); // skip to round 2 without completing first question
+    assert.equal(store.getSnapshot().tour.roundNumber,2);
+    store.submitTwitchChatMessage(make('round2','!join'));
+    assert.equal(role('round2'),'spectator','skipping to another round must not reopen signup');
+  } finally {store.destroy();}
+});
+
+test('V92: skipping the first mini-game entirely must not reopen registration on game two',()=>{
+  const store=create();
+  try {
+    store.submitTwitchChatMessage(make('initial','!join'));
+    store.startTour(2,['food-origin','shape-count'],'tour');
+    assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+    store.skipRound(); // host skips first game before any visual challenge
+    assert.equal(store.getSnapshot().tour.roundNumber,2);
+    assert.equal(store.getSnapshot().tour.phase,'mini_game_intro');
+    store.submitTwitchChatMessage(make('late','!join'));
+    assert.equal(store.getSnapshot().citizens.find(c=>c.twitchUserId==='late').role,'spectator');
+  } finally {store.destroy();}
 });

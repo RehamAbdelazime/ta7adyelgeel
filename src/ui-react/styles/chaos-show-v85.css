@@ -1,0 +1,84 @@
+/* V85: independent Chaos cinematic. Stage is authored at 1920×1080, then scaled. */
+html body #root .chaos-show-v85 {
+  position: absolute; inset: 0; z-index: 80; pointer-events: none;
+  display: grid; place-items: center; overflow: hidden; isolation: isolate;
+  font-family: var(--font-game-ui, "Alexandria", sans-serif); text-align: center;
+}
+html body #root .chaos-show-blackout-v85 {
+  position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(ellipse at 48% 48%, rgba(3, 2, 18, .88), rgba(0, 0, 7, .97));
+  opacity: 0; animation: chaosV85Blackout var(--chaos-show-duration,3900ms) linear both;
+}
+html body #root .chaos-show-strobe-v85 {
+  position: absolute; inset: 0; z-index: 2; opacity: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(245, 229, 138, .09) 40%, transparent 65%);
+  animation: chaosV85Strobe var(--chaos-show-duration,3900ms) linear both;
+}
+html body #root .chaos-show-announcement-v85 {
+  position: relative; z-index: 3; width: min(75%, 990px);
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(8px, 1.1vw, 22px); padding: clamp(25px, 3vw, 60px);
+  border-radius: clamp(17px, 1.5vw, 30px);
+  color: #fff; text-wrap: balance;
+  border: 2px solid rgba(255, 224, 136, .7);
+  background: linear-gradient(145deg, rgba(54, 17, 79, .96), rgba(18, 24, 59, .96) 65%, rgba(48, 17, 65, .95));
+  box-shadow: 0 0 0 5px rgba(255, 214, 108, .07), 0 15px 65px rgba(0,0,0,.75), 0 0 50px rgba(197, 90, 255, .22);
+  opacity: 0; animation: chaosV85Card var(--chaos-show-duration,3900ms) ease both;
+}
+html body #root .chaos-show-kicker-v85 {
+  letter-spacing: .1em; color: #ffe9a0; font-weight: 950;
+  font-size: clamp(26px, 2.65vw, 53px); line-height: 1.12;
+  text-shadow: 0 0 27px rgba(255, 213, 108, .55);
+}
+html body #root .chaos-show-divider-v85 {
+  display: flex; align-items: center; justify-content: center; gap: 15px;
+  color: #ffe2a0; width: min(85%, 510px);
+}
+html body #root .chaos-show-divider-v85 i { flex: 1; height: 2px; background: linear-gradient(90deg, transparent, #e5bc76, transparent); }
+html body #root .chaos-show-announcement-v85 small {
+  font-weight: 700; font-size: clamp(12px, 1vw, 19px); color: #c9a6ff; letter-spacing: .06em;
+}
+html body #root .chaos-show-announcement-v85 strong {
+  font-size: clamp(31px, 3.8vw, 73px); line-height: 1.14; font-weight: 950;
+  color: #fff; text-shadow: 0 4px 24px rgba(198, 109, 255, .37);
+}
+html body #root .chaos-show-announcement-v85 p {
+  margin: 0; max-width: 840px; font-size: clamp(16px, 1.6vw, 30px);
+  line-height: 1.48; font-weight: 720; color: #f5f0ff;
+}
+/* Exact two off/on beats; event card is announced in darkness before lights restore. */
+@keyframes chaosV85Blackout {
+  0%, 6% {opacity:0} 10%,17% {opacity:.98} 21%,24% {opacity:.07}
+  30%,82% {opacity:.88} 92% {opacity:.47} 100% {opacity:0}
+}
+@keyframes chaosV85Strobe {
+  0%, 17%, 24%, 30%, 100% {opacity:0}
+  19%, 26% {opacity:.95}
+}
+@keyframes chaosV85Card {
+  0%,29% {opacity:0;transform:translateY(15px) scale(.92)}
+  39%,82% {opacity:1;transform:translateY(0) scale(1)}
+  94% {opacity:1;transform:translateY(0) scale(1)}
+  100% {opacity:0;transform:translateY(-12px) scale(1.02)}
+}
+/* Real participant sprites use the existing run animation and two lateral sweeps. */
+html body #root .gameplay-citizen-chaos-running-v85 {
+  animation: chaosV85PlayerDash var(--chaos-show-duration,3900ms) ease-in-out both;
+  animation-delay: var(--chaos-run-delay,0s);
+  will-change: translate;
+}
+@keyframes chaosV85PlayerDash {
+  0%, 100% {translate: 0 0}
+  22%, 68% {translate:var(--chaos-run-to) -7px}
+  43%, 83% {translate:var(--chaos-run-from) 0}
+}
+html body #root .chaos-show-paused *,
+html body #root .game-scene-stage-chaos-v85:has(.chaos-show-paused) .gameplay-citizen-chaos-running-v85 {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .chaos-show-v85 *,
+  html body #root .gameplay-citizen-chaos-running-v85 { animation: none !important; }
+  html body #root .chaos-show-blackout-v85 { opacity: .85; }
+  html body #root .chaos-show-announcement-v85 { opacity: 1; transform: none; }
+}

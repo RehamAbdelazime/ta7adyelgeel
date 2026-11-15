@@ -94,24 +94,25 @@ export function AppSettingsButton() {
   const isWindowedMode = draftDisplaySettings.displayMode === 'windowed';
   const isActiveSession = snapshot.tour.isTourActive && snapshot.tour.phase !== 'lobby_open';
   const isArabic = snapshot.locale === 'ar';
-  const copy = isArabic ? {
-    online: 'متصل', offline: 'غير متصل', disconnect: 'فصل الحساب',
-    music: 'مستوى صوت الموسيقى', musicHint: 'التحكم في صوت موسيقى اللعبة',
-    mute: 'كتم', unmute: 'إلغاء الكتم',
-    displayFull: 'شاشة كاملة', displayBorderless: 'بلا حدود', displayWindow: 'نافذة',
-    session: 'الجلسة الحالية', pending: 'تغييرات غير محفوظة', saved: 'كل الإعدادات محفوظة',
-    discard: 'إلغاء', keyHint: 'ESC للإغلاق',
-  } : {
-    online: 'Connected', offline: 'Offline', disconnect: 'Disconnect',
-    music: 'Music volume', musicHint: 'Game music volume',
-    mute: 'Mute', unmute: 'Unmute',
-    displayFull: 'Fullscreen', displayBorderless: 'Borderless', displayWindow: 'Windowed',
-    session: 'Active session', pending: 'Unsaved changes', saved: 'All changes saved',
-    discard: 'Cancel', keyHint: 'ESC to close',
+  const copy = {
+    online: t('twitch.status.connected'),
+    offline: t('settings.detail.offline'),
+    disconnect: t('settings.detail.disconnect'),
+    music: t('settings.detail.music'),
+    musicHint: t('settings.detail.musicHint'),
+    mute: t('settings.detail.mute'),
+    unmute: t('settings.detail.unmute'),
+    displayFull: t('settings.detail.displayFull'),
+    displayBorderless: t('settings.detail.displayBorderless'),
+    displayWindow: t('settings.detail.displayWindow'),
+    session: t('settings.detail.session'),
+    pending: t('settings.detail.pending'),
+    saved: t('settings.detail.saved'),
+    discard: t('settings.cancel'),
+    keyHint: t('settings.detail.keyHint'),
   };
   const endSessionLabel = snapshot.activeSessionMode === 'mini-game'
-    ? (isArabic ? 'إنهاء اللعبة' : 'End mini game')
-    : (isArabic ? 'إنهاء البطولة' : 'End tour');
+    ? t('settings.detail.endMiniGame') : t('settings.detail.endTour');
   const volumeStyle = { '--settings-volume': `${draftMusicVolume}%` } as CSSProperties;
 
   const openSettings = useCallback(() => {
@@ -188,7 +189,7 @@ export function AppSettingsButton() {
       // A locale-only or audio-only change must not require the display bridge.
       if (hasDisplayChanges) {
         const api = window.elGeel?.display;
-        if (!api) throw new Error('Desktop display bridge is unavailable.');
+        if (!api) throw new Error(t('settings.detail.displayUnavailable'));
         const saved = await api.setSettings(draftDisplaySettings);
         setSavedDisplaySettings(saved);
         setDraftDisplaySettings(saved);
@@ -266,7 +267,7 @@ export function AppSettingsButton() {
               <div className="casual-settings-heading">
                 <div className="casual-settings-accent" aria-hidden="true"><span /><span /></div>
                 <h2 id="settings-dialog-title">{t('settings.title')}</h2>
-                <p id="settings-dialog-description">{isArabic ? 'ظبّطي اللعبة على مزاجك' : 'Make the game yours'}</p>
+                <p id="settings-dialog-description">{t('settings.detail.subtitle')}</p>
               </div>
               <button
                 type="button"
@@ -279,7 +280,7 @@ export function AppSettingsButton() {
             <div className="casual-settings-content">
               <div className="casual-settings-row casual-settings-audio">
                 <div className="casual-settings-label">
-                  <span>{isArabic ? 'الموسيقى' : 'Music'}</span>
+                  <span>{t('settings.detail.musicTitle')}</span>
                   <small>{copy.musicHint}</small>
                 </div>
                 <div className="casual-settings-volume-controls">
@@ -308,10 +309,10 @@ export function AppSettingsButton() {
                 <div className="casual-settings-segmented casual-settings-language" role="group" aria-label={t('settings.language')}>
                   <button type="button" onClick={() => changeLanguage('en')}
                     className={draftLocale === 'en' ? 'is-active' : ''}
-                    aria-pressed={draftLocale === 'en'} disabled={isApplying}>English</button>
+                    aria-pressed={draftLocale === 'en'} disabled={isApplying}>{t('settings.detail.languageEnglish')}</button>
                   <button type="button" onClick={() => changeLanguage('ar')}
                     className={draftLocale === 'ar' ? 'is-active' : ''}
-                    aria-pressed={draftLocale === 'ar'} disabled={isApplying}>العربية</button>
+                    aria-pressed={draftLocale === 'ar'} disabled={isApplying}>{t('settings.detail.languageArabic')}</button>
                 </div>
               </div>
 
@@ -343,7 +344,7 @@ export function AppSettingsButton() {
 
               <div className="casual-settings-row casual-settings-stream">
                 <div className="casual-settings-label">
-                  <span>Twitch</span>
+                  <span>{t('settings.detail.twitch')}</span>
                   <small className="casual-settings-account" title={accountLabel} dir="auto">
                     {isConnected ? accountLabel : copy.offline}
                   </small>

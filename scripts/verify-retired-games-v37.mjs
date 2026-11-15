@@ -47,7 +47,7 @@ const screens = read('src/ui-react/components/gameplay/minigames/minigame-screen
 for (const id of ids) assert(screens.includes(`'${id}':`) || screens.includes(`${id}:`),`Missing UI screen for ${id}`);
 const store = read('src/game-core/app/game-store.ts');
 assert(store.includes('this.guessMovieMiniGame') && store.includes('this.guessStarMiniGame'));
-assert(store.includes('Unsupported mini-game.') && store.includes('Unregistered mini-game:'), 'No fallback to a removed game');
+assert(store.includes('game.gamestore.unsupportedMiniGame') && store.includes('Unregistered mini-game:'), 'No fallback to a removed game');
 const policy = read('src/game-core/minigames/scoring-policy.ts');
 for(const id of ids) assert(policy.includes(`'${id}':`) || policy.includes(`${id}:`),`Missing points for ${id}`);
 const picker = read('src/ui-react/styles/visual-guess-v36.css');

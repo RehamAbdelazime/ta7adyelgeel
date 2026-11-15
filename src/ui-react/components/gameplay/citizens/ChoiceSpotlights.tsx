@@ -1,3 +1,4 @@
+import { translate } from '../../../../game-core/localization/translations';
 import type { CSSProperties } from 'react';
 import { ANSWER_STAGE_LAYOUT } from '../shared/answer-stage-layout';
 import { useGame } from '../../../context/GameContext';
@@ -20,13 +21,14 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
 
   return (
     <section className={`gameplay-choice-spotlights gameplay-choice-spotlights-v18 gameplay-choice-spotlights-v19 audience-answer-lanes-v20 gameplay-choice-spotlights-${choices.length}`}
+      dir={snapshot.direction}
       style={{
         '--answer-zone-left': `${ANSWER_STAGE_LAYOUT.leftPercent}%`,
         '--answer-zone-width': `${ANSWER_STAGE_LAYOUT.widthPercent}%`,
         '--answer-zone-top': `${ANSWER_STAGE_LAYOUT.topPercent}%`,
         '--answer-zone-height': `${ANSWER_STAGE_LAYOUT.heightPercent}%`,
       } as CSSProperties}
-      aria-label={isArabic ? 'اختيارات الإجابة على المسرح' : 'Answer options on stage'}>
+      aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.choiceSpotlights.answerOptionsStage')}>
       {choices.map((choice) => {
         const resultState = shouldShowResultFeedback
           ? getChoiceOptionResultState(miniGame, choice.optionNumber)
@@ -36,7 +38,7 @@ export function ChoiceSpotlights({ miniGame, phase }: { miniGame: MiniGameSnapsh
           <article key={choice.optionNumber}
             data-option-number={choice.optionNumber}
             className={`gameplay-choice-spotlight gameplay-choice-spotlight-${choice.tone} gameplay-choice-spotlight-${resultState}`}
-            aria-label={isArabic ? `منطقة الإجابة ${choice.optionNumber}` : `Answer zone ${choice.optionNumber}`}>
+            aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.choiceSpotlights.answerZone', { p0: String(choice.optionNumber) })}>
 
             <div className="answer-lane-wash-v20" aria-hidden="true" />
             {/* No duplicate floor numbers: the answer cards on screen own the labels. */}

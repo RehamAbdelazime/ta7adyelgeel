@@ -41,3 +41,130 @@ html body #root .gameplay-question-maze-gates .v38-maze-solution {
    timeline, 85 ms last swap, ball-to-cup mapping, or the choice row. */
 html body #root .lucky-v27-field .lucky-v27-cup-art {transform:scale(var(--v35-flight-scale,1));filter:drop-shadow(0 11px 9px rgba(0,0,16,.7)) drop-shadow(0 0 5px rgba(89,226,255,.1));}
 html body #root .lucky-v27-field.lucky-v27-reveal .lucky-v27-ball-revealed {filter:drop-shadow(0 0 15px rgba(255,213,70,.55));}
+
+/* V76 — Count the Beat: one readable icon at a time, NO target color cues.
+   No extra HUD while counting; only a short answer prompt after the sequence. */
+html body #root .gameplay-question-count-the-beat .ctb-target-glyph,
+html body #root .gameplay-question-count-the-beat .ctb-target-name {
+  color: #f0f8ff !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage > span[aria-hidden="true"] {
+  color: #f0f8ff !important;
+  text-shadow: none !important;
+}
+html body #root .gameplay-question-count-the-beat .ctb-answer-turn {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 2vw, 28px);
+  pointer-events: none;
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 50%, rgba(15, 58, 76, .25), rgba(5, 15, 39, .45));
+}
+html body #root .gameplay-question-count-the-beat .ctb-answer-turn-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 18px);
+  width: min(92%, 630px);
+  padding: clamp(23px, 3vw, 46px) clamp(18px, 3vw, 48px);
+  color: #f4fffc;
+  background: linear-gradient(155deg, rgba(22, 55, 74, .97), rgba(7, 23, 43, .98));
+  border: 2px solid #68e8c4;
+  border-radius: clamp(18px, 1.8vw, 27px);
+  box-shadow: 0 12px 42px rgba(0, 0, 0, .43), 0 0 24px rgba(104, 232, 196, .14);
+  animation: ctb-answer-ready .24s ease-out both;
+}
+html body #root .gameplay-question-count-the-beat .ctb-answer-turn-ready {
+  display: grid;
+  place-items: center;
+  width: clamp(36px, 3.4vw, 56px);
+  height: clamp(36px, 3.4vw, 56px);
+  border-radius: 50%;
+  background: rgba(100, 247, 187, .18);
+  border: 2px solid rgba(114, 255, 199, .75);
+  color: #80ffcf;
+  font: 900 clamp(20px, 2vw, 32px)/1 var(--font-game-ui, sans-serif);
+}
+html body #root .gameplay-question-count-the-beat .ctb-answer-turn-card > strong {
+  font: 850 clamp(24px, 2.4vw, 40px)/1.16 var(--font-game-ui, sans-serif);
+  color: #fff;
+}
+html body #root .gameplay-question-count-the-beat .ctb-answer-turn-card > small {
+  color: #c6e5ee;
+  font: 650 clamp(14px, 1.2vw, 22px)/1.3 var(--font-game-ui, sans-serif);
+}
+@keyframes ctb-answer-ready {
+  from { opacity: 0; transform: translateY(10px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* V86 — illuminated, horizontal note lanes. The animated symbols and guides
+   share coordinates from getBeatLanePositions; no duplicated random layouts. */
+html body #root .gameplay-question-count-the-beat .ctb-stage {
+  --ctb-icon-size: clamp(68px, 6.5vw, 108px);
+  background: radial-gradient(ellipse at 50% 49%, rgba(8, 42, 69, .76), rgba(0, 8, 24, .95) 73%);
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage-2-lanes {
+  --ctb-icon-size: clamp(58px, 5.4vw, 93px);
+}
+html body #root .gameplay-question-count-the-beat .ctb-stage-4-lanes {
+  --ctb-icon-size: clamp(43px, 4.6vw, 75px);
+}
+html body #root .gameplay-question-count-the-beat .ctb-lane-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+html body #root .gameplay-question-count-the-beat .ctb-lane {
+  position: absolute;
+  left: 6%;
+  width: 88%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, rgba(97, 226, 252, .43) 10%, rgba(140, 235, 255, .51) 50%, rgba(97, 226, 252, .43) 90%, transparent);
+  box-shadow: 0 0 7px rgba(45, 198, 239, .26), 0 0 15px rgba(33, 165, 255, .13);
+}
+html body #root .gameplay-question-count-the-beat .ctb-lane::before,
+html body #root .gameplay-question-count-the-beat .ctb-lane::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #7feaff;
+  box-shadow: 0 0 11px rgba(72, 235, 255, .75);
+  transform: translateY(-50%);
+}
+html body #root .gameplay-question-count-the-beat .ctb-lane::before { left: 0; }
+html body #root .gameplay-question-count-the-beat .ctb-lane::after { right: 0; }
+html body #root .gameplay-question-count-the-beat .ctb-beat-item {
+  z-index: 1;
+  isolation: isolate;
+}
+html body #root .gameplay-question-count-the-beat .ctb-beat-item::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.42em;
+  height: 1.42em;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(24, 229, 255, .24), rgba(14, 155, 206, .09) 45%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .gameplay-question-count-the-beat .ctb-beat-item {
+    /* Animation stays sequential; removing it would expose the answer. */
+    filter: none !important;
+  }
+}

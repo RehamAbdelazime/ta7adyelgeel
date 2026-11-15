@@ -1,3 +1,4 @@
+import { translate } from '../../../../game-core/localization/translations';
 import { useEffect, useState, type CSSProperties } from 'react';
 import type { MiniGameSnapshot, LuckyCupSnapshot } from '../../../../game-core/minigames/minigame-types';
 import {
@@ -15,9 +16,10 @@ import { useLuckyCupRevealCue } from '../../audio/useGameplayCue';
 // Relative to Vite's base (./ in packaged Electron), not filesystem root.
 const CUP_URL = `${import.meta.env.BASE_URL}assets/game/runtime/minigames/lucky-cup/cup.png`;
 const BALL_URL = `${import.meta.env.BASE_URL}assets/game/runtime/minigames/lucky-cup/ball.png`;
-const LABELS = {
-  ar: { left: 'شمال', center: 'وسط', right: 'يمين' },
-  en: { left: 'LEFT', center: 'CENTER', right: 'RIGHT' },
+const CUP_POSITION_KEYS = {
+  left: 'luckyCup.position.left',
+  center: 'luckyCup.position.center',
+  right: 'luckyCup.position.right',
 } as const;
 
 /**
@@ -69,7 +71,7 @@ function LuckyCupPlayfield({
   // The question exists once in the shared heading. A second question
   // floating over the cups steals attention precisely during the shuffle.
   const phasePrompt = isShuffling && elapsed < LUCKY_CUP_SHUFFLE_START_MS
-    ? (locale === 'ar' ? 'تابع الكورة' : 'Follow the ball')
+    ? (translate(locale, 'ui.luckyCupScreen.followBall'))
     : '';
 
   return (
@@ -116,7 +118,7 @@ function LuckyCupPlayfield({
         <div
           className={`lucky-v27-ball-unit ${isReveal ? 'lucky-v27-ball-revealed' : 'lucky-v28-ball-preview'}`}
           style={{ left: `${16.6667 + visibleBallSlot * 33.3333}%` }}
-          aria-label={locale === 'ar' ? `الكورة في المكان ${visibleBallSlot + 1}` : `Ball at position ${visibleBallSlot + 1}`}
+          aria-label={translate(locale, 'ui.luckyCupScreen.ballAtPosition', { p0: String(visibleBallSlot + 1) })}
         >
           <img src={BALL_URL} draggable={false} alt="" />
         </div>
@@ -134,9 +136,13 @@ export function LuckyCupScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnap
 
   if (!plan) return null;
 
-  const labels = LABELS[locale];
+  const labels = {
+    left: translate(locale, CUP_POSITION_KEYS.left),
+    center: translate(locale, CUP_POSITION_KEYS.center),
+    right: translate(locale, CUP_POSITION_KEYS.right),
+  };
   const displayedMiniGame = tourPhase === 'tour_starting'
-    ? { ...miniGame, statement: locale === 'ar' ? 'الكوباية اللي فيها الكورة... ركز!' : 'Watch the cup with the ball!' }
+    ? { ...miniGame, statement: translate(locale, 'ui.luckyCupScreen.watchCupBall') }
     : miniGame;
   return (
     <QuestionScreenShell

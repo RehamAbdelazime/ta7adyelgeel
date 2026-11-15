@@ -24,7 +24,7 @@ test(/tone:\s*'cyan'/.test(food), 'Food Origin option accents are neutral until 
 test(/\.sort\(\(a, b\) =>/.test(questions) && /getCommandOptionNumber/.test(questions), 'shared question component must use command numbers for order');
 test(/private-streamer-answer-embedded/.test(host) && /qshell-host-bubble-v20/.test(read('src/ui-react/components/visual/HostMascotLayer.tsx')), 'host answer now anchors to the mascot instead of the question header');
 test(!/PrivateStreamerAnswerDock/.test(app) && /<AppSettingsButton \/>/.test(app), 'App must never render the obsolete floating host-answer dock');
-test(/qshell-quick-total/.test(questions) && !/qshell-quick-instruction/.test(questions), 'answering stage avoids redundant extra footer instructions');
+test(!/qshell-quick-total/.test(questions) && !/qshell-quick-instruction/.test(questions), 'modern answering stage has no redundant vote footer');
 test(/qshell-vote-count/.test(questions) && /getAnswerCountsByOption/.test(questions), 'answer totals display on choice cards');
 test(!/floor-answer-(?:tally|count)|choice\.count/.test(stage), 'floor option markers should not include tiny count badges');
 test(/ANSWER_STAGE_LAYOUT/.test(stage) && /ANSWER_STAGE_LAYOUT/.test(citizens), 'floor spots and player positions must share geometry');

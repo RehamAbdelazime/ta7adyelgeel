@@ -49,7 +49,7 @@ for(const [gameId,className] of games){
     if (gameId==='count-the-beat') {
       const beat=active.countTheBeat;
       assert.equal(beat.targetCount,null,'Target count leaks before reveal');
-      assert(beat.items.length >= 20,'No icons to count');
+      assert(beat.items.length >= 10 && beat.items.length <= 16,'Unplayable icon count');
       assert(beat.items.some(i=>i.isTarget)&&beat.items.some(i=>!i.isTarget),'Missing target/distractor mix');
       assert(beat.items.every(i=>Number.isFinite(i.delayMs)&&i.durationMs>0),'Bad beat timing');
     }

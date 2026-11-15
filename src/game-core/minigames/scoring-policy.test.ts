@@ -11,6 +11,7 @@ import {
   getMiniGameBasePoints,
   getNumericEstimateRule,
   getNumericEstimateScoringGuide,
+  getRiskRoundPenaltyPoints,
 } from './scoring-policy';
 
 function award(overrides: Partial<MiniGameScoreAward> = {}): MiniGameScoreAward {
@@ -239,17 +240,17 @@ describe('shared mini-game scoring policy', () => {
 
   it('preserves explicit negative Risk Round penalties only after Chaos modifiers', () => {
     const [normalized] = enforceMiniGameScoreAwardPolicy([
-      award({ isCorrect: false, points: -30, scoreOutcome: 'incorrect' }),
-    ], 'count-the-beat', { allowedWrongAnswerPenalty: -30 });
+      award({ isCorrect: false, points: -36, scoreOutcome: 'incorrect' }),
+    ], 'count-the-beat', { allowedWrongAnswerPenaltyRatio: 0.2 });
 
-    expect(normalized.points).toBe(-30);
+    expect(normalized.points).toBe(-36);
     expect(normalized.scoreOutcome).toBe('incorrect');
   });
 
   it('rejects negative answer awards that do not match the active Chaos penalty', () => {
     const [normalized] = enforceMiniGameScoreAwardPolicy([
       award({ isCorrect: false, points: -999, scoreOutcome: 'incorrect' }),
-    ], 'shape-count', { allowedWrongAnswerPenalty: -30 });
+    ], 'shape-count', { allowedWrongAnswerPenaltyRatio: 0.2 });
 
     expect(normalized.points).toBe(0);
   });
@@ -257,10 +258,19 @@ describe('shared mini-game scoring policy', () => {
   it('never applies Risk Round penalties to a numeric partial answer', () => {
     const [normalized] = enforceMiniGameScoreAwardPolicy([
       award({ isCorrect: false, points: -30, scoreOutcome: 'partial', maxPoints: 180 }),
-    ], 'count-the-beat', { allowedWrongAnswerPenalty: -30 });
+    ], 'count-the-beat', { allowedWrongAnswerPenaltyRatio: 0.2 });
 
     expect(normalized.points).toBe(0);
     expect(normalized.scoreOutcome).toBe('incorrect');
+  });
+
+  it('calculates Risk penalty as 20% of canonical game and difficulty points', () => {
+    expect(getRiskRoundPenaltyPoints('shape-count', 'easy', .20)).toBe(-10);
+    expect(getRiskRoundPenaltyPoints('shape-count', 'medium', .20)).toBe(-20);
+    expect(getRiskRoundPenaltyPoints('count-the-beat', 'hard', .20)).toBe(-48);
+    expect(getRiskRoundPenaltyPoints('food-origin', 'hard', .20)).toBe(-36);
+    expect(getRiskRoundPenaltyPoints('shape-count', 'easy', Number.NaN)).toBe(0);
+    expect(getRiskRoundPenaltyPoints('shape-count', 'easy', 2)).toBe(0);
   });
 
   it('keeps valid correct-answer awards and clamps malformed negative rewards', () => {

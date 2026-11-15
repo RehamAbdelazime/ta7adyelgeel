@@ -1,37 +1,33 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-const root = process.cwd();
-const read = p => fs.readFileSync(path.join(root,p),'utf8');
-const view = read('src/ui-react/components/gameplay/shared/MiniGameIntroDemonstration.tsx');
-const overlay = read('src/ui-react/components/gameplay/GameplayOverlay.tsx');
-const css = read('src/ui-react/styles/intro-walkthrough-v68.css');
-const main = read('src/ui-react/main.tsx');
-const registry = read('src/game-core/minigames/minigame-registry.ts');
-const ids = ['food-origin','shape-count','maze-gates','count-the-beat','lucky-cup','guess-movie','guess-star','memory-count','couple-or-siblings'];
-for (const id of ids) {
- assert.match(registry,new RegExp(`id: '${id}'`),`Game missing from registry: ${id}`);
- assert.match(view,new RegExp(`'${id}': \\{`),`Missing visual walkthrough: ${id}`);
+const read = p => fs.readFileSync(path.join(process.cwd(),p),'utf8');
+const view=read('src/ui-react/components/gameplay/shared/MiniGameIntroDemonstration.tsx');
+const modern=read('src/ui-react/components/gameplay/shared/AllGamesTwoPageIntro.tsx');
+const overlay=read('src/ui-react/components/gameplay/GameplayOverlay.tsx');
+const registry=read('src/game-core/minigames/minigame-registry.ts');
+const translations=read('src/game-core/localization/translations.ts');
+const ids=['food-origin','shape-count','maze-gates','count-the-beat','lucky-cup','guess-movie','guess-star','memory-count','couple-or-siblings'];
+for(const id of ids){
+ assert.ok(registry.includes(`id: '${id}'`),`Missing ${id} in registry`);
+ if(id!=='food-origin') assert.ok(modern.includes(`'${id}': {`),`Missing current two-page lesson ${id}`);
 }
+assert.match(view,/props\.gameId === 'food-origin'\s*\? <FoodOriginTwoPageIntro/);
+assert.match(view,/<AllGamesTwoPageIntro gameId=\{props\.gameId\}/);
 assert.match(overlay,/<MiniGameIntroDemonstration/);
-assert.doesNotMatch(overlay,/<MiniGameIntroIllustration/);
-assert.match(view,/ArrowRight.*ArrowLeft/);
-assert.match(view,/rtl \? event.key === 'ArrowLeft'/);
-assert.match(view,/aria-current=\{page === i \? 'step'/);
-assert.match(view,/onStart\(\)/);
-assert.match(view,/revealed \? FACE : EYES/);
-assert.match(view,/howto-v68-marker-reveal/);
-assert.match(view,/howto-v68-answer-strip/);
-assert.match(main,/intro-walkthrough-v68.css/);
-assert.match(css,/howto-v68-layout/);
-for (const file of [
- 'public/assets/game/runtime/minigames/HowTo/stage-quote.webp',
- 'public/assets/game/runtime/minigames/food-origin/photos/carbonara_italy.jpg',
- 'public/assets/game/runtime/minigames/visual-guess/Posters/movie-elzoga-13.jpg',
- 'public/assets/game/runtime/minigames/visual-guess/Stars/Eyes/uploaded-01.jpg',
- 'public/assets/game/runtime/minigames/visual-guess/Stars/Full/uploaded-01.jpg',
- 'public/assets/game/runtime/minigames/lucky-cup/cup.png',
- 'public/assets/game/runtime/minigames/lucky-cup/ball.png',
-]) assert.ok(fs.statSync(path.join(root,file)).size > 1000,`Missing actual local tutorial media: ${file}`);
-assert.doesNotMatch(view, /https?:\/\//, 'Walkthrough must use local images only');
-console.log('[V68] PASS: 9 navigable bilingual how-to demonstrations, accessible arrows, correct star reveal, real local stage screenshot and game artwork.');
+assert.match(view,/ArrowLeft.*ArrowRight|ArrowRight.*ArrowLeft/);
+assert.match(modern,/ArrowLeft.*ArrowRight|ArrowRight.*ArrowLeft/);
+assert.match(view,/Math\.max\(0, Math\.min\(1,/);
+assert.match(modern,/Math\.min\(1,Math\.max\(0,/);
+assert.match(view,/<MediaCard/);
+assert.match(view,/<ChoiceCard/);
+assert.match(modern,/<ChoiceCard/);
+assert.match(modern,/<BeatIcon/);
+assert.match(modern,/second \? MEDIA\.face : MEDIA\.eyes/);
+assert.doesNotMatch(view,/const WALKTHROUGHS|function LegacyWalkthrough|howto-v69-stage/,'Do not reintroduce removed duplicate tutorials');
+assert.match(translations,/['"]tutorial\.twoPage\.shape\.count\.question['"]/);
+for(const file of ['HowTo/stage-quote.webp','visual-guess/Stars/Eyes/uploaded-01.jpg','visual-guess/Stars/Full/uploaded-01.jpg','food-origin/photos/carbonara_italy.jpg']) {
+ const p=path.join(process.cwd(),'public/assets/game/runtime/minigames',file);
+ assert.ok(fs.statSync(p).size>1000,`Missing local media: ${file}`);
+}
+console.log('[V68 legacy target] PASS: real shared two-page tutorials, local media, keyboard navigation, translation keys, no duplicate retired walkthroughs.');

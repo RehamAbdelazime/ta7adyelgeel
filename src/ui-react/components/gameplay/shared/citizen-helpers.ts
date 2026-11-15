@@ -85,11 +85,12 @@ export function getCitizenPlacementMotionSignature(placement: CitizenPlacement |
 
 const CHOICE_SPOTLIGHT_LAYOUT = ANSWER_STAGE_LAYOUT;
 
-function getChoiceSpotlightCenterX(placement: CitizenSpotlightPlacement): number {
+function getChoiceSpotlightCenterX(placement: CitizenSpotlightPlacement, locale: 'ar' | 'en' = 'en'): number {
   const count = Math.max(1, placement.optionCount);
   const index = Math.max(0, Math.min(count - 1, placement.optionNumber - 1));
+  const visualIndex = locale === 'ar' ? count - 1 - index : index;
   return CHOICE_SPOTLIGHT_LAYOUT.leftPercent
-    + CHOICE_SPOTLIGHT_LAYOUT.widthPercent * ((index + 0.5) / count);
+    + CHOICE_SPOTLIGHT_LAYOUT.widthPercent * ((visualIndex + 0.5) / count);
 }
 
 /**
@@ -141,10 +142,10 @@ export function getAdaptiveCitizenLobbyStyle(index: number, count: number): CSSP
   return citizenPositionStyle({ ...position, z: Math.round(position.y) + 10, index });
 }
 
-function getPlacementXPercent(placement: CitizenPlacement | null, index: number): number {
+function getPlacementXPercent(placement: CitizenPlacement | null, index: number, locale: 'ar' | 'en' = 'en'): number {
   if (!placement) return getLobbyCrowdCoordinates(index).x;
   if (placement.kind === 'champion') return 50;
-  if (placement.kind === 'choice') return getChoiceSpotlightCenterX(placement);
+  if (placement.kind === 'choice') return getChoiceSpotlightCenterX(placement, locale);
 
   const columns = 6;
   const row = Math.floor(placement.groupIndex / columns);
@@ -166,8 +167,9 @@ export function getCitizenWalkFacing(
   currentPlacement: CitizenPlacement | null,
   nextPlacement: CitizenPlacement | null,
   index: number,
+  locale: 'ar' | 'en' = 'en',
 ): number {
-  const delta = getPlacementXPercent(nextPlacement, index) - getPlacementXPercent(currentPlacement, index);
+  const delta = getPlacementXPercent(nextPlacement, index, locale) - getPlacementXPercent(currentPlacement, index, locale);
   if (Math.abs(delta) > 0.25) return delta > 0 ? 1 : -1;
   if (nextPlacement?.kind === 'side') return nextPlacement.side === 'left' ? 1 : -1;
   return index % 2 === 0 ? 1 : -1;
@@ -180,11 +182,11 @@ export function getCitizenFrameDurationMs(animationName: CharacterAnimationName)
   return durations[animationName] ?? CHARACTER_IDLE_FRAME_MS;
 }
 
-export function getCitizenFloorStyle(index: number, placement: CitizenPlacement | null = null): CSSProperties {
+export function getCitizenFloorStyle(index: number, placement: CitizenPlacement | null = null, locale: 'ar' | 'en' = 'en'): CSSProperties {
   if (!placement) return getCitizenLobbyStyle(index);
   if (placement.kind === 'side') return getCitizenSideStyle(placement, index);
   if (placement.kind === 'champion') return getCitizenChampionStyle();
-  return getCitizenSpotlightStyle(placement, index);
+  return getCitizenSpotlightStyle(placement, index, locale);
 }
 
 function citizenPositionStyle({ x, y, scale, z, index, facing }: {
@@ -237,8 +239,8 @@ export function getCitizenChampionStyle(): CSSProperties {
  * Rows extend from the screen apron towards the spectator-facing floor.
  * Dense groups shrink moderately; all placements remain within their own lane.
  */
-export function getCitizenSpotlightStyle(placement: CitizenSpotlightPlacement, fallbackIndex: number): CSSProperties {
-  const laneCenter = getChoiceSpotlightCenterX(placement);
+export function getCitizenSpotlightStyle(placement: CitizenSpotlightPlacement, fallbackIndex: number, locale: 'ar' | 'en' = 'en'): CSSProperties {
+  const laneCenter = getChoiceSpotlightCenterX(placement, locale);
   const laneWidth = CHOICE_SPOTLIGHT_LAYOUT.widthPercent / Math.max(1, placement.optionCount);
   const count = Math.max(1, placement.groupSize ?? placement.groupIndex + 1);
   const columns = count <= 3 ? 3 : count <= 16 ? 4 : count <= 36 ? 5 : 6;

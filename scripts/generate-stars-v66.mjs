@@ -32,19 +32,20 @@ for (const photo of config.photos) {
   const personKey = (photo.personKey ?? '').trim();
   if (!/^[a-z0-9][a-z0-9-]{1,100}$/.test(personKey) || !ar || !en ||
     !['actors','singers','athletes','public-figures'].includes(photo.category) ||
+    !['female', 'male'].includes(photo.gender) ||
     !['easy','medium','hard'].includes(photo.difficulty)) {
-    throw Error(`Incomplete person label for ${photo.id}: fill name.ar, name.en, personKey, category and difficulty`);
+    throw Error(`Incomplete person label for ${photo.id}: fill name.ar, name.en, personKey, category, gender and difficulty`);
   }
   const variant = { id: photo.id, asset: photo.photo, eyesAsset: photo.eyes };
   const group = identities.get(personKey);
   if (group) {
-    if (group.name.ar !== ar || group.name.en !== en || group.category !== photo.category || group.difficulty !== photo.difficulty)
-      throw Error(`Inconsistent names/category/difficulty for ${personKey} (${photo.originalFilename}). Variants of the SAME person must have identical labels.`);
+    if (group.name.ar !== ar || group.name.en !== en || group.category !== photo.category || group.gender !== photo.gender || group.difficulty !== photo.difficulty)
+      throw Error(`Inconsistent names/category/gender/difficulty for ${personKey} (${photo.originalFilename}). Variants of the SAME person must have identical labels.`);
     group.photoVariants.push(variant);
   } else {
     identities.set(personKey, {
       id: photo.id, personKey, name: { ar, en }, mode: 'eyes', difficulty: photo.difficulty,
-      category: photo.category, asset: photo.photo, eyesAsset: photo.eyes,
+      category: photo.category, gender: photo.gender, asset: photo.photo, eyesAsset: photo.eyes,
       photoVariants: [variant], imageUrl: '', focus: { x: 50, y: 50 },
       mediaType: 'real_photo_user_supplied',
       mediaApproval: 'user_supplied_local_rights_unverified',
@@ -54,6 +55,10 @@ for (const photo of config.photos) {
 }
 const playable = [...identities.values()];
 if (playable.length < 4) throw Error(`Need 4 DIFFERENT people for four choices (currently ${playable.length})`);
+for (const gender of ['female', 'male']) {
+  const count = playable.filter(item => item.gender === gender).length;
+  if (count > 0 && count < 4) throw Error(`Need 4 DIFFERENT ${gender} people for same-gender answers (currently ${count})`);
+}
 for (const difficulty of ['easy','medium','hard']) {
   if (!playable.some(item => item.difficulty === difficulty)) throw Error(`Missing ${difficulty} star question`);
 }

@@ -44,7 +44,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   // Separating them prevents the entire actions object from being re-created
   // on every game state update (every tick, chat message, phase change, etc.).
   const actions = useMemo<GameContextValue['actions']>(() => ({
-    startTour: (miniGameIds?: MiniGameId[]) => runtime.store.startTour(miniGameIds?.length ? miniGameIds.length : undefined, miniGameIds, 'tour'),
+    startTour: (miniGameIds?: MiniGameId[]) => runtime.store.startTour(undefined, miniGameIds, 'tour'),
     startQuickMiniGame: (miniGameId?: MiniGameId) => runtime.store.startTour(miniGameId ? runtime.store.getSingleMiniGameRoundCount(miniGameId) : 1, miniGameId ? [miniGameId] : undefined, 'mini-game'),
     endTour: () => runtime.store.endTour(),
     backToStage: () => runtime.store.backToStage(),

@@ -22,6 +22,27 @@ describe('citizen placement', () => {
     expect(Number.parseFloat(String(style['--citizen-y']))).toBeCloseTo(58, 1);
   });
 
+  it('mirrors numbered answer lanes in Arabic, without changing option identity or English positions', () => {
+    for (const optionCount of [2, 3, 4]) {
+      for (let optionNumber = 1; optionNumber <= optionCount; optionNumber++) {
+        const placement: CitizenSpotlightPlacement = {
+          kind: 'choice', optionNumber, optionCount, groupIndex: 0,
+          tone: 'cyan', resultState: 'pending',
+        };
+        const en = getCitizenSpotlightStyle(placement, 0, 'en') as Record<string, unknown>;
+        const ar = getCitizenSpotlightStyle(placement, 0, 'ar') as Record<string, unknown>;
+        const xEn = Number.parseFloat(String(en['--citizen-x']));
+        const xAr = Number.parseFloat(String(ar['--citizen-x']));
+        expect(xEn + xAr).toBeCloseTo(100, 5);
+        expect((getCitizenFloorStyle(0, placement, 'ar') as Record<string, unknown>)['--citizen-x']).toBe(ar['--citizen-x']);
+      }
+    }
+    const first = { kind: 'choice', optionNumber: 1, optionCount: 4,
+      groupIndex: 0, tone: 'cyan', resultState: 'pending' } as CitizenSpotlightPlacement;
+    expect(getCitizenWalkFacing({ kind: 'side', side: 'left', groupIndex: 0 }, first, 0, 'ar')).toBe(1);
+    expect(getCitizenWalkFacing({ kind: 'side', side: 'right', groupIndex: 0 }, first, 0, 'ar')).toBe(-1);
+  });
+
   it('spreads multiple responders across their shared answer zone', () => {
     const first = getCitizenSpotlightStyle({
       kind: 'choice', optionNumber: 1, optionCount: 4, groupIndex: 0,

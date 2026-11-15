@@ -4,6 +4,7 @@ export type TourPhase =
   | 'lobby_open'
   | 'tour_starting'
   | 'mini_game_intro'
+  | 'chaos_announcement'
   | 'answer_window_open'
   | 'scoring'
   | 'tour_complete'

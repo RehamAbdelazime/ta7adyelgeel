@@ -39,10 +39,10 @@ html body #root .game-scene-stage > .qshell-reveal-stage-action:focus-visible { 
 /* Count the Beat: the source keyframes were accidentally commented out,
    while every item was explicitly opacity:0. That hid ALL symbols. */
 @keyframes ctb-pop {
-  0%   { opacity: 0; transform: translate(-50%,-50%) scale(.45) rotate(var(--ctb-rotate,0deg)); }
-  11%  { opacity: 1; transform: translate(-50%,-50%) scale(1.16) rotate(var(--ctb-rotate,0deg)); }
-  65%  { opacity: 1; transform: translate(-50%,-50%) scale(1) rotate(var(--ctb-rotate,0deg)); }
-  100% { opacity: 0; transform: translate(-50%,-50%) scale(.72) rotate(var(--ctb-rotate,0deg)); }
+  0%   { opacity: 0; transform: translate(-50%,-50%) scale(.88); }
+  3%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  94%  { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(.96); }
 }
 html body #root .gameplay-question-count-the-beat .ctb-shell {
   grid-template-rows: auto minmax(0,1fr) !important;

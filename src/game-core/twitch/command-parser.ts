@@ -48,7 +48,9 @@ export class CommandParser {
 
     const [rawCommand = '', ...args] = normalizedMessage.split(' ');
     const command = rawCommand.toLowerCase();
-    const kind = COMMAND_ALIASES[command] ?? 'unknown';
+    // Numeric answer games accept !1 through !99; the active mini-game validates
+    // its own range (choice games still accept only their own options).
+    const kind = COMMAND_ALIASES[command] ?? (/^!(?:0|[1-9]\d?)$/.test(command) ? 'answer' : 'unknown');
 
     return {
       kind,

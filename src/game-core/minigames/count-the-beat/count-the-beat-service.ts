@@ -1,3 +1,7 @@
+import { translate } from '../../localization/translations';
+import { getBeatLanePositions } from './count-the-beat-layout';
+export { getBeatLanePositions } from './count-the-beat-layout';
+import type { TranslationKey } from '../../localization/locale-types';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateNumericEstimateScore, getNumericEstimateScoringGuide } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
@@ -13,7 +17,6 @@ import type {
 } from '../minigame-types';
 
 type CountTheBeatIconId = 'note' | 'double-note' | 'wave' | 'mic' | 'headphones' | 'speaker' | 'disc';
-type CountTheBeatTone = 'cyan' | 'pink' | 'yellow' | 'purple' | 'green';
 
 type CountTheBeatRound = {
   id: string;
@@ -21,57 +24,61 @@ type CountTheBeatRound = {
   targetIcon: CountTheBeatIconId;
   targetCount: number;
   items: CountTheBeatItemSnapshot[];
+  lanes: 1 | 2 | 4;
   bpm: number;
 };
 
 const DIFFICULTY_ORDER: QuestionDifficulty[] = ['easy', 'medium', 'hard'];
 
+/** One symbol per pulse, arranged on illuminated horizontal lanes.
+ * Tempo ramps inside a question; later questions also start slightly faster.
+ * A small dark gap between every symbol guarantees countability on stream. */
 const DIFFICULTY_CONFIG: Record<QuestionDifficulty, {
   targetMin: number;
   targetRange: number;
-  distractorMin: number;
-  distractorRange: number;
-  /** Beat tempo; all symbols are scheduled on exact subdivisions of this clock. */
-  bpm: number;
-  beatCount: number;
-  maxItemsPerBeat: number;
-  durationMinMs: number;
-  durationRangeMs: number;
+  totalBeats: number;
+  startBpm: number;
+  endBpm: number;
+  distractorKinds: number;
+  lanes: 1 | 2 | 4;
 }> = {
-  easy: {
-    targetMin: 8,
-    targetRange: 5,
-    distractorMin: 14,
-    distractorRange: 5,
-    bpm: 108, beatCount: 20, maxItemsPerBeat: 2,
-    durationMinMs: 340, durationRangeMs: 65,
-  },
-  medium: {
-    targetMin: 11,
-    targetRange: 6,
-    distractorMin: 20,
-    distractorRange: 7,
-    bpm: 134, beatCount: 22, maxItemsPerBeat: 2,
-    durationMinMs: 285, durationRangeMs: 60,
-  },
-  hard: {
-    targetMin: 15,
-    targetRange: 8,
-    distractorMin: 28,
-    distractorRange: 10,
-    bpm: 158, beatCount: 24, maxItemsPerBeat: 3,
-    durationMinMs: 230, durationRangeMs: 55,
-  },
+  easy:   { targetMin: 5, targetRange: 2, totalBeats: 12, startBpm: 54, endBpm: 63, distractorKinds: 2, lanes: 1 },
+  medium: { targetMin: 6, targetRange: 2, totalBeats: 14, startBpm: 60, endBpm: 81, distractorKinds: 3, lanes: 2 },
+  hard:   { targetMin: 7, targetRange: 2, totalBeats: 16, startBpm: 66, endBpm: 99, distractorKinds: 4, lanes: 4 },
 };
 
-const BEAT_ICON_LABELS: Record<CountTheBeatIconId, Record<LocaleCode, string>> = {
-  note: { en: 'Music Note', ar: 'نوتة' },
-  'double-note': { en: 'Double Note', ar: 'نوتتين' },
-  wave: { en: 'Sound Wave', ar: 'موجة صوت' },
-  mic: { en: 'Microphone', ar: 'مايك' },
-  headphones: { en: 'Headphones', ar: 'سماعة' },
-  speaker: { en: 'Speaker', ar: 'سبيكر' },
-  disc: { en: 'Disc', ar: 'أسطوانة' },
+/** Both the visual symbols and the audio cues use this precise timeline.
+ * Never approximate accelerating beats by a fixed BPM in another layer. */
+export function getCountTheBeatSchedule(roundNumber: number): ReadonlyArray<{ delayMs: number; durationMs: number }> {
+  const config = DIFFICULTY_CONFIG[getDifficulty(roundNumber)];
+  const beats: { delayMs: number; durationMs: number }[] = [];
+  let clock = 0;
+  for (let index = 0; index < config.totalBeats; index += 1) {
+    const progress = index / Math.max(1, config.totalBeats - 1);
+    const bpm = config.startBpm + (config.endBpm - config.startBpm) * progress;
+    const intervalMs = 60_000 / bpm;
+    beats.push({ delayMs: Math.round(clock), durationMs: Math.round(intervalMs * .83) });
+    clock += intervalMs;
+  }
+  return beats;
+}
+
+/** The answer timer is a separate phase, starting after the last icon goes dark. */
+export function getCountTheBeatPreparationMsForRound(roundNumber: number): number {
+  const beats = getCountTheBeatSchedule(roundNumber);
+  const last = beats[beats.length - 1];
+  return last ? last.delayMs + last.durationMs + 280 : 0;
+}
+
+/** Store translation keys, not resolved text: runtime locale changes stay live. */
+const BEAT_ICON_LABEL_KEYS: Record<CountTheBeatIconId, TranslationKey> = {
+  note: 'countBeat.icon.note',
+  'double-note': 'countBeat.icon.doubleNote',
+  wave: 'countBeat.icon.wave',
+  mic: 'countBeat.icon.mic',
+  headphones: 'countBeat.icon.headphones',
+  speaker: 'countBeat.icon.speaker',
+  disc: 'countBeat.icon.disc',
 };
 
 const BEAT_ICON_GLYPHS: Record<CountTheBeatIconId, string> = {
@@ -84,7 +91,6 @@ const BEAT_ICON_GLYPHS: Record<CountTheBeatIconId, string> = {
   disc: '💿',
 };
 
-const BEAT_TONES: CountTheBeatTone[] = ['cyan', 'pink', 'yellow', 'purple', 'green'];
 const MAX_NUMERIC_ANSWER = 99;
 
 function createSeededRandom(seed: number): () => number {
@@ -107,16 +113,12 @@ function shuffle<T>(items: T[], random: () => number): T[] {
   return copy;
 }
 
-function clampNumber(value: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, value));
-}
-
 function getDifficulty(roundNumber: number): QuestionDifficulty {
   return DIFFICULTY_ORDER[(roundNumber - 1) % DIFFICULTY_ORDER.length] ?? 'hard';
 }
 
 function getIconLabel(icon: CountTheBeatIconId, locale: LocaleCode): string {
-  return BEAT_ICON_LABELS[icon]?.[locale] ?? BEAT_ICON_LABELS[icon].en;
+  return translate(locale, BEAT_ICON_LABEL_KEYS[icon]);
 }
 
 export class CountTheBeatMiniGameService {
@@ -241,14 +243,14 @@ export class CountTheBeatMiniGameService {
       id: 'count-the-beat',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'عدّ الإيقاع' : 'COUNT THE BEAT',
+      title: translate(locale, 'minigame.countTheBeat.title'),
       statement: this.round
-        ? (locale === 'ar'
-          ? `عدّ عدد ${getIconLabel(this.round.targetIcon, locale)}`
-          : `Count every ${getIconLabel(this.round.targetIcon, locale)}`)
+        ? translate(locale, 'ui.countTheBeatScreen.countEveryIcon', {
+            icon: getIconLabel(this.round.targetIcon, locale),
+          })
         : '',
       instruction: this.round
-        ? (locale === 'ar' ? 'اكتب العدد في الشات مثل !15' : 'Type the count in chat, for example !15')
+        ? translate(locale, 'ui.countTheBeatScreen.typeNumericChat')
         : '',
       acceptsAnswers: this.status === 'answering',
       officialAnswerCount: answerRecords.filter((answer) => answer.role === 'official').length,
@@ -270,6 +272,7 @@ export class CountTheBeatMiniGameService {
       },
       countTheBeat: this.round
         ? {
+            lanes: this.round.lanes,
             targetIcon: this.round.targetIcon,
             targetLabel: getIconLabel(this.round.targetIcon, locale),
             targetGlyph: BEAT_ICON_GLYPHS[this.round.targetIcon],
@@ -288,85 +291,100 @@ export class CountTheBeatMiniGameService {
     const config = DIFFICULTY_CONFIG[difficulty];
     const icons = shuffle(Object.keys(BEAT_ICON_GLYPHS) as CountTheBeatIconId[], random);
     const targetIcon = icons[0];
-    const distractors = icons.slice(1, difficulty === 'easy' ? 4 : difficulty === 'medium' ? 5 : 6);
+    const distractors = icons.slice(1, config.distractorKinds + 1);
     const targetCount = config.targetMin + Math.floor(random() * config.targetRange);
-    const distractorCount = config.distractorMin + Math.floor(random() * config.distractorRange);
+    const distractorCount = config.totalBeats - targetCount;
     const items: CountTheBeatItemSnapshot[] = [];
 
     for (let index = 0; index < targetCount; index += 1) {
-      items.push(this.createItem(`target-${index}`, targetIcon, true, index, random, difficulty));
+      items.push(this.createItem(`target-${index}`, targetIcon, true));
     }
-
     for (let index = 0; index < distractorCount; index += 1) {
       const icon = distractors[index % distractors.length] ?? distractors[0] ?? targetIcon;
-      items.push(this.createItem(`distractor-${index}`, icon, false, index + targetCount, random, difficulty));
+      items.push(this.createItem(`distractor-${index}`, icon, false));
     }
 
-    // Quantize glyphs to an explicit musical pulse, but keep multiple distinct
-    // icons per beat on hard difficulty. Never rely on a random pile-up.
-    const orderedItems = shuffle(items, random);
-    const beatMs = 60_000 / config.bpm;
-    const beatCount = Math.max(config.beatCount, Math.ceil(orderedItems.length / config.maxItemsPerBeat));
-    const occupiedByBeat = new Map<number, Set<number>>();
-    const positions = [
-      [17, 24], [39, 20], [62, 23], [83, 20],
-      [23, 49], [45, 48], [66, 47], [85, 52],
-      [17, 75], [40, 77], [62, 75], [82, 78],
-    ] as const;
-    const positionOffset = Math.floor(random() * positions.length);
+    // Stop clumps of three identical symbols. A randomized sequence should be
+    // difficult because of observation, not because six items flash at once.
+    let orderedItems = shuffle(items, random);
+    for (let attempt = 0; attempt < 128; attempt += 1) {
+      const hasTriple = orderedItems.some((item, index) => index >= 2
+        && item.icon === orderedItems[index - 1].icon
+        && item.icon === orderedItems[index - 2].icon);
+      if (!hasTriple) break;
+      orderedItems = shuffle(items, random);
+    }
 
+    const laneYs = getBeatLanePositions(config.lanes);
+    const schedule = getCountTheBeatSchedule(roundNumber);
+    let lastLane = -1;
+    let lastSlot = -1;
+    // EASY: a stable left-to-right line with a slight restart offset.
+    // MEDIUM: two lines; the first third alternates predictably, then drifts.
+    // HARD: four lines; jumps become less predictable as the pace increases.
     orderedItems.forEach((item, index) => {
-      const beat = Math.floor((index * beatCount) / orderedItems.length);
-      const occupied = occupiedByBeat.get(beat) ?? new Set<number>();
-      // Consecutive items in a simultaneous beat get different clear zones.
-      let slot = (beat * 5 + index * 7 + positionOffset) % positions.length;
-      while (occupied.has(slot)) slot = (slot + 1) % positions.length;
-      occupied.add(slot);
-      occupiedByBeat.set(beat, occupied);
-      const [x, y] = positions[slot];
-      item.x = x;
-      item.y = y;
-      item.delayMs = Math.round(beat * beatMs);
-      item.durationMs = Math.min(item.durationMs, Math.round(beatMs * 0.86));
-      item.rotate = 0; // keep the silhouette recognizable when several land together
+      const progress = index / Math.max(1, orderedItems.length - 1);
+      let lane: number;
+      if (config.lanes === 1) {
+        lane = 0;
+      } else if (config.lanes === 2 && progress < .35) {
+        lane = index % 2;
+      } else if (config.lanes === 4 && progress < .3) {
+        lane = index % 4;
+      } else {
+        lane = Math.floor(random() * config.lanes);
+        // Avoid repetitive positions; difficulty is a visual tracking challenge.
+        if (config.lanes > 1 && lane === lastLane && random() < .76) {
+          lane = (lane + 1 + Math.floor(random() * (config.lanes - 1))) % config.lanes;
+        }
+      }
+      let slot: number;
+      if (config.lanes === 1) {
+        slot = index % 5;
+      } else if (progress < .3) {
+        slot = (index + lane) % 5;
+      } else {
+        slot = Math.floor(random() * 5);
+        if (slot === lastSlot && lane === lastLane) slot = (slot + 1 + Math.floor(random() * 4)) % 5;
+      }
+      lastLane = lane;
+      lastSlot = slot;
+      item.x = [18, 34, 50, 66, 82][slot];
+      item.y = laneYs[lane];
+      item.delayMs = schedule[index].delayMs;
+      item.durationMs = schedule[index].durationMs;
+      item.rotate = 0;
     });
 
     return {
-      id: `count-the-beat-${roundNumber}-${targetIcon}-${targetCount}`,
+      id: `count-the-beat-${roundNumber}-${seed}-${targetIcon}-${targetCount}`,
       difficulty,
       targetIcon,
       targetCount,
       items: orderedItems,
-      bpm: config.bpm,
+      lanes: config.lanes,
+      bpm: config.startBpm,
     };
   }
 
-  private createItem(
-    id: string,
-    icon: CountTheBeatIconId,
-    isTarget: boolean,
-    index: number,
-    random: () => number,
-    difficulty: QuestionDifficulty,
-  ): CountTheBeatItemSnapshot {
-    const config = DIFFICULTY_CONFIG[difficulty];
-    const durationMs = config.durationMinMs + Math.floor(random() * config.durationRangeMs);
-    const tone = BEAT_TONES[(index + Math.floor(random() * BEAT_TONES.length)) % BEAT_TONES.length];
-
+  private createItem(id: string, icon: CountTheBeatIconId, isTarget: boolean): CountTheBeatItemSnapshot {
     return {
       id,
       icon,
       glyph: BEAT_ICON_GLYPHS[icon],
       isTarget,
-      x: clampNumber(12 + random() * 76, 10, 90),
-      y: clampNumber(18 + random() * 60, 14, 86),
-      size: isTarget ? 1.04 + random() * 0.36 : 0.82 + random() * 0.32,
-      delayMs: 0, // overwritten by the shared beat scheduler
-      durationMs,
-      rotate: Math.floor(-18 + random() * 36),
-      tone,
+      x: 50,
+      y: 50,
+      // Every symbol looks EXACTLY the same aside from its silhouette.
+      // No color, size, rotation, glow or position reveals the target.
+      size: 1,
+      delayMs: 0,
+      durationMs: 0,
+      rotate: 0,
+      tone: 'cyan',
     };
   }
+
 }
 
 export { CountTheBeatMiniGameService as CountTheBeatMiniGame };

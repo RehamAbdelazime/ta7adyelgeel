@@ -272,3 +272,17 @@ html body #root .show-score-ambient-v21 .show-score-light-pool {opacity:.08!impo
 @media (prefers-reduced-motion: reduce) {
   html body #root .show-score-action-v21 {transition:none!important;transform:none!important;}
 }
+
+/* V79 — the active score scope is next to the actual player ranking. */
+html body #root .show-scoreboard-v21 .scoreboard-scope-label-v79 {
+  align-self: stretch;
+  width: 100%;
+  padding: clamp(5px,.55vw,10px) clamp(9px,.9vw,15px);
+  margin-bottom: clamp(-4px,-.25vw,-1px);
+  border-inline-start: 3px solid var(--show-score-v23-cyan,#4de3ed);
+  border-radius: 7px;
+  background: linear-gradient(90deg,rgba(56,149,177,.17),transparent);
+  color: #e8fbff;
+  font: 800 clamp(13px,1.05vw,19px)/1.25 var(--font-game-ui,'Fredoka Variable',sans-serif);
+  text-align: start;
+}

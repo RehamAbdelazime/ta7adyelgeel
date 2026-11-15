@@ -158,7 +158,6 @@ export function QuestionScreenShell({
   const choiceCount = Math.min(orderedChoices.length, 4);
   const hasChoices = choiceCount > 0;
   const answerCounts = getAnswerCountsByOption(miniGame);
-  const displayedAnswerCount = [...answerCounts.values()].reduce((sum, count) => sum + count, 0);
   // Choice cards already highlight the correct answer. A second announcement
   // covers the artwork and forces the viewer to read the same result twice.
   const showRevealBanner = isAnswerReveal && !hasChoices
@@ -178,7 +177,7 @@ export function QuestionScreenShell({
       onClick={continueToLeaderboard ?? actions.skipPhase}
       data-testid="reveal-to-scoreboard"
     >
-      <span>{snapshot.locale === 'ar' ? 'إظهار الترتيب' : 'SHOW LEADERBOARD'}</span>
+      <span>{t('gameplay.score.showRanking')}</span>
       <b aria-hidden="true">➜</b>
     </button>
   ) : null;
@@ -270,7 +269,9 @@ export function QuestionScreenShell({
           phaseStartedAt={snapshot.tour.phaseStartedAt}
           phaseDurationMs={snapshot.tour.phaseDurationMs}
           phaseRemainingMs={snapshot.tour.phaseRemainingMs}
-          readyLabel={t('gameplay.timer.ready')}
+          readyLabel={tourPhase === 'tour_starting' && miniGame.id === 'count-the-beat'
+            ? t('ui.countTheBeatScreen.watchAndCount')
+            : t('gameplay.timer.ready')}
           remainingLabel={(seconds) => t('gameplay.timer.remaining', { seconds: String(seconds) })}
           modern={isModern}
         />
@@ -314,6 +315,7 @@ export function QuestionScreenShell({
         {hasChoices ? (
           <div
             className={`gameplay-question-choices gameplay-question-choices-${choiceCount} qshell-choices`}
+            dir={snapshot.direction}
             style={isModern ? undefined : choicesStyle}
           >
             {orderedChoices.map((choice) => {
@@ -332,7 +334,7 @@ export function QuestionScreenShell({
                   isOpen={miniGame.acceptsAnswers && !isAnswerReveal}
                   resultState={resultState}
                   answerCount={isModern ? (answerCounts.get(optionNumber ?? 0) ?? 0) : undefined}
-                  answerCountAriaLabel={snapshot.locale === 'ar' ? 'إجابة' : 'answers'}
+                  answerCountAriaLabel={t('gameplay.answers.countUnit')}
                 />
               );
             })}
@@ -340,26 +342,20 @@ export function QuestionScreenShell({
         ) : null}
       </div>
 
-      {/* ── Minimal answer HUD ───────────────────────────────────────── */}
-      <div className="gameplay-question-side-hints qshell-footer" style={isModern ? undefined : { flexShrink: 0 }} aria-live="polite">
-        {isModern ? (
-          <>
-            <span className="qshell-quick-total"><b>{displayedAnswerCount}</b> {snapshot.locale === 'ar' ? 'إجابة' : 'answers'}</span>
-
-          </>
-        ) : (
-          <>
-        <aside className="gameplay-question-side-hint gameplay-question-side-hint-left">
-          <small>{t('gameplay.chat.command')}</small>
-          <span>{helperText}</span>
-        </aside>
-        <aside className="gameplay-question-side-hint gameplay-question-side-hint-right">
-          <small>{t('gameplay.liveAnswers')}</small>
-          <b>{miniGame.officialAnswerCount}</b>
-        </aside>
-          </>
-        )}
-      </div>
+      {/* Legacy-only hint footer. The modern answer cards already show per-option
+          vote totals, so do not render a redundant “0 answers” total below them. */}
+      {!isModern ? (
+        <div className="gameplay-question-side-hints qshell-footer" style={{ flexShrink: 0 }} aria-live="polite">
+          <aside className="gameplay-question-side-hint gameplay-question-side-hint-left">
+            <small>{t('gameplay.chat.command')}</small>
+            <span>{helperText}</span>
+          </aside>
+          <aside className="gameplay-question-side-hint gameplay-question-side-hint-right">
+            <small>{t('gameplay.liveAnswers')}</small>
+            <b>{miniGame.officialAnswerCount}</b>
+          </aside>
+        </div>
+      ) : null}
     </div>
   );
 }

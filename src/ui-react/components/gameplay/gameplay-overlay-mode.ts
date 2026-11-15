@@ -1,6 +1,6 @@
 import type { TourPhase } from '../../../game-core/tours/tour-types';
 
-export type GameplayOverlayMode = 'final-score' | 'round-score' | 'tour-starting' | 'lobby' | 'mini-game';
+export type GameplayOverlayMode = 'final-score' | 'round-score' | 'tour-starting' | 'chaos-announcement' | 'lobby' | 'mini-game';
 
 /**
  * Score phases take precedence over the generic lobby/mini-game visibility flag.
@@ -13,6 +13,7 @@ export function resolveGameplayOverlayMode(
 ): GameplayOverlayMode {
   if (phase === 'tour_complete') return 'final-score';
   if (phase === 'scoring') return 'round-score';
+  if (isTourActive && phase === 'chaos_announcement') return 'chaos-announcement';
   if (isTourActive && phase === 'tour_starting') return 'tour-starting';
   if (!shouldShowMiniGame) return 'lobby';
   return 'mini-game';

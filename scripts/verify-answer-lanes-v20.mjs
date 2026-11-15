@@ -24,7 +24,10 @@ check(/leftPercent: 13/.test(stage) && /widthPercent: 74/.test(stage),'all four 
 check(/optionGroupSizes/.test(citizen) && /groupSize: optionGroupSizes/.test(citizen),'crowd density is measured per answer');
 check(/phase === 'scoring'/.test(citizen) && !/setTimeout\(\(\) => setShowScoringAudience/.test(citizen),'crowd holds at their answer until host opens scoreboard');
 check(/grid-template-columns: repeat\(4, minmax\(0, 1fr\)\)/.test(css),'four horizontal equal answers');
-check(/direction: ltr !important; \/\* choice 1/.test(css),'RTL does not flip Twitch numbering');
+check(/direction: ltr !important;/.test(css),'puzzle geometry retains its LTR coordinate space');
+const rtlCss = read('src/ui-react/styles/answer-choice-rtl-v90.css');
+check(rtlCss.includes('[lang="ar"]') && rtlCss.includes('direction: rtl !important;'), 'Arabic choice order is RTL');
+check(rtlCss.includes('.audience-answer-lanes-v20'), 'stage lanes mirror the displayed answer row');
 check(/grid-template-rows: minmax\(0,1fr\) clamp/.test(css),'challenge gets larger flexible vertical space');
 check(/\.gameplay-question-timer \{/.test(css) && /max-width: none !important;/.test(css),'timer uses full question width');
 check(!floor.includes('floor-answer-pad'),'old floor circles removed');

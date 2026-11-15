@@ -31,8 +31,8 @@ try {
   test(store.getSnapshot().citizens.find(x=>x.twitchUserId==='early').score===0,'New Tour inherited stale score');
   test(role(store,'host')==='official' && role(store,'early')==='official','Original players changed role');
   test(submit(store,'intro','!join').ok && role(store,'intro')==='official','Intro join was not Official');
-  store.skipPhase(); // countdown
-  test(submit(store,'countdown','!join').ok && role(store,'countdown')==='official','Countdown join was not Official');
+  store.skipPhase(); // first challenge starts; Official roster locks immediately
+  test(submit(store,'countdown','!join').ok && role(store,'countdown')==='spectator','Countdown join must be Spectator once challenge starts');
   store.skipPhase(); // first question
   test(store.getSnapshot().tour.acceptsAnswers,'First question did not open');
   for(let i=1;i<=4;i++){
@@ -61,7 +61,7 @@ try {
   const result=store.getSnapshot();
   const spectatorRows=result.tourScoreboardRows.filter(row=>row.role==='spectator');
   const officialRows=result.tourScoreboardRows.filter(row=>row.role==='official');
-  test(spectatorRows.length===5 && officialRows.length>=4,'Separate official/spectator rows missing');
+  test(spectatorRows.length===6 && officialRows.length>=3,'Separate official/spectator rows missing');
   test(spectatorRows.some(row=>row.total>0),'No spectator scored across four multiple-choice answers');
   test(officialRows.every(row=>!spectatorRows.some(s=>s.twitchUserId===row.twitchUserId)),'Official and spectator ranks overlap');
   test(spectatorRows.every(row=>row.total===result.citizens.find(x=>x.twitchUserId===row.twitchUserId)?.score),'Spectator score mismatch');

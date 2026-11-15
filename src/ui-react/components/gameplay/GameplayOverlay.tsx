@@ -1,9 +1,9 @@
 import type { TourAwardsSnapshot } from '../../../game-core/awards/tour-awards';
 import type { ChampionCelebrationSnapshot } from '../../../game-core/app/game-snapshot';
-import type { ChaosEventSnapshot } from '../../../game-core/chaos/chaos-types';
 import type { CitizenRuntime } from '../../../game-core/citizens/citizen-types';
 import type { MiniGameScoreAward, MiniGameSnapshot } from '../../../game-core/minigames/minigame-types';
 import type { TourPhase, TourSnapshot } from '../../../game-core/tours/tour-types';
+import type { ChaosEventSnapshot } from '../../../game-core/chaos/chaos-types';
 import { useGame } from '../../context/GameContext';
 import { useTranslation } from '../../i18n/useTranslation';
 import { MainScreenPlayFlow } from '../play/MainScreenPlayFlow';
@@ -50,18 +50,6 @@ export function GameplayOverlay({ sceneOverride }: { sceneOverride?: 'lobby' | '
   );
 }
 
-function ChaosEventBanner({ chaosEvent, tourPhase }: { chaosEvent: ChaosEventSnapshot; tourPhase: TourPhase }) {
-  const isRevealPhase = tourPhase === 'mini_game_intro';
-
-  return (
-    <div className={`gameplay-chaos-banner gameplay-chaos-${chaosEvent.rarity ?? 'common'} ${isRevealPhase ? 'gameplay-chaos-reveal gameplay-chaos-intro-v40' : 'gameplay-chaos-mini-v40'}`} aria-label={chaosEvent.title}>
-      <span>● {chaosEvent.badge || 'CHAOS EVENT'} ●</span>
-      <strong>{chaosEvent.title}</strong>
-      {isRevealPhase ? <small>{chaosEvent.description}</small> : null}
-    </div>
-  );
-}
-
 function LobbyScreen() {
   return (
     <section className="gameplay-main-screen-overlay gameplay-main-screen-lobby gameplay-main-screen-lobby-interactive">
@@ -82,20 +70,15 @@ function TourStartingScreen({ seconds }: { seconds: number }) {
   );
 }
 
-function MiniGameIntro({ miniGame, chaosEvent }: { miniGame: MiniGameSnapshot; chaosEvent: ChaosEventSnapshot }) {
+function MiniGameIntro({ miniGame }: { miniGame: MiniGameSnapshot }) {
   const { actions, snapshot } = useGame();
   const locale = snapshot.locale;
+  const t = useTranslation();
   return (
     <div className="gameplay-intro-card gameplay-intro-card-v68">
       <header className="howto-intro-header howto-intro-header-v68 howto-intro-header-food-v71">
-        <h2>{locale === 'ar' ? 'طريقة اللعب' : 'HOW TO PLAY'}</h2>
-        {chaosEvent.active ? (
-          <aside className="howto-chaos-v40" aria-label={chaosEvent.title}>
-            <small>⚡ CHAOS!</small>
-            <strong>{chaosEvent.title}</strong>
-            <small>{chaosEvent.description}</small>
-          </aside>
-        ) : null}
+        <h2>{t('gameplay.phase.howToPlay')}</h2>
+
       </header>
       <MiniGameIntroDemonstration gameId={miniGame.id} locale={locale} onStart={actions.skipPhase} />
     </div>
@@ -155,11 +138,17 @@ function MainScreenGameplayOverlay({
     );
   }
 
+  if (overlayMode === 'chaos-announcement') {
+    // The cinematic lives in a dedicated stage layer (GameSceneStage).
+    // Do NOT mount the tutorial, quiz, countdown, or scoreboard behind it.
+    return null;
+  }
+
   if (overlayMode === 'tour-starting') {
-    // Visual preparation is actual gameplay for both games: Lucky Cup shuffles,
-    // Memory Count briefly exposes the grid before the answer window hides it.
+    // Preparation is actual gameplay: Lucky Cup shuffles, Memory Count shows
+    // the grid, and Count the Beat plays every symbol BEFORE answers are enabled.
     // Never replace either with the generic countdown.
-    if ((miniGame.id === 'lucky-cup' || miniGame.id === 'memory-count') && miniGame.hasRound) {
+    if ((miniGame.id === 'lucky-cup' || miniGame.id === 'memory-count' || miniGame.id === 'count-the-beat') && miniGame.hasRound) {
       return (
         <section className="gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-tour_starting gameplay-lucky-cup-warmup">
           <MiniGamePlayScreen miniGame={miniGame} tourPhase="tour_starting" />
@@ -180,7 +169,11 @@ function MainScreenGameplayOverlay({
 
   return (
     <section className={`gameplay-main-screen-overlay gameplay-main-screen-active gameplay-phase-${tour.phase}`}>
-      {chaosEvent.active && tour.phase === 'answer_window_open' ? <ChaosEventBanner chaosEvent={chaosEvent} tourPhase={tour.phase} /> : null}
+      {chaosEvent.active && tour.phase === 'answer_window_open' ? (
+        <div className="gameplay-chaos-mini-v40 gameplay-chaos-badge-v85" role="status" aria-label={chaosEvent.title}>
+          <span aria-hidden="true">⚡</span><strong>{chaosEvent.title}</strong>
+        </div>
+      ) : null}
 
       {tour.phase !== 'mini_game_intro' && tour.phase !== 'answer_window_open' ? <div className="gameplay-round-header">
         <span>{roundLabel ? `${roundLabel} · ${phaseLabel}` : phaseLabel}</span>
@@ -190,7 +183,7 @@ function MainScreenGameplayOverlay({
         {phaseRemaining > 0 ? <strong>{phaseRemaining}s</strong> : null}
       </div> : null}
 
-      {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} chaosEvent={chaosEvent} /> : null}
+      {tour.phase === 'mini_game_intro' ? <MiniGameIntro miniGame={miniGame} /> : null}
 
       {tour.phase === 'answer_window_open' ? (
         <MiniGamePlayScreen miniGame={miniGame} tourPhase={tour.phase} />

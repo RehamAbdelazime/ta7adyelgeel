@@ -1,4 +1,5 @@
 import { useEffect, useRef, type MutableRefObject } from 'react';
+import { useGame } from '../../context/GameContext';
 import { useAudioTuning, type AudioTuning } from '../../context/AudioTuningContext';
 import type { GameSceneKey } from '../visual/SceneCurtainTransition';
 
@@ -20,6 +21,8 @@ const LOOP_TRACK_BY_SCENE: Record<GameSceneKey, LoopTrackKey> = {
 
 export function RuntimeAudioManager({ renderedScene, curtainPhase, transitionId }: RuntimeAudioManagerProps) {
   const { tuning } = useAudioTuning();
+  const { snapshot } = useGame();
+  const chaosMusicActive = snapshot.chaosEvent.active && ['chaos_announcement', 'tour_starting', 'answer_window_open'].includes(snapshot.tour.phase);
   const elementsRef = useRef<AudioElements>({ mainScreen: null, miniGame: null, curtain: null });
   const activeLoopRef = useRef<LoopTrackKey | null>(null);
   const activeCurtainTransitionRef = useRef<number | null>(null);
@@ -48,6 +51,19 @@ export function RuntimeAudioManager({ renderedScene, curtainPhase, transitionId 
   useEffect(() => {
     createOrUpdateAudioElements(elementsRef.current, tuning);
   }, [tuning.tracks.mainScreen.src, tuning.tracks.miniGame.src, tuning.tracks.curtain.src]);
+
+  // Playback rate belongs to the EXISTING audio manager: don't create a
+  // second track. Only the minigame BGM speeds up (8%) while the Chaos rule
+  // is actually live; lobby, curtain, scoreboard and audio settings are intact.
+  useEffect(() => {
+    const music = elementsRef.current.miniGame;
+    if (music) {
+      music.playbackRate = chaosMusicActive ? 1.08 : 1;
+    }
+    return () => {
+      if (music) music.playbackRate = 1;
+    };
+  }, [chaosMusicActive, tuning.tracks.miniGame.src]);
 
   useEffect(() => {
     const tuningNow = tuningRef.current;

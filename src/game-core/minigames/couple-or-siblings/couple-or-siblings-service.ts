@@ -1,3 +1,4 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
@@ -132,7 +133,7 @@ export class CoupleOrSiblingsMiniGameService {
       id: 'couple-or-siblings',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'مرتبطين ولا إخوات؟' : 'COUPLE OR SIBLINGS',
+      title: translate(locale, 'game.coupleorsiblingsservice.coupleSiblings'),
       statement: this.question ? this.question.statement[locale] : '',
       instruction: this.question ? this.buildInstruction(locale) : '',
       acceptsAnswers: this.status === 'answering',
@@ -183,13 +184,13 @@ export class CoupleOrSiblingsMiniGameService {
   }
 
   private buildInstruction(locale: LocaleCode): string {
-    return locale === 'ar' ? 'اختار: مرتبطين ولا إخوات؟ !1 أو !2' : 'Choose: Couple or siblings? !1 or !2';
+    return translate(locale, 'game.coupleorsiblingsservice.chooseCoupleSiblings12');
   }
 }
 
 function getChoiceLabel(choice: PairGuessAnswerKind, locale: LocaleCode): string {
-  if (choice === 'couple') return locale === 'ar' ? 'مرتبطين' : 'Couple';
-  return locale === 'ar' ? 'إخوات' : 'Siblings';
+  if (choice === 'couple') return translate(locale, 'pair.answer.couple');
+  return translate(locale, 'pair.answer.siblings');
 }
 
 function createChoiceOrder(questionId: string, roundNumber: number, counter: number): PairGuessAnswerKind[] {

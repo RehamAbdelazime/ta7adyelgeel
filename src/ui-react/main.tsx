@@ -62,6 +62,7 @@ import './styles/spectator-experience-v39.css';
 
 // V40: Chaos reveal + Golden Rewards scoreboard badges.
 import './styles/chaos-v40.css';
+import './styles/chaos-show-v85.css';
 // V41: XP only appears once, at the end of a Tour or single MiniGame.
 import './styles/progression-finale-v41.css';
 // V42: stage character reactions, stable avatars, and finale level-up animations.
@@ -86,3 +87,5 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     </GameProvider>
   </StrictMode>,
 );
+// V90: locale-aware answer row and stage lanes; loaded after minigame styles.
+import './styles/answer-choice-rtl-v90.css';

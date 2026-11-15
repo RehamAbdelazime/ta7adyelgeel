@@ -8,10 +8,12 @@ type TourStateMachineOptions = {
   onTourCompleted?: (snapshot: TourSnapshot) => void;
   /** Show instructions when the next round changes mini-game (not every question). */
   shouldShowIntroForNextRound?: (nextRound: number) => boolean;
+  /** Evaluated AFTER onPhaseChanged selects the current round's event. */
+  shouldShowChaosAnnouncement?: () => boolean;
 };
 
 const MIN_TOUR_ROUNDS = 1;
-const MAX_TOUR_ROUNDS = 10;
+const MAX_TOUR_ROUNDS = 64;
 
 export class TourStateMachine {
   private readonly now: () => number;
@@ -19,6 +21,7 @@ export class TourStateMachine {
   private readonly onPhaseChanged?: (snapshot: TourSnapshot, previousPhase: TourPhase) => void;
   private readonly onTourCompleted?: (snapshot: TourSnapshot) => void;
   private readonly shouldShowIntroForNextRound?: (nextRound: number) => boolean;
+  private readonly shouldShowChaosAnnouncement?: () => boolean;
   private tourId: string | null = null;
   private currentDefinition: TourPhaseDefinition = LOBBY_PHASE_DEFINITION;
   private phaseStartedAt: number | null = null;
@@ -36,6 +39,7 @@ export class TourStateMachine {
     this.onPhaseChanged = options.onPhaseChanged;
     this.onTourCompleted = options.onTourCompleted;
     this.shouldShowIntroForNextRound = options.shouldShowIntroForNextRound;
+    this.shouldShowChaosAnnouncement = options.shouldShowChaosAnnouncement;
   }
 
   getSnapshot(): TourSnapshot {
@@ -275,6 +279,13 @@ export class TourStateMachine {
     const snapshot = this.getSnapshot();
     this.onPhaseChanged?.(snapshot, previousPhase);
 
+    // No blank cinematic or phantom delay for ordinary rounds. Selection must
+    // happen first (via GameStore.onPhaseChanged) before deciding to skip.
+    if (definition.phase === 'chaos_announcement' && this.shouldShowChaosAnnouncement?.() !== true) {
+      this.advance();
+      return;
+    }
+
     if (resolvedDurationMs > 0) {
       this.scheduledTransition = setTimeout(() => this.advance(), resolvedDurationMs);
     }
@@ -297,7 +308,7 @@ export class TourStateMachine {
         // Show illustrated instructions whenever the next game changes. Same-game
         // follow-up questions skip redundant instructions but keep the timer.
         const showIntro = this.shouldShowIntroForNextRound?.(this.roundIndex) ?? true;
-        this.activeSequenceIndex = this.getPhaseIndex(showIntro ? 'mini_game_intro' : 'tour_starting');
+        this.activeSequenceIndex = this.getPhaseIndex(showIntro ? 'mini_game_intro' : 'chaos_announcement');
         this.enterDefinition(TOUR_PHASE_SEQUENCE[this.activeSequenceIndex]);
         return;
       }

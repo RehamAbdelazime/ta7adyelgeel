@@ -13,6 +13,7 @@ const root = path.join(__dirname,'..');
 const load = (name, cls) => require(path.join(root,`src/game-core/minigames/${name}/${name}-service.ts`))[cls];
 const Shape = load('shape-count', 'ShapeCountMiniGameService');
 const Beat = load('count-the-beat', 'CountTheBeatMiniGameService');
+const { getCountTheBeatSchedule, getBeatLanePositions } = require(path.join(root,'src/game-core/minigames/count-the-beat/count-the-beat-service.ts'));
 const Food = load('food-origin', 'FoodOriginMiniGameService');
 const Maze = load('maze-gates', 'MazeGatesMiniGameService');
 const { LuckyCupMiniGameService } = require(path.join(root,'src/game-core/minigames/lucky-cup/lucky-cup-service.ts'));
@@ -26,20 +27,21 @@ for(let seed=1;seed<=100;seed++) {
     game.setStatus('answering');
     const snap=game.getSnapshot('en');
     const beat=snap.countTheBeat;
-    const bpm=[108,134,158][round-1];
+    const bpm=[54,60,66][round-1];
     assert.equal(beat.bpm,bpm);
     assert.equal(beat.items.filter(i=>i.isTarget).length,beat.items.reduce((sum,i)=>sum+Number(i.isTarget),0));
-    const expectedBeatMs=60000/bpm;
-    const positionsByBeat=new Map();
-    for(const item of beat.items) {
-      const beatNumber=Math.round(item.delayMs/expectedBeatMs);
-      assert(Math.abs(item.delayMs-beatNumber*expectedBeatMs)<=1.01,'off-beat glyph');
-      assert(item.durationMs<=Math.round(expectedBeatMs*.86),'glyph exceeds beat window');
-      assert(item.x>=14&&item.x<=90&&item.y>=18&&item.y<=80,'offstage glyph');
-      const positions=positionsByBeat.get(beatNumber)||new Set();
-      const key=`${item.x}:${item.y}`;
-      assert(!positions.has(key),'same-slot simultaneous overlap');
-      positions.add(key);positionsByBeat.set(beatNumber,positions);
+    const schedule = getCountTheBeatSchedule(round);
+    const positions = getBeatLanePositions(beat.lanes);
+    assert.equal(beat.lanes,[1,2,4][round-1]);
+    assert.deepEqual(beat.items.length,[12,14,16][round-1]);
+    assert.deepEqual(beat.items.map(i=>[i.delayMs,i.durationMs]),schedule.map(i=>[i.delayMs,i.durationMs]));
+    assert(Math.max(...beat.items.map(i=>i.delayMs+i.durationMs)) < 16_000,'unplayable preview');
+    for(let index=0;index<beat.items.length;index++) {
+      const item=beat.items[index];
+      assert.equal(item.tone,'cyan','color must not indicate target');
+      assert.equal(item.size,1,'size must not indicate target');
+      assert(item.x>=18 && item.x<=82 && positions.includes(item.y),'offstage glyph');
+      if(index>0) assert(beat.items[index-1].delayMs + beat.items[index-1].durationMs < item.delayMs,'simultaneous symbols');
     }
     assert.equal(beat.targetCount,null,'live correct count leaked');
     game.resolveRound();
@@ -55,13 +57,15 @@ for(let trial=0;trial<45;trial++) {
     const snap=shapes.getSnapshot('en');
     const grid=snap.shapeGrid;
     assert.equal(snap.questionDifficulty,['easy','medium','hard'][round-1]);
-    assert.equal(grid.mode,round===1?'majority':'exact');
+    assert.equal(grid.mode,'majority','every difficulty must ask for the most common shape');
+    assert.equal(grid.targetCount,null,'no numeric target in any shape question');
+    assert.equal(snap.statement,'Which shape appears the most?');
     const tally = Object.fromEntries(grid.choices.map(c=>[c.shape,grid.cells.filter(cell=>cell.shape===c.shape).length]));
     assert.equal(grid.cells.length,grid.rows*grid.columns);
     assert(grid.choices.every(c=>grid.counts[c.shape]===tally[c.shape]));
-    const answerShape=round===1?grid.choices.reduce((a,b)=>tally[a.shape]>tally[b.shape]?a:b).shape:
-      grid.choices.find(c=>tally[c.shape]===grid.targetCount).shape;
-    if(round!==1) assert.equal(grid.choices.filter(c=>tally[c.shape]===grid.targetCount).length,1,'ambiguous quantity question');
+    const answerShape=grid.choices.reduce((a,b)=>tally[a.shape]>tally[b.shape]?a:b).shape;
+    assert.equal(grid.choices.filter(c=>tally[c.shape]===tally[answerShape]).length,1,'most-common shape must be unique');
+    assert(tally[answerShape] - Math.max(...grid.choices.filter(c=>c.shape!==answerShape).map(c=>tally[c.shape]))>=2,'difference too small for visual guessing');
     const option=grid.choices.find(c=>c.shape===answerShape).optionNumber;
     assert.equal(shapes.getAnswerByOptionNumber(option),answerShape);
     assert(shapes.submitAnswer(citizen,answerShape).ok);

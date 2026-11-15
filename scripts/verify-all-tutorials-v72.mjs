@@ -10,16 +10,16 @@ const parent=read('src/ui-react/components/gameplay/shared/MiniGameIntroDemonstr
 const gameOverlay=read('src/ui-react/components/gameplay/GameplayOverlay.tsx');
 const main=read('src/ui-react/main.tsx');
 const css=read('src/ui-react/styles/intro-all-games-v72.css');
-const games=['shape-count','maze-gates','count-the-beat','lucky-cup','guess-movie','guess-star','memory-count','couple-or-siblings'];
+const games=['shape-count','maze-gates','count-the-beat','lucky-cup','guess-movie','guess-star','memory-count','couple-or-siblings','laser-challenge'];
 assert.match(parent,/props\.gameId === 'food-origin'\s*\? <FoodOriginTwoPageIntro/,'Food origin production-layout tutorial retained');
 assert.match(parent,/<AllGamesTwoPageIntro gameId=\{props\.gameId\}/,'Other games must use 2-page intro');
 assert.doesNotMatch(gameOverlay,/<h2>\{miniGame\.title\}<\/h2>/,'No repeated title in top header');
-assert.match(gameOverlay,/<h2>\{locale === 'ar' \? 'طريقة اللعب' : 'HOW TO PLAY'\}<\/h2>/,'Single minimal title');
+assert.match(gameOverlay,/<h2>\{t\('gameplay.phase.howToPlay'\)\}<\/h2>/,'Single localized title');
 assert.match(main,/intro-all-games-v72.css/,'V72 CSS must be imported');
 for(const g of games) {
   assert.ok(component.includes(`'${g}': {`),`Missing lesson ${g}`);
   assert.ok(component.includes(`case '${g}':`),`Missing visual cue for ${g}`);
-  assert.ok(component.includes(`'${g}': {ar:`),`Missing localized game title ${g}`);
+  assert.ok(component.includes(`'${g}': '`),`Missing game title i18n key ${g}`);
 }
 assert.match(component,/pages: \[|pages:\[/,'Each game must have 2 concise pages');
 assert.match(component,/Math\.min\(1,Math\.max\(0,current/,'Keyboard navigation bounded to 2 pages');
@@ -33,8 +33,8 @@ assert.match(component,/second \? MEDIA\.face : MEDIA\.eyes/,'Eyes-only until ho
 assert.match(component,/n===2 && !second/,'Ball only on initial observation; never shown during answer period');
 assert.match(component,/const numberOnly = gameId === 'maze-gates'\|\|gameId === 'count-the-beat'/,'Numeric games use no fictional answer cards');
 assert.match(component,/gameId==='shape-count'/,'Shape cards must use correct symbolic labels');
-assert.match(component,/\{current\.lines\[0\]\[locale\]\}/,'Description in right card');
-assert.match(component,/\{current\.lines\[1\]\[locale\]\}/,'Two lines per page');
+assert.match(component,/\{local\(current\.lines\[0\]\)\}/,'Description must come through translation');
+assert.match(component,/\{local\(current\.lines\[1\]\)\}/,'Two lines must be translated');
 assert.match(component,/<ExampleChat locale=\{locale\} command=\{lesson\.command\}/,'Every game shows a realistic chat command');
 assert.doesNotMatch(component,/https?:\/\//,'No online media');
 for(const file of ['HowTo/stage-quote.webp','visual-guess/Posters/movie-elzoga-13.jpg','visual-guess/Stars/Eyes/uploaded-01.jpg',
@@ -51,4 +51,4 @@ for(const f of ['src/ui-react/components/gameplay/shared/AllGamesTwoPageIntro.ts
  const out=ts.transpileModule(read(f),{fileName:f,reportDiagnostics:true,compilerOptions:{module:ts.ModuleKind.ESNext,jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022}});
  assert.equal(out.diagnostics?.length??0,0,`TSX syntax error in ${f}`);
 }
-console.log('[V72] PASS: 9/9 tutorials use the 2-page compact layout, bilingual copy, correctly numbered chat inputs, 3 cups, numeric-only games, eyes-only star, local assets, shared UI components and no invented hint.');
+console.log('[V72] PASS: 10/10 tutorials use the 2-page compact layout, bilingual copy, correctly numbered chat inputs, 3 cups, numeric-only games, eyes-only star, local assets, shared UI components and no invented hint.');

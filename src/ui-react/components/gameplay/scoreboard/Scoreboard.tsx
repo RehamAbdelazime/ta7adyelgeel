@@ -1,3 +1,4 @@
+import { translate } from '../../../../game-core/localization/translations';
 import { useState, useEffect } from 'react';
 import type { MiniGameScoreAward, MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourAwardsSnapshot } from '../../../../game-core/awards/tour-awards';
@@ -18,12 +19,14 @@ import {
 } from './scoreboard-pagination';
 import { ScoreboardPrimaryAction } from './ScoreboardPrimaryAction';
 import { ScoreboardAmbientLights } from './ScoreboardAmbientLights';
+import { scopeScoreboardRows, earliestAnswer } from '../../../../game-core/awards/scoreboard-levels';
 
 export type ReusableScoreboardRow = {
   twitchUserId: string;
   displayName: string;
   roundPoints: number[];
   total: number;
+  answerOrders?: number[];
 };
 
 function ChaosRewardBadges({ userId, rewards, locale }: {
@@ -31,10 +34,10 @@ function ChaosRewardBadges({ userId, rewards, locale }: {
 }) {
   const reward = rewards.find(item => item.twitchUserId === userId);
   if (!reward || (!reward.crown && !reward.shield && !reward.boost)) return null;
-  return <span className="chaos-rewards-v40" aria-label={locale === 'ar' ? 'مكافآت الجولة الذهبية' : 'Golden Round rewards'}>
-    {reward.crown ? <span title={locale === 'ar' ? 'فائز بالجولة الذهبية' : 'Golden Round winner'}>👑</span> : null}
-    {reward.shield ? <span title={locale === 'ar' ? 'درع يحمي من خصم واحد' : 'Shield: blocks one Risk penalty'}>🛡️</span> : null}
-    {reward.boost ? <span title={locale === 'ar' ? 'بونص 25% على أول إجابة صحيحة قادمة' : '+25% on the next correct answer'}>✨</span> : null}
+  return <span className="chaos-rewards-v40" aria-label={translate(locale, 'ui.scoreboard.goldenRoundRewards')}>
+    {reward.crown ? <span title={translate(locale, 'ui.scoreboard.goldenRoundWinner')}>👑</span> : null}
+    {reward.shield ? <span title={translate(locale, 'ui.scoreboard.shieldBlocksOneRiskPenalty')}>🛡️</span> : null}
+    {reward.boost ? <span title={translate(locale, 'ui.scoreboard.25NextCorrectAnswer')}>✨</span> : null}
   </span>;
 }
 
@@ -48,9 +51,9 @@ function XpFinishBadge({ userId }: { userId: string }) {
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
   const unlockNames = newUnlock.map(unlock => unlock.primaryCommand).join(', ');
   return <span className={`score-xp-finish-v41 ${leveledUp ? 'score-xp-levelup-v41 score-xp-levelup-v42' : ''}`}
-    title={`${result.totalXp} XP · ${Math.round(result.progressPercent)}%${unlockNames ? ` · Unlocked ${unlockNames}` : ''}`}>
+    title={`${result.totalXp} XP · ${Math.round(result.progressPercent)}%${unlockNames ? ` · ${translate(snapshot.locale, 'gameplay.score.xpUnlocked', { items: unlockNames })}` : ''}`}>
     <b>+{result.xpEarned} XP</b>
-    <small>{leveledUp ? (snapshot.locale === 'ar' ? `ترقية! Lv.${result.newLevel}` : `LEVEL UP! Lv.${result.newLevel}`)
+    <small>{leveledUp ? (translate(snapshot.locale, 'ui.scoreboard.levelUpLv', { p0: String(result.newLevel) }))
       : `Lv.${result.newLevel}`}</small>
     {newUnlock.length > 0 ? <span className="score-xp-new-unlock-v42">✦ {newUnlock[0].primaryCommand}</span> : null}
   </span>;
@@ -69,11 +72,10 @@ export function RoundResult({ miniGame }: { miniGame: MiniGameSnapshot }) {
   );
 }
 
+/** All scoreboards use the SAME vetted component, with a different scope.
+ * Never show the accumulated Tour total before the actual Tour finale. */
 export function RoundScoreBoard({
-  citizens,
-  tour,
-  miniGame,
-  lastRoundAwards,
+  citizens, tour, miniGame, lastRoundAwards,
 }: {
   citizens: CitizenRuntime[];
   tour: TourSnapshot;
@@ -82,59 +84,60 @@ export function RoundScoreBoard({
 }) {
   const { actions, snapshot } = useGame();
   const t = useTranslation();
-  const isLastRound = tour.roundNumber >= tour.totalRounds;
-  const isTourMode = snapshot.activeSessionMode === 'tour';
-  const shouldShowTourIntermission = isTourMode && !isLastRound;
-  const hasPendingAnswers = miniGame.answerRecords.length > 0 && miniGame.status !== 'scored' && lastRoundAwards.length === 0;
-  const rows = buildReusableScoreboardRows({
+  const segment = snapshot.miniGameSegment;
+  const isTour = snapshot.activeSessionMode === 'tour';
+  const isEndOfGame = Boolean(segment && tour.roundNumber === segment.lastRound);
+  const isLastQuestion = tour.roundNumber >= tour.totalRounds;
+  const [showMiniGameResult, setShowMiniGameResult] = useState(false);
+  const base = {
     citizens,
     tourRows: snapshot.tourScoreboardRows,
     lastRoundAwards,
     totalRounds: tour.totalRounds,
     currentRound: tour.roundNumber,
-  });
-  const spectatorRows = buildReusableScoreboardRows({
-    citizens,
-    tourRows: snapshot.tourScoreboardRows,
-    lastRoundAwards,
-    totalRounds: tour.totalRounds,
-    currentRound: tour.roundNumber,
-    role: 'spectator',
-  });
-  const nextMiniGameTitle = shouldShowTourIntermission ? getMiniGameTitle(snapshot.nextMiniGameId, snapshot.locale) : null;
+  };
+  const isLoading = miniGame.answerRecords.length > 0 && miniGame.status !== 'scored' && lastRoundAwards.length === 0;
 
-  if (shouldShowTourIntermission) {
-    return (
-      <RoundIntermissionScreen
-        rows={rows}
-        spectatorRows={spectatorRows}
-        currentMiniGameTitle={miniGame.title}
-        nextMiniGameTitle={nextMiniGameTitle}
-        roundProgress={`${tour.roundNumber}/${tour.totalRounds}`}
-        isLoading={hasPendingAnswers}
-        primaryActionLabel={t('ui.startRound')}
-        onPrimaryAction={actions.skipPhase}
-      />
-    );
-  }
+  // The final Single Game result is displayed on TourCompleteSummary to avoid
+  // showing the same mini-game total twice.
+  const canShowGameResult = isTour && isEndOfGame;
+  const scope = showMiniGameResult && segment
+    ? { kind: 'mini-game' as const, firstRound: segment.firstRound, lastRound: segment.lastRound }
+    : { kind: 'question' as const, round: tour.roundNumber };
+  const players = scopeScoreboardRows(buildReusableScoreboardRows({ ...base }), scope);
+  const spectators = scopeScoreboardRows(buildReusableScoreboardRows({ ...base, role: 'spectator' }), scope);
+  const gameName = miniGame.title;
+  const progressValue = segment ? `${segment.questionNumber}/${segment.questionCount}` : `${tour.roundNumber}/${tour.totalRounds}`;
+  const label = showMiniGameResult
+    ? (translate(snapshot.locale, 'ui.scoreboard.result', { p0: String(gameName) }))
+    : (translate(snapshot.locale, 'ui.scoreboard.questionResult', { p0: String(progressValue) }));
+  const action = showMiniGameResult
+    ? (isLastQuestion ? (translate(snapshot.locale, 'ui.scoreboard.revealTourWinner')) : t('gameplay.next'))
+    : canShowGameResult
+      ? (translate(snapshot.locale, 'ui.scoreboard.miniGameResult'))
+      : isLastQuestion ? (translate(snapshot.locale, 'ui.scoreboard.miniGameResult2')) : t('gameplay.next');
+  const advance = () => {
+    if (!showMiniGameResult && canShowGameResult) { setShowMiniGameResult(true); return; }
+    actions.skipPhase();
+  };
+  const displayCount = showMiniGameResult ? (segment?.questionCount ?? 1) : 1;
 
-  return (
-    <ReusableScoreboard
-      title={isTourMode && isLastRound ? t('gameplay.score.scoreboard') : t('gameplay.score.roundScore')}
-      contextLabel={miniGame.title}
-      progressLabel={isTourMode && isLastRound ? undefined : `${tour.roundNumber}/${tour.totalRounds}`}
-      rows={rows}
-      spectatorRows={spectatorRows}
-      totalRounds={tour.totalRounds}
-      currentRound={tour.roundNumber}
-      emptyLabel={snapshot.locale === 'ar' ? 'لا توجد نتائج بعد.' : 'No scores yet.'}
-      isLoading={hasPendingAnswers}
-      loadingTitle={snapshot.locale === 'ar' ? 'جاري حساب النقاط...' : 'Calculating scores...'}
-      loadingSubtitle={t('gameplay.score.calculatingHint')}
-      primaryActionLabel={isLastRound ? t('gameplay.score.viewFinal') : t('gameplay.next')}
-      onPrimaryAction={actions.skipPhase}
-    />
-  );
+  return <ReusableScoreboard
+    title={translate(snapshot.locale, 'ui.scoreboard.ranking')}
+    scopeLabel={label}
+    contextLabel={gameName}
+    progressLabel={showMiniGameResult ? `${segment?.questionCount ?? 1} ${translate(snapshot.locale, 'ui.scoreboard.questions')}` : undefined}
+    rows={players}
+    spectatorRows={spectators}
+    totalRounds={displayCount}
+    currentRound={displayCount}
+    emptyLabel={translate(snapshot.locale, 'ui.scoreboard.noScoresYet')}
+    isLoading={isLoading}
+    loadingTitle={translate(snapshot.locale, 'ui.scoreboard.calculatingScores')}
+    loadingSubtitle={t('gameplay.score.calculatingHint')}
+    primaryActionLabel={action}
+    onPrimaryAction={advance}
+  />;
 }
 
 export function RoundIntermissionScreen({
@@ -167,25 +170,25 @@ export function RoundIntermissionScreen({
     <div className="show-intermission-v19 show-intermission-v21" dir={snapshot.direction}>
       <ScoreboardAmbientLights celebrateLeader={!isLoading && (topRows[0]?.total ?? 0) > 0} />
       <ScoreboardHero title={selectedBoard === 'spectator'
-        ? (snapshot.locale === 'ar' ? 'أفضل 3 متفرجين' : 'Top 3 spectators')
+        ? (translate(snapshot.locale, 'ui.scoreboard.top3Spectators'))
         : t('gameplay.score.topThree')} contextLabel={currentMiniGameTitle} progressLabel={roundProgress} />
       <div className="show-intermission-body">
-        <nav className="show-scoreboard-roles-v39 show-intermission-roles-v39" aria-label={snapshot.locale === 'ar' ? 'اختيار لوحة النتائج' : 'Choose scoreboard'}>
+        <nav className="show-scoreboard-roles-v39 show-intermission-roles-v39" aria-label={translate(snapshot.locale, 'ui.scoreboard.chooseScoreboard')}>
           <button type="button" className={selectedBoard === 'official' ? 'selected' : ''} aria-pressed={selectedBoard === 'official'} onClick={() => setSelectedBoard('official')}>
-            {snapshot.locale === 'ar' ? 'اللاعبين' : 'Players'} <span>{rows.length}</span>
+            {translate(snapshot.locale, 'ui.scoreboard.players')} <span>{rows.length}</span>
           </button>
           <button type="button" className={selectedBoard === 'spectator' ? 'selected' : ''} aria-pressed={selectedBoard === 'spectator'} onClick={() => setSelectedBoard('spectator')}>
-            {snapshot.locale === 'ar' ? 'المتفرجين' : 'Spectators'} <span>{spectatorRows.length}</span>
+            {translate(snapshot.locale, 'ui.scoreboard.spectators')} <span>{spectatorRows.length}</span>
           </button>
         </nav>
         {isLoading ? (
           <div className="show-score-loading" role="status">{t('gameplay.score.calculating')}</div>
         ) : topRows.length === 0 ? (
           <div className="show-score-empty">{selectedBoard === 'spectator'
-            ? (snapshot.locale === 'ar' ? 'لسه مفيش متفرجين.' : 'No spectators yet.')
+            ? (translate(snapshot.locale, 'ui.scoreboard.noSpectatorsYet'))
             : t('ui.noScores')}</div>
         ) : (
-          <div className="show-intermission-podium" aria-label={selectedBoard === 'spectator' ? (snapshot.locale === 'ar' ? 'أفضل المتفرجين' : 'Top spectators') : t('gameplay.score.topThree')}>
+          <div className="show-intermission-podium" aria-label={selectedBoard === 'spectator' ? (translate(snapshot.locale, 'ui.scoreboard.topSpectators')) : t('gameplay.score.topThree')}>
             {topRows.map((row, index) => (
               <article key={row.twitchUserId} className={`show-intermission-player show-intermission-player-${index + 1}`}>
                 <span className="show-intermission-place">#{index + 1}</span>
@@ -197,11 +200,11 @@ export function RoundIntermissionScreen({
           </div>
         )}
         {selectedBoard === 'official' && spectatorRows.length > 0 ? (
-          <div className="show-intermission-spectator-v39" aria-label={snapshot.locale === 'ar' ? 'ترتيب المتفرجين' : 'Spectator rankings'}>
-            <span>{snapshot.locale === 'ar' ? 'أفضل متفرج' : 'Top spectator'}</span>
-            <strong>{spectatorRows[0].total > 0 ? spectatorRows[0].displayName : (snapshot.locale === 'ar' ? 'لسه مفيش نقاط' : 'No points yet')}</strong>
+          <div className="show-intermission-spectator-v39" aria-label={translate(snapshot.locale, 'ui.scoreboard.spectatorRankings')}>
+            <span>{translate(snapshot.locale, 'ui.scoreboard.topSpectator')}</span>
+            <strong>{spectatorRows[0].total > 0 ? spectatorRows[0].displayName : (translate(snapshot.locale, 'ui.scoreboard.noPointsYet'))}</strong>
             <b>{spectatorRows[0].total > 0 ? spectatorRows[0].total : 0} {t('gameplay.score.pointsShort')}</b>
-            <small>{snapshot.locale === 'ar' ? `${spectatorRows.length} متفرج` : `${spectatorRows.length} spectators`}</small>
+            <small>{translate(snapshot.locale, 'ui.scoreboard.spectators2', { p0: String(spectatorRows.length) })}</small>
           </div>
         ) : null}
         <div className="show-intermission-next">
@@ -248,16 +251,27 @@ export function TourCompleteSummary({
     role: 'spectator',
   });
   const wasEndedFromSettings = snapshot.activeSessionMode === null;
+  const isSingleGame = snapshot.activeSessionMode === 'mini-game';
+  const scope = isSingleGame && snapshot.miniGameSegment
+    ? { kind: 'mini-game' as const, firstRound: snapshot.miniGameSegment.firstRound, lastRound: snapshot.miniGameSegment.lastRound }
+    : { kind: 'tour' as const };
+  const displayRows = scopeScoreboardRows(rows, scope);
+  const displaySpectators = scopeScoreboardRows(spectatorRows, scope);
+  const title = isSingleGame
+    ? (translate(snapshot.locale, 'ui.scoreboard.result2', { p0: String(snapshot.miniGame.title) }))
+    : wasEndedFromSettings ? t('gameplay.score.sessionEnded')
+    : (translate(snapshot.locale, 'ui.scoreboard.tourFinalResult'));
 
   return (
     <ReusableScoreboard
-      title={wasEndedFromSettings ? t('gameplay.score.sessionEnded') : t('gameplay.score.scoreboard')}
-      contextLabel={snapshot.locale === 'ar' ? 'تحدي الجيل' : 'Ta7ady ElGeel'}
+      title={title}
+      scopeLabel={title}
+      contextLabel={isSingleGame ? snapshot.miniGame.title : translate(snapshot.locale, 'ui.landing.brand')}
       progressLabel={wasEndedFromSettings ? `${tour.roundNumber}/${Math.max(1, tour.totalRounds)}` : undefined}
-      rows={rows}
-      spectatorRows={spectatorRows}
-      totalRounds={tour.totalRounds}
-      currentRound={wasEndedFromSettings ? tour.roundNumber : tour.totalRounds}
+      rows={displayRows}
+      spectatorRows={displaySpectators}
+      totalRounds={isSingleGame ? snapshot.miniGameSegment?.questionCount ?? tour.totalRounds : tour.totalRounds}
+      currentRound={isSingleGame ? snapshot.miniGameSegment?.questionCount ?? tour.totalRounds : wasEndedFromSettings ? tour.roundNumber : tour.totalRounds}
       emptyLabel={t('ui.noScores')}
       primaryActionLabel={t('ui.backToStage')}
       onPrimaryAction={actions.backToStage}
@@ -277,7 +291,7 @@ export function buildReusableScoreboardRows({
 }: {
   citizens: CitizenRuntime[];
   role?: 'official' | 'spectator';
-  tourRows: { twitchUserId: string; displayName: string; role: string; roundPoints: number[]; total: number }[];
+  tourRows: { twitchUserId: string; displayName: string; role: string; roundPoints: number[]; answerOrders?: number[]; total: number }[];
   lastRoundAwards: MiniGameScoreAward[];
   totalRounds: number;
   currentRound: number;
@@ -310,6 +324,7 @@ export function buildReusableScoreboardRows({
         twitchUserId: citizen.twitchUserId,
         displayName: sourceRow?.displayName ?? citizen.displayName,
         roundPoints,
+        answerOrders: sourceRow?.answerOrders ?? [],
         total,
       };
     });
@@ -323,11 +338,13 @@ export function buildReusableScoreboardRows({
       twitchUserId: sourceRow.twitchUserId,
       displayName: sourceRow.displayName,
       roundPoints: Array.from({ length: roundCount }, (_, index) => sourceRow.roundPoints[index] ?? 0),
+      answerOrders: sourceRow.answerOrders ?? [],
       total: sourceRow.total,
     });
   }
 
-  return baseRows.sort((a, b) => b.total - a.total || a.displayName.localeCompare(b.displayName));
+  return baseRows.sort((a, b) => b.total - a.total || earliestAnswer(a) - earliestAnswer(b)
+    || a.displayName.localeCompare(b.displayName));
 }
 
 export function ReusableScoreboard({
@@ -346,6 +363,7 @@ export function ReusableScoreboard({
   loadingSubtitle = 'One small moment.',
   isFinal = false,
   isEndedEarly = false,
+  scopeLabel,
 }: {
   title: string;
   contextLabel: string;
@@ -362,6 +380,7 @@ export function ReusableScoreboard({
   loadingSubtitle?: string;
   isFinal?: boolean;
   isEndedEarly?: boolean;
+  scopeLabel?: string;
 }) {
   const { snapshot } = useGame();
   const t = useTranslation();
@@ -391,17 +410,17 @@ export function ReusableScoreboard({
     <section className={`show-scoreboard-v19 show-scoreboard-v21 ${isFinal ? 'show-scoreboard-final' : ''} ${selectedBoard === 'spectator' ? 'show-scoreboard-spectators-v39' : ''} ${isEndedEarly ? 'show-scoreboard-ended-early' : ''} ${displayedRows.some((row) => row.total > 0) ? 'show-scoreboard-has-points' : ''} ${displayedRows.length >= 5 ? 'show-scoreboard-crowded' : ''} ${displayedRows.length === 1 ? 'show-scoreboard-solo' : ''} ${!isLoading && !isEndedEarly && selectedBoard === 'official' && safePage === 0 && (leader?.total ?? 0) > 0 ? 'show-scoreboard-winner-v22' : ''}`} dir={snapshot.direction}>
       <ScoreboardAmbientLights celebrateLeader={!isLoading && !isEndedEarly && selectedBoard === 'official' && safePage === 0 && (leader?.total ?? 0) > 0} />
       <ScoreboardHero title={title} contextLabel={contextLabel} progressLabel={progressLabel} />
-      <nav className="show-scoreboard-roles-v39" aria-label={isArabic ? 'اختيار لوحة النتائج' : 'Choose scoreboard'}>
+      <nav className="show-scoreboard-roles-v39" aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.chooseScoreboard2')}>
         <button type="button" className={selectedBoard === 'official' ? 'selected' : ''} aria-pressed={selectedBoard === 'official'} onClick={() => { setSelectedBoard('official'); setPage(0); }}>
-          {isArabic ? 'اللاعبين' : 'Players'} <span>{rows.length}</span>
+          {translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.players2')} <span>{rows.length}</span>
         </button>
         <button type="button" className={selectedBoard === 'spectator' ? 'selected' : ''} aria-pressed={selectedBoard === 'spectator'} onClick={() => { setSelectedBoard('spectator'); setPage(0); }}>
-          {isArabic ? 'المتفرجين' : 'Spectators'} <span>{spectatorRows.length}</span>
+          {translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.spectators3')} <span>{spectatorRows.length}</span>
         </button>
       </nav>
       {isFinal && !isEndedEarly && selectedBoard === 'official' && rows[0] && rows[0].total > 0 ? (
-        <div className="show-score-winner-banner-v46" role="status" aria-label={isArabic ? `الفائز ${rows[0].displayName}` : `Winner ${rows[0].displayName}`}>
-          <span aria-hidden="true">🏆</span><strong>{isArabic ? 'الفائز' : 'WINNER'}</strong><b title={rows[0].displayName}>{rows[0].displayName}</b>
+        <div className="show-score-winner-banner-v46" role="status" aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.winner', { p0: String(rows[0].displayName) })}>
+          <span aria-hidden="true">🏆</span><strong>{translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.winner2')}</strong><b title={rows[0].displayName}>{rows[0].displayName}</b>
         </div>
       ) : null}
       <div className="show-scoreboard-surface">
@@ -409,24 +428,25 @@ export function ReusableScoreboard({
           <div className="show-score-loading" role="status"><strong>{loadingTitle}</strong><small>{loadingSubtitle}</small></div>
         ) : displayedRows.length === 0 ? (
           <div className="show-score-empty">{selectedBoard === 'spectator'
-            ? (isArabic ? 'لسه مفيش متفرجين في التور ده.' : 'No spectators in this Tour yet.')
+            ? (translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.noSpectatorsTourYet'))
             : emptyLabel}</div>
         ) : (
           <div className="show-scoreboard-body">
+            {scopeLabel ? <div className="scoreboard-scope-label-v79" aria-label={scopeLabel}>{scopeLabel}</div> : null}
             {leader ? (
-              <div className="show-score-leader" aria-label={`${selectedBoard === 'spectator' ? (isArabic ? 'أفضل متفرج' : 'Top spectator') : t('gameplay.score.rank')} 1: ${leader.displayName}`}>
+              <div className="show-score-leader" aria-label={`${selectedBoard === 'spectator' ? (translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.topSpectator2')) : t('gameplay.score.rank')} 1: ${leader.displayName}`}>
                 <span className="show-score-place">{selectedBoard === 'spectator' && leader.total > 0 ? '★' : '#1'}</span>
                 <div className="show-score-avatar" aria-hidden="true">{leaderInitials}</div>
                 <div className="show-score-leader-identity">
                   {selectedBoard === 'spectator' && leader.total > 0
-                    ? <small className="show-scoreboard-best-spectator-v39">{isArabic ? 'أفضل متفرج' : 'Best Spectator'}</small>
+                    ? <small className="show-scoreboard-best-spectator-v39">{translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.bestSpectator')}</small>
                     : null}
                   <strong title={leader.displayName}>{leader.displayName} {selectedBoard === 'official' ? <ChaosRewardBadges userId={leader.twitchUserId} rewards={snapshot.chaosRewards} locale={snapshot.locale} /> : null}</strong>
                   {isFinal && selectedBoard === 'official' ? <XpFinishBadge userId={leader.twitchUserId} /> : null}
                   <span className="show-score-rounds show-score-rounds-sr-v23">
                     {roundIndexes.map((roundIndex) => (
                       <span key={roundIndex}>
-                        {isArabic ? 'الجولة' : 'Round'} {roundIndex + 1}: {leader.roundPoints[roundIndex] ?? 0}.
+                        {translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.round')} {roundIndex + 1}: {leader.roundPoints[roundIndex] ?? 0}.
                       </span>
                     ))}
                   </span>
@@ -454,10 +474,10 @@ export function ReusableScoreboard({
       <div className="show-score-footer">
         <div className="show-score-pages">
           {pageCount > 1 ? (
-            <nav aria-label={isArabic ? 'صفحات النتائج' : 'Scoreboard pages'}>
-              <button type="button" disabled={safePage === 0} onClick={() => setPage((p) => clampScoreboardPage(p - 1, pageCount))} aria-label={isArabic ? 'السابق' : 'Previous'}>‹</button>
+            <nav aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.scoreboardPages')}>
+              <button type="button" disabled={safePage === 0} onClick={() => setPage((p) => clampScoreboardPage(p - 1, pageCount))} aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.previous')}>‹</button>
               <strong aria-live="polite">{safePage + 1} / {pageCount}</strong>
-              <button type="button" disabled={safePage === pageCount - 1} onClick={() => setPage((p) => clampScoreboardPage(p + 1, pageCount))} aria-label={isArabic ? 'التالي' : 'Next'}>›</button>
+              <button type="button" disabled={safePage === pageCount - 1} onClick={() => setPage((p) => clampScoreboardPage(p + 1, pageCount))} aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.scoreboard.next')}>›</button>
             </nav>
           ) : null}
         </div>

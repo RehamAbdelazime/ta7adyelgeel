@@ -156,11 +156,8 @@ export function VisualWorldLayer({ sceneOverride }: { sceneOverride?: 'lobby' | 
         </div>
       ) : null}
 
-      <div className="concert-star-twinkle-layer" aria-hidden="true">
-        {Array.from({ length: 36 }, (_, index) => (
-          <span key={index} className={`concert-star-twinkle concert-star-twinkle-${index + 1}`} />
-        ))}
-      </div>
+      {/* The stage artwork already contains a star field. Do not add a second
+          screen-space twinkle layer: unanchored glows drift over the roof/sky. */}
 
       {!isMiniGameScene ? (
         <div className="concert-lobby-sparkles" aria-hidden="true">

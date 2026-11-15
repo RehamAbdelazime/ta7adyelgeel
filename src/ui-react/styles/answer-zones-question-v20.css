@@ -124,7 +124,7 @@ html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20.q
   width: 100% !important;
   padding: 0 !important;
   align-content: stretch !important;
-  direction: ltr !important; /* choice 1 always starts at physical left in RTL, too */
+  direction: ltr !important; /* puzzle coordinates remain fixed; V90 mirrors only the answer row */
 }
 html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-body {
   min-height: 0 !important;
@@ -257,7 +257,6 @@ html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .
   border-top: 1px solid rgba(102,179,220,.14) !important;
   direction: inherit !important;
 }
-html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-quick-total {margin-inline-start: 0 !important;}
 html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19.qshell-v20 .qshell-next-button {margin-inline-start: auto !important;}
 
 /* Reveal becomes one clear answer announcement, no duplicated verbose instructions. */

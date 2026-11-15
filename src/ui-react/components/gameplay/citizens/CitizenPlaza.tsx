@@ -1,3 +1,4 @@
+import { translate } from '../../../../game-core/localization/translations';
 import { SPRITE_FRAME_ALIASES } from './sprite-frame-aliases.generated';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import type { CitizenRuntime } from '../../../../game-core/citizens/citizen-types';
@@ -38,6 +39,7 @@ export function CitizenPlazaOverlay({
   championCelebration: ChampionCelebrationSnapshot;
 }) {
   const reactionClass = getCitizenReactionClass(phase, miniGame);
+  const chaosRunning = phase === 'chaos_announcement';
   const { snapshot } = useGame();
   const activeActions = new Map(snapshot.characterActions.map(action => [action.twitchUserId, action]));
   const { status } = useTwitchConnection();
@@ -53,10 +55,11 @@ export function CitizenPlazaOverlay({
   const isMiniGameSceneActive = phase !== 'lobby_open' && phase !== 'cleanup';
   const activeAnswerUserIds = new Set([...miniGame.answerRecords.map((answer) => answer.twitchUserId), ...activeActions.keys()]);
   const visibleCitizens = getVisibleAudience(citizens, streamerUserId, activeAnswerUserIds);
+  // The authoritative Tour awards already resolve tied scores by answer
+  // arrival. Never re-sort citizens by display name here: it could animate
+  // the WRONG winner while the official final scoreboard names another one.
   const finalChampionId = phase === 'tour_complete'
-    ? [...citizens]
-      .filter((citizen) => citizen.role === 'official')
-      .sort((a, b) => b.score - a.score || a.displayName.localeCompare(b.displayName))[0]?.twitchUserId ?? null
+    ? snapshot.tourAwards.champion?.twitchUserId ?? null
     : null;
   // Footlights are purely decorative, limited to smaller lobbies for visual calm and GPU cost.
   const showLobbyFootlights = !isMiniGameSceneActive && visibleCitizens.length <= 12;
@@ -118,6 +121,7 @@ export function CitizenPlazaOverlay({
             championCelebration={championCelebration}
             showLobbyFootlight={showLobbyFootlights}
             audienceCount={visibleCitizens.length}
+            chaosRunning={chaosRunning}
           />
         );
       })}
@@ -134,6 +138,7 @@ export function CitizenCard({
   championCelebration,
   showLobbyFootlight = false,
   audienceCount = 0,
+  chaosRunning = false,
 }: {
   citizen: CitizenRuntime;
   index: number;
@@ -143,6 +148,7 @@ export function CitizenCard({
   championCelebration: ChampionCelebrationSnapshot;
   showLobbyFootlight?: boolean;
   audienceCount?: number;
+  chaosRunning?: boolean;
 }) {
   const { tuning } = useMotionTuning();
   const characterId = getCharacterId(citizen.twitchUserId, index);
@@ -240,7 +246,7 @@ export function CitizenCard({
     // Critical: WALK starts first while the card is still standing in the old position.
     // After a short configurable pre-walk, left/top are changed so the motion reads as
     // real walking instead of an instant transfer.
-    setWalkFacing(getCitizenWalkFacing(currentRenderedPlacement, nextPlacement, index));
+    setWalkFacing(getCitizenWalkFacing(currentRenderedPlacement, nextPlacement, index, locale));
     setIsWalkingToPlacement(true);
     walkFinishAtRef.current = Date.now() + tuning.citizens.walkPreTranslateMs + moveMs + 160;
     preWalkTimer = window.setTimeout(() => {
@@ -263,7 +269,7 @@ export function CitizenCard({
       window.cancelAnimationFrame(secondFrameId);
       window.clearTimeout(finishTimer);
     };
-  }, [index, isEntering, placementSignature, tuning.citizens.championWalkMs, tuning.citizens.sideToChoiceMs, tuning.citizens.walkPreTranslateMs]);
+  }, [index, isEntering, placementSignature, locale, tuning.citizens.championWalkMs, tuning.citizens.sideToChoiceMs, tuning.citizens.walkPreTranslateMs]);
 
   useEffect(() => {
     if (placement?.kind !== 'champion' || isEntering) {
@@ -296,9 +302,11 @@ export function CitizenCard({
   const effectText = action ? getCharacterActionText(action, locale, citizen) : null;
   const floorStyle = !renderedPlacement && audienceCount > 8
     ? getAdaptiveCitizenLobbyStyle(index, audienceCount)
-    : getCitizenFloorStyle(index, renderedPlacement);
+    : getCitizenFloorStyle(index, renderedPlacement, locale);
   const actionAnimation = action?.kind === 'dance' ? 'run' : action?.kind === 'wave' || action?.kind === 'cheer' || action?.kind === 'victory' || action?.kind === 'level_up' ? 'jump' : action?.kind === 'challenge' ? 'slide' : null;
-  const animationName = isChampionCelebrating && !isEntering
+  const animationName = chaosRunning && !isEntering
+    ? 'run'
+    : isChampionCelebrating && !isEntering
     ? getChampionCelebrationAnimationName(celebrationElapsedMs)
     : isFinalChampionVictoryLooping
       ? 'jump'
@@ -353,8 +361,8 @@ export function CitizenCard({
   const spriteAssetPath = SPRITE_FRAME_ALIASES[spriteFramePath] ?? spriteFramePath;
   return (
     <article
-      className={`gameplay-citizen-card gameplay-citizen-${roleClass} gameplay-citizen-character-${characterId} gameplay-citizen-idle-life-${idleLifePhase} ${isLivingIdle ? 'gameplay-citizen-living-idle' : ''} ${shouldAnimateSprite && !isEntering ? 'gameplay-citizen-body-animated' : ''} ${renderedPlacement?.kind === 'choice' ? `gameplay-citizen-answer-moving gameplay-citizen-choice-${renderedPlacement.tone} gameplay-citizen-answer-${renderedPlacement.resultState}` : ''} ${renderedPlacement?.kind === 'side' ? `gameplay-citizen-stage-side gameplay-citizen-stage-side-${renderedPlacement.side}` : ''} ${renderedPlacement?.kind === 'champion' ? 'gameplay-citizen-final-champion' : ''} ${animationName === 'dead' ? 'gameplay-citizen-dead-hold' : ''} ${isWalkingToPlacement ? 'gameplay-citizen-walk-translate' : ''} ${isFinalChampionVictoryLooping ? 'gameplay-citizen-final-victory-loop' : ''} ${isEntering ? 'gameplay-citizen-entering' : ''} ${isChampionCelebrating && !isEntering ? `gameplay-citizen-level10-champion gameplay-champion-stage-${celebrationStage}` : ''} ${action && !isEntering ? `gameplay-citizen-action-v42 citizen-action-${action.kind.replace('_','-')}-v42` : ''}`}
-      style={{ ...floorStyle, '--citizen-walk-facing': String(isWalkingToPlacement ? walkFacing : (floorStyle as Record<string, unknown>)['--citizen-walk-facing'] ?? 1), '--citizen-life-delay': `${idleLifePhase * -0.43}s`, '--citizen-visual-scale': String(getCitizenVisualScale(characterId)) } as CSSProperties}
+      className={`gameplay-citizen-card gameplay-citizen-${roleClass} gameplay-citizen-character-${characterId} gameplay-citizen-idle-life-${idleLifePhase} ${isLivingIdle ? 'gameplay-citizen-living-idle' : ''} ${shouldAnimateSprite && !isEntering ? 'gameplay-citizen-body-animated' : ''} ${renderedPlacement?.kind === 'choice' ? `gameplay-citizen-answer-moving gameplay-citizen-choice-${renderedPlacement.tone} gameplay-citizen-answer-${renderedPlacement.resultState}` : ''} ${renderedPlacement?.kind === 'side' ? `gameplay-citizen-stage-side gameplay-citizen-stage-side-${renderedPlacement.side}` : ''} ${renderedPlacement?.kind === 'champion' ? 'gameplay-citizen-final-champion' : ''} ${animationName === 'dead' ? 'gameplay-citizen-dead-hold' : ''} ${isWalkingToPlacement ? 'gameplay-citizen-walk-translate' : ''} ${chaosRunning ? 'gameplay-citizen-chaos-running-v85' : ''} ${isFinalChampionVictoryLooping ? 'gameplay-citizen-final-victory-loop' : ''} ${isEntering ? 'gameplay-citizen-entering' : ''} ${isChampionCelebrating && !isEntering ? `gameplay-citizen-level10-champion gameplay-champion-stage-${celebrationStage}` : ''} ${action && !isEntering ? `gameplay-citizen-action-v42 citizen-action-${action.kind.replace('_','-')}-v42` : ''}`}
+      style={{ ...floorStyle, '--citizen-walk-facing': String(isWalkingToPlacement ? walkFacing : (floorStyle as Record<string, unknown>)['--citizen-walk-facing'] ?? 1), '--citizen-life-delay': `${idleLifePhase * -0.43}s`, '--citizen-visual-scale': String(getCitizenVisualScale(characterId)), '--chaos-run-to': index % 2 === 0 ? 'clamp(55px,7.5vw,132px)' : 'clamp(-132px,-7.5vw,-55px)', '--chaos-run-from': index % 2 === 0 ? 'clamp(-90px,-5.5vw,-45px)' : 'clamp(45px,5.5vw,90px)', '--chaos-run-delay': `${(index % 7) * -0.08}s` } as CSSProperties}
     >
       <div className="gameplay-citizen-nameplate" title={citizen.displayName}>
         <b>{citizen.level}</b>
@@ -385,16 +393,15 @@ export function CitizenCard({
 
 
 function getCharacterActionText(action: CharacterActionSnapshot, locale: 'ar' | 'en', citizen: CitizenRuntime) {
-  const ar = locale === 'ar';
   switch (action.kind) {
-    case 'wave': return { icon: '👋', label: ar ? 'أهلًا!' : 'HELLO!' };
-    case 'dance': return { icon: '♫', label: ar ? 'يلا نرقص!' : 'DANCE!' };
+    case 'wave': return { icon: '👋', label: translate(locale, 'citizen.action.wave') };
+    case 'dance': return { icon: '♫', label: translate(locale, 'citizen.action.dance') };
     case 'emote': return { icon: '💜', label: '♥' };
-    case 'cheer': return { icon: '✦', label: ar ? 'يلا يا أبطال!' : 'LET’S GO!' };
-    case 'challenge': return { icon: '⚡', label: ar ? 'مستعد للتحدي!' : 'CHALLENGE READY!' };
-    case 'spotlight': return { icon: '✦', label: ar ? 'نجم المسرح!' : 'IN THE SPOTLIGHT!' };
-    case 'victory': return { icon: '🏆', label: ar ? 'رقصة الفوز!' : 'VICTORY!' };
-    case 'level_up': return { icon: '★', label: `LEVEL UP · LV.${action.level ?? citizen.level}` };
-    case 'profile': return { icon: '★', label: `LV.${citizen.level} · ${citizen.xp} XP` };
+    case 'cheer': return { icon: '✦', label: translate(locale, 'citizen.action.cheer') };
+    case 'challenge': return { icon: '⚡', label: translate(locale, 'citizen.action.challenge') };
+    case 'spotlight': return { icon: '✦', label: translate(locale, 'citizen.action.spotlight') };
+    case 'victory': return { icon: '🏆', label: translate(locale, 'citizen.action.victory') };
+    case 'level_up': return { icon: '★', label: translate(locale, 'citizen.action.levelUp', { level: String(action.level ?? citizen.level) }) };
+    case 'profile': return { icon: '★', label: translate(locale, 'citizen.action.profile', { level: String(citizen.level), xp: String(citizen.xp) }) };
   }
 }

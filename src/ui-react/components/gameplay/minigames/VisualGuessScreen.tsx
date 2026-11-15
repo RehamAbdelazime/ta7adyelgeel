@@ -1,4 +1,6 @@
+import { translate } from '../../../../game-core/localization/translations';
 import { useEffect, useMemo, useState, type CSSProperties } from 'react';
+import type { TranslationKey } from '../../../../game-core/localization/locale-types';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useGame } from '../../../context/GameContext';
@@ -20,26 +22,24 @@ function fallbackMovieImage(url: string): string | null {
   return (movieMediaFallbacks.assets as Record<string, { dataUrl: string }>)[key]?.dataUrl ?? null;
 }
 
-const MOVIE_CLUE_LABELS = {
-  frame: { ar: 'لقطة من الفيلم', en: 'MOVIE FRAME' },
-  quote: { ar: 'جملة من فيلم', en: 'MOVIE QUOTE' },
+const MOVIE_CLUE_LABELS: Record<'frame' | 'quote', TranslationKey> = {
+  frame: 'gameplay.visual.clue.frame',
+  quote: 'gameplay.visual.clue.quote',
 };
-
-const MODE_LABELS = {
-  poster: { ar: 'بوستر', en: 'POSTER' },
-  scene: { ar: 'مشهد', en: 'SCENE' },
-  eyes: { ar: 'العيون', en: 'EYES' },
-  silhouette: { ar: 'الظل', en: 'SHADOW' },
-  zoom: { ar: 'تكبير', en: 'ZOOM' },
-  reveal: { ar: 'كشف تدريجي', en: 'REVEAL' },
-} as const;
-
-const POSTER_VARIANT_LABELS: Record<PosterRevealMode, { ar: string; en: string }> = {
-  blur: { ar: 'مربعات البوستر', en: 'POSTER PUZZLE' },
-  zoom: { ar: 'مربعات البوستر', en: 'POSTER PUZZLE' },
-  spotlight: { ar: 'مربعات البوستر', en: 'POSTER PUZZLE' },
-  puzzle: { ar: 'مربعات البوستر', en: 'POSTER PUZZLE' },
-  color: { ar: 'مربعات البوستر', en: 'POSTER PUZZLE' },
+const MODE_LABELS: Record<'poster' | 'scene' | 'eyes' | 'silhouette' | 'zoom' | 'reveal', TranslationKey> = {
+  poster: 'gameplay.visual.mode.poster',
+  scene: 'gameplay.visual.mode.scene',
+  eyes: 'gameplay.visual.mode.eyes',
+  silhouette: 'gameplay.visual.mode.silhouette',
+  zoom: 'gameplay.visual.mode.zoom',
+  reveal: 'gameplay.visual.mode.reveal',
+};
+const POSTER_VARIANT_LABELS: Record<PosterRevealMode, TranslationKey> = {
+  blur: 'gameplay.visual.variant.posterPuzzle',
+  zoom: 'gameplay.visual.variant.posterPuzzle',
+  spotlight: 'gameplay.visual.variant.posterPuzzle',
+  puzzle: 'gameplay.visual.variant.posterPuzzle',
+  color: 'gameplay.visual.variant.posterPuzzle',
 };
 /** Two public minigames, one shared UI. Never put the answer in alt text or UI captions. */
 export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameSnapshot; tourPhase: TourPhase }) {
@@ -91,14 +91,16 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
     ? (showingResult ? data.imageUrl : (data.eyesImageUrl ?? ''))
     : useBundledFallback && embeddedImage ? embeddedImage
     : useRemoteMedia ? data.fallbackImageUrl : data.imageUrl;
-  const modeText = (movieKind === 'quote' && data.movieQuoteMode === 'complete'
-    ? { ar: 'كمّل الجملة', en: 'COMPLETE THE LINE' }
+  const modeKey: TranslationKey = movieKind === 'quote' && data.movieQuoteMode === 'complete'
+    ? 'gameplay.visual.quote.complete'
     : movieKind === 'quote' && data.movieQuoteMode === 'speaker'
-      ? { ar: 'مين قالها؟', en: 'WHO SAID IT?' }
+      ? 'gameplay.visual.quote.speaker'
       : movieKind === 'frame' || movieKind === 'quote'
-    ? MOVIE_CLUE_LABELS[movieKind]
-    : miniGame.id === 'guess-movie' ? POSTER_VARIANT_LABELS[data.posterReveal?.mode ?? 'puzzle']
-    : MODE_LABELS[data.mode])[isAr ? 'ar' : 'en'];
+        ? MOVIE_CLUE_LABELS[movieKind]
+        : miniGame.id === 'guess-movie'
+          ? POSTER_VARIANT_LABELS[data.posterReveal?.mode ?? 'puzzle']
+          : MODE_LABELS[data.mode];
+  const modeText = translate(snapshot.locale, modeKey);
   const focus = data.focus;
   const isPoster = data.mode === 'poster' && movieKind === 'poster';
   const isFrame = movieKind === 'frame';
@@ -148,14 +150,14 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
           {isQuoteText ? <div className="v53-movie-quote" lang={isAr ? 'ar' : 'en'} dir={isAr ? 'rtl' : 'ltr'}>
             <span className="v53-movie-quote-glyph" aria-hidden="true">❝</span>
             <p>{visibleQuote}{quoteVisibleWords < quoteWords.length ? <span className="v53-movie-quote-cursor" aria-hidden="true">…</span> : null}
-              {data.movieQuoteMode === 'complete' ? <span className="v54-quote-missing" aria-label={isAr ? 'الجزء الناقص' : 'Missing ending'}>
+              {data.movieQuoteMode === 'complete' ? <span className="v54-quote-missing" aria-label={translate((isAr ? 'ar' : 'en'), 'ui.visualGuessScreen.missingEnding')}>
                 {showingResult && data.movieQuoteCompletionAnswer ? ` ${data.movieQuoteCompletionAnswer}` : ' ____'}
               </span> : null}
             </p>
           </div> : !imageError ? <img
             src={displayedImageUrl}
             className={imageClass}
-            alt={isAr ? 'صورة تحدي من غير الكشف عن الإجابة' : 'Mystery picture clue'}
+            alt={translate((isAr ? 'ar' : 'en'), 'ui.visualGuessScreen.mysteryPictureClue')}
             draggable={false}
             loading="eager"
             style={isPortrait ? { filter: 'none', transform: 'none', objectFit: 'contain', objectPosition: 'center' }
@@ -174,7 +176,7 @@ export function VisualGuessScreen({ miniGame, tourPhase }: { miniGame: MiniGameS
             }}
           /> : <div role="status" className="v36-visual-media-error">
             <b aria-hidden="true">⚠</b>
-            <span>{isAr ? (miniGame.id === 'guess-star' ? 'صورة النجم المحلية مش متاحة — راجعي فولدر Stars' : 'صورة الفيلم مش موجودة في نسخة اللعبة') : (miniGame.id === 'guess-star' ? 'Local star photo unavailable' : 'Movie image missing from this game build')}</span>
+            <span>{translate(snapshot.locale, miniGame.id === 'guess-star' ? 'gameplay.visual.media.starMissing' : 'gameplay.visual.media.movieMissing')}</span>
           </div>}
           {isPoster && !imageError ? <PosterPuzzleOverlay
             plan={posterPlan}

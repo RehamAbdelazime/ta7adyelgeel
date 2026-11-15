@@ -1,6 +1,7 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateNumericEstimateScore, getNumericEstimateScoringGuide } from '../scoring-policy';
-import type { LocaleCode } from '../../localization/locale-types';
+import type { LocaleCode, TranslationKey } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
   MemoryCountAnswer,
@@ -14,23 +15,13 @@ import type {
 } from '../minigame-types';
 
 
-const TARGET_KIND_LABELS: Record<LocaleCode, Record<MemoryCountCell['kind'], string>> = {
-  en: {
-    sun: 'Suns',
-    star: 'Stars',
-    gem: 'Gems',
-    bolt: 'Bolts',
-    heart: 'Hearts',
-    crown: 'Crowns',
-  },
-  ar: {
-    sun: 'الشمس',
-    star: 'النجوم',
-    gem: 'الجواهر',
-    bolt: 'البرق',
-    heart: 'القلوب',
-    crown: 'التيجان',
-  },
+const TARGET_KIND_LABEL_KEYS: Record<MemoryCountCell['kind'], TranslationKey> = {
+  sun: 'memory.target.sun',
+  star: 'memory.target.star',
+  gem: 'memory.target.gem',
+  bolt: 'memory.target.bolt',
+  heart: 'memory.target.heart',
+  crown: 'memory.target.crown',
 };
 
 const TARGET_KINDS: MemoryCountCell['kind'][] = ['sun', 'star', 'gem', 'bolt', 'heart', 'crown'];
@@ -167,11 +158,9 @@ export class MemoryCountMiniGameService {
       id: 'memory-count',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'عدّ بسرعة' : 'FLASH COUNT',
+      title: translate(locale, 'game.memorycountservice.flashCount'),
       statement: this.round
-        ? locale === 'ar'
-          ? `عدّ ${TARGET_KIND_LABELS.ar[this.round.targetKind]} قبل ما تختفي!`
-          : `Count the ${TARGET_KIND_LABELS.en[this.round.targetKind]} before they disappear!`
+        ? translate(locale, 'game.memoryCount.countTargetBeforeItDisappears', { target: translate(locale, TARGET_KIND_LABEL_KEYS[this.round.targetKind]) })
         : '',
       instruction: this.round ? this.buildInstruction(locale, this.round.choices) : '',
       acceptsAnswers: this.status === 'answering',
@@ -198,7 +187,7 @@ export class MemoryCountMiniGameService {
             columns: this.round.columns,
             cells: this.round.cells,
             targetKind: this.round.targetKind,
-            targetLabel: TARGET_KIND_LABELS[locale][this.round.targetKind],
+            targetLabel: translate(locale, TARGET_KIND_LABEL_KEYS[this.round.targetKind]),
             choices: this.round.choices,
             correctCount: shouldRevealAnswer ? this.round.correctCount : null,
             showItems: this.status === 'intro' || this.status === 'prepare',
@@ -221,7 +210,7 @@ export class MemoryCountMiniGameService {
 
   private buildInstruction(locale: LocaleCode, choices: NumberChoice[]): string {
     const commands = choices.map((choice) => `${choice.command}=${choice.value}`).join(' / ');
-    return locale === 'ar' ? `اختار أقرب رقم: ${commands}` : `Pick the closest count: ${commands}`;
+    return translate(locale, 'game.memorycountservice.pickClosestCount', { p0: String(commands) });
   }
 
   private generateUniqueRound(roundNumber: number): MemoryCountRound {

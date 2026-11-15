@@ -7,6 +7,7 @@ import type {
 } from '../minigame-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
 import { generateLaserPuzzle, type LaserPuzzle } from './laser-puzzle';
+import { translate } from '../../localization/translations';
 
 const ORDER: QuestionDifficulty[] = ['easy','medium','hard'];
 
@@ -76,9 +77,9 @@ export class LaserChallengeMiniGameService {
     const records = [...this.answers.values()];
     return {
       id: 'laser-challenge', status: this.status, roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'تحدي الليزر' : 'LASER CHALLENGE',
-      statement: locale === 'ar' ? 'الليزر هيوصل لأنهي هدف؟' : 'Which target will the laser hit?',
-      instruction: locale === 'ar' ? 'اتبع انعكاس الليزر واكتب !1 أو !2 أو !3 أو !4' : 'Trace the mirrors. Answer !1, !2, !3, or !4',
+      title: translate(locale, 'minigame.laserChallenge.title'),
+      statement: translate(locale, 'minigame.laserChallenge.statement'),
+      instruction: translate(locale, 'minigame.laserChallenge.instruction'),
       acceptsAnswers: this.status === 'answering',
       officialAnswerCount: records.filter(r => r.role === 'official').length,
       spectatorAnswerCount: records.filter(r => r.role === 'spectator').length,
@@ -96,7 +97,9 @@ export class LaserChallengeMiniGameService {
       },
       laserChallenge: this.round ? {
         source: this.round.source,
-        mirrors: this.round.mirrors.map(m => ({ ...m })),
+        // Never expose m1..m8 vs dXYZ labels: those identified the true route
+        // before the host reveal. IDs are only stable React keys on this board.
+        mirrors: this.round.mirrors.map((m, index) => ({ ...m, id: `mirror-${index + 1}` })),
         targetYs: [...this.round.targetYs],
         correctTarget: reveal ? this.round.correctTarget : null,
         revealedPath: reveal ? this.round.solution.map(p => ({ ...p })) : null,

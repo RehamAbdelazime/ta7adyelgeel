@@ -46,6 +46,16 @@ export function getMiniGameBasePoints(gameId: MiniGameId, difficulty: QuestionDi
   return MINI_GAME_BASE_POINTS[gameId][difficulty];
 }
 
+/** Percentage Risk penalty, computed from the unboosted base points of the
+ * actual mini-game and difficulty. Returns a negative integer.
+ * Invalid percentages are never allowed to produce extra points or NaN.
+ */
+export function getRiskRoundPenaltyPoints(gameId: MiniGameId, difficulty: QuestionDifficulty, ratio: number): number {
+  if (!Number.isFinite(ratio) || ratio <= 0 || ratio > 1) return 0;
+  const penalty = Math.max(1, Math.round(getMiniGameBasePoints(gameId, difficulty) * ratio));
+  return -penalty;
+}
+
 /** Runtime display model for the two count/estimate games. */
 export function getNumericEstimateScoringGuide(gameId: MiniGameId, difficulty: QuestionDifficulty) {
   const rule = getNumericEstimateRule(gameId);
@@ -136,23 +146,23 @@ export function getAwardScoreOutcome(award: MiniGameScoreAward): ScoreOutcome {
  * Shared safety boundary. A wrong answer cannot earn a positive score unless
  * the active game is one of the centrally-approved numeric estimate games;
  * partial rewards are capped at 25% of canonical base points. A negative award
- * survives only when it exactly matches the active Chaos event's configured
- * wrong-answer penalty.
+ * survives only when it exactly matches the active Chaos event's
+ * percentage of the canonical base score, and ONLY for fully wrong answers.
  */
 export function enforceMiniGameScoreAwardPolicy(
   awards: MiniGameScoreAward[],
   gameId: MiniGameId,
-  options: { allowedWrongAnswerPenalty?: number | null } = {},
+  options: { allowedWrongAnswerPenaltyRatio?: number | null } = {},
 ): MiniGameScoreAward[] {
   return awards.map((award) => {
     const points = Number.isFinite(award.points) ? Math.round(award.points) : 0;
 
     if (points < 0) {
       const isFullyIncorrect = !award.isCorrect && award.scoreOutcome !== 'partial';
-      const configuredPenalty = options.allowedWrongAnswerPenalty;
-      const isConfiguredPenalty = Number.isFinite(configuredPenalty)
-        && Number(configuredPenalty) < 0
-        && points === Math.round(Number(configuredPenalty));
+      const configuredRatio = options.allowedWrongAnswerPenaltyRatio;
+      const isConfiguredPenalty = typeof configuredRatio === 'number'
+        && configuredRatio > 0 && configuredRatio <= 1
+        && points === getRiskRoundPenaltyPoints(gameId, award.difficulty, configuredRatio);
       if (isFullyIncorrect && isConfiguredPenalty) {
         return { ...award, points, scoreOutcome: 'incorrect' };
       }

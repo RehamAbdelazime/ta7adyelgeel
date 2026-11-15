@@ -12,7 +12,7 @@ const hint=read('src/ui-react/components/gameplay/minigames/FoodOriginHintPill.t
 const styles=read('src/ui-react/styles/intro-walkthrough-v68.css');
 const foodService=read('src/game-core/minigames/food-origin/food-origin-service.ts');
 const policy=read('src/game-core/minigames/scoring-policy.ts');
-assert.match(overlay,/<h2>\{locale === 'ar' \? 'طريقة اللعب' : 'HOW TO PLAY'\}<\/h2>/,'All games must show ONLY How-to-Play as the header');
+assert.match(overlay,/<h2>\{t\('gameplay.phase.howToPlay'\)\}<\/h2>/,'Header must use shared i18n key');
 assert.match(intro,/props\.gameId === 'food-origin'\s*\? <FoodOriginTwoPageIntro/,'Food Origin must route to the focused walkthrough');
 assert.match(intro,/const hintShown = page === 1/,'Food Origin must use exactly 2 pages');
 assert.match(intro,/Math\.max\(0, Math\.min\(1, current/,'Keyboard navigation must clamp to 2 pages');
@@ -24,10 +24,11 @@ assert.match(food,/<FoodOriginHintPill label=\{dishHintLabel\} revealed=\{isDish
 assert.match(hint,/className="gameplay-food-hint-slot"/);
 assert.match(hint,/gameplay-dish-hint-revealed/);
 assert.match(hint,/gameplay-dish-hint-countdown/);
-assert.match(intro,/تلميح بعد 9 ث/,'Pre-hint countdown must match live localized format');
-assert.match(intro,/كاربونارا/,'Post-hint content must be the dish name only');
+assert.match(intro,/tutorial\.food\.hint\.countdownNineSeconds/,'Pre-hint countdown uses translation key');
+assert.match(intro,/food\.dish\.carbonara/,'Post-hint content must come from translation key');
 assert.doesNotMatch(intro.match(/function FoodOriginTwoPageIntro[\s\S]+$/)?.[0] ?? '',/howto-v70-food-hint|howto-v70-guide-card|howto-v70-food-timer|howto-v69-success/,'No fake extra reveal UI in new tutorial');
-for(const phrase of ['اكتب في الشات','!1','جاوب قبل ما الوقت','بعد نص الوقت','نص النقاط','نقاط كاملة']) assert.ok(intro.includes(phrase),`Missing essential explanation: ${phrase}`);
+for(const key of ['tutorial.food.guide.answerBeforeTimer','tutorial.food.guide.hintAtHalfTime','tutorial.food.guide.fullPoints','tutorial.food.guide.halfPoints','tutorial.food.guide.fourChoices','tutorial.food.chat.exampleOne']) assert.ok(intro.includes(key),`Missing localized explanation key: ${key}`);
+assert.ok(intro.includes('!1'),'Realistic Twitch command sample required');
 for(const cls of ['howto-v71-main','howto-v71-guide','howto-v71-preview','howto-v71-media','howto-v71-score','howto-v71-chat-input','howto-v71-footer']) assert.ok(intro.includes(cls)&&styles.includes(cls),`Missing style ${cls}`);
 assert.match(policy,/FOOD_ORIGIN_HINT_SCORE_MULTIPLIER\s*=\s*0\.5\b/);
 assert.match(foodService,/revealDelayRatio:\s*0\.5\b/);

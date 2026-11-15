@@ -1,3 +1,4 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
 import { LUCKY_CUP_SHUFFLE_START_MS, LUCKY_CUP_SETTLE_MS } from './lucky-cup-motion';
@@ -228,9 +229,9 @@ export class LuckyCupMiniGameService {
       id: 'lucky-cup',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'كوباية وشقاوة' : 'KOBAYA W SHAKAWA',
-      statement: locale === 'ar' ? 'فين الكورة؟' : 'Where is the ball?',
-      instruction: locale === 'ar' ? 'تابع الكوباية واكتب !1 أو !2 أو !3' : 'Follow the cup and type !1, !2, or !3',
+      title: translate(locale, 'minigame.luckyCup.title'),
+      statement: translate(locale, 'game.luckycupservice.whereBall'),
+      instruction: translate(locale, 'game.luckycupservice.followCupType123'),
       acceptsAnswers: this.status === 'answering',
       officialAnswerCount: answerRecords.filter((answer) => answer.role === 'official').length,
       spectatorAnswerCount: answerRecords.filter((answer) => answer.role === 'spectator').length,

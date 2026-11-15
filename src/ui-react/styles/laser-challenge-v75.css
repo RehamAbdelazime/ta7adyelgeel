@@ -1,28 +1,123 @@
-/* V75 — all lasers and mirrors are SVG geometry, no external image content. */
-html body #root .laser-v75-shell .laser-v75-question-body {display:flex;justify-content:center;align-items:center;min-height:0;padding:clamp(4px,.55vw,10px) 0!important;}
-.laser-v75-board {position:relative;width:min(100%,1010px);min-width:0;margin:auto;aspect-ratio:890/458;isolation:isolate;}
-.laser-v75-svg {display:block;width:100%;height:100%;overflow:visible;}
-.laser-v75-emitter>rect:first-of-type {fill:#445677;stroke:#94aacc;stroke-width:3;}
-.laser-v75-source-ring {fill:#162641;stroke:#67ebf4;stroke-width:2;stroke-dasharray:4 9;}
-.laser-v75-nozzle {fill:#e2bdd4;stroke:#ff8dab;stroke-width:2;}
-.laser-v75-source-core {fill:#ff476f;filter:url(#laserV75Glow);}
-.laser-v75-mirror-base {fill:#122846;stroke:#4779a1;stroke-width:2;}
-.laser-v75-mirror-metal {fill:none;stroke:#4382a7;stroke-width:10;stroke-linecap:round;}
-.laser-v75-mirror-glass {fill:none;stroke:#c6fbff;stroke-width:5;stroke-linecap:round;filter:url(#laserV75Glow);}
-.laser-v75-targets rect {fill:#142b49;stroke:#5890b5;stroke-width:2;}
-.laser-v75-targets circle {fill:#0f1e38;stroke:#91bbd7;stroke-width:2;}
-.laser-v75-targets text {font-family:Fredoka,Alexandria,sans-serif;font-weight:800;font-size:19px;fill:#e4f7ff;}
-.laser-v75-target-win rect {fill:#18614c!important;stroke:#79ffb6!important;filter:url(#laserV75Glow);}
-.laser-v75-target-win circle {fill:#146a50!important;stroke:#c3ffbc!important;}
-.laser-v75-beam,.laser-v75-beam-glow {fill:none;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;animation:laser-v75-fire 2.15s cubic-bezier(.42,.01,.45,.99) forwards;}
-.laser-v75-beam {stroke:url(#laserV75Beam);stroke-width:6;filter:url(#laserV75Glow);}
-.laser-v75-beam-glow {stroke:#ff547e;stroke-width:17;opacity:.28;}
-.laser-v75-beam-spark {fill:#fff0bb;filter:url(#laserV75Glow);opacity:0;animation:laser-v75-spark .38s ease 2.2s forwards;}
-@keyframes laser-v75-fire {to{stroke-dashoffset:0;}}
-@keyframes laser-v75-spark {to{opacity:1;}}
-.laser-v75-caption {position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:10px;color:#95bed3;font-family:Alexandria,sans-serif;font-size:clamp(10px,.92vw,14px);line-height:1.2;font-weight:700;letter-spacing:.02em;}
-.laser-v75-caption-dot {width:7px;height:7px;border-radius:50%;background:#4debe8;box-shadow:0 0 12px #4debe8;}
-.laser-v75-revealed .laser-v75-caption-dot {background:#ff698c;box-shadow:0 0 12px #ff698c;}
-.howto-v72 .laser-v75-board {width:100%;aspect-ratio:890/458;height:auto;max-width:100%;}
-.howto-v72 .laser-v75-caption {font-size:clamp(9px,.8vw,11px);}
-@media (prefers-reduced-motion:reduce){.laser-v75-beam,.laser-v75-beam-glow{animation:none;stroke-dashoffset:0}.laser-v75-beam-spark{animation:none;opacity:1}}
+/* V80 — Visual-only Laser Challenge refresh.
+   Shared QuestionScreenShell owns the HUD, timer, 4 ChoiceCards, reveal and
+   Twitch answer counts. These rules ONLY style the SVG playfield/artwork. */
+html body #root .laser-v80-shell .laser-v80-question-body {
+  display: grid !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+html body #root .laser-v80-shell .laser-v80-board {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+html body #root .laser-v80-shell .laser-v80-svg,
+html body #root .laser-v80-board .laser-v80-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  display: block;
+  overflow: visible;
+}
+/* Never style or recreate .gameplay-choice-card here. The shared bottom
+   answer-row layout from answer-zones-question-v20.css stays authoritative. */
+.laser-v80-channel-guide {
+  fill: none;
+  stroke: #3d7298;
+  stroke-width: 1.5;
+  stroke-dasharray: 3 7;
+  opacity: .8;
+}
+.laser-v80-receiver-base {
+  fill: none;
+  stroke: #578db4;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.laser-v80-socket-outer {
+  fill: #122741;
+  stroke: #70abc9;
+  stroke-width: 2.6;
+}
+.laser-v80-socket-inner {
+  fill: #0a1d31;
+  stroke: #406a8e;
+  stroke-width: 2;
+}
+.laser-v80-socket-core {
+  fill: #72d9eb;
+  filter: url(#laserV80Glow);
+}
+.laser-v80-receiver-win .laser-v80-socket-outer {
+  fill: #165545;
+  stroke: #92ffd1;
+  filter: url(#laserV80Glow);
+}
+.laser-v80-receiver-win .laser-v80-socket-inner {
+  fill: #20816c;
+  stroke: #bcffe2;
+}
+.laser-v80-receiver-win .laser-v80-socket-core { fill: #f5fff5; }
+/* V88 — the approved artwork now supplies mirror/emitter materials.
+   Keep all geometry in LaserBoard and all answers in shared ChoiceCard. */
+.laser-v80-mirror image,
+.laser-v80-emitter image {
+  pointer-events: none;
+}
+.laser-v80-beam-halo,
+.laser-v80-beam-shell,
+.laser-v80-beam-core {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: laser-v80-fire 2.25s cubic-bezier(.34, .01, .43, 1) forwards;
+}
+.laser-v80-beam-halo {
+  stroke: #fa3270;
+  stroke-width: 16;
+  opacity: .3;
+  filter: url(#laserV80SoftGlow);
+}
+.laser-v80-beam-shell {
+  stroke: #ff3779;
+  stroke-width: 7.5;
+  opacity: .98;
+}
+.laser-v80-beam-core {
+  stroke: #fff6fc;
+  stroke-width: 2.1;
+  filter: url(#laserV80Glow);
+}
+.laser-v80-sparks { opacity: 0; animation: laser-v80-sparks-on .25s ease 2.2s both; }
+@keyframes laser-v80-fire { to { stroke-dashoffset: 0; } }
+@keyframes laser-v80-sparks-on { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .laser-v80-beam-halo, .laser-v80-beam-shell, .laser-v80-beam-core {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .laser-v80-sparks { animation: none; opacity: 1; }
+}
+
+/* Keep receiver columns vertically aligned with the shared ChoiceCard row.
+   The SVG is aspect-fit inside the body; cqh measures exactly the matching
+   body height after the existing shared answer-row and gap are subtracted. */
+@supports (width: 100cqh) {
+  html body #root .gameplay-question-shell.laser-v80-shell.qshell-v20 .qshell-content {
+    container-type: size;
+  }
+  html body #root .gameplay-question-shell.laser-v80-shell.qshell-v20 .qshell-choices {
+    width: min(100%, calc((100cqh - clamp(74px, 7.2vw, 112px) - clamp(7px, .72vw, 13px)) * 2.0168067)) !important;
+    justify-self: center !important;
+  }
+}

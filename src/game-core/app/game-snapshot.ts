@@ -9,6 +9,7 @@ import type { ProgressionSnapshot } from '../progression/progression-types';
 import type { SessionProgressionAward } from '../progression/session-progression';
 import type { PersistenceSnapshot } from '../persistence/persistence-types';
 import type { TourAwardsSnapshot, TourScoreboardRow } from '../awards/tour-awards';
+import type { MiniGameSegment } from '../awards/scoreboard-levels';
 
 
 export type HostChaosMode = 'off' | 'normal' | 'high' | 'madness';
@@ -48,6 +49,7 @@ export type GameSnapshot = {
   privateStreamerAnswerSubmitted: boolean;
   miniGame: MiniGameSnapshot;
   nextMiniGameId: MiniGameId | null;
+  miniGameSegment: MiniGameSegment | null;
   lastRoundAwards: MiniGameScoreAward[];
   progression: ProgressionSnapshot;
   sessionProgressionAwards: SessionProgressionAward[];

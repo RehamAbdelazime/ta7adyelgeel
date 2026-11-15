@@ -1,6 +1,7 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
-import type { LocaleCode } from '../../localization/locale-types';
+import type { LocaleCode, TranslationKey } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
   MiniGameAnswerRecord,
@@ -17,23 +18,10 @@ import type {
 
 const SHAPES: ShapeCountShapeId[] = ['circle', 'square', 'triangle', 'star', 'diamond', 'hexagon'];
 
-const SHAPE_LABELS: Record<LocaleCode, Record<ShapeCountShapeId, string>> = {
-  en: {
-    circle: 'Circle',
-    square: 'Square',
-    triangle: 'Triangle',
-    star: 'Star',
-    diamond: 'Diamond',
-    hexagon: 'Hexagon',
-  },
-  ar: {
-    circle: 'دائرة',
-    square: 'مربع',
-    triangle: 'مثلث',
-    star: 'نجمة',
-    diamond: 'ماسة',
-    hexagon: 'سداسي',
-  },
+const SHAPE_LABEL_KEYS: Record<ShapeCountShapeId, TranslationKey> = {
+  circle: 'shape.label.circle', square: 'shape.label.square',
+  triangle: 'shape.label.triangle', star: 'shape.label.star',
+  diamond: 'shape.label.diamond', hexagon: 'shape.label.hexagon',
 };
 
 type ShapeCountRound = {
@@ -47,8 +35,6 @@ type ShapeCountRound = {
   difficulty: QuestionDifficulty;
   category: QuestionCategory;
   signature: string;
-  mode: 'majority' | 'exact';
-  targetCount: number | null;
 };
 
 export class ShapeCountMiniGameService {
@@ -186,10 +172,8 @@ export class ShapeCountMiniGameService {
       id: 'shape-count',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'عدّ الأشكال' : 'SHAPE COUNT',
-      statement: this.round?.mode === 'exact' && this.round.targetCount !== null
-        ? (locale === 'ar' ? `أي شكل موجود ${this.round.targetCount} مرة؟` : `Which shape appears ${this.round.targetCount} times?`)
-        : (locale === 'ar' ? 'أي شكل موجود بعدد أكبر؟' : 'Which shape appears the most?'),
+      title: translate(locale, 'game.shapecountservice.shapeCount'),
+      statement: translate(locale, 'game.shapecountservice.whichShapeAppearsMost'),
       instruction: this.round
         ? this.buildInstruction(locale, this.round.choices)
         : '',
@@ -218,13 +202,13 @@ export class ShapeCountMiniGameService {
             cells: this.round.cells,
             choices: this.round.choices.map((shape, index) => ({
               shape,
-              label: SHAPE_LABELS[locale][shape],
+              label: translate(locale, SHAPE_LABEL_KEYS[shape]),
               command: `!${index + 1}`,
               optionNumber: index + 1,
             })),
             counts: this.round.counts,
-            mode: this.round.mode,
-            targetCount: this.round.targetCount,
+            mode: 'majority',
+            targetCount: null,
           }
         : null,
     };
@@ -241,9 +225,7 @@ export class ShapeCountMiniGameService {
 
   private buildInstruction(locale: LocaleCode, choices: ShapeCountShapeId[]): string {
     const commands = choices.map((_shape, index) => `!${index + 1}`).join(' / ');
-    return locale === 'ar'
-      ? `اكتب رقم الإجابة: ${commands}`
-      : `Type the answer number: ${commands}`;
+    return translate(locale, 'game.shapecountservice.typeAnswerNumber', { p0: String(commands) });
   }
 
   private generateUniqueRound(roundNumber: number): ShapeCountRound {
@@ -268,7 +250,9 @@ export class ShapeCountMiniGameService {
     const random = createSeededRandom(createRoundSeed(roundNumber, salt, this.sessionSignatures.size));
     // One complete single-game session: predictable Easy → Medium → Hard.
     const difficulty: QuestionDifficulty = (['easy', 'medium', 'hard'] as const)[(roundNumber - 1) % 3];
-    const shapeCount = difficulty === 'easy' ? 3 : random() > 0.34 ? 4 : 3;
+    // Difficulty comes from visual density and how close the counts are,
+    // never from switching the game to a numeric exact-count question.
+    const shapeCount = difficulty === 'easy' ? 3 : 4;
     const choices = shuffle([...SHAPES], random).slice(0, shapeCount);
     const rows = difficulty === 'hard' ? 6 : 5;
     const columns = difficulty === 'easy' ? 6 : 7;
@@ -283,21 +267,7 @@ export class ShapeCountMiniGameService {
       }))),
       random,
     ).map((cell, index) => ({ ...cell, id: `${cell.id}-${index}` }));
-    const exactMode = difficulty !== 'easy';
-    // A count must map to exactly one shape. Never offer an ambiguous
-    // "which one appears 13 times?" when two shapes both have 13 cells.
-    const uniqueCountShapes = choices.filter((shape) =>
-      choices.filter((other) => counts[other] === counts[shape]).length === 1,
-    );
-    if (exactMode && uniqueCountShapes.length === 0) {
-      // Let generateUniqueRound reroll by varying this candidate's salt.
-      return this.generateRound(roundNumber, salt + 173);
-    }
-    const exactAnswer = exactMode
-      ? (uniqueCountShapes.find((shape) => shape !== correctAnswer) ?? uniqueCountShapes[0])
-      : null;
-    const actualAnswer = exactAnswer ?? correctAnswer;
-    const signature = `${difficulty}:${actualAnswer}:` + choices
+    const signature = `${difficulty}:${correctAnswer}:` + choices
       .map((shape) => `${shape}:${counts[shape] ?? 0}`)
       .sort()
       .join('|');
@@ -309,9 +279,7 @@ export class ShapeCountMiniGameService {
       cells,
       choices,
       counts,
-      correctAnswer: actualAnswer,
-      mode: exactMode ? 'exact' : 'majority',
-      targetCount: exactAnswer ? counts[exactAnswer] : null,
+      correctAnswer,
       difficulty,
       category: 'games',
       signature,
@@ -327,7 +295,7 @@ export class ShapeCountMiniGameService {
   ): Record<ShapeCountShapeId, number> {
     const counts = Object.fromEntries(SHAPES.map((shape) => [shape, 0])) as Record<ShapeCountShapeId, number>;
     const otherShapes = choices.filter((shape) => shape !== correctAnswer);
-    const majorityGap = difficulty === 'easy' ? 5 : difficulty === 'medium' ? 3 : 1;
+    const majorityGap = difficulty === 'easy' ? 5 : difficulty === 'medium' ? 3 : 2;
     const majority = Math.ceil(totalCells / choices.length) + majorityGap;
     counts[correctAnswer] = Math.min(totalCells - otherShapes.length, majority);
     let remaining = totalCells - counts[correctAnswer];
@@ -335,7 +303,7 @@ export class ShapeCountMiniGameService {
     for (let index = 0; index < otherShapes.length; index += 1) {
       const shape = otherShapes[index];
       const remainingShapes = otherShapes.length - index;
-      const maxAllowed = Math.max(1, counts[correctAnswer] - 1);
+      const maxAllowed = Math.max(1, counts[correctAnswer] - 2);
       const minForRest = remainingShapes - 1;
       const fairShare = Math.floor(remaining / remainingShapes);
       const jitter = Math.floor(random() * 3) - 1;
@@ -349,7 +317,7 @@ export class ShapeCountMiniGameService {
 
     // If rounding left extra cells, distribute without creating a tie with the majority.
     while (remaining > 0) {
-      const candidates = otherShapes.filter((shape) => counts[shape] < counts[correctAnswer] - 1);
+      const candidates = otherShapes.filter((shape) => counts[shape] < counts[correctAnswer] - 2);
       if (candidates.length === 0) {
         counts[correctAnswer] += remaining;
         break;

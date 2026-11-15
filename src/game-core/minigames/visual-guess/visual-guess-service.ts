@@ -1,3 +1,4 @@
+import { translate } from '../../localization/translations';
 /**
  * Shared visual-choice engine for Guess the Movie and Guess the Star.
  * The clue may be a poster, movie frame, or dialogue prompt; the four answer options use the same
@@ -66,6 +67,8 @@ type ImageItem = {
   mode: VisualGuessMode;
   difficulty: QuestionDifficulty;
   category: string;
+  /** Editorial roster field. Never infer gender from the eye crop or a name. */
+  gender?: 'female' | 'male';
   focus?: { x: number; y: number };
   titleMask?: { x: number; y: number; w: number; h: number };
   titleMasks?: { x: number; y: number; w: number; h: number }[];
@@ -350,22 +353,22 @@ export class VisualGuessMiniGameService {
     return {
       id: this.gameId, status: this.status, roundNumber: this.roundNumber,
       title: this.gameId === 'guess-movie'
-        ? (locale === 'ar' ? 'اعرف الفيلم' : 'GUESS THE MOVIE')
-        : (locale === 'ar' ? 'اعرف النجم' : 'GUESS THE STAR'),
+        ? (translate(locale, 'minigame.guessMovie.title'))
+        : (translate(locale, 'minigame.guessStar.title')),
       statement: item ? (this.gameId === 'guess-movie'
         ? (this.round?.quoteMode === 'complete'
-            ? (locale === 'ar' ? 'كمّل الجملة' : 'COMPLETE THE LINE')
+            ? (translate(locale, 'game.visualguessservice.completeLine'))
             : this.round?.quoteMode === 'speaker'
               ? this.round.movieClue?.speaker?.role === 'character'
-                ? (locale === 'ar' ? 'أنهي شخصية قالت الجملة دي؟' : 'WHICH CHARACTER SAID THIS?')
-                : (locale === 'ar' ? 'مين الممثل اللي قال الجملة دي؟' : 'WHICH ACTOR SAID THIS?')
+                ? (translate(locale, 'game.visualguessservice.whichCharacterSaid'))
+                : (translate(locale, 'game.visualguessservice.whichActorSaid'))
               : this.round?.movieClue?.kind === 'quote'
-                ? (locale === 'ar' ? 'الجملة دي من فيلم إيه؟' : 'WHICH MOVIE IS THIS LINE FROM?')
+                ? (translate(locale, 'game.visualguessservice.whichMovieLineFrom'))
             : this.round?.movieClue?.kind === 'frame'
-              ? (locale === 'ar' ? 'المشهد ده من فيلم إيه؟' : 'WHICH MOVIE IS THIS SCENE FROM?')
-              : (locale === 'ar' ? 'الفيلم ده إيه؟' : 'WHICH MOVIE?'))
-        : (locale === 'ar' ? 'مين النجم؟' : 'WHO IS THE STAR?')) : '',
-      instruction: locale === 'ar' ? 'اختار من 1 إلى 4' : 'Pick 1–4',
+              ? (translate(locale, 'game.visualguessservice.whichMovieSceneFrom'))
+              : (translate(locale, 'game.visualguessservice.whichMovie')))
+        : (translate(locale, 'game.visualguessservice.whoStar'))) : '',
+      instruction: translate(locale, 'game.visualguessservice.pick14'),
       acceptsAnswers: this.status === 'answering',
       officialAnswerCount: [...this.answers.values()].filter(a => a.role === 'official').length,
       spectatorAnswerCount: [...this.answers.values()].filter(a => a.role === 'spectator').length,
@@ -424,25 +427,28 @@ export class VisualGuessMiniGameService {
   }
 }
 type ChoiceCandidate = { id: string; name: I18n };
-/** Star IDs have explicit editorial categories (actor/singer/athlete).
- * Easy has recognizable cross-category options, Medium has two close peers,
- * Hard uses three from the same category whenever possible. Never assign a
- * false identity: each option is another real catalog entry.
+/** Star options always match the correct person's editorial gender metadata.
+ * Within that set, favor the same profession according to difficulty; never
+ * reveal the answer through a lone differently-gendered name. No generated names.
  */
 function pickGenericDistractors(item: ImageItem, bank: readonly ImageItem[], rng: () => number): ChoiceCandidate[] {
-  const other = bank.filter(q => q.id !== item.id);
-  const same = shuffle(other.filter(q => q.category === item.category), rng);
-  const different = shuffle(other.filter(q => q.category !== item.category), rng);
-  const target = item.difficulty === 'easy' ? 1 : item.difficulty === 'medium' ? 2 : 3;
-  const chosen = [...same.slice(0, target)];
-  // If a tiny category cannot support three close peers, use remaining known
-  // faces rather than repeating an option or fabricating an identity.
-  for (const candidate of [...different, ...same.slice(target)]) {
-    if (chosen.length === 3) break;
-    if (!chosen.some(c => c.id === candidate.id)) chosen.push(candidate);
+  if (item.gender !== 'female' && item.gender !== 'male') {
+    throw new Error(`Missing Guess Star gender metadata: ${item.id}`);
   }
-  if (chosen.length !== 3) throw new Error(`${item.id}: fewer than four known stars`);
-  return shuffle(chosen, rng).map(({ id, name }) => ({ id, name }));
+  const peers = bank.filter(q => q.id !== item.id && q.gender === item.gender);
+  if (peers.length < 3) throw new Error(`${item.id}: fewer than four known ${item.gender} stars`);
+  const sameCategory = shuffle(peers.filter(q => q.category === item.category), rng);
+  const otherCategories = shuffle(peers.filter(q => q.category !== item.category), rng);
+  const closeCount = item.difficulty === 'easy' ? 1 : item.difficulty === 'medium' ? 2 : 3;
+  const selected = sameCategory.slice(0, closeCount);
+  // Fall back to other professions of the SAME gender when category is small.
+  // This never mixes women and men just to fill four answer slots.
+  for (const candidate of [...otherCategories, ...sameCategory.slice(closeCount)]) {
+    if (selected.length === 3) break;
+    if (!selected.some(chosen => chosen.id === candidate.id)) selected.push(candidate);
+  }
+  if (selected.length !== 3) throw new Error(`${item.id}: fewer than four known ${item.gender} stars`);
+  return shuffle(selected, rng).map(({ id, name }) => ({ id, name }));
 }
 /**
  * Poster similarity never comes from generic movie genres alone: the initial 50-image

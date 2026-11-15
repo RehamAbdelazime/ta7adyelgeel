@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, type CSSProperties } from 'react';
 import { GameCanvas } from '../GameCanvas';
 import { GameplayOverlay } from '../gameplay/GameplayOverlay';
 import { VisualWorldLayer } from './VisualWorldLayer';
@@ -7,6 +7,7 @@ import { GameViewSnapshotProvider, useGame } from '../../context/GameContext';
 import { RuntimeAudioManager } from '../audio/RuntimeAudioManager';
 import { HostMascotLayer } from './HostMascotLayer';
 import { RoundRevealCompletionProvider } from '../gameplay/shared/RoundRevealCompletionContext';
+import { ChaosShowAnnouncement } from '../gameplay/ChaosShowAnnouncement';
 
 /**
  * Fixed 16:9 game stage.
@@ -31,13 +32,17 @@ export function GameSceneStage() {
 
   return (
     <div className="game-scene-viewport" aria-hidden="false">
-      <div className={`game-scene-stage game-scene-stage-${renderedScene}`}>
+      <div className={`game-scene-stage game-scene-stage-${renderedScene} ${viewSnapshot.tour.phase === 'chaos_announcement' ? 'game-scene-stage-chaos-v85' : ''}`}
+        style={{ '--chaos-show-duration': `${viewSnapshot.tour.phaseDurationMs}ms` } as CSSProperties}>
         <RoundRevealCompletionProvider>
           <GameViewSnapshotProvider snapshot={viewSnapshot}>
             <VisualWorldLayer sceneOverride={renderedScene} />
             <GameCanvas />
             <GameplayOverlay sceneOverride={renderedScene} />
             <HostMascotLayer scene={renderedScene} />
+            {renderedScene === 'minigame' ? (
+              <ChaosShowAnnouncement tour={viewSnapshot.tour} event={viewSnapshot.chaosEvent} />
+            ) : null}
           </GameViewSnapshotProvider>
           <RuntimeAudioManager renderedScene={renderedScene} curtainPhase={curtainPhase} transitionId={transitionId} />
           <SceneCurtainTransitionLayer phase={curtainPhase} targetScene={curtainTargetScene} transitionId={transitionId} />

@@ -18,6 +18,11 @@ const named = manifest.photos.filter(p=>p.name.ar?.trim());
 const persons = new Set(named.map(p=>p.personKey));
 assert.equal(stars.length, persons.size);
 assert(stars.length >= 30, 'File labels should expand the seven old named people');
+const starsById = new Map(stars.map(star => [star.id, star]));
+assert(stars.every(star => star.gender === 'female' || star.gender === 'male'), 'Every named person needs reviewed gender metadata');
+assert(stars.some(star => star.gender === 'female') && stars.some(star => star.gender === 'male'), 'Both choice pools must exist');
+for (const gender of ['female','male']) assert(stars.filter(star => star.gender === gender).length >= 4);
+for (const photo of named) assert.equal(stars.find(star => star.personKey === photo.personKey)?.gender, photo.gender, 'Photo variants must match their identity metadata');
 const multi = stars.filter(item=>item.photoVariants.length>=2);
 assert(multi.length>=10, 'Photos of known repeat people should be grouped as alternatives');
 for(const star of stars){
@@ -44,13 +49,17 @@ const next = pickStarPhotoVariant(alternative.personKey,alternative.photoVariant
 assert(alternative.photoVariants.includes(next));
 const serviceStore = new Map();const ss={getItem:k=>serviceStore.get(k)??null,setItem:(k,v)=>serviceStore.set(k,v)};
 let total=0;
-for(let session=0;session<40;session++){
+for(let session=0;session<80;session++){
  const game=new VisualGuessMiniGameService('guess-star',ss);game.beginTour();const used=new Set();
  for(let round=1;round<=4;round++){
   game.startRound(round,session*1431+round);
   const intro=game.getSnapshot('ar'),ref=stars.find(s=>s.id===intro.questionId);
   assert(ref);assert(!used.has(ref.id),`Same person repeated in one tour: ${ref.name.ar}`);used.add(ref.id);
   const choices=intro.visualGuess.choices;
+  assert(choices.every(choice => starsById.get(choice.value)?.gender === ref.gender), `${ref.name.ar}: mixed-gender choices reveal the answer`);
+  assert(choices.every(choice => choice.label === starsById.get(choice.value)?.name.ar), `Arabic answer labels do not match bank for ${ref.name.ar}`);
+  const english=game.getSnapshot('en');
+  assert(english.visualGuess.choices.every(choice => choice.label === starsById.get(choice.value)?.name.en), `English answer labels do not match bank for ${ref.name.en}`);
   assert.equal(new Set(choices.map(c=>c.value)).size,4,'Two photos of same person must NEVER become duplicate options');
   assert.equal(new Set(choices.map(c=>c.label)).size,4,'Visible names must all be distinct');
   const v=ref.photoVariants.find(x=>intro.visualGuess.imageUrl.endsWith(x.asset));

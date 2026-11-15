@@ -5,6 +5,7 @@ export function getTourPhaseTitleKey(phase: TourPhase): TranslationKey {
   const keys: Record<TourPhase, TranslationKey> = {
     lobby_open: 'tour.phase.lobbyOpen',
     tour_starting: 'tour.phase.tourStarting',
+    chaos_announcement: 'tour.phase.chaosAnnouncement',
     mini_game_intro: 'tour.phase.miniGameIntro',
     answer_window_open: 'tour.phase.answerWindowOpen',
     scoring: 'tour.phase.scoring',

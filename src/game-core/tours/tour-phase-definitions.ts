@@ -18,6 +18,15 @@ export const TOUR_PHASE_SEQUENCE: TourPhaseDefinition[] = [
     acceptsAnswers: false,
   },
   {
+    phase: 'chaos_announcement',
+    titleKey: 'tour.phase.chaosAnnouncement',
+    // Self-contained cinematic AFTER instructions and BEFORE visual preparation.
+    // Never uses the answering timer, never shows the next question underneath.
+    durationMs: 3_900,
+    acceptsLateJoinersAsSpectators: true,
+    acceptsAnswers: false,
+  },
+  {
     phase: 'tour_starting',
     titleKey: 'tour.phase.tourStarting',
     // Countdown after the host starts the round. The question stays hidden here.

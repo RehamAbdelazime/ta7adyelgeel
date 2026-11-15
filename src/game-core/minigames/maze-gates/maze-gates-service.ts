@@ -1,6 +1,7 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore } from '../scoring-policy';
-import type { LocaleCode } from '../../localization/locale-types';
+import type { LocaleCode, TranslationKey } from '../../localization/locale-types';
 import type { QuestionCategory, QuestionDifficulty } from '../../questions/question-types';
 import type {
   MazeGateAnswer,
@@ -85,10 +86,14 @@ const MAZE_DIFFICULTY_PROFILES: Record<QuestionDifficulty, MazeDifficultyProfile
   },
 };
 
-const GATE_LABELS: Record<LocaleCode, string[]> = {
-  en: ['Gate A', 'Gate B', 'Gate C', 'Gate D'],
-  ar: ['بوابة أ', 'بوابة ب', 'بوابة ج', 'بوابة د'],
-};
+const GATE_LABEL_KEYS: readonly TranslationKey[] = [
+  'maze.gate.A', 'maze.gate.B', 'maze.gate.C', 'maze.gate.D',
+];
+
+function localizeGateLabel(locale: LocaleCode, index: number): string {
+  const key = GATE_LABEL_KEYS[index];
+  return key ? translate(locale, key) : translate(locale, 'maze.gate.generic', { number: String(index + 1) });
+}
 
 export class MazeGatesMiniGameService {
   private round: MazeGateRound | null = null;
@@ -203,11 +208,9 @@ export class MazeGatesMiniGameService {
       id: 'maze-gates',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'بوابات المتاهة' : 'MAZE GATES',
+      title: translate(locale, 'game.mazegatesservice.mazeGates'),
       statement: this.round
-        ? locale === 'ar'
-          ? 'اختار البوابة اللي مسارها يوصل للنهاية.'
-          : 'Pick the gate that reaches the exit.'
+        ? translate(locale, 'game.mazegatesservice.pickGateReachesExit')
         : '',
       instruction: this.round ? this.buildInstruction(locale) : '',
       acceptsAnswers: this.status === 'answering',
@@ -247,9 +250,7 @@ export class MazeGatesMiniGameService {
   }
 
   private buildInstruction(locale: LocaleCode): string {
-    return locale === 'ar'
-      ? `اختار مدخل: ${this.buildChoices(locale).map((choice) => choice.command).join(' / ')}`
-      : `Choose an entrance: ${this.buildChoices(locale).map((choice) => choice.command).join(' / ')}`;
+    return translate(locale, 'game.mazegatesservice.chooseEntrance', { p0: String(this.buildChoices(locale).map((choice) => choice.command).join(' / ')) });
   }
 
   private buildChoices(locale: LocaleCode): MazeGateChoice[] {
@@ -257,7 +258,7 @@ export class MazeGatesMiniGameService {
     return Array.from({ length: gateCount }, (_, index) => ({
       optionNumber: index + 1,
       command: `!${index + 1}`,
-      label: GATE_LABELS[locale][index] ?? `Gate ${index + 1}`,
+      label: localizeGateLabel(locale, index),
     }));
   }
 
@@ -1003,7 +1004,7 @@ function convertFullMazeToSnapshot(
   const choices = Array.from({ length: options.gateCount }, (_, index) => ({
     optionNumber: index + 1,
     command: `!${index + 1}`,
-    label: GATE_LABELS[options.locale][index] ?? `Gate ${index + 1}`,
+    label: localizeGateLabel(options.locale, index),
   }));
 
   return {
@@ -1031,7 +1032,7 @@ function convertFullMazeToSnapshot(
     exit: {
       x: fullMazeCellCenter(generated.exitCell, profile, geometry).x,
       y: geometry.boardY - 24,
-      label: options.locale === 'ar' ? 'خروج' : 'EXIT',
+      label: translate(options.locale, 'game.mazegatesservice.exit'),
     },
   };
 }

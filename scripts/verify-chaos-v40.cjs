@@ -18,12 +18,12 @@ const msg=(id,message)=>({twitchUserId:id,displayName:id,message,isBroadcaster:f
 let checks=0;
 function check(predicate,description){assert(predicate,description);checks++}
 const find=id=>CHAOS_EVENTS.find(e=>e.id===id);
-check(CHAOS_EVENTS.length===6, 'V40 should have 6 curated events');
-for(const removed of ['half_score','score_storm','chill_window'])check(!find(removed), `Stale event ${removed}`);
+check(CHAOS_EVENTS.length===4, 'V84 must keep only 4 curated events');
+for(const removed of ['half_score','score_storm','chill_window','comeback_boost','spectator_mayhem'])check(!find(removed), `Stale event ${removed}`);
 const eligibleParams={roundIndex:1,totalRounds:4,officialCount:5,spectatorCount:4,miniGameId:'food-origin'};
-check(!isChaosEventEligible(find('spectator_mayhem'),{...eligibleParams,spectatorCount:0,goldenAlreadyPlayed:false}),'Spectator event without spectators');
-check(!isChaosEventEligible(find('comeback_boost'),{...eligibleParams,officialCount:2,goldenAlreadyPlayed:false}),'Comeback event <3 officials');
-for(const game of ['lucky-cup','memory-count','count-the-beat'])check(!isChaosEventEligible(find('fast_window'),{...eligibleParams,miniGameId:game,goldenAlreadyPlayed:false}),`Speed should exclude ${game}`);
+for(const game of ['lucky-cup','memory-count','count-the-beat','laser-challenge','food-origin','shape-count','maze-gates','guess-star','guess-movie']) {
+  check(isChaosEventEligible(find('fast_window'),{...eligibleParams,miniGameId:game,goldenAlreadyPlayed:false}),`Speed must be eligible in ${game}`);
+}
 check(!isChaosEventEligible(find('golden_round'),{...eligibleParams,roundIndex:4,goldenAlreadyPlayed:false}),'Golden on final round is useless');
 const always=new ChaosEventService(()=>0);
 always.beginTour();
@@ -39,28 +39,35 @@ const forced=new ChaosEventService(()=>0.1);
 forced.beginTour();
 check(forced.selectForced('golden_round',eligibleParams)?.id==='golden_round','Forced Golden not accepted');
 check(forced.selectForced('golden_round',{...eligibleParams,roundIndex:2})===null,'Golden reused twice in same Tour');
-check(forced.selectForced('fast_window',{...eligibleParams,miniGameId:'lucky-cup'})===null,'Forced incompatible event must be denied');
+check(forced.selectForced('fast_window',{...eligibleParams,miniGameId:'lucky-cup'})?.id==='fast_window','Speed Rush must support Lucky Cup');
 forced.beginTour();
 check(forced.selectForced('golden_round',eligibleParams)?.id==='golden_round','Golden not reset for new Tour');
-const citizen=(id,score,role='official')=>({twitchUserId:id,displayName:id,score,role,joinedAt:0,level:1,xp:0,xpToNextLevel:100,progressPercent:0,unlockedCommandIds:[]});
+const {getMiniGameBasePoints, getRiskRoundPenaltyPoints, enforceMiniGameScoreAwardPolicy}=require(path.join(root,'src/game-core/minigames/scoring-policy.ts'));
 const scoring=new ChaosEventService();
-const people=[citizen('a',300),citizen('b',100),citizen('c',50),citizen('d',20),citizen('e',10),citizen('spect',0,'spectator')];
-const sample=[award('a'),award('b'),award('c'),award('d'),award('e'),award('spect',100,true,'spectator')];
-let adjusted=scoring.applyToAwards({event:find('comeback_boost'),awards:sample,citizens:people});
-check(adjusted[0].points===100 && adjusted[1].points===100,'Leaders incorrectly boosted');
-check(adjusted[2].points===200 && adjusted[3].points===200 && adjusted[4].points===200,'Trailing players did not get ×2');
-check(adjusted[5].points===100,'Spectator got Official comeback boost');
-adjusted=scoring.applyToAwards({event:find('spectator_mayhem'),awards:sample,citizens:people});
-check(adjusted[5].points===200 && adjusted[0].points===100,'Spectator event leaked into Officials');
-adjusted=scoring.applyToAwards({event:find('double_score'),awards:[award('a'),award('b',0,false)],citizens:people});
+const sample=[award('a'),award('b',0,false)];
+let adjusted=scoring.applyToAwards({event:find('double_score'),awards:sample,miniGameId:'shape-count'});
 check(adjusted[0].points===200 && adjusted[1].points===0,'Double Score awarded wrong answer');
-adjusted=scoring.applyToAwards({event:find('risk_round'),awards:[award('a',0,false),{...award('b',20,false),scoreOutcome:'partial'}],citizens:people});
-check(adjusted[0].points===-30 && adjusted[1].points===20,'Risk penalty incorrectly applied to numeric near-miss');
+const ratio=find('risk_round').wrongAnswerPenaltyRatio;
+check(ratio===.20,'Risk Round must be twenty percent, not fixed points');
+for (const [game, difficulty] of [['shape-count','easy'],['shape-count','medium'],['laser-challenge','hard'],['count-the-beat','hard'],['food-origin','hard']]) {
+  const full=getMiniGameBasePoints(game,difficulty);
+  const expected=-Math.round(full*ratio);
+  check(getRiskRoundPenaltyPoints(game,difficulty,ratio)===expected,`${game} incorrect percentage penalty`);
+  const awardData={...award('wrong',0,false),difficulty,scoreOutcome:'incorrect'};
+  adjusted=scoring.applyToAwards({event:find('risk_round'),awards:[awardData, {...award('near',20,false),difficulty,scoreOutcome:'partial'},award('correct',full,true)],miniGameId:game});
+  check(adjusted[0].points===expected && adjusted[1].points===20 && adjusted[2].points===full,`${game} Risk wrong vs near vs correct`);
+  const validated=enforceMiniGameScoreAwardPolicy([adjusted[0]],game,{allowedWrongAnswerPenaltyRatio:ratio});
+  check(validated[0].points===expected,`${game} percentage survives score guard`);
+  check(enforceMiniGameScoreAwardPolicy([award('fake',-999,false)],game,{allowedWrongAnswerPenaltyRatio:ratio})[0].points===0,`${game} invalid penalty blocked`);
+}
+check(scoring.getSnapshot(find('risk_round'),'ar').wrongAnswerPenaltyRatio===.20,'Risk snapshot must expose ratio');
+check(scoring.applyToAwards({event:null,awards:sample,miniGameId:'food-origin'})===sample,'No chaos event must preserve awards');
+check(forced.selectForced('comeback_boost', eligibleParams)===null && forced.selectForced('spectator_mayhem', eligibleParams)===null,'Removed events cannot be forced');
 const rs=new ChaosRewardService();
 rs.beginTour();rs.awardGolden('a');
-let r=rs.applyToAwards([award('a',-30,false),award('spect',-30,false,'spectator')]);
+let r=rs.applyToAwards([award('a',-20,false),award('spect',-20,false,'spectator')]);
 check(r.awards[0].points===0 && r.blocked.length===1,'Shield did not block one penalty');
-check(r.awards[1].points===-30,'Spectator shield unexpectedly protected');
+check(r.awards[1].points===-20,'Spectator shield unexpectedly protected');
 check(rs.getSnapshot()[0].shield===0 && rs.getSnapshot()[0].boost===1,'Wrong reward charge consumed');
 r=rs.applyToAwards([award('a',100,true)]);
 check(r.awards[0].points===125 && r.boosted.includes('a'),'Golden boost not applied');
@@ -126,6 +133,64 @@ try {
   store.startTour(1,['food-origin'],'mini-game');
   check(store.getSnapshot().chaosRewards.length===0,'Rewards leaked to next Tour');
 } finally {store.destroy();}
+// Actual Twitch Risk path, no Shield: wrong gets a percentage penalty,
+// no answer gets NONE. A first-round score cannot go below zero.
+{
+  const riskStore=new GameStore(new GameEventBus());
+  try {
+    riskStore.registerStreamerPlayer({twitchUserId:'host',displayName:'Host'});
+    check(riskStore.submitTwitchChatMessage(msg('wrongPlayer','!join')).ok,'Risk player join');
+    check(riskStore.submitTwitchChatMessage(msg('passPlayer','!join')).ok,'Risk passing player join');
+    riskStore.forceNextChaosEvent('risk_round');
+    riskStore.startTour(1,['food-origin'],'mini-game');
+    check(riskStore.getSnapshot().chaosEvent.id==='risk_round','Risk event must start on first question');
+    while(riskStore.getSnapshot().tour.phase!=='answer_window_open')riskStore.skipPhase();
+    const correct=riskStore.foodOriginMiniGame.activeChoices.findIndex(c=>c.countryCode===riskStore.foodOriginMiniGame.question.answer)+1;
+    const incorrect=(correct%4)+1;
+    riskStore.twitchCommandRouter.cooldowns.clear();
+    check(riskStore.submitTwitchChatMessage(msg('wrongPlayer','!'+incorrect)).ok,'Risk incorrect answer refused');
+    riskStore.skipPhase();
+    const snapshot=riskStore.getSnapshot();
+    check(snapshot.tour.phase==='scoring','Risk scoring did not finish');
+    check(snapshot.lastRoundAwards.find(a=>a.twitchUserId==='wrongPlayer')?.points===-12,'Easy Food Origin (60pts) should risk -12 (20%)');
+    check(!snapshot.lastRoundAwards.some(a=>a.twitchUserId==='passPlayer'),'Passing player must not get Risk penalty');
+    check(snapshot.citizens.find(c=>c.twitchUserId==='wrongPlayer').score===0,'Risk score below zero');
+  } finally{riskStore.destroy();}
+}
+// Timing regression: Speed Rush ONLY reduces answer_window_open, never the
+// preparation phase (cup shuffle, icon count, memory reveal, etc.).
+const {PUBLIC_MINI_GAME_IDS}=require(path.join(root,'src/game-core/minigames/minigame-registry.ts'));
+for (const gameId of PUBLIC_MINI_GAME_IDS) {
+  const prepare=(rush)=>{
+    const s=new GameStore(new GameEventBus());
+    try {
+      s.registerStreamerPlayer({twitchUserId:'host',displayName:'Host'});
+      check(s.submitTwitchChatMessage(msg('player','!join')).ok,`${gameId} test player join failed`);
+      if(rush) s.forceNextChaosEvent('fast_window');
+      s.startTour(1,[gameId],'mini-game');
+      check(s.getSnapshot().tour.phase==='mini_game_intro',`${gameId} initial intro`);
+      if (rush) check(s.getSnapshot().chaosEvent.id==='fast_window',`${gameId} missing forced Speed Rush`);
+      s.skipPhase();
+      if (rush) {
+        const cinematic=s.getSnapshot();
+        check(cinematic.tour.phase==='chaos_announcement',`${gameId} must have an independent Chaos introduction`);
+        check(!cinematic.tour.acceptsAnswers && cinematic.tour.phaseDurationMs===3900,`${gameId} Chaos introduction must not use question timer`);
+        s.skipPhase();
+      }
+      const viewing=s.getSnapshot();
+      check(viewing.tour.phase==='tour_starting' && !viewing.tour.acceptsAnswers,`${gameId} preparation must not accept answers`);
+      const duration=viewing.tour.phaseDurationMs;
+      s.skipPhase();
+      const answering=s.getSnapshot();
+      check(answering.tour.phase==='answer_window_open' && answering.tour.acceptsAnswers,`${gameId} answer stage must open AFTER preview`);
+      return {duration, answer:answering.tour.phaseDurationMs};
+    } finally{s.destroy();}
+  };
+  const normal=prepare(false), rushed=prepare(true);
+  check(normal.duration===rushed.duration,`${gameId} Speed Rush touched preview duration`);
+  check(rushed.answer===Math.max(4500,Math.round(normal.answer*.8)),`${gameId} Speed Rush did not shorten ONLY answer time`);
+}
+
 // TSX + CSS and UI bindings
 for(const file of ['src/ui-react/components/gameplay/GameplayOverlay.tsx','src/ui-react/components/gameplay/scoreboard/Scoreboard.tsx','src/ui-react/components/visual/GameSceneStage.tsx']){
   const code=fs.readFileSync(path.join(root,file),'utf8');

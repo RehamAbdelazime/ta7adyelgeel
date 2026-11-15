@@ -1,3 +1,4 @@
+import { translate } from '../../../game-core/localization/translations';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useGame } from '../../context/GameContext';
 import { useTwitchConnection } from '../../context/TwitchConnectionContext';
@@ -60,9 +61,9 @@ export function PrivateStreamerAnswerDock() {
   };
 
   return (
-    <aside className={`private-streamer-answer private-streamer-answer-embedded private-streamer-answer-${statusTone}`} aria-label={isArabic ? 'إجابة الصبوح الخاصة' : 'Host private answer'}>
+    <aside className={`private-streamer-answer private-streamer-answer-embedded private-streamer-answer-${statusTone}`} aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.privateStreamerAnswerDock.hostPrivateAnswer')}>
       <div className="private-streamer-answer-header">
-        <strong>{isArabic ? 'اختيار الصبوح' : 'Host pick'}</strong>
+        <strong>{translate((isArabic ? 'ar' : 'en'), 'ui.privateStreamerAnswerDock.hostPick')}</strong>
       </div>
 
       <form
@@ -84,13 +85,13 @@ export function PrivateStreamerAnswerDock() {
           value={value}
           onChange={(event) => setValue(event.target.value.replace(isCountAnswer ? /[^0-9]/g : /[^1-9]/g, ''))}
           placeholder={isCountAnswer ? '0–999' : `1 – ${choiceCount}`}
-          aria-label={isArabic ? 'اكتب إجابة الصبوح' : 'Type host answer'}
+          aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.privateStreamerAnswerDock.typeHostAnswer')}
         />
-        <button type="submit" disabled={!isValidAnswer}>{isArabic ? 'إرسال' : 'SEND'}</button>
+        <button type="submit" disabled={!isValidAnswer}>{translate((isArabic ? 'ar' : 'en'), 'ui.privateStreamerAnswerDock.send')}</button>
       </form>
 
       <p aria-live="polite" className={statusTone === 'idle' ? 'private-answer-idle-message' : ''}>
-        {statusTone === 'idle' ? '' : statusTone === 'ok' ? (isArabic ? 'تم الإرسال' : 'Sent!') : statusMessage}
+        {statusTone === 'idle' ? '' : statusTone === 'ok' ? (translate((isArabic ? 'ar' : 'en'), 'ui.privateStreamerAnswerDock.sent')) : statusMessage}
       </p>
     </aside>
   );

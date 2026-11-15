@@ -1,3 +1,4 @@
+import { translate } from '../../../game-core/localization/translations';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent } from 'react';
 import type { MiniGameId } from '../../../game-core/minigames/minigame-types';
@@ -102,7 +103,6 @@ export function MainScreenPlayFlow() {
       {step === 'mini-game-grid' ? (
         <MiniGameGridScreen
           title={t('ui.play.chooseMiniGame')}
-          subtitle={t('ui.play.chooseMiniGameHint')}
           miniGames={availableMiniGames}
           direction={snapshot.direction}
           selectedMiniGames={[]}
@@ -116,7 +116,6 @@ export function MainScreenPlayFlow() {
       {step === 'tour-grid' ? (
         <MiniGameGridScreen
           title={t('ui.play.chooseTourGames')}
-          subtitle={t('ui.play.chooseTourGamesHint')}
           miniGames={availableMiniGames}
           direction={snapshot.direction}
           selectedMiniGames={selectedTourMiniGames}
@@ -251,7 +250,6 @@ function ModePickerScreen({
 
 function MiniGameGridScreen({
   title,
-  subtitle,
   miniGames,
   direction,
   selectedMiniGames,
@@ -263,7 +261,6 @@ function MiniGameGridScreen({
   translate,
 }: {
   title: string;
-  subtitle: string;
   miniGames: MiniGameCardDefinition[];
   direction: TextDirection;
   selectedMiniGames: MiniGameId[];
@@ -279,7 +276,6 @@ function MiniGameGridScreen({
       <ScreenBackButton onBack={onBack} />
       <header className="main-screen-grid-header">
         <h2>{title}</h2>
-        <p>{subtitle}</p>
         {mode === 'tour' ? <strong className="game-picker-v14-count" aria-live="polite">{selectedMiniGames.length} / {miniGames.length}</strong> : null}
       </header>
 
@@ -323,9 +319,10 @@ function MiniGameGridScreen({
             </span>
             <span className="main-screen-mini-card-copy">
               <strong>{translate(miniGame.titleKey)}</strong>
-              <small>{translate(miniGame.noteKey)}</small>
             </span>
-            <span className="game-picker-v14-chevron" aria-hidden="true">{mode === 'tour' ? (selectedMiniGames.includes(miniGame.id) ? '✓' : '+') : '›'}</span>
+            {mode === 'tour' ? (
+              <span className="game-picker-v14-chevron" aria-hidden="true">{selectedMiniGames.includes(miniGame.id) ? '✓' : '+'}</span>
+            ) : null}
           </button>
         ))}
       </div>
@@ -378,8 +375,8 @@ function LiveChatPanel() {
         <div className="main-screen-live-chat-heading">
           <span className={isConnected ? 'main-screen-live-dot main-screen-live-dot-on' : 'main-screen-live-dot main-screen-live-dot-off'} />
           <strong>{t('ui.landing.liveChat')}</strong>
-          <span className="premium-chat-connection" aria-label={isConnected ? 'Connected' : 'Offline'}>
-            {isConnected ? (isArabic ? 'متصل' : 'ONLINE') : (isArabic ? 'غير متصل' : 'OFFLINE')}
+          <span className="premium-chat-connection" aria-label={isConnected ? t('twitch.status.connected') : t('settings.detail.offline')}>
+            {isConnected ? (translate((isArabic ? 'ar' : 'en'), 'ui.mainScreenPlayFlow.online')) : (translate((isArabic ? 'ar' : 'en'), 'ui.mainScreenPlayFlow.offline'))}
           </span>
         </div>
         {channelName ? (
@@ -391,7 +388,7 @@ function LiveChatPanel() {
         ref={feedRef}
         className="premium-chat-feed"
         role="log"
-        aria-label={isArabic ? 'رسائل شات تويتش' : 'Twitch chat messages'}
+        aria-label={translate((isArabic ? 'ar' : 'en'), 'ui.mainScreenPlayFlow.twitchChatMessages')}
         aria-live="polite"
         aria-relevant="additions"
         onScroll={(event) => {
@@ -405,10 +402,10 @@ function LiveChatPanel() {
               <div className="premium-chat-message" key={key}>
                 <div className="premium-chat-message-meta">
                   <span className={`premium-chat-username ${message.isBroadcaster ? 'premium-chat-broadcaster' : message.isMod ? 'premium-chat-mod' : ''}`} dir="auto" title={message.displayName}>
-                    {message.displayName || 'Viewer'}
+                    {message.displayName || t('ui.player.anonymousViewer')}
                   </span>
-                  {message.isBroadcaster ? <span className="premium-chat-badge" title="Broadcaster">HOST</span> : null}
-                  {message.isMod && !message.isBroadcaster ? <span className="premium-chat-badge" title="Moderator">MOD</span> : null}
+                  {message.isBroadcaster ? <span className="premium-chat-badge" title={translate(snapshot.locale, 'ui.player.role.broadcaster')}>{translate(snapshot.locale, 'ui.player.role.host')}</span> : null}
+                  {message.isMod && !message.isBroadcaster ? <span className="premium-chat-badge" title={translate(snapshot.locale, 'ui.player.role.moderator')}>{translate(snapshot.locale, 'ui.player.role.mod')}</span> : null}
                   <time className="premium-chat-timestamp" dateTime={new Date(message.timestamp || Date.now()).toISOString()}>
                     {new Date(message.timestamp || Date.now()).toLocaleTimeString(isArabic ? 'ar-EG' : 'en-GB', { hour: '2-digit', minute: '2-digit' })}
                   </time>

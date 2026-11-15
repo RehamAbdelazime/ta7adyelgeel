@@ -15,7 +15,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "dina-el-sherbiny",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-02",
@@ -30,7 +31,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mena-massoud",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-03",
@@ -45,7 +47,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "nour-el-nabawy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-04",
@@ -60,7 +63,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "hend-sabry",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-05",
@@ -75,7 +79,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "hany-ramzy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-06",
@@ -90,7 +95,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "hala-sedky",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-07",
@@ -105,7 +111,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "mayan-el-sayed",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-08",
@@ -120,7 +127,8 @@
       "difficulty": "easy",
       "cropReview": "manual",
       "personKey": "dorra",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-09",
@@ -135,7 +143,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "elham-shahin",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-10",
@@ -150,7 +159,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "bassant-shawky",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-11",
@@ -165,7 +175,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "dorra",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-12",
@@ -180,7 +191,8 @@
       "difficulty": "easy",
       "cropReview": "manual",
       "personKey": "mayan-el-sayed",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-13",
@@ -195,7 +207,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mohamed-farag",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-14",
@@ -210,7 +223,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "leila-elwi",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-15",
@@ -225,7 +239,8 @@
       "difficulty": "medium",
       "cropReview": "manual",
       "personKey": "lebleba",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-16",
@@ -240,7 +255,8 @@
       "difficulty": "hard",
       "cropReview": "auto-visual-review",
       "personKey": "ahmed-el-tohamy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-17",
@@ -255,7 +271,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "dalia-el-behery",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-18",
@@ -270,7 +287,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "arwa-gouda",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-19",
@@ -285,7 +303,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "asser-yassin",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-20",
@@ -300,7 +319,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "hana-shiha",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-21",
@@ -315,7 +335,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "saba-mubarak",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-22",
@@ -330,7 +351,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "bassant-shawky",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-23",
@@ -345,7 +367,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "karim-abdelaziz",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-24",
@@ -360,7 +383,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "arwa-gouda",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-25",
@@ -375,7 +399,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "dorra",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-26",
@@ -390,7 +415,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mohamed-farag",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-27",
@@ -405,7 +431,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "rania-youssef",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-28",
@@ -420,7 +447,8 @@
       "difficulty": "hard",
       "cropReview": "auto-visual-review",
       "personKey": "amir-el-masry",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-29",
@@ -435,7 +463,8 @@
       "difficulty": "hard",
       "cropReview": "auto-visual-review",
       "personKey": "hazem-samir",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-30",
@@ -450,7 +479,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "lebleba",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-31",
@@ -465,7 +495,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mahmoud-el-laithy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-32",
@@ -480,7 +511,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "ahmed-magdy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-33",
@@ -495,7 +527,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "bushra",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-34",
@@ -510,7 +543,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "angham",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-35",
@@ -525,7 +559,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "leila-elwi",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-36",
@@ -540,7 +575,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mahmoud-el-laithy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-37",
@@ -555,7 +591,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "ahmed-zaki",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-38",
@@ -570,7 +607,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "mahmoud-el-gendy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-39",
@@ -585,7 +623,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "asser-yassin",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-40",
@@ -600,7 +639,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "yasmine-sabri",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-41",
@@ -615,7 +655,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "monther-rayahneh",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-42",
@@ -630,7 +671,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "khaled-el-sawy",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-43",
@@ -645,7 +687,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "mona-zaki",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-44",
@@ -660,7 +703,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "dina-el-sherbiny",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-45",
@@ -675,7 +719,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "rogina",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-46",
@@ -690,7 +735,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "rogina",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-47",
@@ -705,7 +751,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "saba-mubarak",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-48",
@@ -720,7 +767,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "elham-shahin",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-49",
@@ -735,7 +783,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "mohamed-sallam",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-50",
@@ -750,7 +799,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "ramez-galal",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-51",
@@ -765,7 +815,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "ahmed-salah-hosny",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-52",
@@ -812,7 +863,8 @@
       "difficulty": "easy",
       "cropReview": "manual",
       "personKey": "mayan-el-sayed",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-55",
@@ -827,7 +879,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "dalia-el-behery",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-56",
@@ -842,7 +895,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "rania-youssef",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     },
     {
       "id": "star-uploaded-57",
@@ -857,7 +911,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "ahmed-malek",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-58",
@@ -872,7 +927,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "hany-salama",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-59",
@@ -887,7 +943,8 @@
       "difficulty": "hard",
       "cropReview": "auto-visual-review",
       "personKey": "mohamed-karim",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-60",
@@ -902,7 +959,8 @@
       "difficulty": "easy",
       "cropReview": "auto-visual-review",
       "personKey": "mohamed-ramadan",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "male"
     },
     {
       "id": "star-uploaded-61",
@@ -917,7 +975,8 @@
       "difficulty": "medium",
       "cropReview": "auto-visual-review",
       "personKey": "bushra",
-      "labelSource": "user_filename"
+      "labelSource": "user_filename",
+      "gender": "female"
     }
   ],
   "description": "Same personKey may have many DISTINCT full/eye photo variants; movie choices remain one per person."

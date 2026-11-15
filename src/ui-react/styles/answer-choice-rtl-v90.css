@@ -1,0 +1,20 @@
+/* V90: Answer options respect the UI locale. The commands !1/!2/!3/!4
+   never change their meaning; only their physical order and badges do.
+   Keep the puzzle itself (cup positions, laser mirrors, etc.) in original
+   coordinates. The stage spotlights and crowd are mirrored separately. */
+html body #root .app-desktop-shell[lang="ar"] .gameplay-question-shell.qshell-v20 .qshell-choices {
+  direction: rtl !important;
+}
+html body #root .app-desktop-shell[lang="ar"] .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-card {
+  direction: rtl !important;
+}
+html body #root .app-desktop-shell[lang="ar"] .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20 {
+  direction: rtl !important;
+}
+/* Preserve physical LTR in English, even if a parent element's direction
+   changes. Individual Twitch commands are always rendered with dir=ltr. */
+html body #root .app-desktop-shell[lang="en"] .gameplay-question-shell.qshell-v20 .qshell-choices,
+html body #root .app-desktop-shell[lang="en"] .gameplay-question-shell.qshell-v20 .qshell-choices .gameplay-choice-card,
+html body #root .app-desktop-shell[lang="en"] .gameplay-overlay-minigame-scene .gameplay-choice-spotlights.audience-answer-lanes-v20 {
+  direction: ltr !important;
+}

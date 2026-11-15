@@ -72,6 +72,7 @@ export function normalizeRuntimeGameConfig(rawConfig: unknown): RuntimeGameConfi
       phaseDurationsMs: {
         lobby_open: readDuration(phaseDurations.lobby_open, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.lobby_open ?? 0, 0, 60_000),
         mini_game_intro: readDuration(phaseDurations.mini_game_intro, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.mini_game_intro ?? 0, 0, 60_000),
+        chaos_announcement: readDuration(phaseDurations.chaos_announcement, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.chaos_announcement ?? 3_900, 1_500, 7_000),
         tour_starting: readDuration(phaseDurations.tour_starting, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.tour_starting ?? 3_000, 0, 60_000),
         answer_window_open: readDuration(phaseDurations.answer_window_open, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.answer_window_open ?? 20_000, 1_000, 300_000),
         scoring: readDuration(phaseDurations.scoring, DEFAULT_RUNTIME_GAME_CONFIG.tour.phaseDurationsMs.scoring ?? 0, 0, 60_000),
@@ -177,7 +178,7 @@ function isMiniGameId(value: unknown): value is MiniGameId {
 }
 
 function isTourPhase(value: string): value is TourPhase {
-  return ['lobby_open', 'mini_game_intro', 'tour_starting', 'answer_window_open', 'scoring', 'tour_complete', 'cleanup'].includes(value);
+  return ['lobby_open', 'mini_game_intro', 'chaos_announcement', 'tour_starting', 'answer_window_open', 'scoring', 'tour_complete', 'cleanup'].includes(value);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

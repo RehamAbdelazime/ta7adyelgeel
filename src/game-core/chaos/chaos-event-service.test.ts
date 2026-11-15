@@ -27,7 +27,7 @@ describe('Chaos scoring modifiers', () => {
         createAward({ points: 100, isCorrect: true }),
         createAward({ twitchUserId: 'viewer-2', points: 0, isCorrect: false }),
       ],
-      citizens: [],
+      miniGameId: 'shape-count',
     });
 
     expect(awards.map((award) => award.points)).toEqual([200, 0]);
@@ -38,10 +38,10 @@ describe('Chaos scoring modifiers', () => {
     const [award] = service.applyToAwards({
       event: riskRound,
       awards: [createAward({ points: 0, isCorrect: false })],
-      citizens: [],
+      miniGameId: 'shape-count',
     });
 
-    expect(award.points).toBe(-30);
+    expect(award.points).toBe(-20); // shape-count medium base 100
   });
 
 
@@ -53,12 +53,12 @@ describe('Chaos scoring modifiers', () => {
     const chaosAdjusted = service.applyToAwards({
       event: riskRound,
       awards: safeBaseAwards,
-      citizens: [],
+      miniGameId: 'shape-count',
     });
-    const finalAwards = enforceMiniGameScoreAwardPolicy(chaosAdjusted, 'shape-count', { allowedWrongAnswerPenalty: riskRound.wrongAnswerPenalty });
+    const finalAwards = enforceMiniGameScoreAwardPolicy(chaosAdjusted, 'shape-count', { allowedWrongAnswerPenaltyRatio: riskRound.wrongAnswerPenaltyRatio });
 
     expect(safeBaseAwards[0].points).toBe(0);
-    expect(finalAwards[0].points).toBe(-30);
+    expect(finalAwards[0].points).toBe(-20);
   });
 
 
@@ -75,9 +75,9 @@ describe('Chaos scoring modifiers', () => {
     const [chaosAdjusted] = service.applyToAwards({
       event: riskRound,
       awards: partialBaseAward,
-      citizens: [],
+      miniGameId: 'count-the-beat',
     });
-    const [finalAward] = enforceMiniGameScoreAwardPolicy([chaosAdjusted], 'count-the-beat', { allowedWrongAnswerPenalty: riskRound.wrongAnswerPenalty });
+    const [finalAward] = enforceMiniGameScoreAwardPolicy([chaosAdjusted], 'count-the-beat', { allowedWrongAnswerPenaltyRatio: riskRound.wrongAnswerPenaltyRatio });
 
     expect(finalAward.points).toBe(30);
     expect(finalAward.scoreOutcome).toBe('partial');
@@ -92,7 +92,7 @@ describe('Chaos scoring modifiers', () => {
     const [award] = service.applyToAwards({
       event: customMultiplier,
       awards: [createAward({ points: 0, isCorrect: false })],
-      citizens: [],
+      miniGameId: 'shape-count',
     });
 
     expect(award.points).toBe(0);

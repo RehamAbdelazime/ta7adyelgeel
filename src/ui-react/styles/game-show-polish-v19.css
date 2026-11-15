@@ -195,11 +195,6 @@ html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quic
   font: 740 clamp(13px, 1vw, 19px)/1.2 var(--font-game-ui, sans-serif) !important;
   color: #c8e7f6 !important;
 }
-html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quick-total {
-  margin-inline-start: auto !important; white-space: nowrap !important;
-  font: 650 clamp(12px, .9vw, 17px)/1 var(--font-game-ui, sans-serif) !important; color: #b1cbd9 !important;
-}
-html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-quick-total b {font-size:1.25em !important;color:#f6fdff !important;}
 html body .gameplay-question-shell.qshell-v17.qshell-v18.qshell-v19 .qshell-next-button {
   position: relative !important; inset: auto !important; transform: none !important; margin: 0 !important;
   min-height: clamp(30px, 2.4vw, 42px) !important; min-width: clamp(74px, 6.5vw, 112px) !important;

@@ -61,7 +61,7 @@
     "visuals:import": "node scripts/import-visual-media.mjs",
     "visuals:status": "node scripts/check-visual-media.mjs",
     "verify:media-qa-v44": "node scripts/verify-qa-bots-v44.cjs && node scripts/verify-qa-pause-v44.cjs && node scripts/verify-qa-load-v44.cjs && node scripts/verify-visual-content-v43.cjs",
-    "qa:unit": "node --test --experimental-test-coverage tests/qa/core-scenarios.test.cjs tests/qa/state-and-progression.test.cjs",
+    "qa:unit": "node --test --experimental-test-coverage tests/qa/core-scenarios.test.cjs tests/qa/state-and-progression.test.cjs tests/qa/score-timing-and-ranking.test.cjs",
     "qa:static": "node scripts/qa/static-audit.mjs && node scripts/qa/verify-stabilization-v47.mjs",
     "test:unit": "vitest run",
     "verify:stabilization-v47": "node scripts/qa/verify-stabilization-v47.mjs",

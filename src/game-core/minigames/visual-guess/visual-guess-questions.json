@@ -3452,6 +3452,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-01.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-01.jpg",
       "photoVariants": [
@@ -3488,6 +3489,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-02.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-02.jpg",
       "photoVariants": [
@@ -3519,6 +3521,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-03.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-03.jpg",
       "photoVariants": [
@@ -3550,6 +3553,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-04.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-04.jpg",
       "photoVariants": [
@@ -3581,6 +3585,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-05.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-05.jpg",
       "photoVariants": [
@@ -3612,6 +3617,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-06.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-06.jpg",
       "photoVariants": [
@@ -3643,6 +3649,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-07.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-07.jpg",
       "photoVariants": [
@@ -3684,6 +3691,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-08.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-08.jpg",
       "photoVariants": [
@@ -3725,6 +3733,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-09.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-09.jpg",
       "photoVariants": [
@@ -3761,6 +3770,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-10.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-10.jpg",
       "photoVariants": [
@@ -3797,6 +3807,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-13.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-13.jpg",
       "photoVariants": [
@@ -3833,6 +3844,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-14.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-14.jpg",
       "photoVariants": [
@@ -3869,6 +3881,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-15.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-15.jpg",
       "photoVariants": [
@@ -3905,6 +3918,7 @@
       "mode": "eyes",
       "difficulty": "hard",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-16.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-16.jpg",
       "photoVariants": [
@@ -3936,6 +3950,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-17.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-17.jpg",
       "photoVariants": [
@@ -3972,6 +3987,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-18.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-18.jpg",
       "photoVariants": [
@@ -4008,6 +4024,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-19.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-19.jpg",
       "photoVariants": [
@@ -4044,6 +4061,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-20.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-20.jpg",
       "photoVariants": [
@@ -4075,6 +4093,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-21.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-21.jpg",
       "photoVariants": [
@@ -4111,6 +4130,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-23.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-23.jpg",
       "photoVariants": [
@@ -4142,6 +4162,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-27.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-27.jpg",
       "photoVariants": [
@@ -4178,6 +4199,7 @@
       "mode": "eyes",
       "difficulty": "hard",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-28.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-28.jpg",
       "photoVariants": [
@@ -4209,6 +4231,7 @@
       "mode": "eyes",
       "difficulty": "hard",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-29.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-29.jpg",
       "photoVariants": [
@@ -4240,6 +4263,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "singers",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-31.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-31.jpg",
       "photoVariants": [
@@ -4276,6 +4300,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-32.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-32.jpg",
       "photoVariants": [
@@ -4307,6 +4332,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-33.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-33.jpg",
       "photoVariants": [
@@ -4343,6 +4369,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "singers",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-34.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-34.jpg",
       "photoVariants": [
@@ -4374,6 +4401,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-37.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-37.jpg",
       "photoVariants": [
@@ -4405,6 +4433,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-38.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-38.jpg",
       "photoVariants": [
@@ -4436,6 +4465,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-40.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-40.jpg",
       "photoVariants": [
@@ -4467,6 +4497,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-41.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-41.jpg",
       "photoVariants": [
@@ -4498,6 +4529,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-42.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-42.jpg",
       "photoVariants": [
@@ -4529,6 +4561,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-43.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-43.jpg",
       "photoVariants": [
@@ -4560,6 +4593,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "female",
       "asset": "Stars/Full/uploaded-45.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-45.jpg",
       "photoVariants": [
@@ -4596,6 +4630,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-49.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-49.jpg",
       "photoVariants": [
@@ -4627,6 +4662,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-50.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-50.jpg",
       "photoVariants": [
@@ -4658,6 +4694,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-51.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-51.jpg",
       "photoVariants": [
@@ -4689,6 +4726,7 @@
       "mode": "eyes",
       "difficulty": "medium",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-57.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-57.jpg",
       "photoVariants": [
@@ -4720,6 +4758,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-58.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-58.jpg",
       "photoVariants": [
@@ -4751,6 +4790,7 @@
       "mode": "eyes",
       "difficulty": "hard",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-59.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-59.jpg",
       "photoVariants": [
@@ -4782,6 +4822,7 @@
       "mode": "eyes",
       "difficulty": "easy",
       "category": "actors",
+      "gender": "male",
       "asset": "Stars/Full/uploaded-60.jpg",
       "eyesAsset": "Stars/Eyes/uploaded-60.jpg",
       "photoVariants": [

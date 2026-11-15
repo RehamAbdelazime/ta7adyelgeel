@@ -16,6 +16,7 @@ describe('gameplay overlay mode', () => {
 
   it('preserves the existing intro, countdown, gameplay and lobby routes', () => {
     expect(resolveGameplayOverlayMode('tour_starting', true, false)).toBe('tour-starting');
+    expect(resolveGameplayOverlayMode('chaos_announcement', true, false)).toBe('chaos-announcement');
     expect(resolveGameplayOverlayMode('mini_game_intro', true, true)).toBe('mini-game');
     expect(resolveGameplayOverlayMode('answer_window_open', true, true)).toBe('mini-game');
     expect(resolveGameplayOverlayMode('lobby_open', false, false)).toBe('lobby');

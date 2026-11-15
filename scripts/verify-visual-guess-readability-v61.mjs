@@ -16,7 +16,7 @@ assert.match(screen, /isPoster\s*\?\s*\{\s*objectPosition:\s*'center',\s*filter:
 assert.match(screen, /<PosterPuzzleOverlay[\s\S]*?titleMasks=[\s\S]*?progress=[\s\S]*?difficulty=/);
 assert.doesNotMatch(screen, /isPoster\s*\?\s*posterImageStyle/);
 assert.match(screen, /data\.mode\s*===\s*'reveal'\s*&&\s*!isFrame/);
-assert.match(service, /المشهد ده من فيلم إيه؟/);
+assert.match(service, /game\.visualguessservice\.whichMovieSceneFrom/,'Scene question must use translation key');
 
 // Answers must wrap, avoid ellipses, gain extra space and respect the existing
 // four-choice order on desktop. These styles are scoped to visual trivia only.

@@ -207,8 +207,9 @@ export type MiniGameSnapshot = {
     cells: ShapeCountCell[];
     choices: ShapeCountChoice[];
     counts: Partial<Record<ShapeCountShapeId, number>>;
-    mode: 'majority' | 'exact';
-    targetCount: number | null;
+    /** Shape Count always asks for the visually most frequent shape. */
+    mode: 'majority';
+    targetCount: null;
   } | null;
   memoryCount?: {
     rows: number;
@@ -293,6 +294,8 @@ export type CountTheBeatItemSnapshot = {
 };
 
 export type CountTheBeatSnapshot = {
+  /** One / two / four horizontal guide rows by difficulty. */
+  lanes: 1 | 2 | 4;
   targetIcon: string;
   targetLabel: string;
   targetGlyph: string;

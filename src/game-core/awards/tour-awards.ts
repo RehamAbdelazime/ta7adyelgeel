@@ -31,6 +31,8 @@ export type TourScoreboardRow = {
   displayName: string;
   role: CitizenRole;
   roundPoints: number[];
+  /** Host-authoritative accepted-answer order per question, for score ties. */
+  answerOrders?: number[];
   total: number;
 };
 

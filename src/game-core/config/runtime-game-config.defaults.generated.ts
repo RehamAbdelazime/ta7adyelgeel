@@ -29,6 +29,7 @@ export const DEFAULT_RUNTIME_GAME_CONFIG_DATA = {
     ],
     "phaseDurationsMs": {
       "mini_game_intro": 0,
+      "chaos_announcement": 3900,
       "tour_starting": 3000,
       "answer_window_open": 20000,
       "scoring": 0,

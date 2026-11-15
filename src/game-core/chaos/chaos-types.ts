@@ -1,8 +1,8 @@
 import type { LocaleCode } from '../localization/locale-types';
 
-export type ChaosEventCategory = 'score' | 'time' | 'answer' | 'role' | 'instant' | 'reward';
+export type ChaosEventCategory = 'score' | 'time' | 'answer' | 'reward';
 export type ChaosEventRarity = 'common' | 'rare' | 'legendary';
-export type ChaosEventAppliesTo = 'all' | 'official' | 'spectator' | 'bottomPlayers' | 'topPlayers';
+export type ChaosEventAppliesTo = 'all' | 'official';
 
 export type ChaosLocalizedText = Record<LocaleCode, string>;
 
@@ -15,7 +15,8 @@ export type ChaosEventDefinition = {
   appliesTo: ChaosEventAppliesTo;
   scoreMultiplier?: number;
   flatScoreDelta?: number;
-  wrongAnswerPenalty?: number;
+  /** Fraction of the unmodified base score deducted for a fully wrong answer. */
+  wrongAnswerPenaltyRatio?: number;
   answerWindowMultiplier?: number;
   correctOnly?: boolean;
 };
@@ -30,7 +31,7 @@ export type ChaosEventSnapshot = {
   badge: string;
   scoreMultiplier: number | null;
   flatScoreDelta: number | null;
-  wrongAnswerPenalty: number | null;
+  wrongAnswerPenaltyRatio: number | null;
   answerWindowMultiplier: number | null;
 };
 

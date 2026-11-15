@@ -1,3 +1,4 @@
+import { translate } from '../../localization/translations';
 import type { CitizenRuntime } from '../../citizens/citizen-types';
 import { calculateExactAnswerScore, FOOD_ORIGIN_HINT_SCORE_MULTIPLIER } from '../scoring-policy';
 import type { LocaleCode } from '../../localization/locale-types';
@@ -189,9 +190,9 @@ export class FoodOriginMiniGameService {
     const hint = this.question
       ? buildTimedAnswerHintSnapshot({
           state: this.hintState,
-          label: locale === 'ar' ? 'مساعدة التوقيت' : 'TIMED HINT',
-          hiddenValueLabel: locale === 'ar' ? 'اسم الطبق يظهر في منتصف الوقت' : 'Dish name unlocks halfway',
-          revealedValueLabel: locale === 'ar' ? 'اسم الطبق' : 'Dish name',
+          label: translate(locale, 'game.foodoriginservice.timedHint'),
+          hiddenValueLabel: translate(locale, 'game.foodoriginservice.dishNameUnlocksHalfway'),
+          revealedValueLabel: translate(locale, 'game.foodoriginservice.dishName'),
           value: this.question.dishName[locale],
           forceRevealed: shouldRevealAnswer,
         })
@@ -201,7 +202,7 @@ export class FoodOriginMiniGameService {
       id: 'food-origin',
       status: this.status,
       roundNumber: this.roundNumber,
-      title: locale === 'ar' ? 'أصل الأكلة' : 'FOOD ORIGIN',
+      title: translate(locale, 'game.foodoriginservice.foodOrigin'),
       statement: this.question ? this.question.statement[locale] : '',
       instruction: this.question ? this.buildInstruction(locale, this.buildChoices(locale)) : '',
       acceptsAnswers: this.status === 'answering',
@@ -270,7 +271,7 @@ export class FoodOriginMiniGameService {
 
   private buildInstruction(locale: LocaleCode, choices: CountryChoice[]): string {
     const commands = choices.map((choice) => `${choice.command} ${choice.label}`).join(' / ');
-    return locale === 'ar' ? `اختار بلد الأصل: ${commands}` : `Pick the origin country: ${commands}`;
+    return translate(locale, 'game.foodoriginservice.pickOriginCountry', { p0: String(commands) });
   }
 }
 

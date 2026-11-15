@@ -40,14 +40,6 @@ html[dir='rtl'] body #root .main-screen-game-grid-layout .main-screen-grid-heade
   font-size: clamp(18px, 1.45vw, 26px) !important;
   line-height: 1.35 !important;
 }
-html body #root .main-screen-game-grid-layout .main-screen-grid-header p {
-  font-size: clamp(11px, .83vw, 15px) !important;
-  font-weight: 470 !important;
-  line-height: 1.35 !important;
-  color: #c9dbed !important;
-  text-align: center !important;
-  max-width: 100% !important;
-}
 html body #root .main-screen-game-grid-layout .main-screen-mini-card-grid {
   position: absolute !important;
   top: 28% !important;
@@ -81,8 +73,8 @@ html body #root .main-screen-game-grid-layout .main-screen-mini-card {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: flex-end !important;
-  gap: clamp(2px, .24vw, 5px) !important;
+  justify-content: center !important;
+  gap: clamp(4px, .35vw, 7px) !important;
   width: 100% !important;
   height: 100% !important;
   min-width: 0 !important;
@@ -113,7 +105,7 @@ html body #root .main-screen-game-grid-layout .game-picker-v14-illustration {
   justify-content: center !important;
   align-items: center !important;
   width: 90% !important;
-  height: 52% !important;
+  height: 72% !important;
   min-height: 0 !important;
   flex: 1 1 auto !important;
   overflow: visible !important;
@@ -123,7 +115,7 @@ html body #root .main-screen-game-grid-layout .game-picker-v14-illustration img 
   position: static !important;
   width: min(90%, 112px) !important;
   height: 100% !important;
-  max-height: 96px !important;
+  max-height: 110px !important;
   object-fit: contain !important;
   opacity: 1 !important;
   filter: drop-shadow(0 5px 7px rgba(0, 4, 24, .32)) !important;
@@ -134,11 +126,11 @@ html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy {
   position: static !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-end !important;
+  justify-content: center !important;
   align-items: center !important;
   flex: 0 0 auto !important;
   width: 100% !important;
-  min-height: 39px !important;
+  min-height: 26px !important;
   max-height: none !important;
   transform: none !important;
   margin: 0 !important;
@@ -163,15 +155,6 @@ html[dir='rtl'] body #root .main-screen-game-grid-layout .main-screen-mini-card-
   font-family: var(--font-game-title, 'Alexandria Variable', Tahoma, sans-serif) !important;
   font-size: clamp(12px, .95vw, 17px) !important;
   line-height: 1.35 !important;
-}
-html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small {
-  display: block !important;
-  font-size: clamp(9px, .68vw, 12px) !important;
-  font-weight: 450 !important;
-  line-height: 1.22 !important;
-  color: rgba(230, 244, 255, .79) !important;
-  text-wrap: balance;
-  overflow-wrap: anywhere;
 }
 html body #root .main-screen-game-grid-layout .game-picker-v14-chevron {
   position: absolute !important;
@@ -260,7 +243,6 @@ html body #root .main-screen-game-grid-layout .main-screen-grid-notice {
 html body #root .main-screen-game-grid-layout-tour .main-screen-grid-notice { bottom: 15% !important; }
 @media (max-width: 950px) {
   html body #root .main-screen-game-grid-layout .main-screen-mini-card-grid { gap: 6px !important; }
-  html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small { display: none !important; }
   html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy { min-height: 22px !important; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -274,20 +256,12 @@ html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-grid {
   top: 27% !important;
   height: 51% !important;
 }
-html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-copy { min-height: 21px !important; }
-html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-copy small { display: none !important; }
+html body #root .main-screen-game-grid-layout-tour .main-screen-mini-card-copy { min-height: 26px !important; }
 html body #root .main-screen-game-grid-layout-tour .game-picker-v14-illustration { height: 62% !important; }
 html body #root .main-screen-game-grid-layout-tour .main-screen-tour-footer { bottom: 2% !important; }
 
 html body #root .main-screen-game-grid-layout .game-picker-v14-count { display: block !important; top: 42px !important; right: 0 !important; }
 
-/* Keep descriptive copy contained if a localization is longer than expected. */
-html body #root .main-screen-game-grid-layout .main-screen-mini-card-copy small {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden !important;
-}
 /* The tour footer is the status/action area, so the empty-lobby notice lives in its tooltip.
    Prevent a second floating notice from covering selectable cards on compact screens. */
 html body #root .main-screen-game-grid-layout-tour .main-screen-grid-notice { display: none !important; }

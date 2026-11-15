@@ -74,9 +74,12 @@ for(let run=0;run<180;run++){
     assert(item);assert.equal(snap.questionDifficulty,item.difficulty);
     const choices=snap.visualGuess.choices;
     uniqueFour(item.id,choices);
+    // Gender is an editorial property of the celebrity identity, NOT an image guess.
+    // Every distractor must come from the same pool as the correct answer.
+    assert(choices.every(c=>stars.find(x=>x.id===c.value)?.gender===item.gender),`${item.id}: mixed-gender star options`);
     const sameCategory=choices.filter(c=>c.value!==item.id && stars.find(x=>x.id===c.value)?.category===item.category).length;
-    const possibleSame=stars.filter(x=>x.id!==item.id&&x.category===item.category).length;
-    assert(sameCategory >= Math.min(possibleSame,item.difficulty==='easy'?1:item.difficulty==='medium'?2:3),`${item.id}: insufficient difficulty-aware star peers`);
+    const possibleSame=stars.filter(x=>x.id!==item.id&&x.gender===item.gender&&x.category===item.category).length;
+    assert(sameCategory >= Math.min(possibleSame,item.difficulty==='easy'?1:item.difficulty==='medium'?2:3),`${item.id}: insufficient difficulty-aware same-gender star peers`);
     const set=choices.filter(c=>c.value!==item.id).map(c=>c.value).sort().join(',');
     if(!starSeen.has(item.id))starSeen.set(item.id,new Set());starSeen.get(item.id).add(set);
     starRounds++;

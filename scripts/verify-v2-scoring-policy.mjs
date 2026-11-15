@@ -30,7 +30,7 @@ assertNotIncludes(policy, 'calculateCorrectAnswerPoints', 'Legacy scoring helper
 assertNotIncludes(policy, 'enforceIncorrectAnswerScorePolicy', 'Legacy scoring guard must be removed.');
 assertIncludes(policy, 'const numericRule = getNumericEstimateRule(gameId);', 'Only the active numeric-estimate game may classify an answer as partial.');
 assertIncludes(policy, 'getMiniGameBasePoints(gameId, award.difficulty)', 'Partial-credit caps must use canonical game points, not service-provided maxima.');
-assertIncludes(policy, 'points === Math.round(Number(configuredPenalty))', 'Only the exact configured Chaos penalty may survive the final scoring guard.');
+assertIncludes(policy, 'points === getRiskRoundPenaltyPoints(gameId, award.difficulty, configuredRatio)', 'Only the exact per-question percentage Chaos penalty may survive the final scoring guard.');
 
 const registry = read('src/game-core/minigames/minigame-registry.ts');
 const registryIds = new Set([...registry.matchAll(/^\s*id: ['\"]([^'\"]+)['\"]/gm)].map((match) => match[1]));
@@ -77,7 +77,7 @@ const store = read('src/game-core/app/game-store.ts');
 assertIncludes(store, 'enforceMiniGameScoreAwardPolicy(', 'GameStore is missing the shared scoring safety boundary.');
 assertIncludes(store, 'const baseAwards = enforceMiniGameScoreAwardPolicy(', 'GameStore must validate base awards before Chaos modifiers.');
 assertIncludes(store, '      this.activeMiniGameId,', 'GameStore must pass the active mini-game ID into the central score policy.');
-assertIncludes(store, 'allowedWrongAnswerPenalty: this.activeChaosEvent?.wrongAnswerPenalty ?? null,', 'GameStore must only allow the exact negative penalty configured by the active Chaos event.');
+assertIncludes(store, 'allowedWrongAnswerPenaltyRatio: this.activeChaosEvent?.wrongAnswerPenaltyRatio ?? null,', 'GameStore must validate the canonical percentage penalty configured by the active Chaos event.');
 assertIncludes(store, 'this.recordTourAwardStats(awards, scoresBeforeRound);', 'Tour totals must use actual runtime score deltas.');
 assertIncludes(store, 'partialAnswers:', 'Tour stats must keep partial answers separate from exact and incorrect answers.');
 assertNotIncludes(store, 'enforceIncorrectAnswerScorePolicy', 'GameStore still uses the legacy score guard.');

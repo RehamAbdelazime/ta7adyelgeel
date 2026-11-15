@@ -1,3 +1,4 @@
+import { translate } from '../../../../game-core/localization/translations';
 import type { MiniGameSnapshot } from '../../../../game-core/minigames/minigame-types';
 import type { TourPhase } from '../../../../game-core/tours/tour-types';
 import { useTranslation } from '../../../i18n/useTranslation';
@@ -45,7 +46,7 @@ export function MazeGatesScreen({ miniGame, tourPhase }: { miniGame: MiniGameSna
         <defs><filter id="mazeGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter><linearGradient id="mazeBoardFill" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="rgba(5, 11, 34, 0.95)" /><stop offset="1" stopColor="rgba(42, 16, 77, 0.92)" /></linearGradient></defs>
         <rect x="34" y="28" width="652" height="332" rx="26" className="gameplay-maze-board" />
         <g className="gameplay-maze-grid" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <path key={`v-${index}`} d={`M${106 + index * 64} 58 V330`} />)}{Array.from({ length: 5 }, (_, index) => <path key={`h-${index}`} d={`M70 ${94 + index * 54} H650`} />)}</g>
-        <g className="gameplay-maze-exit-svg"><rect x="318" y="20" width="84" height="30" rx="15" /><text x="360" y="40" textAnchor="middle">EXIT</text></g>
+        <g className="gameplay-maze-exit-svg"><rect x="318" y="20" width="84" height="30" rx="15" /><text x="360" y="40" textAnchor="middle">{translate(locale, 'gameplay.maze.exit')}</text></g>
         {mazeGates.paths.map((path) => <polyline key={`shadow-${path.optionNumber}`} points={pathLine(path.path)} className="gameplay-maze-path-shadow" />)}
         {mazeGates.paths.map((path) => <polyline key={path.optionNumber} points={pathLine(path.path)} className={`gameplay-maze-path ${reveal && path.isCorrect ? 'gameplay-maze-path-correct' : ''} ${reveal && path.isDeadEnd ? 'gameplay-maze-path-dead' : ''}`} />)}
         {mazeGates.paths.map((path) => { const first = path.path[0]; if (!first) return null; return <g key={`gate-${path.optionNumber}`} className={`gameplay-maze-entrance ${reveal && path.isCorrect ? 'gameplay-maze-entrance-correct' : ''} ${reveal && path.isDeadEnd ? 'gameplay-maze-entrance-dead' : ''}`} transform={`translate(${first.x} ${first.y})`}><circle r="20" /><text y="6" textAnchor="middle">{path.optionNumber}</text></g>; })}
